@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "ands"
+version = "0.1.0"
+description = "Algorithms and Data Structures"
+authors = ["Nelson Brochado <theandslib@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/nbro/ands"
+readme = "README.md"
+
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers, Students, Scientists",
+    "Topic :: Computer Science :: Algorithms and Data Structures",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: Mac OS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: Microsoft :: Linux",
+    "Programming Language :: Python :: 3.9"
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^1.24.1"
+tabulate = "^0.9.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+isort = "^5.11.4"
+pylint = "^2.15.9"
+mypy = "^0.991"
+coverage = "^7.0.1"
+scipy = "^1.9.3"
+
+[tool.coverage]
+run.omit = ["*tests*"]
+report.show_missing = true
+report.skip_covered = true
+report.fail_under = 95  # TODO: change this to 100
+
+#[tool.pytest.ini_options]
+#addopts="--color=yes"
+
+[tool.pylint."REPORTS"]
+output-format = "colorized"
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = ["fixme", "invalid-name"]
+
+[tool.isort]
+atomic = true
+profile = "black"
+
+[tool.black]
+target-version = ["py39"]
+
+[tool.mypy]
+python_version = 3.9
+warn_return_any = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
