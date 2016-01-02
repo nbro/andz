@@ -65,7 +65,7 @@ class Heap:
         return not self.is_empty()
 
     def clear(self):
-        """Clears all total_nodes from this heaps.
+        """Clears all nodes from this heap.
         This mean that if you call "is_empty",
         it will return True."""
         self.heap.clear()

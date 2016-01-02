@@ -5,17 +5,17 @@
 Author: Nelson Brochado
 Creation: July, 2015
 
-Graph data structure using adjacency list representation,
-but actually using a dictionary.
+Graph data structure using adjacency list representation.
 
-You can represent a undirected graph (for now ) by adding
+You can represent a undirected graph by adding
 each endpoint (node) of an edge to the adjacency list of the other endpoint.
 For example, suppose we have node A and B.
 To create an undirected graph composed of A and B, you need to do:
     1. A.add_adjacent_node(B)
     2. B.add_adjacent_node(A)
 
-You can also call add_undirected_edge directly.
+You can also call add_undirected_edge(A, B) directly,
+which does the work described above for you.
 
 To create directed graphs, you can simply add the pointed node
 to the adjacency list of the starting node.

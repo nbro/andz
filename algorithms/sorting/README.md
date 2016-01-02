@@ -13,3 +13,14 @@ Other descriptions might be provided, but this is not sure (for now).
 
 In general, I try to specify the type of each argument,
 but I might also have forgotten to do it in some places.
+
+
+## TODO
+
+- Tim sort
+- Smooth sort
+- Shell sort
+- Bucket sort
+- Intro sort
+- Radix sort
+- Counting sort
