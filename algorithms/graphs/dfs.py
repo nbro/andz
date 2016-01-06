@@ -14,17 +14,20 @@ in order to be able to backtrack from a node to the source, if necessary.
 from ands.ds.Graph import *
 
 
+dfs_global_time = INFINITY
+
+
 def dfs_iterative(graph):
     # TODO (eventually because it's complex...)
     pass
 
-
 def dfs_aux(graph: Graph, n: GraphNode):
     """This function is called by dfs to further explore child nodes."""
+    global dfs_global_time
 
     n.color = GREY
-    graph.dfs_global_time += 1
-    n.start = graph.dfs_global_time
+    dfs_global_time += 1
+    n.start = dfs_global_time
 
     for v in n.get_adjacent_nodes():
 
@@ -33,14 +36,15 @@ def dfs_aux(graph: Graph, n: GraphNode):
             dfs_aux(graph, v)
 
     n.color = BLACK
-    graph.dfs_global_time += 1
-    n.end = graph.dfs_global_time
+    dfs_global_time += 1
+    n.end = dfs_global_time
 
 
 def dfs(graph: Graph):
     """Typical dfs algorithm that traverses all nodes
     that have not been explored yet,
     and keeps track of the visited and finished times."""
+    global dfs_global_time
 
     for node in graph.nodes:
         node.predecessor = NIL
@@ -48,7 +52,7 @@ def dfs(graph: Graph):
         node.ending_time = INFINITY
         node.color = WHITE
 
-    graph.dfs_global_time = 0  # global time for dfs
+    dfs_global_time = 0  # global time for dfs
 
     for n in graph.nodes:
         if n.color == WHITE:  # if it is not visited
@@ -140,4 +144,4 @@ def test_dfs2():
 
 if __name__ == "__main__":
     test_dfs()
-    test_dfs2()
+    # test_dfs2()

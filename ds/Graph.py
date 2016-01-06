@@ -36,11 +36,6 @@ class Graph:
         self.nodes = []
         self.name = name
 
-        # Used in the dfs algorithm
-        # to keep track of the global time
-        # while visiting and exploring nodes.
-        self.dfs_global_time = INFINITY
-
         # Used with the dfs algorithm
         # to create a topological sort
         # of a directed acyclic graph (DAG).
