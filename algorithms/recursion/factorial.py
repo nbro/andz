@@ -91,22 +91,37 @@ def sum_first_m_pos_nat_nums_3(m):
         s += (i + 1)
     return s
 
-        
-if __name__ == "__main__":
+def _mf_r(n, i, a):
+    if i <= n:        
+        a.append(factorial(i))
+        _mf_r(n, i + 1, a)
+    return a
+
+def mf_r(n):
+    """Returns a list of factorials from 0 to n."""
+    return _mf_r(n, 0, [])
+
+
+# TESTS
+
+def test1():
     for i in range(10):
         print(factorial(i))
 
     print(factorial(8))
     print(factorial(12))
-    
+
+def test2():
     print(n_choose_k(5, 5))
     print(n_choose_k(5, 0))
     print(n_choose_k(5, 2))
     print(n_choose_k_2(5, 2))
     print(n_choose_k_3(5, 2))
-    
+
+def test3():
     print(a_plus_b_all_to_n(2, 3, 2))
-    
+
+def test4():
     print(sum_first_m_pos_nat_nums(1))
     print(sum_first_m_pos_nat_nums_2(1))
     print(sum_first_m_pos_nat_nums_3(1))
@@ -118,3 +133,15 @@ if __name__ == "__main__":
     print(sum_first_m_pos_nat_nums(10))
     print(sum_first_m_pos_nat_nums_2(10))
     print(sum_first_m_pos_nat_nums_3(10))
+
+def test5():
+    for i in range(10):
+        print(mf_r(i))
+
+    
+if __name__ == "__main__":
+    test1()
+    test2()
+    test3()
+    test4()
+    test5()
