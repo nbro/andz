@@ -7,68 +7,49 @@ Author: Nelson Brochado
 One Time Pad cipher algorithm, which provides 'perfect secrecy',
 but has some drawbacks, for example the key used
 must be at least of the same length of the original message.
-
-The functions below use the module random to generate random keys,
-but apparently the functions from the random module do not produce
-really random numbers or choices.
 """
 
 from random import choice
 import string
 
 
-def convert_to_bits(s):
-    """Converts string s to a string containing only 0s or 1s,
-    representing the original string."""
-    return "".join(format(ord(x), 'b') for x in s)
+def gen_message(size):
+    """Generate a random message of printable characters."""
+    return "".join(choice(string.printable) for _ in range(size))
 
+def gen_key(size):
+    """Generate a random key of printable characters."""
+    return gen_message(size)
 
-def gen_random_key(n):
-    """Generates a random key of bits (with 0s or 1s) of length n"""
-    k = []
-    for i in range(n):
-        k.append(choice(["0", "1"]))
-    return "".join(k)
+def encrypt(message, key):
+    """Encrypt message using key according to the one-time-pad algorithm."""
+    return "".join(chr(ord(i) ^ ord(j)) for (i, j) in zip(message, key)) 
 
-def str_xor(m, k):
-    """Given strings m and k of characters 0 or 1,
-    it returns the string representing the XOR
-    between each character in the same position.
-    
-    m and k should be of the same length.
-
-    Use this function both for encrypting and decrypting."""
-    r = []
-    for i, j in zip(m, k):
-        r.append(str(int(i) ^ int(j)))  # xor between bits i and j
-    return "".join(r)
+def decrypt(ciphertext, key):
+    """Decript ciphertext using key according to the OTP algorithm."""
+    return encrypt(ciphertext, key)
 
 
 def test1(n, m):
-    ls = []
-    
+    """m is the size of the string and key"""
     for i in range(n):
-        for i in range(m):
-            ls.append(choice(string.ascii_letters))
+        message = gen_message(m)
+        # print("Message:", message)
+        
+        key = gen_key(m)
+        # print("Key:", key)
+        
+        ciphertext = encrypt(message, key)
+        # print("Ciphertext:", ciphertext)
+        
+        original = decrypt(ciphertext, key)            
+        # print("Decoded message:", original)
+        
+        assert original == message
 
-        s = "".join(ls)
-        bits = convert_to_bits(s)
-        key = gen_random_key(len(bits))
-        cipher = str_xor(bits, key)
-        original = str_xor(key, cipher)
-
-        assert original == bits
-
-
-def test_empty():
-    m = ""
-    key = gen_random_key(len(m))
-    cipher = str_xor(m, key)
-    original = str_xor(key, cipher)
-    assert original == m
 
 if __name__ == "__main__":
-    test_empty()
+    test1(1000, 0)
     test1(1000, 1)
     test1(1000, 5)
     test1(1000, 10)
@@ -77,4 +58,4 @@ if __name__ == "__main__":
     test1(5, 10000)
     test1(5, 100000)
     test1(1, 1000000)
-    print("Tests finished")
+    print("Tests finished.")
