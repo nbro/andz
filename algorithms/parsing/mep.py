@@ -124,10 +124,10 @@ def infix_to_postfix(infix):
 
 
 def calc(postfix):
-    """All operations in this case take 2 numbers from the stack."""
+    """Simple mathematical postfix expression calculator."""
     stack = []
     for c in postfix:
-        if c not in OPERATORS.keys():
+        if c not in OPERATORS:
             stack.append(c)
         else:
             top = int(stack.pop())
@@ -137,29 +137,32 @@ def calc(postfix):
 
 
 def tostr(ls):
-    return "".join(ls)
+    return " ".join(ls)
 
 
 def test1():
-    ifx = "a+b/c*(d+e)-f"
-    ifx = "(12)^3 * x^3 +  (4  * 3)^3 + ()"
-    #ifx = "((12*x^3+44*3)*3)"
-    ifx = "a+b*c"
+    #ifx = "a+b/c*(d+e)-f"
+    #ifx = "(12)^3 * x^3 +  (4  * 3)^3 + ()"
+    #ifx = "a+b*c"
     #ifx = "3 + 2 * 2 ^ 3 % 3"
-    ifx = "(((3 + 2) * 4))"
+    #ifx = "(((3 + 2) * 4))"
 
+    ifx = "((12*2^3+44*3)*3)"
+    print("Infix:", ifx)
+    
     ls = parse(ifx)
-    print(ls)
+    print("Infix list:", ls)
 
-    ls = ['(', '(', '(', '3', '+', '2', '(', ')', ')', '*', '4', ')', ')']
-    print("".join(ls))
-
+    #ls = ['(', '(', '(', '3', '+', '2', '(', ')', ')', '*', '4', ')', ')']
+    #print("Infix:", tostr(ls))
+    
     pfx = infix_to_postfix(ls)
-    print(pfx)
+    print("Postfix list:", pfx)
+    print("Calculated:", calc(pfx))
 
     pfx_str = tostr(pfx)
-    print(pfx_str)
-
+    print("Postfix:", pfx_str)
+    
 
 if __name__ == "__main__":
     test1()
