@@ -29,8 +29,7 @@ def decrypt(cipher, k):
 def multi_encrypt(m, keys):
     """Given a message m and a set of keys,
     it encrypts each symbol of m with a random key from keys.
-    The random pattern choosen is return
-    as second item of the tuple returned."""
+    The random pattern is the second item of the tuple returned."""
     pattern = []
     cipher = []
 
@@ -104,6 +103,7 @@ def test2(n, size, total_keys):
 
 if __name__ == "__main__":
     # Testing the Caesar cipher
+    test1(5, 1)
     test1(5, 1000000)    
     test1(10, 100000)
     test1(15, 10000)
@@ -112,6 +112,7 @@ if __name__ == "__main__":
     test1(30, 10)
 
     # Testing the polyalphabetic cryptographic algorithm
+    test2(10, 10, 1)  # Equivalent to Caesar because we just 1 key
     test2(10, 100000, 5)
     test2(5, 100000, 10)
     test2(10, 100000, 15)
