@@ -7,6 +7,10 @@ If you want to know more about primes:
 - [Primality Test](https://www.khanacademy.org/computing/computer-science/cryptography/comp-number-theory/a/comp-number-theory-introduction) by Khan Academy
 
 
+## Reading Suggestions
+- [List all primes below N
+](http://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n)
+
 ## TODO
 
 ### DEterminisc Methods
