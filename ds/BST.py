@@ -52,7 +52,6 @@ Want to know more about BSTs?
 - http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf
 - http://algs4.cs.princeton.edu/32bst/BST.java.html
 
-
 TODO
 - Improve the "randomness" of insertion into the bst.
 - Implement a recursive version of insert_key (OPTIONAL).
@@ -224,6 +223,8 @@ class BST:
         key must be a comparable object of the same type as the other keys.
 
         Time complexity: O(h)"""
+        if key is None:
+            raise TypeError("key cannot be None.")
         if s is None:
             return self.search_i(key)
         else:
@@ -282,6 +283,10 @@ class BST:
 
     def rank(self, key):
         """Returns the number of keys strictly less than key."""
+        if key is None:
+            raise TypeError("key cannot be None.")
+        if not self.search(key):
+            raise LookupError("key was not found.")
         if self.root is None:
             return 0
         else:
@@ -396,12 +401,12 @@ class BST:
         if not isinstance(x, BSTNode):
             c = self.search(x)
             if c is None:
-                raise ValueError("key node was not found in the tree.")
+                raise LookupError("key node was not found in the tree.")
         else:  # x should be a BSTNode object
             c = x
 
         if c is None:
-            raise ValueError("x cannot be None.")
+            raise TypeError("x cannot be None.")
 
         # To left rotate a node, its right child must exist.
         if c.right is None:
@@ -455,12 +460,12 @@ class BST:
         if not isinstance(x, BSTNode):
             c = self.search(x)
             if c is None:
-                raise ValueError("key node was not found in the tree.")
+                raise LookupError("key node was not found in the tree.")
         else:
             c = x
 
         if c is None:
-            raise ValueError("x cannot be None.")
+            raise TypeError("x cannot be None.")
 
         if c.left is None:
             raise ValueError("Right rotation cannot be performed on " + str(c) +
@@ -552,7 +557,7 @@ class BST:
         if not isinstance(u, BSTNode):
             u = self.search(u)
             if not u:
-                raise ValueError("BSTNode object with key node was not found.")
+                raise LookupError("BSTNode object with key node was not found.")
 
         if u.right is not None:
             return BST._minimum_r(u.right)
@@ -575,7 +580,7 @@ class BST:
         if not isinstance(u, BSTNode):
             u = self.search_r(u)
             if not u:
-                raise ValueError("BSTNode object with key node was not found.")
+                raise LookupError("BSTNode object with key node was not found.")
 
         if u.left is not None:
             return BST._maximum_r(u.left)
@@ -912,6 +917,10 @@ def check_helper(n):
             return False
         if n.right is not None and n.key > n.right.key:
             return False
+        if n.left:
+            assert n.left.parent == n
+        if n.right:
+            assert n.right.parent == n
         return check_helper(n.left) and check_helper(n.right)        
     return True
 
@@ -981,7 +990,7 @@ def test_structure_many():
     assert 11 == b.size() == b.n == b.root.count()
     assert bst_invariant(b)
     assert_consistencies(b)
-
+    
 def test_delete_not_found():
     b = BST()
     try:
@@ -1030,7 +1039,6 @@ def test_multiple_remove2():
 def test_multiple_remove3():
     b = BST()
     test_empty()
-    
     b.insert(5)
     b.insert(3)
     b.insert(4)
@@ -1044,13 +1052,93 @@ def test_multiple_remove3():
     assert b.size() == b.n == b.root.count() == 10
     assert bst_invariant(b)
     assert_consistencies(b)
-
     b.delete(3)
     b.delete(10)
     b.delete(12)
     assert b.size() == b.n == b.root.count() == 7
     assert bst_invariant(b)
     assert_consistencies(b)
+
+def test_search():
+    b = BST()
+    b.insert(10)
+    b.insert(5)
+    b.insert(15)
+    try:
+        b.search(None)
+        raise Exception("test_search failed")
+    except TypeError:
+        pass
+    assert not b.search(12)
+    assert b.search(5)
+    assert b.search(10)
+    assert b.search(15)
+    assert b.size() == b.n == b.root.count() == 3
+    assert bst_invariant(b)
+    assert_consistencies(b)
+    b.delete(10)
+    assert not b.search(10)
+    assert b.size() == b.n == b.root.count() == 2
+    assert bst_invariant(b)
+    assert_consistencies(b)
+    
+def test_remove_min_and_max():
+    b = BST()
+    assert not b.remove_min()
+    assert not b.remove_max()    
+    b.insert(14)
+    b.insert(12)
+    b.insert(28)
+    
+    m = b.remove_min()
+    assert m and m.key == 12
+    assert b.size() == b.n == b.root.count() == 2
+    assert bst_invariant(b)
+    assert_consistencies(b)
+
+    M = b.remove_max()
+    assert M and M.key == 28
+    assert b.size() == b.n == b.root.count() == 1
+    assert bst_invariant(b)
+    assert_consistencies(b)
+
+def test_predecessor_and_successor():
+    b = BST()
+    b.insert(12)
+    b.insert(14)
+    b.insert(28)
+    assert not b.successor(28)
+    assert b.successor(12) == b.search(14)
+    assert not b.predecessor(12)
+    assert b.predecessor(14) == b.search(12)
+    try:
+        b.successor(7)
+        b.predecessor(6)
+        raise Exception("test_predecessor_and_successor failed")
+    except LookupError as e:
+        pass
+
+def test_rank():
+    b = BST()
+    try:
+        b.rank(None)
+        raise Exception("test_rank failed.")
+    except TypeError:
+        pass
+    try:
+         b.rank(12)
+         raise Exception("test_rank failed.")
+    except LookupError:
+        pass
+    b.insert(12)
+    assert b.rank(12) == 0
+    b.insert(14)
+    b.insert(28)
+    b.insert(10)
+    b.insert(7)
+    assert b.rank(12) == 2
+    assert b.rank(7) == 0
+    assert b.rank(28) == 4
 
 
 if __name__ == "__main__":
@@ -1065,3 +1153,7 @@ if __name__ == "__main__":
     test_delete_one_size()
     test_multiple_remove1()
     test_multiple_remove2()
+    test_search()
+    test_remove_min_and_max()
+    test_predecessor_and_successor()
+    test_rank()
