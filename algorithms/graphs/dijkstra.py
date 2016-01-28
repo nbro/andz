@@ -63,7 +63,7 @@ def _nodes_and_distances(g: Graph):
 def dijkstra(g: Graph, s: GraphNode):
     """
     Dijkstra's algorithm to calculate since-source shortest paths,
-    that is to calculate the shortest path between source_node and
+    that is, to calculate the shortest path between a source node and
     any other node in graph, which should be a directed weighted graph.
 
     This algorithm maintains tha invariant  Q = V - S,
@@ -77,7 +77,7 @@ def dijkstra(g: Graph, s: GraphNode):
     but priorities are changed only.
 
     Note also that each vertex that is extracted from Q,
-    is added to the set of visited_nodes exactly once.
+    is added to the set of visited nodes S exactly once.
 
     Since this algorithm always chooses the lightest edge from Q to add to S,
     we say that this algorithm uses a greedy strategy.
@@ -119,19 +119,22 @@ def dijkstra(g: Graph, s: GraphNode):
     _initialise_single_source(g, s)
 
     # This set will contain the vertices of graph,
-    # whose shortest path weights from source_node have already been determined.
+    # whose shortest path weights from s have already been determined.
     visited_nodes = set()
 
     # Creation of a MinPriorityQueue object that takes into account as priorities
-    # the distances of the nodes in the graph from source_node.
-    # get_node_with_distances returns a list of tuples,
-    # whose first item is a HeapNode and the second its distance from source_node,
-    # that at this point (initially) is set to INFINITY by _initialise_single_source.
+    # the distances of the nodes in the graph from source node s.
+    # _nodes_and_distances returns a list of tuples.
+    # The first item of each of these tuples
+    # is a HeapNode and the second its distance from s,
+    # At this point, all distances have been already set to INFINITY
+    # by _initialise_single_source,
+    # except for the source node s, whose distance has been set to 0.
     q = MinPriorityQueue(_nodes_and_distances(g))
 
     while q.is_not_empty():
         # u has the estimated shortest path in the set V - S
-        # Note that the first element being pulled is the source_node.
+        # Note that the first element being pulled is s.
         u = q.extract_min()
 
         # {u} is a set with one element
@@ -199,6 +202,6 @@ def test_dijkstra2():
 
     g.show_nodes()
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # test_dijkstra()
-    test_dijkstra2()
+test_dijkstra2()

@@ -13,7 +13,7 @@ If you want to know more about primes:
 
 ## TODO
 
-### DEterminisc Methods
+### Determinisc Methods
 
 - Sieve of Eratosthene
 - AKS 
@@ -23,6 +23,12 @@ If you want to know more about primes:
 - Fermat primality test
 - Miller-Rabin and Solovay-Strassen primality test
 - Frobenius primality test
+
+
+## Generation of Primes
+
+- Implement as many algorithms as possible that are mentioned in this article: [List all primes below N
+](http://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n).
 
 
 

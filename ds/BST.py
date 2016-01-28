@@ -4,7 +4,7 @@
 """
 Author: Nelson Brochado
 Creation: July, 2015
-Last update: 11/09/2015
+Last update: 28/01/2016
 
 Basic class to represent binary search trees (BSTs).
 
@@ -54,19 +54,18 @@ Want to know more about BSTs?
 
 
 TODO
-- Implement a recursive version of insert_key (just for educational purposes).
-- Decide which functions are static and which are not, and why.
 - Improve the "randomness" of insertion into the bst.
+- Implement a recursive version of insert_key (OPTIONAL).
 """
 
-from ands.ds.BSTNode import *
+from BSTNode import BSTNode
 from random import *
 
 
 class BST:
 
     def __init__(self, root=None, name="BST"):
-        self.root = None
+        self.root = root
         self.name = name
         self.n = 0  # Number of nodes.
 
@@ -93,20 +92,12 @@ class BST:
 
     def is_the_root(self, u):
         """Checks if u is a reference pointing to the root object."""
-        if u == self.root:
-            return True
-        return False
-
+        return u == self.root
+    
     def clear(self):
         """Removes all nodes from this tree."""
         self.root = None
         self.n = 0
-
-    @staticmethod
-    def check_arg(x):
-        """Raises a TypeError if x is None."""
-        if x is None:
-            raise TypeError("x cannot be None.")
 
     # INSERTIONS
 
@@ -135,7 +126,7 @@ class BST:
         For a proof, see chapter 12 of Introduction to Algorithms (3rd ed.) by CLRS.
 
         This function does a pseudo-random insertion of keys."""
-        r = randint(0, self.size() * 3 // 8)  # * 3 // 8 is just a random operation XD
+        r = randint(0, self.size() * 3 // 8)  # * 3 // 8 is just a random operation...
         if r == 0:
             self.root_insert(x, value)
         else:
@@ -187,7 +178,6 @@ class BST:
                 p.right = x
 
             x.parent = p
-
             self.n += 1
 
     def root_insert(self, x, value=None):
@@ -204,7 +194,7 @@ class BST:
 
         if not isinstance(x, BSTNode):
             x = BSTNode(x, value)
-
+            
         if self.root is None:
             self._initialise(x)
         else:
@@ -406,16 +396,16 @@ class BST:
         if not isinstance(x, BSTNode):
             c = self.search(x)
             if c is None:
-                raise Exception("key node was not found in the tree.")
+                raise ValueError("key node was not found in the tree.")
         else:  # x should be a BSTNode object
             c = x
 
         if c is None:
-            raise Exception("x cannot be None.")
+            raise ValueError("x cannot be None.")
 
         # To left rotate a node, its right child must exist.
         if c.right is None:
-            raise Exception("Left rotation cannot be performed on " + str(c) +
+            raise ValueError("Left rotation cannot be performed on " + str(c) +
                             " because it does not have a right child.")
 
         c.right.parent = c.parent
@@ -465,15 +455,15 @@ class BST:
         if not isinstance(x, BSTNode):
             c = self.search(x)
             if c is None:
-                raise Exception("key node was not found in the tree.")
+                raise ValueError("key node was not found in the tree.")
         else:
             c = x
 
         if c is None:
-            raise Exception("x cannot be None.")
+            raise ValueError("x cannot be None.")
 
         if c.left is None:
-            raise Exception("Right rotation cannot be performed on " + str(c) +
+            raise ValueError("Right rotation cannot be performed on " + str(c) +
                             " because it does not have a left child.")
 
         c.left.parent = c.parent
@@ -507,14 +497,15 @@ class BST:
     def minimum(self):
         """Calls BST._minimum_r(self.root) if self.root is not None."""
         if self.root is not None:
-            return self._minimum_r(self.root)
+            return BST._minimum_r(self.root)
 
-    def _minimum_r(self, u: BSTNode):
+    @staticmethod
+    def _minimum_r(u: BSTNode):
         """Recursive version of the BST._minimum(u) function.
 
         Time complexity: O(h)"""
         if u.left is not None:
-            u = self._minimum_r(u.left)
+            u = BST._minimum_r(u.left)
         return u
 
     @staticmethod
@@ -527,14 +518,15 @@ class BST:
     def maximum(self):
         """Calls BST._maximum_r(self.root) if self.root is not None."""
         if self.root is not None:
-            return self._maximum_r(self.root)
+            return BST._maximum_r(self.root)
 
-    def _maximum_r(self, u: BSTNode):
+    @staticmethod
+    def _maximum_r(u: BSTNode):
         """Recursive version of BST._maximum.
 
         Time complexity: O(h)"""
         if u.right is not None:
-            u = self._maximum_r(u.right)
+            u = BST._maximum_r(u.right)
         return u
 
     @staticmethod
@@ -560,7 +552,7 @@ class BST:
         if not isinstance(u, BSTNode):
             u = self.search(u)
             if not u:
-                raise Exception("BSTNode object with key node was not found.")
+                raise ValueError("BSTNode object with key node was not found.")
 
         if u.right is not None:
             return BST._minimum_r(u.right)
@@ -573,7 +565,6 @@ class BST:
         while p is not None and p.right == u:
             u = p
             p = u.parent
-
         return p
 
     def predecessor(self, u: BSTNode):
@@ -584,7 +575,7 @@ class BST:
         if not isinstance(u, BSTNode):
             u = self.search_r(u)
             if not u:
-                raise Exception("BSTNode object with key node was not found.")
+                raise ValueError("BSTNode object with key node was not found.")
 
         if u.left is not None:
             return BST._maximum_r(u.left)
@@ -619,7 +610,7 @@ class BST:
         If u is None, exceptions will be thrown.
 
         Time complexity: O(h)"""
-        m = self._maximum_r(u)
+        m = BST._maximum_r(u)
 
         if m.left is not None:  # m has a left subtree.
             if self.is_the_root(m):  # m is the root.
@@ -650,7 +641,7 @@ class BST:
 
         Time complexity: O(h)"""
 
-        m = self._minimum_r(u)
+        m = BST._minimum_r(u)
 
         if m.right is not None:
             if self.is_the_root(m):
@@ -907,24 +898,170 @@ class BST:
         return self.__str__()
 
 
-def test_bst():
+# TESTS
+
+def bst_invariant(bst):
+    """Invariant: for each node n in bst,
+    if n.left exists, then n.left <= n,
+    and if n.right exists, then n.right >= n."""
+    return check_helper(bst.root)
+
+def check_helper(n):
+    while n is not None:
+        if n.left is not None and n.key < n.left.key:
+            return False
+        if n.right is not None and n.key > n.right.key:
+            return False
+        return check_helper(n.left) and check_helper(n.right)        
+    return True
+
+def assert_consistencies(bst):
+    """Call only when bst.root is not None"""
+    assert bst.root.count() == bst.n == bst.size()
+    assert bst.root.parent is None
+
+def test_empty(b):
+    assert not b.root
+    assert b.size() == b.n == 0
+
+def test_empty_size():
     b = BST()
+    test_empty(b)
+    assert bst_invariant(b)
 
-    def show():
-        print(b)
-        print("Size:", b.size())
-        print("Height:", b.height())
-        # input()
+def test_empty_contains():
+    b = BST()
+    for i in range(-10, 11):
+        assert not b.contains(i)
 
-    for i in range(40):
+def test_one_size():
+    b = BST()
+    b.insert(12)
+    assert b.size() == b.n == b.root.count() == 1
+    assert bst_invariant(b)
+    assert_consistencies(b)
+
+def test_one_contains():
+    b = BST()
+    b.insert(12)
+    for i in range(-10, 11):
+        assert not b.contains(i)
+    assert b.contains(12)
+
+def test_many_size():
+    b = BST()
+    size = 0
+    for i in range(-10, 11):
         b.insert(i)
+        size += 1
+        assert size == b.size() == b.n == b.root.count()
+        assert bst_invariant(b)
+        assert_consistencies(b)
 
-    a = BSTNode(21, "Hello World!")
-    b.insert(a)
-    print(repr(b.search(17)))
+def test_many_contains():
+    b = BST()
+    for i in range(-10, 11):
+        b.insert(i)
+    for i in range(-10, 11):
+        assert b.contains(i)
 
-    # b.delete(BSTNode(100))
-    show()
+def test_structure_many():
+    b = BST()
+    b.insert(10)
+    b.insert(5)
+    b.insert(15)
+    b.insert(7)
+    b.insert(20)
+    b.insert(18)
+    b.insert(14)
+    b.insert(14)
+    b.insert(12)
+    b.insert(3)
+    b.insert(4)
+    assert 11 == b.size() == b.n == b.root.count()
+    assert bst_invariant(b)
+    assert_consistencies(b)
+
+def test_delete_not_found():
+    b = BST()
+    try:
+        b.delete(12)
+        raise Exception("test_delete_not_found not passed")
+    except LookupError as e:
+        pass
+
+def test_delete_one_size():
+    b = BST()
+    b.insert(12)    
+    b.delete(12)
+    assert not b.contains(12)
+    test_empty(b)
+    assert bst_invariant(b)
+
+def test_multiple_remove1():
+    b = BST()
+    for i in range(15):
+        b.insert(i)
+    for i in range(0, 15, 2):
+        b.delete(i)
+        assert not b.contains(i)
+    for i in range(1, 15, 2):
+        assert b.contains(i)
+    assert b.size() == b.n == b.root.count() == 7
+    assert bst_invariant(b)
+    assert_consistencies(b)
+
+def test_multiple_remove2():
+    b = BST()
+    for i in range(0, 15, 2):
+        b.insert(i)
+    for i in range(-1, 15, 2):
+        try:
+            b.delete(i)
+        except LookupError:
+            pass
+        assert not b.contains(i)
+    for i in range(0, 15, 2):
+        assert b.contains(i)
+    assert b.size() == b.n == b.root.count() == 8
+    assert bst_invariant(b)
+    assert_consistencies(b)
+
+def test_multiple_remove3():
+    b = BST()
+    test_empty()
+    
+    b.insert(5)
+    b.insert(3)
+    b.insert(4)
+    b.insert(10)
+    b.insert(7)
+    b.insert(6)
+    b.insert(8)
+    b.insert(9)
+    b.insert(12)
+    b.insert(11)
+    assert b.size() == b.n == b.root.count() == 10
+    assert bst_invariant(b)
+    assert_consistencies(b)
+
+    b.delete(3)
+    b.delete(10)
+    b.delete(12)
+    assert b.size() == b.n == b.root.count() == 7
+    assert bst_invariant(b)
+    assert_consistencies(b)
+
 
 if __name__ == "__main__":
-    test_bst()
+    test_empty_size()
+    test_empty_contains()
+    test_one_size()
+    test_one_contains()
+    test_many_size()
+    test_many_contains()
+    test_structure_many()
+    test_delete_not_found()
+    test_delete_one_size()
+    test_multiple_remove1()
+    test_multiple_remove2()

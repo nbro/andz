@@ -5,10 +5,10 @@
 Author: Nelson Brochado
 Creation: July, 2015
 
-Class to represent a binary-search tree node.
+Class to represent a binary-search tree's node.
 """
 
-from ands.ds.BaseNode import *
+from BaseNode import BaseNode
 import sys
 
 
@@ -99,9 +99,9 @@ class BSTNode(BaseNode):
 
     def count(self):
         if not self.has_children():
-            return 0
+            return 1
         else:
-            c = -1  # To not include self.
+            c = 0
             return self._count(self, c)
 
     def _count(self, u, c: int):
