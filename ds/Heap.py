@@ -11,7 +11,7 @@ but instead you should just create objects of derived classes,
 namely of MinHeap and MaxHeap.
 """
 
-from ands.ds.HeapNode import *
+from HeapNode import *
 
 
 class Heap:

@@ -1,4 +1,4 @@
-# Sorting algorithms
+# Sorting Algorithms
 
 Under this folder you can find some of the most famous sorting algorithms, such as quick sort, merge sort or insertion sort.
 
@@ -18,9 +18,18 @@ but I might also have forgotten to do it in some places.
 ## TODO
 
 - Tim sort
+- Intro sort
 - Smooth sort
 - Shell sort
 - Bucket sort
-- Intro sort
 - Radix sort
 - Counting sort
+- Cubesort
+- Binary Tree sort
+- Block sort
+
+## Resources
+- [Sorting Algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm) 
+
+- [Sorting and Searching](http://interactivepython.org/runestone/static/pythonds/index.html#sorting-and-searching), section by of an online book at [http://interactivepython.org](http://interactivepython.org)
+- Introduction to Algorithm (3rd ed.), book by CRLS.

@@ -25,7 +25,7 @@ where floor(x) truncates x to the smallest integer.
 Note that these indexes are for 0-index based lists (or arrays).
 """
 
-from ands.ds.Heap import *
+from Heap import *
 
 
 class MinHeap(Heap):

@@ -9,7 +9,6 @@ Disjoint Set data structure for Kruskal's algorithm
 to find a MST of a undirected weighted graph.
 """
 
-
 class SetElement:
     def __init__(self, value):
         self.value = value
@@ -31,9 +30,7 @@ class SetElement:
         return str(self.value) + " => " + str(self.r)
 
     def __eq__(self, other):
-        """
-        :type other SetElement
-        """
+        """:type other SetElement"""
         return self.value == other.value
 
     def __ne__(self, other):

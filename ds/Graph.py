@@ -26,8 +26,7 @@ that can be used in those same algorithms.
 """
 
 import operator
-from ands.ds.GraphNode import *
-
+from GraphNode import *
 
 class Graph:
     """Graph data structure using adjacency list representation."""

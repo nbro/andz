@@ -22,8 +22,8 @@ where:
 - "edge_weigh" is the eventual weight of the edge.
 """
 
-from ands.ds.BaseNode import *
-from ands.ds.constants import *
+from BaseNode import *
+from constants import *
 import sys
 
 try:

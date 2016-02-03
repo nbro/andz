@@ -10,7 +10,7 @@ One symbol in the plain text is convert into a symbol of cipher text. Examples o
 
 The message to be encrypted is processed in blocks of k bits. For example, if k = 64, then the message is broken into 64-bit blocks, and each block is encrypted independently. To encode a block, the cipher uses a one-to-one mapping to map the k-bit block of cleartext to a k-bit block of ciphertext
 
-<img src="block-cipher.png">
+<img src="images/block-cipher.png">
 
 
 ## Cipher Block Chaining
@@ -19,11 +19,11 @@ Idea: use previous blocks in the encryption of the current block. Encryption is 
 
 ### Encryption
 
-<img src="cbc-encryption.png">
+<img src="images/cbc-encryption.png">
 
 ### Decryption
 
-<img src="cbc-decryption.png">
+<img src="images/cbc-decryption.png">
 
 
 CBC solve the problem of any two equal blocks within a message being encrypted in the same way (as in a normal block cipher). So, in this kind of cryptography system, equal blocks within a message are encrypted in a different, but identical messages still produce the same final cipher text. We need to add randomness to this protocol to make it more secure...

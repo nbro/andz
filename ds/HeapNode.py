@@ -10,7 +10,7 @@ with objects of the class HeapNode.
 """
 
 
-from ands.ds.BSTNode import *
+from BSTNode import *
 
 
 class HeapNode(BSTNode):

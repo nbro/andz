@@ -4,7 +4,7 @@
 """
 Author: Nelson Brochado
 Creation: July, 2015
-Last update: 28/01/2016
+Last update: 2/02/2016
 
 Basic class to represent binary search trees (BSTs).
 
@@ -55,6 +55,8 @@ Want to know more about BSTs?
 TODO
 - Improve the "randomness" of insertion into the bst.
 - Implement a recursive version of insert_key (OPTIONAL).
+- add functions "intersection" and "union"
+- implement "is balanced" function (http://codereview.stackexchange.com/questions/108459/binary-tree-data-structure)
 """
 
 from BSTNode import BSTNode
@@ -66,15 +68,15 @@ class BST:
     def __init__(self, root=None, name="BST"):
         self.root = root
         self.name = name
-        self.n = 0  # Number of nodes.
-
+        self.n = 0  # number of nodes
+        
         if root is not None:
             self._initialise(root)
 
     # INITIALISE
 
     def _initialise(self, u: BSTNode):
-        """Sets u as the new root of this tree."""
+        """Sets u as the new root and unique node of this tree."""
         self.root = u
         self.root.parent = None
         self.root.left = None
@@ -153,7 +155,7 @@ class BST:
 
         Time complexity: O(h)"""
         if x is None:
-            raise TypeError("x cannot be None.")
+            raise ValueError("x cannot be None.")
 
         if not isinstance(x, BSTNode):
             x = BSTNode(x, value)
@@ -161,16 +163,15 @@ class BST:
         if self.root is None:
             self._initialise(x)
         else:
-            c = self.root  # c is the current node.
-            p = self.root.parent  # Parent of c.
+            c = self.root  # c is the current node
+            p = self.root.parent  # parent of c
 
             while c is not None:
                 p = c
                 if x.key < c.key:
                     c = c.left
-                else:  # x.key >= c.key
+                else:
                     c = c.right
-
             if x.key < p.key:
                 p.left = x
             else:
@@ -189,8 +190,7 @@ class BST:
 
         Time complexity: O(h)"""
         if x is None:
-            raise TypeError("x cannot be None.")
-
+            raise ValueError("x cannot be None.")
         if not isinstance(x, BSTNode):
             x = BSTNode(x, value)
             
@@ -224,7 +224,7 @@ class BST:
 
         Time complexity: O(h)"""
         if key is None:
-            raise TypeError("key cannot be None.")
+            raise ValueError("key cannot be None.")
         if s is None:
             return self.search_i(key)
         else:
@@ -248,7 +248,7 @@ class BST:
             return s
         elif key < s.key:
             return self._search_r(key, s.left)
-        else:  # key > root_node.key
+        else:
             return self._search_r(key, s.right)
 
     def search_i(self, key) -> BSTNode:
@@ -265,12 +265,12 @@ class BST:
         where m is the height of the subtree rooted at s,
         if s is not None. Else the time complexity is constant."""
         c = s  # c is the current node
-        while c is not None:
+        while c:
             if key == c.key:
                 return c
             elif key < c.key:
                 c = c.left
-            else:  # key > c.key:
+            else:
                 c = c.right
 
     # CONTAINS
@@ -284,7 +284,7 @@ class BST:
     def rank(self, key):
         """Returns the number of keys strictly less than key."""
         if key is None:
-            raise TypeError("key cannot be None.")
+            raise ValueError("key cannot be None.")
         if not self.search(key):
             raise LookupError("key was not found.")
         if self.root is None:
@@ -325,7 +325,7 @@ class BST:
 
         Time complexity: theta(m),
         where m is the number of elements rooted under u (included)."""
-        if u is not None:
+        if u:
             self._in_order_traversal(u.left)
             print(u, end=e)
             self._in_order_traversal(u.right)
@@ -343,7 +343,7 @@ class BST:
 
         Time complexity: theta(m),
         where m is the number of elements rooted under u (included)."""
-        if u is not None:
+        if u:
             print(u, end=e)
             self._pre_order_traversal(u.left)
             self._pre_order_traversal(u.right)
@@ -360,7 +360,7 @@ class BST:
 
         Time complexity: theta(m),
         where m is the number of elements rooted under u (included)."""
-        if u is not None:
+        if u:
             self._post_order_traversal(u.left)
             self._post_order_traversal(u.right)
             print(u, end=e)
@@ -377,7 +377,7 @@ class BST:
 
         Time complexity: theta(m),
         where m is the number of elements rooted under u (included)."""
-        if u is not None:
+        if u:
             self._reverse_in_order_traversal(u.right)
             print(u, end=e)
             self._reverse_in_order_traversal(u.left)
@@ -406,8 +406,8 @@ class BST:
             c = x
 
         if c is None:
-            raise TypeError("x cannot be None.")
-
+            raise ValueError("x cannot be None.")
+        
         # To left rotate a node, its right child must exist.
         if c.right is None:
             raise ValueError("Left rotation cannot be performed on " + str(c) +
@@ -453,7 +453,6 @@ class BST:
 
     def right_rotate(self, x):
         """Right rotates the subtree rooted at node x.
-
         See doc-strings of left_rotate."""
         c = None
 
@@ -465,30 +464,21 @@ class BST:
             c = x
 
         if c is None:
-            raise TypeError("x cannot be None.")
-
+            raise ValueError("x cannot be None.")
         if c.left is None:
             raise ValueError("Right rotation cannot be performed on " + str(c) +
                             " because it does not have a left child.")
 
         c.left.parent = c.parent
 
-        # If the following expression is evaluated to True,
-        # then this implies that c is the root
-        # and the new root becomes the right child.
         if c.parent is None:
             self.root = c.left
-        # Checking if c is a left or a right child,
-        # in order to set the new left or right child (respectively) of its parent.
         elif c.is_left_child():
             c.parent.left = c.left
-        else:  # c.is_right_child():
+        else:
             c.parent.right = c.left
 
-        # Setting the new parent of c
         c.parent = c.left
-
-        # Setting the new right child of c
         c.left = c.parent.right
 
         if c.left is not None:
@@ -501,7 +491,7 @@ class BST:
 
     def minimum(self):
         """Calls BST._minimum_r(self.root) if self.root is not None."""
-        if self.root is not None:
+        if self.root:
             return BST._minimum_r(self.root)
 
     @staticmethod
@@ -509,20 +499,20 @@ class BST:
         """Recursive version of the BST._minimum(u) function.
 
         Time complexity: O(h)"""
-        if u.left is not None:
+        if u.left:
             u = BST._minimum_r(u.left)
         return u
 
     @staticmethod
     def _minimum(u: BSTNode):
         """Returns the node (rooted at u) with the minimum key."""
-        while u.left is not None:
+        while u.left:
             u = u.left
         return u
 
     def maximum(self):
         """Calls BST._maximum_r(self.root) if self.root is not None."""
-        if self.root is not None:
+        if self.root:
             return BST._maximum_r(self.root)
 
     @staticmethod
@@ -530,36 +520,37 @@ class BST:
         """Recursive version of BST._maximum.
 
         Time complexity: O(h)"""
-        if u.right is not None:
+        if u.right:
             u = BST._maximum_r(u.right)
         return u
 
     @staticmethod
     def _maximum(u: BSTNode):
         """Returns the node (rooted at u) with the maximum key."""
-        while u.right is not None:
+        while u.right:
             u = u.right
         return u
 
     # SUCCESSOR AND PREDECESSOR
 
-    def successor(self, u: BSTNode):
+    def successor(self, u):
         """Finds the successor of u.
-
         If u has a right subtree,
         then the successor of u is the minimum of that right subtree.
 
         Otherwise it is the first ancestor, lets call it A, of u
         such that u falls in the left subtree of A.
 
-        Time complexity: O(h)"""
+        u can either be a reference to an actual BSTNode object,
+        or it can be a key of a supposed node in self.
 
+        Time complexity: O(h)"""
         if not isinstance(u, BSTNode):
             u = self.search(u)
             if not u:
-                raise LookupError("BSTNode object with key node was not found.")
+                raise LookupError("No node was found with key=u.")
 
-        if u.right is not None:
+        if u.right:
             return BST._minimum_r(u.right)
 
         p = u.parent
@@ -567,22 +558,24 @@ class BST:
         # The comparison node == p.right
         # compares basically if they are the same object.
         # See the BaseNode class.
-        while p is not None and p.right == u:
+        while p and p.right == u:
             u = p
             p = u.parent
         return p
 
-    def predecessor(self, u: BSTNode):
+    def predecessor(self, u):
         """Finds the successor of the node u.
-        Opposite operation of successor(u)
+        Opposite operation of successor(u).
+        
+        u can either be a reference to an actual BSTNode object,
+        or it can be a key of a supposed node in self.
 
         Time complexity: O(h)"""
         if not isinstance(u, BSTNode):
             u = self.search_r(u)
-            if not u:
-                raise LookupError("BSTNode object with key node was not found.")
-
-        if u.left is not None:
+            if u is None:
+                raise LookupError("No node was found with key=u.")
+        if u.left:
             return BST._maximum_r(u.left)
 
         p = u.parent
@@ -590,10 +583,9 @@ class BST:
         # The comparison node == p.left
         # compares basically if they are the same object,
         # See the BaseNode class.
-        while p is not None and u == p.left:
+        while p and u == p.left:
             u = p
             p = u.parent
-
         return p
 
     # REMOVALS AND DELETIONS
@@ -616,8 +608,8 @@ class BST:
 
         Time complexity: O(h)"""
         m = BST._maximum_r(u)
-
-        if m.left is not None:  # m has a left subtree.
+        
+        if m.left:  # m has a left subtree.
             if self.is_the_root(m):  # m is the root.
                 self.root = m.left
                 m.left.parent = None  # self.root.parent = None
@@ -629,7 +621,7 @@ class BST:
                 self.root = None
             else:
                 m.parent.right = None
-
+                
         m.parent = m.left = None
         self.n -= 1
         return m
@@ -648,7 +640,7 @@ class BST:
 
         m = BST._minimum_r(u)
 
-        if m.right is not None:
+        if m.right:
             if self.is_the_root(m):
                 self.root = m.right
                 m.right.parent = None
@@ -667,30 +659,31 @@ class BST:
 
     # DELETIONS
 
-    def delete(self, x):
-        """Deletes x from self (if it exists).
-
-        x can either be the key of a node,
-        or it can be a reference to an actual BSTNode object.
+    def delete(self, u):
+        """Deletes u from self (if it exists).
 
         There are 3 cases of deletion:
             1. the node has no children
-            2. the node has one child
-            3. the node has the left and right subtrees"""
-        if x is None:
-            raise TypeError("x cannot be None.")
+            2. the node has one subtree (or child)
+            3. the node has the left and right subtrees (or children).
+            
+        u can either be a reference to an actual BSTNode object,
+        or it can be a key of a supposed node in self.
 
-        if not isinstance(x, BSTNode):
-            x = self.search_r(x)
+        Time complexity: O(h)"""
+        if u is None:
+            raise ValueError("u cannot be None.")
+        
+        if not isinstance(u, BSTNode):
+            u = self.search_r(u)
+            if u is None:
+                raise LookupError("No node was found with key=u.")
 
-        if x is None:
-            raise LookupError("No node was found with key=x.")
-
-        if x.parent is None and x != self.root:
-            raise LookupError("x was not found.")
+        if u.parent is None and u != self.root:
+            raise ValueError("u is not a valid node.")
 
         self.n -= 1
-        return self.__delete(x)
+        return self.__delete(u)
 
     def __delete(self, u: BSTNode):
         """This is a helper method to the delete method,
@@ -706,15 +699,16 @@ class BST:
         If u.parent is None, then u must be the root,
         and thus we simply set the root to None.
 
-        2. u has just one child, but we first need to decide which one.
+        2. u has just one child,
+        but we first need to decide which one (left or right).
         Then we elevate this child to u's position in the tree
         by modifying u's parent to replace u by u's child.
-
         But if u's parent is None, that means u was the root,
         and the new root becomes u's child.
 
         3. u has two children, then we search for u's successor s,
-        which must be in the u's right subtree (it's the minimum),
+        (which must be in the u's right subtree,
+        and it's the smallest of that subtree)
         which takes u's position in the tree.
         The rest of the u's subtree becomes the s's right subtree,
         and the u's left subtree becomes the new s's left subtree.
@@ -735,172 +729,200 @@ class BST:
         After that, self.__delete is called again on u,
         but note that u is now in the previous s's position,
         and thus u has now no left subtree, but at most a right subtree."""
+        def __delete__at_most_one_child(v: BSTNode):
+            """Removes v from the tree, when v has at most one child.
+            This means that v could have 0 or 1 child."""
+            child = v.right
+            if v.left:
+                child = v.left
+            if v.parent is None:  # v is the root.
+                self.root = child
+            else:  # v has a parent, so it is not the root.
+                if v.is_left_child():
+                    v.parent.left = child
+                else:
+                    v.parent.right = child
 
+            # child is None iff v.right and v.left are None.
+            if child:
+                child.parent = v.parent
+                
+        def __delete__two_children(v: BSTNode):
+            """Call by __delete when a node has two children."""
+             # Replace v with its successor s.
+            self._switch(v, self.successor(v))
+            # Recursively calls the function that should have called this function.
+            # This is done because v is now in a new position,
+            # where it simply has at most one right subtree.
+            self.__delete(v)
+        
         if u.has_two_children():
-            self.__delete__two_children(u)
-        else:  # Note that  u could also not have any child.
-            self.__delete__at_most_one_child(u)
-
+            __delete__two_children(u)
+        else:  # u has at most one child
+            __delete__at_most_one_child(u)
         u.right = u.left = u.parent = None
         return u
 
-    def __delete__at_most_one_child(self, u: BSTNode):
-        """Removes u from the tree, when u has at most one child.
-        This means that u could have 0 or 1 child."""
-        child = u.right
-        if u.left is not None:
-            child = u.left
+    def _switch(self, x: BSTNode, y: BSTNode, search_first=False):
+        if not x:
+            raise ValueError("x cannot be None.")
+        if not y:
+            raise ValueError("y cannot be None.")
+        if x == y:
+            raise ValueError("x cannot be equal to y")
 
-        if u.parent is None:  # u is the root.
-            self.root = child
-        else:  # u has a parent, so it is not the root.
-            if u.is_left_child():
-                u.parent.left = child
+        if search_first:
+            if not self.search(x.key) or not self.search(y.key):
+                raise LookupError("x or y not found.")
+        
+        def switch_1(p, s):
+            """Switches the roles of p and s,
+            where p (parent) is the direct parent of s (son)."""
+            assert s.parent == p
+            
+            if s.is_left_child():
+                p.left = s.left
+                if s.left:
+                    s.left.parent = p
+            
+                s.left = p
+                
+                s.right, p.right = p.right, s.right
+                if s.right:
+                    s.right.parent = s
+                if p.right:
+                    p.right.parent = p
             else:
-                u.parent.right = child
+                p.right = s.right
+                if s.right:
+                    s.right.parent = p
+                    
+                s.right = p
 
-        # child is None iff u.right and u.left are None.
-        if child is not None:
-            child.parent = u.parent
+                s.left, p.left = p.left, s.left
+                if s.left:
+                    s.left.parent = s
+                if p.left:
+                    p.left.parent = p
+            
+            if p.parent:
+                if p.is_left_child():
+                    p.parent.left = s 
+                else:
+                    p.parent.right = s
+            else:  # p is the root
+                self.root = s
+                
+            s.parent = p.parent
+            p.parent = s
 
-    def __delete__two_children(self, u: BSTNode):
-        """Call by __delete when a node has two children."""
-         # Replace u with its successor s.
-        self.__replace(u, self.successor(u))
-        # Recursively calls the function that should have called this function.
-        # This is done because u is now in a new position,
-        # where it simply has at most one right subtree.
-        self.__delete(u)
+        def switch_2(u, v):
+            """u and v are nodes in the tree
+            that are not related by a parent-son
+            or a grandparent-son relantionships."""
+            assert u.parent != v and v.parent != u
+            
+            if not u.parent:
+                self.root = v
+                if v.is_left_child():
+                    v.parent.left = u
+                else:
+                    v.parent.right = u
+            elif not v.parent:
+                self.root = u
+                if u.is_left_child():
+                    u.parent.left = v
+                else:
+                    u.parent.right = v
+            else:  # neither u nor v is the root                
+                if u.is_left_child():
+                    if v.is_left_child():                   
+                        v.parent.left, u.parent.left = u, v
+                    else:
+                        v.parent.right, u.parent.left = u, v
+                else:
+                    if v.is_left_child():                   
+                        v.parent.left, u.parent.right = u, v
+                    else:
+                        v.parent.right, u.parent.right = u, v                    
+                    
+            v.parent, u.parent = u.parent, v.parent
+            u.left, v.left = v.left, u.left
+            u.right, v.right = v.right, u.right
 
-    def __replace(self, u: BSTNode, s: BSTNode):
-        # TODO: Check if this function would switch u and s correctly in all cases of u and s...
-        """Switches the roles and positions of u nad s,
-        which must be the successor of u.
-        s, the u's successor, can either be u's right child or
-        it could also be the minimum of the left subtree
-        of u's right child, in case u's right child has a left subtree.
-
-        Note that this function assumes that
-        the successor of u is in its right subtree!"""
-
-        sp = s.parent  # sp=s's initial parent
-        src = s.right  # src=s's right child
-
-        # SET NEW PARENT OF THE SUCCESSOR
-        # Set s's new parent to be u's parent.
-        s.parent = u.parent
-
-        # u is not the root iff u's parent is not None.
-        if u.parent is not None:
-            # If u is the left child, then u.parent's left child becomes s.
-            if u.is_left_child():
-                u.parent.left = s
-            else:  # u.parent's right child becomes s.
-                u.parent.right = s
-        else:  # u.parent is None, then u was the root.
-            self.root = s  # No need to set self.root.parent to None!
-
-        # SET NEW LEFT CHILD OF THE SUCCESSOR
-        # Set s's left child to be u's left child.
-        s.left = u.left
-
-        # If u has a left child y, make y's parent be s.
-        if u.left is not None:
-            u.left.parent = s
-
-        # SET NEW THE RIGHT CHILD OF THE SUCCESSOR
-        # If s is not the right child of u.
-        if s != u.right:
-            # Note that we have stored the previous s's right child in src.
-            s.right = u.right
-            u.right.parent = s  # Note that u.right cannot be None.
-        else:  # u.right == s
-            s.right = u
-
-        # SET THE NEW PARENT OF u
-        # If the previous s's parent is not u,
-        # that means that s was not the right child of u.
-        if sp != u:
-            # Set u's parent to be the initial s's parent.
-            u.parent = sp
-            # Note that since s was not the right child of u,
-            # then s was the minimum of u's initial left subtree,
-            # and therefore s couldn't have a left subtree.
-            # and s was indeed the left child of its parent.
-            sp.left = u
-        else:  # u was the parent of s.
-            u.parent = s
-
-        # SET THE NEW RIGHT SUBTREE OF u
-        # The previous s's right subtree becomes the new u's right subtree.
-        u.right = src
-
-        # If s's initial right child src was not None,
-        # then set the new parent of src to be u.
-        if src is not None:
-            src.parent = u
-
-        # SET THE NEW LEFT SUBTREE OF u
-        # Since s was the successor,
-        # then it had to left subtree or child,
-        # and thus also u, in its new position (the previous s's position),
-        # cannot have a left child or subtree too.
-        u.left = None
+            if u.left:
+                u.left.parent = u
+            if u.right:
+                u.right.parent = u
+            if v.left:
+                v.left.parent = v
+            if v.right:
+                v.right.parent = v
+        
+        if x.parent == y:
+            switch_1(y, x)            
+        elif y.parent == x:
+            switch_1(x, y)
+        else:
+            switch_2(x, y)
 
     def show(self):
         """Calls self.__str__()"""
         print(self)
 
     def __str__(self):
-        """Source:
-        http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/readings/binary-search-trees/bst.py"""
         if self.root is None:
-            return 'Nothing to print: tree is empty.'
-
-        def recurse(node):
-            """Pretty-prints this BST object."""
-            if node is None:
-                return [], 0, 0
-
-            fill = "_"
-
-            left_lines, left_pos, left_width = recurse(node.left)
-            right_lines, right_pos, right_width = recurse(node.right)
-            middle = max(right_pos + left_width - left_pos + 1, len(node.label), 2)
-            pos = left_pos + middle // 2
-            width = left_pos + middle + right_width - right_pos
-
-            while len(left_lines) < len(right_lines):
-                left_lines.append(' ' * left_width)
-
-            while len(right_lines) < len(left_lines):
-                right_lines.append(' ' * right_width)
-
-            if (middle - len(node.label)) % 2 == 1 and node.parent is not None and \
-               node is node.parent.left and len(node.label) < middle:
-                node.label += fill
-
-            node.label = node.label.center(middle, fill)
-
-            if node.label[0] == fill:
-                node.label = ' ' + node.label[1:]
-
-            if node.label[-1] == fill:
-                node.label = node.label[:-1] + ' '
-
-            lines = [' ' * left_pos + node.label + ' ' * (right_width - right_pos),
-                     ' ' * left_pos + '/' + ' ' * (middle - 2) +
-                     '\\' + ' ' * (right_width - right_pos)] + \
-                [left_line + ' ' * (width - left_width - right_width) +
-
-                 right_line
-
-                 for left_line, right_line in zip(left_lines, right_lines)]
-            return lines, pos, width
-        return '\n'.join(recurse(self.root)[0]) + "\n"
+            return 'NOTHING TO PRINT: TREE IS EMPTY!'
+        return '\n'.join(BSTPrinter.print_1(self.root)[0]) + "\n"
 
     def __repr__(self):
         return self.__str__()
+
+
+class BSTPrinter:
+    """Based on: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/readings/binary-search-trees/bst.py"""
+
+    @staticmethod
+    def print_1(node):
+        """Pretty-prints this BST object."""
+        if node is None:
+            return [], 0, 0
+
+        fill = "_"
+
+        left_lines, left_pos, left_width = BSTPrinter.print_1(node.left)
+        right_lines, right_pos, right_width = BSTPrinter.print_1(node.right)
+        middle = max(right_pos + left_width - left_pos + 1, len(node.label), 2)
+        pos = left_pos + middle // 2
+        width = left_pos + middle + right_width - right_pos
+
+        while len(left_lines) < len(right_lines):
+            left_lines.append(' ' * left_width)
+
+        while len(right_lines) < len(left_lines):
+            right_lines.append(' ' * right_width)
+
+        if (middle - len(node.label)) % 2 == 1 and node.parent is not None and \
+           node is node.parent.left and len(node.label) < middle:
+            node.label += fill
+
+        node.label = node.label.center(middle, fill)
+
+        if node.label[0] == fill:
+            node.label = ' ' + node.label[1:]
+
+        if node.label[-1] == fill:
+            node.label = node.label[:-1] + ' '
+
+        lines = [' ' * left_pos + node.label + ' ' * (right_width - right_pos),
+                 ' ' * left_pos + '/' + ' ' * (middle - 2) +
+                 '\\' + ' ' * (right_width - right_pos)] + \
+            [left_line + ' ' * (width - left_width - right_width) +
+
+             right_line
+
+             for left_line, right_line in zip(left_lines, right_lines)]
+        return lines, pos, width
 
 
 # TESTS
@@ -932,16 +954,19 @@ def assert_consistencies(bst):
 def test_empty(b):
     assert not b.root
     assert b.size() == b.n == 0
+    print("test_empty finished.")
 
 def test_empty_size():
     b = BST()
     test_empty(b)
     assert bst_invariant(b)
+    print("test_empty_size finished.")
 
 def test_empty_contains():
     b = BST()
     for i in range(-10, 11):
         assert not b.contains(i)
+    print("test_empty_contains finished.")
 
 def test_one_size():
     b = BST()
@@ -949,6 +974,7 @@ def test_one_size():
     assert b.size() == b.n == b.root.count() == 1
     assert bst_invariant(b)
     assert_consistencies(b)
+    print("test_one_size finished.")
 
 def test_one_contains():
     b = BST()
@@ -956,6 +982,7 @@ def test_one_contains():
     for i in range(-10, 11):
         assert not b.contains(i)
     assert b.contains(12)
+    print("test_one_contains finished.")
 
 def test_many_size():
     b = BST()
@@ -966,6 +993,7 @@ def test_many_size():
         assert size == b.size() == b.n == b.root.count()
         assert bst_invariant(b)
         assert_consistencies(b)
+    print("test_many_size finished.")
 
 def test_many_contains():
     b = BST()
@@ -973,6 +1001,7 @@ def test_many_contains():
         b.insert(i)
     for i in range(-10, 11):
         assert b.contains(i)
+    print("test_many_contains finished.")
 
 def test_structure_many():
     b = BST()
@@ -990,6 +1019,7 @@ def test_structure_many():
     assert 11 == b.size() == b.n == b.root.count()
     assert bst_invariant(b)
     assert_consistencies(b)
+    print("test_structure_many finished.")
     
 def test_delete_not_found():
     b = BST()
@@ -998,6 +1028,7 @@ def test_delete_not_found():
         raise Exception("test_delete_not_found not passed")
     except LookupError as e:
         pass
+    print("test_delete_not_found finished.")
 
 def test_delete_one_size():
     b = BST()
@@ -1006,6 +1037,7 @@ def test_delete_one_size():
     assert not b.contains(12)
     test_empty(b)
     assert bst_invariant(b)
+    print("test_delete_one_size finished.")
 
 def test_multiple_remove1():
     b = BST()
@@ -1019,6 +1051,7 @@ def test_multiple_remove1():
     assert b.size() == b.n == b.root.count() == 7
     assert bst_invariant(b)
     assert_consistencies(b)
+    print("test_multiple_remove1 finished.")
 
 def test_multiple_remove2():
     b = BST()
@@ -1035,6 +1068,7 @@ def test_multiple_remove2():
     assert b.size() == b.n == b.root.count() == 8
     assert bst_invariant(b)
     assert_consistencies(b)
+    print("test_multiple_remove2 finished.")
 
 def test_multiple_remove3():
     b = BST()
@@ -1058,6 +1092,7 @@ def test_multiple_remove3():
     assert b.size() == b.n == b.root.count() == 7
     assert bst_invariant(b)
     assert_consistencies(b)
+    print("test_multiple_remove3 finished.")
 
 def test_search():
     b = BST()
@@ -1067,7 +1102,7 @@ def test_search():
     try:
         b.search(None)
         raise Exception("test_search failed")
-    except TypeError:
+    except ValueError:
         pass
     assert not b.search(12)
     assert b.search(5)
@@ -1081,6 +1116,7 @@ def test_search():
     assert b.size() == b.n == b.root.count() == 2
     assert bst_invariant(b)
     assert_consistencies(b)
+    print("test_search finished.")
     
 def test_remove_min_and_max():
     b = BST()
@@ -1101,6 +1137,7 @@ def test_remove_min_and_max():
     assert b.size() == b.n == b.root.count() == 1
     assert bst_invariant(b)
     assert_consistencies(b)
+    print("test_remove_min_and_max finished.")
 
 def test_predecessor_and_successor():
     b = BST()
@@ -1117,13 +1154,14 @@ def test_predecessor_and_successor():
         raise Exception("test_predecessor_and_successor failed")
     except LookupError as e:
         pass
+    print("test_predecessor_and_successor finished.")
 
 def test_rank():
     b = BST()
     try:
         b.rank(None)
         raise Exception("test_rank failed.")
-    except TypeError:
+    except ValueError:
         pass
     try:
          b.rank(12)
@@ -1139,9 +1177,119 @@ def test_rank():
     assert b.rank(12) == 2
     assert b.rank(7) == 0
     assert b.rank(28) == 4
+    print("test_rank finished.")
+
+def test_switch():
+    b = BST()
+    b.tail_insert(12)
+    b.tail_insert(20)
+    b.tail_insert(28)
+    b.tail_insert(8)
+    b.tail_insert(16)
+    b.tail_insert(10)
+    b.tail_insert(4)
+    b.tail_insert(2)
+    b.tail_insert(5)
+    b.tail_insert(9)
+    b.tail_insert(11)
+    b.tail_insert(14)
+    b.tail_insert(18)
+    b.tail_insert(22)
+    b.tail_insert(30)
+
+    def asserts():
+        print("\nroot =", b.root, end="\n\n")
+        print(b)
+        bst_invariant(b)
+        assert_consistencies(b)
+
+    try:
+        b._switch(b.search(12), b.search(12))
+    except ValueError as e:
+        print(e)
+    try:
+        b._switch(b.search(12), None)
+    except ValueError as e:
+        print(e)
+
+    try:
+        b._switch(b.search(12), BSTNode(100), search_first=True)
+    except LookupError as e:
+        print(e)
+
+    asserts()
+
+    b._switch(b.search(8), b.search(12))
+    assert b.root == b.search(8)
+    assert not b.root.parent    
+    b._switch(b.search(8), b.search(8).left)
+    asserts()
+
+    b._switch(b.search(20), b.search(12))
+    assert b.root == b.search(20)
+    assert not b.root.parent    
+    b._switch(b.search(20), b.search(20).right)
+    asserts()
+    
+    b._switch(b.search(4), b.search(10))
+    assert b.root == b.search(12)
+    #print(b)
+    b._switch(b.search(8).left, b.search(8).right)
+    asserts()
+
+    b._switch(b.search(8), b.search(20))
+    assert b.root == b.search(12)
+    #print(b)
+    b._switch(b.search(12).left, b.search(12).right)
+    asserts()
+    
+    b._switch(b.search(8), b.search(28))
+    assert b.root == b.search(12)
+    #print(b)
+    b._switch(b.search(12).left, b.search(20).right)
+    asserts()
+
+    b._switch(b.search(8), b.search(14))
+    assert b.root == b.search(12)
+    #print(b)
+    b._switch(b.search(12).left, b.search(12).right.left.left)
+    asserts()
+    
+    b._switch(b.search(2), b.search(28))
+    assert b.root == b.search(12)
+    #print(b)
+    b._switch(b.search(12).left.left.left, b.search(12).right.right)
+    asserts()
+    assert b.search(2).left is None
+    assert b.search(2).right is None
+    assert b.search(28).left == b.search(22)
+    assert b.search(28).right == b.search(30)
+
+    b._switch(b.search(8), b.search(5))
+    assert b.root == b.search(12)
+    #print(b)
+    b._switch(b.search(12).left, b.search(12).left.left.right)
+    asserts()
+
+    b._switch(b.search(8), b.search(2))
+    assert b.root == b.search(12)
+    #print(b)
+    b._switch(b.search(12).left, b.search(12).left.left.left)
+    assert not b.search(12).left.left.left.left
+    assert not b.search(12).left.left.left.right
+    assert b.search(12).left.left.left.parent == b.search(12).left.left
+    #asserts()
+
+    b._switch(b.search(12), b.search(10))
+    assert b.root == b.search(10)
+    assert not b.root.parent
+    #print(b)
+    b._switch(b.search(10), b.search(10).left.right)
+    asserts()
+    print("test_switch finished.")
 
 
-if __name__ == "__main__":
+def run_tests():
     test_empty_size()
     test_empty_contains()
     test_one_size()
@@ -1157,3 +1305,8 @@ if __name__ == "__main__":
     test_remove_min_and_max()
     test_predecessor_and_successor()
     test_rank()
+    test_switch()
+
+
+if __name__ == "__main__":
+    run_tests()

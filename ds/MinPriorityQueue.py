@@ -9,7 +9,7 @@ Contains an implementation of a min priority queue using a min heap.
 """
 
 import sys
-from ands.ds.MinHeap import *
+from MinHeap import *
 
 
 class MinPriorityQueue(MinHeap):

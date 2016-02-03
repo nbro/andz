@@ -31,7 +31,7 @@ class BSTNode(BaseNode):
 
     @property
     def sibling(self):
-        """Returns the sibling BSTNode object of this node."""
+        """Returns the sibling node of this node."""
         if self.parent is not None:
             if self.is_left_child():
                 return self.parent.right
@@ -47,24 +47,14 @@ class BSTNode(BaseNode):
     @property
     def uncle(self):
         """Returns the uncle node of this node.
-        The uncle is the sibling of the parent of this node, if it exists."""
-
+        The uncle is the sibling of the parent of this node,
+        if it exists. None is returned if it doesn't exist,
+        or the parent or grandparent of this node is None."""
         if self.grandparent is not None:  # implies that also parent is not None
-            # if the parent of this node is the left child of the grandparent
-            if self.grandparent.left is None and self.parent == self.grandparent.right:
-                return self.grandparent.left  # return None
-
-            elif self.grandparent.right is None and self.parent == self.grandparent.left:
-                return self.grandparent.right  # return None
-
-            elif self.parent == self.grandparent.left:
+            if self.parent == self.grandparent.left:
                 return self.grandparent.right
-
-            elif self.parent == self.grandparent.right:
+            else:  # self.parent == self.grandparent.right:
                 return self.grandparent.left
-
-            else:
-                raise Exception("Fatal error determining the uncle node.")
 
     def reset(self):
         self.parent = None

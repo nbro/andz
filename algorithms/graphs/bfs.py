@@ -14,9 +14,10 @@ of the graph in "Graph.py" that you can find under the folder "ds".
 The implementation is based on an adjacency list representation of graphs.
 """
 
-from ands.ds.Graph import *
-from ands.ds.BFSQueue import *
+from ...ds.Graph import *
+from ...ds.BFSQueue import *
 from build_shortest_path import *
+import __init__
 
 
 def bfs(g: Graph, s: GraphNode):
@@ -71,7 +72,7 @@ def bfs(g: Graph, s: GraphNode):
         n.color = BLACK  # mark "n" as completely explored
 
 
-def find_shortest_path(g, source, destination) -> list:
+def find_shortest_path(g: Graph, source: GraphNode, destination: GraphNode) -> list:
     """Find the shortest path from source to destination.
     Note that you don't need to call bfs,
     since it is called automatically by this function.
@@ -81,12 +82,7 @@ def find_shortest_path(g, source, destination) -> list:
     of the just found shortest path.
 
     This function returns an empty list,
-    if there's not path from "source" to "destination".
-
-    :type g : Graph
-    :type destination : GraphNode
-    :type source : GraphNode
-    """
+    if there's not path from "source" to "destination"."""
 
     # if "destination" is not in the graph,
     # it does not make sense to continue the procedure
