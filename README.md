@@ -24,7 +24,7 @@ You will also find some algorithms related to some particular _design paradigm_,
 
 ## How to Use
 
-Download this repository. Open a terminal, and enter inside the `ands` folder. For example, `ands` is in your desktop, type:
+Download this repository. Open a terminal, and enter inside the `ands` folder. For example, if `ands` is in your desktop, type:
 
     cd ands
 
