@@ -18,73 +18,49 @@ Any suggestions to improve the code, or the design of an algorithm or data struc
 
 ## Structure
 
-In this repository, you will find data structures, 
-such as _binary-search trees_ or _graphs_, and _algorithms_ that often work on those data structures. 
+In this repository, you will find data structures, such as _binary-search trees_ or _graphs_, and _algorithms_ that often work on (those) data structures. 
 You will also find some algorithms related to some particular _design paradigm_, for example algorithms related to the _greedy_ or _dynamic programming_ design paradigms.
 
-## Warnings
 
-I have tried to make runnable from the **`IDLE`** all scripts from everywhere (i.e. from the folder they are situated), so that you don't need to move files, etc. In case you have some import errors, because either you are not running the scripts from the `IDLE` (but for example from another IDE or from the terminal) or because you are using a different version of Python than `3.5`, you should try to fix the imports by yourself, eventually also by appending paths to `sys.path`. If you still have a problem, I encoure you to open an issue.
+## How to Use
 
+Download this repository. Open a terminal, and enter inside the `ands` folder. For example, `ands` is in your desktop, type:
 
-## Dependencies
+    cd ands
 
-- `tabulate` (module)
+Once inside `ands` type
 
-I have decided to use the [`tabulate`](https://pypi.python.org/pypi/tabulate) module because it is a nice way of displaying data (for example, the fields of a graph). It can easily be installed with `pip`, for example
+    python3.5 setup.py install
+    
+You might want to install this package in a virtualenv in order not to pollute your Python's distribution. See for example the following tutorials and posts on how to setup a virtualenv:
 
-    pip3.5 install tabulate
+- [http://docs.python-guide.org/en/latest/dev/virtualenvs/](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+
+- [http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial](http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial)
+
 
 ## References
 
 The main references that I have used are:
 
-- _Introduction to Algorithms_ (3rd ed.)
-by Cormen, Leiserson, Rivest, Stein
+- [_Introduction to Algorithms_ (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms), book by Cormen, Leiserson, Rivest, Stein
 
-- Slides provided by the professor of the course Algorithms and Data Structures, i.e. Antonio Carzaniga
+- Slides provided by the professor of the course Algorithms and Data Structures, i.e. [Antonio Carzaniga](http://www.inf.usi.ch/carzaniga/)
 
-- Wikipedia
+- [Wikipedia](https://www.wikipedia.org/)
 
-- Stack Overflow
+- [Stack Overflow](http://stackoverflow.com/)
+
+- [MIT 6.006 Introduction to Algorithms, Fall 2011](https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
 
 
 
 ## TODO
 
-Algorithms, data structures and tools I would like to include in this project. Some might be missing. 
-
-### Data Structures
-
-|                 Name                | State     | Comments                                                        |
-|:-----------------------------------:|-----------|-----------------------------------------------------------------|
-| Adjacency matrix representation of a graph | S  | Convert all current algorithms that work with the adjacent list |
-| Max Heap                            | F |                                                                 |
-| Red-Black Tree                      | F |                                                                 |
-| AVL Tree                            | S  |                                                                 |
-| Splay tree                          | S  |                                                                 |
-| TST                                 | F |                                                                 |
-| B-Tree                              | S  |                                                                 |
-| Radix-Tree                          | S  | What's the difference between Trie or Radix-Trie?               |
-| Trie                                | S  | What's the difference between Radix-Tree or Radix-Trie?         |
-| Hash-Table                          | F |                                                                 |
-| Min-Max heap                        | S  |                                                                 |
-| Double-Ended Priority Queue         | S  | This might be implemented using a min-max heap.                 |
+See `README.md` files of subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds).
 
 
-Where `F` indicates that the data structure needs to be finished and `S` indicates that nothing has been done yet.
-### Algorithms
-
-|                Name                | State | Comments                                                                                                                                                                                                                              |
-|:----------------------------------:|-------|--------------------------------------------------------------------------------------                                                                                                                                                                                       |
-| Pseudo-Random generator            | S     |                                                                                                                                                                                                       |
-| Hamming code                       | S     |                                                                                                                                                                                                       |
-| CNF to DNF                         | S     |                                                                                                                                                                                                       |
-
-
-There are many other algorithms I hope to implement in a near future. You can find those lists in each `README.md` file of each section under [`algorithms`](algorithms). What I would also like to include are some _linear programming_ algorithms.
-
-### Other
+## Future
 
 I would like to create a simple simulation of two kinds of networks: one that uses the link-state routing protocol and the other that uses the distance-vector routing protocol.
 
