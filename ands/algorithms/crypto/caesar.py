@@ -5,7 +5,7 @@
 Author: Nelson Brochado
 
 Caesar cipher that accepts messages of characters
-whose value returned by the ord() function is between 0 and 2**16 - 1.
+whose value returned by the `ord` function is between 0 and 2**16 - 1.
 Caeser cipher is far from being a good cryptographic algorithm,
 so, in general, you should prefer other algorithms.
 """
@@ -37,12 +37,12 @@ def multi_encrypt(m, keys):
         k = random.choice(keys)
         pattern.append(k)
         cipher.append(move_char(c, k))
-
+        
     return "".join(cipher), pattern
 
 def multi_decrypt(cipher, pattern):
-    """len(pattern) == len(keys),
-    where keys are the keys passed to multi_encrypt."""
+    """`len(pattern) == len(keys)`,
+    where `keys` are the keys passed to `multi_encrypt`."""
     return "".join(move_char(cipher[i], -k) for i, k in enumerate(pattern))
 
 def gen_rand_message(size):
@@ -52,7 +52,7 @@ def find_max(m):
     return max(ord(c) for c in m)
 
 
-# Using sys.maxunicode causes some problems with encondings
+# Using `sys.maxunicode` causes some problems with encondings
 # i.e. an error is thrown because Tcl/Tk do not support certain characters
 MAX = 2**16 - 1
 

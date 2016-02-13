@@ -9,8 +9,8 @@ Base class for all kind of nodes,
 assuming they have a key and a value.
 """
 
-
-class BaseNode:
+# Inheriting explicitly from object so that properties' setters work
+class BaseNode(object):
 
     """Base class for all kind of nodes,
     assuming they have a key and a value."""

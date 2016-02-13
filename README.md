@@ -38,6 +38,24 @@ You might want to install this package in a virtualenv in order not to pollute y
 
 - [http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial](http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial)
 
+If you want to install the module in _editable_ module in a virtualenv, you can do:
+
+    pip3.5 install -e .
+
+### How to Produce the Documentation
+
+Install `pdoc`. If you have still don't have a terminal opened, open it, and then move inside the `ands` repository, and type the following command:
+
+    pdoc --html --html-dir docs ands
+
+which should create a folder called `ands` inside the already existent folder `docs`.
+
+### Run Tests
+
+For now, you can run all modules as _main_ by running the script [`main.py`](ands/main.py). But to do that, you need first to have installed the module. Then simply do
+
+    ./main.py
+
 
 ## References
 

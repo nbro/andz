@@ -17,6 +17,7 @@
 | Hash-Table                          | F |                                                                 |
 | Min-Max heap                        | S  |                                                                 |
 | Double-Ended Priority Queue         | S  | This might be implemented using a min-max heap.                 |
-
+| Skip list | S | |
+| Treap | S | | 
 
 Where `F` indicates that the data structure needs to be finished and `S` indicates that nothing has been done yet.

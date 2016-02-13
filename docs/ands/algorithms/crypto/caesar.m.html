@@ -1012,7 +1012,7 @@ table {
   <h1 class="title"><span class="name">ands.algorithms.crypto.caesar</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Caesar cipher that accepts messages of characters
-whose value returned by the ord() function is between 0 and 2**16 - 1.
+whose value returned by the <code>ord</code> function is between 0 and 2**16 - 1.
 Caeser cipher is far from being a good cryptographic algorithm,
 so, in general, you should prefer other algorithms.</p>
   
@@ -1025,7 +1025,7 @@ so, in general, you should prefer other algorithms.</p>
 Author: Nelson Brochado
 
 Caesar cipher that accepts messages of characters
-whose value returned by the ord() function is between 0 and 2**16 - 1.
+whose value returned by the `ord` function is between 0 and 2**16 - 1.
 Caeser cipher is far from being a good cryptographic algorithm,
 so, in general, you should prefer other algorithms.
 """
@@ -1057,12 +1057,12 @@ def multi_encrypt(m, keys):
         k = random.choice(keys)
         pattern.append(k)
         cipher.append(move_char(c, k))
-
+        
     return "".join(cipher), pattern
 
 def multi_decrypt(cipher, pattern):
-    """len(pattern) == len(keys),
-    where keys are the keys passed to multi_encrypt."""
+    """`len(pattern) == len(keys)`,
+    where `keys` are the keys passed to `multi_encrypt`."""
     return "".join(move_char(cipher[i], -k) for i, k in enumerate(pattern))
 
 def gen_rand_message(size):
@@ -1072,7 +1072,7 @@ def find_max(m):
     return max(ord(c) for c in m)
 
 
-# Using sys.maxunicode causes some problems with encondings
+# Using `sys.maxunicode` causes some problems with encondings
 # i.e. an error is thrown because Tcl/Tk do not support certain characters
 MAX = 2**16 - 1
 
@@ -1285,14 +1285,14 @@ if __name__ == "__main__":
 
     
   
-    <div class="desc"><p>len(pattern) == len(keys),
-where keys are the keys passed to multi_encrypt.</p></div>
+    <div class="desc"><p><code>len(pattern) == len(keys)</code>,
+where <code>keys</code> are the keys passed to <code>multi_encrypt</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.crypto.caesar.multi_decrypt', this);">Show source &equiv;</a></p>
   <div id="source-ands.algorithms.crypto.caesar.multi_decrypt" class="source">
     <pre><code>def multi_decrypt(cipher, pattern):
-    """len(pattern) == len(keys),
-    where keys are the keys passed to multi_encrypt."""
+    """`len(pattern) == len(keys)`,
+    where `keys` are the keys passed to `multi_encrypt`."""
     return "".join(move_char(cipher[i], -k) for i, k in enumerate(pattern))
 </code></pre>
   </div>
@@ -1326,7 +1326,7 @@ The random pattern is the second item of the tuple returned.</p></div>
         k = random.choice(keys)
         pattern.append(k)
         cipher.append(move_char(c, k))
-
+        
     return "".join(cipher), pattern
 </code></pre>
   </div>

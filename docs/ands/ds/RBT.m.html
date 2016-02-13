@@ -8,7 +8,7 @@
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 13/02/16
 
 Contains the class RBT for rep..." />
 
@@ -976,6 +976,19 @@ table {
     <h1>Index</h1>
     <ul id="index">
 
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.ds.RBT.assert_prop_1">assert_prop_1</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.assert_prop_2">assert_prop_2</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.assert_prop_3">assert_prop_3</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.assert_prop_4">assert_prop_4</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.assert_prop_5">assert_prop_5</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.assert_rbt_props">assert_rbt_props</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.assert_upper_bound_bh">assert_upper_bound_bh</a></li>
+  </ul>
+
+    </li>
 
     <li class="set"><h3><a href="#header-classes">Classes</a></h3>
       <ul>
@@ -993,7 +1006,7 @@ table {
     <li class="mono"><a href="#ands.ds.RBT.RBT.insert">insert</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.insert_many">insert_many</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.is_empty">is_empty</a></li>
-    <li class="mono"><a href="#ands.ds.RBT.RBT.is_the_root">is_the_root</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.RBT.is_root">is_root</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.left_rotate">left_rotate</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.maximum">maximum</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.minimum">minimum</a></li>
@@ -1005,14 +1018,12 @@ table {
     <li class="mono"><a href="#ands.ds.RBT.RBT.remove_min">remove_min</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.reverse_in_order_traversal">reverse_in_order_traversal</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.right_rotate">right_rotate</a></li>
-    <li class="mono"><a href="#ands.ds.RBT.RBT.root_insert">root_insert</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.search">search</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.search_i">search_i</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.search_r">search_r</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.show">show</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.size">size</a></li>
     <li class="mono"><a href="#ands.ds.RBT.RBT.successor">successor</a></li>
-    <li class="mono"><a href="#ands.ds.RBT.RBT.tail_insert">tail_insert</a></li>
   </ul>
 
         </li>
@@ -1033,11 +1044,103 @@ table {
   <h1 class="title"><span class="name">ands.ds.RBT</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 05/02/16</p>
+<p>Last update: 13/02/16</p>
 <p>Contains the class RBT for representing red-black trees.</p>
+<h2>Red-black tree property</h2>
+<ol>
+<li>
+<p>Every node is either red or black.</p>
+</li>
+<li>
+<p>The root is black.</p>
+</li>
+<li>
+<p>Every NIL or leaf node is black.</p>
+</li>
+<li>
+<p>If a node is red, then both its children are black,
+in other words, there cannot be two red nodes in a row.</p>
+</li>
+<li>
+<p>For every node x, each path from x to its descendent leaves
+has the same number of black nodes, i.e. bh(x).</p>
+</li>
+</ol>
+<h2>Lemma</h2>
+<p>The height <code>h(x)</code> of a red-black tree with <code>n = size(x)</code> internal nodes
+is at most 2 * log<sub>2</sub>(n + 1), that is, h(x) &lt;= 2 * log<sub>2</sub>(n + 1),
+which is equivalent to h(x)/2 &lt;= log<sub>2</sub>(n + 1), which is equivalent to
+n &gt;= 2<sup>h(x)/2</sup> - 1. If you don't understand exactly why this last statements
+are equivalent, then do the reversed reasoning:</p>
+<ul>
+<li>
+<p>n &gt;= 2<sup>h(x)/2</sup> - 1</p>
+</li>
+<li>
+<p>n + 1 &gt;= 2<sup>h(x)/2</sup></p>
+</li>
+</ul>
+<p>Now we log both parts</p>
+<ul>
+<li>
+<p>log<sub>2</sub>(n + 1) &gt;= log<sub>2</sub>(2<sup>h(x)/2</sup>)</p>
+</li>
+<li>
+<p>log<sub>2</sub>(n + 1) &gt;= h(x)/2 * log<sub>2</sub>(2)</p>
+</li>
+<li>
+<p>log<sub>2</sub>(n + 1) &gt;= h(x)/2 * 1</p>
+</li>
+<li>
+<p>2 * log<sub>2</sub>(n + 1) &gt;= h(x)</p>
+</li>
+</ul>
+<h3>Proof</h3>
+<ol>
+<li>
+<p>Prove that for all <code>x</code>, size(x) &gt;= 2<sup>bh(x)</sup> - 1 by induction.</p>
+<p>1.1. <strong>Base case</strong>: <code>x</code> is a leaf, so <code>size(x) = 0</code> and <code>bh(x) = 0</code>.</p>
+<p>1.2. <strong>Induction step</strong>: consider y<sub>1</sub>, y<sub>2</sub>,
+and <code>x</code> such that y<sub>1</sub>.parent = y<sub>2</sub>.parent = x,
+and assume (induction) that size(y<sub>1</sub>) &gt;= 2<sup>bh(y<sub>1</sub>)</sup> - 1
+and size(y<sub>2</sub>) &gt;= 2<sup>bh(y<sub>2</sub>)</sup> - 1.
+Prove that size(x) &gt;= 2<sup>bh(x)</sup> - 1.</p>
+<p><strong>Proof</strong>:</p>
+<p>size(x) = size(y<sub>1</sub>) + size(y<sub>2</sub>) + 1 &gt;= (2<sup>bh(y<sub>1</sub>)</sup> - 1)
++ (2<sup>bh(y<sub>2</sub>)</sup> - 1) + 1</p>
+<p>Since bh(x) = {</p>
+<pre><code>bh(y), if color(y) = red
+
+bh(y) + 1, if color(y) = black
+</code></pre>
+<p>}</p>
+<p>size(x) &gt;= (2<sup>bh(x) - 1</sup> - 1) + (2<sup>bh(x) - 1</sup> - 1) + 1
+= (2<sup>bh(x)</sup> - 1).</p>
+<p>Since every red node has black children,
+in every path from <code>x</code> to a leaf node,
+at least half the nodes are black, thus bh(x) &gt;= h(x)/2.
+So, n = size(x) &gt;= 2<sup>h(x)/2</sup> - 1. Therefore
+h(x) &lt;= 2 * log<sub>2</sub>(n + 1).</p>
+<p>A red-black tree works as a binary-search tree for search,
+insert, etc, so the complexity of those operations is T(n) = O(h),
+that is T(n) = O(log<sub>2</sub> n), which is also the worst case complexity.</p>
+</li>
+</ol>
 <h2>TODO</h2>
 <ul>
-<li>Implement deletion operation</li>
+<li>Override needed methods inherited from BST.</li>
+</ul>
+<h2>References</h2>
+<ul>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree">Red-black tree</a></p>
+</li>
+<li>
+<p>Slides by prof. A. Carzaniga</p>
+</li>
+<li>
+<p>Chapter 13 of <em>Introduction to Algorithms</em> (3rd ed.) by CLRS</p>
+</li>
 </ul>
   
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT', this);">Show source &equiv;</a></p>
@@ -1050,208 +1153,832 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 13/02/16
 
 Contains the class RBT for representing red-black trees.
 
+## Red-black tree property
+
+1. Every node is either red or black.
+
+2. The root is black.
+
+3. Every NIL or leaf node is black.
+
+4. If a node is red, then both its children are black,
+in other words, there cannot be two red nodes in a row.
+
+5. For every node x, each path from x to its descendent leaves
+has the same number of black nodes, i.e. bh(x).
+
+## Lemma
+
+The height `h(x)` of a red-black tree with `n = size(x)` internal nodes
+is at most 2 * log<sub>2</sub>(n + 1), that is, h(x) <= 2 * log<sub>2</sub>(n + 1),
+which is equivalent to h(x)/2 <= log<sub>2</sub>(n + 1), which is equivalent to
+n >= 2<sup>h(x)/2</sup> - 1. If you don't understand exactly why this last statements
+are equivalent, then do the reversed reasoning:
+
+* n >= 2<sup>h(x)/2</sup> - 1
+
+* n + 1 >= 2<sup>h(x)/2</sup>
+
+Now we log both parts
+
+* log<sub>2</sub>(n + 1) >= log<sub>2</sub>(2<sup>h(x)/2</sup>)
+
+* log<sub>2</sub>(n + 1) >= h(x)/2 * log<sub>2</sub>(2)
+
+* log<sub>2</sub>(n + 1) >= h(x)/2 * 1
+
+* 2 * log<sub>2</sub>(n + 1) >= h(x)
+
+
+### Proof
+
+1. Prove that for all `x`, size(x) >= 2<sup>bh(x)</sup> - 1 by induction.
+
+    1.1. **Base case**: `x` is a leaf, so `size(x) = 0` and `bh(x) = 0`.
+
+    1.2. **Induction step**: consider y<sub>1</sub>, y<sub>2</sub>,
+    and `x` such that y<sub>1</sub>.parent = y<sub>2</sub>.parent = x,
+    and assume (induction) that size(y<sub>1</sub>) >= 2<sup>bh(y<sub>1</sub>)</sup> - 1
+    and size(y<sub>2</sub>) >= 2<sup>bh(y<sub>2</sub>)</sup> - 1.
+    Prove that size(x) >= 2<sup>bh(x)</sup> - 1.
+
+    **Proof**:
+
+    size(x) = size(y<sub>1</sub>) + size(y<sub>2</sub>) + 1 >= (2<sup>bh(y<sub>1</sub>)</sup> - 1)
+    + (2<sup>bh(y<sub>2</sub>)</sup> - 1) + 1
+
+    Since bh(x) = {
+
+        bh(y), if color(y) = red
+        
+        bh(y) + 1, if color(y) = black
+    }
+    
+    size(x) >= (2<sup>bh(x) - 1</sup> - 1) + (2<sup>bh(x) - 1</sup> - 1) + 1
+    = (2<sup>bh(x)</sup> - 1).
+
+    Since every red node has black children,
+    in every path from `x` to a leaf node,
+    at least half the nodes are black, thus bh(x) >= h(x)/2.
+    So, n = size(x) >= 2<sup>h(x)/2</sup> - 1. Therefore
+    h(x) <= 2 * log<sub>2</sub>(n + 1).
+
+    A red-black tree works as a binary-search tree for search,
+    insert, etc, so the complexity of those operations is T(n) = O(h),
+    that is T(n) = O(log<sub>2</sub> n), which is also the worst case complexity.
+
 ## TODO
-- Implement deletion operation
+- Override needed methods inherited from BST.
+
+## References
+
+- [Red-black tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
+
+- Slides by prof. A. Carzaniga
+
+- Chapter 13 of _Introduction to Algorithms_ (3rd ed.) by CLRS
 """
 
-from ands.ds.BST import BST
+from ands.ds.BST import *
 from ands.ds.RBTNode import RBTNode, RED, BLACK
 
 
-__all__ = ["RBT"]
+__all__ = ["RBT", "assert_prop_1", "assert_prop_2", "assert_prop_3", "assert_prop_4",
+           "assert_prop_5", "assert_upper_bound_bh", "assert_rbt_props"]
 
 
 class RBT(BST):
 
-    def __init__(self, root=None, name=""):
+    def __init__(self, root=None, name="RBT"):
         BST.__init__(self, root, name)
 
-    def insert(self, x, value=None):
-        """Inserts x into self.
+    def insert(self, u, value=None):
+        """Inserts `u` into this `RBT`.
+
+        This operation is similar to the `insert` operation of a classical `BST`,
+        but, in this case, the red-black tree property must be maintained,
+        so addional work is needed.    
 
         There are several cases of inserting into a RBT to handle:
 
-        1. x is the root node (first node).
+        1. `u`  is the root node (first node).
 
-        2. x.parent is BLACK.
+        2. `u.parent` is `BLACK`.
 
-        3. x.parent and the uncle of x are RED.
+        3. `u.parent` and the uncle of `u` are `RED`.
 
-        The uncle of x will be the left child of x.parent.parent,
-        if x.parent is the right child of x.parent.parent,
-        otherwise (x.parent is the left child of x.parent.parent)
-        the uncle will be the right child of x.parent.parent.
+            The uncle of `u` will be the left child of `u.parent.parent`,
+        if `u.parent` is the right child of `u.parent.parent`,
+        otherwise (`u.parent` is the left child of `u.parent.parent`)
+        the uncle will be the right child of `u.parent.parent`.
 
-        4.1. x is added to the right of a left child of x.parent.parent (grandparent)
-        4.2. or x is added to the left of a right child of x.parent.parent.
+        4. u.parent is RED, but u.uncle is BLACK (or None). u.grandparent exists because u.parent is RED.
 
-        5.1. x is added to the right of a right child of x.parent.parent
-        5.2. or x is added to the left of a left child of x.parent.parent."""
+            4.1. `u` is added to the right of a left child of `u.parent.parent` (grandparent)
 
-        if x is None:
-            raise TypeError("x cannot be None.")
+            4.2. or `u` is added to the left of a right child of `u.parent.parent`.
 
-        if not isinstance(x, RBTNode):
-            x = RBTNode(x, value)
+            4.3. `u` is added to the left of a left child of `u.parent.parent`.
+
+            4.4. or `u` is added to the right of a right child of `u.parent.parent`.
+
+        `_fix_insertion` handles these cases in the same order as just presented above.
+
+        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        if u is None:
+            raise ValueError("u cannot be None.")
+
+        if not isinstance(u, RBTNode):
+            u = RBTNode(u, value)
+
+        if u.left or u.right or u.parent:
+            raise ValueError("u cannot have left or right children, or parent.")
 
         c = self.root  # Current node
         p = None  # Current node's parent
 
         while c is not None:
             p = c
-            if x.key < c.key:
+            if u.key < c.key:
                 c = c.left
-            else:  # x.key >= c.key
+            else:  # u.key >= c.key
                 c = c.right
 
-        x.parent = p
+        u.parent = p
 
         # The while loop was not executed even once.
         # Case 1: node is inserted as root.
         if p is None:
-            self.root = x
-        elif p.key > x.key:
-            p.left = x
-        else:  # p.key < x.key:
-            p.right = x
+            self.root = u
+        elif p.key > u.key:
+            p.left = u
+        else:  # p.key < u.key:
+            p.right = u
 
-        x.color = RED
+        u.color = RED
         self.n += 1
+        self._fix_insertion(u)
 
-        self._fix_insertion(x, verbose=True)
-
-    def _fix_insertion(self, u: RBTNode, verbose=False):
-
-        # Case 1: node's parent is None, thus it is the _initialise.
+    def _fix_insertion(self, u: RBTNode):
+        # u is the root and we color it BLACK.
         if u.parent is None:
-            if verbose:
-                print("Case 1: node's parent is None, thus it is the _initialise.")
             u.color = BLACK
 
-        # Case 2: node's parent's color is BLACK.
         elif u.parent.color == BLACK:
-            print(u, u.parent)
-
-            if verbose:
-                print("Case 2: node's parent's color is BLACK.")
             return
-
-        # Case 3: node's parent and node's uncle are RED.
-        elif u.parent.color == RED and u.uncle is not None and u.uncle.color == RED:
-            if verbose:
-                print("Case 3: node's parent and node's uncle are RED.")
-
+        
+        elif u.parent.color == RED and (u.uncle is not None and u.uncle.color == RED):
             u.parent.color = BLACK
             u.uncle.color = BLACK
             u.grandparent.color = RED
-
-            # call recursively _fix_insertion on the grandparent, which has become RED.
             self._fix_insertion(u.grandparent)
 
-        # Case 4: parent is RED, but uncle is BLACK.
-        # Note that the grandparent exists because parent is RED.
-
         elif u.parent.color == RED and (u.uncle is None or u.uncle.color == BLACK):
-
-            if verbose:
-                print("Case 4: parent is RED, but uncle is BLACK (or None).")
-            # rbt_node is added as a right child to a node that is the left child.
-
+            
+            # u is added as a right child to a node that is the left child.
             if u.parent.is_left_child() and u.is_right_child():
-                if verbose:
-                    print("Case 4.1")
-                # left rotation does not violate property:
-                # all paths from any given node to its leaf nodes contain the same number of black nodes
+                
+                # left_rotation does not violate the property:
+                # all paths from any given node to its leaf nodes
+                # contain the same number of black nodes.
                 self.left_rotate(u.parent)
 
                 # With the previous left_rotate call,
-                # rbt_node.parent has become the left child of rbt_node.
-
-                # Now, we can pass to case 5, where we have 2 red nodes in a row,
-                # specifically, rbt_node.parent and rbt_node,
+                # u.parent has become the left child of u,
+                # or, u bas become the parent of what before was u.parent
+                # We can pass to case 5, where we have 2 red nodes in a row,
+                # specifically, u.parent and u,
                 # which are both left children of their parents.
 
-                # Note also that the new node is the previous parent,
-                # and the previous node is the new parent.
-                # So, we are going to call _fix_insertion
-                # on the new node (the previous parent).
-
-                # Note that get_left_child will return the previous parent.
                 self._fix_insertion(u.left)
 
-            # rbt_node is added as a left child to a node that is the right child.
+            # u is added as a left child to a node that is the right child.
             elif u.parent.is_right_child() and u.is_left_child():
-                if verbose:
-                    print("Case 4.2")
-
                 self.right_rotate(u.parent)
-
-                # With the previous right_rotate call,
-                # rbt_node.parent has become the right child of rbt_node.
-
-                # Now, we can pass to case 5, where we have 2 red nodes in a row,
-                # specifically, rbt_node.parent and rbt_node,
-                # which are both right children of their parents.
-
-                # Note also that the new node is the previous parent,
-                # and the previous node is the new parent,
-                # So, we are going to call _fix_insertion
-                # on the new node (the previous parent).
                 self._fix_insertion(u.right)
 
-            # Case 5:
-
-            # rbt_node is added as a left child to a node that is the left child.
+            # u is added as a left child to a node that is the left child.
             elif u.parent.is_left_child() and u.is_left_child():
-
-                if verbose:
-                    print("Case 4.3 (5)")
-
                 # Note that grandparent is known to be black,
-                # since its former child could not have been RED otherwise,
+                # since its former child could not have been RED
                 # without violating property 4.
                 self.right_rotate(u.grandparent)
                 u.parent.color = BLACK
                 u.parent.right.color = RED
 
-            # rbt_node is added as a right child to a node that is the right child.
+            # u is added as a right child to a node that is the right child.
             elif u.parent.is_right_child() and u.is_right_child():
-                if verbose:
-                    print("Case 4.4 (5)")
-
                 self.left_rotate(u.grandparent)
                 u.parent.color = BLACK
                 u.parent.left.color = RED
 
-    def delete(self, rbt_node):
-        # TODO: "deletion" needs to be implemented
-        pass
+            else:
+                assert False
+
+    def delete(self, u):
+        """Delete `u` from this `RBT` object.
+
+        `u` can either be a `RBTNode` object or a key.
+        
+        If a key, then a search is performed first
+        to find the corresponding `RBTNode` object.
+        An exception is raised if a `RBTNode` object
+        with a key=u is not found.
+        
+        If `u` is a `RBTNode` object, the only check
+        that is performed is that if it hasn't a parent,
+        then it must be the root. Similarly,
+        a node that isn't the root must have a parent.
+        If `u` has a parent, therefore it cannot be the root,
+        but there's no way of knowing if this node
+        really belongs to this `RBT` object,
+        because no search is performed (for now).
+        
+        If it doesn't belong to this `RBT` object,
+        then the behaviour of this method is undefined (for now).
+
+        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        def delete_case1(v):
+            #print("delete_case1")
+            if v.parent is not None:
+                delete_case2(v)
+
+        def delete_case2(v):
+            #print("delete_case2")
+            if v.sibling.color == RED:
+
+                assert v.parent.color == BLACK
+
+                v.sibling.color = BLACK
+                v.parent.color = RED
+
+                if v.is_left_child():
+                    self.left_rotate(v.parent)
+                else:
+                    self.right_rotate(v.parent)
+                    
+                assert v.sibling.color == BLACK
+
+            delete_case3(v)
+
+        def delete_case3(v):
+            #print("delete_case3")            
+            # not sure if the children of v.sibling can be None
+            if (v.parent.color == BLACK and v.sibling.color == BLACK and
+                ((v.sibling.left and v.sibling.left.color == BLACK) or not v.sibling.left) and
+                ((v.sibling.right and v.sibling.right.color == BLACK) or not v.sibling.right)):
+
+                v.sibling.color = RED
+                delete_case1(v.parent)
+            else:
+                delete_case4(v)
+
+        def delete_case4(v):
+            #print("delete_case4")
+            # not sure if the children of v.sibling can be None
+            if (v.parent.color == RED and v.sibling.color == BLACK and
+                ((v.sibling.left and v.sibling.left.color == BLACK) or not v.sibling.left) and
+                ((v.sibling.right and v.sibling.right.color == BLACK) or not v.sibling.right)):
+
+                v.sibling.color = RED
+                v.parent.color = BLACK
+            else:
+                delete_case5(v)
+
+        def delete_case5(v):
+            #print("delete_case5")            
+            assert v.sibling is not None
+
+            if v.sibling.color == BLACK:
+
+                if (v.is_left_child() and
+                    (not v.sibling.right or v.sibling.right.color == BLACK) and
+                    v.sibling.left.color == RED):
+
+                    v.sibling.color = RED
+                    v.sibling.left.color = BLACK
+
+                    self.right_rotate(v.sibling)
+
+                elif (v.is_right_child() and
+                      (not v.sibling.left or v.sibling.left.color == BLACK) and
+                      v.sibling.right.color == RED):
+
+                    v.sibling.color = RED
+                    v.sibling.right.color = BLACK
+
+                    self.left_rotate(v.sibling)
+
+            delete_case6(v)
+
+        def delete_case6(v):
+            #print("delete_case6")
+            assert v.sibling is not None
+
+            v.sibling.color, v.parent.color = v.parent.color, v.sibling.color
+            
+            if v.is_left_child():
+                assert v.sibling.right
+                v.sibling.right.color = BLACK
+                self.left_rotate(v.parent)
+            else:
+                assert v.sibling.left
+                v.sibling.left.color = BLACK
+                self.right_rotate(v.parent)
+                
+        if u is None:
+            raise ValueError("u cannot be None.")
+
+        if not isinstance(u, RBTNode):
+            u = self.search(u)
+            if u is None:
+                raise LookupError("No node was found with key=u.")
+
+        if u.parent is None and u != self.root:
+            raise ValueError("u is not a valid node.")
+
+        # If u has two non-leaf children, then replace u with its successor.
+        if u.left is not None and u.right is not None:
+            s = self.successor(u)
+            self._switch(u, s)
+            u.color, s.color = s.color, u.color
+
+        # At least one of the children must be None.
+        assert u.left is None or u.right is None
+
+        # Case 1
+        # If `u` is a red node, we simply replace it with its child `c`,
+        # which must be black by property 4, if any.
+        # This can only occur when `u` has two leaf children,
+        # because if the red node `u` had a black non-leaf child on one side,
+        # but just a leaf child on the other side,
+        # then the count of black nodes on both sides would be different,
+        # thus the tree would violate property 5.
+        # All paths through the deleted node
+        # will simply pass through one fewer red node,
+        # and both the deleted node's parent and child must be black,
+        # so property 3 (all leaves are black) and property 4
+        # (both children of every red node are black) still hold.
+        if u.color == RED:
+            assert u.left is None and u.right is None
+            assert u != self.root
+
+            if u.is_left_child():
+                u.parent.left = None
+            else:
+                u.parent.right = None
+
+        else:  # u.color == BLACK
+
+            # One of the children of u is RED.
+            # Simply removing a black node (u) could break properties 4,
+            # i.e., both children of every red node are black,
+            # because u.parent could be RED (e.g.), and 5,
+            # i.e. all paths from any given node to its leaf nodes
+            # contain the same number of black nodes),
+            # but if we repaint `c` BLACK,
+            # both of these properties are preserved.
+            if u.left is not None and u.left.color == RED:
+                if u != self.root:
+                    if u.is_left_child():
+                        u.parent.left = u.left
+                    else:
+                        u.parent.right = u.left
+
+                u.left.parent = u.parent
+                u.left.color = BLACK
+
+                if u == self.root:
+                    self.root = u.left
+
+            elif u.right is not None and u.right.color == RED:
+                if u != self.root:
+                    if u.is_left_child():
+                        u.parent.left = u.right
+                    else:
+                        u.parent.right = u.right
+
+                u.right.parent = u.parent
+                u.right.color = BLACK
+
+                if u == self.root:
+                    self.root = u.right
+
+            # The complex case is when both `u` and `c` are BLACK.
+            # This can only occur when deleting a black node
+            # which has two leaf children, because if the black node `u`
+            # had a black non-leaf child on one side
+            # but just a leaf child on the other side,
+            # then the count of black nodes on both sides would be different,
+            # thus the tree would have been an invalid red–black tree
+            # by violation of property 5.
+            elif u.left is None and u.right is None:
+                # 6 cases
+                if u != self.root:
+                    assert u.sibling is not None
+                    
+                    # Note that u.sibling cannot be None,
+                    # because otherwise the substree containing it
+                    # would have fewer black nodes
+                    # than the subtree containing u.
+                    # Specifically, the subree containing u
+                    # would have a black height of 2,
+                    # whereas the one containing the sibling
+                    # would have a black height of 1.
+
+                    delete_case1(u)
+
+                    # We begin by replacing u with its child c.
+                    # Note that both children of u are null-leaf children,
+                    # as we observed
+                    if u.is_left_child():
+                        u.parent.left = None
+                    else:
+                        u.parent.right = None
+                else:
+                    self.root = None                
+            else:
+                assert False
+
+        # Ensures that u has no reference to any node of this RBT.
+        self.n -= 1
+        u.parent = u.left = u.right = None
+        return u
 
 
-def test_rbt_1():
+# ASSERT FUNCTIONS
+
+def assert_prop_1(t):
+    def _assert(n):
+        if n:
+            _assert(n.left)
+            assert n.color == BLACK or n.color == RED
+            _assert(n.right)
+    _assert(t.root)
+
+def assert_prop_2(t):
+    if t.root:
+        assert t.root.color == BLACK
+
+def assert_prop_3(t):
+    # leaves are represented with Nones,
+    # so there's not need to check this property.
+    pass
+
+def assert_prop_4(t):
+    def _assert(n):
+        if n:
+            _assert(n.left)
+            if n.parent and n.color == RED:
+                assert n.parent.color == BLACK
+            if not n.parent:
+                assert n.color == BLACK
+            _assert(n.right)
+    _assert(t.root)
+
+def assert_prop_5(t):
+    def bh(n):
+        if n is None:
+            return 1
+        
+        left_bh = bh(n.left)
+        right_bh = bh(n.right)
+        
+        if left_bh != right_bh:
+            assert False, "Different left and right black-heights."
+        else:
+            return left_bh + (1 if n.color == BLACK else 0)
+
+    return bh(t.root)
+
+def assert_upper_bound_bh(t):
+    if t.n > 0:
+        import math
+        assert t.height() <= 2 * math.log2(t.n + 1)
+
+def assert_rbt_props(t):
+    assert bst_invariant(t)
+    assert_upper_bound_bh(t)
+    assert_prop_1(t)
+    assert_prop_2(t)
+    # assert_prop_3(t)
+    assert_prop_4(t)
+    assert_prop_5(t)
+    if t.root:
+        assert not t.root.parent
+
+# TESTS
+
+def test_insert_one():
     rbt = RBT()
+    rbt.insert(12)
+    one = rbt.search(12)
+    two = rbt.search(14)
+    assert not two and one
+    assert one.color == BLACK
+    assert one == rbt.root
+    assert rbt.height() == 1
+    assert rbt.n == rbt.size() == one.count() == 1
+    assert_rbt_props(rbt)
+    print("test_insert_one finished.")
 
-    def print_rbt():
-        print("\nNumber of Nodes:", rbt.size())
-        print("Root:", rbt.root, end="\n\n")
-        rbt.show()
-    print_rbt()
+def test_insert_two():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(14)
+    one = rbt.search(12)
+    two = rbt.search(14)
+    three = rbt.search(28)
+    assert not three and one and two
+    assert one.color == BLACK
+    assert one == rbt.root
+    assert two.color == RED
+    assert two != rbt.root
+    assert one.right == two
+    assert not one.left    
+    assert rbt.height() == 2
+    assert rbt.n == rbt.size() == one.count() == 2
+    assert_rbt_props(rbt)
+    print("test_insert_two finished.")
 
-    for i in range(20):
-        print("Inserting", i)
-        rbt.insert(RBTNode(i, value=str(i)))
-        print_rbt()
-        #input()
+def test_insert_three():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(14)
+    rbt.insert(28)
+    one = rbt.search(12)
+    two = rbt.search(14)
+    three = rbt.search(28)
+    four = rbt.search(7)
+    assert two == rbt.root
+    assert two.parent is None
+    assert one.left == one.right == three.left == three.right
+    assert one.left is None
+    assert one and two and three and not four
+    assert one.color == RED == three.color
+    assert two.color == BLACK
+    assert rbt.n == rbt.size() == two.count() == 3
+    assert_rbt_props(rbt)
+    print("test_insert_three finished.")
 
-    print("Height:", rbt.height())
+def test_height_and_insert_many():
+    # Lemma proved above put in practice!
+    from random import randint
+    ls = [randint(-100, 100) for _ in range(20)]
+    rbt = RBT()
+    for i in ls:
+        rbt.insert(i)
+        assert_upper_bound_bh(rbt)
+    assert_rbt_props(rbt)
+    print("test_height_and_insert_many finished.")
+
+def test_delete_root():
+    rbt = RBT()
+    rbt.insert(12)
+    assert_rbt_props(rbt)
+    assert rbt.n == rbt.size() == rbt.root.count() == 1
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None
+    assert not rbt.root
+    assert rbt.n == rbt.size() == 0
+    assert_rbt_props(rbt)
+    print("test_delete_root finished.")
+
+def test_delete_root2():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(14)
+    assert rbt.n == rbt.size() == rbt.root.count() == 2
+    assert_rbt_props(rbt)
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None
+    assert rbt.root and rbt.search(14)
+    assert not rbt.root.left and not rbt.root.right
+    assert rbt.n == rbt.size() == rbt.root.count() == 1
+    assert_rbt_props(rbt)
+    print("test_delete_root2 finished.")
+
+def test_delete_root3():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(7)
+    assert rbt.n == rbt.size() == rbt.root.count() == 2
+    assert_rbt_props(rbt)
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None
+    assert rbt.root and rbt.root == rbt.search(7)
+    # already check rbt.root.parent is not None in assert_rbt_props
+    assert not rbt.root.left and not rbt.root.right  
+    assert rbt.n == rbt.size() == rbt.root.count() == 1
+    assert_rbt_props(rbt)
+    print("test_delete_root3 finished.")
+
+def test_delete_root4():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(7)
+    rbt.insert(14)
+    assert rbt.n == rbt.size() == rbt.root.count() == 3
+    assert_rbt_props(rbt)
+    #print(rbt)
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None
+    assert rbt.root and rbt.root == rbt.search(14)
+    assert rbt.root.right is None
+    assert rbt.n == rbt.size() == rbt.root.count() == 2
+    assert_rbt_props(rbt)
+    print("test_delete_root4 finished.")
+
+def test_delete_root5():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(7)
+    rbt.insert(14)
+    rbt.insert(28)
+    assert rbt.n == rbt.size() == rbt.root.count() == 4
+    assert_rbt_props(rbt)
+    #print(rbt)
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None
+    assert rbt.root and rbt.root == rbt.search(14)
+    assert rbt.root.right == rbt.search(28) and rbt.root.left == rbt.search(7)
+    assert rbt.n == rbt.size() == rbt.root.count() == 3
+    assert_rbt_props(rbt)
+    print("test_delete_root5 finished.")
+
+def test_delete_root6():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(7)
+    rbt.insert(14)
+    rbt.insert(28)
+    rbt.insert(13)
+    assert rbt.n == rbt.size() == rbt.root.count() == 5
+    assert_rbt_props(rbt)
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None
+    assert rbt.root and rbt.root == rbt.search(13)
+    assert rbt.root.right == rbt.search(14) and rbt.root.left == rbt.search(7)
+    assert not rbt.search(14).left
+    assert rbt.search(14).right == rbt.search(28)
+    assert rbt.n == rbt.size() == rbt.root.count() == 4
+    assert_rbt_props(rbt)
+    print("test_delete_root6 finished.")
+
+def test_delete_root7():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(7)
+    rbt.insert(14)
+    rbt.insert(28)
+    rbt.insert(13)
+    rbt.insert(35)
+    assert rbt.n == rbt.size() == rbt.root.count() == 6
+    assert_rbt_props(rbt)
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None
+    assert rbt.root and rbt.root == rbt.search(13)
+    assert rbt.root.right == rbt.search(28) and rbt.root.left == rbt.search(7)
+    assert not rbt.search(14).left and not rbt.search(14).right
+    assert not rbt.search(35).left and not rbt.search(35).right
+    assert rbt.search(28).left == rbt.search(14) and rbt.search(28).right == rbt.search(35)    
+    assert rbt.n == rbt.size() == rbt.root.count() == 5
+    assert_rbt_props(rbt)
+    print("test_delete_root7 finished.")
+
+def test_delete_root8():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(7)
+    rbt.insert(14)
+    rbt.insert(28)
+    rbt.insert(13)
+    rbt.insert(35)
+    rbt.insert(25)
+    assert rbt.n == rbt.size() == rbt.root.count() == 7
+    assert_rbt_props(rbt)
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None
+    assert rbt.root and rbt.root == rbt.search(13)
+    assert rbt.n == rbt.size() == rbt.root.count() == 6
+    assert not rbt.search(14).left
+    assert_rbt_props(rbt)
+    print("test_delete_root8 finished.")
+
+def test_delete_root9():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(7)
+    rbt.insert(14)
+    rbt.insert(28)
+    rbt.insert(13)
+    rbt.insert(35)
+    rbt.insert(25)
+    rbt.insert(12)
+    assert rbt.n == rbt.size() == rbt.root.count() == 8
+    assert_rbt_props(rbt)
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None    
+    assert not rbt.search(13).left and not rbt.search(13).right
+    assert_rbt_props(rbt)
+    #print(rbt)
+    print("test_delete_root9 finished.")
+
+def test_delete_root10():
+    rbt = RBT()
+    rbt.insert(12)
+    rbt.insert(7)
+    rbt.insert(14)
+    rbt.insert(28)
+    rbt.insert(13)
+    rbt.insert(35)
+    rbt.insert(25)
+    rbt.insert(12)
+    rbt.insert(13)
+    assert rbt.n == rbt.size() == rbt.root.count() == 9
+    assert_rbt_props(rbt)
+    r = rbt.delete(12)
+    assert r
+    assert r.left == r.right == r.parent
+    assert r.left is None
+    assert rbt.n == rbt.size() == rbt.root.count() == 8
+    assert_rbt_props(rbt)
+    print("test_delete_root10 finished.")
+
+def test_delete_all_rand_items():
+    from random import randint, shuffle
+    rbt = RBT()
+    
+    def get_rand_list():
+        return [randint(-100, 100) for _ in range(randint(0, 100))]
+
+    for i in range(1000):
+        ls = get_rand_list()
+        
+        for j, x in enumerate(ls):
+            rbt.insert(x)
+            assert rbt.n == rbt.size() == (j + 1)
+            assert_rbt_props(rbt)
+            #print("RBT after insertion of", x, "\n", rbt)
+
+        assert rbt.n == rbt.size() == len(ls)
+        assert_rbt_props(rbt)
+        #print()
+        shuffle(ls)
+        
+        for j, x in enumerate(ls):
+            r = rbt.delete(x)
+            assert r
+            assert r.left == r.right == r.parent
+            assert r.left is None
+            assert rbt.n == rbt.size() == (len(ls) - (j + 1))
+            assert_rbt_props(rbt)
+            #print("RBT after removal of", x, "\n", rbt)
+
+        assert rbt.n == rbt.size() == 0
+        assert_rbt_props(rbt)
+        
+    print("test_delete_all_rand_items finished.")
 
 
 if __name__ == "__main__":
-    test_rbt_1()
+    test_insert_one()
+    test_insert_two()
+    test_insert_three()
+    test_height_and_insert_many()
+    test_delete_root()
+    test_delete_root2()
+    test_delete_root3()
+    test_delete_root4()
+    test_delete_root5()
+    test_delete_root6()
+    test_delete_root7()
+    test_delete_root8()
+    test_delete_root9()
+    test_delete_root10()
+    test_delete_all_rand_items()
 </code></pre>
   </div>
 
@@ -1259,6 +1986,185 @@ if __name__ == "__main__":
 
   <section id="section-items">
 
+    <h2 class="section-title" id="header-functions">Functions</h2>
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.assert_prop_1">
+    <p>def <span class="ident">assert_prop_1</span>(</p><p>t)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_1', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.assert_prop_1" class="source">
+    <pre><code>def assert_prop_1(t):
+    def _assert(n):
+        if n:
+            _assert(n.left)
+            assert n.color == BLACK or n.color == RED
+            _assert(n.right)
+    _assert(t.root)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.assert_prop_2">
+    <p>def <span class="ident">assert_prop_2</span>(</p><p>t)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_2', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.assert_prop_2" class="source">
+    <pre><code>def assert_prop_2(t):
+    if t.root:
+        assert t.root.color == BLACK
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.assert_prop_3">
+    <p>def <span class="ident">assert_prop_3</span>(</p><p>t)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_3', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.assert_prop_3" class="source">
+    <pre><code>def assert_prop_3(t):
+    # leaves are represented with Nones,
+    # so there's not need to check this property.
+    pass
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.assert_prop_4">
+    <p>def <span class="ident">assert_prop_4</span>(</p><p>t)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_4', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.assert_prop_4" class="source">
+    <pre><code>def assert_prop_4(t):
+    def _assert(n):
+        if n:
+            _assert(n.left)
+            if n.parent and n.color == RED:
+                assert n.parent.color == BLACK
+            if not n.parent:
+                assert n.color == BLACK
+            _assert(n.right)
+    _assert(t.root)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.assert_prop_5">
+    <p>def <span class="ident">assert_prop_5</span>(</p><p>t)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_5', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.assert_prop_5" class="source">
+    <pre><code>def assert_prop_5(t):
+    def bh(n):
+        if n is None:
+            return 1
+        
+        left_bh = bh(n.left)
+        right_bh = bh(n.right)
+        
+        if left_bh != right_bh:
+            assert False, "Different left and right black-heights."
+        else:
+            return left_bh + (1 if n.color == BLACK else 0)
+
+    return bh(t.root)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.assert_rbt_props">
+    <p>def <span class="ident">assert_rbt_props</span>(</p><p>t)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_rbt_props', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.assert_rbt_props" class="source">
+    <pre><code>def assert_rbt_props(t):
+    assert bst_invariant(t)
+    assert_upper_bound_bh(t)
+    assert_prop_1(t)
+    assert_prop_2(t)
+    # assert_prop_3(t)
+    assert_prop_4(t)
+    assert_prop_5(t)
+    if t.root:
+        assert not t.root.parent
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.assert_upper_bound_bh">
+    <p>def <span class="ident">assert_upper_bound_bh</span>(</p><p>t)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_upper_bound_bh', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.assert_upper_bound_bh" class="source">
+    <pre><code>def assert_upper_bound_bh(t):
+    if t.n > 0:
+        import math
+        assert t.height() <= 2 * math.log2(t.n + 1)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
 
     <h2 class="section-title" id="header-classes">Classes</h2>
       
@@ -1272,169 +2178,361 @@ if __name__ == "__main__":
   <div id="source-ands.ds.RBT.RBT" class="source">
     <pre><code>class RBT(BST):
 
-    def __init__(self, root=None, name=""):
+    def __init__(self, root=None, name="RBT"):
         BST.__init__(self, root, name)
 
-    def insert(self, x, value=None):
-        """Inserts x into self.
+    def insert(self, u, value=None):
+        """Inserts `u` into this `RBT`.
+
+        This operation is similar to the `insert` operation of a classical `BST`,
+        but, in this case, the red-black tree property must be maintained,
+        so addional work is needed.    
 
         There are several cases of inserting into a RBT to handle:
 
-        1. x is the root node (first node).
+        1. `u`  is the root node (first node).
 
-        2. x.parent is BLACK.
+        2. `u.parent` is `BLACK`.
 
-        3. x.parent and the uncle of x are RED.
+        3. `u.parent` and the uncle of `u` are `RED`.
 
-        The uncle of x will be the left child of x.parent.parent,
-        if x.parent is the right child of x.parent.parent,
-        otherwise (x.parent is the left child of x.parent.parent)
-        the uncle will be the right child of x.parent.parent.
+            The uncle of `u` will be the left child of `u.parent.parent`,
+        if `u.parent` is the right child of `u.parent.parent`,
+        otherwise (`u.parent` is the left child of `u.parent.parent`)
+        the uncle will be the right child of `u.parent.parent`.
 
-        4.1. x is added to the right of a left child of x.parent.parent (grandparent)
-        4.2. or x is added to the left of a right child of x.parent.parent.
+        4. u.parent is RED, but u.uncle is BLACK (or None). u.grandparent exists because u.parent is RED.
 
-        5.1. x is added to the right of a right child of x.parent.parent
-        5.2. or x is added to the left of a left child of x.parent.parent."""
+            4.1. `u` is added to the right of a left child of `u.parent.parent` (grandparent)
 
-        if x is None:
-            raise TypeError("x cannot be None.")
+            4.2. or `u` is added to the left of a right child of `u.parent.parent`.
 
-        if not isinstance(x, RBTNode):
-            x = RBTNode(x, value)
+            4.3. `u` is added to the left of a left child of `u.parent.parent`.
+
+            4.4. or `u` is added to the right of a right child of `u.parent.parent`.
+
+        `_fix_insertion` handles these cases in the same order as just presented above.
+
+        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        if u is None:
+            raise ValueError("u cannot be None.")
+
+        if not isinstance(u, RBTNode):
+            u = RBTNode(u, value)
+
+        if u.left or u.right or u.parent:
+            raise ValueError("u cannot have left or right children, or parent.")
 
         c = self.root  # Current node
         p = None  # Current node's parent
 
         while c is not None:
             p = c
-            if x.key < c.key:
+            if u.key < c.key:
                 c = c.left
-            else:  # x.key >= c.key
+            else:  # u.key >= c.key
                 c = c.right
 
-        x.parent = p
+        u.parent = p
 
         # The while loop was not executed even once.
         # Case 1: node is inserted as root.
         if p is None:
-            self.root = x
-        elif p.key > x.key:
-            p.left = x
-        else:  # p.key < x.key:
-            p.right = x
+            self.root = u
+        elif p.key > u.key:
+            p.left = u
+        else:  # p.key < u.key:
+            p.right = u
 
-        x.color = RED
+        u.color = RED
         self.n += 1
+        self._fix_insertion(u)
 
-        self._fix_insertion(x, verbose=True)
-
-    def _fix_insertion(self, u: RBTNode, verbose=False):
-
-        # Case 1: node's parent is None, thus it is the _initialise.
+    def _fix_insertion(self, u: RBTNode):
+        # u is the root and we color it BLACK.
         if u.parent is None:
-            if verbose:
-                print("Case 1: node's parent is None, thus it is the _initialise.")
             u.color = BLACK
 
-        # Case 2: node's parent's color is BLACK.
         elif u.parent.color == BLACK:
-            print(u, u.parent)
-
-            if verbose:
-                print("Case 2: node's parent's color is BLACK.")
             return
-
-        # Case 3: node's parent and node's uncle are RED.
-        elif u.parent.color == RED and u.uncle is not None and u.uncle.color == RED:
-            if verbose:
-                print("Case 3: node's parent and node's uncle are RED.")
-
+        
+        elif u.parent.color == RED and (u.uncle is not None and u.uncle.color == RED):
             u.parent.color = BLACK
             u.uncle.color = BLACK
             u.grandparent.color = RED
-
-            # call recursively _fix_insertion on the grandparent, which has become RED.
             self._fix_insertion(u.grandparent)
 
-        # Case 4: parent is RED, but uncle is BLACK.
-        # Note that the grandparent exists because parent is RED.
-
         elif u.parent.color == RED and (u.uncle is None or u.uncle.color == BLACK):
-
-            if verbose:
-                print("Case 4: parent is RED, but uncle is BLACK (or None).")
-            # rbt_node is added as a right child to a node that is the left child.
-
+            
+            # u is added as a right child to a node that is the left child.
             if u.parent.is_left_child() and u.is_right_child():
-                if verbose:
-                    print("Case 4.1")
-                # left rotation does not violate property:
-                # all paths from any given node to its leaf nodes contain the same number of black nodes
+                
+                # left_rotation does not violate the property:
+                # all paths from any given node to its leaf nodes
+                # contain the same number of black nodes.
                 self.left_rotate(u.parent)
 
                 # With the previous left_rotate call,
-                # rbt_node.parent has become the left child of rbt_node.
-
-                # Now, we can pass to case 5, where we have 2 red nodes in a row,
-                # specifically, rbt_node.parent and rbt_node,
+                # u.parent has become the left child of u,
+                # or, u bas become the parent of what before was u.parent
+                # We can pass to case 5, where we have 2 red nodes in a row,
+                # specifically, u.parent and u,
                 # which are both left children of their parents.
 
-                # Note also that the new node is the previous parent,
-                # and the previous node is the new parent.
-                # So, we are going to call _fix_insertion
-                # on the new node (the previous parent).
-
-                # Note that get_left_child will return the previous parent.
                 self._fix_insertion(u.left)
 
-            # rbt_node is added as a left child to a node that is the right child.
+            # u is added as a left child to a node that is the right child.
             elif u.parent.is_right_child() and u.is_left_child():
-                if verbose:
-                    print("Case 4.2")
-
                 self.right_rotate(u.parent)
-
-                # With the previous right_rotate call,
-                # rbt_node.parent has become the right child of rbt_node.
-
-                # Now, we can pass to case 5, where we have 2 red nodes in a row,
-                # specifically, rbt_node.parent and rbt_node,
-                # which are both right children of their parents.
-
-                # Note also that the new node is the previous parent,
-                # and the previous node is the new parent,
-                # So, we are going to call _fix_insertion
-                # on the new node (the previous parent).
                 self._fix_insertion(u.right)
 
-            # Case 5:
-
-            # rbt_node is added as a left child to a node that is the left child.
+            # u is added as a left child to a node that is the left child.
             elif u.parent.is_left_child() and u.is_left_child():
-
-                if verbose:
-                    print("Case 4.3 (5)")
-
                 # Note that grandparent is known to be black,
-                # since its former child could not have been RED otherwise,
+                # since its former child could not have been RED
                 # without violating property 4.
                 self.right_rotate(u.grandparent)
                 u.parent.color = BLACK
                 u.parent.right.color = RED
 
-            # rbt_node is added as a right child to a node that is the right child.
+            # u is added as a right child to a node that is the right child.
             elif u.parent.is_right_child() and u.is_right_child():
-                if verbose:
-                    print("Case 4.4 (5)")
-
                 self.left_rotate(u.grandparent)
                 u.parent.color = BLACK
                 u.parent.left.color = RED
 
-    def delete(self, rbt_node):
-        # TODO: "deletion" needs to be implemented
-        pass
+            else:
+                assert False
+
+    def delete(self, u):
+        """Delete `u` from this `RBT` object.
+
+        `u` can either be a `RBTNode` object or a key.
+        
+        If a key, then a search is performed first
+        to find the corresponding `RBTNode` object.
+        An exception is raised if a `RBTNode` object
+        with a key=u is not found.
+        
+        If `u` is a `RBTNode` object, the only check
+        that is performed is that if it hasn't a parent,
+        then it must be the root. Similarly,
+        a node that isn't the root must have a parent.
+        If `u` has a parent, therefore it cannot be the root,
+        but there's no way of knowing if this node
+        really belongs to this `RBT` object,
+        because no search is performed (for now).
+        
+        If it doesn't belong to this `RBT` object,
+        then the behaviour of this method is undefined (for now).
+
+        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        def delete_case1(v):
+            #print("delete_case1")
+            if v.parent is not None:
+                delete_case2(v)
+
+        def delete_case2(v):
+            #print("delete_case2")
+            if v.sibling.color == RED:
+
+                assert v.parent.color == BLACK
+
+                v.sibling.color = BLACK
+                v.parent.color = RED
+
+                if v.is_left_child():
+                    self.left_rotate(v.parent)
+                else:
+                    self.right_rotate(v.parent)
+                    
+                assert v.sibling.color == BLACK
+
+            delete_case3(v)
+
+        def delete_case3(v):
+            #print("delete_case3")            
+            # not sure if the children of v.sibling can be None
+            if (v.parent.color == BLACK and v.sibling.color == BLACK and
+                ((v.sibling.left and v.sibling.left.color == BLACK) or not v.sibling.left) and
+                ((v.sibling.right and v.sibling.right.color == BLACK) or not v.sibling.right)):
+
+                v.sibling.color = RED
+                delete_case1(v.parent)
+            else:
+                delete_case4(v)
+
+        def delete_case4(v):
+            #print("delete_case4")
+            # not sure if the children of v.sibling can be None
+            if (v.parent.color == RED and v.sibling.color == BLACK and
+                ((v.sibling.left and v.sibling.left.color == BLACK) or not v.sibling.left) and
+                ((v.sibling.right and v.sibling.right.color == BLACK) or not v.sibling.right)):
+
+                v.sibling.color = RED
+                v.parent.color = BLACK
+            else:
+                delete_case5(v)
+
+        def delete_case5(v):
+            #print("delete_case5")            
+            assert v.sibling is not None
+
+            if v.sibling.color == BLACK:
+
+                if (v.is_left_child() and
+                    (not v.sibling.right or v.sibling.right.color == BLACK) and
+                    v.sibling.left.color == RED):
+
+                    v.sibling.color = RED
+                    v.sibling.left.color = BLACK
+
+                    self.right_rotate(v.sibling)
+
+                elif (v.is_right_child() and
+                      (not v.sibling.left or v.sibling.left.color == BLACK) and
+                      v.sibling.right.color == RED):
+
+                    v.sibling.color = RED
+                    v.sibling.right.color = BLACK
+
+                    self.left_rotate(v.sibling)
+
+            delete_case6(v)
+
+        def delete_case6(v):
+            #print("delete_case6")
+            assert v.sibling is not None
+
+            v.sibling.color, v.parent.color = v.parent.color, v.sibling.color
+            
+            if v.is_left_child():
+                assert v.sibling.right
+                v.sibling.right.color = BLACK
+                self.left_rotate(v.parent)
+            else:
+                assert v.sibling.left
+                v.sibling.left.color = BLACK
+                self.right_rotate(v.parent)
+                
+        if u is None:
+            raise ValueError("u cannot be None.")
+
+        if not isinstance(u, RBTNode):
+            u = self.search(u)
+            if u is None:
+                raise LookupError("No node was found with key=u.")
+
+        if u.parent is None and u != self.root:
+            raise ValueError("u is not a valid node.")
+
+        # If u has two non-leaf children, then replace u with its successor.
+        if u.left is not None and u.right is not None:
+            s = self.successor(u)
+            self._switch(u, s)
+            u.color, s.color = s.color, u.color
+
+        # At least one of the children must be None.
+        assert u.left is None or u.right is None
+
+        # Case 1
+        # If `u` is a red node, we simply replace it with its child `c`,
+        # which must be black by property 4, if any.
+        # This can only occur when `u` has two leaf children,
+        # because if the red node `u` had a black non-leaf child on one side,
+        # but just a leaf child on the other side,
+        # then the count of black nodes on both sides would be different,
+        # thus the tree would violate property 5.
+        # All paths through the deleted node
+        # will simply pass through one fewer red node,
+        # and both the deleted node's parent and child must be black,
+        # so property 3 (all leaves are black) and property 4
+        # (both children of every red node are black) still hold.
+        if u.color == RED:
+            assert u.left is None and u.right is None
+            assert u != self.root
+
+            if u.is_left_child():
+                u.parent.left = None
+            else:
+                u.parent.right = None
+
+        else:  # u.color == BLACK
+
+            # One of the children of u is RED.
+            # Simply removing a black node (u) could break properties 4,
+            # i.e., both children of every red node are black,
+            # because u.parent could be RED (e.g.), and 5,
+            # i.e. all paths from any given node to its leaf nodes
+            # contain the same number of black nodes),
+            # but if we repaint `c` BLACK,
+            # both of these properties are preserved.
+            if u.left is not None and u.left.color == RED:
+                if u != self.root:
+                    if u.is_left_child():
+                        u.parent.left = u.left
+                    else:
+                        u.parent.right = u.left
+
+                u.left.parent = u.parent
+                u.left.color = BLACK
+
+                if u == self.root:
+                    self.root = u.left
+
+            elif u.right is not None and u.right.color == RED:
+                if u != self.root:
+                    if u.is_left_child():
+                        u.parent.left = u.right
+                    else:
+                        u.parent.right = u.right
+
+                u.right.parent = u.parent
+                u.right.color = BLACK
+
+                if u == self.root:
+                    self.root = u.right
+
+            # The complex case is when both `u` and `c` are BLACK.
+            # This can only occur when deleting a black node
+            # which has two leaf children, because if the black node `u`
+            # had a black non-leaf child on one side
+            # but just a leaf child on the other side,
+            # then the count of black nodes on both sides would be different,
+            # thus the tree would have been an invalid red–black tree
+            # by violation of property 5.
+            elif u.left is None and u.right is None:
+                # 6 cases
+                if u != self.root:
+                    assert u.sibling is not None
+                    
+                    # Note that u.sibling cannot be None,
+                    # because otherwise the substree containing it
+                    # would have fewer black nodes
+                    # than the subtree containing u.
+                    # Specifically, the subree containing u
+                    # would have a black height of 2,
+                    # whereas the one containing the sibling
+                    # would have a black height of 1.
+
+                    delete_case1(u)
+
+                    # We begin by replacing u with its child c.
+                    # Note that both children of u are null-leaf children,
+                    # as we observed
+                    if u.is_left_child():
+                        u.parent.left = None
+                    else:
+                        u.parent.right = None
+                else:
+                    self.root = None                
+            else:
+                assert False
+
+        # Ensures that u has no reference to any node of this RBT.
+        self.n -= 1
+        u.parent = u.left = u.right = None
+        return u
 </code></pre>
   </div>
 </div>
@@ -1451,7 +2549,7 @@ if __name__ == "__main__":
             
   <div class="item">
     <div class="name def" id="ands.ds.RBT.RBT.__init__">
-    <p>def <span class="ident">__init__</span>(</p><p>self, root=None, name=&#39;&#39;)</p>
+    <p>def <span class="ident">__init__</span>(</p><p>self, root=None, name=&#39;RBT&#39;)</p>
     </div>
     
 
@@ -1461,7 +2559,7 @@ if __name__ == "__main__":
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.__init__" class="source">
-    <pre><code>def __init__(self, root=None, name=""):
+    <pre><code>def __init__(self, root=None, name="RBT"):
     BST.__init__(self, root, name)
 </code></pre>
   </div>
@@ -1501,12 +2599,12 @@ if __name__ == "__main__":
 
     
   
-    <div class="desc"><p>Returns True if a BSTNode object with key exists in the tree.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if a <code>BSTNode</code> object with <code>key</code> exists in the tree.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.contains', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.contains" class="source">
     <pre><code>def contains(self, key):
-    """Returns True if a BSTNode object with key exists in the tree."""
+    """Returns `True` if a `BSTNode` object with `key` exists in the tree."""
     return self.search_r(key) is not None
 </code></pre>
   </div>
@@ -1517,26 +2615,222 @@ if __name__ == "__main__":
             
   <div class="item">
     <div class="name def" id="ands.ds.RBT.RBT.delete">
-    <p>def <span class="ident">delete</span>(</p><p>self, rbt_node)</p>
+    <p>def <span class="ident">delete</span>(</p><p>self, u)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Deletes u from self (if it exists).</p>
-<p>There are 3 cases of deletion:
-    1. the node has no children
-    2. the node has one subtree (or child)
-    3. the node has the left and right subtrees (or children).</p>
-<p>u can either be a reference to an actual BSTNode object,
-or it can be a key of a supposed node in self.</p>
-<p>Time complexity: O(h)</p></div>
+    <div class="desc"><p>Delete <code>u</code> from this <code>RBT</code> object.</p>
+<p><code>u</code> can either be a <code>RBTNode</code> object or a key.</p>
+<p>If a key, then a search is performed first
+to find the corresponding <code>RBTNode</code> object.
+An exception is raised if a <code>RBTNode</code> object
+with a key=u is not found.</p>
+<p>If <code>u</code> is a <code>RBTNode</code> object, the only check
+that is performed is that if it hasn't a parent,
+then it must be the root. Similarly,
+a node that isn't the root must have a parent.
+If <code>u</code> has a parent, therefore it cannot be the root,
+but there's no way of knowing if this node
+really belongs to this <code>RBT</code> object,
+because no search is performed (for now).</p>
+<p>If it doesn't belong to this <code>RBT</code> object,
+then the behaviour of this method is undefined (for now).</p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub>(n)).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.delete', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.delete" class="source">
-    <pre><code>def delete(self, rbt_node):
-    # TODO: "deletion" needs to be implemented
-    pass
+    <pre><code>def delete(self, u):
+    """Delete `u` from this `RBT` object.
+    `u` can either be a `RBTNode` object or a key.
+    
+    If a key, then a search is performed first
+    to find the corresponding `RBTNode` object.
+    An exception is raised if a `RBTNode` object
+    with a key=u is not found.
+    
+    If `u` is a `RBTNode` object, the only check
+    that is performed is that if it hasn't a parent,
+    then it must be the root. Similarly,
+    a node that isn't the root must have a parent.
+    If `u` has a parent, therefore it cannot be the root,
+    but there's no way of knowing if this node
+    really belongs to this `RBT` object,
+    because no search is performed (for now).
+    
+    If it doesn't belong to this `RBT` object,
+    then the behaviour of this method is undefined (for now).
+    **Time Complexity:** O(log<sub>2</sub>(n))."""
+    def delete_case1(v):
+        #print("delete_case1")
+        if v.parent is not None:
+            delete_case2(v)
+    def delete_case2(v):
+        #print("delete_case2")
+        if v.sibling.color == RED:
+            assert v.parent.color == BLACK
+            v.sibling.color = BLACK
+            v.parent.color = RED
+            if v.is_left_child():
+                self.left_rotate(v.parent)
+            else:
+                self.right_rotate(v.parent)
+                
+            assert v.sibling.color == BLACK
+        delete_case3(v)
+    def delete_case3(v):
+        #print("delete_case3")            
+        # not sure if the children of v.sibling can be None
+        if (v.parent.color == BLACK and v.sibling.color == BLACK and
+            ((v.sibling.left and v.sibling.left.color == BLACK) or not v.sibling.left) and
+            ((v.sibling.right and v.sibling.right.color == BLACK) or not v.sibling.right)):
+            v.sibling.color = RED
+            delete_case1(v.parent)
+        else:
+            delete_case4(v)
+    def delete_case4(v):
+        #print("delete_case4")
+        # not sure if the children of v.sibling can be None
+        if (v.parent.color == RED and v.sibling.color == BLACK and
+            ((v.sibling.left and v.sibling.left.color == BLACK) or not v.sibling.left) and
+            ((v.sibling.right and v.sibling.right.color == BLACK) or not v.sibling.right)):
+            v.sibling.color = RED
+            v.parent.color = BLACK
+        else:
+            delete_case5(v)
+    def delete_case5(v):
+        #print("delete_case5")            
+        assert v.sibling is not None
+        if v.sibling.color == BLACK:
+            if (v.is_left_child() and
+                (not v.sibling.right or v.sibling.right.color == BLACK) and
+                v.sibling.left.color == RED):
+                v.sibling.color = RED
+                v.sibling.left.color = BLACK
+                self.right_rotate(v.sibling)
+            elif (v.is_right_child() and
+                  (not v.sibling.left or v.sibling.left.color == BLACK) and
+                  v.sibling.right.color == RED):
+                v.sibling.color = RED
+                v.sibling.right.color = BLACK
+                self.left_rotate(v.sibling)
+        delete_case6(v)
+    def delete_case6(v):
+        #print("delete_case6")
+        assert v.sibling is not None
+        v.sibling.color, v.parent.color = v.parent.color, v.sibling.color
+        
+        if v.is_left_child():
+            assert v.sibling.right
+            v.sibling.right.color = BLACK
+            self.left_rotate(v.parent)
+        else:
+            assert v.sibling.left
+            v.sibling.left.color = BLACK
+            self.right_rotate(v.parent)
+            
+    if u is None:
+        raise ValueError("u cannot be None.")
+    if not isinstance(u, RBTNode):
+        u = self.search(u)
+        if u is None:
+            raise LookupError("No node was found with key=u.")
+    if u.parent is None and u != self.root:
+        raise ValueError("u is not a valid node.")
+    # If u has two non-leaf children, then replace u with its successor.
+    if u.left is not None and u.right is not None:
+        s = self.successor(u)
+        self._switch(u, s)
+        u.color, s.color = s.color, u.color
+    # At least one of the children must be None.
+    assert u.left is None or u.right is None
+    # Case 1
+    # If `u` is a red node, we simply replace it with its child `c`,
+    # which must be black by property 4, if any.
+    # This can only occur when `u` has two leaf children,
+    # because if the red node `u` had a black non-leaf child on one side,
+    # but just a leaf child on the other side,
+    # then the count of black nodes on both sides would be different,
+    # thus the tree would violate property 5.
+    # All paths through the deleted node
+    # will simply pass through one fewer red node,
+    # and both the deleted node's parent and child must be black,
+    # so property 3 (all leaves are black) and property 4
+    # (both children of every red node are black) still hold.
+    if u.color == RED:
+        assert u.left is None and u.right is None
+        assert u != self.root
+        if u.is_left_child():
+            u.parent.left = None
+        else:
+            u.parent.right = None
+    else:  # u.color == BLACK
+        # One of the children of u is RED.
+        # Simply removing a black node (u) could break properties 4,
+        # i.e., both children of every red node are black,
+        # because u.parent could be RED (e.g.), and 5,
+        # i.e. all paths from any given node to its leaf nodes
+        # contain the same number of black nodes),
+        # but if we repaint `c` BLACK,
+        # both of these properties are preserved.
+        if u.left is not None and u.left.color == RED:
+            if u != self.root:
+                if u.is_left_child():
+                    u.parent.left = u.left
+                else:
+                    u.parent.right = u.left
+            u.left.parent = u.parent
+            u.left.color = BLACK
+            if u == self.root:
+                self.root = u.left
+        elif u.right is not None and u.right.color == RED:
+            if u != self.root:
+                if u.is_left_child():
+                    u.parent.left = u.right
+                else:
+                    u.parent.right = u.right
+            u.right.parent = u.parent
+            u.right.color = BLACK
+            if u == self.root:
+                self.root = u.right
+        # The complex case is when both `u` and `c` are BLACK.
+        # This can only occur when deleting a black node
+        # which has two leaf children, because if the black node `u`
+        # had a black non-leaf child on one side
+        # but just a leaf child on the other side,
+        # then the count of black nodes on both sides would be different,
+        # thus the tree would have been an invalid red–black tree
+        # by violation of property 5.
+        elif u.left is None and u.right is None:
+            # 6 cases
+            if u != self.root:
+                assert u.sibling is not None
+                
+                # Note that u.sibling cannot be None,
+                # because otherwise the substree containing it
+                # would have fewer black nodes
+                # than the subtree containing u.
+                # Specifically, the subree containing u
+                # would have a black height of 2,
+                # whereas the one containing the sibling
+                # would have a black height of 1.
+                delete_case1(u)
+                # We begin by replacing u with its child c.
+                # Note that both children of u are null-leaf children,
+                # as we observed
+                if u.is_left_child():
+                    u.parent.left = None
+                else:
+                    u.parent.right = None
+            else:
+                self.root = None                
+        else:
+            assert False
+    # Ensures that u has no reference to any node of this RBT.
+    self.n -= 1
+    u.parent = u.left = u.right = None
+    return u
 </code></pre>
   </div>
 </div>
@@ -1552,12 +2846,14 @@ or it can be a key of a supposed node in self.</p>
 
     
   
-    <div class="desc"><p>Returns the maximum depth or height of the tree.</p></div>
+    <div class="desc"><p>Returns the maximum depth or height of the tree.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.height', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.height" class="source">
     <pre><code>def height(self):
-    """Returns the maximum depth or height of the tree."""
+    """Returns the maximum depth or height of the tree.
+    **Time Complexity**: O(h)."""
     if self.root is None:
         return 0
     return self._height(self.root)
@@ -1576,12 +2872,14 @@ or it can be a key of a supposed node in self.</p>
 
     
   
-    <div class="desc"><p>See BST._in_order_traversal</p></div>
+    <div class="desc"><p>Prints the elements of the tree in increasing order.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.in_order_traversal', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.in_order_traversal" class="source">
     <pre><code>def in_order_traversal(self):
-    """See BST._in_order_traversal"""
+    """Prints the elements of the tree in increasing order.
+    **Time Complexity**: O(h)."""
     self._in_order_traversal(self.root)
     print("\n")
 </code></pre>
@@ -1593,74 +2891,90 @@ or it can be a key of a supposed node in self.</p>
             
   <div class="item">
     <div class="name def" id="ands.ds.RBT.RBT.insert">
-    <p>def <span class="ident">insert</span>(</p><p>self, x, value=None)</p>
+    <p>def <span class="ident">insert</span>(</p><p>self, u, value=None)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Inserts x into self.</p>
+    <div class="desc"><p>Inserts <code>u</code> into this <code>RBT</code>.</p>
+<p>This operation is similar to the <code>insert</code> operation of a classical <code>BST</code>,
+but, in this case, the red-black tree property must be maintained,
+so addional work is needed.    </p>
 <p>There are several cases of inserting into a RBT to handle:</p>
 <ol>
 <li>
-<p>x is the root node (first node).</p>
+<p><code>u</code>  is the root node (first node).</p>
 </li>
 <li>
-<p>x.parent is BLACK.</p>
+<p><code>u.parent</code> is <code>BLACK</code>.</p>
 </li>
 <li>
-<p>x.parent and the uncle of x are RED.</p>
+<p><code>u.parent</code> and the uncle of <code>u</code> are <code>RED</code>.</p>
+<p>The uncle of <code>u</code> will be the left child of <code>u.parent.parent</code>,
+if <code>u.parent</code> is the right child of <code>u.parent.parent</code>,
+otherwise (<code>u.parent</code> is the left child of <code>u.parent.parent</code>)
+the uncle will be the right child of <code>u.parent.parent</code>.</p>
+</li>
+<li>
+<p>u.parent is RED, but u.uncle is BLACK (or None). u.grandparent exists because u.parent is RED.</p>
+<p>4.1. <code>u</code> is added to the right of a left child of <code>u.parent.parent</code> (grandparent)</p>
+<p>4.2. or <code>u</code> is added to the left of a right child of <code>u.parent.parent</code>.</p>
+<p>4.3. <code>u</code> is added to the left of a left child of <code>u.parent.parent</code>.</p>
+<p>4.4. or <code>u</code> is added to the right of a right child of <code>u.parent.parent</code>.</p>
 </li>
 </ol>
-<p>The uncle of x will be the left child of x.parent.parent,
-if x.parent is the right child of x.parent.parent,
-otherwise (x.parent is the left child of x.parent.parent)
-the uncle will be the right child of x.parent.parent.</p>
-<p>4.1. x is added to the right of a left child of x.parent.parent (grandparent)
-4.2. or x is added to the left of a right child of x.parent.parent.</p>
-<p>5.1. x is added to the right of a right child of x.parent.parent
-5.2. or x is added to the left of a left child of x.parent.parent.</p></div>
+<p><code>_fix_insertion</code> handles these cases in the same order as just presented above.</p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub>(n)).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.insert', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.insert" class="source">
-    <pre><code>def insert(self, x, value=None):
-    """Inserts x into self.
+    <pre><code>def insert(self, u, value=None):
+    """Inserts `u` into this `RBT`.
+    This operation is similar to the `insert` operation of a classical `BST`,
+    but, in this case, the red-black tree property must be maintained,
+    so addional work is needed.    
     There are several cases of inserting into a RBT to handle:
-    1. x is the root node (first node).
-    2. x.parent is BLACK.
-    3. x.parent and the uncle of x are RED.
-    The uncle of x will be the left child of x.parent.parent,
-    if x.parent is the right child of x.parent.parent,
-    otherwise (x.parent is the left child of x.parent.parent)
-    the uncle will be the right child of x.parent.parent.
-    4.1. x is added to the right of a left child of x.parent.parent (grandparent)
-    4.2. or x is added to the left of a right child of x.parent.parent.
-    5.1. x is added to the right of a right child of x.parent.parent
-    5.2. or x is added to the left of a left child of x.parent.parent."""
-    if x is None:
-        raise TypeError("x cannot be None.")
-    if not isinstance(x, RBTNode):
-        x = RBTNode(x, value)
+    1. `u`  is the root node (first node).
+    2. `u.parent` is `BLACK`.
+    3. `u.parent` and the uncle of `u` are `RED`.
+        The uncle of `u` will be the left child of `u.parent.parent`,
+    if `u.parent` is the right child of `u.parent.parent`,
+    otherwise (`u.parent` is the left child of `u.parent.parent`)
+    the uncle will be the right child of `u.parent.parent`.
+    4. u.parent is RED, but u.uncle is BLACK (or None). u.grandparent exists because u.parent is RED.
+        4.1. `u` is added to the right of a left child of `u.parent.parent` (grandparent)
+        4.2. or `u` is added to the left of a right child of `u.parent.parent`.
+        4.3. `u` is added to the left of a left child of `u.parent.parent`.
+        4.4. or `u` is added to the right of a right child of `u.parent.parent`.
+    `_fix_insertion` handles these cases in the same order as just presented above.
+    **Time Complexity:** O(log<sub>2</sub>(n))."""
+    if u is None:
+        raise ValueError("u cannot be None.")
+    if not isinstance(u, RBTNode):
+        u = RBTNode(u, value)
+    if u.left or u.right or u.parent:
+        raise ValueError("u cannot have left or right children, or parent.")
     c = self.root  # Current node
     p = None  # Current node's parent
     while c is not None:
         p = c
-        if x.key < c.key:
+        if u.key < c.key:
             c = c.left
-        else:  # x.key >= c.key
+        else:  # u.key >= c.key
             c = c.right
-    x.parent = p
+    u.parent = p
     # The while loop was not executed even once.
     # Case 1: node is inserted as root.
     if p is None:
-        self.root = x
-    elif p.key > x.key:
-        p.left = x
-    else:  # p.key < x.key:
-        p.right = x
-    x.color = RED
+        self.root = u
+    elif p.key > u.key:
+        p.left = u
+    else:  # p.key < u.key:
+        p.right = u
+    u.color = RED
     self.n += 1
-    self._fix_insertion(x, verbose=True)
+    self._fix_insertion(u)
 </code></pre>
   </div>
 </div>
@@ -1676,18 +2990,18 @@ the uncle will be the right child of x.parent.parent.</p>
 
     
   
-    <div class="desc"><p>Calls self.tail_insert for all elements of ls.</p>
-<p>Therefore the elements of ls should either be
-BSTNode objects or they should represent keys.</p>
-<p>Time complexity: O(len(ls)*h)</p></div>
+    <div class="desc"><p>Calls <code>self.insert</code> for all elements of <code>ls</code>.
+Therefore the elements of <code>ls</code> should either be
+<code>BSTNode</code> objects or they should represent keys.</p>
+<p><strong>Time Complexity</strong>: O(len(ls)*h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.insert_many', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.insert_many" class="source">
     <pre><code>def insert_many(self, ls):
-    """Calls self.tail_insert for all elements of ls.
-    Therefore the elements of ls should either be
-    BSTNode objects or they should represent keys.
-    Time complexity: O(len(ls)*h)"""
+    """Calls `self.insert` for all elements of `ls`.
+    Therefore the elements of `ls` should either be
+    `BSTNode` objects or they should represent keys.
+    **Time Complexity**: O(len(ls)*h)."""
     for i in ls:
         self.insert(i)
 </code></pre>
@@ -1705,12 +3019,12 @@ BSTNode objects or they should represent keys.</p>
 
     
   
-    <div class="desc"><p>Returns True if this tree has 0 nodes.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if this tree has 0 nodes.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.is_empty', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.is_empty" class="source">
     <pre><code>def is_empty(self):
-    """Returns True if this tree has 0 nodes."""
+    """Returns `True` if this tree has 0 nodes."""
     return self.size() == 0
 </code></pre>
   </div>
@@ -1720,19 +3034,19 @@ BSTNode objects or they should represent keys.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.RBT.RBT.is_the_root">
-    <p>def <span class="ident">is_the_root</span>(</p><p>self, u)</p>
+    <div class="name def" id="ands.ds.RBT.RBT.is_root">
+    <p>def <span class="ident">is_root</span>(</p><p>self, u)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Checks if u is a reference pointing to the root object.</p></div>
+    <div class="desc"><p>Checks if <code>u</code> is the root.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.is_the_root', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.RBT.is_the_root" class="source">
-    <pre><code>def is_the_root(self, u):
-    """Checks if u is a reference pointing to the root object."""
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.is_root', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBT.is_root" class="source">
+    <pre><code>def is_root(self, u):
+    """Checks if `u` is the root."""
     return u == self.root
 </code></pre>
   </div>
@@ -1749,26 +3063,28 @@ BSTNode objects or they should represent keys.</p>
 
     
   
-    <div class="desc"><p>Left rotates the subtree rooted at node x.</p>
-<p>x can be a BSTNode object, and in that case,
+    <div class="desc"><p>Left rotates the subtree rooted at node <code>x</code>.</p>
+<p><code>x</code> can be a <code>BSTNode</code> object, and in that case,
 this function performs in constant time O(1);
-else, if node is not a BSTNode object,
-it tries to search for a BSTNode object with key=x,
+else, if node is not a <code>BSTNode</code> object,
+it tries to search for a <code>BSTNode</code> object with key=x,
 and, in that case, it performs in O(h) time.</p>
-<p>Returns the node which is at the previous position of x,
-that is it returns the parent of x.</p></div>
+<p>Returns the node which is at the previous position of <code>x</code>,
+that is it returns the parent of <code>x</code>.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.left_rotate', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.left_rotate" class="source">
     <pre><code>def left_rotate(self, x):
-    """Left rotates the subtree rooted at node x.
-    x can be a BSTNode object, and in that case,
+    """Left rotates the subtree rooted at node `x`.
+    `x` can be a `BSTNode` object, and in that case,
     this function performs in constant time O(1);
-    else, if node is not a BSTNode object,
-    it tries to search for a BSTNode object with key=x,
+    else, if node is not a `BSTNode` object,
+    it tries to search for a `BSTNode` object with key=x,
     and, in that case, it performs in O(h) time.
-    Returns the node which is at the previous position of x,
-    that is it returns the parent of x."""
+    Returns the node which is at the previous position of `x`,
+    that is it returns the parent of `x`.
+    **Time Complexity**: O(1)."""
     c = None  # It will rotate the subtree rooted at c.
     if not isinstance(x, BSTNode):
         c = self.search(x)
@@ -1827,12 +3143,14 @@ that is it returns the parent of x.</p></div>
 
     
   
-    <div class="desc"><p>Calls BST._maximum_r(self.root) if self.root is not None.</p></div>
+    <div class="desc"><p>Calls <code>BST._maximum_r(self.root)</code> if <code>self.root</code> is evaluated to <code>True</code>.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.maximum', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.maximum" class="source">
     <pre><code>def maximum(self):
-    """Calls BST._maximum_r(self.root) if self.root is not None."""
+    """Calls `BST._maximum_r(self.root)` if `self.root` is evaluated to `True`.
+    **Time Complexity**: O(h)."""
     if self.root:
         return BST._maximum_r(self.root)
 </code></pre>
@@ -1850,12 +3168,14 @@ that is it returns the parent of x.</p></div>
 
     
   
-    <div class="desc"><p>Calls BST._minimum_r(self.root) if self.root is not None.</p></div>
+    <div class="desc"><p>Calls <code>BST._minimum_r(self.root)</code> if <code>self.root</code> is evaluated to <code>True</code>.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.minimum', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.minimum" class="source">
     <pre><code>def minimum(self):
-    """Calls BST._minimum_r(self.root) if self.root is not None."""
+    """Calls `BST._minimum_r(self.root)` if `self.root` is evaluated to `True`.
+    **Time Complexity**: O(h)."""
     if self.root:
         return BST._minimum_r(self.root)
 </code></pre>
@@ -1873,12 +3193,17 @@ that is it returns the parent of x.</p></div>
 
     
   
-    <div class="desc"><p>See self._post_order_traversal</p></div>
+    <div class="desc"><p>Prints the keys of this tree in post-order.
+It does the opposite of <code>pre_order_traversal</code>.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.post_order_traversal', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.post_order_traversal" class="source">
     <pre><code>def post_order_traversal(self):
-    """See self._post_order_traversal"""
+    """Prints the keys of this tree in post-order.
+    It does the opposite of `pre_order_traversal`.
+    
+    **Time Complexity**: O(h)."""
     self._post_order_traversal(self.root)
     print("\n")
 </code></pre>
@@ -1896,12 +3221,18 @@ that is it returns the parent of x.</p></div>
 
     
   
-    <div class="desc"><p>See BST._pre_order_traversal</p></div>
+    <div class="desc"><p>Prints the keys of this tree in pre-order.
+The pre-order consists of recursively printing first a node <code>u</code>,
+then its left child node and then its right child node.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.pre_order_traversal', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.pre_order_traversal" class="source">
     <pre><code>def pre_order_traversal(self):
-    """See BST._pre_order_traversal"""
+    """Prints the keys of this tree in pre-order.
+    The pre-order consists of recursively printing first a node `u`,
+    then its left child node and then its right child node.
+    **Time Complexity**: O(h)."""
     self._pre_order_traversal(self.root)
     print("\n")
 </code></pre>
@@ -1919,21 +3250,21 @@ that is it returns the parent of x.</p></div>
 
     
   
-    <div class="desc"><p>Finds the successor of the node u.
-Opposite operation of successor(u).</p>
-<p>u can either be a reference to an actual BSTNode object,
+    <div class="desc"><p>Finds the predecessor of the node <code>u</code>,
+i.e. the greatest element smaller than <code>u</code>.</p>
+<p><code>u</code> can either be a reference to an actual <code>BSTNode</code> object,
 or it can be a key of a supposed node in self.</p>
-<p>Time complexity: O(h)</p></div>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.predecessor', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.predecessor" class="source">
     <pre><code>def predecessor(self, u):
-    """Finds the successor of the node u.
-    Opposite operation of successor(u).
+    """Finds the predecessor of the node `u`,
+    i.e. the greatest element smaller than `u`.
     
-    u can either be a reference to an actual BSTNode object,
+    `u` can either be a reference to an actual `BSTNode` object,
     or it can be a key of a supposed node in self.
-    Time complexity: O(h)"""
+    **Time Complexity**: O(h)."""
     if not isinstance(u, BSTNode):
         u = self.search_r(u)
         if u is None:
@@ -1941,9 +3272,6 @@ or it can be a key of a supposed node in self.</p>
     if u.left:
         return BST._maximum_r(u.left)
     p = u.parent
-    # The comparison node == p.left
-    # compares basically if they are the same object,
-    # See the BaseNode class.
     while p and u == p.left:
         u = p
         p = u.parent
@@ -1963,12 +3291,14 @@ or it can be a key of a supposed node in self.</p>
 
     
   
-    <div class="desc"><p>Returns the number of keys strictly less than key.</p></div>
+    <div class="desc"><p>Returns the number of keys strictly less than <code>key</code>.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.rank', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.rank" class="source">
     <pre><code>def rank(self, key):
-    """Returns the number of keys strictly less than key."""
+    """Returns the number of keys strictly less than `key`.
+    **Time Complexity**: O(h)."""
     if key is None:
         raise ValueError("key cannot be None.")
     if not self.search(key):
@@ -1993,14 +3323,40 @@ or it can be a key of a supposed node in self.</p>
 
     
   
-    <div class="desc"><p>Removes and returns the maximum element of the tree, if it is not empty.</p></div>
+    <div class="desc"><p>Removes and returns the maximum element of the tree, if it is not empty.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.remove_max', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.remove_max" class="source">
     <pre><code>def remove_max(self):
-    """Removes and returns the maximum element of the tree, if it is not empty."""
+    """Removes and returns the maximum element of the tree, if it is not empty.
+    **Time Complexity**: O(h)."""
+    def _remove_max(u: BSTNode):
+        """Removes the maximum element of the subtree rooted at `u`.
+        Note that the maximum element is all the way to the right,
+        and it cannot have a right child,
+        but it can still have a left subtree.
+        If `u` is `None`, exceptions will be thrown."""
+        m = BST._maximum_r(u)
+        
+        if m.left:  # m has a left subtree.
+            if self.is_root(m):  # m is the root.
+                self.root = m.left
+                m.left.parent = None  # self.root.parent = None
+            else:  # m is NOT the root.
+                m.left.parent = m.parent
+                m.parent.right = m.left
+        else:  # m has NO children
+            if self.is_root(m):
+                self.root = None
+            else:
+                m.parent.right = None
+                
+        m.parent = m.left = None
+        self.n -= 1
+        return m
     if self.n > 0:
-        return self._remove_max(self.root)
+        return _remove_max(self.root)
 </code></pre>
   </div>
 </div>
@@ -2016,14 +3372,36 @@ or it can be a key of a supposed node in self.</p>
 
     
   
-    <div class="desc"><p>Removes and returns the minimum element of the tree, if it is not empty.</p></div>
+    <div class="desc"><p>Removes and returns the minimum element of the tree, if it is not empty.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.remove_min', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.remove_min" class="source">
     <pre><code>def remove_min(self):
-    """Removes and returns the minimum element of the tree, if it is not empty."""
+    """Removes and returns the minimum element of the tree, if it is not empty.
+    **Time Complexity**: O(h)."""
+    def _remove_min(u: BSTNode):
+        """Removes and returns the minimum element of the subtree rooted at `u`.
+        If `u` is `None`, exceptions will be thrown."""
+        m = BST._minimum_r(u)
+        
+        if m.right:
+            if self.is_root(m):
+                self.root = m.right
+                m.right.parent = None
+            else:
+                m.right.parent = m.parent
+                m.parent.left = m.right
+        else:  # m has not right subtree.
+            if self.is_root(m):
+                self.root = None
+            else:  # m is an internal node with no right subtree.
+                m.parent.left = None
+        m.right = m.parent = None
+        self.n -= 1
+        return m
     if self.n > 0:
-        return self._remove_min(self.root)
+        return _remove_min(self.root)
 </code></pre>
   </div>
 </div>
@@ -2039,12 +3417,16 @@ or it can be a key of a supposed node in self.</p>
 
     
   
-    <div class="desc"><p>See self._reverse_in_order_traversal</p></div>
+    <div class="desc"><p>Prints the keys of this tree in decreasing order.</p>
+<p>It does the opposite of <code>self.in_order_traversal</code>.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.reverse_in_order_traversal', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.reverse_in_order_traversal" class="source">
     <pre><code>def reverse_in_order_traversal(self):
-    """See self._reverse_in_order_traversal"""
+    """Prints the keys of this tree in decreasing order.
+    It does the opposite of `self.in_order_traversal`.
+    **Time Complexity**: O(h)."""
     self._reverse_in_order_traversal(self.root)
     print("\n")
 </code></pre>
@@ -2062,14 +3444,16 @@ or it can be a key of a supposed node in self.</p>
 
     
   
-    <div class="desc"><p>Right rotates the subtree rooted at node x.
-See doc-strings of left_rotate.</p></div>
+    <div class="desc"><p>Right rotates the subtree rooted at node <code>x</code>.
+See doc-strings of <code>self.left_rotate</code>.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.right_rotate', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.right_rotate" class="source">
     <pre><code>def right_rotate(self, x):
-    """Right rotates the subtree rooted at node x.
-    See doc-strings of left_rotate."""
+    """Right rotates the subtree rooted at node `x`.
+    See doc-strings of `self.left_rotate`.
+    **Time Complexity**: O(1)."""
     c = None
     if not isinstance(x, BSTNode):
         c = self.search(x)
@@ -2103,47 +3487,6 @@ See doc-strings of left_rotate.</p></div>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.RBT.RBT.root_insert">
-    <p>def <span class="ident">root_insert</span>(</p><p>self, x, value=None)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Inserts x as the root of this tree.</p>
-<p>x can either be a key or a BSTNode object.
-In the former case, a BSTNode object is first created to host x.
-If x is a key, you can also provide a value,
-which is then associated with the BSTNode object with key x.</p>
-<p>Time complexity: O(h)</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.root_insert', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.RBT.root_insert" class="source">
-    <pre><code>def root_insert(self, x, value=None):
-    """Inserts x as the root of this tree.
-    x can either be a key or a BSTNode object.
-    In the former case, a BSTNode object is first created to host x.
-    If x is a key, you can also provide a value,
-    which is then associated with the BSTNode object with key x.
-    Time complexity: O(h)"""
-    if x is None:
-        raise ValueError("x cannot be None.")
-    if not isinstance(x, BSTNode):
-        x = BSTNode(x, value)
-        
-    if self.root is None:
-        self._initialise(x)
-    else:
-        self._root_insert(self.root, x)
-        self.n += 1
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
     <div class="name def" id="ands.ds.RBT.RBT.search">
     <p>def <span class="ident">search</span>(</p><p>self, key, s=None)</p>
     </div>
@@ -2152,17 +3495,17 @@ which is then associated with the BSTNode object with key x.</p>
     
   
     <div class="desc"><p>Searches for the key in the tree.
-If s is specified, then this procedure starts searching from s.</p>
-<p>key must be a comparable object of the same type as the other keys.</p>
-<p>Time complexity: O(h)</p></div>
+If <code>s</code> is specified, then this procedure starts searching from <code>s</code>.</p>
+<p><code>key</code> must be a comparable object of the same type as the other keys.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.search', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.search" class="source">
     <pre><code>def search(self, key, s: BSTNode=None) -> BSTNode:
     """Searches for the key in the tree.
-    If s is specified, then this procedure starts searching from s.
-    key must be a comparable object of the same type as the other keys.
-    Time complexity: O(h)"""
+    If `s` is specified, then this procedure starts searching from `s`.
+    `key` must be a comparable object of the same type as the other keys.
+    **Time Complexity**: O(h)."""
     if key is None:
         raise ValueError("key cannot be None.")
     if s is None:
@@ -2185,13 +3528,13 @@ If s is specified, then this procedure starts searching from s.</p>
     
   
     <div class="desc"><p>Searches iteratively for key starting from the root.</p>
-<p>Time complexity: O(h)</p></div>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.search_i', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.search_i" class="source">
     <pre><code>def search_i(self, key) -> BSTNode:
     """Searches iteratively for key starting from the root.
-    Time complexity: O(h)"""
+    **Time Complexity**: O(h)."""
     return BST._search_i(key, self.root)
 </code></pre>
   </div>
@@ -2208,15 +3551,15 @@ If s is specified, then this procedure starts searching from s.</p>
 
     
   
-    <div class="desc"><p>Searches recursively for key starting from the root.</p>
-<p>Time complexity: O(h)</p></div>
+    <div class="desc"><p>Searches recursively for <code>key</code> starting from <code>self.root</code>.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.search_r', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.search_r" class="source">
     <pre><code>def search_r(self, key) -> BSTNode:
-    """Searches recursively for key starting from the root.
+    """Searches recursively for `key` starting from `self.root`.
     
-    Time complexity: O(h)"""
+    **Time Complexity**: O(h)."""
     return self._search_r(key, self.root)
 </code></pre>
   </div>
@@ -2277,26 +3620,29 @@ If s is specified, then this procedure starts searching from s.</p>
 
     
   
-    <div class="desc"><p>Finds the successor of u.
-If u has a right subtree,
-then the successor of u is the minimum of that right subtree.</p>
-<p>Otherwise it is the first ancestor, lets call it A, of u
-such that u falls in the left subtree of A.</p>
-<p>u can either be a reference to an actual BSTNode object,
+    <div class="desc"><p>Finds the successor of <code>u</code>,
+i.e. the smallest element greater than <code>u</code>.</p>
+<p>If <code>u</code> has a right subtree,
+then the successor of <code>u</code> is the minimum of that right subtree.</p>
+<p>Otherwise it is the first ancestor of <code>u</code>, lets call it <code>A</code>, 
+such that <code>u</code> falls in the left subtree of <code>A</code>.</p>
+<p><code>u</code> can either be a reference to an actual <code>BSTNode</code> object,
 or it can be a key of a supposed node in self.</p>
-<p>Time complexity: O(h)</p></div>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.successor', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.successor" class="source">
     <pre><code>def successor(self, u):
-    """Finds the successor of u.
-    If u has a right subtree,
-    then the successor of u is the minimum of that right subtree.
-    Otherwise it is the first ancestor, lets call it A, of u
-    such that u falls in the left subtree of A.
-    u can either be a reference to an actual BSTNode object,
+    """Finds the successor of `u`,
+    i.e. the smallest element greater than `u`.
+    
+    If `u` has a right subtree,
+    then the successor of `u` is the minimum of that right subtree.
+    Otherwise it is the first ancestor of `u`, lets call it `A`, 
+    such that `u` falls in the left subtree of `A`.
+    `u` can either be a reference to an actual `BSTNode` object,
     or it can be a key of a supposed node in self.
-    Time complexity: O(h)"""
+    **Time Complexity**: O(h)."""
     if not isinstance(u, BSTNode):
         u = self.search(u)
         if not u:
@@ -2304,69 +3650,10 @@ or it can be a key of a supposed node in self.</p>
     if u.right:
         return BST._minimum_r(u.right)
     p = u.parent
-    # The comparison node == p.right
-    # compares basically if they are the same object.
-    # See the BaseNode class.
     while p and p.right == u:
         u = p
         p = u.parent
     return p
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.RBT.RBT.tail_insert">
-    <p>def <span class="ident">tail_insert</span>(</p><p>self, x, value=None)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Inserts x into this BST object.</p>
-<p>x can either be a BSTNode object,
-or it can be a key of any other type,
-but it should be of the same type of the other keys,
-and these keys should be comparable objects.
-Note that if you tail_insert x as a key,
-you can also pass a value to associate with x.</p>
-<p>Time complexity: O(h)</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.tail_insert', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.RBT.tail_insert" class="source">
-    <pre><code>def tail_insert(self, x, value=None):
-    """Inserts x into this BST object.
-    x can either be a BSTNode object,
-    or it can be a key of any other type,
-    but it should be of the same type of the other keys,
-    and these keys should be comparable objects.
-    Note that if you tail_insert x as a key,
-    you can also pass a value to associate with x.
-    Time complexity: O(h)"""
-    if x is None:
-        raise ValueError("x cannot be None.")
-    if not isinstance(x, BSTNode):
-        x = BSTNode(x, value)
-    if self.root is None:
-        self._initialise(x)
-    else:
-        c = self.root  # c is the current node
-        p = self.root.parent  # parent of c
-        while c is not None:
-            p = c
-            if x.key < c.key:
-                c = c.left
-            else:
-                c = c.right
-        if x.key < p.key:
-            p.left = x
-        else:
-            p.right = x
-        x.parent = p
-        self.n += 1
 </code></pre>
   </div>
 </div>

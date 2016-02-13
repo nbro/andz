@@ -31,7 +31,8 @@ class BSTNode(BaseNode):
 
     @property
     def sibling(self):
-        """Returns the sibling node of this node."""
+        """Returns the sibling node of this node,
+        which can of course be `None`."""
         if self.parent is not None:
             if self.is_left_child():
                 return self.parent.right

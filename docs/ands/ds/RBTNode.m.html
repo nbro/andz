@@ -1053,9 +1053,18 @@ class RBTNode(BSTNode):
 
     def __init__(self, key, value, color=BLACK, parent=None, left=None, right=None):
         BSTNode.__init__(self, key, value, parent, left, right)
-        self.color = color
-        self.label = "[" + str(self.key) + ", " + str(self.color) + "]"
+        self._color = color
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
 
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, value):
+        self._color = value
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
+        
     def reset(self):
         super().reset()
         self.color = BLACK
@@ -1110,9 +1119,18 @@ class RBTNode(BSTNode):
 
     def __init__(self, key, value, color=BLACK, parent=None, left=None, right=None):
         BSTNode.__init__(self, key, value, parent, left, right)
-        self.color = color
-        self.label = "[" + str(self.key) + ", " + str(self.color) + "]"
+        self._color = color
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
 
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, value):
+        self._color = value
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
+        
     def reset(self):
         super().reset()
         self.color = BLACK
@@ -1157,8 +1175,8 @@ class RBTNode(BSTNode):
   <div id="source-ands.ds.RBTNode.RBTNode.__init__" class="source">
     <pre><code>def __init__(self, key, value, color=BLACK, parent=None, left=None, right=None):
     BSTNode.__init__(self, key, value, parent, left, right)
-    self.color = color
-    self.label = "[" + str(self.key) + ", " + str(self.color) + "]"
+    self._color = color
+    self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
 </code></pre>
   </div>
 </div>
@@ -1382,7 +1400,8 @@ class RBTNode(BSTNode):
 
             
   
-    <div class="desc"><p>Returns the sibling node of this node.</p></div>
+    <div class="desc"><p>Returns the sibling node of this node,
+which can of course be <code>None</code>.</p></div>
   <div class="source_cont">
 </div>
 
