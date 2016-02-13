@@ -8,14 +8,16 @@ Run this file to run all runnable scripts within `ands`.
 def main():
     import glob
     from subprocess import CalledProcessError, check_output, call
-
+    import os
+    
     def check():
         passed = 0
         failed = 0
         # Only works for Python 3.5+
         for filename in glob.iglob('./**/*.py', recursive=True):
 
-            if filename.endswith("main.py") or filename.endswith("__init__.py"):
+            # ignore this files
+            if filename.endswith(os.path.basename(__file__)) or filename.endswith("__init__.py"):
                 continue
             
             call(["chmod", "-R", "+x", filename])            

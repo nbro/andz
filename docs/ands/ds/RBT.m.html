@@ -976,19 +976,6 @@ table {
     <h1>Index</h1>
     <ul id="index">
 
-    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
-      
-  <ul>
-    <li class="mono"><a href="#ands.ds.RBT.assert_prop_1">assert_prop_1</a></li>
-    <li class="mono"><a href="#ands.ds.RBT.assert_prop_2">assert_prop_2</a></li>
-    <li class="mono"><a href="#ands.ds.RBT.assert_prop_3">assert_prop_3</a></li>
-    <li class="mono"><a href="#ands.ds.RBT.assert_prop_4">assert_prop_4</a></li>
-    <li class="mono"><a href="#ands.ds.RBT.assert_prop_5">assert_prop_5</a></li>
-    <li class="mono"><a href="#ands.ds.RBT.assert_rbt_props">assert_rbt_props</a></li>
-    <li class="mono"><a href="#ands.ds.RBT.assert_upper_bound_bh">assert_upper_bound_bh</a></li>
-  </ul>
-
-    </li>
 
     <li class="set"><h3><a href="#header-classes">Classes</a></h3>
       <ul>
@@ -1247,8 +1234,7 @@ from ands.ds.BST import *
 from ands.ds.RBTNode import RBTNode, RED, BLACK
 
 
-__all__ = ["RBT", "assert_prop_1", "assert_prop_2", "assert_prop_3", "assert_prop_4",
-           "assert_prop_5", "assert_upper_bound_bh", "assert_rbt_props"]
+__all__ = ["RBT"]
 
 
 class RBT(BST):
@@ -1609,376 +1595,23 @@ class RBT(BST):
         u.parent = u.left = u.right = None
         return u
 
+    def remove_max(self):
+        """Removes and returns the element with the greatest value from `self`.
 
-# ASSERT FUNCTIONS
+        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        if self.root:
+            m = self.maximum()
+            assert m
+            return self.delete(m)
 
-def assert_prop_1(t):
-    def _assert(n):
-        if n:
-            _assert(n.left)
-            assert n.color == BLACK or n.color == RED
-            _assert(n.right)
-    _assert(t.root)
+    def remove_min(self):
+        """Removes and returns the element with the smallest value from `self`.
 
-def assert_prop_2(t):
-    if t.root:
-        assert t.root.color == BLACK
-
-def assert_prop_3(t):
-    # leaves are represented with Nones,
-    # so there's not need to check this property.
-    pass
-
-def assert_prop_4(t):
-    def _assert(n):
-        if n:
-            _assert(n.left)
-            if n.parent and n.color == RED:
-                assert n.parent.color == BLACK
-            if not n.parent:
-                assert n.color == BLACK
-            _assert(n.right)
-    _assert(t.root)
-
-def assert_prop_5(t):
-    def bh(n):
-        if n is None:
-            return 1
-        
-        left_bh = bh(n.left)
-        right_bh = bh(n.right)
-        
-        if left_bh != right_bh:
-            assert False, "Different left and right black-heights."
-        else:
-            return left_bh + (1 if n.color == BLACK else 0)
-
-    return bh(t.root)
-
-def assert_upper_bound_bh(t):
-    if t.n > 0:
-        import math
-        assert t.height() <= 2 * math.log2(t.n + 1)
-
-def assert_rbt_props(t):
-    assert bst_invariant(t)
-    assert_upper_bound_bh(t)
-    assert_prop_1(t)
-    assert_prop_2(t)
-    # assert_prop_3(t)
-    assert_prop_4(t)
-    assert_prop_5(t)
-    if t.root:
-        assert not t.root.parent
-
-# TESTS
-
-def test_insert_one():
-    rbt = RBT()
-    rbt.insert(12)
-    one = rbt.search(12)
-    two = rbt.search(14)
-    assert not two and one
-    assert one.color == BLACK
-    assert one == rbt.root
-    assert rbt.height() == 1
-    assert rbt.n == rbt.size() == one.count() == 1
-    assert_rbt_props(rbt)
-    print("test_insert_one finished.")
-
-def test_insert_two():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(14)
-    one = rbt.search(12)
-    two = rbt.search(14)
-    three = rbt.search(28)
-    assert not three and one and two
-    assert one.color == BLACK
-    assert one == rbt.root
-    assert two.color == RED
-    assert two != rbt.root
-    assert one.right == two
-    assert not one.left    
-    assert rbt.height() == 2
-    assert rbt.n == rbt.size() == one.count() == 2
-    assert_rbt_props(rbt)
-    print("test_insert_two finished.")
-
-def test_insert_three():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(14)
-    rbt.insert(28)
-    one = rbt.search(12)
-    two = rbt.search(14)
-    three = rbt.search(28)
-    four = rbt.search(7)
-    assert two == rbt.root
-    assert two.parent is None
-    assert one.left == one.right == three.left == three.right
-    assert one.left is None
-    assert one and two and three and not four
-    assert one.color == RED == three.color
-    assert two.color == BLACK
-    assert rbt.n == rbt.size() == two.count() == 3
-    assert_rbt_props(rbt)
-    print("test_insert_three finished.")
-
-def test_height_and_insert_many():
-    # Lemma proved above put in practice!
-    from random import randint
-    ls = [randint(-100, 100) for _ in range(20)]
-    rbt = RBT()
-    for i in ls:
-        rbt.insert(i)
-        assert_upper_bound_bh(rbt)
-    assert_rbt_props(rbt)
-    print("test_height_and_insert_many finished.")
-
-def test_delete_root():
-    rbt = RBT()
-    rbt.insert(12)
-    assert_rbt_props(rbt)
-    assert rbt.n == rbt.size() == rbt.root.count() == 1
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None
-    assert not rbt.root
-    assert rbt.n == rbt.size() == 0
-    assert_rbt_props(rbt)
-    print("test_delete_root finished.")
-
-def test_delete_root2():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(14)
-    assert rbt.n == rbt.size() == rbt.root.count() == 2
-    assert_rbt_props(rbt)
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None
-    assert rbt.root and rbt.search(14)
-    assert not rbt.root.left and not rbt.root.right
-    assert rbt.n == rbt.size() == rbt.root.count() == 1
-    assert_rbt_props(rbt)
-    print("test_delete_root2 finished.")
-
-def test_delete_root3():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(7)
-    assert rbt.n == rbt.size() == rbt.root.count() == 2
-    assert_rbt_props(rbt)
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None
-    assert rbt.root and rbt.root == rbt.search(7)
-    # already check rbt.root.parent is not None in assert_rbt_props
-    assert not rbt.root.left and not rbt.root.right  
-    assert rbt.n == rbt.size() == rbt.root.count() == 1
-    assert_rbt_props(rbt)
-    print("test_delete_root3 finished.")
-
-def test_delete_root4():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(7)
-    rbt.insert(14)
-    assert rbt.n == rbt.size() == rbt.root.count() == 3
-    assert_rbt_props(rbt)
-    #print(rbt)
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None
-    assert rbt.root and rbt.root == rbt.search(14)
-    assert rbt.root.right is None
-    assert rbt.n == rbt.size() == rbt.root.count() == 2
-    assert_rbt_props(rbt)
-    print("test_delete_root4 finished.")
-
-def test_delete_root5():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(7)
-    rbt.insert(14)
-    rbt.insert(28)
-    assert rbt.n == rbt.size() == rbt.root.count() == 4
-    assert_rbt_props(rbt)
-    #print(rbt)
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None
-    assert rbt.root and rbt.root == rbt.search(14)
-    assert rbt.root.right == rbt.search(28) and rbt.root.left == rbt.search(7)
-    assert rbt.n == rbt.size() == rbt.root.count() == 3
-    assert_rbt_props(rbt)
-    print("test_delete_root5 finished.")
-
-def test_delete_root6():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(7)
-    rbt.insert(14)
-    rbt.insert(28)
-    rbt.insert(13)
-    assert rbt.n == rbt.size() == rbt.root.count() == 5
-    assert_rbt_props(rbt)
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None
-    assert rbt.root and rbt.root == rbt.search(13)
-    assert rbt.root.right == rbt.search(14) and rbt.root.left == rbt.search(7)
-    assert not rbt.search(14).left
-    assert rbt.search(14).right == rbt.search(28)
-    assert rbt.n == rbt.size() == rbt.root.count() == 4
-    assert_rbt_props(rbt)
-    print("test_delete_root6 finished.")
-
-def test_delete_root7():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(7)
-    rbt.insert(14)
-    rbt.insert(28)
-    rbt.insert(13)
-    rbt.insert(35)
-    assert rbt.n == rbt.size() == rbt.root.count() == 6
-    assert_rbt_props(rbt)
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None
-    assert rbt.root and rbt.root == rbt.search(13)
-    assert rbt.root.right == rbt.search(28) and rbt.root.left == rbt.search(7)
-    assert not rbt.search(14).left and not rbt.search(14).right
-    assert not rbt.search(35).left and not rbt.search(35).right
-    assert rbt.search(28).left == rbt.search(14) and rbt.search(28).right == rbt.search(35)    
-    assert rbt.n == rbt.size() == rbt.root.count() == 5
-    assert_rbt_props(rbt)
-    print("test_delete_root7 finished.")
-
-def test_delete_root8():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(7)
-    rbt.insert(14)
-    rbt.insert(28)
-    rbt.insert(13)
-    rbt.insert(35)
-    rbt.insert(25)
-    assert rbt.n == rbt.size() == rbt.root.count() == 7
-    assert_rbt_props(rbt)
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None
-    assert rbt.root and rbt.root == rbt.search(13)
-    assert rbt.n == rbt.size() == rbt.root.count() == 6
-    assert not rbt.search(14).left
-    assert_rbt_props(rbt)
-    print("test_delete_root8 finished.")
-
-def test_delete_root9():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(7)
-    rbt.insert(14)
-    rbt.insert(28)
-    rbt.insert(13)
-    rbt.insert(35)
-    rbt.insert(25)
-    rbt.insert(12)
-    assert rbt.n == rbt.size() == rbt.root.count() == 8
-    assert_rbt_props(rbt)
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None    
-    assert not rbt.search(13).left and not rbt.search(13).right
-    assert_rbt_props(rbt)
-    #print(rbt)
-    print("test_delete_root9 finished.")
-
-def test_delete_root10():
-    rbt = RBT()
-    rbt.insert(12)
-    rbt.insert(7)
-    rbt.insert(14)
-    rbt.insert(28)
-    rbt.insert(13)
-    rbt.insert(35)
-    rbt.insert(25)
-    rbt.insert(12)
-    rbt.insert(13)
-    assert rbt.n == rbt.size() == rbt.root.count() == 9
-    assert_rbt_props(rbt)
-    r = rbt.delete(12)
-    assert r
-    assert r.left == r.right == r.parent
-    assert r.left is None
-    assert rbt.n == rbt.size() == rbt.root.count() == 8
-    assert_rbt_props(rbt)
-    print("test_delete_root10 finished.")
-
-def test_delete_all_rand_items():
-    from random import randint, shuffle
-    rbt = RBT()
-    
-    def get_rand_list():
-        return [randint(-100, 100) for _ in range(randint(0, 100))]
-
-    for i in range(1000):
-        ls = get_rand_list()
-        
-        for j, x in enumerate(ls):
-            rbt.insert(x)
-            assert rbt.n == rbt.size() == (j + 1)
-            assert_rbt_props(rbt)
-            #print("RBT after insertion of", x, "\n", rbt)
-
-        assert rbt.n == rbt.size() == len(ls)
-        assert_rbt_props(rbt)
-        #print()
-        shuffle(ls)
-        
-        for j, x in enumerate(ls):
-            r = rbt.delete(x)
-            assert r
-            assert r.left == r.right == r.parent
-            assert r.left is None
-            assert rbt.n == rbt.size() == (len(ls) - (j + 1))
-            assert_rbt_props(rbt)
-            #print("RBT after removal of", x, "\n", rbt)
-
-        assert rbt.n == rbt.size() == 0
-        assert_rbt_props(rbt)
-        
-    print("test_delete_all_rand_items finished.")
-
-
-if __name__ == "__main__":
-    test_insert_one()
-    test_insert_two()
-    test_insert_three()
-    test_height_and_insert_many()
-    test_delete_root()
-    test_delete_root2()
-    test_delete_root3()
-    test_delete_root4()
-    test_delete_root5()
-    test_delete_root6()
-    test_delete_root7()
-    test_delete_root8()
-    test_delete_root9()
-    test_delete_root10()
-    test_delete_all_rand_items()
+        **Time Complexity:** O(log<sub>2</sub>(n))."""        
+        if self.root:
+            m = self.minimum()
+            assert m
+            return self.delete(m)
 </code></pre>
   </div>
 
@@ -1986,185 +1619,6 @@ if __name__ == "__main__":
 
   <section id="section-items">
 
-    <h2 class="section-title" id="header-functions">Functions</h2>
-      
-  <div class="item">
-    <div class="name def" id="ands.ds.RBT.assert_prop_1">
-    <p>def <span class="ident">assert_prop_1</span>(</p><p>t)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_1', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.assert_prop_1" class="source">
-    <pre><code>def assert_prop_1(t):
-    def _assert(n):
-        if n:
-            _assert(n.left)
-            assert n.color == BLACK or n.color == RED
-            _assert(n.right)
-    _assert(t.root)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.ds.RBT.assert_prop_2">
-    <p>def <span class="ident">assert_prop_2</span>(</p><p>t)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_2', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.assert_prop_2" class="source">
-    <pre><code>def assert_prop_2(t):
-    if t.root:
-        assert t.root.color == BLACK
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.ds.RBT.assert_prop_3">
-    <p>def <span class="ident">assert_prop_3</span>(</p><p>t)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_3', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.assert_prop_3" class="source">
-    <pre><code>def assert_prop_3(t):
-    # leaves are represented with Nones,
-    # so there's not need to check this property.
-    pass
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.ds.RBT.assert_prop_4">
-    <p>def <span class="ident">assert_prop_4</span>(</p><p>t)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_4', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.assert_prop_4" class="source">
-    <pre><code>def assert_prop_4(t):
-    def _assert(n):
-        if n:
-            _assert(n.left)
-            if n.parent and n.color == RED:
-                assert n.parent.color == BLACK
-            if not n.parent:
-                assert n.color == BLACK
-            _assert(n.right)
-    _assert(t.root)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.ds.RBT.assert_prop_5">
-    <p>def <span class="ident">assert_prop_5</span>(</p><p>t)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_prop_5', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.assert_prop_5" class="source">
-    <pre><code>def assert_prop_5(t):
-    def bh(n):
-        if n is None:
-            return 1
-        
-        left_bh = bh(n.left)
-        right_bh = bh(n.right)
-        
-        if left_bh != right_bh:
-            assert False, "Different left and right black-heights."
-        else:
-            return left_bh + (1 if n.color == BLACK else 0)
-
-    return bh(t.root)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.ds.RBT.assert_rbt_props">
-    <p>def <span class="ident">assert_rbt_props</span>(</p><p>t)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_rbt_props', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.assert_rbt_props" class="source">
-    <pre><code>def assert_rbt_props(t):
-    assert bst_invariant(t)
-    assert_upper_bound_bh(t)
-    assert_prop_1(t)
-    assert_prop_2(t)
-    # assert_prop_3(t)
-    assert_prop_4(t)
-    assert_prop_5(t)
-    if t.root:
-        assert not t.root.parent
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.ds.RBT.assert_upper_bound_bh">
-    <p>def <span class="ident">assert_upper_bound_bh</span>(</p><p>t)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.assert_upper_bound_bh', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.RBT.assert_upper_bound_bh" class="source">
-    <pre><code>def assert_upper_bound_bh(t):
-    if t.n > 0:
-        import math
-        assert t.height() <= 2 * math.log2(t.n + 1)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
 
     <h2 class="section-title" id="header-classes">Classes</h2>
       
@@ -2172,7 +1626,6 @@ if __name__ == "__main__":
       <p id="ands.ds.RBT.RBT" class="name">class <span class="ident">RBT</span></p>
       
   
-    <div class="desc"><p>Represents a classical binary search tree.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT" class="source">
@@ -2533,6 +1986,24 @@ if __name__ == "__main__":
         self.n -= 1
         u.parent = u.left = u.right = None
         return u
+
+    def remove_max(self):
+        """Removes and returns the element with the greatest value from `self`.
+
+        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        if self.root:
+            m = self.maximum()
+            assert m
+            return self.delete(m)
+
+    def remove_min(self):
+        """Removes and returns the element with the smallest value from `self`.
+
+        **Time Complexity:** O(log<sub>2</sub>(n))."""        
+        if self.root:
+            m = self.minimum()
+            assert m
+            return self.delete(m)
 </code></pre>
   </div>
 </div>
@@ -2576,12 +2047,14 @@ if __name__ == "__main__":
 
     
   
-    <div class="desc"><p>Removes all nodes from this tree.</p></div>
+    <div class="desc"><p>Removes all nodes from this tree.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.clear', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.clear" class="source">
     <pre><code>def clear(self):
-    """Removes all nodes from this tree."""
+    """Removes all nodes from this tree.
+    **Time Complexity**: O(1)."""
     self.root = None
     self.n = 0
 </code></pre>
@@ -2599,12 +2072,14 @@ if __name__ == "__main__":
 
     
   
-    <div class="desc"><p>Returns <code>True</code> if a <code>BSTNode</code> object with <code>key</code> exists in the tree.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if a <code>BSTNode</code> object with <code>key</code> exists in the tree.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.contains', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.contains" class="source">
-    <pre><code>def contains(self, key):
-    """Returns `True` if a `BSTNode` object with `key` exists in the tree."""
+    <pre><code>def contains(self, key) -> bool:
+    """Returns `True` if a `BSTNode` object with `key` exists in the tree.
+    **Time Complexity**: O(h)."""
     return self.search_r(key) is not None
 </code></pre>
   </div>
@@ -2851,7 +2326,7 @@ then the behaviour of this method is undefined (for now).</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.height', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.height" class="source">
-    <pre><code>def height(self):
+    <pre><code>def height(self) -> int:
     """Returns the maximum depth or height of the tree.
     **Time Complexity**: O(h)."""
     if self.root is None:
@@ -3019,12 +2494,14 @@ Therefore the elements of <code>ls</code> should either be
 
     
   
-    <div class="desc"><p>Returns <code>True</code> if this tree has 0 nodes.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if this tree has 0 nodes.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.is_empty', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.is_empty" class="source">
     <pre><code>def is_empty(self):
-    """Returns `True` if this tree has 0 nodes."""
+    """Returns `True` if this tree has 0 nodes.
+    **Time Complexity**: O(1)."""
     return self.size() == 0
 </code></pre>
   </div>
@@ -3041,12 +2518,14 @@ Therefore the elements of <code>ls</code> should either be
 
     
   
-    <div class="desc"><p>Checks if <code>u</code> is the root.</p></div>
+    <div class="desc"><p>Checks if <code>u</code> is the root.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.is_root', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.is_root" class="source">
-    <pre><code>def is_root(self, u):
-    """Checks if `u` is the root."""
+    <pre><code>def is_root(self, u: BSTNode):
+    """Checks if `u` is the root.
+    **Time Complexity**: O(1)."""
     return u == self.root
 </code></pre>
   </div>
@@ -3090,42 +2569,33 @@ that is it returns the parent of <code>x</code>.</p>
         c = self.search(x)
         if c is None:
             raise LookupError("key node was not found in the tree.")
-    else:  # x should be a BSTNode object
+    else:
         c = x
-    if c is None:
-        raise ValueError("x cannot be None.")
     
     # To left rotate a node, its right child must exist.
     if c.right is None:
         raise ValueError("Left rotation cannot be performed on " + str(c) +
                         " because it does not have a right child.")
     c.right.parent = c.parent
-    # If the following expression is evaluated to True,
-    # then this implies that c is the root
-    # and the new root becomes the right child.
+    # Only the root has a None parent.
     if c.parent is None:
         self.root = c.right
+        
     # Checking if c is a left or a right child,
-    # in order to set the new left or right child (respectively) of its parent.
+    # in order to set the new left
+    # or right child respectively of its parent.
     elif c.is_left_child():
         c.parent.left = c.right
-    else:  # c.is_right_child():
+    else:
         c.parent.right = c.right
-    # Setting the new parent of c,
-    # which is its right child.
     c.parent = c.right
-    # Setting the new right child of c
-    # Note that the current parent of c
-    # is what was its previous right child
-    # So, basically, the new right child of c
-    # becomes what is the left child of its previous right child.
+    # The new right child of c becomes what is
+    # the left child of its previous right child.
     c.right = c.parent.left
-    # Checking if the new right child of c is None,
-    # because, if it is not, we need to set its parent to be c
+    # Set c to be the parent of its new right child.
     if c.right is not None:
         c.right.parent = c
-    # Now, we can set c to be the new left child
-    # of its new parent (which was its previous right child).
+    # Set c to be the new left child of its new parent.
     c.parent.left = c
     return c.parent
 </code></pre>
@@ -3244,37 +2714,37 @@ then its left child node and then its right child node.</p>
             
   <div class="item">
     <div class="name def" id="ands.ds.RBT.RBT.predecessor">
-    <p>def <span class="ident">predecessor</span>(</p><p>self, u)</p>
+    <p>def <span class="ident">predecessor</span>(</p><p>self, x)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Finds the predecessor of the node <code>u</code>,
-i.e. the greatest element smaller than <code>u</code>.</p>
-<p><code>u</code> can either be a reference to an actual <code>BSTNode</code> object,
+    <div class="desc"><p>Finds the predecessor of the node <code>x</code>,
+i.e. the greatest element smaller than <code>x</code>.</p>
+<p><code>x</code> can either be a reference to an actual <code>BSTNode</code> object,
 or it can be a key of a supposed node in self.</p>
 <p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.predecessor', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.predecessor" class="source">
-    <pre><code>def predecessor(self, u):
-    """Finds the predecessor of the node `u`,
-    i.e. the greatest element smaller than `u`.
+    <pre><code>def predecessor(self, x):
+    """Finds the predecessor of the node `x`,
+    i.e. the greatest element smaller than `x`.
     
-    `u` can either be a reference to an actual `BSTNode` object,
+    `x` can either be a reference to an actual `BSTNode` object,
     or it can be a key of a supposed node in self.
     **Time Complexity**: O(h)."""
-    if not isinstance(u, BSTNode):
-        u = self.search_r(u)
-        if u is None:
-            raise LookupError("No node was found with key=u.")
-    if u.left:
-        return BST._maximum_r(u.left)
-    p = u.parent
-    while p and u == p.left:
-        u = p
-        p = u.parent
+    if not isinstance(x, BSTNode):
+        x = self.search_r(x)
+        if x is None:
+            raise LookupError("No node was found with key=x.")
+    if x.left:
+        return BST._maximum_r(x.left)
+    p = x.parent
+    while p and x == p.left:
+        x = p
+        p = x.parent
     return p
 </code></pre>
   </div>
@@ -3296,7 +2766,7 @@ or it can be a key of a supposed node in self.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.rank', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.rank" class="source">
-    <pre><code>def rank(self, key):
+    <pre><code>def rank(self, key) -> int:
     """Returns the number of keys strictly less than `key`.
     **Time Complexity**: O(h)."""
     if key is None:
@@ -3323,40 +2793,18 @@ or it can be a key of a supposed node in self.</p>
 
     
   
-    <div class="desc"><p>Removes and returns the maximum element of the tree, if it is not empty.</p>
-<p><strong>Time Complexity</strong>: O(h).</p></div>
+    <div class="desc"><p>Removes and returns the element with the greatest value from <code>self</code>.</p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub>(n)).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.remove_max', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.remove_max" class="source">
     <pre><code>def remove_max(self):
-    """Removes and returns the maximum element of the tree, if it is not empty.
-    **Time Complexity**: O(h)."""
-    def _remove_max(u: BSTNode):
-        """Removes the maximum element of the subtree rooted at `u`.
-        Note that the maximum element is all the way to the right,
-        and it cannot have a right child,
-        but it can still have a left subtree.
-        If `u` is `None`, exceptions will be thrown."""
-        m = BST._maximum_r(u)
-        
-        if m.left:  # m has a left subtree.
-            if self.is_root(m):  # m is the root.
-                self.root = m.left
-                m.left.parent = None  # self.root.parent = None
-            else:  # m is NOT the root.
-                m.left.parent = m.parent
-                m.parent.right = m.left
-        else:  # m has NO children
-            if self.is_root(m):
-                self.root = None
-            else:
-                m.parent.right = None
-                
-        m.parent = m.left = None
-        self.n -= 1
-        return m
-    if self.n > 0:
-        return _remove_max(self.root)
+    """Removes and returns the element with the greatest value from `self`.
+    **Time Complexity:** O(log<sub>2</sub>(n))."""
+    if self.root:
+        m = self.maximum()
+        assert m
+        return self.delete(m)
 </code></pre>
   </div>
 </div>
@@ -3372,36 +2820,18 @@ or it can be a key of a supposed node in self.</p>
 
     
   
-    <div class="desc"><p>Removes and returns the minimum element of the tree, if it is not empty.</p>
-<p><strong>Time Complexity</strong>: O(h).</p></div>
+    <div class="desc"><p>Removes and returns the element with the smallest value from <code>self</code>.</p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub>(n)).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.remove_min', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.remove_min" class="source">
     <pre><code>def remove_min(self):
-    """Removes and returns the minimum element of the tree, if it is not empty.
-    **Time Complexity**: O(h)."""
-    def _remove_min(u: BSTNode):
-        """Removes and returns the minimum element of the subtree rooted at `u`.
-        If `u` is `None`, exceptions will be thrown."""
-        m = BST._minimum_r(u)
-        
-        if m.right:
-            if self.is_root(m):
-                self.root = m.right
-                m.right.parent = None
-            else:
-                m.right.parent = m.parent
-                m.parent.left = m.right
-        else:  # m has not right subtree.
-            if self.is_root(m):
-                self.root = None
-            else:  # m is an internal node with no right subtree.
-                m.parent.left = None
-        m.right = m.parent = None
-        self.n -= 1
-        return m
-    if self.n > 0:
-        return _remove_min(self.root)
+    """Removes and returns the element with the smallest value from `self`.
+    **Time Complexity:** O(log<sub>2</sub>(n))."""        
+    if self.root:
+        m = self.minimum()
+        assert m
+        return self.delete(m)
 </code></pre>
   </div>
 </div>
@@ -3461,8 +2891,6 @@ See doc-strings of <code>self.left_rotate</code>.</p>
             raise LookupError("key node was not found in the tree.")
     else:
         c = x
-    if c is None:
-        raise ValueError("x cannot be None.")
     if c.left is None:
         raise ValueError("Right rotation cannot be performed on " + str(c) +
                         " because it does not have a left child.")
@@ -3576,12 +3004,12 @@ If <code>s</code> is specified, then this procedure starts searching from <code>
 
     
   
-    <div class="desc"><p>Calls self.<strong>str</strong>()</p></div>
+    <div class="desc"><p>Pretty-prints this tree using <code>print</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.show', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.show" class="source">
     <pre><code>def show(self):
-    """Calls self.__str__()"""
+    """Pretty-prints this tree using `print`."""
     print(self)
 </code></pre>
   </div>
@@ -3598,12 +3026,14 @@ If <code>s</code> is specified, then this procedure starts searching from <code>
 
     
   
-    <div class="desc"><p>Returns the total number of nodes.</p></div>
+    <div class="desc"><p>Returns the total number of nodes.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.size', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.size" class="source">
     <pre><code>def size(self):
-    """Returns the total number of nodes."""
+    """Returns the total number of nodes.
+    **Time Complexity**: O(1)."""
     return self.n
 </code></pre>
   </div>
@@ -3614,45 +3044,45 @@ If <code>s</code> is specified, then this procedure starts searching from <code>
             
   <div class="item">
     <div class="name def" id="ands.ds.RBT.RBT.successor">
-    <p>def <span class="ident">successor</span>(</p><p>self, u)</p>
+    <p>def <span class="ident">successor</span>(</p><p>self, x)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Finds the successor of <code>u</code>,
-i.e. the smallest element greater than <code>u</code>.</p>
-<p>If <code>u</code> has a right subtree,
-then the successor of <code>u</code> is the minimum of that right subtree.</p>
-<p>Otherwise it is the first ancestor of <code>u</code>, lets call it <code>A</code>, 
-such that <code>u</code> falls in the left subtree of <code>A</code>.</p>
-<p><code>u</code> can either be a reference to an actual <code>BSTNode</code> object,
+    <div class="desc"><p>Finds the successor of <code>x</code>,
+i.e. the smallest element greater than <code>x</code>.</p>
+<p>If <code>x</code> has a right subtree,
+then the successor of <code>x</code> is the minimum of that right subtree.</p>
+<p>Otherwise it is the first ancestor of <code>x</code>, lets call it <code>A</code>, 
+such that <code>x</code> falls in the left subtree of <code>A</code>.</p>
+<p><code>x</code> can either be a reference to an actual <code>BSTNode</code> object,
 or it can be a key of a supposed node in self.</p>
 <p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.successor', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.successor" class="source">
-    <pre><code>def successor(self, u):
-    """Finds the successor of `u`,
-    i.e. the smallest element greater than `u`.
+    <pre><code>def successor(self, x):
+    """Finds the successor of `x`,
+    i.e. the smallest element greater than `x`.
     
-    If `u` has a right subtree,
-    then the successor of `u` is the minimum of that right subtree.
-    Otherwise it is the first ancestor of `u`, lets call it `A`, 
-    such that `u` falls in the left subtree of `A`.
-    `u` can either be a reference to an actual `BSTNode` object,
+    If `x` has a right subtree,
+    then the successor of `x` is the minimum of that right subtree.
+    Otherwise it is the first ancestor of `x`, lets call it `A`, 
+    such that `x` falls in the left subtree of `A`.
+    `x` can either be a reference to an actual `BSTNode` object,
     or it can be a key of a supposed node in self.
     **Time Complexity**: O(h)."""
-    if not isinstance(u, BSTNode):
-        u = self.search(u)
-        if not u:
-            raise LookupError("No node was found with key=u.")
-    if u.right:
-        return BST._minimum_r(u.right)
-    p = u.parent
-    while p and p.right == u:
-        u = p
-        p = u.parent
+    if not isinstance(x, BSTNode):
+        x = self.search(x)
+        if not x:
+            raise LookupError("No node was found with key=x.")
+    if x.right:
+        return BST._minimum_r(x.right)
+    p = x.parent
+    while p and p.right == x:
+        x = p
+        p = x.parent
     return p
 </code></pre>
   </div>

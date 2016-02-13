@@ -5,6 +5,8 @@
 
 Added `RBT` and `RBTNode` classes. Moved randomness insertion of `BST` to another class called `BSTImproved`.
 
+Starting moving tests to the folder [tests](tests).
+
 ## Version 0.0.1
 
 

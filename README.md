@@ -46,15 +46,19 @@ If you want to install the module in _editable_ module in a virtualenv, you can 
 
 Install `pdoc`. If you have still don't have a terminal opened, open it, and then move inside the `ands` repository, and type the following command:
 
-    pdoc --html --html-dir docs ands
+    pdoc --html --overwrite --html-dir docs ands
 
 which should create a folder called `ands` inside the already existent folder `docs`.
 
 ### Run Tests
 
-For now, you can run all modules as _main_ by running the script [`main.py`](ands/main.py). But to do that, you need first to have installed the module. Then simply do
+You can find the tests under [folder](folder). To run them, you must first install the module `ands`, and then you can simply run the script `run_tests.py` as follows
 
-    ./main.py
+
+    ./run_tests.py
+    
+    
+Eventually you can run single specific tests.
 
 
 ## References

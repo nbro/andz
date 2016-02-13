@@ -7,7 +7,6 @@
 |:-----------------------------------:|-----------|-----------------------------------------------------------------|
 | Adjacency matrix representation of a graph | S  | Convert all current algorithms that work with the adjacent list |
 | Max Heap                            | F |                                                                 |
-| Red-Black Tree                      | F |                                                                 |
 | AVL Tree                            | S  |                                                                 |
 | Splay tree                          | S  |                                                                 |
 | TST                                 | F |                                                                 |

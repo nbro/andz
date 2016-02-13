@@ -8,7 +8,7 @@ Creation: July, 2015
 
 Last update: 13/02/2016
 
-BST is a class that represents a classical binary search tree.
+`BST` is a class that represents a classical binary search tree.
 
 ## Names' Conventions
 In general, if a variable name has more than one word,
@@ -20,22 +20,23 @@ comments are usually provide on the first occurrence of the name,
 in order to explain the purpose of such a variable.
 
 ### Functions
-- Methods that start with _ should not be called.
-They are usually helper functions.
-
-- Methods that start with __ should definitely NOT be called.
-They are helper functions that usually are not independent from other functions.
+- Methods that start with _ should not be called,
+because they might either be "helper" or private functions.
 
 ### Parameters
-- u and v are used to usually indicate that a BSTNode object is expected.
-- s is used to indicate that a source node (which is also BSTNode object) is expected.
-- x is used when the parameter's expected type can either be a BSTNode object
+- `u`, `v`, `z` and `w` are used to indicate that a general `BSTNode` object is expected.
+
+- `s` is used to indicate that a source node is expected.
+
+- `x` is used when the parameter's expected type can either be a `BSTNode` object
 or any other comparable object to represent keys.
-- ls is usually used to indicate that a list or a tuple is expected.
+
+- `ls` is usually used to indicate that a list or a tuple is expected.
 
 ### Local Variables
-- c usually indicates some "current" changing variable.
-- p is usually c's parent.
+- `c` usually indicates some "current" changing variable.
+
+- `p` is usually `c`'s parent.
 
 ### Docstrings
 Under methods' signatures, h in O(h) is the height of the tree.
@@ -58,20 +59,18 @@ For example, "key" and "value" are self-descriptive.
 - http://algs4.cs.princeton.edu/32bst/BST.java.html
 
 ## TODO
-- Improve the "randomness" of insertion into the bst.
-- Implement a recursive version of insert_key (OPTIONAL).
 - add functions "intersection" and "union"
+- Implement a recursive version of insert (OPTIONAL).
 - implement "is balanced" function (http://codereview.stackexchange.com/questions/108459/binary-tree-data-structure)
 """
 
 from ands.ds.BSTNode import BSTNode
 
 
-__all__ = ["BST", "bst_invariant", "check_helper", "assert_consistencies"]
+__all__ = ["BST", "bst_invariant"]
 
 
 class BST:
-    """Represents a classical binary search tree."""
 
     def __init__(self, root=None, name="BST"):
         self.root = root
@@ -91,19 +90,27 @@ class BST:
         self.n = 1
 
     def size(self):
-        """Returns the total number of nodes."""
+        """Returns the total number of nodes.
+
+        **Time Complexity**: O(1)."""
         return self.n
 
     def is_empty(self):
-        """Returns `True` if this tree has 0 nodes."""
+        """Returns `True` if this tree has 0 nodes.
+
+        **Time Complexity**: O(1)."""
         return self.size() == 0
 
-    def is_root(self, u):
-        """Checks if `u` is the root."""
+    def is_root(self, u: BSTNode):
+        """Checks if `u` is the root.
+
+        **Time Complexity**: O(1)."""
         return u == self.root
     
     def clear(self):
-        """Removes all nodes from this tree."""
+        """Removes all nodes from this tree.
+
+        **Time Complexity**: O(1)."""
         self.root = None
         self.n = 0
 
@@ -208,13 +215,15 @@ class BST:
 
     # CONTAINS
 
-    def contains(self, key):
-        """Returns `True` if a `BSTNode` object with `key` exists in the tree."""
+    def contains(self, key) -> bool:
+        """Returns `True` if a `BSTNode` object with `key` exists in the tree.
+
+        **Time Complexity**: O(h)."""
         return self.search_r(key) is not None
 
     # SELECT
 
-    def rank(self, key):
+    def rank(self, key) -> int:
         """Returns the number of keys strictly less than `key`.
 
         **Time Complexity**: O(h)."""
@@ -228,7 +237,7 @@ class BST:
             r = 0
             return self._rank(self.root, key, r)
 
-    def _rank(self, u: BSTNode, key, r: int):
+    def _rank(self, u: BSTNode, key, r: int) -> int:
         if u is None:
             return r
         if u.key < key:
@@ -237,7 +246,7 @@ class BST:
         r = self._rank(u.right, key, r)
         return r
 
-    def height(self):
+    def height(self) -> int:
         """Returns the maximum depth or height of the tree.
 
         **Time Complexity**: O(h)."""
@@ -245,7 +254,7 @@ class BST:
             return 0
         return self._height(self.root)
 
-    def _height(self, u: BSTNode):
+    def _height(self, u: BSTNode) -> int:
         if u is None:
             return 0
         return 1 + max(self._height(u.left), self._height(u.right))
@@ -330,11 +339,8 @@ class BST:
             c = self.search(x)
             if c is None:
                 raise LookupError("key node was not found in the tree.")
-        else:  # x should be a BSTNode object
+        else:
             c = x
-
-        if c is None:
-            raise ValueError("x cannot be None.")
         
         # To left rotate a node, its right child must exist.
         if c.right is None:
@@ -343,38 +349,29 @@ class BST:
 
         c.right.parent = c.parent
 
-        # If the following expression is evaluated to True,
-        # then this implies that c is the root
-        # and the new root becomes the right child.
+        # Only the root has a None parent.
         if c.parent is None:
             self.root = c.right
-
+            
         # Checking if c is a left or a right child,
-        # in order to set the new left or right child (respectively) of its parent.
+        # in order to set the new left
+        # or right child respectively of its parent.
         elif c.is_left_child():
             c.parent.left = c.right
-
-        else:  # c.is_right_child():
+        else:
             c.parent.right = c.right
 
-        # Setting the new parent of c,
-        # which is its right child.
         c.parent = c.right
 
-        # Setting the new right child of c
-        # Note that the current parent of c
-        # is what was its previous right child
-        # So, basically, the new right child of c
-        # becomes what is the left child of its previous right child.
+        # The new right child of c becomes what is
+        # the left child of its previous right child.
         c.right = c.parent.left
 
-        # Checking if the new right child of c is None,
-        # because, if it is not, we need to set its parent to be c
+        # Set c to be the parent of its new right child.
         if c.right is not None:
             c.right.parent = c
 
-        # Now, we can set c to be the new left child
-        # of its new parent (which was its previous right child).
+        # Set c to be the new left child of its new parent.
         c.parent.left = c
 
         return c.parent
@@ -393,8 +390,6 @@ class BST:
         else:
             c = x
 
-        if c is None:
-            raise ValueError("x cannot be None.")
         if c.left is None:
             raise ValueError("Right rotation cannot be performed on " + str(c) +
                             " because it does not have a left child.")
@@ -463,55 +458,55 @@ class BST:
 
     # SUCCESSOR AND PREDECESSOR
 
-    def successor(self, u):
-        """Finds the successor of `u`,
-        i.e. the smallest element greater than `u`.
+    def successor(self, x):
+        """Finds the successor of `x`,
+        i.e. the smallest element greater than `x`.
         
-        If `u` has a right subtree,
-        then the successor of `u` is the minimum of that right subtree.
+        If `x` has a right subtree,
+        then the successor of `x` is the minimum of that right subtree.
 
-        Otherwise it is the first ancestor of `u`, lets call it `A`, 
-        such that `u` falls in the left subtree of `A`.
+        Otherwise it is the first ancestor of `x`, lets call it `A`, 
+        such that `x` falls in the left subtree of `A`.
 
-        `u` can either be a reference to an actual `BSTNode` object,
+        `x` can either be a reference to an actual `BSTNode` object,
         or it can be a key of a supposed node in self.
 
         **Time Complexity**: O(h)."""
-        if not isinstance(u, BSTNode):
-            u = self.search(u)
-            if not u:
-                raise LookupError("No node was found with key=u.")
+        if not isinstance(x, BSTNode):
+            x = self.search(x)
+            if not x:
+                raise LookupError("No node was found with key=x.")
 
-        if u.right:
-            return BST._minimum_r(u.right)
+        if x.right:
+            return BST._minimum_r(x.right)
 
-        p = u.parent
+        p = x.parent
 
-        while p and p.right == u:
-            u = p
-            p = u.parent
+        while p and p.right == x:
+            x = p
+            p = x.parent
         return p
 
-    def predecessor(self, u):
-        """Finds the predecessor of the node `u`,
-        i.e. the greatest element smaller than `u`.
+    def predecessor(self, x):
+        """Finds the predecessor of the node `x`,
+        i.e. the greatest element smaller than `x`.
         
-        `u` can either be a reference to an actual `BSTNode` object,
+        `x` can either be a reference to an actual `BSTNode` object,
         or it can be a key of a supposed node in self.
 
         **Time Complexity**: O(h)."""
-        if not isinstance(u, BSTNode):
-            u = self.search_r(u)
-            if u is None:
-                raise LookupError("No node was found with key=u.")
-        if u.left:
-            return BST._maximum_r(u.left)
+        if not isinstance(x, BSTNode):
+            x = self.search_r(x)
+            if x is None:
+                raise LookupError("No node was found with key=x.")
+        if x.left:
+            return BST._maximum_r(x.left)
 
-        p = u.parent
+        p = x.parent
 
-        while p and u == p.left:
-            u = p
-            p = u.parent
+        while p and x == p.left:
+            x = p
+            p = x.parent
         return p
 
     # REMOVALS
@@ -581,63 +576,65 @@ class BST:
 
     # DELETION
 
-    def delete(self, u):
-        """Deletes `u` from self (if it exists).
+    def delete(self, x):
+        """Deletes `x` from self (if it exists).
 
         There are 3 cases of deletion:
-            1. `u` has no children
-            2. `u` has one subtree (or child)
-            3. `u` has the left and right subtrees (or children).
+            1. `x` has no children
+            2. `x` has one subtree (or child)
+            3. `x` has the left and right subtrees (or children).
             
-        `u` can either be a reference to an actual `BSTNode` object,
+        `x` can either be a reference to an actual `BSTNode` object,
         or it can be a key of a supposed node in `self`.
 
         **Time Complexity**: O(h)."""
-        def __delete(x: BSTNode):
+        
+        def delete_helper(u: BSTNode):
             """This is a helper method to the delete method,
             thus it should not be called by clients.
 
-            When deleting a node x from a BST, we have basically to consider 3 cases:
-            1. x has no children
-            2. x has one child
-            3. x has two children
+            When deleting a node u from a BST, we have basically to consider 3 cases:
+            1. u has no children
+            2. u has one child
+            3. u has two children
 
-            1. x has no children, then we simply remove it
-            by modifying its parent to replace x with None.
-            If x.parent is None, then x must be the root,
+            1. u has no children, then we simply remove it
+            by modifying its parent to replace u with None.
+            If u.parent is None, then u must be the root,
             and thus we simply set the root to None.
 
-            2. x has just one child,
+            2. u has just one child,
             but we first need to decide which one (left or right).
-            Then we elevate this child to x's position in the tree
-            by modifying x's parent to replace x by x's child.
-            But if x's parent is None, that means x was the root,
-            and the new root becomes x's child.
+            Then we elevate this child to u's position in the tree
+            by modifying u's parent to replace u by u's child.
+            But if u's parent is None, that means u was the root,
+            and the new root becomes u's child.
 
-            3. x has two children, then we search for x's successor s,
-            (which must be in the x's right subtree,
+            3. u has two children, then we search for u's successor s,
+            (which must be in the u's right subtree,
             and it's the smallest of that subtree)
-            which takes x's position in the tree.
-            The rest of the x's subtree becomes the s's right subtree,
-            and the x's left subtree becomes the new s's left subtree.
+            which takes u's position in the tree.
+            The rest of the u's subtree becomes the s's right subtree,
+            and the u's left subtree becomes the new s's left subtree.
             This case is a little bit tricky,
-            because it matters whether s is x's right child.
+            because it matters whether s is u's right child.
 
-            Suppose s is the right child of x, then we replace x by s,
+            Suppose s is the right child of u, then we replace u by s,
             which might or not have a right subtree, but no left subtree.
 
-            Suppose s is not the right child of x,
+            Suppose s is not the right child of u,
             in this case, we replace s by its own right child,
-            and then we replace x by s.
+            and then we replace u by s.
             
-            Note that "__delete__two_children" does NOT exactly do that,
-            but instead it simply replaces the positions of x and s,
-            as if s was x and x was s.
+            Note that "delete_two_children" does NOT exactly do that,
+            but instead it simply replaces the positions of u and s,
+            as if s was u and u was s.
             
-            After that, __delete is called again on x,
-            but note that x is now in the previous s's position,
-            and thus x has now no left subtree, but at most a right subtree."""
-            def __delete__at_most_one_child(v: BSTNode):
+            After that, delete_helper is called again on u,
+            but note that u is now in the previous s's position,
+            and thus u has now no left subtree, but at most a right subtree."""
+
+            def delete_at_most_one_child(v: BSTNode):
                 """Removes v from the tree, when v has at most one child.
                 This means that v could have 0 or 1 child."""
                 child = v.right
@@ -654,54 +651,52 @@ class BST:
                 if child:
                     child.parent = v.parent
                     
-            def __delete__two_children(v: BSTNode):
-                """Call by __delete when a node has two children."""
+            def delete_two_children(v: BSTNode):
+                """Called by `delete_helper` when a node has two children."""
                  # Replace v with its successor s.
-                self._switch(v, self.successor(v))
-                # Recursively calls the function that should have called this function.
-                # This is done because v is now in a new position,
-                # where it simply has at most one right subtree.
-                __delete(v)
+                self._switch(v, self.successor(v))                
+                # v has at most a right child now.              
+                delete_helper(v)
             
-            if x.has_two_children():
-                __delete__two_children(x)
-            else:  # x has at most one child
-                __delete__at_most_one_child(x)
-            x.right = x.left = x.parent = None
-            return x
+            if u.has_two_children():
+                delete_two_children(u)
+            else:  # u has at most one child
+                delete_at_most_one_child(u)
+            u.right = u.left = u.parent = None
+            return u
 
-        if u is None:
-            raise ValueError("u cannot be None.")
+        if x is None:
+            raise ValueError("x cannot be None.")
 
-        if not isinstance(u, BSTNode):
-            u = self.search_r(u)
-            if u is None:
-                raise LookupError("No node was found with key=u.")
-
-        if u.parent is None and u != self.root:
-            raise ValueError("u is not a valid node.")
+        if not isinstance(x, BSTNode):
+            x = self.search_r(x)
+            if x is None:
+                raise LookupError("No node was found with key=x.")
+            
+        if x.parent is None and x != self.root:
+            raise ValueError("x is not a valid node.")
 
         self.n -= 1
-        return __delete(u)        
+        return delete_helper(x)        
 
-    def _switch(self, x: BSTNode, y: BSTNode, search_first=False):
-        """"Switches the roles of `x` and `y` in the tree by moving references.
+    def _switch(self, u: BSTNode, v: BSTNode, search_first=False):
+        """"Switches the roles of `u` and `v` in the tree by moving references.
         If `search_first` is set to `True`,
-        then `x` and `y` are first searched in the tree
+        then `u` and `v` are first searched in the tree
         to check if they are present, and if not, a `LookupError` is raised.
         In general, clients should not use this function."""
-        if not x:
-            raise ValueError("x cannot be None.")
-        if not y:
-            raise ValueError("y cannot be None.")
-        if x == y:
-            raise ValueError("x cannot be equal to y.")
+        if not u:
+            raise ValueError("u cannot be None.")
+        if not v:
+            raise ValueError("v cannot be None.")
+        if u == v:
+            raise ValueError("u cannot be equal to v.")
 
         if search_first:
-            if not self.search(x.key) or not self.search(y.key):
-                raise LookupError("x or y not found.")
-        
-        def switch_1(p, s):
+            if not self.search(u.key) or not self.search(v.key):
+                raise LookupError("u or v not found.")
+
+        def switch_parent_son(p, s):
             """Switches the roles of p and s,
             where p (parent) is the direct parent of s (son)."""
             assert s.parent == p
@@ -724,7 +719,7 @@ class BST:
                     s.right.parent = p
                     
                 s.right = p
-
+                
                 s.left, p.left = p.left, s.left
                 if s.left:
                     s.left.parent = s
@@ -742,59 +737,59 @@ class BST:
             s.parent = p.parent
             p.parent = s
 
-        def switch_2(u, v):
-            """`u` and `v` are nodes in the tree
+        def switch_non_parent_son(z, w):
+            """`z` and `w` are nodes in the tree
             that are not related by a parent-child.
 
             **Time Complexity**: O(1)."""
-            assert u.parent != v and v.parent != u
+            assert z.parent != w and w.parent != z
             
-            if not u.parent:
-                self.root = v
-                if v.is_left_child():
-                    v.parent.left = u
+            if not z.parent:
+                self.root = w
+                if w.is_left_child():
+                    w.parent.left = z
                 else:
-                    v.parent.right = u
-            elif not v.parent:
-                self.root = u
-                if u.is_left_child():
-                    u.parent.left = v
+                    w.parent.right = z
+            elif not w.parent:
+                self.root = z
+                if z.is_left_child():
+                    z.parent.left = w
                 else:
-                    u.parent.right = v
-            else:  # neither u nor v is the root                
-                if u.is_left_child():
-                    if v.is_left_child():                   
-                        v.parent.left, u.parent.left = u, v
+                    z.parent.right = w
+            else:  # neither z nor w is the root                
+                if z.is_left_child():
+                    if w.is_left_child():                   
+                        w.parent.left, z.parent.left = z, w
                     else:
-                        v.parent.right, u.parent.left = u, v
+                        w.parent.right, z.parent.left = z, w
                 else:
-                    if v.is_left_child():                   
-                        v.parent.left, u.parent.right = u, v
+                    if w.is_left_child():                   
+                        w.parent.left, z.parent.right = z, w
                     else:
-                        v.parent.right, u.parent.right = u, v                    
+                        w.parent.right, z.parent.right = z, w                    
                     
-            v.parent, u.parent = u.parent, v.parent
-            u.left, v.left = v.left, u.left
-            u.right, v.right = v.right, u.right
+            w.parent, z.parent = z.parent, w.parent
+            z.left, w.left = w.left, z.left
+            z.right, w.right = w.right, z.right
 
-            if u.left:
-                u.left.parent = u
-            if u.right:
-                u.right.parent = u
-            if v.left:
-                v.left.parent = v
-            if v.right:
-                v.right.parent = v
+            if z.left:
+                z.left.parent = z
+            if z.right:
+                z.right.parent = z
+            if w.left:
+                w.left.parent = w
+            if w.right:
+                w.right.parent = w        
         
-        if x.parent == y:
-            switch_1(y, x)            
-        elif y.parent == x:
-            switch_1(x, y)
+        if u.parent == v:
+            switch_parent_son(v, u)            
+        elif v.parent == u:
+            switch_parent_son(u, v)
         else:
-            switch_2(x, y)
+            switch_non_parent_son(u, v)
 
     def show(self):
-        """Calls self.__str__()"""
+        """Pretty-prints this tree using `print`."""
         print(self)
 
     def __str__(self):
@@ -852,388 +847,21 @@ class BSTPrinter:
         return lines, pos, width
 
 
-# TESTS
-
 def bst_invariant(bst):
-    """Invariant: for each node n in bst,
-    if n.left exists, then n.left <= n,
-    and if n.right exists, then n.right >= n."""
+    """Invariant: for each node `n` in `bst`,
+    if `n.left` exists, then `n.left <= n`,
+    and if `n.right` exists, then `n.right >= n`."""
+    def check_helper(n):
+        while n is not None:
+            if n.left is not None and n.key < n.left.key:
+                return False
+            if n.right is not None and n.key > n.right.key:
+                return False
+            if n.left:
+                assert n.left.parent == n
+            if n.right:
+                assert n.right.parent == n
+            return check_helper(n.left) and check_helper(n.right)        
+        return True
+    
     return check_helper(bst.root)
-
-def check_helper(n):
-    while n is not None:
-        if n.left is not None and n.key < n.left.key:
-            return False
-        if n.right is not None and n.key > n.right.key:
-            return False
-        if n.left:
-            assert n.left.parent == n
-        if n.right:
-            assert n.right.parent == n
-        return check_helper(n.left) and check_helper(n.right)        
-    return True
-
-def assert_consistencies(bst):
-    """Call only when bst.root is not None"""
-    assert bst.root.count() == bst.n == bst.size()
-    assert bst.root.parent is None
-
-def test_empty(b):
-    assert not b.root
-    assert b.size() == b.n == 0
-    print("test_empty finished.")
-
-def test_empty_size():
-    b = BST()
-    test_empty(b)
-    assert bst_invariant(b)
-    print("test_empty_size finished.")
-
-def test_empty_contains():
-    b = BST()
-    for i in range(-10, 11):
-        assert not b.contains(i)
-    print("test_empty_contains finished.")
-
-def test_one_size():
-    b = BST()
-    b.insert(12)
-    assert b.size() == b.n == b.root.count() == 1
-    assert bst_invariant(b)
-    assert_consistencies(b)
-    print("test_one_size finished.")
-
-def test_one_contains():
-    b = BST()
-    b.insert(12)
-    for i in range(-10, 11):
-        assert not b.contains(i)
-    assert b.contains(12)
-    print("test_one_contains finished.")
-
-def test_many_size():
-    b = BST()
-    size = 0
-    for i in range(-10, 11):
-        b.insert(i)
-        size += 1
-        assert size == b.size() == b.n == b.root.count()
-        assert bst_invariant(b)
-        assert_consistencies(b)
-    print("test_many_size finished.")
-
-def test_many_contains():
-    b = BST()
-    for i in range(-10, 11):
-        b.insert(i)
-    for i in range(-10, 11):
-        assert b.contains(i)
-    print("test_many_contains finished.")
-
-def test_structure_many():
-    b = BST()
-    b.insert(10)
-    b.insert(5)
-    b.insert(15)
-    b.insert(7)
-    b.insert(20)
-    b.insert(18)
-    b.insert(14)
-    b.insert(14)
-    b.insert(12)
-    b.insert(3)
-    b.insert(4)
-    assert 11 == b.size() == b.n == b.root.count()
-    assert bst_invariant(b)
-    assert_consistencies(b)
-    print("test_structure_many finished.")
-    
-def test_delete_not_found():
-    b = BST()
-    try:
-        b.delete(12)
-        raise Exception("test_delete_not_found not passed")
-    except LookupError as e:
-        pass
-    print("test_delete_not_found finished.")
-
-def test_delete_one_size():
-    b = BST()
-    b.insert(12)    
-    b.delete(12)
-    assert not b.contains(12)
-    test_empty(b)
-    assert bst_invariant(b)
-    print("test_delete_one_size finished.")
-
-def test_multiple_remove1():
-    b = BST()
-    for i in range(15):
-        b.insert(i)
-    for i in range(0, 15, 2):
-        b.delete(i)
-        assert not b.contains(i)
-    for i in range(1, 15, 2):
-        assert b.contains(i)
-    assert b.size() == b.n == b.root.count() == 7
-    assert bst_invariant(b)
-    assert_consistencies(b)
-    print("test_multiple_remove1 finished.")
-
-def test_multiple_remove2():
-    b = BST()
-    for i in range(0, 15, 2):
-        b.insert(i)
-    for i in range(-1, 15, 2):
-        try:
-            b.delete(i)
-        except LookupError:
-            pass
-        assert not b.contains(i)
-    for i in range(0, 15, 2):
-        assert b.contains(i)
-    assert b.size() == b.n == b.root.count() == 8
-    assert bst_invariant(b)
-    assert_consistencies(b)
-    print("test_multiple_remove2 finished.")
-
-def test_multiple_remove3():
-    b = BST()
-    test_empty()
-    b.insert(5)
-    b.insert(3)
-    b.insert(4)
-    b.insert(10)
-    b.insert(7)
-    b.insert(6)
-    b.insert(8)
-    b.insert(9)
-    b.insert(12)
-    b.insert(11)
-    assert b.size() == b.n == b.root.count() == 10
-    assert bst_invariant(b)
-    assert_consistencies(b)
-    b.delete(3)
-    b.delete(10)
-    b.delete(12)
-    assert b.size() == b.n == b.root.count() == 7
-    assert bst_invariant(b)
-    assert_consistencies(b)
-    print("test_multiple_remove3 finished.")
-
-def test_search():
-    b = BST()
-    b.insert(10)
-    b.insert(5)
-    b.insert(15)
-    try:
-        b.search(None)
-        raise Exception("test_search failed")
-    except ValueError:
-        pass
-    assert not b.search(12)
-    assert b.search(5)
-    assert b.search(10)
-    assert b.search(15)
-    assert b.size() == b.n == b.root.count() == 3
-    assert bst_invariant(b)
-    assert_consistencies(b)
-    b.delete(10)
-    assert not b.search(10)
-    assert b.size() == b.n == b.root.count() == 2
-    assert bst_invariant(b)
-    assert_consistencies(b)
-    print("test_search finished.")
-    
-def test_remove_min_and_max():
-    b = BST()
-    assert not b.remove_min()
-    assert not b.remove_max()    
-    b.insert(14)
-    b.insert(12)
-    b.insert(28)
-    
-    m = b.remove_min()
-    assert m and m.key == 12
-    assert b.size() == b.n == b.root.count() == 2
-    assert bst_invariant(b)
-    assert_consistencies(b)
-
-    M = b.remove_max()
-    assert M and M.key == 28
-    assert b.size() == b.n == b.root.count() == 1
-    assert bst_invariant(b)
-    assert_consistencies(b)
-    print("test_remove_min_and_max finished.")
-
-def test_predecessor_and_successor():
-    b = BST()
-    b.insert(12)
-    b.insert(14)
-    b.insert(28)
-    assert not b.successor(28)
-    assert b.successor(12) == b.search(14)
-    assert not b.predecessor(12)
-    assert b.predecessor(14) == b.search(12)
-    try:
-        b.successor(7)
-        b.predecessor(6)
-        raise Exception("test_predecessor_and_successor failed")
-    except LookupError as e:
-        pass
-    print("test_predecessor_and_successor finished.")
-
-def test_rank():
-    b = BST()
-    try:
-        b.rank(None)
-        raise Exception("test_rank failed.")
-    except ValueError:
-        pass
-    try:
-         b.rank(12)
-         raise Exception("test_rank failed.")
-    except LookupError:
-        pass
-    b.insert(12)
-    assert b.rank(12) == 0
-    b.insert(14)
-    b.insert(28)
-    b.insert(10)
-    b.insert(7)
-    assert b.rank(12) == 2
-    assert b.rank(7) == 0
-    assert b.rank(28) == 4
-    print("test_rank finished.")
-
-def test_switch():
-    b = BST()
-    b.insert(12)
-    b.insert(20)
-    b.insert(28)
-    b.insert(8)
-    b.insert(16)
-    b.insert(10)
-    b.insert(4)
-    b.insert(2)
-    b.insert(5)
-    b.insert(9)
-    b.insert(11)
-    b.insert(14)
-    b.insert(18)
-    b.insert(22)
-    b.insert(30)
-
-    def asserts():
-        #print("\nroot =", b.root, end="\n\n")
-        #print(b)
-        bst_invariant(b)
-        assert_consistencies(b)
-
-    try:
-        b._switch(b.search(12), b.search(12))
-    except ValueError as e:
-        print(e)
-    try:
-        b._switch(b.search(12), None)
-    except ValueError as e:
-        print(e)
-
-    try:
-        b._switch(b.search(12), BSTNode(100), search_first=True)
-    except LookupError as e:
-        print(e)
-
-    asserts()
-
-    b._switch(b.search(8), b.search(12))
-    assert b.root == b.search(8)
-    assert not b.root.parent    
-    b._switch(b.search(8), b.search(8).left)
-    asserts()
-
-    b._switch(b.search(20), b.search(12))
-    assert b.root == b.search(20)
-    assert not b.root.parent    
-    b._switch(b.search(20), b.search(20).right)
-    asserts()
-    
-    b._switch(b.search(4), b.search(10))
-    assert b.root == b.search(12)
-    #print(b)
-    b._switch(b.search(8).left, b.search(8).right)
-    asserts()
-
-    b._switch(b.search(8), b.search(20))
-    assert b.root == b.search(12)
-    #print(b)
-    b._switch(b.search(12).left, b.search(12).right)
-    asserts()
-    
-    b._switch(b.search(8), b.search(28))
-    assert b.root == b.search(12)
-    #print(b)
-    b._switch(b.search(12).left, b.search(20).right)
-    asserts()
-
-    b._switch(b.search(8), b.search(14))
-    assert b.root == b.search(12)
-    #print(b)
-    b._switch(b.search(12).left, b.search(12).right.left.left)
-    asserts()
-    
-    b._switch(b.search(2), b.search(28))
-    assert b.root == b.search(12)
-    #print(b)
-    b._switch(b.search(12).left.left.left, b.search(12).right.right)
-    asserts()
-    assert b.search(2).left is None
-    assert b.search(2).right is None
-    assert b.search(28).left == b.search(22)
-    assert b.search(28).right == b.search(30)
-
-    b._switch(b.search(8), b.search(5))
-    assert b.root == b.search(12)
-    #print(b)
-    b._switch(b.search(12).left, b.search(12).left.left.right)
-    asserts()
-
-    b._switch(b.search(8), b.search(2))
-    assert b.root == b.search(12)
-    #print(b)
-    b._switch(b.search(12).left, b.search(12).left.left.left)
-    assert not b.search(12).left.left.left.left
-    assert not b.search(12).left.left.left.right
-    assert b.search(12).left.left.left.parent == b.search(12).left.left
-    #asserts()
-
-    b._switch(b.search(12), b.search(10))
-    assert b.root == b.search(10)
-    assert not b.root.parent
-    #print(b)
-    b._switch(b.search(10), b.search(10).left.right)
-    asserts()
-    print("test_switch finished.")
-
-
-def run_tests():
-    test_empty_size()
-    test_empty_contains()
-    test_one_size()
-    test_one_contains()
-    test_many_size()
-    test_many_contains()
-    test_structure_many()
-    test_delete_not_found()
-    test_delete_one_size()
-    test_multiple_remove1()
-    test_multiple_remove2()
-    test_search()
-    test_remove_min_and_max()
-    test_predecessor_and_successor()
-    test_rank()
-    test_switch()
-
-
-if __name__ == "__main__":
-    run_tests()

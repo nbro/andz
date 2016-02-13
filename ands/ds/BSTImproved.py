@@ -7,6 +7,9 @@ Author: Nelson Brochado
 Creation: 13/02/2016
 
 Binary-search tree that provides somehow randomness at insertion.
+
+## TODO
+- Improve the "randomness" of insertion into the bst.
 """
 
 from ands.ds.BST import *

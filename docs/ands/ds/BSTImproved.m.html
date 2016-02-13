@@ -1032,6 +1032,10 @@ table {
   <p>Author: Nelson Brochado</p>
 <p>Creation: 13/02/2016</p>
 <p>Binary-search tree that provides somehow randomness at insertion.</p>
+<h2>TODO</h2>
+<ul>
+<li>Improve the "randomness" of insertion into the bst.</li>
+</ul>
   
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved" class="source">
@@ -1044,6 +1048,9 @@ Author: Nelson Brochado
 Creation: 13/02/2016
 
 Binary-search tree that provides somehow randomness at insertion.
+
+## TODO
+- Improve the "randomness" of insertion into the bst.
 """
 
 from ands.ds.BST import *
@@ -1165,7 +1172,6 @@ if __name__ == "__main__":
       <p id="ands.ds.BSTImproved.BSTImproved" class="name">class <span class="ident">BSTImproved</span></p>
       
   
-    <div class="desc"><p>Represents a classical binary search tree.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved" class="source">
@@ -1309,12 +1315,14 @@ if __name__ == "__main__":
 
     
   
-    <div class="desc"><p>Removes all nodes from this tree.</p></div>
+    <div class="desc"><p>Removes all nodes from this tree.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.clear', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.clear" class="source">
     <pre><code>def clear(self):
-    """Removes all nodes from this tree."""
+    """Removes all nodes from this tree.
+    **Time Complexity**: O(1)."""
     self.root = None
     self.n = 0
 </code></pre>
@@ -1332,12 +1340,14 @@ if __name__ == "__main__":
 
     
   
-    <div class="desc"><p>Returns <code>True</code> if a <code>BSTNode</code> object with <code>key</code> exists in the tree.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if a <code>BSTNode</code> object with <code>key</code> exists in the tree.</p>
+<p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.contains', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.contains" class="source">
-    <pre><code>def contains(self, key):
-    """Returns `True` if a `BSTNode` object with `key` exists in the tree."""
+    <pre><code>def contains(self, key) -> bool:
+    """Returns `True` if a `BSTNode` object with `key` exists in the tree.
+    **Time Complexity**: O(h)."""
     return self.search_r(key) is not None
 </code></pre>
   </div>
@@ -1348,72 +1358,73 @@ if __name__ == "__main__":
             
   <div class="item">
     <div class="name def" id="ands.ds.BSTImproved.BSTImproved.delete">
-    <p>def <span class="ident">delete</span>(</p><p>self, u)</p>
+    <p>def <span class="ident">delete</span>(</p><p>self, x)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Deletes <code>u</code> from self (if it exists).</p>
+    <div class="desc"><p>Deletes <code>x</code> from self (if it exists).</p>
 <p>There are 3 cases of deletion:
-    1. <code>u</code> has no children
-    2. <code>u</code> has one subtree (or child)
-    3. <code>u</code> has the left and right subtrees (or children).</p>
-<p><code>u</code> can either be a reference to an actual <code>BSTNode</code> object,
+    1. <code>x</code> has no children
+    2. <code>x</code> has one subtree (or child)
+    3. <code>x</code> has the left and right subtrees (or children).</p>
+<p><code>x</code> can either be a reference to an actual <code>BSTNode</code> object,
 or it can be a key of a supposed node in <code>self</code>.</p>
 <p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.delete', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.delete" class="source">
-    <pre><code>def delete(self, u):
-    """Deletes `u` from self (if it exists).
+    <pre><code>def delete(self, x):
+    """Deletes `x` from self (if it exists).
     There are 3 cases of deletion:
-        1. `u` has no children
-        2. `u` has one subtree (or child)
-        3. `u` has the left and right subtrees (or children).
+        1. `x` has no children
+        2. `x` has one subtree (or child)
+        3. `x` has the left and right subtrees (or children).
         
-    `u` can either be a reference to an actual `BSTNode` object,
+    `x` can either be a reference to an actual `BSTNode` object,
     or it can be a key of a supposed node in `self`.
     **Time Complexity**: O(h)."""
-    def __delete(x: BSTNode):
+    
+    def delete_helper(u: BSTNode):
         """This is a helper method to the delete method,
         thus it should not be called by clients.
-        When deleting a node x from a BST, we have basically to consider 3 cases:
-        1. x has no children
-        2. x has one child
-        3. x has two children
-        1. x has no children, then we simply remove it
-        by modifying its parent to replace x with None.
-        If x.parent is None, then x must be the root,
+        When deleting a node u from a BST, we have basically to consider 3 cases:
+        1. u has no children
+        2. u has one child
+        3. u has two children
+        1. u has no children, then we simply remove it
+        by modifying its parent to replace u with None.
+        If u.parent is None, then u must be the root,
         and thus we simply set the root to None.
-        2. x has just one child,
+        2. u has just one child,
         but we first need to decide which one (left or right).
-        Then we elevate this child to x's position in the tree
-        by modifying x's parent to replace x by x's child.
-        But if x's parent is None, that means x was the root,
-        and the new root becomes x's child.
-        3. x has two children, then we search for x's successor s,
-        (which must be in the x's right subtree,
+        Then we elevate this child to u's position in the tree
+        by modifying u's parent to replace u by u's child.
+        But if u's parent is None, that means u was the root,
+        and the new root becomes u's child.
+        3. u has two children, then we search for u's successor s,
+        (which must be in the u's right subtree,
         and it's the smallest of that subtree)
-        which takes x's position in the tree.
-        The rest of the x's subtree becomes the s's right subtree,
-        and the x's left subtree becomes the new s's left subtree.
+        which takes u's position in the tree.
+        The rest of the u's subtree becomes the s's right subtree,
+        and the u's left subtree becomes the new s's left subtree.
         This case is a little bit tricky,
-        because it matters whether s is x's right child.
-        Suppose s is the right child of x, then we replace x by s,
+        because it matters whether s is u's right child.
+        Suppose s is the right child of u, then we replace u by s,
         which might or not have a right subtree, but no left subtree.
-        Suppose s is not the right child of x,
+        Suppose s is not the right child of u,
         in this case, we replace s by its own right child,
-        and then we replace x by s.
+        and then we replace u by s.
         
-        Note that "__delete__two_children" does NOT exactly do that,
-        but instead it simply replaces the positions of x and s,
-        as if s was x and x was s.
+        Note that "delete_two_children" does NOT exactly do that,
+        but instead it simply replaces the positions of u and s,
+        as if s was u and u was s.
         
-        After that, __delete is called again on x,
-        but note that x is now in the previous s's position,
-        and thus x has now no left subtree, but at most a right subtree."""
-        def __delete__at_most_one_child(v: BSTNode):
+        After that, delete_helper is called again on u,
+        but note that u is now in the previous s's position,
+        and thus u has now no left subtree, but at most a right subtree."""
+        def delete_at_most_one_child(v: BSTNode):
             """Removes v from the tree, when v has at most one child.
             This means that v could have 0 or 1 child."""
             child = v.right
@@ -1430,31 +1441,30 @@ or it can be a key of a supposed node in <code>self</code>.</p>
             if child:
                 child.parent = v.parent
                 
-        def __delete__two_children(v: BSTNode):
-            """Call by __delete when a node has two children."""
+        def delete_two_children(v: BSTNode):
+            """Called by `delete_helper` when a node has two children."""
              # Replace v with its successor s.
-            self._switch(v, self.successor(v))
-            # Recursively calls the function that should have called this function.
-            # This is done because v is now in a new position,
-            # where it simply has at most one right subtree.
-            __delete(v)
+            self._switch(v, self.successor(v))                
+            # v has at most a right child now.              
+            delete_helper(v)
         
-        if x.has_two_children():
-            __delete__two_children(x)
-        else:  # x has at most one child
-            __delete__at_most_one_child(x)
-        x.right = x.left = x.parent = None
-        return x
-    if u is None:
-        raise ValueError("u cannot be None.")
-    if not isinstance(u, BSTNode):
-        u = self.search_r(u)
-        if u is None:
-            raise LookupError("No node was found with key=u.")
-    if u.parent is None and u != self.root:
-        raise ValueError("u is not a valid node.")
+        if u.has_two_children():
+            delete_two_children(u)
+        else:  # u has at most one child
+            delete_at_most_one_child(u)
+        u.right = u.left = u.parent = None
+        return u
+    if x is None:
+        raise ValueError("x cannot be None.")
+    if not isinstance(x, BSTNode):
+        x = self.search_r(x)
+        if x is None:
+            raise LookupError("No node was found with key=x.")
+        
+    if x.parent is None and x != self.root:
+        raise ValueError("x is not a valid node.")
     self.n -= 1
-    return __delete(u)        
+    return delete_helper(x)        
 </code></pre>
   </div>
 </div>
@@ -1475,7 +1485,7 @@ or it can be a key of a supposed node in <code>self</code>.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.height', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.height" class="source">
-    <pre><code>def height(self):
+    <pre><code>def height(self) -> int:
     """Returns the maximum depth or height of the tree.
     **Time Complexity**: O(h)."""
     if self.root is None:
@@ -1612,12 +1622,14 @@ Therefore the elements of <code>ls</code> should either be
 
     
   
-    <div class="desc"><p>Returns <code>True</code> if this tree has 0 nodes.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if this tree has 0 nodes.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.is_empty', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.is_empty" class="source">
     <pre><code>def is_empty(self):
-    """Returns `True` if this tree has 0 nodes."""
+    """Returns `True` if this tree has 0 nodes.
+    **Time Complexity**: O(1)."""
     return self.size() == 0
 </code></pre>
   </div>
@@ -1634,12 +1646,14 @@ Therefore the elements of <code>ls</code> should either be
 
     
   
-    <div class="desc"><p>Checks if <code>u</code> is the root.</p></div>
+    <div class="desc"><p>Checks if <code>u</code> is the root.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.is_root', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.is_root" class="source">
-    <pre><code>def is_root(self, u):
-    """Checks if `u` is the root."""
+    <pre><code>def is_root(self, u: BSTNode):
+    """Checks if `u` is the root.
+    **Time Complexity**: O(1)."""
     return u == self.root
 </code></pre>
   </div>
@@ -1683,42 +1697,33 @@ that is it returns the parent of <code>x</code>.</p>
         c = self.search(x)
         if c is None:
             raise LookupError("key node was not found in the tree.")
-    else:  # x should be a BSTNode object
+    else:
         c = x
-    if c is None:
-        raise ValueError("x cannot be None.")
     
     # To left rotate a node, its right child must exist.
     if c.right is None:
         raise ValueError("Left rotation cannot be performed on " + str(c) +
                         " because it does not have a right child.")
     c.right.parent = c.parent
-    # If the following expression is evaluated to True,
-    # then this implies that c is the root
-    # and the new root becomes the right child.
+    # Only the root has a None parent.
     if c.parent is None:
         self.root = c.right
+        
     # Checking if c is a left or a right child,
-    # in order to set the new left or right child (respectively) of its parent.
+    # in order to set the new left
+    # or right child respectively of its parent.
     elif c.is_left_child():
         c.parent.left = c.right
-    else:  # c.is_right_child():
+    else:
         c.parent.right = c.right
-    # Setting the new parent of c,
-    # which is its right child.
     c.parent = c.right
-    # Setting the new right child of c
-    # Note that the current parent of c
-    # is what was its previous right child
-    # So, basically, the new right child of c
-    # becomes what is the left child of its previous right child.
+    # The new right child of c becomes what is
+    # the left child of its previous right child.
     c.right = c.parent.left
-    # Checking if the new right child of c is None,
-    # because, if it is not, we need to set its parent to be c
+    # Set c to be the parent of its new right child.
     if c.right is not None:
         c.right.parent = c
-    # Now, we can set c to be the new left child
-    # of its new parent (which was its previous right child).
+    # Set c to be the new left child of its new parent.
     c.parent.left = c
     return c.parent
 </code></pre>
@@ -1837,37 +1842,37 @@ then its left child node and then its right child node.</p>
             
   <div class="item">
     <div class="name def" id="ands.ds.BSTImproved.BSTImproved.predecessor">
-    <p>def <span class="ident">predecessor</span>(</p><p>self, u)</p>
+    <p>def <span class="ident">predecessor</span>(</p><p>self, x)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Finds the predecessor of the node <code>u</code>,
-i.e. the greatest element smaller than <code>u</code>.</p>
-<p><code>u</code> can either be a reference to an actual <code>BSTNode</code> object,
+    <div class="desc"><p>Finds the predecessor of the node <code>x</code>,
+i.e. the greatest element smaller than <code>x</code>.</p>
+<p><code>x</code> can either be a reference to an actual <code>BSTNode</code> object,
 or it can be a key of a supposed node in self.</p>
 <p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.predecessor', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.predecessor" class="source">
-    <pre><code>def predecessor(self, u):
-    """Finds the predecessor of the node `u`,
-    i.e. the greatest element smaller than `u`.
+    <pre><code>def predecessor(self, x):
+    """Finds the predecessor of the node `x`,
+    i.e. the greatest element smaller than `x`.
     
-    `u` can either be a reference to an actual `BSTNode` object,
+    `x` can either be a reference to an actual `BSTNode` object,
     or it can be a key of a supposed node in self.
     **Time Complexity**: O(h)."""
-    if not isinstance(u, BSTNode):
-        u = self.search_r(u)
-        if u is None:
-            raise LookupError("No node was found with key=u.")
-    if u.left:
-        return BST._maximum_r(u.left)
-    p = u.parent
-    while p and u == p.left:
-        u = p
-        p = u.parent
+    if not isinstance(x, BSTNode):
+        x = self.search_r(x)
+        if x is None:
+            raise LookupError("No node was found with key=x.")
+    if x.left:
+        return BST._maximum_r(x.left)
+    p = x.parent
+    while p and x == p.left:
+        x = p
+        p = x.parent
     return p
 </code></pre>
   </div>
@@ -1889,7 +1894,7 @@ or it can be a key of a supposed node in self.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.rank', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.rank" class="source">
-    <pre><code>def rank(self, key):
+    <pre><code>def rank(self, key) -> int:
     """Returns the number of keys strictly less than `key`.
     **Time Complexity**: O(h)."""
     if key is None:
@@ -2054,8 +2059,6 @@ See doc-strings of <code>self.left_rotate</code>.</p>
             raise LookupError("key node was not found in the tree.")
     else:
         c = x
-    if c is None:
-        raise ValueError("x cannot be None.")
     if c.left is None:
         raise ValueError("Right rotation cannot be performed on " + str(c) +
                         " because it does not have a left child.")
@@ -2214,12 +2217,12 @@ If <code>s</code> is specified, then this procedure starts searching from <code>
 
     
   
-    <div class="desc"><p>Calls self.<strong>str</strong>()</p></div>
+    <div class="desc"><p>Pretty-prints this tree using <code>print</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.show', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.show" class="source">
     <pre><code>def show(self):
-    """Calls self.__str__()"""
+    """Pretty-prints this tree using `print`."""
     print(self)
 </code></pre>
   </div>
@@ -2236,12 +2239,14 @@ If <code>s</code> is specified, then this procedure starts searching from <code>
 
     
   
-    <div class="desc"><p>Returns the total number of nodes.</p></div>
+    <div class="desc"><p>Returns the total number of nodes.</p>
+<p><strong>Time Complexity</strong>: O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.size', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.size" class="source">
     <pre><code>def size(self):
-    """Returns the total number of nodes."""
+    """Returns the total number of nodes.
+    **Time Complexity**: O(1)."""
     return self.n
 </code></pre>
   </div>
@@ -2252,45 +2257,45 @@ If <code>s</code> is specified, then this procedure starts searching from <code>
             
   <div class="item">
     <div class="name def" id="ands.ds.BSTImproved.BSTImproved.successor">
-    <p>def <span class="ident">successor</span>(</p><p>self, u)</p>
+    <p>def <span class="ident">successor</span>(</p><p>self, x)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Finds the successor of <code>u</code>,
-i.e. the smallest element greater than <code>u</code>.</p>
-<p>If <code>u</code> has a right subtree,
-then the successor of <code>u</code> is the minimum of that right subtree.</p>
-<p>Otherwise it is the first ancestor of <code>u</code>, lets call it <code>A</code>, 
-such that <code>u</code> falls in the left subtree of <code>A</code>.</p>
-<p><code>u</code> can either be a reference to an actual <code>BSTNode</code> object,
+    <div class="desc"><p>Finds the successor of <code>x</code>,
+i.e. the smallest element greater than <code>x</code>.</p>
+<p>If <code>x</code> has a right subtree,
+then the successor of <code>x</code> is the minimum of that right subtree.</p>
+<p>Otherwise it is the first ancestor of <code>x</code>, lets call it <code>A</code>, 
+such that <code>x</code> falls in the left subtree of <code>A</code>.</p>
+<p><code>x</code> can either be a reference to an actual <code>BSTNode</code> object,
 or it can be a key of a supposed node in self.</p>
 <p><strong>Time Complexity</strong>: O(h).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTImproved.BSTImproved.successor', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTImproved.BSTImproved.successor" class="source">
-    <pre><code>def successor(self, u):
-    """Finds the successor of `u`,
-    i.e. the smallest element greater than `u`.
+    <pre><code>def successor(self, x):
+    """Finds the successor of `x`,
+    i.e. the smallest element greater than `x`.
     
-    If `u` has a right subtree,
-    then the successor of `u` is the minimum of that right subtree.
-    Otherwise it is the first ancestor of `u`, lets call it `A`, 
-    such that `u` falls in the left subtree of `A`.
-    `u` can either be a reference to an actual `BSTNode` object,
+    If `x` has a right subtree,
+    then the successor of `x` is the minimum of that right subtree.
+    Otherwise it is the first ancestor of `x`, lets call it `A`, 
+    such that `x` falls in the left subtree of `A`.
+    `x` can either be a reference to an actual `BSTNode` object,
     or it can be a key of a supposed node in self.
     **Time Complexity**: O(h)."""
-    if not isinstance(u, BSTNode):
-        u = self.search(u)
-        if not u:
-            raise LookupError("No node was found with key=u.")
-    if u.right:
-        return BST._minimum_r(u.right)
-    p = u.parent
-    while p and p.right == u:
-        u = p
-        p = u.parent
+    if not isinstance(x, BSTNode):
+        x = self.search(x)
+        if not x:
+            raise LookupError("No node was found with key=x.")
+    if x.right:
+        return BST._minimum_r(x.right)
+    p = x.parent
+    while p and p.right == x:
+        x = p
+        p = x.parent
     return p
 </code></pre>
   </div>
