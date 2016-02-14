@@ -12,7 +12,9 @@ This project was created for _personal use_ mostly while studying for an _exam_ 
 
 I discourage every beginner from copying **shamelessly** the source code, but instead you should definitely give a chance to your brain and sense of challenge first! At the end, you will definetely feel a better and more serious programmer! If you really do not have any ideas on how to do something, try to read the comments next to each function and/or class that you are interested in. They are there for reason!
 
-Note that this is a **work in progress** project, and there might be some mistakes, as a matter of fact no serious tests have been done. Anyway, this respository only contains data structures and algorithms whose implementation can be considered complete (i.e. more details can be added, but the basic behaviour is implemented). I have also other semi-implemented data structures and algorithms that I will include once I finish implementing them.
+Note that this is a **work in progress** project, and there might be some mistakes. A few decent tests are starting to being done for all data structures and algorithms. You can find them under the folder [`tests`](tests). 
+
+Anyway, this respository only contains data structures and algorithms whose implementation can be considered complete (i.e. more details can be added, but the basic behaviour is implemented). I have also other semi-implemented data structures and algorithms that I will include once I finish implementing them.
 
 Any suggestions to improve the code, or the design of an algorithm or data structure, or corrections are of course well accepted, and therefore I encoure you to _fork_ this repository and eventually send a _pull request_.
 
