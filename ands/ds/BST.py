@@ -40,8 +40,10 @@ or any other comparable object to represent keys.
 
 ### Docstrings
 Under methods' signatures, h in O(h) is the height of the tree.
-Note that the height of a BST varies
-depending on how elements are inserted and removed.
+Note that the height of a BST varies depending on how elements
+are inserted and removed.
+m in O(m) is the height of the subtree rooted at the node passed
+as parameter.
 
 Other names are self-descriptive.
 For example, "key" and "value" are self-descriptive.
@@ -105,6 +107,8 @@ class BST:
         """Checks if `u` is the root.
 
         **Time Complexity**: O(1)."""
+        if u == self.root:            
+            assert u.parent is None
         return u == self.root
     
     def clear(self):
@@ -673,7 +677,7 @@ class BST:
             if x is None:
                 raise LookupError("No node was found with key=x.")
             
-        if x.parent is None and x != self.root:
+        if x.parent is None and not self.is_root(x):
             raise ValueError("x is not a valid node.")
 
         self.n -= 1

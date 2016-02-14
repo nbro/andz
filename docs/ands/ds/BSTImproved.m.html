@@ -1461,7 +1461,7 @@ or it can be a key of a supposed node in <code>self</code>.</p>
         if x is None:
             raise LookupError("No node was found with key=x.")
         
-    if x.parent is None and x != self.root:
+    if x.parent is None and not self.is_root(x):
         raise ValueError("x is not a valid node.")
     self.n -= 1
     return delete_helper(x)        
@@ -1654,6 +1654,8 @@ Therefore the elements of <code>ls</code> should either be
     <pre><code>def is_root(self, u: BSTNode):
     """Checks if `u` is the root.
     **Time Complexity**: O(1)."""
+    if u == self.root:            
+        assert u.parent is None
     return u == self.root
 </code></pre>
   </div>

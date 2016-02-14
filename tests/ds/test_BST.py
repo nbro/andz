@@ -92,7 +92,7 @@ def test_delete_not_found():
     b = BST()
     try:
         b.delete(12)
-        raise Exception("test_delete_not_found not passed")
+        assert False
     except LookupError as e:
         pass
     print("test_delete_not_found finished.")
@@ -127,6 +127,7 @@ def test_multiple_remove2():
     for i in range(-1, 15, 2):
         try:
             b.delete(i)
+            assert False
         except LookupError:
             pass
         assert not b.contains(i)
@@ -168,7 +169,7 @@ def test_search():
     b.insert(15)
     try:
         b.search(None)
-        raise Exception("test_search failed")
+        assert False
     except ValueError:
         pass
     assert not b.search(12)
@@ -218,7 +219,7 @@ def test_predecessor_and_successor():
     try:
         b.successor(7)
         b.predecessor(6)
-        raise Exception("test_predecessor_and_successor failed")
+        assert False
     except LookupError as e:
         pass
     print("test_predecessor_and_successor finished.")
@@ -227,12 +228,12 @@ def test_rank():
     b = BST()
     try:
         b.rank(None)
-        raise Exception("test_rank failed.")
+        assert False
     except ValueError:
         pass
     try:
          b.rank(12)
-         raise Exception("test_rank failed.")
+         assert False
     except LookupError:
         pass
     b.insert(12)
@@ -265,24 +266,25 @@ def test_switch():
     b.insert(30)
 
     def asserts():
-        #print("\nroot =", b.root, end="\n\n")
-        #print(b)
         bst_invariant(b)
         assert_consistencies(b)
 
     try:
         b._switch(b.search(12), b.search(12))
+        assert False
     except ValueError as e:
-        print(e)
+        pass
     try:
         b._switch(b.search(12), None)
+        assert False
     except ValueError as e:
-        print(e)
+        pass
 
     try:
         b._switch(b.search(12), BSTNode(100), search_first=True)
+        assert False
     except LookupError as e:
-        print(e)
+        pass
 
     asserts()
 
@@ -300,31 +302,26 @@ def test_switch():
     
     b._switch(b.search(4), b.search(10))
     assert b.root == b.search(12)
-    #print(b)
     b._switch(b.search(8).left, b.search(8).right)
     asserts()
 
     b._switch(b.search(8), b.search(20))
     assert b.root == b.search(12)
-    #print(b)
     b._switch(b.search(12).left, b.search(12).right)
     asserts()
     
     b._switch(b.search(8), b.search(28))
     assert b.root == b.search(12)
-    #print(b)
     b._switch(b.search(12).left, b.search(20).right)
     asserts()
 
     b._switch(b.search(8), b.search(14))
     assert b.root == b.search(12)
-    #print(b)
     b._switch(b.search(12).left, b.search(12).right.left.left)
     asserts()
     
     b._switch(b.search(2), b.search(28))
     assert b.root == b.search(12)
-    #print(b)
     b._switch(b.search(12).left.left.left, b.search(12).right.right)
     asserts()
     assert b.search(2).left is None
@@ -334,23 +331,19 @@ def test_switch():
 
     b._switch(b.search(8), b.search(5))
     assert b.root == b.search(12)
-    #print(b)
     b._switch(b.search(12).left, b.search(12).left.left.right)
     asserts()
 
     b._switch(b.search(8), b.search(2))
     assert b.root == b.search(12)
-    #print(b)
     b._switch(b.search(12).left, b.search(12).left.left.left)
     assert not b.search(12).left.left.left.left
     assert not b.search(12).left.left.left.right
     assert b.search(12).left.left.left.parent == b.search(12).left.left
-    #asserts()
 
     b._switch(b.search(12), b.search(10))
     assert b.root == b.search(10)
     assert not b.root.parent
-    #print(b)
     b._switch(b.search(10), b.search(10).left.right)
     asserts()
     print("test_switch finished.")

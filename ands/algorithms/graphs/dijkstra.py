@@ -132,7 +132,7 @@ def dijkstra(g: Graph, s: GraphNode):
     # except for the source node s, whose distance has been set to 0.
     q = MinPriorityQueue(_nodes_and_distances(g))
 
-    while q.is_not_empty():
+    while not q.is_empty():
         # u has the estimated shortest path in the set V - S
         # Note that the first element being pulled is s.
         u = q.extract_min()

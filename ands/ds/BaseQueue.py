@@ -6,11 +6,10 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 13/02/16
 
 Basic queue, which is FIFO (first-in-first-out) data structure.
 """
-
 
 class BaseQueue:
 
@@ -28,10 +27,6 @@ class BaseQueue:
     def is_empty(self):
         """Returns `True` if this queue is empty, `False` otherwise."""
         return self.size() == 0
-
-    def is_not_empty(self):
-        """Returns `True` if this queue has at least one element, `False` otherwise."""        
-        return not self.is_empty()
 
     def size(self):
         """Returns the size of this stack."""        

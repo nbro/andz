@@ -8,7 +8,6 @@ Creation: July, 2015
 
 Last update: 05/02/16
 
-
 Contains an implementation of a min priority queue using a min heap.
 """
 

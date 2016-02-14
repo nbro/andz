@@ -30,7 +30,7 @@ def bfs(g: Graph, s: GraphNode):
     q = BFSQueue()
     q.enqueue(s)
 
-    while q.is_not_empty():
+    while not q.is_empty():
 
         u = q.dequeue()
 

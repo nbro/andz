@@ -8,5 +8,6 @@ env/
 *.egg-info/
 *.egg
 
-#RBT.py
-#RBTNode.py
+# Other
+commands.txt
+templates/

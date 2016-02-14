@@ -988,7 +988,6 @@ table {
     <li class="mono"><a href="#ands.ds.BFSQueue.BFSQueue.dequeue">dequeue</a></li>
     <li class="mono"><a href="#ands.ds.BFSQueue.BFSQueue.enqueue">enqueue</a></li>
     <li class="mono"><a href="#ands.ds.BFSQueue.BFSQueue.is_empty">is_empty</a></li>
-    <li class="mono"><a href="#ands.ds.BFSQueue.BFSQueue.is_not_empty">is_not_empty</a></li>
     <li class="mono"><a href="#ands.ds.BFSQueue.BFSQueue.size">size</a></li>
   </ul>
 
@@ -1174,28 +1173,6 @@ class BFSQueue(BaseQueue):
     <pre><code>def is_empty(self):
     """Returns `True` if this queue is empty, `False` otherwise."""
     return self.size() == 0
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.BFSQueue.BFSQueue.is_not_empty">
-    <p>def <span class="ident">is_not_empty</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Returns <code>True</code> if this queue has at least one element, <code>False</code> otherwise.</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BFSQueue.BFSQueue.is_not_empty', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.BFSQueue.BFSQueue.is_not_empty" class="source">
-    <pre><code>def is_not_empty(self):
-    """Returns `True` if this queue has at least one element, `False` otherwise."""        
-    return not self.is_empty()
 </code></pre>
   </div>
 </div>

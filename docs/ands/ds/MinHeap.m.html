@@ -8,10 +8,9 @@
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 13/02/16
 
-
-A binary min heap is a data s..." />
+A binary min heap is a data st..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -987,10 +986,8 @@ table {
   <ul>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.__init__">__init__</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.add">add</a></li>
-    <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.build_min_heap">build_min_heap</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.clear">clear</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.contains">contains</a></li>
-    <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.create_list_of_heap_nodes">create_list_of_heap_nodes</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.find_min">find_min</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.get">get</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.get_left_child_index">get_left_child_index</a></li>
@@ -999,7 +996,6 @@ table {
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.heapify">heapify</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.is_empty">is_empty</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.is_good_index">is_good_index</a></li>
-    <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.is_not_empty">is_not_empty</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.merge">merge</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.push_down">push_down</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.push_up">push_up</a></li>
@@ -1031,7 +1027,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.MinHeap</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 05/02/16</p>
+<p>Last update: 13/02/16</p>
 <p>A binary min heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.</p>
 <p>In addition to the previous constraint, a binary min heap is a complete binary tree,
@@ -1041,10 +1037,16 @@ the nodes of that level are filled from left to right.</p>
 <p>A min heap can be implemented with a classic array or list in Python.</p>
 <p>If we have a node at index i, then</p>
 <ul>
-<li>its left child can be found at index i*2 + 1</li>
-<li>its right child is found at i*2 + 2,</li>
-<li>its parent can be found at index floor((i - 1) / 2),
-where floor(x) truncates x to the smallest integer.</li>
+<li>
+<p>its left child can be found at index i*2 + 1</p>
+</li>
+<li>
+<p>its right child is found at i*2 + 2,</p>
+</li>
+<li>
+<p>its parent can be found at index floor((i - 1) / 2),
+where floor(x) truncates x to the smallest integer.</p>
+</li>
 </ul>
 <p>Note that these indexes are for 0-index based lists (or arrays).</p>
   
@@ -1058,8 +1060,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 05/02/16
-
+Last update: 13/02/16
 
 A binary min heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.
@@ -1074,7 +1075,9 @@ A min heap can be implemented with a classic array or list in Python.
 If we have a node at index i, then
 
 - its left child can be found at index i*2 + 1
+
 - its right child is found at i*2 + 2,
+
 - its parent can be found at index floor((i - 1) / 2),
 where floor(x) truncates x to the smallest integer.
 
@@ -1089,25 +1092,23 @@ class MinHeap(Heap):
 
     def __init__(self, ls=[]):
         Heap.__init__(self)
-        self.heap = self.create_list_of_heap_nodes(ls)
-        self.build_min_heap()
+        self.heap = self._create_list_of_heap_nodes(ls)
+        self._build_min_heap()
 
-    def build_min_heap(self):
+    def _build_min_heap(self):
         """Creates a min heap using the list passed to the constructor.
 
         Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.
 
-        Time complexity: O(n)
-        """
+        **Time Complexity:** O(n)."""
         for index in range(len(self.heap) // 2, -1, -1):
             self.heapify(index)
         return self.heap
 
     def heapify(self, i: int):
-        """Min-heapify this mean heap starting from index i.
+        """Min-heapify this mean heap starting from index `i`.
 
-        Time complexity: O(log n)
-        """
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         _min = i
         left = Heap.get_left_child_index(self.heap, i)
         right = Heap.get_right_child_index(self.heap, i)
@@ -1127,9 +1128,9 @@ class MinHeap(Heap):
         return _min
 
     def add(self, heap_node: HeapNode):
-        """Adds a heap_node to this heap.
+        """Adds a `heap_node` to this heap.
 
-        Time complexity: O(log n)"""
+        **Time Complexity:** O(log<sub>2</sub> n)."""
 
         # Sets the current index of heap_node.
         # This index could change by a "push up" operation.
@@ -1142,28 +1143,24 @@ class MinHeap(Heap):
     def find_min(self):
         """Returns (without removing) the smallest element in the heap.
 
-        Time complexity: O(1)
-        """
+        **Time Complexity:** O(1)."""
         if not self.is_empty():
             return self.heap[0]
 
     def remove_min(self):
         """Removes and returns the smallest element in this heap.
 
-        Time complexity: O(log n),
+        **Time Complexity:** O(log<sub>2</sub> n),
         unless the list's pop operation is linear
         also when popping the last element,
-        which would make this algorithm to have a time complexity O(n).
-        """
-        if self.is_not_empty():
-
+        which would make this algorithm to have a time complexity O(n)."""
+        if not self.is_empty():
             self.swap(0, self.size() - 1)
-
             min_element = self.heap.pop()
-
-            if self.is_not_empty():
+            
+            if not self.is_empty():
                 self.push_down(0)
-
+                
             return min_element
 
     def push_down(self, i: int):
@@ -1180,7 +1177,7 @@ class MinHeap(Heap):
         because in this case we just need to compare
         the current node's index with its parent's index.
 
-        Time complexity: O(log n)"""
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         current_index = i
         p = MinHeap.get_parent_index(self.heap, i)
 
@@ -1189,7 +1186,7 @@ class MinHeap(Heap):
         # and the following if statement would not be executed (wrongly).
         if p is not None and self.heap[current_index] < self.heap[p]:
             current_index = p
-
+            
         if current_index != i:
             self.swap(current_index, i)
             self.push_up(current_index)
@@ -1198,13 +1195,7 @@ class MinHeap(Heap):
         """Searches for heap_node in this heap,
         and if present, returns its index, otherwise returns -1.
 
-        Time complexity: O(n).
-
-        This complexity could be improved to O(1),
-        because I am keeping track of the index of each HeapNode,
-        (in the index field of each HeapNode),
-        but this technique would not work
-        in case the heap_node is not in the heap."""
+        **Time Complexity:** O(n)."""
         for i, node in enumerate(self.heap):
             if node == heap_node:
                 return i
@@ -1213,37 +1204,36 @@ class MinHeap(Heap):
     def contains(self, heap_node: HeapNode):
         """Returns True, if heap_node is in the heaps.
 
-        Time complexity: O(n)"""
-        if self.search(heap_node) != -1:
-            return True
-        return False
+        **Time Complexity:** O(n)."""
+        return self.search(heap_node) != -1
 
     def search_by_value(self, value: object):
         """Returns the index of the HeapNode with value=value.
         -1 is returned if no such a HeapNode exists.
 
-        Time complexity: O(n)"""
+        **Time Complexity:** O(n)."""
         for i, node in enumerate(self.heap):
             if node.value == value:
                 return i
         return -1
 
-    def _merge_aux(self):
-        """Updates the indices of all HeapNode objects."""
-        for i, heap_node in enumerate(self.heap):
-            heap_node.index = i
-
     def merge(self, other_heap: Heap):
-        """Merges this heap with other_heap."""
+        """Merges this heap with `other_heap`."""
         self.heap += other_heap.get()
-        self._merge_aux()
-        return self.build_min_heap()
+
+        def _merge_aux():
+            """Updates the indices of all `HeapNode` objects."""
+            for i, heap_node in enumerate(self.heap):
+                heap_node.index = i
+
+        _merge_aux()
+        return self._build_min_heap()
 
     def swap(self, i: int, j: int):
-        """Swaps HeapNode objects at indexes i and j,
+        """Swaps `HeapNode` objects at indexes `i` and `j`,
         and updates their new index field's value.
 
-        Time complexity: O(1)"""
+        **Time Complexity:** O(1)."""
         self.is_good_index(self.heap, i)
         self.is_good_index(self.heap, j)
 
@@ -1256,18 +1246,18 @@ class MinHeap(Heap):
         self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
 
     def replace(self, i: int, new_heap_node: HeapNode):
-        """Replaces element at index i with new_heap_node.
+        """Replaces element at index `i` with `new_heap_node`.
 
-        1. If new_heap_node == self.heap[i],
-        then just replace self.heap[i] with new_heap_node.
+        1. If `new_heap_node == self.heap[i]`,
+        then just replace `self.heap[i]` with `new_heap_node`.
 
-        2. Else if new_heap_node less than self.heap[i],
+        2. Else if `new_heap_node < self.heap[i]`,
         then push_up(index).
 
-        3. Else new_heap_node > self.heaps[index],
-        then self.heapify(index)
+        3. Else `new_heap_node > self.heap[i]`,
+        then call `self.heapify(i)`.
 
-        Time complexity: O(log n)"""
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         self.is_good_index(self.heap, i)
 
         current_node = self.heap[i]
@@ -1280,29 +1270,8 @@ class MinHeap(Heap):
 
         elif new_heap_node < current_node:
             self.push_up(i)
-
+            
         return current_node
-
-
-if __name__ == "__main__":
-    from random import randrange
-
-    a = [randrange(0, 100) for x in range(10)]
-    # a = [70, 96, 29, 77, 77, 53, 19, 70, 92, 14]
-    print(a)
-    h = MinHeap(a)
-    h.show()
-
-    def show_indexes():
-        print()
-        for hn in h.get():
-            print("HeapNode:", hn, ", Index:", hn.index)
-
-    show_indexes()
-    print("\nRemoving the minimum...\n")
-    h.remove_min()
-    h.show()
-    show_indexes()
 </code></pre>
   </div>
 
@@ -1317,8 +1286,6 @@ if __name__ == "__main__":
       <p id="ands.ds.MinHeap.MinHeap" class="name">class <span class="ident">MinHeap</span></p>
       
   
-    <div class="desc"><p>Base class to represent heaps.
-You can inherit from this, for example when implementing a max heaps.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap" class="source">
@@ -1326,25 +1293,23 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
 
     def __init__(self, ls=[]):
         Heap.__init__(self)
-        self.heap = self.create_list_of_heap_nodes(ls)
-        self.build_min_heap()
+        self.heap = self._create_list_of_heap_nodes(ls)
+        self._build_min_heap()
 
-    def build_min_heap(self):
+    def _build_min_heap(self):
         """Creates a min heap using the list passed to the constructor.
 
         Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.
 
-        Time complexity: O(n)
-        """
+        **Time Complexity:** O(n)."""
         for index in range(len(self.heap) // 2, -1, -1):
             self.heapify(index)
         return self.heap
 
     def heapify(self, i: int):
-        """Min-heapify this mean heap starting from index i.
+        """Min-heapify this mean heap starting from index `i`.
 
-        Time complexity: O(log n)
-        """
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         _min = i
         left = Heap.get_left_child_index(self.heap, i)
         right = Heap.get_right_child_index(self.heap, i)
@@ -1364,9 +1329,9 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
         return _min
 
     def add(self, heap_node: HeapNode):
-        """Adds a heap_node to this heap.
+        """Adds a `heap_node` to this heap.
 
-        Time complexity: O(log n)"""
+        **Time Complexity:** O(log<sub>2</sub> n)."""
 
         # Sets the current index of heap_node.
         # This index could change by a "push up" operation.
@@ -1379,28 +1344,24 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
     def find_min(self):
         """Returns (without removing) the smallest element in the heap.
 
-        Time complexity: O(1)
-        """
+        **Time Complexity:** O(1)."""
         if not self.is_empty():
             return self.heap[0]
 
     def remove_min(self):
         """Removes and returns the smallest element in this heap.
 
-        Time complexity: O(log n),
+        **Time Complexity:** O(log<sub>2</sub> n),
         unless the list's pop operation is linear
         also when popping the last element,
-        which would make this algorithm to have a time complexity O(n).
-        """
-        if self.is_not_empty():
-
+        which would make this algorithm to have a time complexity O(n)."""
+        if not self.is_empty():
             self.swap(0, self.size() - 1)
-
             min_element = self.heap.pop()
-
-            if self.is_not_empty():
+            
+            if not self.is_empty():
                 self.push_down(0)
-
+                
             return min_element
 
     def push_down(self, i: int):
@@ -1417,7 +1378,7 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
         because in this case we just need to compare
         the current node's index with its parent's index.
 
-        Time complexity: O(log n)"""
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         current_index = i
         p = MinHeap.get_parent_index(self.heap, i)
 
@@ -1426,7 +1387,7 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
         # and the following if statement would not be executed (wrongly).
         if p is not None and self.heap[current_index] < self.heap[p]:
             current_index = p
-
+            
         if current_index != i:
             self.swap(current_index, i)
             self.push_up(current_index)
@@ -1435,13 +1396,7 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
         """Searches for heap_node in this heap,
         and if present, returns its index, otherwise returns -1.
 
-        Time complexity: O(n).
-
-        This complexity could be improved to O(1),
-        because I am keeping track of the index of each HeapNode,
-        (in the index field of each HeapNode),
-        but this technique would not work
-        in case the heap_node is not in the heap."""
+        **Time Complexity:** O(n)."""
         for i, node in enumerate(self.heap):
             if node == heap_node:
                 return i
@@ -1450,37 +1405,36 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
     def contains(self, heap_node: HeapNode):
         """Returns True, if heap_node is in the heaps.
 
-        Time complexity: O(n)"""
-        if self.search(heap_node) != -1:
-            return True
-        return False
+        **Time Complexity:** O(n)."""
+        return self.search(heap_node) != -1
 
     def search_by_value(self, value: object):
         """Returns the index of the HeapNode with value=value.
         -1 is returned if no such a HeapNode exists.
 
-        Time complexity: O(n)"""
+        **Time Complexity:** O(n)."""
         for i, node in enumerate(self.heap):
             if node.value == value:
                 return i
         return -1
 
-    def _merge_aux(self):
-        """Updates the indices of all HeapNode objects."""
-        for i, heap_node in enumerate(self.heap):
-            heap_node.index = i
-
     def merge(self, other_heap: Heap):
-        """Merges this heap with other_heap."""
+        """Merges this heap with `other_heap`."""
         self.heap += other_heap.get()
-        self._merge_aux()
-        return self.build_min_heap()
+
+        def _merge_aux():
+            """Updates the indices of all `HeapNode` objects."""
+            for i, heap_node in enumerate(self.heap):
+                heap_node.index = i
+
+        _merge_aux()
+        return self._build_min_heap()
 
     def swap(self, i: int, j: int):
-        """Swaps HeapNode objects at indexes i and j,
+        """Swaps `HeapNode` objects at indexes `i` and `j`,
         and updates their new index field's value.
 
-        Time complexity: O(1)"""
+        **Time Complexity:** O(1)."""
         self.is_good_index(self.heap, i)
         self.is_good_index(self.heap, j)
 
@@ -1493,18 +1447,18 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
         self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
 
     def replace(self, i: int, new_heap_node: HeapNode):
-        """Replaces element at index i with new_heap_node.
+        """Replaces element at index `i` with `new_heap_node`.
 
-        1. If new_heap_node == self.heap[i],
-        then just replace self.heap[i] with new_heap_node.
+        1. If `new_heap_node == self.heap[i]`,
+        then just replace `self.heap[i]` with `new_heap_node`.
 
-        2. Else if new_heap_node less than self.heap[i],
+        2. Else if `new_heap_node < self.heap[i]`,
         then push_up(index).
 
-        3. Else new_heap_node > self.heaps[index],
-        then self.heapify(index)
+        3. Else `new_heap_node > self.heap[i]`,
+        then call `self.heapify(i)`.
 
-        Time complexity: O(log n)"""
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         self.is_good_index(self.heap, i)
 
         current_node = self.heap[i]
@@ -1517,7 +1471,7 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
 
         elif new_heap_node < current_node:
             self.push_up(i)
-
+            
         return current_node
 </code></pre>
   </div>
@@ -1558,8 +1512,8 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
   <div id="source-ands.ds.MinHeap.MinHeap.__init__" class="source">
     <pre><code>def __init__(self, ls=[]):
     Heap.__init__(self)
-    self.heap = self.create_list_of_heap_nodes(ls)
-    self.build_min_heap()
+    self.heap = self._create_list_of_heap_nodes(ls)
+    self._build_min_heap()
 </code></pre>
   </div>
 </div>
@@ -1575,49 +1529,20 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
 
     
   
-    <div class="desc"><p>Adds a heap_node to this heap.</p>
-<p>Time complexity: O(log n)</p></div>
+    <div class="desc"><p>Adds a <code>heap_node</code> to this heap.</p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.add', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.add" class="source">
     <pre><code>def add(self, heap_node: HeapNode):
-    """Adds a heap_node to this heap.
-    Time complexity: O(log n)"""
+    """Adds a `heap_node` to this heap.
+    **Time Complexity:** O(log<sub>2</sub> n)."""
     # Sets the current index of heap_node.
     # This index could change by a "push up" operation.
     heap_node.index = self.size()
     self.heap.append(heap_node)
     if self.size() > 1:
         self.push_up(self.size() - 1)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinHeap.MinHeap.build_min_heap">
-    <p>def <span class="ident">build_min_heap</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Creates a min heap using the list passed to the constructor.</p>
-<p>Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.</p>
-<p>Time complexity: O(n)</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.build_min_heap', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinHeap.MinHeap.build_min_heap" class="source">
-    <pre><code>def build_min_heap(self):
-    """Creates a min heap using the list passed to the constructor.
-    Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.
-    Time complexity: O(n)
-    """
-    for index in range(len(self.heap) // 2, -1, -1):
-        self.heapify(index)
-    return self.heap
 </code></pre>
   </div>
 </div>
@@ -1634,15 +1559,15 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
     
   
     <div class="desc"><p>Clears all nodes from this heap.
-This mean that if you call "is_empty",
-it will return True.</p></div>
+This mean that if you call <code>is_empty</code>,
+it will return <code>True</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.clear', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.clear" class="source">
     <pre><code>def clear(self):
     """Clears all nodes from this heap.
-    This mean that if you call "is_empty",
-    it will return True."""
+    This mean that if you call `is_empty`,
+    it will return `True`."""
     self.heap.clear()
 </code></pre>
   </div>
@@ -1660,52 +1585,14 @@ it will return True.</p></div>
     
   
     <div class="desc"><p>Returns True, if heap_node is in the heaps.</p>
-<p>Time complexity: O(n)</p></div>
+<p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.contains', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.contains" class="source">
     <pre><code>def contains(self, heap_node: HeapNode):
     """Returns True, if heap_node is in the heaps.
-    Time complexity: O(n)"""
-    if self.search(heap_node) != -1:
-        return True
-    return False
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinHeap.MinHeap.create_list_of_heap_nodes">
-    <p>def <span class="ident">create_list_of_heap_nodes</span>(</p><p>ls)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Creates and returns a list of HeapNode objects
-with the objects in "ls".</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.create_list_of_heap_nodes', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinHeap.MinHeap.create_list_of_heap_nodes" class="source">
-    <pre><code>@staticmethod
-def create_list_of_heap_nodes(ls: list):
-    """Creates and returns a list of HeapNode objects
-    with the objects in "ls". """
-    list_of_heap_nodes = []
-    for i, x in enumerate(ls):
-        # x should be an int and should also represent its priority!
-        if isinstance(x, (int, float)):
-            list_of_heap_nodes.append(HeapNode(key=x, value=x, index=i))
-        else:
-            # x should be a tuple or a list of 2 elements
-            # x[0] := element to add
-            # x[1] := element's priority
-            # updating the index, even if not necessary for now
-            list_of_heap_nodes.append(HeapNode(key=x[1], value=x[0], index=i))
-    return list_of_heap_nodes
+    **Time Complexity:** O(n)."""
+    return self.search(heap_node) != -1
 </code></pre>
   </div>
 </div>
@@ -1722,14 +1609,13 @@ def create_list_of_heap_nodes(ls: list):
     
   
     <div class="desc"><p>Returns (without removing) the smallest element in the heap.</p>
-<p>Time complexity: O(1)</p></div>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.find_min', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.find_min" class="source">
     <pre><code>def find_min(self):
     """Returns (without removing) the smallest element in the heap.
-    Time complexity: O(1)
-    """
+    **Time Complexity:** O(1)."""
     if not self.is_empty():
         return self.heap[0]
 </code></pre>
@@ -1747,12 +1633,12 @@ def create_list_of_heap_nodes(ls: list):
 
     
   
-    <div class="desc"><p>Returns the list representing internally the heaps.</p></div>
+    <div class="desc"><p>Returns the list representing internally the heap.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.get', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.get" class="source">
     <pre><code>def get(self):
-    """Returns the list representing internally the heaps."""
+    """Returns the list representing internally the heap."""
     return self.heap
 </code></pre>
   </div>
@@ -1769,15 +1655,18 @@ def create_list_of_heap_nodes(ls: list):
 
     
   
-    <div class="desc"><p>Returns the left child of the node at index i, if it exists.
-Otherwise this function returns None.</p></div>
+    <div class="desc"><p>Returns the left child of the node at index <code>i</code>, if it exists.
+Otherwise this function returns <code>None</code>.
+If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.get_left_child_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.get_left_child_index" class="source">
     <pre><code>@staticmethod
 def get_left_child_index(ls: list, i: int):
-    """Returns the left child of the node at index i, if it exists.
-    Otherwise this function returns None."""
+    """Returns the left child of the node at index `i`, if it exists.
+    Otherwise this function returns `None`.
+    If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+    Heap.is_good_index(ls, i)
     left = i * 2 + 1
     if Heap.is_good_index(ls, left, raise_error=False):
         return left
@@ -1798,15 +1687,17 @@ def get_left_child_index(ls: list, i: int):
 
     
   
-    <div class="desc"><p>Returns the parent's position of the node at index i.
-If i = 0, then None is returned, because the _initialise has no parent.</p></div>
+    <div class="desc"><p>Returns the parent's position of the node at index <code>i</code>.
+If <code>i = 0</code>, then <code>None</code> is returned, because the root has no parent.
+If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.get_parent_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.get_parent_index" class="source">
     <pre><code>@staticmethod
 def get_parent_index(ls: list, i: int):
-    """Returns the parent's position of the node at index i.
-    If i = 0, then None is returned, because the _initialise has no parent."""
+    """Returns the parent's position of the node at index `i`.
+    If `i = 0`, then `None` is returned, because the root has no parent.
+    If `i` is not a valid index for `ls`, an `IndexError` is raised."""
     Heap.is_good_index(ls, i)
     if i == 0:
         return None
@@ -1827,15 +1718,18 @@ def get_parent_index(ls: list, i: int):
 
     
   
-    <div class="desc"><p>Returns the right child of the node at index i, if it exists.
-Otherwise this function returns None.</p></div>
+    <div class="desc"><p>Returns the right child of the node at index <code>i</code>, if it exists.
+Otherwise this function returns <code>None</code>.
+If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.get_right_child_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.get_right_child_index" class="source">
     <pre><code>@staticmethod
 def get_right_child_index(ls: list, i: int):
-    """Returns the right child of the node at index i, if it exists.
-    Otherwise this function returns None."""
+    """Returns the right child of the node at index `i`, if it exists.
+    Otherwise this function returns `None`.
+    If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+    Heap.is_good_index(ls, i)        
     right = i * 2 + 2
     if Heap.is_good_index(ls, right, raise_error=False):
         return right
@@ -1856,15 +1750,14 @@ def get_right_child_index(ls: list, i: int):
 
     
   
-    <div class="desc"><p>Min-heapify this mean heap starting from index i.</p>
-<p>Time complexity: O(log n)</p></div>
+    <div class="desc"><p>Min-heapify this mean heap starting from index <code>i</code>.</p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.heapify', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.heapify" class="source">
     <pre><code>def heapify(self, i: int):
-    """Min-heapify this mean heap starting from index i.
-    Time complexity: O(log n)
-    """
+    """Min-heapify this mean heap starting from index `i`.
+    **Time Complexity:** O(log<sub>2</sub> n)."""
     _min = i
     left = Heap.get_left_child_index(self.heap, i)
     right = Heap.get_right_child_index(self.heap, i)
@@ -1893,12 +1786,12 @@ def get_right_child_index(ls: list, i: int):
 
     
   
-    <div class="desc"><p>Returns True if this heap is empty.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if this heap is empty.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.is_empty', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.is_empty" class="source">
     <pre><code>def is_empty(self):
-    """Returns True if this heap is empty."""
+    """Returns `True` if this heap is empty."""
     return self.size() == 0
 </code></pre>
   </div>
@@ -1915,42 +1808,23 @@ def get_right_child_index(ls: list, i: int):
 
     
   
-    <div class="desc"><p>Checks if i is valid index for ls.</p>
-<p>By default, if i is not a good index, a IndexError is raised.</p></div>
+    <div class="desc"><p>Checks if <code>i</code> is valid index for <code>ls</code>.</p>
+<p>By default, if <code>i</code> is not a good index, a <code>IndexError</code> is raised.
+If <code>raise_error</code> is set to <code>False</code>, then a <code>bool</code> value is returned.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.is_good_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.is_good_index" class="source">
     <pre><code>@staticmethod
 def is_good_index(ls: list, i: int, raise_error=True):
-    """Checks if i is valid index for ls.
-    By default, if i is not a good index, a IndexError is raised.
-    """
+    """Checks if `i` is valid index for `ls`.
+    By default, if `i` is not a good index, a `IndexError` is raised.
+    If `raise_error` is set to `False`, then a `bool` value is returned."""
     if i < 0 or i >= len(ls):
         if raise_error:
             raise IndexError("i is not a good index.")
         else:
             return False
     return True
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinHeap.MinHeap.is_not_empty">
-    <p>def <span class="ident">is_not_empty</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.is_not_empty', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinHeap.MinHeap.is_not_empty" class="source">
-    <pre><code>def is_not_empty(self):
-    return not self.is_empty()
 </code></pre>
   </div>
 </div>
@@ -1966,15 +1840,19 @@ def is_good_index(ls: list, i: int, raise_error=True):
 
     
   
-    <div class="desc"><p>Merges this heap with other_heap.</p></div>
+    <div class="desc"><p>Merges this heap with <code>other_heap</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.merge', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.merge" class="source">
     <pre><code>def merge(self, other_heap: Heap):
-    """Merges this heap with other_heap."""
+    """Merges this heap with `other_heap`."""
     self.heap += other_heap.get()
-    self._merge_aux()
-    return self.build_min_heap()
+    def _merge_aux():
+        """Updates the indices of all `HeapNode` objects."""
+        for i, heap_node in enumerate(self.heap):
+            heap_node.index = i
+    _merge_aux()
+    return self._build_min_heap()
 </code></pre>
   </div>
 </div>
@@ -2018,7 +1896,7 @@ if the node at index i is smaller than its parent.</p>
 <p>This function is simpler than push_down or heapify,
 because in this case we just need to compare
 the current node's index with its parent's index.</p>
-<p>Time complexity: O(log n)</p></div>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.push_up', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.push_up" class="source">
@@ -2029,7 +1907,7 @@ the current node's index with its parent's index.</p>
     This function is simpler than push_down or heapify,
     because in this case we just need to compare
     the current node's index with its parent's index.
-    Time complexity: O(log n)"""
+    **Time Complexity:** O(log<sub>2</sub> n)."""
     current_index = i
     p = MinHeap.get_parent_index(self.heap, i)
     # We need specifically to check if p is not None,
@@ -2037,6 +1915,7 @@ the current node's index with its parent's index.</p>
     # and the following if statement would not be executed (wrongly).
     if p is not None and self.heap[current_index] < self.heap[p]:
         current_index = p
+        
     if current_index != i:
         self.swap(current_index, i)
         self.push_up(current_index)
@@ -2055,12 +1934,12 @@ the current node's index with its parent's index.</p>
 
     
   
-    <div class="desc"><p>Removes the HeapNode object at index i.</p></div>
+    <div class="desc"><p>Removes the <code>HeapNode</code> object at index <code>i</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.remove', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.remove" class="source">
     <pre><code>def remove(self, i: int):
-    """Removes the HeapNode object at index i. """
+    """Removes the `HeapNode` object at index `i`. """
     raise NotImplementedError("'remove'" + Heap.NIE)
 </code></pre>
   </div>
@@ -2078,7 +1957,7 @@ the current node's index with its parent's index.</p>
     
   
     <div class="desc"><p>Removes and returns the smallest element in this heap.</p>
-<p>Time complexity: O(log n),
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n),
 unless the list's pop operation is linear
 also when popping the last element,
 which would make this algorithm to have a time complexity O(n).</p></div>
@@ -2087,16 +1966,17 @@ which would make this algorithm to have a time complexity O(n).</p></div>
   <div id="source-ands.ds.MinHeap.MinHeap.remove_min" class="source">
     <pre><code>def remove_min(self):
     """Removes and returns the smallest element in this heap.
-    Time complexity: O(log n),
+    **Time Complexity:** O(log<sub>2</sub> n),
     unless the list's pop operation is linear
     also when popping the last element,
-    which would make this algorithm to have a time complexity O(n).
-    """
-    if self.is_not_empty():
+    which would make this algorithm to have a time complexity O(n)."""
+    if not self.is_empty():
         self.swap(0, self.size() - 1)
         min_element = self.heap.pop()
-        if self.is_not_empty():
+        
+        if not self.is_empty():
             self.push_down(0)
+            
         return min_element
 </code></pre>
   </div>
@@ -2113,34 +1993,34 @@ which would make this algorithm to have a time complexity O(n).</p></div>
 
     
   
-    <div class="desc"><p>Replaces element at index i with new_heap_node.</p>
+    <div class="desc"><p>Replaces element at index <code>i</code> with <code>new_heap_node</code>.</p>
 <ol>
 <li>
-<p>If new_heap_node == self.heap[i],
-then just replace self.heap[i] with new_heap_node.</p>
+<p>If <code>new_heap_node == self.heap[i]</code>,
+then just replace <code>self.heap[i]</code> with <code>new_heap_node</code>.</p>
 </li>
 <li>
-<p>Else if new_heap_node less than self.heap[i],
+<p>Else if <code>new_heap_node &lt; self.heap[i]</code>,
 then push_up(index).</p>
 </li>
 <li>
-<p>Else new_heap_node &gt; self.heaps[index],
-then self.heapify(index)</p>
+<p>Else <code>new_heap_node &gt; self.heap[i]</code>,
+then call <code>self.heapify(i)</code>.</p>
 </li>
 </ol>
-<p>Time complexity: O(log n)</p></div>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.replace', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.replace" class="source">
     <pre><code>def replace(self, i: int, new_heap_node: HeapNode):
-    """Replaces element at index i with new_heap_node.
-    1. If new_heap_node == self.heap[i],
-    then just replace self.heap[i] with new_heap_node.
-    2. Else if new_heap_node less than self.heap[i],
+    """Replaces element at index `i` with `new_heap_node`.
+    1. If `new_heap_node == self.heap[i]`,
+    then just replace `self.heap[i]` with `new_heap_node`.
+    2. Else if `new_heap_node < self.heap[i]`,
     then push_up(index).
-    3. Else new_heap_node > self.heaps[index],
-    then self.heapify(index)
-    Time complexity: O(log n)"""
+    3. Else `new_heap_node > self.heap[i]`,
+    then call `self.heapify(i)`.
+    **Time Complexity:** O(log<sub>2</sub> n)."""
     self.is_good_index(self.heap, i)
     current_node = self.heap[i]
     new_heap_node.index = current_node.index
@@ -2149,6 +2029,7 @@ then self.heapify(index)</p>
         self.push_down(i)
     elif new_heap_node < current_node:
         self.push_up(i)
+        
     return current_node
 </code></pre>
   </div>
@@ -2167,24 +2048,14 @@ then self.heapify(index)</p>
   
     <div class="desc"><p>Searches for heap_node in this heap,
 and if present, returns its index, otherwise returns -1.</p>
-<p>Time complexity: O(n).</p>
-<p>This complexity could be improved to O(1),
-because I am keeping track of the index of each HeapNode,
-(in the index field of each HeapNode),
-but this technique would not work
-in case the heap_node is not in the heap.</p></div>
+<p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.search', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.search" class="source">
     <pre><code>def search(self, heap_node: HeapNode):
     """Searches for heap_node in this heap,
     and if present, returns its index, otherwise returns -1.
-    Time complexity: O(n).
-    This complexity could be improved to O(1),
-    because I am keeping track of the index of each HeapNode,
-    (in the index field of each HeapNode),
-    but this technique would not work
-    in case the heap_node is not in the heap."""
+    **Time Complexity:** O(n)."""
     for i, node in enumerate(self.heap):
         if node == heap_node:
             return i
@@ -2206,14 +2077,14 @@ in case the heap_node is not in the heap.</p></div>
   
     <div class="desc"><p>Returns the index of the HeapNode with value=value.
 -1 is returned if no such a HeapNode exists.</p>
-<p>Time complexity: O(n)</p></div>
+<p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.search_by_value', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.search_by_value" class="source">
     <pre><code>def search_by_value(self, value: object):
     """Returns the index of the HeapNode with value=value.
     -1 is returned if no such a HeapNode exists.
-    Time complexity: O(n)"""
+    **Time Complexity:** O(n)."""
     for i, node in enumerate(self.heap):
         if node.value == value:
             return i
@@ -2241,7 +2112,8 @@ just increase/decrease the integer number v_space.
 Note that v_space must be an integer.</p>
 <p>To change the length of the line under the heap,
 you can simply change the line_length variable.</p>
-<p>Adapted for Python 3 from: http://pymotw.com/2/heapq/</p></div>
+<p>Adapted for Python 3 from:
+<a href="http://pymotw.com/2/heapq/">http://pymotw.com/2/heapq/</a>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.show', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.show" class="source">
@@ -2254,7 +2126,8 @@ you can simply change the line_length variable.</p>
     Note that v_space must be an integer.
     To change the length of the line under the heap,
     you can simply change the line_length variable.
-    Adapted for Python 3 from: http://pymotw.com/2/heapq/"""
+    Adapted for Python 3 from:
+    [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/)."""
     if self.heap:
         from io import StringIO
         import math
@@ -2315,16 +2188,16 @@ you can simply change the line_length variable.</p>
 
     
   
-    <div class="desc"><p>Swaps HeapNode objects at indexes i and j,
+    <div class="desc"><p>Swaps <code>HeapNode</code> objects at indexes <code>i</code> and <code>j</code>,
 and updates their new index field's value.</p>
-<p>Time complexity: O(1)</p></div>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.swap', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.swap" class="source">
     <pre><code>def swap(self, i: int, j: int):
-    """Swaps HeapNode objects at indexes i and j,
+    """Swaps `HeapNode` objects at indexes `i` and `j`,
     and updates their new index field's value.
-    Time complexity: O(1)"""
+    **Time Complexity:** O(1)."""
     self.is_good_index(self.heap, i)
     self.is_good_index(self.heap, j)
     # Updates the index field of each HeapNode.

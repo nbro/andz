@@ -1047,7 +1047,7 @@ def bfs(g: Graph, s: GraphNode):
     q = BFSQueue()
     q.enqueue(s)
 
-    while q.is_not_empty():
+    while not q.is_empty():
 
         u = q.dequeue()
 
@@ -1236,7 +1236,7 @@ in other words, each of these visits cost O(1).</p></div>
     q = BFSQueue()
     q.enqueue(s)
 
-    while q.is_not_empty():
+    while not q.is_empty():
 
         u = q.dequeue()
 

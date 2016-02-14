@@ -60,7 +60,7 @@ def prim_mst(g: Graph, s: GraphNode):
 
     last_node_added = s
 
-    while q.is_not_empty():
+    while not q.is_empty():
 
         u = q.extract_min()  # Returns the minimum element
 

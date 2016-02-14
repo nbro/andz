@@ -6,8 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 05/02/16
-
+Last update: 14/02/16
 
 All elements of Heap objects are represented
 with objects of the class HeapNode.

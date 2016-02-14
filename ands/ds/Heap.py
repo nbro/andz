@@ -6,13 +6,17 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 14/02/16
 
+Base abstract class to represent heaps.
+See `MinHeap` and `MaxHeap` (not yet created) if you want to instantiate heap objects.
 
-Basic data structure to represent heaps.
-Note that you should not instantiate objects of this class,
-but instead you should just create objects of derived classes,
-namely of `MinHeap` and `MaxHeap`.
+## [NotImplementedError](https://docs.python.org/3/library/exceptions.html#NotImplementedError)
+
+This exception is derived from `RuntimeError`.
+In user defined base classes,
+abstract methods should raise this exception
+when they require derived classes to override the method.
 """
 
 from ands.ds.HeapNode import HeapNode
@@ -22,8 +26,6 @@ __all__ = ["Heap"]
 
 
 class Heap:
-    """Base class to represent heaps.
-    You can inherit from this, for example when implementing a max heaps."""
 
     NIE = " needs to be overridden."
 
@@ -35,28 +37,28 @@ class Heap:
         raise NotImplementedError("'heapify'" + Heap.NIE)
 
     def add(self, heap_node: HeapNode):
-        """Adds heap_node to this heap."""
+        """Adds `heap_node` to this heap."""
         raise NotImplementedError("'add'" + Heap.NIE)
 
     def search(self, heap_node: HeapNode):
-        """Returns the index of heap_node, if it exists,
-        otherwise None is returned."""
+        """Returns the index of `heap_node`, if it exists,
+        otherwise `None` is returned."""
         raise NotImplementedError("'search'" + Heap.NIE)
 
     def search_by_value(self, value: object):
-        """Returns the index of the node with the field value=value."""
+        """Returns the index of the node with the field value=`value`."""
         raise NotImplementedError("'search_by_value'" + Heap.NIE)
 
     def contains(self, heap_node: HeapNode):
-        """Returns True if heap_node is in this heap."""
+        """Returns `True` if `heap_node` is in this heap. `False` otherwise."""
         raise NotImplementedError("'remove'" + Heap.NIE)
 
     def replace(self, i: int, new_heap_node: HeapNode):
-        """Replaces the HeapNode object at index i with new_heap_node."""
+        """Replaces the `HeapNode` object at index `i` with `new_heap_node`."""
         raise NotImplementedError("'replace'" + Heap.NIE)
 
     def remove(self, i: int):
-        """Removes the HeapNode object at index i. """
+        """Removes the `HeapNode` object at index `i`. """
         raise NotImplementedError("'remove'" + Heap.NIE)
 
     def size(self):
@@ -64,47 +66,42 @@ class Heap:
         return len(self.heap)
 
     def is_empty(self):
-        """Returns True if this heap is empty."""
+        """Returns `True` if this heap is empty."""
         return self.size() == 0
-
-    def is_not_empty(self):
-        return not self.is_empty()
 
     def clear(self):
         """Clears all nodes from this heap.
-        This mean that if you call "is_empty",
-        it will return True."""
+        This mean that if you call `is_empty`,
+        it will return `True`."""
         self.heap.clear()
 
     def get(self):
-        """Returns the list representing internally the heaps."""
+        """Returns the list representing internally the heap."""
         return self.heap
 
     @staticmethod
-    def create_list_of_heap_nodes(ls: list):
-        """Creates and returns a list of HeapNode objects
-        with the objects in "ls". """
+    def _create_list_of_heap_nodes(ls: list):
+        """Creates and returns a list of `HeapNode`
+        objects with the objects in `ls`."""
         list_of_heap_nodes = []
         for i, x in enumerate(ls):
-            # x should be an int and should also represent its priority!
+            # x represents also its priority.
             if isinstance(x, (int, float)):
                 list_of_heap_nodes.append(HeapNode(key=x, value=x, index=i))
             else:
                 # x should be a tuple or a list of 2 elements
                 # x[0] := element to add
-                # x[1] := element's priority
-
+                # x[1] := x[0]'s priority
                 # updating the index, even if not necessary for now
                 list_of_heap_nodes.append(HeapNode(key=x[1], value=x[0], index=i))
-
         return list_of_heap_nodes
 
     @staticmethod
     def is_good_index(ls: list, i: int, raise_error=True):
-        """Checks if i is valid index for ls.
+        """Checks if `i` is valid index for `ls`.
 
-        By default, if i is not a good index, a IndexError is raised.
-        """
+        By default, if `i` is not a good index, a `IndexError` is raised.
+        If `raise_error` is set to `False`, then a `bool` value is returned."""
         if i < 0 or i >= len(ls):
             if raise_error:
                 raise IndexError("i is not a good index.")
@@ -114,19 +111,19 @@ class Heap:
 
     @staticmethod
     def swap(ls: list, i: int, j: int):
-        """Swaps elements at indexes i and j,
+        """Swaps elements at indexes `i` and `j`,
         if they are valid indexes,
-        otherwise an IndexError is raised."""
+        otherwise an `IndexError` is raised."""
         Heap.is_good_index(ls, i)
         Heap.is_good_index(ls, j)
         ls[i], ls[j] = ls[j], ls[i]
 
     @staticmethod
     def get_parent_index(ls: list, i: int):
-        """Returns the parent's position of the node at index i.
-        If i = 0, then None is returned, because the _initialise has no parent."""
+        """Returns the parent's position of the node at index `i`.
+        If `i = 0`, then `None` is returned, because the root has no parent.
+        If `i` is not a valid index for `ls`, an `IndexError` is raised."""
         Heap.is_good_index(ls, i)
-
         if i == 0:
             return None
         else:
@@ -134,10 +131,11 @@ class Heap:
 
     @staticmethod
     def get_left_child_index(ls: list, i: int):
-        """Returns the left child of the node at index i, if it exists.
-        Otherwise this function returns None."""
+        """Returns the left child of the node at index `i`, if it exists.
+        Otherwise this function returns `None`.
+        If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+        Heap.is_good_index(ls, i)
         left = i * 2 + 1
-
         if Heap.is_good_index(ls, left, raise_error=False):
             return left
         else:
@@ -145,10 +143,11 @@ class Heap:
 
     @staticmethod
     def get_right_child_index(ls: list, i: int):
-        """Returns the right child of the node at index i, if it exists.
-        Otherwise this function returns None."""
+        """Returns the right child of the node at index `i`, if it exists.
+        Otherwise this function returns `None`.
+        If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+        Heap.is_good_index(ls, i)        
         right = i * 2 + 2
-
         if Heap.is_good_index(ls, right, raise_error=False):
             return right
         else:
@@ -170,7 +169,8 @@ class Heap:
         To change the length of the line under the heap,
         you can simply change the line_length variable.
 
-        Adapted for Python 3 from: http://pymotw.com/2/heapq/"""
+        Adapted for Python 3 from:
+        [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/)."""
         if self.heap:
             from io import StringIO
             import math
@@ -201,8 +201,3 @@ class Heap:
             print('-' * line_length)
         else:
             print("Nothing to show: heap is empty.")
-
-
-if __name__ == "__main__":
-    h = Heap()
-    h.show()

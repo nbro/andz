@@ -8,10 +8,9 @@
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 14/02/16
 
-
-Basic data structure to repre..." />
+Base abstract class to represe..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -989,7 +988,6 @@ table {
     <li class="mono"><a href="#ands.ds.Heap.Heap.add">add</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.clear">clear</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.contains">contains</a></li>
-    <li class="mono"><a href="#ands.ds.Heap.Heap.create_list_of_heap_nodes">create_list_of_heap_nodes</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.get">get</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.get_left_child_index">get_left_child_index</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.get_parent_index">get_parent_index</a></li>
@@ -997,7 +995,6 @@ table {
     <li class="mono"><a href="#ands.ds.Heap.Heap.heapify">heapify</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.is_empty">is_empty</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.is_good_index">is_good_index</a></li>
-    <li class="mono"><a href="#ands.ds.Heap.Heap.is_not_empty">is_not_empty</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.remove">remove</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.replace">replace</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.search">search</a></li>
@@ -1025,11 +1022,14 @@ table {
   <h1 class="title"><span class="name">ands.ds.Heap</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 05/02/16</p>
-<p>Basic data structure to represent heaps.
-Note that you should not instantiate objects of this class,
-but instead you should just create objects of derived classes,
-namely of <code>MinHeap</code> and <code>MaxHeap</code>.</p>
+<p>Last update: 14/02/16</p>
+<p>Base abstract class to represent heaps.
+See <code>MinHeap</code> and <code>MaxHeap</code> (not yet created) if you want to instantiate heap objects.</p>
+<h2><a href="https://docs.python.org/3/library/exceptions.html#NotImplementedError">NotImplementedError</a></h2>
+<p>This exception is derived from <code>RuntimeError</code>.
+In user defined base classes,
+abstract methods should raise this exception
+when they require derived classes to override the method.</p>
   
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap" class="source">
@@ -1041,13 +1041,17 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 14/02/16
 
+Base abstract class to represent heaps.
+See `MinHeap` and `MaxHeap` (not yet created) if you want to instantiate heap objects.
 
-Basic data structure to represent heaps.
-Note that you should not instantiate objects of this class,
-but instead you should just create objects of derived classes,
-namely of `MinHeap` and `MaxHeap`.
+## [NotImplementedError](https://docs.python.org/3/library/exceptions.html#NotImplementedError)
+
+This exception is derived from `RuntimeError`.
+In user defined base classes,
+abstract methods should raise this exception
+when they require derived classes to override the method.
 """
 
 from ands.ds.HeapNode import HeapNode
@@ -1057,8 +1061,6 @@ __all__ = ["Heap"]
 
 
 class Heap:
-    """Base class to represent heaps.
-    You can inherit from this, for example when implementing a max heaps."""
 
     NIE = " needs to be overridden."
 
@@ -1070,28 +1072,28 @@ class Heap:
         raise NotImplementedError("'heapify'" + Heap.NIE)
 
     def add(self, heap_node: HeapNode):
-        """Adds heap_node to this heap."""
+        """Adds `heap_node` to this heap."""
         raise NotImplementedError("'add'" + Heap.NIE)
 
     def search(self, heap_node: HeapNode):
-        """Returns the index of heap_node, if it exists,
-        otherwise None is returned."""
+        """Returns the index of `heap_node`, if it exists,
+        otherwise `None` is returned."""
         raise NotImplementedError("'search'" + Heap.NIE)
 
     def search_by_value(self, value: object):
-        """Returns the index of the node with the field value=value."""
+        """Returns the index of the node with the field value=`value`."""
         raise NotImplementedError("'search_by_value'" + Heap.NIE)
 
     def contains(self, heap_node: HeapNode):
-        """Returns True if heap_node is in this heap."""
+        """Returns `True` if `heap_node` is in this heap. `False` otherwise."""
         raise NotImplementedError("'remove'" + Heap.NIE)
 
     def replace(self, i: int, new_heap_node: HeapNode):
-        """Replaces the HeapNode object at index i with new_heap_node."""
+        """Replaces the `HeapNode` object at index `i` with `new_heap_node`."""
         raise NotImplementedError("'replace'" + Heap.NIE)
 
     def remove(self, i: int):
-        """Removes the HeapNode object at index i. """
+        """Removes the `HeapNode` object at index `i`. """
         raise NotImplementedError("'remove'" + Heap.NIE)
 
     def size(self):
@@ -1099,47 +1101,42 @@ class Heap:
         return len(self.heap)
 
     def is_empty(self):
-        """Returns True if this heap is empty."""
+        """Returns `True` if this heap is empty."""
         return self.size() == 0
-
-    def is_not_empty(self):
-        return not self.is_empty()
 
     def clear(self):
         """Clears all nodes from this heap.
-        This mean that if you call "is_empty",
-        it will return True."""
+        This mean that if you call `is_empty`,
+        it will return `True`."""
         self.heap.clear()
 
     def get(self):
-        """Returns the list representing internally the heaps."""
+        """Returns the list representing internally the heap."""
         return self.heap
 
     @staticmethod
-    def create_list_of_heap_nodes(ls: list):
-        """Creates and returns a list of HeapNode objects
-        with the objects in "ls". """
+    def _create_list_of_heap_nodes(ls: list):
+        """Creates and returns a list of `HeapNode`
+        objects with the objects in `ls`."""
         list_of_heap_nodes = []
         for i, x in enumerate(ls):
-            # x should be an int and should also represent its priority!
+            # x represents also its priority.
             if isinstance(x, (int, float)):
                 list_of_heap_nodes.append(HeapNode(key=x, value=x, index=i))
             else:
                 # x should be a tuple or a list of 2 elements
                 # x[0] := element to add
-                # x[1] := element's priority
-
+                # x[1] := x[0]'s priority
                 # updating the index, even if not necessary for now
                 list_of_heap_nodes.append(HeapNode(key=x[1], value=x[0], index=i))
-
         return list_of_heap_nodes
 
     @staticmethod
     def is_good_index(ls: list, i: int, raise_error=True):
-        """Checks if i is valid index for ls.
+        """Checks if `i` is valid index for `ls`.
 
-        By default, if i is not a good index, a IndexError is raised.
-        """
+        By default, if `i` is not a good index, a `IndexError` is raised.
+        If `raise_error` is set to `False`, then a `bool` value is returned."""
         if i < 0 or i >= len(ls):
             if raise_error:
                 raise IndexError("i is not a good index.")
@@ -1149,19 +1146,19 @@ class Heap:
 
     @staticmethod
     def swap(ls: list, i: int, j: int):
-        """Swaps elements at indexes i and j,
+        """Swaps elements at indexes `i` and `j`,
         if they are valid indexes,
-        otherwise an IndexError is raised."""
+        otherwise an `IndexError` is raised."""
         Heap.is_good_index(ls, i)
         Heap.is_good_index(ls, j)
         ls[i], ls[j] = ls[j], ls[i]
 
     @staticmethod
     def get_parent_index(ls: list, i: int):
-        """Returns the parent's position of the node at index i.
-        If i = 0, then None is returned, because the _initialise has no parent."""
+        """Returns the parent's position of the node at index `i`.
+        If `i = 0`, then `None` is returned, because the root has no parent.
+        If `i` is not a valid index for `ls`, an `IndexError` is raised."""
         Heap.is_good_index(ls, i)
-
         if i == 0:
             return None
         else:
@@ -1169,10 +1166,11 @@ class Heap:
 
     @staticmethod
     def get_left_child_index(ls: list, i: int):
-        """Returns the left child of the node at index i, if it exists.
-        Otherwise this function returns None."""
+        """Returns the left child of the node at index `i`, if it exists.
+        Otherwise this function returns `None`.
+        If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+        Heap.is_good_index(ls, i)
         left = i * 2 + 1
-
         if Heap.is_good_index(ls, left, raise_error=False):
             return left
         else:
@@ -1180,10 +1178,11 @@ class Heap:
 
     @staticmethod
     def get_right_child_index(ls: list, i: int):
-        """Returns the right child of the node at index i, if it exists.
-        Otherwise this function returns None."""
+        """Returns the right child of the node at index `i`, if it exists.
+        Otherwise this function returns `None`.
+        If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+        Heap.is_good_index(ls, i)        
         right = i * 2 + 2
-
         if Heap.is_good_index(ls, right, raise_error=False):
             return right
         else:
@@ -1205,7 +1204,8 @@ class Heap:
         To change the length of the line under the heap,
         you can simply change the line_length variable.
 
-        Adapted for Python 3 from: http://pymotw.com/2/heapq/"""
+        Adapted for Python 3 from:
+        [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/)."""
         if self.heap:
             from io import StringIO
             import math
@@ -1236,11 +1236,6 @@ class Heap:
             print('-' * line_length)
         else:
             print("Nothing to show: heap is empty.")
-
-
-if __name__ == "__main__":
-    h = Heap()
-    h.show()
 </code></pre>
   </div>
 
@@ -1255,14 +1250,10 @@ if __name__ == "__main__":
       <p id="ands.ds.Heap.Heap" class="name">class <span class="ident">Heap</span></p>
       
   
-    <div class="desc"><p>Base class to represent heaps.
-You can inherit from this, for example when implementing a max heaps.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap" class="source">
     <pre><code>class Heap:
-    """Base class to represent heaps.
-    You can inherit from this, for example when implementing a max heaps."""
 
     NIE = " needs to be overridden."
 
@@ -1274,28 +1265,28 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
         raise NotImplementedError("'heapify'" + Heap.NIE)
 
     def add(self, heap_node: HeapNode):
-        """Adds heap_node to this heap."""
+        """Adds `heap_node` to this heap."""
         raise NotImplementedError("'add'" + Heap.NIE)
 
     def search(self, heap_node: HeapNode):
-        """Returns the index of heap_node, if it exists,
-        otherwise None is returned."""
+        """Returns the index of `heap_node`, if it exists,
+        otherwise `None` is returned."""
         raise NotImplementedError("'search'" + Heap.NIE)
 
     def search_by_value(self, value: object):
-        """Returns the index of the node with the field value=value."""
+        """Returns the index of the node with the field value=`value`."""
         raise NotImplementedError("'search_by_value'" + Heap.NIE)
 
     def contains(self, heap_node: HeapNode):
-        """Returns True if heap_node is in this heap."""
+        """Returns `True` if `heap_node` is in this heap. `False` otherwise."""
         raise NotImplementedError("'remove'" + Heap.NIE)
 
     def replace(self, i: int, new_heap_node: HeapNode):
-        """Replaces the HeapNode object at index i with new_heap_node."""
+        """Replaces the `HeapNode` object at index `i` with `new_heap_node`."""
         raise NotImplementedError("'replace'" + Heap.NIE)
 
     def remove(self, i: int):
-        """Removes the HeapNode object at index i. """
+        """Removes the `HeapNode` object at index `i`. """
         raise NotImplementedError("'remove'" + Heap.NIE)
 
     def size(self):
@@ -1303,47 +1294,42 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
         return len(self.heap)
 
     def is_empty(self):
-        """Returns True if this heap is empty."""
+        """Returns `True` if this heap is empty."""
         return self.size() == 0
-
-    def is_not_empty(self):
-        return not self.is_empty()
 
     def clear(self):
         """Clears all nodes from this heap.
-        This mean that if you call "is_empty",
-        it will return True."""
+        This mean that if you call `is_empty`,
+        it will return `True`."""
         self.heap.clear()
 
     def get(self):
-        """Returns the list representing internally the heaps."""
+        """Returns the list representing internally the heap."""
         return self.heap
 
     @staticmethod
-    def create_list_of_heap_nodes(ls: list):
-        """Creates and returns a list of HeapNode objects
-        with the objects in "ls". """
+    def _create_list_of_heap_nodes(ls: list):
+        """Creates and returns a list of `HeapNode`
+        objects with the objects in `ls`."""
         list_of_heap_nodes = []
         for i, x in enumerate(ls):
-            # x should be an int and should also represent its priority!
+            # x represents also its priority.
             if isinstance(x, (int, float)):
                 list_of_heap_nodes.append(HeapNode(key=x, value=x, index=i))
             else:
                 # x should be a tuple or a list of 2 elements
                 # x[0] := element to add
-                # x[1] := element's priority
-
+                # x[1] := x[0]'s priority
                 # updating the index, even if not necessary for now
                 list_of_heap_nodes.append(HeapNode(key=x[1], value=x[0], index=i))
-
         return list_of_heap_nodes
 
     @staticmethod
     def is_good_index(ls: list, i: int, raise_error=True):
-        """Checks if i is valid index for ls.
+        """Checks if `i` is valid index for `ls`.
 
-        By default, if i is not a good index, a IndexError is raised.
-        """
+        By default, if `i` is not a good index, a `IndexError` is raised.
+        If `raise_error` is set to `False`, then a `bool` value is returned."""
         if i < 0 or i >= len(ls):
             if raise_error:
                 raise IndexError("i is not a good index.")
@@ -1353,19 +1339,19 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
 
     @staticmethod
     def swap(ls: list, i: int, j: int):
-        """Swaps elements at indexes i and j,
+        """Swaps elements at indexes `i` and `j`,
         if they are valid indexes,
-        otherwise an IndexError is raised."""
+        otherwise an `IndexError` is raised."""
         Heap.is_good_index(ls, i)
         Heap.is_good_index(ls, j)
         ls[i], ls[j] = ls[j], ls[i]
 
     @staticmethod
     def get_parent_index(ls: list, i: int):
-        """Returns the parent's position of the node at index i.
-        If i = 0, then None is returned, because the _initialise has no parent."""
+        """Returns the parent's position of the node at index `i`.
+        If `i = 0`, then `None` is returned, because the root has no parent.
+        If `i` is not a valid index for `ls`, an `IndexError` is raised."""
         Heap.is_good_index(ls, i)
-
         if i == 0:
             return None
         else:
@@ -1373,10 +1359,11 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
 
     @staticmethod
     def get_left_child_index(ls: list, i: int):
-        """Returns the left child of the node at index i, if it exists.
-        Otherwise this function returns None."""
+        """Returns the left child of the node at index `i`, if it exists.
+        Otherwise this function returns `None`.
+        If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+        Heap.is_good_index(ls, i)
         left = i * 2 + 1
-
         if Heap.is_good_index(ls, left, raise_error=False):
             return left
         else:
@@ -1384,10 +1371,11 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
 
     @staticmethod
     def get_right_child_index(ls: list, i: int):
-        """Returns the right child of the node at index i, if it exists.
-        Otherwise this function returns None."""
+        """Returns the right child of the node at index `i`, if it exists.
+        Otherwise this function returns `None`.
+        If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+        Heap.is_good_index(ls, i)        
         right = i * 2 + 2
-
         if Heap.is_good_index(ls, right, raise_error=False):
             return right
         else:
@@ -1409,7 +1397,8 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
         To change the length of the line under the heap,
         you can simply change the line_length variable.
 
-        Adapted for Python 3 from: http://pymotw.com/2/heapq/"""
+        Adapted for Python 3 from:
+        [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/)."""
         if self.heap:
             from io import StringIO
             import math
@@ -1493,12 +1482,12 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
 
     
   
-    <div class="desc"><p>Adds heap_node to this heap.</p></div>
+    <div class="desc"><p>Adds <code>heap_node</code> to this heap.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.add', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.add" class="source">
     <pre><code>def add(self, heap_node: HeapNode):
-    """Adds heap_node to this heap."""
+    """Adds `heap_node` to this heap."""
     raise NotImplementedError("'add'" + Heap.NIE)
 </code></pre>
   </div>
@@ -1516,15 +1505,15 @@ You can inherit from this, for example when implementing a max heaps.</p></div>
     
   
     <div class="desc"><p>Clears all nodes from this heap.
-This mean that if you call "is_empty",
-it will return True.</p></div>
+This mean that if you call <code>is_empty</code>,
+it will return <code>True</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.clear', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.clear" class="source">
     <pre><code>def clear(self):
     """Clears all nodes from this heap.
-    This mean that if you call "is_empty",
-    it will return True."""
+    This mean that if you call `is_empty`,
+    it will return `True`."""
     self.heap.clear()
 </code></pre>
   </div>
@@ -1541,49 +1530,13 @@ it will return True.</p></div>
 
     
   
-    <div class="desc"><p>Returns True if heap_node is in this heap.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if <code>heap_node</code> is in this heap. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.contains', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.contains" class="source">
     <pre><code>def contains(self, heap_node: HeapNode):
-    """Returns True if heap_node is in this heap."""
+    """Returns `True` if `heap_node` is in this heap. `False` otherwise."""
     raise NotImplementedError("'remove'" + Heap.NIE)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.Heap.Heap.create_list_of_heap_nodes">
-    <p>def <span class="ident">create_list_of_heap_nodes</span>(</p><p>ls)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Creates and returns a list of HeapNode objects
-with the objects in "ls".</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.create_list_of_heap_nodes', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.Heap.Heap.create_list_of_heap_nodes" class="source">
-    <pre><code>@staticmethod
-def create_list_of_heap_nodes(ls: list):
-    """Creates and returns a list of HeapNode objects
-    with the objects in "ls". """
-    list_of_heap_nodes = []
-    for i, x in enumerate(ls):
-        # x should be an int and should also represent its priority!
-        if isinstance(x, (int, float)):
-            list_of_heap_nodes.append(HeapNode(key=x, value=x, index=i))
-        else:
-            # x should be a tuple or a list of 2 elements
-            # x[0] := element to add
-            # x[1] := element's priority
-            # updating the index, even if not necessary for now
-            list_of_heap_nodes.append(HeapNode(key=x[1], value=x[0], index=i))
-    return list_of_heap_nodes
 </code></pre>
   </div>
 </div>
@@ -1599,12 +1552,12 @@ def create_list_of_heap_nodes(ls: list):
 
     
   
-    <div class="desc"><p>Returns the list representing internally the heaps.</p></div>
+    <div class="desc"><p>Returns the list representing internally the heap.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.get', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.get" class="source">
     <pre><code>def get(self):
-    """Returns the list representing internally the heaps."""
+    """Returns the list representing internally the heap."""
     return self.heap
 </code></pre>
   </div>
@@ -1621,15 +1574,18 @@ def create_list_of_heap_nodes(ls: list):
 
     
   
-    <div class="desc"><p>Returns the left child of the node at index i, if it exists.
-Otherwise this function returns None.</p></div>
+    <div class="desc"><p>Returns the left child of the node at index <code>i</code>, if it exists.
+Otherwise this function returns <code>None</code>.
+If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.get_left_child_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.get_left_child_index" class="source">
     <pre><code>@staticmethod
 def get_left_child_index(ls: list, i: int):
-    """Returns the left child of the node at index i, if it exists.
-    Otherwise this function returns None."""
+    """Returns the left child of the node at index `i`, if it exists.
+    Otherwise this function returns `None`.
+    If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+    Heap.is_good_index(ls, i)
     left = i * 2 + 1
     if Heap.is_good_index(ls, left, raise_error=False):
         return left
@@ -1650,15 +1606,17 @@ def get_left_child_index(ls: list, i: int):
 
     
   
-    <div class="desc"><p>Returns the parent's position of the node at index i.
-If i = 0, then None is returned, because the _initialise has no parent.</p></div>
+    <div class="desc"><p>Returns the parent's position of the node at index <code>i</code>.
+If <code>i = 0</code>, then <code>None</code> is returned, because the root has no parent.
+If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.get_parent_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.get_parent_index" class="source">
     <pre><code>@staticmethod
 def get_parent_index(ls: list, i: int):
-    """Returns the parent's position of the node at index i.
-    If i = 0, then None is returned, because the _initialise has no parent."""
+    """Returns the parent's position of the node at index `i`.
+    If `i = 0`, then `None` is returned, because the root has no parent.
+    If `i` is not a valid index for `ls`, an `IndexError` is raised."""
     Heap.is_good_index(ls, i)
     if i == 0:
         return None
@@ -1679,15 +1637,18 @@ def get_parent_index(ls: list, i: int):
 
     
   
-    <div class="desc"><p>Returns the right child of the node at index i, if it exists.
-Otherwise this function returns None.</p></div>
+    <div class="desc"><p>Returns the right child of the node at index <code>i</code>, if it exists.
+Otherwise this function returns <code>None</code>.
+If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.get_right_child_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.get_right_child_index" class="source">
     <pre><code>@staticmethod
 def get_right_child_index(ls: list, i: int):
-    """Returns the right child of the node at index i, if it exists.
-    Otherwise this function returns None."""
+    """Returns the right child of the node at index `i`, if it exists.
+    Otherwise this function returns `None`.
+    If `i` is not a valid index for `ls`, an `IndexError` is raised."""
+    Heap.is_good_index(ls, i)        
     right = i * 2 + 2
     if Heap.is_good_index(ls, right, raise_error=False):
         return right
@@ -1730,12 +1691,12 @@ def get_right_child_index(ls: list, i: int):
 
     
   
-    <div class="desc"><p>Returns True if this heap is empty.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if this heap is empty.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_empty', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.is_empty" class="source">
     <pre><code>def is_empty(self):
-    """Returns True if this heap is empty."""
+    """Returns `True` if this heap is empty."""
     return self.size() == 0
 </code></pre>
   </div>
@@ -1752,42 +1713,23 @@ def get_right_child_index(ls: list, i: int):
 
     
   
-    <div class="desc"><p>Checks if i is valid index for ls.</p>
-<p>By default, if i is not a good index, a IndexError is raised.</p></div>
+    <div class="desc"><p>Checks if <code>i</code> is valid index for <code>ls</code>.</p>
+<p>By default, if <code>i</code> is not a good index, a <code>IndexError</code> is raised.
+If <code>raise_error</code> is set to <code>False</code>, then a <code>bool</code> value is returned.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_good_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.is_good_index" class="source">
     <pre><code>@staticmethod
 def is_good_index(ls: list, i: int, raise_error=True):
-    """Checks if i is valid index for ls.
-    By default, if i is not a good index, a IndexError is raised.
-    """
+    """Checks if `i` is valid index for `ls`.
+    By default, if `i` is not a good index, a `IndexError` is raised.
+    If `raise_error` is set to `False`, then a `bool` value is returned."""
     if i < 0 or i >= len(ls):
         if raise_error:
             raise IndexError("i is not a good index.")
         else:
             return False
     return True
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.Heap.Heap.is_not_empty">
-    <p>def <span class="ident">is_not_empty</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_not_empty', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.Heap.Heap.is_not_empty" class="source">
-    <pre><code>def is_not_empty(self):
-    return not self.is_empty()
 </code></pre>
   </div>
 </div>
@@ -1803,12 +1745,12 @@ def is_good_index(ls: list, i: int, raise_error=True):
 
     
   
-    <div class="desc"><p>Removes the HeapNode object at index i.</p></div>
+    <div class="desc"><p>Removes the <code>HeapNode</code> object at index <code>i</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.remove', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.remove" class="source">
     <pre><code>def remove(self, i: int):
-    """Removes the HeapNode object at index i. """
+    """Removes the `HeapNode` object at index `i`. """
     raise NotImplementedError("'remove'" + Heap.NIE)
 </code></pre>
   </div>
@@ -1825,12 +1767,12 @@ def is_good_index(ls: list, i: int, raise_error=True):
 
     
   
-    <div class="desc"><p>Replaces the HeapNode object at index i with new_heap_node.</p></div>
+    <div class="desc"><p>Replaces the <code>HeapNode</code> object at index <code>i</code> with <code>new_heap_node</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.replace', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.replace" class="source">
     <pre><code>def replace(self, i: int, new_heap_node: HeapNode):
-    """Replaces the HeapNode object at index i with new_heap_node."""
+    """Replaces the `HeapNode` object at index `i` with `new_heap_node`."""
     raise NotImplementedError("'replace'" + Heap.NIE)
 </code></pre>
   </div>
@@ -1847,14 +1789,14 @@ def is_good_index(ls: list, i: int, raise_error=True):
 
     
   
-    <div class="desc"><p>Returns the index of heap_node, if it exists,
-otherwise None is returned.</p></div>
+    <div class="desc"><p>Returns the index of <code>heap_node</code>, if it exists,
+otherwise <code>None</code> is returned.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.search', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.search" class="source">
     <pre><code>def search(self, heap_node: HeapNode):
-    """Returns the index of heap_node, if it exists,
-    otherwise None is returned."""
+    """Returns the index of `heap_node`, if it exists,
+    otherwise `None` is returned."""
     raise NotImplementedError("'search'" + Heap.NIE)
 </code></pre>
   </div>
@@ -1871,12 +1813,12 @@ otherwise None is returned.</p></div>
 
     
   
-    <div class="desc"><p>Returns the index of the node with the field value=value.</p></div>
+    <div class="desc"><p>Returns the index of the node with the field value=<code>value</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.search_by_value', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.search_by_value" class="source">
     <pre><code>def search_by_value(self, value: object):
-    """Returns the index of the node with the field value=value."""
+    """Returns the index of the node with the field value=`value`."""
     raise NotImplementedError("'search_by_value'" + Heap.NIE)
 </code></pre>
   </div>
@@ -1901,7 +1843,8 @@ just increase/decrease the integer number v_space.
 Note that v_space must be an integer.</p>
 <p>To change the length of the line under the heap,
 you can simply change the line_length variable.</p>
-<p>Adapted for Python 3 from: http://pymotw.com/2/heapq/</p></div>
+<p>Adapted for Python 3 from:
+<a href="http://pymotw.com/2/heapq/">http://pymotw.com/2/heapq/</a>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.show', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.show" class="source">
@@ -1914,7 +1857,8 @@ you can simply change the line_length variable.</p>
     Note that v_space must be an integer.
     To change the length of the line under the heap,
     you can simply change the line_length variable.
-    Adapted for Python 3 from: http://pymotw.com/2/heapq/"""
+    Adapted for Python 3 from:
+    [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/)."""
     if self.heap:
         from io import StringIO
         import math
@@ -1975,17 +1919,17 @@ you can simply change the line_length variable.</p>
 
     
   
-    <div class="desc"><p>Swaps elements at indexes i and j,
+    <div class="desc"><p>Swaps elements at indexes <code>i</code> and <code>j</code>,
 if they are valid indexes,
-otherwise an IndexError is raised.</p></div>
+otherwise an <code>IndexError</code> is raised.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.swap', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.swap" class="source">
     <pre><code>@staticmethod
 def swap(ls: list, i: int, j: int):
-    """Swaps elements at indexes i and j,
+    """Swaps elements at indexes `i` and `j`,
     if they are valid indexes,
-    otherwise an IndexError is raised."""
+    otherwise an `IndexError` is raised."""
     Heap.is_good_index(ls, i)
     Heap.is_good_index(ls, j)
     ls[i], ls[j] = ls[j], ls[i]

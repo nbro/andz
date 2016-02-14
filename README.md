@@ -38,13 +38,13 @@ You might want to install this package in a virtualenv in order not to pollute y
 
 - [http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial](http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial)
 
-If you want to install the module in _editable_ module in a virtualenv, you can do:
+If you want to install the module in _editable_ mode in a **virtualenv**, you can do:
 
     pip3.5 install -e .
 
 ### How to Produce the Documentation
 
-Install `pdoc`. If you have still don't have a terminal opened, open it, and then move inside the `ands` repository, and type the following command:
+Install `pdoc`. If you still don't have a opened terminal, open it, and then move inside the `ands` repository, and type the following command:
 
     pdoc --html --overwrite --html-dir docs ands
 
