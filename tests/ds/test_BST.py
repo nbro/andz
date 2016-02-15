@@ -18,22 +18,19 @@ def assert_consistencies(bst):
     assert bst.root.count() == bst.n == bst.size()
     assert bst.root.parent is None
 
-def test_empty(b):
+def assert_empty(b):
     assert not b.root
     assert b.size() == b.n == 0
-    print("test_empty finished.")
 
 def test_empty_size():
     b = BST()
-    test_empty(b)
+    assert_empty(b)
     assert bst_invariant(b)
-    print("test_empty_size finished.")
 
 def test_empty_contains():
     b = BST()
     for i in range(-10, 11):
         assert not b.contains(i)
-    print("test_empty_contains finished.")
 
 def test_one_size():
     b = BST()
@@ -41,7 +38,6 @@ def test_one_size():
     assert b.size() == b.n == b.root.count() == 1
     assert bst_invariant(b)
     assert_consistencies(b)
-    print("test_one_size finished.")
 
 def test_one_contains():
     b = BST()
@@ -49,7 +45,6 @@ def test_one_contains():
     for i in range(-10, 11):
         assert not b.contains(i)
     assert b.contains(12)
-    print("test_one_contains finished.")
 
 def test_many_size():
     b = BST()
@@ -60,7 +55,6 @@ def test_many_size():
         assert size == b.size() == b.n == b.root.count()
         assert bst_invariant(b)
         assert_consistencies(b)
-    print("test_many_size finished.")
 
 def test_many_contains():
     b = BST()
@@ -68,7 +62,6 @@ def test_many_contains():
         b.insert(i)
     for i in range(-10, 11):
         assert b.contains(i)
-    print("test_many_contains finished.")
 
 def test_structure_many():
     b = BST()
@@ -86,7 +79,6 @@ def test_structure_many():
     assert 11 == b.size() == b.n == b.root.count()
     assert bst_invariant(b)
     assert_consistencies(b)
-    print("test_structure_many finished.")
     
 def test_delete_not_found():
     b = BST()
@@ -95,16 +87,14 @@ def test_delete_not_found():
         assert False
     except LookupError as e:
         pass
-    print("test_delete_not_found finished.")
 
 def test_delete_one_size():
     b = BST()
     b.insert(12)    
     b.delete(12)
     assert not b.contains(12)
-    test_empty(b)
+    assert_empty(b)
     assert bst_invariant(b)
-    print("test_delete_one_size finished.")
 
 def test_multiple_remove1():
     b = BST()
@@ -118,7 +108,6 @@ def test_multiple_remove1():
     assert b.size() == b.n == b.root.count() == 7
     assert bst_invariant(b)
     assert_consistencies(b)
-    print("test_multiple_remove1 finished.")
 
 def test_multiple_remove2():
     b = BST()
@@ -136,11 +125,10 @@ def test_multiple_remove2():
     assert b.size() == b.n == b.root.count() == 8
     assert bst_invariant(b)
     assert_consistencies(b)
-    print("test_multiple_remove2 finished.")
 
 def test_multiple_remove3():
     b = BST()
-    test_empty()
+    assert_empty(b)
     b.insert(5)
     b.insert(3)
     b.insert(4)
@@ -160,7 +148,6 @@ def test_multiple_remove3():
     assert b.size() == b.n == b.root.count() == 7
     assert bst_invariant(b)
     assert_consistencies(b)
-    print("test_multiple_remove3 finished.")
 
 def test_search():
     b = BST()
@@ -184,7 +171,6 @@ def test_search():
     assert b.size() == b.n == b.root.count() == 2
     assert bst_invariant(b)
     assert_consistencies(b)
-    print("test_search finished.")
     
 def test_remove_min_and_max():
     b = BST()
@@ -205,7 +191,6 @@ def test_remove_min_and_max():
     assert b.size() == b.n == b.root.count() == 1
     assert bst_invariant(b)
     assert_consistencies(b)
-    print("test_remove_min_and_max finished.")
 
 def test_predecessor_and_successor():
     b = BST()
@@ -222,7 +207,6 @@ def test_predecessor_and_successor():
         assert False
     except LookupError as e:
         pass
-    print("test_predecessor_and_successor finished.")
 
 def test_rank():
     b = BST()
@@ -245,7 +229,6 @@ def test_rank():
     assert b.rank(12) == 2
     assert b.rank(7) == 0
     assert b.rank(28) == 4
-    print("test_rank finished.")
 
 def test_switch():
     b = BST()
@@ -346,27 +329,8 @@ def test_switch():
     assert not b.root.parent
     b._switch(b.search(10), b.search(10).left.right)
     asserts()
-    print("test_switch finished.")
-
-
-def run_tests():
-    test_empty_size()
-    test_empty_contains()
-    test_one_size()
-    test_one_contains()
-    test_many_size()
-    test_many_contains()
-    test_structure_many()
-    test_delete_not_found()
-    test_delete_one_size()
-    test_multiple_remove1()
-    test_multiple_remove2()
-    test_search()
-    test_remove_min_and_max()
-    test_predecessor_and_successor()
-    test_rank()
-    test_switch()
 
 
 if __name__ == "__main__":
-    run_tests()
+    from tools import main
+    main(globals().copy(), __name__, __file__)

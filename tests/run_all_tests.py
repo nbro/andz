@@ -16,12 +16,12 @@ def main():
         # Only works for Python 3.5+
         for filename in glob.iglob('./**/*.py', recursive=True):
 
-            # ignore this files
-            if filename.endswith(os.path.basename(__file__)) or filename.endswith("__init__.py"):
+            # Ignore files that do no contain 'test_' as a substring in the filename
+            if filename.find("test_") == -1:
                 continue
             
             call(["chmod", "-R", "+x", filename])            
-            print(filename, "is now EXECUTABLE.")
+            # print(filename, "is now EXECUTABLE.")
             try:
                 output = check_output("./" + filename)
                 returncode = 0
@@ -35,7 +35,7 @@ def main():
             except OSError as e:
                 print("Probably missing shebang line at the beginning of", filename)
 
-        print("Total scripts passed:", passed)
+        print("\nTotal scripts passed:", passed)
         print("Total scripts failed:", failed)
 
     check()

@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 14/02/16
+Last update: 15/02/16
 
 All elements of Heap objects are represented
 with objects of the class HeapNode.
@@ -21,15 +21,12 @@ __all__ = ["HeapNode"]
 class HeapNode(BSTNode):
     """HeapNode objects are added to Heap objects as wrappers to their elements."""
 
-    def __init__(self, key, value, p=None, left=None, right=None, index=-1):
-        """key is used to heapify the heap.
-
-        value can be used for example for the name of the HeapNode object.
-
-        index should contain the position of this HeapNode object in the heap,
-        but the used of this variable is for now deprecated."""
+    def __init__(self, key, value=None, p=None, left=None, right=None):
+        """`key` is the priority used to heapify the heap.
+        `value` can be used for example for the name of the `HeapNode` object."""
+        if value is None:
+            value = key
         BSTNode.__init__(self, key, value, p, left, right)
-        self.index = index
 
     def __str__(self):
         return str(self.key)
@@ -38,7 +35,7 @@ class HeapNode(BSTNode):
         return str(self.value) + " -> " + str(self.key) + "$"
 
     def __eq__(self, other):
-        return self.key == other.key
+        return self.key == other.key and self.value == other.value
 
     def __ne__(self, other):
         return not self.__eq__(other)

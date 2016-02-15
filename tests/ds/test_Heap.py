@@ -4,7 +4,7 @@
 """
 Author: Nelson Brochado
 
-Creation: 13/02/16
+Creation: 14/02/16
 
 Tests for the abstract class Heap.
 """
@@ -13,6 +13,30 @@ from ands.ds.Heap import Heap
 from ands.ds.HeapNode import HeapNode
 
 
+def test_empty_heap_creation():
+    h = Heap()
+
+def test_push_down_and_push_up():
+    h = Heap()    
+    try:
+        h.push_down(0)
+        assert False
+    except NotImplementedError:
+        pass
+    try:
+        h.push_up(0)
+        assert False
+    except NotImplementedError:
+        pass
+
+def test_build_heap():
+    h = Heap()    
+    try:
+        h._build_heap()
+        assert False
+    except NotImplementedError:
+        pass
+    
 def test_add():
     h = Heap()
     try:
@@ -20,16 +44,6 @@ def test_add():
         assert False
     except NotImplementedError:
         pass
-    print("test_add finished.")
-
-def test_heapify():
-    h = Heap()    
-    try:
-        h.heapify(0)
-        assert False
-    except NotImplementedError:
-        pass
-    print("test_heapify finished.")
 
 def test_search():
     h = Heap()
@@ -39,7 +53,6 @@ def test_search():
         assert False
     except NotImplementedError:
         pass
-    print("test_search finished.")
 
 def test_search_by_value():
     h = Heap()
@@ -48,7 +61,6 @@ def test_search_by_value():
         assert False
     except NotImplementedError:
         pass
-    print("test_search_by_value finished.")
 
 def test_contains():
     h = Heap()
@@ -58,7 +70,6 @@ def test_contains():
         assert False
     except NotImplementedError:
         pass
-    print("test_contains finished.")
 
 def test_replace():
     h = Heap()
@@ -68,7 +79,6 @@ def test_replace():
         assert False
     except NotImplementedError:
         pass
-    print("test_replace finished.")
 
 def test_remove():
     h = Heap()
@@ -77,20 +87,25 @@ def test_remove():
         assert False
     except NotImplementedError:
         pass
-    print("test_remove finished.")
+
+def test_merge():
+    h = Heap()
+    try:
+        h.merge(Heap())
+        assert False
+    except NotImplementedError:
+        pass
 
 def test_size_and_is_empty():
     h = Heap()
     assert h.size() == 0
     assert h.is_empty()
-    print("test_size_and_is_empty finished.")
 
 def test_clear_and_get():
     h = Heap()
     h.clear()
     assert h.is_empty()
     assert [] == h.get()
-    print("test_clear_and_get finished.")
 
 def test_create_list_of_heap_nodes():
     ls = []
@@ -103,22 +118,19 @@ def test_create_list_of_heap_nodes():
     
     for item in heap_nodes:
         assert isinstance(item, HeapNode)
-        assert item.index != -1
         assert item.key == item.value
 
-    ls = [("Tu", 1), ("Io", 99), ("Noi", 2)]
+    # first elements are the priorities
+    # second elements are just values associated with them
+    ls = [(1, "Tu"), (99, "Io"), (2, "Noi")]
     heap_nodes = Heap._create_list_of_heap_nodes(ls)
     assert heap_nodes
     
     for i, item in enumerate(heap_nodes):
         assert isinstance(item, HeapNode)
-        assert item.index != -1
-        assert item.index == i
         assert type(item.key) != type(item.value)
         assert item.key in (1, 99, 2)
         assert item.value in ("Tu", "Io", "Noi")
-        
-    print("test_create_list_of_heap_nodes finished.")
 
 def test_is_good_index():
     ls = [12, 14, 28, 6, 18, 7, 10]
@@ -129,7 +141,6 @@ def test_is_good_index():
         pass
     assert not Heap.is_good_index(ls, -10, raise_error=False)
     assert Heap.is_good_index(ls, 0, raise_error=False)
-    print("test_is_good_index finished.")
 
 def test_swap():
     ls = [12, 14, 28, 6, 18, 7, 10]
@@ -137,7 +148,6 @@ def test_swap():
     last = ls[-1]
     Heap.swap(ls, 0, len(ls) - 1)
     assert ls[0] == last and ls[-1] == first
-    print("test_swap finished.")
 
 def test_get_parent_index():
     ls = [12, 14, 28, 6, 18, 7, 10]        
@@ -158,7 +168,6 @@ def test_get_parent_index():
         assert False
     except IndexError:
         pass
-    print("test_get_parent_index finished.")
 
 def test_get_left_child_index():
     ls = [12, 14, 28, 6, 18, 7, 10]
@@ -176,7 +185,6 @@ def test_get_left_child_index():
         assert False
     except IndexError:
         pass    
-    print("test_get_left_child_index finished.")
 
 def test_get_right_child_index():
     ls = [12, 14, 28, 6, 18, 7, 10]
@@ -193,23 +201,9 @@ def test_get_right_child_index():
         Heap.get_right_child_index(ls, len(ls))
         assert False
     except IndexError:
-        pass
-    print("test_get_right_child_index finished.")
-
+        pass    
     
+
 if __name__ == "__main__":
-    test_add()
-    test_heapify()
-    test_search()
-    test_search_by_value()
-    test_contains()
-    test_replace()
-    test_remove()
-    test_size_and_is_empty()
-    test_clear_and_get()
-    test_create_list_of_heap_nodes()
-    test_is_good_index()
-    test_swap()
-    test_get_parent_index()
-    test_get_left_child_index()
-    test_get_right_child_index()
+    from tools import main
+    main(globals().copy(), __name__, __file__)

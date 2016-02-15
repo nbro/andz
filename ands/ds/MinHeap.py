@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 13/02/16
+Last update: 15/02/16
 
 A binary min heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.
@@ -34,55 +34,86 @@ from ands.ds.Heap import Heap
 from ands.ds.HeapNode import HeapNode
 
 
+__all__ = ["MinHeap"]
+
+
 class MinHeap(Heap):
 
     def __init__(self, ls=[]):
-        Heap.__init__(self)
-        self.heap = self._create_list_of_heap_nodes(ls)
-        self._build_min_heap()
+        Heap.__init__(self, ls)
+        self._build_heap()
 
-    def _build_min_heap(self):
+    def _build_heap(self):
         """Creates a min heap using the list passed to the constructor.
 
         Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.
 
         **Time Complexity:** O(n)."""
-        for index in range(len(self.heap) // 2, -1, -1):
-            self.heapify(index)
+        if self.heap:
+            for index in range(len(self.heap) // 2, -1, -1):
+                self.push_down(index)
         return self.heap
 
-    def heapify(self, i: int):
-        """Min-heapify this mean heap starting from index `i`.
+    def push_down(self, i: int):
+        """'Min-heapify' this min-heap starting from index `i`.
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
-        _min = i
-        left = Heap.get_left_child_index(self.heap, i)
-        right = Heap.get_right_child_index(self.heap, i)
+        min_index = i
+        left_index = MinHeap.get_left_child_index(self.heap, i)
+        right_index = MinHeap.get_right_child_index(self.heap, i)
 
-        if left and self.heap[left] < self.heap[_min]:
-            _min = left
+        if left_index and self.heap[left_index] < self.heap[min_index]:
+            min_index = left_index
 
-        if right and self.heap[right] < self.heap[_min]:
-            _min = right
+        if right_index and self.heap[right_index] < self.heap[min_index]:
+            min_index = right_index
 
         # One of the children of ls[i] was smaller than ls[i],
         # and we need to swap ls[i] with its smallest child ls[m].
-        if _min != i:
-            self.swap(_min, i)
-            self.heapify(_min)
+        if min_index != i:
+            MinHeap.swap(self.heap, min_index, i)
+            self.push_down(min_index)
 
-        return _min
+        return min_index
 
-    def add(self, heap_node: HeapNode):
-        """Adds a `heap_node` to this heap.
+    def push_up(self, i: int):
+        """Pushes up the node at index `i`.
+
+        Note that this operation only happens
+        if the node at index `i` is smaller than its parent.
+
+        This function is simpler than `push_down` (or also called heapify),
+        because in this case we just need to compare
+        the current node's index with its parent's index.
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
+        c = i  # current index
+        p = MinHeap.get_parent_index(self.heap, i)
 
-        # Sets the current index of heap_node.
-        # This index could change by a "push up" operation.
-        heap_node.index = self.size()
-        self.heap.append(heap_node)
+        # p could be 0, so we evaluate against not None.
+        if p is not None and self.heap[c] < self.heap[p]:
+            c = p
 
+        if c != i:
+            MinHeap.swap(self.heap, c, i)
+            self.push_up(c)
+            
+    def add(self, x):
+        """Adds a `x` to this heap.
+
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+         
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+    
+        self.heap.append(x)
+        
         if self.size() > 1:
             self.push_up(self.size() - 1)
 
@@ -90,131 +121,110 @@ class MinHeap(Heap):
         """Returns (without removing) the smallest element in the heap.
 
         **Time Complexity:** O(1)."""
-        if not self.is_empty():
-            return self.heap[0]
+        return self.heap[0] if not self.is_empty() else None
 
     def remove_min(self):
         """Removes and returns the smallest element in this heap.
 
         **Time Complexity:** O(log<sub>2</sub> n),
-        unless the list's pop operation is linear
-        also when popping the last element,
-        which would make this algorithm to have a time complexity O(n)."""
+        if removing the last element of a list is a constant-time operation."""
         if not self.is_empty():
-            self.swap(0, self.size() - 1)
+
+            MinHeap.swap(self.heap, 0, self.size() - 1)
             min_element = self.heap.pop()
             
             if not self.is_empty():
                 self.push_down(0)
-                
+
             return min_element
 
-    def push_down(self, i: int):
-        """Calls self.heapify(i)."""
-        self.heapify(i)
-
-    def push_up(self, i):
-        """Pushes up the heap the node at index i.
-
-        Note that this operation only happens
-        if the node at index i is smaller than its parent.
-
-        This function is simpler than push_down or heapify,
-        because in this case we just need to compare
-        the current node's index with its parent's index.
-
-        **Time Complexity:** O(log<sub>2</sub> n)."""
-        current_index = i
-        p = MinHeap.get_parent_index(self.heap, i)
-
-        # We need specifically to check if p is not None,
-        # because it could be 0,
-        # and the following if statement would not be executed (wrongly).
-        if p is not None and self.heap[current_index] < self.heap[p]:
-            current_index = p
-            
-        if current_index != i:
-            self.swap(current_index, i)
-            self.push_up(current_index)
-
-    def search(self, heap_node: HeapNode):
-        """Searches for heap_node in this heap,
+    def search(self, x) -> int:
+        """Searches for `x` in this heap,
         and if present, returns its index, otherwise returns -1.
 
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+ 
         **Time Complexity:** O(n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+            
         for i, node in enumerate(self.heap):
-            if node == heap_node:
+            if node == x:
                 return i
+
         return -1
 
-    def contains(self, heap_node: HeapNode):
-        """Returns True, if heap_node is in the heaps.
+    def search_by_value(self, val) -> int:
+        """Returns the index of the `HeapNode` object with `value=val`.
+        -1 is returned if no such a `HeapNode` object exists.
+
+        If `val` and the values in this heap are not comparable,
+        the behaviour of this method is undefined.
 
         **Time Complexity:** O(n)."""
-        return self.search(heap_node) != -1
-
-    def search_by_value(self, value: object):
-        """Returns the index of the HeapNode with value=value.
-        -1 is returned if no such a HeapNode exists.
-
-        **Time Complexity:** O(n)."""
+        if val is None:
+            raise ValueError("val cannot be None.")    
         for i, node in enumerate(self.heap):
-            if node.value == value:
+            if node.value == val:
                 return i
         return -1
+    
+    def contains(self, x):
+        """Returns True, if `x` is in the heap. `False` otherwise.
 
-    def merge(self, other_heap: Heap):
-        """Merges this heap with `other_heap`."""
-        self.heap += other_heap.get()
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+        
+        **Time Complexity:** O(n)."""
+        return self.search(x) != -1    
 
-        def _merge_aux():
-            """Updates the indices of all `HeapNode` objects."""
-            for i, heap_node in enumerate(self.heap):
-                heap_node.index = i
+    def merge(self, other: Heap):
+        """Merges this heap with the `other` heap.
 
-        _merge_aux()
-        return self._build_min_heap()
+        **Time Complexity:** O(n + m).
 
-    def swap(self, i: int, j: int):
-        """Swaps `HeapNode` objects at indexes `i` and `j`,
-        and updates their new index field's value.
+        Time complexity analysis based on:
+        [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
+        self.heap += other.get()
+        return self._build_heap()
 
-        **Time Complexity:** O(1)."""
-        self.is_good_index(self.heap, i)
-        self.is_good_index(self.heap, j)
+    def replace(self, i: int, x):
+        """Replaces element at index `i` with `x`.
 
-        # Updates the index field of each HeapNode.
-        # This is useful for example when search for a Node's position
-        # which can then be done therefore in constant time.
-        self.heap[i].index = j
-        self.heap[j].index = i
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, then a `HeapNode` object
+        first created to represent `x`.
 
-        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+        1. If `x == self.heap[i]`,
+        then just replace `self.heap[i]` with `x`.
 
-    def replace(self, i: int, new_heap_node: HeapNode):
-        """Replaces element at index `i` with `new_heap_node`.
-
-        1. If `new_heap_node == self.heap[i]`,
-        then just replace `self.heap[i]` with `new_heap_node`.
-
-        2. Else if `new_heap_node < self.heap[i]`,
+        2. Else if `x < self.heap[i]`,
         then push_up(index).
 
-        3. Else `new_heap_node > self.heap[i]`,
-        then call `self.heapify(i)`.
+        3. Else `x > self.heap[i]`,
+        then call `self.push_down(i)`.
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
-        self.is_good_index(self.heap, i)
+        if x is None:
+            raise ValueError("x cannot be None.")
+        
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+        
+        MinHeap.is_good_index(self.heap, i)
 
-        current_node = self.heap[i]
-        new_heap_node.index = current_node.index
+        c = self.heap[i]
+        self.heap[i] = x
 
-        self.heap[i] = new_heap_node
-
-        if new_heap_node > current_node:
+        if x > c:
             self.push_down(i)
-
-        elif new_heap_node < current_node:
+        elif x < c:
             self.push_up(i)
             
-        return current_node
+        return c

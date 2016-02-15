@@ -24,7 +24,7 @@ In this repository, you will find data structures, such as _binary-search trees_
 You will also find some algorithms related to some particular _design paradigm_, for example algorithms related to the _greedy_ or _dynamic programming_ design paradigms.
 
 
-## How to Use
+## How to use?
 
 Download this repository. Open a terminal, and enter inside the `ands` folder. For example, if `ands` is in your desktop, type:
 
@@ -44,7 +44,11 @@ If you want to install the module in _editable_ mode in a **virtualenv**, you ca
 
     pip3.5 install -e .
 
-### How to Produce the Documentation
+## Documentation
+
+You can find the documentation for all data structures and algorithms based on the doc-strings of the classes and functions in HTML format in the folder [`docs`](docs).
+
+### How to produce the documentation?
 
 Install `pdoc`. If you still don't have a opened terminal, open it, and then move inside the `ands` repository, and type the following command:
 
@@ -52,12 +56,16 @@ Install `pdoc`. If you still don't have a opened terminal, open it, and then mov
 
 which should create a folder called `ands` inside the already existent folder `docs`.
 
-### Run Tests
+## Tests
 
-You can find the tests under [folder](folder). To run them, you must first install the module `ands`, and then you can simply run the script `run_tests.py` as follows
+If you want to create tests, you need to write them within the folder [`tests`](tests), and their names' conventions (i.e. scripts' and functions' names) should follow the same name conventions of the already existent tests.
+
+### How to run tests?
+
+You can find the tests under [tests](tests). To run them, you must first install the module `ands`, and then you can simply run the script `run_all_tests.py` as follows
 
 
-    ./run_tests.py
+    ./run_all_tests.py
     
     
 Eventually you can run single specific tests.

@@ -8,7 +8,7 @@
 
 Creation: July, 2015
 
-Last update: 14/02/16
+Last update: 15/02/16
 
 All elements of Heap objects a..." />
 
@@ -1013,7 +1013,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.HeapNode</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 14/02/16</p>
+<p>Last update: 15/02/16</p>
 <p>All elements of Heap objects are represented
 with objects of the class HeapNode.</p>
   
@@ -1027,7 +1027,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 14/02/16
+Last update: 15/02/16
 
 All elements of Heap objects are represented
 with objects of the class HeapNode.
@@ -1042,15 +1042,12 @@ __all__ = ["HeapNode"]
 class HeapNode(BSTNode):
     """HeapNode objects are added to Heap objects as wrappers to their elements."""
 
-    def __init__(self, key, value, p=None, left=None, right=None, index=-1):
-        """key is used to heapify the heap.
-
-        value can be used for example for the name of the HeapNode object.
-
-        index should contain the position of this HeapNode object in the heap,
-        but the used of this variable is for now deprecated."""
+    def __init__(self, key, value=None, p=None, left=None, right=None):
+        """`key` is the priority used to heapify the heap.
+        `value` can be used for example for the name of the `HeapNode` object."""
+        if value is None:
+            value = key
         BSTNode.__init__(self, key, value, p, left, right)
-        self.index = index
 
     def __str__(self):
         return str(self.key)
@@ -1059,7 +1056,7 @@ class HeapNode(BSTNode):
         return str(self.value) + " -> " + str(self.key) + "$"
 
     def __eq__(self, other):
-        return self.key == other.key
+        return self.key == other.key and self.value == other.value
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -1096,15 +1093,12 @@ class HeapNode(BSTNode):
     <pre><code>class HeapNode(BSTNode):
     """HeapNode objects are added to Heap objects as wrappers to their elements."""
 
-    def __init__(self, key, value, p=None, left=None, right=None, index=-1):
-        """key is used to heapify the heap.
-
-        value can be used for example for the name of the HeapNode object.
-
-        index should contain the position of this HeapNode object in the heap,
-        but the used of this variable is for now deprecated."""
+    def __init__(self, key, value=None, p=None, left=None, right=None):
+        """`key` is the priority used to heapify the heap.
+        `value` can be used for example for the name of the `HeapNode` object."""
+        if value is None:
+            value = key
         BSTNode.__init__(self, key, value, p, left, right)
-        self.index = index
 
     def __str__(self):
         return str(self.key)
@@ -1113,7 +1107,7 @@ class HeapNode(BSTNode):
         return str(self.value) + " -> " + str(self.key) + "$"
 
     def __eq__(self, other):
-        return self.key == other.key
+        return self.key == other.key and self.value == other.value
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -1146,26 +1140,23 @@ class HeapNode(BSTNode):
             
   <div class="item">
     <div class="name def" id="ands.ds.HeapNode.HeapNode.__init__">
-    <p>def <span class="ident">__init__</span>(</p><p>self, key, value, p=None, left=None, right=None, index=-1)</p>
+    <p>def <span class="ident">__init__</span>(</p><p>self, key, value=None, p=None, left=None, right=None)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>key is used to heapify the heap.</p>
-<p>value can be used for example for the name of the HeapNode object.</p>
-<p>index should contain the position of this HeapNode object in the heap,
-but the used of this variable is for now deprecated.</p></div>
+    <div class="desc"><p><code>key</code> is the priority used to heapify the heap.
+<code>value</code> can be used for example for the name of the <code>HeapNode</code> object.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.HeapNode.HeapNode.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.HeapNode.HeapNode.__init__" class="source">
-    <pre><code>def __init__(self, key, value, p=None, left=None, right=None, index=-1):
-    """key is used to heapify the heap.
-    value can be used for example for the name of the HeapNode object.
-    index should contain the position of this HeapNode object in the heap,
-    but the used of this variable is for now deprecated."""
+    <pre><code>def __init__(self, key, value=None, p=None, left=None, right=None):
+    """`key` is the priority used to heapify the heap.
+    `value` can be used for example for the name of the `HeapNode` object."""
+    if value is None:
+        value = key
     BSTNode.__init__(self, key, value, p, left, right)
-    self.index = index
 </code></pre>
   </div>
 </div>
@@ -1360,16 +1351,6 @@ but the used of this variable is for now deprecated.</p></div>
             
   
     <div class="desc"><p>Returns the parent of the parent of this node.</p></div>
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="ands.ds.HeapNode.HeapNode.index" class="name">var <span class="ident">index</span></p>
-            
-
-            
-  
   <div class="source_cont">
 </div>
 

@@ -87,7 +87,6 @@ def test_insert_one():
     assert rbt.height() == 1
     assert rbt.n == rbt.size() == one.count() == 1
     assert_rbt_props(rbt)
-    print("test_insert_one finished.")
 
 def test_insert_two():
     rbt = RBT()
@@ -106,7 +105,6 @@ def test_insert_two():
     assert rbt.height() == 2
     assert rbt.n == rbt.size() == one.count() == 2
     assert_rbt_props(rbt)
-    print("test_insert_two finished.")
 
 def test_insert_three():
     rbt = RBT()
@@ -126,7 +124,6 @@ def test_insert_three():
     assert two.color == BLACK
     assert rbt.n == rbt.size() == two.count() == 3
     assert_rbt_props(rbt)
-    print("test_insert_three finished.")
 
 def test_height_and_insert_many():
     # Lemma proved above put in practice!
@@ -137,7 +134,6 @@ def test_height_and_insert_many():
         rbt.insert(i)
         assert_upper_bound_bh(rbt)
     assert_rbt_props(rbt)
-    print("test_height_and_insert_many finished.")
 
 def test_delete_root():
     rbt = RBT()
@@ -151,7 +147,6 @@ def test_delete_root():
     assert not rbt.root
     assert rbt.n == rbt.size() == 0
     assert_rbt_props(rbt)
-    print("test_delete_root finished.")
 
 def test_delete_root2():
     rbt = RBT()
@@ -167,7 +162,6 @@ def test_delete_root2():
     assert not rbt.root.left and not rbt.root.right
     assert rbt.n == rbt.size() == rbt.root.count() == 1
     assert_rbt_props(rbt)
-    print("test_delete_root2 finished.")
 
 def test_delete_root3():
     rbt = RBT()
@@ -184,7 +178,6 @@ def test_delete_root3():
     assert not rbt.root.left and not rbt.root.right  
     assert rbt.n == rbt.size() == rbt.root.count() == 1
     assert_rbt_props(rbt)
-    print("test_delete_root3 finished.")
 
 def test_delete_root4():
     rbt = RBT()
@@ -202,7 +195,6 @@ def test_delete_root4():
     assert rbt.root.right is None
     assert rbt.n == rbt.size() == rbt.root.count() == 2
     assert_rbt_props(rbt)
-    print("test_delete_root4 finished.")
 
 def test_delete_root5():
     rbt = RBT()
@@ -221,7 +213,6 @@ def test_delete_root5():
     assert rbt.root.right == rbt.search(28) and rbt.root.left == rbt.search(7)
     assert rbt.n == rbt.size() == rbt.root.count() == 3
     assert_rbt_props(rbt)
-    print("test_delete_root5 finished.")
 
 def test_delete_root6():
     rbt = RBT()
@@ -242,7 +233,6 @@ def test_delete_root6():
     assert rbt.search(14).right == rbt.search(28)
     assert rbt.n == rbt.size() == rbt.root.count() == 4
     assert_rbt_props(rbt)
-    print("test_delete_root6 finished.")
 
 def test_delete_root7():
     rbt = RBT()
@@ -265,7 +255,6 @@ def test_delete_root7():
     assert rbt.search(28).left == rbt.search(14) and rbt.search(28).right == rbt.search(35)    
     assert rbt.n == rbt.size() == rbt.root.count() == 5
     assert_rbt_props(rbt)
-    print("test_delete_root7 finished.")
 
 def test_delete_root8():
     rbt = RBT()
@@ -286,7 +275,6 @@ def test_delete_root8():
     assert rbt.n == rbt.size() == rbt.root.count() == 6
     assert not rbt.search(14).left
     assert_rbt_props(rbt)
-    print("test_delete_root8 finished.")
 
 def test_delete_root9():
     rbt = RBT()
@@ -306,8 +294,6 @@ def test_delete_root9():
     assert r.left is None    
     assert not rbt.search(13).left and not rbt.search(13).right
     assert_rbt_props(rbt)
-    #print(rbt)
-    print("test_delete_root9 finished.")
 
 def test_delete_root10():
     rbt = RBT()
@@ -328,7 +314,6 @@ def test_delete_root10():
     assert r.left is None
     assert rbt.n == rbt.size() == rbt.root.count() == 8
     assert_rbt_props(rbt)
-    print("test_delete_root10 finished.")
 
 def test_delete_all_rand_items():
     from random import randint, shuffle
@@ -344,11 +329,9 @@ def test_delete_all_rand_items():
             rbt.insert(x)
             assert rbt.n == rbt.size() == (j + 1)
             assert_rbt_props(rbt)
-            #print("RBT after insertion of", x, "\n", rbt)
-
+            
         assert rbt.n == rbt.size() == len(ls)
         assert_rbt_props(rbt)
-        #print()
         shuffle(ls)
         
         for j, x in enumerate(ls):
@@ -358,12 +341,9 @@ def test_delete_all_rand_items():
             assert r.left is None
             assert rbt.n == rbt.size() == (len(ls) - (j + 1))
             assert_rbt_props(rbt)
-            #print("RBT after removal of", x, "\n", rbt)
-
+            
         assert rbt.n == rbt.size() == 0
         assert_rbt_props(rbt)
-        
-    print("test_delete_all_rand_items finished.")
 
 def test_remove_max():
     rbt = RBT()
@@ -388,7 +368,6 @@ def test_remove_max():
     _m = rbt.remove_max()
     assert m == _m
     assert not rbt.search(18)
-    print("test_remove_max finished.")
 
 def test_remove_min():
     rbt = RBT()
@@ -412,23 +391,8 @@ def test_remove_min():
     _m = rbt.remove_min()
     assert m == _m
     assert not rbt.search(6)
-    print("test_remove_min finished.")
+
 
 if __name__ == "__main__":
-    test_insert_one()
-    test_insert_two()
-    test_insert_three()
-    test_height_and_insert_many()
-    test_delete_root()
-    test_delete_root2()
-    test_delete_root3()
-    test_delete_root4()
-    test_delete_root5()
-    test_delete_root6()
-    test_delete_root7()
-    test_delete_root8()
-    test_delete_root9()
-    test_delete_root10()
-    test_delete_all_rand_items()
-    test_remove_min()
-    test_remove_max()
+    from tools import main
+    main(globals().copy(), __name__, __file__)
