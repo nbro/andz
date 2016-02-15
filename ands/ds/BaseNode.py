@@ -3,7 +3,10 @@
 
 """
 Author: Nelson Brochado
+
 Creation: July, 2015
+
+Last update: 15/02/16
 
 Base class for all kind of nodes,
 assuming they have a key and a value.
@@ -12,10 +15,9 @@ assuming they have a key and a value.
 # Inheriting explicitly from object so that properties' setters work
 class BaseNode(object):
 
-    """Base class for all kind of nodes,
-    assuming they have a key and a value."""
-
     def __init__(self, key, value):
+        if key is None:
+            raise ValueError("key cannot be None.")
         self.key = key
         self.value = value
 

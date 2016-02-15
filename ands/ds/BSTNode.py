@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 15/02/16
 
 Class to represent a BST's node.
 """
@@ -20,7 +20,6 @@ __all__ = ["BSTNode"]
 
 
 class BSTNode(BaseNode):
-    """Base class for a BST's node."""
 
     def __init__(self, key, value=None, parent=None, left=None, right=None):
         BaseNode.__init__(self, key, value)
@@ -49,8 +48,8 @@ class BSTNode(BaseNode):
     def uncle(self):
         """Returns the uncle node of this node.
         The uncle is the sibling of the parent of this node,
-        if it exists. None is returned if it doesn't exist,
-        or the parent or grandparent of this node is None."""
+        if it exists. `None` is returned if it doesn't exist,
+        or the parent or grandparent of this node is `None`."""
         if self.grandparent is not None:  # implies that also parent is not None
             if self.parent == self.grandparent.left:
                 return self.grandparent.right
@@ -77,33 +76,34 @@ class BSTNode(BaseNode):
             raise AttributeError("self does not have a parent.")
 
     def has_children(self) -> bool:
-        """Returns True if self has at least one child."""
+        """Returns `True` if `self` has at least one child. `False` otherwise."""
         return self.left or self.right
 
     def has_one_child(self) -> bool:
-        """Returns True only if self has exactly one child."""
+        """Returns `True` only if `self` has exactly one child. `False` otherwise."""
         return (self.left and not self.right) or (not self.left and self.right)
 
     def has_two_children(self) -> bool:
-        """Returns True if self has exactly two children."""
+        """Returns `True` if self has exactly two children. `False` otherwise."""
         return self.left and self.right
 
     def count(self):
+        """Counts the numbers of nodes under `self` (including `self`)."""
+        def _count(u, c: int):
+            if u is None:
+                return c
+            else:
+                c += 1
+            c = _count(u.left, c)
+            c = _count(u.right, c)
+            return c
+
         if not self.has_children():
             return 1
         else:
             c = 0
-            return self._count(self, c)
-
-    def _count(self, u, c: int):
-        if u is None:
-            return c
-        else:
-            c += 1
-        c = self._count(u.left, c)
-        c = self._count(u.right, c)
-        return c
-
+            return _count(self, c)
+        
     def __str__(self):
         return "{" + str(self.key) + ": " + str(self.value) + "}"
 

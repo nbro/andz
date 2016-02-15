@@ -19,10 +19,10 @@ __all__ = ["HeapNode"]
 
 
 class HeapNode(BSTNode):
-    """HeapNode objects are added to Heap objects as wrappers to their elements."""
 
     def __init__(self, key, value=None, p=None, left=None, right=None):
-        """`key` is the priority used to heapify the heap.
+        """`key` is the priority used to heapify the heap,
+        and it must be a non-None comparable value.
         `value` can be used for example for the name of the `HeapNode` object."""
         if value is None:
             value = key

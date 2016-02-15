@@ -8,7 +8,7 @@
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 15/02/16
 
 Class to represent a BST's nod..." />
 
@@ -1013,7 +1013,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.BSTNode</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 05/02/16</p>
+<p>Last update: 15/02/16</p>
 <p>Class to represent a BST's node.</p>
   
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTNode', this);">Show source &equiv;</a></p>
@@ -1026,7 +1026,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 05/02/16
+Last update: 15/02/16
 
 Class to represent a BST's node.
 """
@@ -1040,7 +1040,6 @@ __all__ = ["BSTNode"]
 
 
 class BSTNode(BaseNode):
-    """Base class for a BST's node."""
 
     def __init__(self, key, value=None, parent=None, left=None, right=None):
         BaseNode.__init__(self, key, value)
@@ -1069,8 +1068,8 @@ class BSTNode(BaseNode):
     def uncle(self):
         """Returns the uncle node of this node.
         The uncle is the sibling of the parent of this node,
-        if it exists. None is returned if it doesn't exist,
-        or the parent or grandparent of this node is None."""
+        if it exists. `None` is returned if it doesn't exist,
+        or the parent or grandparent of this node is `None`."""
         if self.grandparent is not None:  # implies that also parent is not None
             if self.parent == self.grandparent.left:
                 return self.grandparent.right
@@ -1097,33 +1096,34 @@ class BSTNode(BaseNode):
             raise AttributeError("self does not have a parent.")
 
     def has_children(self) -> bool:
-        """Returns True if self has at least one child."""
+        """Returns `True` if `self` has at least one child. `False` otherwise."""
         return self.left or self.right
 
     def has_one_child(self) -> bool:
-        """Returns True only if self has exactly one child."""
+        """Returns `True` only if `self` has exactly one child. `False` otherwise."""
         return (self.left and not self.right) or (not self.left and self.right)
 
     def has_two_children(self) -> bool:
-        """Returns True if self has exactly two children."""
+        """Returns `True` if self has exactly two children. `False` otherwise."""
         return self.left and self.right
 
     def count(self):
+        """Counts the numbers of nodes under `self` (including `self`)."""
+        def _count(u, c: int):
+            if u is None:
+                return c
+            else:
+                c += 1
+            c = _count(u.left, c)
+            c = _count(u.right, c)
+            return c
+
         if not self.has_children():
             return 1
         else:
             c = 0
-            return self._count(self, c)
-
-    def _count(self, u, c: int):
-        if u is None:
-            return c
-        else:
-            c += 1
-        c = self._count(u.left, c)
-        c = self._count(u.right, c)
-        return c
-
+            return _count(self, c)
+        
     def __str__(self):
         return "{" + str(self.key) + ": " + str(self.value) + "}"
 
@@ -1156,12 +1156,10 @@ class BSTNode(BaseNode):
       <p id="ands.ds.BSTNode.BSTNode" class="name">class <span class="ident">BSTNode</span></p>
       
   
-    <div class="desc"><p>Base class for a BST's node.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTNode.BSTNode', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTNode.BSTNode" class="source">
     <pre><code>class BSTNode(BaseNode):
-    """Base class for a BST's node."""
 
     def __init__(self, key, value=None, parent=None, left=None, right=None):
         BaseNode.__init__(self, key, value)
@@ -1190,8 +1188,8 @@ class BSTNode(BaseNode):
     def uncle(self):
         """Returns the uncle node of this node.
         The uncle is the sibling of the parent of this node,
-        if it exists. None is returned if it doesn't exist,
-        or the parent or grandparent of this node is None."""
+        if it exists. `None` is returned if it doesn't exist,
+        or the parent or grandparent of this node is `None`."""
         if self.grandparent is not None:  # implies that also parent is not None
             if self.parent == self.grandparent.left:
                 return self.grandparent.right
@@ -1218,33 +1216,34 @@ class BSTNode(BaseNode):
             raise AttributeError("self does not have a parent.")
 
     def has_children(self) -> bool:
-        """Returns True if self has at least one child."""
+        """Returns `True` if `self` has at least one child. `False` otherwise."""
         return self.left or self.right
 
     def has_one_child(self) -> bool:
-        """Returns True only if self has exactly one child."""
+        """Returns `True` only if `self` has exactly one child. `False` otherwise."""
         return (self.left and not self.right) or (not self.left and self.right)
 
     def has_two_children(self) -> bool:
-        """Returns True if self has exactly two children."""
+        """Returns `True` if self has exactly two children. `False` otherwise."""
         return self.left and self.right
 
     def count(self):
+        """Counts the numbers of nodes under `self` (including `self`)."""
+        def _count(u, c: int):
+            if u is None:
+                return c
+            else:
+                c += 1
+            c = _count(u.left, c)
+            c = _count(u.right, c)
+            return c
+
         if not self.has_children():
             return 1
         else:
             c = 0
-            return self._count(self, c)
-
-    def _count(self, u, c: int):
-        if u is None:
-            return c
-        else:
-            c += 1
-        c = self._count(u.left, c)
-        c = self._count(u.right, c)
-        return c
-
+            return _count(self, c)
+        
     def __str__(self):
         return "{" + str(self.key) + ": " + str(self.value) + "}"
 
@@ -1310,15 +1309,25 @@ class BSTNode(BaseNode):
 
     
   
+    <div class="desc"><p>Counts the numbers of nodes under <code>self</code> (including <code>self</code>).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTNode.BSTNode.count', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTNode.BSTNode.count" class="source">
     <pre><code>def count(self):
+    """Counts the numbers of nodes under `self` (including `self`)."""
+    def _count(u, c: int):
+        if u is None:
+            return c
+        else:
+            c += 1
+        c = _count(u.left, c)
+        c = _count(u.right, c)
+        return c
     if not self.has_children():
         return 1
     else:
         c = 0
-        return self._count(self, c)
+        return _count(self, c)
 </code></pre>
   </div>
 </div>
@@ -1334,12 +1343,12 @@ class BSTNode(BaseNode):
 
     
   
-    <div class="desc"><p>Returns True if self has at least one child.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if <code>self</code> has at least one child. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTNode.BSTNode.has_children', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTNode.BSTNode.has_children" class="source">
     <pre><code>def has_children(self) -> bool:
-    """Returns True if self has at least one child."""
+    """Returns `True` if `self` has at least one child. `False` otherwise."""
     return self.left or self.right
 </code></pre>
   </div>
@@ -1356,12 +1365,12 @@ class BSTNode(BaseNode):
 
     
   
-    <div class="desc"><p>Returns True only if self has exactly one child.</p></div>
+    <div class="desc"><p>Returns <code>True</code> only if <code>self</code> has exactly one child. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTNode.BSTNode.has_one_child', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTNode.BSTNode.has_one_child" class="source">
     <pre><code>def has_one_child(self) -> bool:
-    """Returns True only if self has exactly one child."""
+    """Returns `True` only if `self` has exactly one child. `False` otherwise."""
     return (self.left and not self.right) or (not self.left and self.right)
 </code></pre>
   </div>
@@ -1378,12 +1387,12 @@ class BSTNode(BaseNode):
 
     
   
-    <div class="desc"><p>Returns True if self has exactly two children.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if self has exactly two children. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BSTNode.BSTNode.has_two_children', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BSTNode.BSTNode.has_two_children" class="source">
     <pre><code>def has_two_children(self) -> bool:
-    """Returns True if self has exactly two children."""
+    """Returns `True` if self has exactly two children. `False` otherwise."""
     return self.left and self.right
 </code></pre>
   </div>
@@ -1553,8 +1562,8 @@ which can of course be <code>None</code>.</p></div>
   
     <div class="desc"><p>Returns the uncle node of this node.
 The uncle is the sibling of the parent of this node,
-if it exists. None is returned if it doesn't exist,
-or the parent or grandparent of this node is None.</p></div>
+if it exists. <code>None</code> is returned if it doesn't exist,
+or the parent or grandparent of this node is <code>None</code>.</p></div>
   <div class="source_cont">
 </div>
 

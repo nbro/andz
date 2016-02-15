@@ -28,6 +28,14 @@ If we have a node at index i, then
 where floor(x) truncates x to the smallest integer.
 
 Note that these indexes are for 0-index based lists (or arrays).
+
+## References
+
+- [https://en.wikipedia.org/wiki/Binary_heap](https://en.wikipedia.org/wiki/Binary_heap)
+
+- Slides by prof. A. Carzaniga
+
+- Chapter 13 of _Introduction to Algorithms_ (3rd ed.) by CLRS
 """
 
 from ands.ds.Heap import Heap

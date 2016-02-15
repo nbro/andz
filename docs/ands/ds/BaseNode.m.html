@@ -5,10 +5,12 @@
 
     <title>ands.ds.BaseNode API documentation</title>
     <meta name="description" content="Author: Nelson Brochado
+
 Creation: July, 2015
 
-Base class for all kind of nodes,
-assuming they have a..." />
+Last update: 15/02/16
+
+Base class for all kind of nod..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -1001,8 +1003,9 @@ table {
 
   <header id="section-intro">
   <h1 class="title"><span class="name">ands.ds.BaseNode</span> module</h1>
-  <p>Author: Nelson Brochado
-Creation: July, 2015</p>
+  <p>Author: Nelson Brochado</p>
+<p>Creation: July, 2015</p>
+<p>Last update: 15/02/16</p>
 <p>Base class for all kind of nodes,
 assuming they have a key and a value.</p>
   
@@ -1013,7 +1016,10 @@ assuming they have a key and a value.</p>
 
 """
 Author: Nelson Brochado
+
 Creation: July, 2015
+
+Last update: 15/02/16
 
 Base class for all kind of nodes,
 assuming they have a key and a value.
@@ -1022,10 +1028,9 @@ assuming they have a key and a value.
 # Inheriting explicitly from object so that properties' setters work
 class BaseNode(object):
 
-    """Base class for all kind of nodes,
-    assuming they have a key and a value."""
-
     def __init__(self, key, value):
+        if key is None:
+            raise ValueError("key cannot be None.")
         self.key = key
         self.value = value
 
@@ -1049,17 +1054,14 @@ class BaseNode(object):
       <p id="ands.ds.BaseNode.BaseNode" class="name">class <span class="ident">BaseNode</span></p>
       
   
-    <div class="desc"><p>Base class for all kind of nodes,
-assuming they have a key and a value.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BaseNode.BaseNode', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BaseNode.BaseNode" class="source">
     <pre><code>class BaseNode(object):
 
-    """Base class for all kind of nodes,
-    assuming they have a key and a value."""
-
     def __init__(self, key, value):
+        if key is None:
+            raise ValueError("key cannot be None.")
         self.key = key
         self.value = value
 
@@ -1095,6 +1097,8 @@ assuming they have a key and a value.</p></div>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BaseNode.BaseNode.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BaseNode.BaseNode.__init__" class="source">
     <pre><code>def __init__(self, key, value):
+    if key is None:
+        raise ValueError("key cannot be None.")
     self.key = key
     self.value = value
 </code></pre>

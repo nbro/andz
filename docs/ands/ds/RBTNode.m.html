@@ -10,7 +10,7 @@ Creation: July, 2015
 
 Last update: 05/02/16
 
-RBT's node." />
+Class to represent a `RBT`'s n..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -1022,7 +1022,7 @@ table {
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
 <p>Last update: 05/02/16</p>
-<p>RBT's node.</p>
+<p>Class to represent a <code>RBT</code>'s node.</p>
   
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBTNode', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBTNode" class="source">
@@ -1036,7 +1036,7 @@ Creation: July, 2015
 
 Last update: 05/02/16
 
-RBT's node.
+Class to represent a `RBT`'s node.
 """
 
 from ands.ds.BSTNode import BSTNode
@@ -1051,7 +1051,7 @@ BLACK = "BLACK"
 
 class RBTNode(BSTNode):
 
-    def __init__(self, key, value, color=BLACK, parent=None, left=None, right=None):
+    def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
         BSTNode.__init__(self, key, value, parent, left, right)
         self._color = color
         self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
@@ -1111,13 +1111,12 @@ class RBTNode(BSTNode):
       <p id="ands.ds.RBTNode.RBTNode" class="name">class <span class="ident">RBTNode</span></p>
       
   
-    <div class="desc"><p>Base class for a BST's node.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBTNode.RBTNode', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBTNode.RBTNode" class="source">
     <pre><code>class RBTNode(BSTNode):
 
-    def __init__(self, key, value, color=BLACK, parent=None, left=None, right=None):
+    def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
         BSTNode.__init__(self, key, value, parent, left, right)
         self._color = color
         self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
@@ -1163,7 +1162,7 @@ class RBTNode(BSTNode):
             
   <div class="item">
     <div class="name def" id="ands.ds.RBTNode.RBTNode.__init__">
-    <p>def <span class="ident">__init__</span>(</p><p>self, key, value, color=&#39;BLACK&#39;, parent=None, left=None, right=None)</p>
+    <p>def <span class="ident">__init__</span>(</p><p>self, key, value=None, color=&#39;BLACK&#39;, parent=None, left=None, right=None)</p>
     </div>
     
 
@@ -1173,7 +1172,7 @@ class RBTNode(BSTNode):
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBTNode.RBTNode.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBTNode.RBTNode.__init__" class="source">
-    <pre><code>def __init__(self, key, value, color=BLACK, parent=None, left=None, right=None):
+    <pre><code>def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
     BSTNode.__init__(self, key, value, parent, left, right)
     self._color = color
     self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
@@ -1192,15 +1191,25 @@ class RBTNode(BSTNode):
 
     
   
+    <div class="desc"><p>Counts the numbers of nodes under <code>self</code> (including <code>self</code>).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBTNode.RBTNode.count', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBTNode.RBTNode.count" class="source">
     <pre><code>def count(self):
+    """Counts the numbers of nodes under `self` (including `self`)."""
+    def _count(u, c: int):
+        if u is None:
+            return c
+        else:
+            c += 1
+        c = _count(u.left, c)
+        c = _count(u.right, c)
+        return c
     if not self.has_children():
         return 1
     else:
         c = 0
-        return self._count(self, c)
+        return _count(self, c)
 </code></pre>
   </div>
 </div>
@@ -1216,12 +1225,12 @@ class RBTNode(BSTNode):
 
     
   
-    <div class="desc"><p>Returns True if self has at least one child.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if <code>self</code> has at least one child. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBTNode.RBTNode.has_children', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBTNode.RBTNode.has_children" class="source">
     <pre><code>def has_children(self) -> bool:
-    """Returns True if self has at least one child."""
+    """Returns `True` if `self` has at least one child. `False` otherwise."""
     return self.left or self.right
 </code></pre>
   </div>
@@ -1238,12 +1247,12 @@ class RBTNode(BSTNode):
 
     
   
-    <div class="desc"><p>Returns True only if self has exactly one child.</p></div>
+    <div class="desc"><p>Returns <code>True</code> only if <code>self</code> has exactly one child. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBTNode.RBTNode.has_one_child', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBTNode.RBTNode.has_one_child" class="source">
     <pre><code>def has_one_child(self) -> bool:
-    """Returns True only if self has exactly one child."""
+    """Returns `True` only if `self` has exactly one child. `False` otherwise."""
     return (self.left and not self.right) or (not self.left and self.right)
 </code></pre>
   </div>
@@ -1260,12 +1269,12 @@ class RBTNode(BSTNode):
 
     
   
-    <div class="desc"><p>Returns True if self has exactly two children.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if self has exactly two children. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBTNode.RBTNode.has_two_children', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBTNode.RBTNode.has_two_children" class="source">
     <pre><code>def has_two_children(self) -> bool:
-    """Returns True if self has exactly two children."""
+    """Returns `True` if self has exactly two children. `False` otherwise."""
     return self.left and self.right
 </code></pre>
   </div>
@@ -1414,8 +1423,8 @@ which can of course be <code>None</code>.</p></div>
   
     <div class="desc"><p>Returns the uncle node of this node.
 The uncle is the sibling of the parent of this node,
-if it exists. None is returned if it doesn't exist,
-or the parent or grandparent of this node is None.</p></div>
+if it exists. <code>None</code> is returned if it doesn't exist,
+or the parent or grandparent of this node is <code>None</code>.</p></div>
   <div class="source_cont">
 </div>
 

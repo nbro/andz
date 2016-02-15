@@ -8,7 +8,7 @@ Creation: July, 2015
 
 Last update: 05/02/16
 
-RBT's node.
+Class to represent a `RBT`'s node.
 """
 
 from ands.ds.BSTNode import BSTNode
@@ -23,7 +23,7 @@ BLACK = "BLACK"
 
 class RBTNode(BSTNode):
 
-    def __init__(self, key, value, color=BLACK, parent=None, left=None, right=None):
+    def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
         BSTNode.__init__(self, key, value, parent, left, right)
         self._color = color
         self.label = "[" + str(self.key) + ", " + str(self._color) + "]"

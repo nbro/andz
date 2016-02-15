@@ -4,7 +4,7 @@
 """
 Author: Nelson Brochado
 
-Creation: 13/02/16
+Creation: 15/02/16
 
 Tests for the RBT class.
 """
@@ -78,6 +78,22 @@ def assert_rbt_props(t):
 
 def test_insert_one():
     rbt = RBT()
+    try:
+        rbt.insert(None)
+        assert False
+    except ValueError:
+        pass
+    h = RBTNode(12)
+    j = RBTNode(14)
+    h.left = j
+    j.parent = h
+
+    try:
+        rbt.insert(h)
+        assert False
+    except ValueError:
+        pass
+    
     rbt.insert(12)
     one = rbt.search(12)
     two = rbt.search(14)

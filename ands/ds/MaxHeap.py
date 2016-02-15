@@ -9,6 +9,15 @@ Creation: 15/02/16
 Last update: 15/02/16
 
 Mirror-class to the MinHeap class.
+For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHeap.py).
+
+## References
+
+- [https://en.wikipedia.org/wiki/Binary_heap](https://en.wikipedia.org/wiki/Binary_heap)
+
+- Slides by prof. A. Carzaniga
+
+- Chapter 13 of _Introduction to Algorithms_ (3rd ed.) by CLRS
 """
 
 from ands.ds.Heap import Heap

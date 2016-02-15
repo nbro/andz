@@ -1040,10 +1040,10 @@ __all__ = ["HeapNode"]
 
 
 class HeapNode(BSTNode):
-    """HeapNode objects are added to Heap objects as wrappers to their elements."""
 
     def __init__(self, key, value=None, p=None, left=None, right=None):
-        """`key` is the priority used to heapify the heap.
+        """`key` is the priority used to heapify the heap,
+        and it must be a non-None comparable value.
         `value` can be used for example for the name of the `HeapNode` object."""
         if value is None:
             value = key
@@ -1086,15 +1086,14 @@ class HeapNode(BSTNode):
       <p id="ands.ds.HeapNode.HeapNode" class="name">class <span class="ident">HeapNode</span></p>
       
   
-    <div class="desc"><p>HeapNode objects are added to Heap objects as wrappers to their elements.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.HeapNode.HeapNode', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.HeapNode.HeapNode" class="source">
     <pre><code>class HeapNode(BSTNode):
-    """HeapNode objects are added to Heap objects as wrappers to their elements."""
 
     def __init__(self, key, value=None, p=None, left=None, right=None):
-        """`key` is the priority used to heapify the heap.
+        """`key` is the priority used to heapify the heap,
+        and it must be a non-None comparable value.
         `value` can be used for example for the name of the `HeapNode` object."""
         if value is None:
             value = key
@@ -1146,13 +1145,15 @@ class HeapNode(BSTNode):
 
     
   
-    <div class="desc"><p><code>key</code> is the priority used to heapify the heap.
+    <div class="desc"><p><code>key</code> is the priority used to heapify the heap,
+and it must be a non-None comparable value.
 <code>value</code> can be used for example for the name of the <code>HeapNode</code> object.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.HeapNode.HeapNode.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.HeapNode.HeapNode.__init__" class="source">
     <pre><code>def __init__(self, key, value=None, p=None, left=None, right=None):
-    """`key` is the priority used to heapify the heap.
+    """`key` is the priority used to heapify the heap,
+    and it must be a non-None comparable value.
     `value` can be used for example for the name of the `HeapNode` object."""
     if value is None:
         value = key
@@ -1172,15 +1173,25 @@ class HeapNode(BSTNode):
 
     
   
+    <div class="desc"><p>Counts the numbers of nodes under <code>self</code> (including <code>self</code>).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.HeapNode.HeapNode.count', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.HeapNode.HeapNode.count" class="source">
     <pre><code>def count(self):
+    """Counts the numbers of nodes under `self` (including `self`)."""
+    def _count(u, c: int):
+        if u is None:
+            return c
+        else:
+            c += 1
+        c = _count(u.left, c)
+        c = _count(u.right, c)
+        return c
     if not self.has_children():
         return 1
     else:
         c = 0
-        return self._count(self, c)
+        return _count(self, c)
 </code></pre>
   </div>
 </div>
@@ -1196,12 +1207,12 @@ class HeapNode(BSTNode):
 
     
   
-    <div class="desc"><p>Returns True if self has at least one child.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if <code>self</code> has at least one child. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.HeapNode.HeapNode.has_children', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.HeapNode.HeapNode.has_children" class="source">
     <pre><code>def has_children(self) -> bool:
-    """Returns True if self has at least one child."""
+    """Returns `True` if `self` has at least one child. `False` otherwise."""
     return self.left or self.right
 </code></pre>
   </div>
@@ -1218,12 +1229,12 @@ class HeapNode(BSTNode):
 
     
   
-    <div class="desc"><p>Returns True only if self has exactly one child.</p></div>
+    <div class="desc"><p>Returns <code>True</code> only if <code>self</code> has exactly one child. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.HeapNode.HeapNode.has_one_child', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.HeapNode.HeapNode.has_one_child" class="source">
     <pre><code>def has_one_child(self) -> bool:
-    """Returns True only if self has exactly one child."""
+    """Returns `True` only if `self` has exactly one child. `False` otherwise."""
     return (self.left and not self.right) or (not self.left and self.right)
 </code></pre>
   </div>
@@ -1240,12 +1251,12 @@ class HeapNode(BSTNode):
 
     
   
-    <div class="desc"><p>Returns True if self has exactly two children.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if self has exactly two children. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.HeapNode.HeapNode.has_two_children', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.HeapNode.HeapNode.has_two_children" class="source">
     <pre><code>def has_two_children(self) -> bool:
-    """Returns True if self has exactly two children."""
+    """Returns `True` if self has exactly two children. `False` otherwise."""
     return self.left and self.right
 </code></pre>
   </div>
@@ -1375,8 +1386,8 @@ which can of course be <code>None</code>.</p></div>
   
     <div class="desc"><p>Returns the uncle node of this node.
 The uncle is the sibling of the parent of this node,
-if it exists. None is returned if it doesn't exist,
-or the parent or grandparent of this node is None.</p></div>
+if it exists. <code>None</code> is returned if it doesn't exist,
+or the parent or grandparent of this node is <code>None</code>.</p></div>
   <div class="source_cont">
 </div>
 
