@@ -12,16 +12,24 @@ This project was created for _personal use_ mostly while studying for an _exam_ 
 
 I discourage every beginner from copying **shamelessly** the source code, but instead you should definitely give a chance to your brain and sense of challenge first! At the end, you will definetely feel a better and more serious programmer! If you really do not have any ideas on how to do something, try to read the comments next to each function and/or class that you are interested in. They are there for reason!
 
-Note that this is a **work in progress** project, and there might be some mistakes. A few decent tests are starting to being done for all data structures and algorithms. You can find them under the folder [`tests`](tests). 
-
-Anyway, this respository only contains data structures and algorithms whose implementation can be considered complete (i.e. more details can be added, but the basic behaviour is implemented). I have also other semi-implemented data structures and algorithms that I will include once I finish implementing them.
-
 Any suggestions to improve the code, or the design of an algorithm or data structure, or corrections are of course well accepted, and therefore I encoure you to _fork_ this repository and eventually send a _pull request_.
 
 ## Structure
 
 In this repository, you will find data structures, such as _binary-search trees_ or _graphs_, and _algorithms_ that often work on (those) data structures. 
 You will also find some algorithms related to some particular _design paradigm_, for example algorithms related to the _greedy_ or _dynamic programming_ design paradigms.
+
+## Notes and Warnings
+
+- This is a **work in progress**, don't expect to find here all the data structures and algorithms you're searching. Consider to contribute to the quality and size of the project.
+
+- Again, mistakes are possible (even if decent tests are starting to being done). You can find them under the folder [`tests`](tests).So, as the [license](LICENSE.md) says, this project is provided "as is", etc.
+
+- No optimisation has been done to any algorithm or data structure. The purpose of the implementations is just for demonstration.
+
+- This repository only contains **usable** (therefore complete) data structures and algorithms, that is, more details can be added, but the basic behaviour is implemented. If a bug is found in a data structure or algorithm, the respective data structure or algorithm is removed (temporarily) until it's fixed.
+
+- My intent is to continue to contribute to this repository in my free time, and new data structures and algorithms will therefore be added. I have also other semi-implemented data structures and algorithms that I will include once I finish implementing them.
 
 
 ## How to use?
@@ -90,24 +98,3 @@ The main references that I have used are:
 ## TODO
 
 See `README.md` files of subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds).
-
-
-## Future
-
-I would like to create a simple simulation of two kinds of networks: one that uses the link-state routing protocol and the other that uses the distance-vector routing protocol.
-
-
-### Tools
-There's a program called "yEd" which allows us to create "visual" graphs (among other similar things) using a drag-and-drop approach, which can definitely be useful if you want to visualite a graph.
-
-It would also be nice to have a program, which generates random graphs, in order to tests the functions more randomly, instead of using similar graphs every time.
-
-This  random generator of graphs should provide
-at least the following options and functionalities:
-
-1. Specify if the graph is directed or undirected
-2. Specify the the edges are weighted or unweighted
-3. Specify the maximum and minimum number of outgoing and incoming edges.
-5. Specify the maximum and minimum number of vertices in the graph
-6. Specifying if the graph can be disconnected
-7. ...
