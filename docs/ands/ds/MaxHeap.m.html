@@ -3,14 +3,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands.ds.MinPriorityQueue API documentation</title>
+    <title>ands.ds.MaxHeap API documentation</title>
     <meta name="description" content="Author: Nelson Brochado
 
-Creation: July, 2015
+Creation: 15/02/16
 
-Last update: 05/02/16
+Last update: 15/02/16
 
-Contains an implementation of ..." />
+Mirror-class to the MinHeap clas..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -980,37 +980,32 @@ table {
     <li class="set"><h3><a href="#header-classes">Classes</a></h3>
       <ul>
         <li class="mono">
-        <span class="class_name"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue">MinPriorityQueue</a></span>
+        <span class="class_name"><a href="#ands.ds.MaxHeap.MaxHeap">MaxHeap</a></span>
         
           
   <ul>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.__init__">__init__</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.add">add</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.change_priority">change_priority</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.clear">clear</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.contains">contains</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.contains_element">contains_element</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.extract_min">extract_min</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.find_min">find_min</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.get">get</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.get_left_child_index">get_left_child_index</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.get_parent_index">get_parent_index</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.get_right_child_index">get_right_child_index</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.insert_with_priority">insert_with_priority</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_empty">is_empty</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_good_index">is_good_index</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.merge">merge</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.peek">peek</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.push_down">push_down</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.push_up">push_up</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.remove">remove</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.remove_min">remove_min</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.replace">replace</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.search">search</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.search_by_value">search_by_value</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.show">show</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.size">size</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.swap">swap</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.__init__">__init__</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.add">add</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.clear">clear</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.contains">contains</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.find_max">find_max</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.get">get</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.get_left_child_index">get_left_child_index</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.get_parent_index">get_parent_index</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.get_right_child_index">get_right_child_index</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_empty">is_empty</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_good_index">is_good_index</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.merge">merge</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.push_down">push_down</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.push_up">push_up</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.remove">remove</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.remove_max">remove_max</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.replace">replace</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.search">search</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.search_by_value">search_by_value</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.show">show</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.size">size</a></li>
+    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.swap">swap</a></li>
   </ul>
 
         </li>
@@ -1028,167 +1023,217 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands.ds.MinPriorityQueue</span> module</h1>
+  <h1 class="title"><span class="name">ands.ds.MaxHeap</span> module</h1>
   <p>Author: Nelson Brochado</p>
-<p>Creation: July, 2015</p>
-<p>Last update: 05/02/16</p>
-<p>Contains an implementation of a min priority queue using a min heap.</p>
+<p>Creation: 15/02/16</p>
+<p>Last update: 15/02/16</p>
+<p>Mirror-class to the MinHeap class.</p>
   
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
 Author: Nelson Brochado
 
-Creation: July, 2015
+Creation: 15/02/16
 
-Last update: 05/02/16
+Last update: 15/02/16
 
-Contains an implementation of a min priority queue using a min heap.
+Mirror-class to the MinHeap class.
 """
 
-import sys
-from ands.ds.MinHeap import MinHeap
+from ands.ds.Heap import Heap
 from ands.ds.HeapNode import HeapNode
 
 
-__all__ = ["MinPriorityQueue"]
+__all__ = ["MaxHeap"]
 
 
-class MinPriorityQueue(MinHeap):
-    """Typical minimum priority queue,
-    where smaller numbers for priorities represent higher priorities."""
+class MaxHeap(Heap):
 
     def __init__(self, ls=[]):
-        """If ls is provided, it should be a list of tuples.
-        Each of these tuples contains 2 items.
-        The first item of the tuple is the element's name or value,
-        the second item of the tuple is the priority of that same element.
-        A smaller number means a higher priority.
-        """
-        MinHeap.__init__(self, ls)
+        Heap.__init__(self, ls)
+        self._build_heap()
 
-    def insert_with_priority(self, element, priority=sys.maxsize):
-        """Adds an element to this min priority queue.
+    def _build_heap(self):
+        """Creates a max-heap using the list passed to the constructor.
 
-        You can specify the priority of the element
-        by assigning a value to "priority".
+        Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.
 
-        Note that the value assigned to priority
-        should be an object that overrides functions
-        such as __lt__, __gt__, __le__, __ge__,
-        __eq__, __ne__, in other words, it should be a comparable object.
+        **Time Complexity:** O(n)."""
+        if self.heap:
+            for index in range(len(self.heap) // 2, -1, -1):
+                self.push_down(index)
+        return self.heap
 
-        Note that all the priorities of all elements in self
-        should be of the same type, in order to be able to compare them.
+    def push_down(self, i: int):
+        """'Max-heapify' this max-heap starting from index `i`.
 
-        If element is an HeapNode, the priority argument's value is ignored,
-        and the priority of the element (HeapNode) is used.
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        max_index = i
+        left_index = MaxHeap.get_left_child_index(self.heap, i)
+        right_index = MaxHeap.get_right_child_index(self.heap, i)
 
-        :type element : object
-        :type priority : object"""
-        if not isinstance(element, HeapNode):
-            self.add(HeapNode(key=priority, value=element))
-        else:
-            self.add(element)
+        if left_index and self.heap[left_index] > self.heap[max_index]:
+            max_index = left_index
 
-    def extract_min(self, priority=False, heap_node=False):
-        """Removes and returns the element with highest priority to exit from the queue.
+        if right_index and self.heap[right_index] > self.heap[max_index]:
+            max_index = right_index
 
-        Since this is a MinPriorityQueue,
-        note that if A has an higher priority than B,
-        then A.priority is less than B.priority,
-        even if it could seem a little bit counter-intuitive.
+        if max_index != i:
+            MaxHeap.swap(self.heap, max_index, i)
+            self.push_down(max_index)
 
-        If priority is set to True, a tuple is returned;
-        the first item of this tuple is the initial added element
-        and the second item is the priority of the element,
-        that is the tuple would be (element_with_highest_priority, priority).
+        return max_index
 
-        If heap_node is set to True,
-        the HeapNode object representing the element is returned.
-        You can also obtain the priority of this element through the HeapNode object,
-        by getting its key field.
+    def push_up(self, i: int):
+        """Pushes up the node at index `i`.
 
-        If priority and heap_node are set both to False,
-        only the element that was initial added (without the priority) is returned.
+        Note that this operation only happens
+        if the node at index `i` is greater than its parent.
 
-        If self is empty, None is returned.
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        c = i  # current index
+        p = MaxHeap.get_parent_index(self.heap, i)
 
-        **Time Complexity**: O(log<sub>2</sub>(n)).
+        if p is not None and self.heap[c] > self.heap[p]:
+            c = p
 
-        :rtype : object"""
-        min_heap_node = self.remove_min()
-        if min_heap_node is not None:
-            if priority:
-                return min_heap_node.value, min_heap_node.key
-            if not priority and not heap_node:
-                return min_heap_node.value
-            if heap_node:
-                return min_heap_node
+        if c != i:
+            MaxHeap.swap(self.heap, c, i)
+            self.push_up(c)
+            
+    def add(self, x):
+        """Adds a `x` to this max-heap.
 
-    def peek(self, priority=False):
-        """Returns (without removing) the element with highest priority.
-
-        Note that if A has an higher priority than B,
-        then A.priority is less than B.priority,
-        even if it is a little bit counter-intuitive.
-
-        If priority is set to True,
-        a tuple of the form (element, priority) is returned,
-        otherwise only element is returned,
-        where element is the element in self with highest priority.
-
-        Time complexity: O(1)."""
-        min_heap_node = self.find_min()
-        if min_heap_node is not None:
-            if priority:
-                return min_heap_node.value, min_heap_node.key
-            else:
-                return min_heap_node.value
-
-    def contains_element(self, element):
-        if self.search_by_value(element) != -1:
-            return True
-        return False
-
-    def change_priority(self, element, new_priority):
-        """Changes priority of an element inside self.
-
-        Note that if element is no more in self,
-        an ValueError will be raised explaining it.
-
-        Note that element should be of same type
-        as element when inserting_with_priority
-        and of the same type of the first item of each tuple
-        in the initial list (when creating a MinPriorityQueue).
-
-        Same thing can be said about new_priority.
-
-        Time complexity: O(n), because of the call to search_by_value.
-
-        :type element : object
-        :type new_priority : object"""
-        index_of_element = self.search_by_value(element)
-        if index_of_element == -1:
-            raise ValueError(str(element) + " not found.")
-        self.replace(index_of_element, HeapNode(key=new_priority, value=element))
-
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+         
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
     
-if __name__ == "__main__":
-    mpq = MinPriorityQueue(ls=[("12", "1"), ("14", "1"), ("28", "2"), ("6", "2"),
-                               ("18", "2"), ("7", "3"), ("10", "3")])
-    mpq.show()
-    mpq.insert_with_priority("2015", "2.0")
-    mpq.show()
-    a = mpq.extract_min()
-    print("Removed element with highest priority:", a)
-    print("Peeking...", mpq.peek())
-    mpq.show()
-    mpq.change_priority("18", "0")
-    mpq.show()
+        self.heap.append(x)
+        
+        if self.size() > 1:
+            self.push_up(self.size() - 1)
+
+    def find_max(self):
+        """Returns (without removing) the greatest element in this max-heap.
+
+        **Time Complexity:** O(1)."""
+        return self.heap[0] if not self.is_empty() else None
+
+    def remove_max(self):
+        """Removes and returns the greatest element in this max-heap.
+
+        **Time Complexity:** O(log<sub>2</sub> n),
+        if removing the last element of a list is a constant-time operation."""
+        if not self.is_empty():
+
+            MaxHeap.swap(self.heap, 0, self.size() - 1)
+            max_element = self.heap.pop()
+            
+            if not self.is_empty():
+                self.push_down(0)
+
+            return max_element
+
+    def search(self, x) -> int:
+        """Searches for `x` in this max-heap,
+        and if present, returns its index, otherwise returns -1.
+
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+ 
+        **Time Complexity:** O(n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+        for i, node in enumerate(self.heap):
+            if node == x:
+                return i
+        return -1
+
+    def search_by_value(self, val) -> int:
+        """Returns the index of the `HeapNode` object with `value=val`.
+        -1 is returned if no such a `HeapNode` object exists.
+
+        If `val` and the values in this max-heap are not comparable,
+        the behaviour of this method is undefined.
+
+        **Time Complexity:** O(n)."""
+        if val is None:
+            raise ValueError("val cannot be None.")    
+        for i, node in enumerate(self.heap):
+            if node.value == val:
+                return i
+        return -1
+    
+    def contains(self, x) -> bool:
+        """Returns True, if `x` is in this max-heap. `False` otherwise.
+
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+        
+        **Time Complexity:** O(n)."""
+        return self.search(x) != -1    
+
+    def merge(self, other: Heap) -> list:
+        """Merges this max-heap with the `other` max-heap.
+        
+        Returns the `list` object representing internally the new merged max-heap.
+
+        **Time Complexity:** O(n + m).
+
+        Time complexity analysis based on:
+        [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
+        self.heap += other.get()
+        return self._build_heap()
+
+    def replace(self, i: int, x):
+        """Replaces element at index `i` with `x`.
+
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, then a `HeapNode` object
+        first created to represent `x`.
+
+        1. If `x == self.heap[i]`,
+        then just replace `self.heap[i]` with `x`.
+
+        2. Else if `x > self.heap[i]`,
+        then push_up(index).
+
+        3. Else `x < self.heap[i]`,
+        then call `self.push_down(i)`.
+
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+        
+        MaxHeap.is_good_index(self.heap, i)
+
+        c = self.heap[i]
+        self.heap[i] = x
+
+        if x < c:
+            self.push_down(i)
+        elif x > c:
+            self.push_up(i)
+            
+        return c
 </code></pre>
   </div>
 
@@ -1200,132 +1245,195 @@ if __name__ == "__main__":
     <h2 class="section-title" id="header-classes">Classes</h2>
       
       <div class="item">
-      <p id="ands.ds.MinPriorityQueue.MinPriorityQueue" class="name">class <span class="ident">MinPriorityQueue</span></p>
+      <p id="ands.ds.MaxHeap.MaxHeap" class="name">class <span class="ident">MaxHeap</span></p>
       
   
-    <div class="desc"><p>Typical minimum priority queue,
-where smaller numbers for priorities represent higher priorities.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue" class="source">
-    <pre><code>class MinPriorityQueue(MinHeap):
-    """Typical minimum priority queue,
-    where smaller numbers for priorities represent higher priorities."""
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap" class="source">
+    <pre><code>class MaxHeap(Heap):
 
     def __init__(self, ls=[]):
-        """If ls is provided, it should be a list of tuples.
-        Each of these tuples contains 2 items.
-        The first item of the tuple is the element's name or value,
-        the second item of the tuple is the priority of that same element.
-        A smaller number means a higher priority.
-        """
-        MinHeap.__init__(self, ls)
+        Heap.__init__(self, ls)
+        self._build_heap()
 
-    def insert_with_priority(self, element, priority=sys.maxsize):
-        """Adds an element to this min priority queue.
+    def _build_heap(self):
+        """Creates a max-heap using the list passed to the constructor.
 
-        You can specify the priority of the element
-        by assigning a value to "priority".
+        Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.
 
-        Note that the value assigned to priority
-        should be an object that overrides functions
-        such as __lt__, __gt__, __le__, __ge__,
-        __eq__, __ne__, in other words, it should be a comparable object.
+        **Time Complexity:** O(n)."""
+        if self.heap:
+            for index in range(len(self.heap) // 2, -1, -1):
+                self.push_down(index)
+        return self.heap
 
-        Note that all the priorities of all elements in self
-        should be of the same type, in order to be able to compare them.
+    def push_down(self, i: int):
+        """'Max-heapify' this max-heap starting from index `i`.
 
-        If element is an HeapNode, the priority argument's value is ignored,
-        and the priority of the element (HeapNode) is used.
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        max_index = i
+        left_index = MaxHeap.get_left_child_index(self.heap, i)
+        right_index = MaxHeap.get_right_child_index(self.heap, i)
 
-        :type element : object
-        :type priority : object"""
-        if not isinstance(element, HeapNode):
-            self.add(HeapNode(key=priority, value=element))
-        else:
-            self.add(element)
+        if left_index and self.heap[left_index] > self.heap[max_index]:
+            max_index = left_index
 
-    def extract_min(self, priority=False, heap_node=False):
-        """Removes and returns the element with highest priority to exit from the queue.
+        if right_index and self.heap[right_index] > self.heap[max_index]:
+            max_index = right_index
 
-        Since this is a MinPriorityQueue,
-        note that if A has an higher priority than B,
-        then A.priority is less than B.priority,
-        even if it could seem a little bit counter-intuitive.
+        if max_index != i:
+            MaxHeap.swap(self.heap, max_index, i)
+            self.push_down(max_index)
 
-        If priority is set to True, a tuple is returned;
-        the first item of this tuple is the initial added element
-        and the second item is the priority of the element,
-        that is the tuple would be (element_with_highest_priority, priority).
+        return max_index
 
-        If heap_node is set to True,
-        the HeapNode object representing the element is returned.
-        You can also obtain the priority of this element through the HeapNode object,
-        by getting its key field.
+    def push_up(self, i: int):
+        """Pushes up the node at index `i`.
 
-        If priority and heap_node are set both to False,
-        only the element that was initial added (without the priority) is returned.
+        Note that this operation only happens
+        if the node at index `i` is greater than its parent.
 
-        If self is empty, None is returned.
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        c = i  # current index
+        p = MaxHeap.get_parent_index(self.heap, i)
 
-        **Time Complexity**: O(log<sub>2</sub>(n)).
+        if p is not None and self.heap[c] > self.heap[p]:
+            c = p
 
-        :rtype : object"""
-        min_heap_node = self.remove_min()
-        if min_heap_node is not None:
-            if priority:
-                return min_heap_node.value, min_heap_node.key
-            if not priority and not heap_node:
-                return min_heap_node.value
-            if heap_node:
-                return min_heap_node
+        if c != i:
+            MaxHeap.swap(self.heap, c, i)
+            self.push_up(c)
+            
+    def add(self, x):
+        """Adds a `x` to this max-heap.
 
-    def peek(self, priority=False):
-        """Returns (without removing) the element with highest priority.
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+         
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+    
+        self.heap.append(x)
+        
+        if self.size() > 1:
+            self.push_up(self.size() - 1)
 
-        Note that if A has an higher priority than B,
-        then A.priority is less than B.priority,
-        even if it is a little bit counter-intuitive.
+    def find_max(self):
+        """Returns (without removing) the greatest element in this max-heap.
 
-        If priority is set to True,
-        a tuple of the form (element, priority) is returned,
-        otherwise only element is returned,
-        where element is the element in self with highest priority.
+        **Time Complexity:** O(1)."""
+        return self.heap[0] if not self.is_empty() else None
 
-        Time complexity: O(1)."""
-        min_heap_node = self.find_min()
-        if min_heap_node is not None:
-            if priority:
-                return min_heap_node.value, min_heap_node.key
-            else:
-                return min_heap_node.value
+    def remove_max(self):
+        """Removes and returns the greatest element in this max-heap.
 
-    def contains_element(self, element):
-        if self.search_by_value(element) != -1:
-            return True
-        return False
+        **Time Complexity:** O(log<sub>2</sub> n),
+        if removing the last element of a list is a constant-time operation."""
+        if not self.is_empty():
 
-    def change_priority(self, element, new_priority):
-        """Changes priority of an element inside self.
+            MaxHeap.swap(self.heap, 0, self.size() - 1)
+            max_element = self.heap.pop()
+            
+            if not self.is_empty():
+                self.push_down(0)
 
-        Note that if element is no more in self,
-        an ValueError will be raised explaining it.
+            return max_element
 
-        Note that element should be of same type
-        as element when inserting_with_priority
-        and of the same type of the first item of each tuple
-        in the initial list (when creating a MinPriorityQueue).
+    def search(self, x) -> int:
+        """Searches for `x` in this max-heap,
+        and if present, returns its index, otherwise returns -1.
 
-        Same thing can be said about new_priority.
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+ 
+        **Time Complexity:** O(n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+        for i, node in enumerate(self.heap):
+            if node == x:
+                return i
+        return -1
 
-        Time complexity: O(n), because of the call to search_by_value.
+    def search_by_value(self, val) -> int:
+        """Returns the index of the `HeapNode` object with `value=val`.
+        -1 is returned if no such a `HeapNode` object exists.
 
-        :type element : object
-        :type new_priority : object"""
-        index_of_element = self.search_by_value(element)
-        if index_of_element == -1:
-            raise ValueError(str(element) + " not found.")
-        self.replace(index_of_element, HeapNode(key=new_priority, value=element))
+        If `val` and the values in this max-heap are not comparable,
+        the behaviour of this method is undefined.
+
+        **Time Complexity:** O(n)."""
+        if val is None:
+            raise ValueError("val cannot be None.")    
+        for i, node in enumerate(self.heap):
+            if node.value == val:
+                return i
+        return -1
+    
+    def contains(self, x) -> bool:
+        """Returns True, if `x` is in this max-heap. `False` otherwise.
+
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+        
+        **Time Complexity:** O(n)."""
+        return self.search(x) != -1    
+
+    def merge(self, other: Heap) -> list:
+        """Merges this max-heap with the `other` max-heap.
+        
+        Returns the `list` object representing internally the new merged max-heap.
+
+        **Time Complexity:** O(n + m).
+
+        Time complexity analysis based on:
+        [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
+        self.heap += other.get()
+        return self._build_heap()
+
+    def replace(self, i: int, x):
+        """Replaces element at index `i` with `x`.
+
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, then a `HeapNode` object
+        first created to represent `x`.
+
+        1. If `x == self.heap[i]`,
+        then just replace `self.heap[i]` with `x`.
+
+        2. Else if `x > self.heap[i]`,
+        then push_up(index).
+
+        3. Else `x < self.heap[i]`,
+        then call `self.push_down(i)`.
+
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+        
+        MaxHeap.is_good_index(self.heap, i)
+
+        c = self.heap[i]
+        self.heap[i] = x
+
+        if x < c:
+            self.push_down(i)
+        elif x > c:
+            self.push_up(i)
+            
+        return c
 </code></pre>
   </div>
 </div>
@@ -1334,14 +1442,13 @@ where smaller numbers for priorities represent higher priorities.</p></div>
       <div class="class">
           <h3>Ancestors (in MRO)</h3>
           <ul class="class_list">
-          <li><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue">MinPriorityQueue</a></li>
-          <li>ands.ds.MinHeap.MinHeap</li>
+          <li><a href="#ands.ds.MaxHeap.MaxHeap">MaxHeap</a></li>
           <li>ands.ds.Heap.Heap</li>
           <li>builtins.object</li>
           </ul>
           <h3>Class variables</h3>
             <div class="item">
-            <p id="ands.ds.MinPriorityQueue.MinPriorityQueue.NIE" class="name">var <span class="ident">NIE</span></p>
+            <p id="ands.ds.MaxHeap.MaxHeap.NIE" class="name">var <span class="ident">NIE</span></p>
             
 
             
@@ -1353,29 +1460,20 @@ where smaller numbers for priorities represent higher priorities.</p></div>
           <h3>Static methods</h3>
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.__init__">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.__init__">
     <p>def <span class="ident">__init__</span>(</p><p>self, ls=[])</p>
     </div>
     
 
     
   
-    <div class="desc"><p>If ls is provided, it should be a list of tuples.
-Each of these tuples contains 2 items.
-The first item of the tuple is the element's name or value,
-the second item of the tuple is the priority of that same element.
-A smaller number means a higher priority.</p></div>
+    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.__init__', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.__init__" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.__init__', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.__init__" class="source">
     <pre><code>def __init__(self, ls=[]):
-    """If ls is provided, it should be a list of tuples.
-    Each of these tuples contains 2 items.
-    The first item of the tuple is the element's name or value,
-    the second item of the tuple is the priority of that same element.
-    A smaller number means a higher priority.
-    """
-    MinHeap.__init__(self, ls)
+    Heap.__init__(self, ls)
+    self._build_heap()
 </code></pre>
   </div>
 </div>
@@ -1384,23 +1482,23 @@ A smaller number means a higher priority.</p></div>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.add">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.add">
     <p>def <span class="ident">add</span>(</p><p>self, x)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Adds a <code>x</code> to this min-heap.</p>
+    <div class="desc"><p>Adds a <code>x</code> to this max-heap.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.add', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.add" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.add', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.add" class="source">
     <pre><code>def add(self, x):
-    """Adds a `x` to this min-heap.
+    """Adds a `x` to this max-heap.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
     whose key and value are equal to `x`.
@@ -1424,52 +1522,7 @@ whose key and value are equal to <code>x</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.change_priority">
-    <p>def <span class="ident">change_priority</span>(</p><p>self, element, new_priority)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Changes priority of an element inside self.</p>
-<p>Note that if element is no more in self,
-an ValueError will be raised explaining it.</p>
-<p>Note that element should be of same type
-as element when inserting_with_priority
-and of the same type of the first item of each tuple
-in the initial list (when creating a MinPriorityQueue).</p>
-<p>Same thing can be said about new_priority.</p>
-<p>Time complexity: O(n), because of the call to search_by_value.</p>
-<p>:type element : object
-:type new_priority : object</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.change_priority', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.change_priority" class="source">
-    <pre><code>def change_priority(self, element, new_priority):
-    """Changes priority of an element inside self.
-    Note that if element is no more in self,
-    an ValueError will be raised explaining it.
-    Note that element should be of same type
-    as element when inserting_with_priority
-    and of the same type of the first item of each tuple
-    in the initial list (when creating a MinPriorityQueue).
-    Same thing can be said about new_priority.
-    Time complexity: O(n), because of the call to search_by_value.
-    :type element : object
-    :type new_priority : object"""
-    index_of_element = self.search_by_value(element)
-    if index_of_element == -1:
-        raise ValueError(str(element) + " not found.")
-    self.replace(index_of_element, HeapNode(key=new_priority, value=element))
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.clear">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.clear">
     <p>def <span class="ident">clear</span>(</p><p>self)</p>
     </div>
     
@@ -1481,8 +1534,8 @@ This mean that if you call <code>is_empty</code>,
 it will return <code>True</code>.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.clear', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.clear" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.clear', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.clear" class="source">
     <pre><code>def clear(self):
     """Clears all nodes from this heap.
     This mean that if you call `is_empty`,
@@ -1497,23 +1550,23 @@ it will return <code>True</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.contains">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.contains">
     <p>def <span class="ident">contains</span>(</p><p>self, x)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Returns True, if <code>x</code> is in this min-heap. <code>False</code> otherwise.</p>
+    <div class="desc"><p>Returns True, if <code>x</code> is in this max-heap. <code>False</code> otherwise.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.</p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.contains', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.contains" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.contains', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.contains" class="source">
     <pre><code>def contains(self, x) -> bool:
-    """Returns True, if `x` is in this min-heap. `False` otherwise.
+    """Returns True, if `x` is in this max-heap. `False` otherwise.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
     whose key and value are equal to `x`.
@@ -1528,105 +1581,20 @@ whose key and value are equal to <code>x</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.contains_element">
-    <p>def <span class="ident">contains_element</span>(</p><p>self, element)</p>
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.find_max">
+    <p>def <span class="ident">find_max</span>(</p><p>self)</p>
     </div>
     
 
     
   
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.contains_element', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.contains_element" class="source">
-    <pre><code>def contains_element(self, element):
-    if self.search_by_value(element) != -1:
-        return True
-    return False
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.extract_min">
-    <p>def <span class="ident">extract_min</span>(</p><p>self, priority=False, heap_node=False)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Removes and returns the element with highest priority to exit from the queue.</p>
-<p>Since this is a MinPriorityQueue,
-note that if A has an higher priority than B,
-then A.priority is less than B.priority,
-even if it could seem a little bit counter-intuitive.</p>
-<p>If priority is set to True, a tuple is returned;
-the first item of this tuple is the initial added element
-and the second item is the priority of the element,
-that is the tuple would be (element_with_highest_priority, priority).</p>
-<p>If heap_node is set to True,
-the HeapNode object representing the element is returned.
-You can also obtain the priority of this element through the HeapNode object,
-by getting its key field.</p>
-<p>If priority and heap_node are set both to False,
-only the element that was initial added (without the priority) is returned.</p>
-<p>If self is empty, None is returned.</p>
-<p><strong>Time Complexity</strong>: O(log<sub>2</sub>(n)).</p>
-<p>:rtype : object</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.extract_min', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.extract_min" class="source">
-    <pre><code>def extract_min(self, priority=False, heap_node=False):
-    """Removes and returns the element with highest priority to exit from the queue.
-    Since this is a MinPriorityQueue,
-    note that if A has an higher priority than B,
-    then A.priority is less than B.priority,
-    even if it could seem a little bit counter-intuitive.
-    If priority is set to True, a tuple is returned;
-    the first item of this tuple is the initial added element
-    and the second item is the priority of the element,
-    that is the tuple would be (element_with_highest_priority, priority).
-    If heap_node is set to True,
-    the HeapNode object representing the element is returned.
-    You can also obtain the priority of this element through the HeapNode object,
-    by getting its key field.
-    If priority and heap_node are set both to False,
-    only the element that was initial added (without the priority) is returned.
-    If self is empty, None is returned.
-    **Time Complexity**: O(log<sub>2</sub>(n)).
-    :rtype : object"""
-    min_heap_node = self.remove_min()
-    if min_heap_node is not None:
-        if priority:
-            return min_heap_node.value, min_heap_node.key
-        if not priority and not heap_node:
-            return min_heap_node.value
-        if heap_node:
-            return min_heap_node
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.find_min">
-    <p>def <span class="ident">find_min</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Returns (without removing) the smallest element in this min-heap.</p>
+    <div class="desc"><p>Returns (without removing) the greatest element in this max-heap.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.find_min', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.find_min" class="source">
-    <pre><code>def find_min(self):
-    """Returns (without removing) the smallest element in this min-heap.
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.find_max', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.find_max" class="source">
+    <pre><code>def find_max(self):
+    """Returns (without removing) the greatest element in this max-heap.
     **Time Complexity:** O(1)."""
     return self.heap[0] if not self.is_empty() else None
 </code></pre>
@@ -1637,7 +1605,7 @@ only the element that was initial added (without the priority) is returned.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.get">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.get">
     <p>def <span class="ident">get</span>(</p><p>self)</p>
     </div>
     
@@ -1647,8 +1615,8 @@ only the element that was initial added (without the priority) is returned.</p>
     <div class="desc"><p>Returns the list representing internally the heap.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.get', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.get" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.get', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.get" class="source">
     <pre><code>def get(self):
     """Returns the list representing internally the heap.
     **Time Complexity:** O(1)."""
@@ -1661,7 +1629,7 @@ only the element that was initial added (without the priority) is returned.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.get_left_child_index">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.get_left_child_index">
     <p>def <span class="ident">get_left_child_index</span>(</p><p>ls, i)</p>
     </div>
     
@@ -1673,8 +1641,8 @@ Otherwise this function returns <code>None</code>.
 If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_left_child_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_left_child_index" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.get_left_child_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.get_left_child_index" class="source">
     <pre><code>@staticmethod
 def get_left_child_index(ls: list, i: int):
     """Returns the left child of the node at index `i`, if it exists.
@@ -1695,7 +1663,7 @@ def get_left_child_index(ls: list, i: int):
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.get_parent_index">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.get_parent_index">
     <p>def <span class="ident">get_parent_index</span>(</p><p>ls, i)</p>
     </div>
     
@@ -1707,8 +1675,8 @@ If <code>i = 0</code>, then <code>None</code> is returned, because the root has 
 If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_parent_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_parent_index" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.get_parent_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.get_parent_index" class="source">
     <pre><code>@staticmethod
 def get_parent_index(ls: list, i: int):
     """Returns the parent's position of the node at index `i`.
@@ -1728,7 +1696,7 @@ def get_parent_index(ls: list, i: int):
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.get_right_child_index">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.get_right_child_index">
     <p>def <span class="ident">get_right_child_index</span>(</p><p>ls, i)</p>
     </div>
     
@@ -1740,8 +1708,8 @@ Otherwise this function returns <code>None</code>.
 If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_right_child_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_right_child_index" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.get_right_child_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.get_right_child_index" class="source">
     <pre><code>@staticmethod
 def get_right_child_index(ls: list, i: int):
     """Returns the right child of the node at index `i`, if it exists.
@@ -1762,56 +1730,7 @@ def get_right_child_index(ls: list, i: int):
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.insert_with_priority">
-    <p>def <span class="ident">insert_with_priority</span>(</p><p>self, element, priority=9223372036854775807)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Adds an element to this min priority queue.</p>
-<p>You can specify the priority of the element
-by assigning a value to "priority".</p>
-<p>Note that the value assigned to priority
-should be an object that overrides functions
-such as <strong>lt</strong>, <strong>gt</strong>, <strong>le</strong>, <strong>ge</strong>,
-<strong>eq</strong>, <strong>ne</strong>, in other words, it should be a comparable object.</p>
-<p>Note that all the priorities of all elements in self
-should be of the same type, in order to be able to compare them.</p>
-<p>If element is an HeapNode, the priority argument's value is ignored,
-and the priority of the element (HeapNode) is used.</p>
-<p>:type element : object
-:type priority : object</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.insert_with_priority', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.insert_with_priority" class="source">
-    <pre><code>def insert_with_priority(self, element, priority=sys.maxsize):
-    """Adds an element to this min priority queue.
-    You can specify the priority of the element
-    by assigning a value to "priority".
-    Note that the value assigned to priority
-    should be an object that overrides functions
-    such as __lt__, __gt__, __le__, __ge__,
-    __eq__, __ne__, in other words, it should be a comparable object.
-    Note that all the priorities of all elements in self
-    should be of the same type, in order to be able to compare them.
-    If element is an HeapNode, the priority argument's value is ignored,
-    and the priority of the element (HeapNode) is used.
-    :type element : object
-    :type priority : object"""
-    if not isinstance(element, HeapNode):
-        self.add(HeapNode(key=priority, value=element))
-    else:
-        self.add(element)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_empty">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_empty">
     <p>def <span class="ident">is_empty</span>(</p><p>self)</p>
     </div>
     
@@ -1821,8 +1740,8 @@ and the priority of the element (HeapNode) is used.</p>
     <div class="desc"><p>Returns <code>True</code> if this heap is empty.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_empty', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_empty" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_empty', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.is_empty" class="source">
     <pre><code>def is_empty(self):
     """Returns `True` if this heap is empty.
     **Time Complexity:** O(1)."""
@@ -1835,7 +1754,7 @@ and the priority of the element (HeapNode) is used.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_good_index">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_good_index">
     <p>def <span class="ident">is_good_index</span>(</p><p>ls, i, raise_error=True)</p>
     </div>
     
@@ -1847,8 +1766,8 @@ and the priority of the element (HeapNode) is used.</p>
 If <code>raise_error</code> is set to <code>False</code>, then a <code>bool</code> value is returned.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_good_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_good_index" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_good_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.is_good_index" class="source">
     <pre><code>@staticmethod
 def is_good_index(ls: list, i: int, raise_error=True):
     """Checks if `i` is valid index for `ls`.
@@ -1869,25 +1788,25 @@ def is_good_index(ls: list, i: int, raise_error=True):
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.merge">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.merge">
     <p>def <span class="ident">merge</span>(</p><p>self, other)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Merges this min-heap with the <code>other</code> heap.</p>
-<p>Returns the <code>list</code> object representing internally the new merged min-heap.</p>
+    <div class="desc"><p>Merges this max-heap with the <code>other</code> max-heap.</p>
+<p>Returns the <code>list</code> object representing internally the new merged max-heap.</p>
 <p><strong>Time Complexity:</strong> O(n + m).</p>
 <p>Time complexity analysis based on:
 <a href="http://stackoverflow.com/a/29197855/3924118">http://stackoverflow.com/a/29197855/3924118</a>.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.merge', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.merge" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.merge', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.merge" class="source">
     <pre><code>def merge(self, other: Heap) -> list:
-    """Merges this min-heap with the `other` heap.
+    """Merges this max-heap with the `other` max-heap.
     
-    Returns the `list` object representing internally the new merged min-heap.
+    Returns the `list` object representing internally the new merged max-heap.
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
     [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
@@ -1901,77 +1820,32 @@ def is_good_index(ls: list, i: int, raise_error=True):
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.peek">
-    <p>def <span class="ident">peek</span>(</p><p>self, priority=False)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Returns (without removing) the element with highest priority.</p>
-<p>Note that if A has an higher priority than B,
-then A.priority is less than B.priority,
-even if it is a little bit counter-intuitive.</p>
-<p>If priority is set to True,
-a tuple of the form (element, priority) is returned,
-otherwise only element is returned,
-where element is the element in self with highest priority.</p>
-<p>Time complexity: O(1).</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.peek', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.peek" class="source">
-    <pre><code>def peek(self, priority=False):
-    """Returns (without removing) the element with highest priority.
-    Note that if A has an higher priority than B,
-    then A.priority is less than B.priority,
-    even if it is a little bit counter-intuitive.
-    If priority is set to True,
-    a tuple of the form (element, priority) is returned,
-    otherwise only element is returned,
-    where element is the element in self with highest priority.
-    Time complexity: O(1)."""
-    min_heap_node = self.find_min()
-    if min_heap_node is not None:
-        if priority:
-            return min_heap_node.value, min_heap_node.key
-        else:
-            return min_heap_node.value
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.push_down">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.push_down">
     <p>def <span class="ident">push_down</span>(</p><p>self, i)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>'Min-heapify' this min-heap starting from index <code>i</code>.</p>
+    <div class="desc"><p>'Max-heapify' this max-heap starting from index <code>i</code>.</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.push_down', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.push_down" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.push_down', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.push_down" class="source">
     <pre><code>def push_down(self, i: int):
-    """'Min-heapify' this min-heap starting from index `i`.
+    """'Max-heapify' this max-heap starting from index `i`.
     **Time Complexity:** O(log<sub>2</sub> n)."""
-    min_index = i
-    left_index = MinHeap.get_left_child_index(self.heap, i)
-    right_index = MinHeap.get_right_child_index(self.heap, i)
-    if left_index and self.heap[left_index] < self.heap[min_index]:
-        min_index = left_index
-    if right_index and self.heap[right_index] < self.heap[min_index]:
-        min_index = right_index
-    # One of the children of ls[i] was smaller than ls[i],
-    # and we need to swap ls[i] with its smallest child ls[m].
-    if min_index != i:
-        MinHeap.swap(self.heap, min_index, i)
-        self.push_down(min_index)
-    return min_index
+    max_index = i
+    left_index = MaxHeap.get_left_child_index(self.heap, i)
+    right_index = MaxHeap.get_right_child_index(self.heap, i)
+    if left_index and self.heap[left_index] > self.heap[max_index]:
+        max_index = left_index
+    if right_index and self.heap[right_index] > self.heap[max_index]:
+        max_index = right_index
+    if max_index != i:
+        MaxHeap.swap(self.heap, max_index, i)
+        self.push_down(max_index)
+    return max_index
 </code></pre>
   </div>
 </div>
@@ -1980,7 +1854,7 @@ where element is the element in self with highest priority.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.push_up">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.push_up">
     <p>def <span class="ident">push_up</span>(</p><p>self, i)</p>
     </div>
     
@@ -1989,29 +1863,22 @@ where element is the element in self with highest priority.</p>
   
     <div class="desc"><p>Pushes up the node at index <code>i</code>.</p>
 <p>Note that this operation only happens
-if the node at index <code>i</code> is smaller than its parent.</p>
-<p>This function is simpler than <code>push_down</code> (or also called min-heapify),
-because in this case we just need to compare
-the current node's index with its parent's index.</p>
+if the node at index <code>i</code> is greater than its parent.</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.push_up', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.push_up" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.push_up', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.push_up" class="source">
     <pre><code>def push_up(self, i: int):
     """Pushes up the node at index `i`.
     Note that this operation only happens
-    if the node at index `i` is smaller than its parent.
-    This function is simpler than `push_down` (or also called min-heapify),
-    because in this case we just need to compare
-    the current node's index with its parent's index.
+    if the node at index `i` is greater than its parent.
     **Time Complexity:** O(log<sub>2</sub> n)."""
     c = i  # current index
-    p = MinHeap.get_parent_index(self.heap, i)
-    # p could be 0, so we evaluate against not None.
-    if p is not None and self.heap[c] < self.heap[p]:
+    p = MaxHeap.get_parent_index(self.heap, i)
+    if p is not None and self.heap[c] > self.heap[p]:
         c = p
     if c != i:
-        MinHeap.swap(self.heap, c, i)
+        MaxHeap.swap(self.heap, c, i)
         self.push_up(c)
 </code></pre>
   </div>
@@ -2021,7 +1888,7 @@ the current node's index with its parent's index.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.remove">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.remove">
     <p>def <span class="ident">remove</span>(</p><p>self, i)</p>
     </div>
     
@@ -2030,8 +1897,8 @@ the current node's index with its parent's index.</p>
   
     <div class="desc"><p>Removes the <code>HeapNode</code> object at index <code>i</code>.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.remove', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.remove" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.remove', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.remove" class="source">
     <pre><code>def remove(self, i: int) -> HeapNode:
     """Removes the `HeapNode` object at index `i`. """
     raise NotImplementedError("'remove'" + Heap.NIE)
@@ -2043,30 +1910,30 @@ the current node's index with its parent's index.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.remove_min">
-    <p>def <span class="ident">remove_min</span>(</p><p>self)</p>
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.remove_max">
+    <p>def <span class="ident">remove_max</span>(</p><p>self)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Removes and returns the smallest element in this heap.</p>
+    <div class="desc"><p>Removes and returns the greatest element in this max-heap.</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n),
 if removing the last element of a list is a constant-time operation.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.remove_min', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.remove_min" class="source">
-    <pre><code>def remove_min(self):
-    """Removes and returns the smallest element in this heap.
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.remove_max', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.remove_max" class="source">
+    <pre><code>def remove_max(self):
+    """Removes and returns the greatest element in this max-heap.
     **Time Complexity:** O(log<sub>2</sub> n),
     if removing the last element of a list is a constant-time operation."""
     if not self.is_empty():
-        MinHeap.swap(self.heap, 0, self.size() - 1)
-        min_element = self.heap.pop()
+        MaxHeap.swap(self.heap, 0, self.size() - 1)
+        max_element = self.heap.pop()
         
         if not self.is_empty():
             self.push_down(0)
-        return min_element
+        return max_element
 </code></pre>
   </div>
 </div>
@@ -2075,7 +1942,7 @@ if removing the last element of a list is a constant-time operation.</p></div>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.replace">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.replace">
     <p>def <span class="ident">replace</span>(</p><p>self, i, x)</p>
     </div>
     
@@ -2092,18 +1959,18 @@ first created to represent <code>x</code>.</p>
 then just replace <code>self.heap[i]</code> with <code>x</code>.</p>
 </li>
 <li>
-<p>Else if <code>x &lt; self.heap[i]</code>,
+<p>Else if <code>x &gt; self.heap[i]</code>,
 then push_up(index).</p>
 </li>
 <li>
-<p>Else <code>x &gt; self.heap[i]</code>,
+<p>Else <code>x &lt; self.heap[i]</code>,
 then call <code>self.push_down(i)</code>.</p>
 </li>
 </ol>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.replace', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.replace" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.replace', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.replace" class="source">
     <pre><code>def replace(self, i: int, x):
     """Replaces element at index `i` with `x`.
     `x` can either be a key or a `HeapNode` object.
@@ -2111,9 +1978,9 @@ then call <code>self.push_down(i)</code>.</p>
     first created to represent `x`.
     1. If `x == self.heap[i]`,
     then just replace `self.heap[i]` with `x`.
-    2. Else if `x < self.heap[i]`,
+    2. Else if `x > self.heap[i]`,
     then push_up(index).
-    3. Else `x > self.heap[i]`,
+    3. Else `x < self.heap[i]`,
     then call `self.push_down(i)`.
     **Time Complexity:** O(log<sub>2</sub> n)."""
     if x is None:
@@ -2122,12 +1989,12 @@ then call <code>self.push_down(i)</code>.</p>
     if not isinstance(x, HeapNode):
         x = HeapNode(x)
     
-    MinHeap.is_good_index(self.heap, i)
+    MaxHeap.is_good_index(self.heap, i)
     c = self.heap[i]
     self.heap[i] = x
-    if x > c:
+    if x < c:
         self.push_down(i)
-    elif x < c:
+    elif x > c:
         self.push_up(i)
         
     return c
@@ -2139,24 +2006,24 @@ then call <code>self.push_down(i)</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.search">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.search">
     <p>def <span class="ident">search</span>(</p><p>self, x)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Searches for <code>x</code> in this min-heap,
+    <div class="desc"><p>Searches for <code>x</code> in this max-heap,
 and if present, returns its index, otherwise returns -1.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.</p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.search', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.search" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.search', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.search" class="source">
     <pre><code>def search(self, x) -> int:
-    """Searches for `x` in this min-heap,
+    """Searches for `x` in this max-heap,
     and if present, returns its index, otherwise returns -1.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
@@ -2166,7 +2033,6 @@ whose key and value are equal to <code>x</code>.</p>
         raise ValueError("x cannot be None.")
     if not isinstance(x, HeapNode):
         x = HeapNode(x)
-        
     for i, node in enumerate(self.heap):
         if node == x:
             return i
@@ -2179,7 +2045,7 @@ whose key and value are equal to <code>x</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.search_by_value">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.search_by_value">
     <p>def <span class="ident">search_by_value</span>(</p><p>self, val)</p>
     </div>
     
@@ -2188,16 +2054,16 @@ whose key and value are equal to <code>x</code>.</p>
   
     <div class="desc"><p>Returns the index of the <code>HeapNode</code> object with <code>value=val</code>.
 -1 is returned if no such a <code>HeapNode</code> object exists.</p>
-<p>If <code>val</code> and the values in this min-heap are not comparable,
+<p>If <code>val</code> and the values in this max-heap are not comparable,
 the behaviour of this method is undefined.</p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.search_by_value', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.search_by_value" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.search_by_value', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.search_by_value" class="source">
     <pre><code>def search_by_value(self, val) -> int:
     """Returns the index of the `HeapNode` object with `value=val`.
     -1 is returned if no such a `HeapNode` object exists.
-    If `val` and the values in this min-heap are not comparable,
+    If `val` and the values in this max-heap are not comparable,
     the behaviour of this method is undefined.
     **Time Complexity:** O(n)."""
     if val is None:
@@ -2214,7 +2080,7 @@ the behaviour of this method is undefined.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.show">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.show">
     <p>def <span class="ident">show</span>(</p><p>self, total_width=36, fill=&#39; &#39;)</p>
     </div>
     
@@ -2232,8 +2098,8 @@ you can simply change the line_length variable.</p>
 <p>Adapted for Python 3 from:
 <a href="http://pymotw.com/2/heapq/">http://pymotw.com/2/heapq/</a>.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.show', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.show" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.show', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.show" class="source">
     <pre><code>def show(self, total_width=36, fill=" "):
     """Pretty-prints this heap.
     To increase/decrease the horizontal space between nodes,
@@ -2276,7 +2142,7 @@ you can simply change the line_length variable.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.size">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.size">
     <p>def <span class="ident">size</span>(</p><p>self)</p>
     </div>
     
@@ -2286,8 +2152,8 @@ you can simply change the line_length variable.</p>
     <div class="desc"><p>Returns the size of this heaps.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.size', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.size" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.size', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.size" class="source">
     <pre><code>def size(self):
     """Returns the size of this heaps.
     **Time Complexity:** O(1)."""
@@ -2300,7 +2166,7 @@ you can simply change the line_length variable.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.swap">
+    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.swap">
     <p>def <span class="ident">swap</span>(</p><p>ls, i, j)</p>
     </div>
     
@@ -2312,8 +2178,8 @@ if they are valid indexes,
 otherwise an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.swap', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.swap" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.swap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MaxHeap.MaxHeap.swap" class="source">
     <pre><code>@staticmethod
 def swap(ls: list, i: int, j: int):
     """Swaps elements at indexes `i` and `j`,

@@ -10,7 +10,7 @@ Creation: July, 2015
 
 Last update: 15/02/16
 
-A binary min heap is a data st..." />
+A binary min-heap is a data st..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -1027,13 +1027,13 @@ table {
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
 <p>Last update: 15/02/16</p>
-<p>A binary min heap is a data structure similar to a binary tree,
+<p>A binary min-heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.</p>
-<p>In addition to the previous constraint, a binary min heap is a complete binary tree,
+<p>In addition to the previous constraint, a binary min-heap is a complete binary tree,
 that is, all levels of the tree, except possibly the deepest one are fully filled,
 and, if the last level of the tree is not complete,
 the nodes of that level are filled from left to right.</p>
-<p>A min heap can be implemented with a classic array or list in Python.</p>
+<p>A min-heap can be implemented with a classic array or list in Python.</p>
 <p>If we have a node at index i, then</p>
 <ul>
 <li>
@@ -1061,15 +1061,15 @@ Creation: July, 2015
 
 Last update: 15/02/16
 
-A binary min heap is a data structure similar to a binary tree,
+A binary min-heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.
 
-In addition to the previous constraint, a binary min heap is a complete binary tree,
+In addition to the previous constraint, a binary min-heap is a complete binary tree,
 that is, all levels of the tree, except possibly the deepest one are fully filled,
 and, if the last level of the tree is not complete,
 the nodes of that level are filled from left to right.
 
-A min heap can be implemented with a classic array or list in Python.
+A min-heap can be implemented with a classic array or list in Python.
 
 If we have a node at index i, then
 
@@ -1097,7 +1097,7 @@ class MinHeap(Heap):
         self._build_heap()
 
     def _build_heap(self):
-        """Creates a min heap using the list passed to the constructor.
+        """Creates a min-heap using the list passed to the constructor.
 
         Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.
 
@@ -1135,7 +1135,7 @@ class MinHeap(Heap):
         Note that this operation only happens
         if the node at index `i` is smaller than its parent.
 
-        This function is simpler than `push_down` (or also called heapify),
+        This function is simpler than `push_down` (or also called min-heapify),
         because in this case we just need to compare
         the current node's index with its parent's index.
 
@@ -1152,7 +1152,7 @@ class MinHeap(Heap):
             self.push_up(c)
             
     def add(self, x):
-        """Adds a `x` to this heap.
+        """Adds a `x` to this min-heap.
 
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
@@ -1171,7 +1171,7 @@ class MinHeap(Heap):
             self.push_up(self.size() - 1)
 
     def find_min(self):
-        """Returns (without removing) the smallest element in the heap.
+        """Returns (without removing) the smallest element in this min-heap.
 
         **Time Complexity:** O(1)."""
         return self.heap[0] if not self.is_empty() else None
@@ -1192,7 +1192,7 @@ class MinHeap(Heap):
             return min_element
 
     def search(self, x) -> int:
-        """Searches for `x` in this heap,
+        """Searches for `x` in this min-heap,
         and if present, returns its index, otherwise returns -1.
 
         `x` can either be a key or a `HeapNode` object.
@@ -1216,7 +1216,7 @@ class MinHeap(Heap):
         """Returns the index of the `HeapNode` object with `value=val`.
         -1 is returned if no such a `HeapNode` object exists.
 
-        If `val` and the values in this heap are not comparable,
+        If `val` and the values in this min-heap are not comparable,
         the behaviour of this method is undefined.
 
         **Time Complexity:** O(n)."""
@@ -1227,8 +1227,8 @@ class MinHeap(Heap):
                 return i
         return -1
     
-    def contains(self, x):
-        """Returns True, if `x` is in the heap. `False` otherwise.
+    def contains(self, x) -> bool:
+        """Returns True, if `x` is in this min-heap. `False` otherwise.
 
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
@@ -1237,8 +1237,10 @@ class MinHeap(Heap):
         **Time Complexity:** O(n)."""
         return self.search(x) != -1    
 
-    def merge(self, other: Heap):
-        """Merges this heap with the `other` heap.
+    def merge(self, other: Heap) -> list:
+        """Merges this min-heap with the `other` heap.
+        
+        Returns the `list` object representing internally the new merged min-heap.
 
         **Time Complexity:** O(n + m).
 
@@ -1305,7 +1307,7 @@ class MinHeap(Heap):
         self._build_heap()
 
     def _build_heap(self):
-        """Creates a min heap using the list passed to the constructor.
+        """Creates a min-heap using the list passed to the constructor.
 
         Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.
 
@@ -1343,7 +1345,7 @@ class MinHeap(Heap):
         Note that this operation only happens
         if the node at index `i` is smaller than its parent.
 
-        This function is simpler than `push_down` (or also called heapify),
+        This function is simpler than `push_down` (or also called min-heapify),
         because in this case we just need to compare
         the current node's index with its parent's index.
 
@@ -1360,7 +1362,7 @@ class MinHeap(Heap):
             self.push_up(c)
             
     def add(self, x):
-        """Adds a `x` to this heap.
+        """Adds a `x` to this min-heap.
 
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
@@ -1379,7 +1381,7 @@ class MinHeap(Heap):
             self.push_up(self.size() - 1)
 
     def find_min(self):
-        """Returns (without removing) the smallest element in the heap.
+        """Returns (without removing) the smallest element in this min-heap.
 
         **Time Complexity:** O(1)."""
         return self.heap[0] if not self.is_empty() else None
@@ -1400,7 +1402,7 @@ class MinHeap(Heap):
             return min_element
 
     def search(self, x) -> int:
-        """Searches for `x` in this heap,
+        """Searches for `x` in this min-heap,
         and if present, returns its index, otherwise returns -1.
 
         `x` can either be a key or a `HeapNode` object.
@@ -1424,7 +1426,7 @@ class MinHeap(Heap):
         """Returns the index of the `HeapNode` object with `value=val`.
         -1 is returned if no such a `HeapNode` object exists.
 
-        If `val` and the values in this heap are not comparable,
+        If `val` and the values in this min-heap are not comparable,
         the behaviour of this method is undefined.
 
         **Time Complexity:** O(n)."""
@@ -1435,8 +1437,8 @@ class MinHeap(Heap):
                 return i
         return -1
     
-    def contains(self, x):
-        """Returns True, if `x` is in the heap. `False` otherwise.
+    def contains(self, x) -> bool:
+        """Returns True, if `x` is in this min-heap. `False` otherwise.
 
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
@@ -1445,8 +1447,10 @@ class MinHeap(Heap):
         **Time Complexity:** O(n)."""
         return self.search(x) != -1    
 
-    def merge(self, other: Heap):
-        """Merges this heap with the `other` heap.
+    def merge(self, other: Heap) -> list:
+        """Merges this min-heap with the `other` heap.
+        
+        Returns the `list` object representing internally the new merged min-heap.
 
         **Time Complexity:** O(n + m).
 
@@ -1544,7 +1548,7 @@ class MinHeap(Heap):
 
     
   
-    <div class="desc"><p>Adds a <code>x</code> to this heap.</p>
+    <div class="desc"><p>Adds a <code>x</code> to this min-heap.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.</p>
@@ -1553,7 +1557,7 @@ whose key and value are equal to <code>x</code>.</p>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.add', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.add" class="source">
     <pre><code>def add(self, x):
-    """Adds a `x` to this heap.
+    """Adds a `x` to this min-heap.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
     whose key and value are equal to `x`.
@@ -1612,7 +1616,7 @@ it will return <code>True</code>.</p>
 
     
   
-    <div class="desc"><p>Returns True, if <code>x</code> is in the heap. <code>False</code> otherwise.</p>
+    <div class="desc"><p>Returns True, if <code>x</code> is in this min-heap. <code>False</code> otherwise.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.</p>
@@ -1620,8 +1624,8 @@ whose key and value are equal to <code>x</code>.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.contains', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.contains" class="source">
-    <pre><code>def contains(self, x):
-    """Returns True, if `x` is in the heap. `False` otherwise.
+    <pre><code>def contains(self, x) -> bool:
+    """Returns True, if `x` is in this min-heap. `False` otherwise.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
     whose key and value are equal to `x`.
@@ -1643,13 +1647,13 @@ whose key and value are equal to <code>x</code>.</p>
 
     
   
-    <div class="desc"><p>Returns (without removing) the smallest element in the heap.</p>
+    <div class="desc"><p>Returns (without removing) the smallest element in this min-heap.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.find_min', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.find_min" class="source">
     <pre><code>def find_min(self):
-    """Returns (without removing) the smallest element in the heap.
+    """Returns (without removing) the smallest element in this min-heap.
     **Time Complexity:** O(1)."""
     return self.heap[0] if not self.is_empty() else None
 </code></pre>
@@ -1850,15 +1854,18 @@ def is_good_index(ls: list, i: int, raise_error=True):
 
     
   
-    <div class="desc"><p>Merges this heap with the <code>other</code> heap.</p>
+    <div class="desc"><p>Merges this min-heap with the <code>other</code> heap.</p>
+<p>Returns the <code>list</code> object representing internally the new merged min-heap.</p>
 <p><strong>Time Complexity:</strong> O(n + m).</p>
 <p>Time complexity analysis based on:
 <a href="http://stackoverflow.com/a/29197855/3924118">http://stackoverflow.com/a/29197855/3924118</a>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.merge', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.merge" class="source">
-    <pre><code>def merge(self, other: Heap):
-    """Merges this heap with the `other` heap.
+    <pre><code>def merge(self, other: Heap) -> list:
+    """Merges this min-heap with the `other` heap.
+    
+    Returns the `list` object representing internally the new merged min-heap.
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
     [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
@@ -1918,7 +1925,7 @@ def is_good_index(ls: list, i: int, raise_error=True):
     <div class="desc"><p>Pushes up the node at index <code>i</code>.</p>
 <p>Note that this operation only happens
 if the node at index <code>i</code> is smaller than its parent.</p>
-<p>This function is simpler than <code>push_down</code> (or also called heapify),
+<p>This function is simpler than <code>push_down</code> (or also called min-heapify),
 because in this case we just need to compare
 the current node's index with its parent's index.</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
@@ -1929,7 +1936,7 @@ the current node's index with its parent's index.</p>
     """Pushes up the node at index `i`.
     Note that this operation only happens
     if the node at index `i` is smaller than its parent.
-    This function is simpler than `push_down` (or also called heapify),
+    This function is simpler than `push_down` (or also called min-heapify),
     because in this case we just need to compare
     the current node's index with its parent's index.
     **Time Complexity:** O(log<sub>2</sub> n)."""
@@ -2074,7 +2081,7 @@ then call <code>self.push_down(i)</code>.</p>
 
     
   
-    <div class="desc"><p>Searches for <code>x</code> in this heap,
+    <div class="desc"><p>Searches for <code>x</code> in this min-heap,
 and if present, returns its index, otherwise returns -1.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
@@ -2084,7 +2091,7 @@ whose key and value are equal to <code>x</code>.</p>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.search', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.search" class="source">
     <pre><code>def search(self, x) -> int:
-    """Searches for `x` in this heap,
+    """Searches for `x` in this min-heap,
     and if present, returns its index, otherwise returns -1.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
@@ -2116,7 +2123,7 @@ whose key and value are equal to <code>x</code>.</p>
   
     <div class="desc"><p>Returns the index of the <code>HeapNode</code> object with <code>value=val</code>.
 -1 is returned if no such a <code>HeapNode</code> object exists.</p>
-<p>If <code>val</code> and the values in this heap are not comparable,
+<p>If <code>val</code> and the values in this min-heap are not comparable,
 the behaviour of this method is undefined.</p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
@@ -2125,7 +2132,7 @@ the behaviour of this method is undefined.</p>
     <pre><code>def search_by_value(self, val) -> int:
     """Returns the index of the `HeapNode` object with `value=val`.
     -1 is returned if no such a `HeapNode` object exists.
-    If `val` and the values in this heap are not comparable,
+    If `val` and the values in this min-heap are not comparable,
     the behaviour of this method is undefined.
     **Time Complexity:** O(n)."""
     if val is None:

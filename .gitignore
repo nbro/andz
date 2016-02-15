@@ -11,4 +11,3 @@ env/
 # Other
 commands.txt
 templates/
-tests/template.py
