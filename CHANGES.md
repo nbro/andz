@@ -7,6 +7,8 @@
 
 - Moved randomness insertion of `BST` to another class called `BSTImproved`.
 
+- Added `MaxHeap` class, which is basically a mirror-class of the `MinHeap`.
+
 - Starting adding and moving tests to the folder [tests](tests).
 
 - Created script to automise the run of tests.
