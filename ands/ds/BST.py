@@ -69,7 +69,7 @@ For example, "key" and "value" are self-descriptive.
 from ands.ds.BSTNode import BSTNode
 
 
-__all__ = ["BST", "bst_invariant"]
+__all__ = ["BST", "is_bst"]
 
 
 class BST:
@@ -851,11 +851,11 @@ class BSTPrinter:
         return lines, pos, width
 
 
-def bst_invariant(bst):
+def is_bst(bst):
     """Invariant: for each node `n` in `bst`,
     if `n.left` exists, then `n.left <= n`,
     and if `n.right` exists, then `n.right >= n`."""
-    def check_helper(n):
+    def h(n):
         while n is not None:
             if n.left is not None and n.key < n.left.key:
                 return False
@@ -865,7 +865,6 @@ def bst_invariant(bst):
                 assert n.left.parent == n
             if n.right:
                 assert n.right.parent == n
-            return check_helper(n.left) and check_helper(n.right)        
+            return h(n.left) and h(n.right)        
         return True
-    
-    return check_helper(bst.root)
+    return h(bst.root)

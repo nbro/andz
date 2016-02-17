@@ -1,6 +1,16 @@
 
 # Changelog
 
+## Version 0.0.3
+
+
+- Added new "utility" functions to the class `Heap`, useful mostly for the future classes `MinMaxHeap` and `MaxMinHeap`.
+
+- Added new tests to `MinHeap`, `MaxHeap`, `Heap`. In general, tests have been slightly changed.
+
+- Moved the "is-bst", "is-rbt", "is-min-heap" and "is-max-heap" to files where their respective classes are defined.
+
+
 ## Version 0.0.2
 
 - Added `RBT` and `RBTNode` classes. 

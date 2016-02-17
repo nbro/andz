@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 15/02/16
+Last update: 17/02/16
 
 A binary min-heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.
@@ -42,14 +42,13 @@ from ands.ds.Heap import Heap
 from ands.ds.HeapNode import HeapNode
 
 
-__all__ = ["MinHeap"]
+__all__ = ["MinHeap", "is_min_heap"]
 
 
 class MinHeap(Heap):
 
     def __init__(self, ls=[]):
         Heap.__init__(self, ls)
-        self._build_heap()
 
     def _build_heap(self):
         """Creates a min-heap using the list passed to the constructor.
@@ -66,23 +65,18 @@ class MinHeap(Heap):
         """'Min-heapify' this min-heap starting from index `i`.
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
-        min_index = i
-        left_index = MinHeap.get_left_child_index(self.heap, i)
-        right_index = MinHeap.get_right_child_index(self.heap, i)
+        m = i  # index of node with smallest value among i and its children
+        l = self.left_index(i)
+        r = self.right_index(i)
 
-        if left_index and self.heap[left_index] < self.heap[min_index]:
-            min_index = left_index
-
-        if right_index and self.heap[right_index] < self.heap[min_index]:
-            min_index = right_index
-
-        # One of the children of ls[i] was smaller than ls[i],
-        # and we need to swap ls[i] with its smallest child ls[m].
-        if min_index != i:
-            MinHeap.swap(self.heap, min_index, i)
-            self.push_down(min_index)
-
-        return min_index
+        if l and self.heap[l] < self.heap[m]:
+            m = l
+        if r and self.heap[r] < self.heap[m]:
+            m = r
+            
+        if m != i:
+            self.swap(m, i)
+            self.push_down(m)
 
     def push_up(self, i: int):
         """Pushes up the node at index `i`.
@@ -96,14 +90,14 @@ class MinHeap(Heap):
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
         c = i  # current index
-        p = MinHeap.get_parent_index(self.heap, i)
-
+        p = self.parent_index(i)
+        
         # p could be 0, so we evaluate against not None.
         if p is not None and self.heap[c] < self.heap[p]:
             c = p
 
         if c != i:
-            MinHeap.swap(self.heap, c, i)
+            self.swap(c, i)
             self.push_up(c)
             
     def add(self, x):
@@ -116,7 +110,6 @@ class MinHeap(Heap):
         **Time Complexity:** O(log<sub>2</sub> n)."""
         if x is None:
             raise ValueError("x cannot be None.")
-        
         if not isinstance(x, HeapNode):
             x = HeapNode(x)
     
@@ -137,14 +130,11 @@ class MinHeap(Heap):
         **Time Complexity:** O(log<sub>2</sub> n),
         if removing the last element of a list is a constant-time operation."""
         if not self.is_empty():
-
-            MinHeap.swap(self.heap, 0, self.size() - 1)
-            min_element = self.heap.pop()
-            
+            self.swap(0, self.size() - 1)
+            m = self.heap.pop()            
             if not self.is_empty():
                 self.push_down(0)
-
-            return min_element
+            return m
 
     def search(self, x) -> int:
         """Searches for `x` in this min-heap,
@@ -157,14 +147,12 @@ class MinHeap(Heap):
         **Time Complexity:** O(n)."""
         if x is None:
             raise ValueError("x cannot be None.")
-
         if not isinstance(x, HeapNode):
             x = HeapNode(x)
-            
+
         for i, node in enumerate(self.heap):
             if node == x:
                 return i
-
         return -1
 
     def search_by_value(self, val) -> int:
@@ -176,7 +164,8 @@ class MinHeap(Heap):
 
         **Time Complexity:** O(n)."""
         if val is None:
-            raise ValueError("val cannot be None.")    
+            raise ValueError("val cannot be None.")
+        
         for i, node in enumerate(self.heap):
             if node.value == val:
                 return i
@@ -223,11 +212,10 @@ class MinHeap(Heap):
         **Time Complexity:** O(log<sub>2</sub> n)."""
         if x is None:
             raise ValueError("x cannot be None.")
-        
         if not isinstance(x, HeapNode):
             x = HeapNode(x)
-        
-        MinHeap.is_good_index(self.heap, i)
+        if not self.is_good_index(i):
+            raise IndexError("i is not a valid index.")
 
         c = self.heap[i]
         self.heap[i] = x
@@ -236,5 +224,23 @@ class MinHeap(Heap):
             self.push_down(i)
         elif x < c:
             self.push_up(i)
-            
         return c
+
+
+def is_min_heap(h):
+    if not isinstance(h, MinHeap):
+        return False
+    if h.heap:
+        for item in h.heap:
+            if not isinstance(item, HeapNode):
+                return False
+        for i, item in enumerate(h.heap):
+            l = h.left_index(i)
+            r = h.right_index(i)
+            if r and not l:
+                return False
+            if l and item > h.heap[l]:
+                return False
+            if r and item > h.heap[r]:
+                return False
+    return True  # h is empty

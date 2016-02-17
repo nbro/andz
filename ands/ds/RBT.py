@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 13/02/16
+Last update: 17/02/16
 
 Contains the class RBT for representing red-black trees.
 
@@ -96,11 +96,11 @@ Now we log both parts
 - Chapter 13 of _Introduction to Algorithms_ (3rd ed.) by CLRS
 """
 
-from ands.ds.BST import *
+from ands.ds.BST import BST, is_bst
 from ands.ds.RBTNode import RBTNode, RED, BLACK
 
 
-__all__ = ["RBT"]
+__all__ = ["RBT", "is_rbt"]
 
 
 class RBT(BST):
@@ -469,3 +469,64 @@ class RBT(BST):
             m = self.minimum()
             assert m
             return self.delete(m)
+
+
+def bh(n):
+    """Returns the black-height of the node `n`."""
+    if n is None:
+        return 1
+    
+    left_bh = bh(n.left)
+    right_bh = bh(n.right)
+    
+    if left_bh != right_bh:
+        return -1
+    else:
+        return left_bh + (1 if n.color == BLACK else 0)
+
+def upper_bound_height(t):
+    import math
+    return t.height() <= 2 * math.log2(t.n + 1)
+
+def is_rbt(rbt):
+    """Returns `True` if `rbt` is a red-black tree, `False` otherwise."""
+    
+    def prop_1(t):
+        """Returns `True` if all colors are either `RED` or `BLACK`."""
+        def h(n):
+            if n:
+                return h(n.left)
+                if n.color != BLACK and n.color != RED:
+                    return False
+                return h(n.right)
+            return True
+        return h(t.root)
+
+    def prop_2(t):
+        """Returns `True` if the root is `BLACK` (or it is `None`),
+        `False` otherwise."""
+        if t.root:
+            return t.root.color == BLACK
+        return True
+
+    def prop_3(t):
+        # leaves are represented with Nones,
+        # so there's not need to check this property.
+        return True
+
+    def prop_4(t):
+        def h(n):
+            if n:
+                return h(n.left)
+                if n.parent and n.color == RED and n.parent.color == RED:
+                    return False
+                if not n.parent and n.color == RED:
+                    return False
+                return h(n.right)
+            return True        
+        return h(t.root)
+
+    def prop_5(t):        
+        return bh(t.root) != -1
+
+    return is_bst(rbt) and prop_1(rbt) and prop_2(rbt) and prop_4(rbt) and prop_5(rbt)

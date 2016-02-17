@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 15/02/16
 
-Last update: 15/02/16
+Last update: 17/02/16
 
 Mirror-class to the MinHeap class.
 For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHeap.py).
@@ -24,14 +24,13 @@ from ands.ds.Heap import Heap
 from ands.ds.HeapNode import HeapNode
 
 
-__all__ = ["MaxHeap"]
+__all__ = ["MaxHeap", "is_max_heap"]
 
 
 class MaxHeap(Heap):
 
     def __init__(self, ls=[]):
         Heap.__init__(self, ls)
-        self._build_heap()
 
     def _build_heap(self):
         """Creates a max-heap using the list passed to the constructor.
@@ -48,21 +47,18 @@ class MaxHeap(Heap):
         """'Max-heapify' this max-heap starting from index `i`.
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
-        max_index = i
-        left_index = MaxHeap.get_left_child_index(self.heap, i)
-        right_index = MaxHeap.get_right_child_index(self.heap, i)
+        m = i
+        l = self.left_index(i)
+        r = self.right_index(i)
 
-        if left_index and self.heap[left_index] > self.heap[max_index]:
-            max_index = left_index
+        if l and self.heap[l] > self.heap[m]:
+            m = l
+        if r and self.heap[r] > self.heap[m]:
+            m = r
 
-        if right_index and self.heap[right_index] > self.heap[max_index]:
-            max_index = right_index
-
-        if max_index != i:
-            MaxHeap.swap(self.heap, max_index, i)
-            self.push_down(max_index)
-
-        return max_index
+        if m != i:
+            self.swap(m, i)
+            self.push_down(m)
 
     def push_up(self, i: int):
         """Pushes up the node at index `i`.
@@ -72,13 +68,13 @@ class MaxHeap(Heap):
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
         c = i  # current index
-        p = MaxHeap.get_parent_index(self.heap, i)
-
+        p = self.parent_index(i)
+        
         if p is not None and self.heap[c] > self.heap[p]:
             c = p
-
+            
         if c != i:
-            MaxHeap.swap(self.heap, c, i)
+            self.swap(c, i)
             self.push_up(c)
             
     def add(self, x):
@@ -91,12 +87,11 @@ class MaxHeap(Heap):
         **Time Complexity:** O(log<sub>2</sub> n)."""
         if x is None:
             raise ValueError("x cannot be None.")
-        
         if not isinstance(x, HeapNode):
             x = HeapNode(x)
-    
+            
         self.heap.append(x)
-        
+
         if self.size() > 1:
             self.push_up(self.size() - 1)
 
@@ -113,13 +108,13 @@ class MaxHeap(Heap):
         if removing the last element of a list is a constant-time operation."""
         if not self.is_empty():
 
-            MaxHeap.swap(self.heap, 0, self.size() - 1)
-            max_element = self.heap.pop()
+            self.swap(0, self.size() - 1)
+            m = self.heap.pop()
             
             if not self.is_empty():
                 self.push_down(0)
-
-            return max_element
+        
+            return m
 
     def search(self, x) -> int:
         """Searches for `x` in this max-heap,
@@ -134,6 +129,7 @@ class MaxHeap(Heap):
             raise ValueError("x cannot be None.")
         if not isinstance(x, HeapNode):
             x = HeapNode(x)
+            
         for i, node in enumerate(self.heap):
             if node == x:
                 return i
@@ -148,7 +144,8 @@ class MaxHeap(Heap):
 
         **Time Complexity:** O(n)."""
         if val is None:
-            raise ValueError("val cannot be None.")    
+            raise ValueError("val cannot be None.")
+        
         for i, node in enumerate(self.heap):
             if node.value == val:
                 return i
@@ -195,11 +192,10 @@ class MaxHeap(Heap):
         **Time Complexity:** O(log<sub>2</sub> n)."""
         if x is None:
             raise ValueError("x cannot be None.")
-        
         if not isinstance(x, HeapNode):
             x = HeapNode(x)
-        
-        MaxHeap.is_good_index(self.heap, i)
+        if not self.is_good_index(i):
+            raise IndexError("i is not a valid index.")
 
         c = self.heap[i]
         self.heap[i] = x
@@ -208,5 +204,23 @@ class MaxHeap(Heap):
             self.push_down(i)
         elif x > c:
             self.push_up(i)
-            
         return c
+
+
+def is_max_heap(h):
+    if not isinstance(h, MaxHeap):
+        return False
+    if h.heap:
+        for item in h.heap:
+            if not isinstance(item, HeapNode):
+                return False
+        for i, item in enumerate(h.heap):
+            l = h.left_index(i)
+            r = h.right_index(i)
+            if r and not l:
+                return False
+            if l and item < h.heap[l]:
+                return False
+            if r and item < h.heap[r]:
+                return False
+    return True  # h is empty

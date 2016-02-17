@@ -23,13 +23,13 @@ You will also find some algorithms related to some particular _design paradigm_,
 
 - This is a **work in progress**, don't expect to find here all the data structures and algorithms you're searching. Consider to contribute to the quality and size of the project.
 
-- Again, mistakes are possible (even if decent tests are starting to being done). You can find them under the folder [`tests`](tests).So, as the [license](LICENSE.md) says, this project is provided "as is", etc.
+- Again, **mistakes are possible** (even if decent tests are starting to being done). You can find them under the folder [`tests`](tests). So, as the [license](LICENSE.md) says, this project is provided "as is", etc.
 
-- No optimisation has been done to any algorithm or data structure. The purpose of the implementations is just for demonstration.
+- **No optimisation** has been done to any algorithm or data structure. The purpose of the implementations is just for demonstration.
 
 - This repository only contains **usable** (therefore complete) data structures and algorithms, that is, more details can be added, but the basic behaviour is implemented. If a bug is found in a data structure or algorithm, the respective data structure or algorithm is removed (temporarily) until it's fixed.
 
-- My intent is to continue to contribute to this repository in my free time, and new data structures and algorithms will therefore be added. I have also other semi-implemented data structures and algorithms that I will include once I finish implementing them.
+- My intent is to continue to contribute to this repository in my free time, and **new data structures and algorithms** will therefore be added. I have also other semi-implemented data structures and algorithms that I will include once I finish implementing them.
 
 
 ## How to use?

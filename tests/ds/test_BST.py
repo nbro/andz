@@ -6,10 +6,12 @@ Author: Nelson Brochado
 
 Creation: 13/02/16
 
+Last update: 17/02/16
+
 Tests for the BST class.
 """
 
-from ands.ds.BST import BST, bst_invariant
+from ands.ds.BST import BST, is_bst
 from ands.ds.BSTNode import BSTNode
 
 
@@ -25,7 +27,7 @@ def assert_empty(b):
 def test_empty_size():
     b = BST()
     assert_empty(b)
-    assert bst_invariant(b)
+    assert is_bst(b)
 
 def test_empty_contains():
     b = BST()
@@ -36,7 +38,7 @@ def test_one_size():
     b = BST()
     b.insert(12)
     assert b.size() == b.n == b.root.count() == 1
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
 
 def test_one_contains():
@@ -53,7 +55,7 @@ def test_many_size():
         b.insert(i)
         size += 1
         assert size == b.size() == b.n == b.root.count()
-        assert bst_invariant(b)
+        assert is_bst(b)
         assert_consistencies(b)
 
 def test_many_contains():
@@ -77,7 +79,7 @@ def test_structure_many():
     b.insert(3)
     b.insert(4)
     assert 11 == b.size() == b.n == b.root.count()
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
     
 def test_delete_not_found():
@@ -94,7 +96,7 @@ def test_delete_one_size():
     b.delete(12)
     assert not b.contains(12)
     assert_empty(b)
-    assert bst_invariant(b)
+    assert is_bst(b)
 
 def test_multiple_remove1():
     b = BST()
@@ -106,7 +108,7 @@ def test_multiple_remove1():
     for i in range(1, 15, 2):
         assert b.contains(i)
     assert b.size() == b.n == b.root.count() == 7
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
 
 def test_multiple_remove2():
@@ -123,7 +125,7 @@ def test_multiple_remove2():
     for i in range(0, 15, 2):
         assert b.contains(i)
     assert b.size() == b.n == b.root.count() == 8
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
 
 def test_multiple_remove3():
@@ -140,13 +142,13 @@ def test_multiple_remove3():
     b.insert(12)
     b.insert(11)
     assert b.size() == b.n == b.root.count() == 10
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
     b.delete(3)
     b.delete(10)
     b.delete(12)
     assert b.size() == b.n == b.root.count() == 7
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
 
 def test_search():
@@ -164,12 +166,12 @@ def test_search():
     assert b.search(10)
     assert b.search(15)
     assert b.size() == b.n == b.root.count() == 3
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
     b.delete(10)
     assert not b.search(10)
     assert b.size() == b.n == b.root.count() == 2
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
     
 def test_remove_min_and_max():
@@ -183,13 +185,13 @@ def test_remove_min_and_max():
     m = b.remove_min()
     assert m and m.key == 12
     assert b.size() == b.n == b.root.count() == 2
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
 
     M = b.remove_max()
     assert M and M.key == 28
     assert b.size() == b.n == b.root.count() == 1
-    assert bst_invariant(b)
+    assert is_bst(b)
     assert_consistencies(b)
 
 def test_predecessor_and_successor():
@@ -249,7 +251,7 @@ def test_switch():
     b.insert(30)
 
     def asserts():
-        bst_invariant(b)
+        assert is_bst(b)
         assert_consistencies(b)
 
     try:

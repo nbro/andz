@@ -6,71 +6,20 @@ Author: Nelson Brochado
 
 Creation: 15/02/16
 
+Last update: 17/02/16
+
 Tests for the RBT class.
 """
 
-from ands.ds.RBT import *
+from random import randint
+from ands.ds.RBT import RBT, is_rbt, upper_bound_height
 from ands.ds.RBTNode import *
-from ands.ds.BST import bst_invariant
 
 # ASSERT FUNCTIONS
 
-def assert_prop_1(t):
-    def _assert(n):
-        if n:
-            _assert(n.left)
-            assert n.color == BLACK or n.color == RED
-            _assert(n.right)
-    _assert(t.root)
-
-def assert_prop_2(t):
-    if t.root:
-        assert t.root.color == BLACK
-
-def assert_prop_3(t):
-    # leaves are represented with Nones,
-    # so there's not need to check this property.
-    pass
-
-def assert_prop_4(t):
-    def _assert(n):
-        if n:
-            _assert(n.left)
-            if n.parent and n.color == RED:
-                assert n.parent.color == BLACK
-            if not n.parent:
-                assert n.color == BLACK
-            _assert(n.right)
-    _assert(t.root)
-
-def assert_prop_5(t):
-    def bh(n):
-        if n is None:
-            return 1
-        
-        left_bh = bh(n.left)
-        right_bh = bh(n.right)
-        
-        if left_bh != right_bh:
-            assert False, "Different left and right black-heights."
-        else:
-            return left_bh + (1 if n.color == BLACK else 0)
-
-    return bh(t.root)
-
-def assert_upper_bound_bh(t):
-    if t.n > 0:
-        import math
-        assert t.height() <= 2 * math.log2(t.n + 1)
-
 def assert_rbt_props(t):
-    assert bst_invariant(t)
-    assert_upper_bound_bh(t)
-    assert_prop_1(t)
-    assert_prop_2(t)
-    # assert_prop_3(t)
-    assert_prop_4(t)
-    assert_prop_5(t)
+    assert is_rbt(t)
+    assert upper_bound_height(t)    
     if t.root:
         assert not t.root.parent
 
@@ -143,12 +92,9 @@ def test_insert_three():
 
 def test_height_and_insert_many():
     # Lemma proved above put in practice!
-    from random import randint
     ls = [randint(-100, 100) for _ in range(20)]
     rbt = RBT()
-    for i in ls:
-        rbt.insert(i)
-        assert_upper_bound_bh(rbt)
+    rbt.insert_many(ls)
     assert_rbt_props(rbt)
 
 def test_delete_root():
