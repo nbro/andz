@@ -15,13 +15,6 @@ Where `F` indicates that I've already started implementing the data structure, b
 | 2-3 tree                          | S  |                                                                 |
 
 
-### Heaps
-
-|                 Name                | State     | Comments                                                        |
-|:-----------------------------------:|-----------|-----------------------------------------------------------------|
-| Min-max heap                         | S  | Fast "find-min" and "find-max" operations. Useful to implement double-ended priority queues.                                                                |
-
-
 ### Other
 
 |                 Name                | State     | Comments                                                        |
