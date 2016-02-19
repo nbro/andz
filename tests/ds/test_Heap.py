@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 14/02/16
 
-Last update: 16/02/16
+Last update: 19/02/16
 
 Tests for the abstract class Heap.
 """
@@ -21,6 +21,10 @@ def test_heap_creation():
         assert False
     except NotImplementedError:
         pass
+
+    # Unfortunetely the creation of an empty Heap does not throw an exception
+    assert Heap()
+
 
 if __name__ == "__main__":
     from tools import main

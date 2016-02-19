@@ -4,11 +4,19 @@
 ## Version 0.0.3
 
 
-- Added new "utility" functions to the class `Heap`, useful mostly for the future classes `MinMaxHeap` and `MaxMinHeap`.
+- Added new "utility" functions to the class `Heap`, useful mostly for the `MinMaxHeap` class.
 
 - Added new tests to `MinHeap`, `MaxHeap`, `Heap`. In general, tests have been slightly changed.
 
 - Moved the "is-bst", "is-rbt", "is-min-heap" and "is-max-heap" to files where their respective classes are defined.
+
+- Added class `MinMaxHeap`.
+
+- Starting the tests for the `MinMaxHeap` class.
+
+- Fixed some bugs around.
+
+- When an index is not found `None` is **no** more returned, but instead -1 is returned (in all methods of the class `Heap`).
 
 
 ## Version 0.0.2

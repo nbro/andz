@@ -6,10 +6,10 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 17/02/16
+Last update: 19/02/16
 
 Base abstract class to represent heaps.
-See `MinHeap` and `MaxHeap` (not yet created) if you want to instantiate heap objects.
+See `MinHeap` and `MaxHeap` if you want to instantiate heap objects.
 
 ## [NotImplementedError](https://docs.python.org/3/library/exceptions.html#NotImplementedError)
 
@@ -17,71 +17,39 @@ This exception is derived from `RuntimeError`.
 In user defined base classes,
 abstract methods should raise this exception
 when they require derived classes to override the method.
+
+## References
+
+- [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
+- Slides by prof. A. Carzaniga
+
+- Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 """
 
+import io
+import math
 from ands.ds.HeapNode import HeapNode
 
 
 __all__ = ["Heap"]
 
 
-class Heap:
+class Heap(object):
 
     def __init__(self, ls=[]):
         self.heap = Heap._create_list_of_heap_nodes(ls)
-        self._build_heap()
-
+        self.build_heap()
     # ABSTRACT NOT-IMPLEMENTED METHODS
 
     def push_down(self, i: int):
-        """Classical so-called heapify operation for heaps.
-        If this is a min-heap, then this is a min-heapify operation,
-        if this is a max-heap, then this is a max-heapify operation."""
+        """Classical so-called heapify operation for heaps."""
         raise NotImplementedError()
 
     def push_up(self, i: int):
         """Classical reverse-heapify operation for heaps."""
         raise NotImplementedError()
-
-    def _build_heap(self):
-        """Builds the heap data structure from `self.heap`.
-        If this is a min-heap, then this is a "build-min-heap" operation,
-        if this is a max-heap, then this is a "build-max-heap" operation."""
-        raise NotImplementedError()
-
-    def add(self, x):
-        """Adds `x to this heap.
-
-        `x` can either be a key or a `HeapNode` object.
-        If it's a key, an `HeapNode` is first created,
-        whose key and value are equal to `x`."""
-        raise NotImplementedError()
-
-    def search(self, x) -> int:
-        """Searches for `x` in this heap,
-        and if present, returns its index, otherwise returns -1.
-
-        `x` can either be a key or a `HeapNode` object.
-        If it's a key, an `HeapNode` is first created,
-        whose key and value are equal to `x`."""
-        raise NotImplementedError()
-
-    def search_by_value(self, val) -> int:
-        """Returns the index of the node with the field value=`val`."""
-        raise NotImplementedError()
-
-    def contains(self, x) -> bool:
-        """Returns True, if `x` is in the heap. `False` otherwise.
-
-        `x` can either be a key or a `HeapNode` object.
-        If it's a key, an `HeapNode` is first created,
-        whose key and value are equal to `x`."""
-        raise NotImplementedError()
-
-    def merge(self, other):
-        """Merges this heap with the `other` heap."""
-        raise NotImplementedError()
-
+    
     def replace(self, i: int, x):
         """Replaces the `HeapNode` object at index `i` with `x`.
 
@@ -90,7 +58,113 @@ class Heap:
         whose key and value are equal to `x`."""
         raise NotImplementedError()
 
-    # BASE-IMPLEMENTED METHODS    
+    # BASE-IMPLEMENTED METHODS
+    
+    def build_heap(self):
+        """Builds the heap data structure from `self.heap`."""
+        if self.heap:
+            for index in range(len(self.heap) // 2, -1, -1):
+                self.push_down(index)
+        return self.heap
+
+    def add(self, x):
+        """Adds `x` to this heap.
+
+        In practice, it places `x` at an available leaf,
+        then "bubbles up" from there,
+        in order to maintain the heap property.
+        
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+
+        **Time Complexity:** O(log<sub>2</sub> n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+            
+        self.heap.append(x)
+        
+        if self.size() > 1:        
+            self.push_up(self.size() - 1)
+
+    def delete(self, i: int):
+        """Deletes and returns the `HeapNode` object at index `i`.
+
+        `IndexError` is raised if `i` is not a valid index.      
+
+        Implementation based on:
+        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
+        **Time Complexity:** O(log<sub>2</sub> h),
+        where `h` is the number of nodes rooted at `i`."""
+        if not self.is_good_index(i):
+            raise IndexError("i is not a valid index.")
+        
+        if i == self.size() - 1:
+            return self.heap.pop()
+        
+        self.swap(i, self.size() - 1)
+        d = self.heap.pop()
+        self.push_down(i)
+        
+        return d             
+
+    def search(self, x) -> int:
+        """Searches for `x` in this heap,
+        and, if present, returns its index, otherwise returns -1.
+
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.      
+ 
+        **Time Complexity:** O(n)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        if not isinstance(x, HeapNode):
+            x = HeapNode(x)
+        for i, node in enumerate(self.heap):
+            if node == x:
+                return i
+        return -1
+
+    def search_by_value(self, val) -> int:
+        """Returns the index of the `HeapNode` object with `value=val`.
+        -1 is returned if no such a `HeapNode` object exists.
+
+        If `val` and the values in this heap are not comparable,
+        the behaviour of this method is undefined.
+
+        **Time Complexity:** O(n)."""
+        if val is None:
+            raise ValueError("val cannot be None.")
+        for i, node in enumerate(self.heap):
+            if node.value == val:
+                return i            
+        return -1
+    
+    def contains(self, x) -> bool:
+        """Returns `True`, if `x` is in this heap. `False` otherwise.
+
+        `x` can either be a key or a `HeapNode` object.
+        If it's a key, an `HeapNode` is first created,
+        whose key and value are equal to `x`.
+        
+        **Time Complexity:** O(n)."""
+        return self.search(x) != -1    
+
+    def merge(self, other) -> list:
+        """Merges this heap with the `other` heap.
+        
+        Returns the `list` object representing internally the new merged heap.
+
+        **Time Complexity:** O(n + m).
+
+        Time complexity analysis based on:
+        [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
+        self.heap += other.get()
+        return self.build_heap()
 
     def size(self):
         """Returns the size of this heaps.
@@ -129,7 +203,9 @@ class Heap:
         else:
             raise IndexError("i or j are not valid indexes.")
 
-    def is_good_index(self, i: int):
+    # INDEX FUNCTIONS
+
+    def is_good_index(self, i: int) -> bool:
         """Returns `True` if `i` is valid index for `self.heap`,
         `False` otherwise.
 
@@ -140,39 +216,48 @@ class Heap:
 
     def parent_index(self, i: int):
         """Returns the parent's index of the node at index `i`.
-        If `i = 0`, then `None` is returned, because the root has no parent.
-        If `i` is not a valid index for `self.heap`, an `IndexError` is raised.
+        If `i = 0`, then -1 is returned, because the root has no parent.
+        
+        If `i` is not a valid index, an `IndexError` is raised.
 
         **Time Complexity:** O(1)."""
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")
-        return None if i == 0 else (i - 1) // 2
+        return -1 if i == 0 else (i - 1) // 2
 
     def grandparent_index(self, i: int):
+        """Returns the grandparent's index of the node at index `i`.
+
+        -1 is returned either if `i` has not a parent or
+        the parent of `i` does not have a parent.
+    
+        **Time Complexity:** O(1)."""
         p = self.parent_index(i)
-        return None if not p else self.parent_index(p)
+        return -1 if p == -1 else self.parent_index(p)
 
     def left_index(self, i: int):
-        """Returns the left child's index of the node at index `i`, if it exists.
-        Otherwise this function returns `None`.
-        If `i` is not a valid index for `ls`, an `IndexError` is raised.
+        """Returns the left child's index of the node at index `i`,
+        if it exists, otherwise this function returns -1.
+        
+        If `i` is not a valid index, an `IndexError` is raised.
 
         **Time Complexity:** O(1)."""
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")        
         left = i * 2 + 1
-        return left if self.is_good_index(left) else None
+        return left if self.is_good_index(left) else -1
 
     def right_index(self, i: int):
-        """Returns the right child of the node at index `i`, if it exists.
-        Otherwise this function returns `None`.
-        If `i` is not a valid index for `self.heap`, an `IndexError` is raised.
+        """Returns the right child's index of the node at index `i`,
+        if it exists, otherwise this function returns -1.
+        
+        If `i` is not a valid index, an `IndexError` is raised.
 
         **Time Complexity:** O(1)."""
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")        
         right = i * 2 + 2
-        return right if self.is_good_index(right) else None
+        return right if self.is_good_index(right) else -1
 
     def has_children(self, i: int):
         """Returns `True` if the node at index `i`
@@ -181,7 +266,7 @@ class Heap:
         **Time Complexity:** O(1)."""
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.") 
-        return self.left_index(i) or self.right_index(i)
+        return self.left_index(i) != -1 or self.right_index(i) != -1
 
     def is_child(self, c: int, i: int):
         """Returns `True` if `c` is a child of `i`. `False` otherwise.
@@ -196,13 +281,13 @@ class Heap:
 
         **Time Complexity:** O(1)."""
         l = self.left_index(i)
-        if not l:
-            assert not self.right_index(i)
+        if l == -1:
+            assert self.right_index(i) == -1
             if not self.is_good_index(g):
                 raise IndexError("g is not a valid index.")
             return False
         r = self.right_index(i)
-        if not r:
+        if r == -1:
             return self.is_child(g, l)
         else:
             return self.is_child(g, l) or self.is_child(g, r)
@@ -224,7 +309,7 @@ class Heap:
         if not self.is_good_index(g):
             raise IndexError("g is not a valid index.")         
         p = self.parent_index(i)
-        return False if not p else self.is_parent(g, p)
+        return False if p == -1 else self.is_parent(g, p)
             
     def is_on_even_level(self, i: int):
         """Returns `True` if node at index `i` is on a even-level,
@@ -234,13 +319,7 @@ class Heap:
         **Time Complexity:** O(log<sub>2</sub> n)."""
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")
-        if i == 0:
-            return True
-        c = 0
-        while i != 0:
-            c += 1
-            i = self.parent_index(i)
-        return c % 2 == 0
+        return int(math.log2(i + 1) % 2) == 0
 
     def is_on_odd_level(self, i: int):
         """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`).
@@ -256,9 +335,9 @@ class Heap:
     def __repr__(self):
         return HeapPrinter(self.heap).show()    
 
-    def show(self):
+    def show(self, total_width=36, fill=" "):
         """Pretty-prints this heap."""
-        print(repr(self))
+        print(HeapPrinter(self.heap).show(total_width, fill))
 
     # STATIC FUNCTIONS
 
@@ -303,10 +382,7 @@ class HeapPrinter:
         To change the length of the line under the heap,
         you can simply change the line_length variable."""
         if not self.heap:
-            return print("Nothing to print: heap is empty.")
-                
-        import io
-        import math
+            return "Nothing to print: heap is empty."
         
         output = io.StringIO()
         last_row = -1

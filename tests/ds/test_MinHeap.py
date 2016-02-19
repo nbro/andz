@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 14/02/16
 
-Last update: 17/02/16
+Last update: 19/02/16
 
 Tests for the MinHeap class.
 """
@@ -128,6 +128,33 @@ def test_add():
     assert h.size() == (s + 1)
     assert h.contains(HeapNode(2048, "2^11"))
     assert_is_min_heap(h)
+
+def test_delete():
+    h = MinHeap([12, 14, 28, 7, 6, 18])
+
+    def test_bad_index(i):
+        try:
+            h.delete(i)
+            assert False
+        except IndexError:
+            pass
+        except TypeError:
+            pass
+
+    test_bad_index(-1)
+    test_bad_index(None)
+    test_bad_index(6)
+    test_bad_index("0")
+    test_bad_index(3.14159)
+    assert_is_min_heap(h)
+
+    while not h.is_empty():
+        r = randint(0, h.size() - 1)
+        n = h.delete(r)
+        assert n
+        assert_is_min_heap(h)
+
+    assert h.is_empty()
     
 def test_find_min():
     h = MinHeap([28, 14, 12, 10])
@@ -354,7 +381,7 @@ def test_parent_index():
     except IndexError:
         pass
 
-    assert not h.parent_index(0)
+    assert h.parent_index(0) == -1
     assert h.parent_index(1) == 0
     assert h.parent_index(2) == 0
 
@@ -373,9 +400,9 @@ def test_grandparent_index():
     except IndexError:
         pass
 
-    assert not h.grandparent_index(0)
-    assert not h.grandparent_index(1)
-    assert not h.grandparent_index(2)
+    assert h.grandparent_index(0) == -1
+    assert h.grandparent_index(1) == -1
+    assert h.grandparent_index(2) == -1
     assert h.grandparent_index(3) == 0
     assert h.grandparent_index(4) == 0
 
@@ -395,8 +422,8 @@ def test_left_index():
         pass
 
     assert h.left_index(0) == 1
-    assert not h.left_index(1)
-    assert not h.left_index(2)
+    assert h.left_index(1) == -1
+    assert h.left_index(2) == -1
 
 def test_right_index():
     h = MinHeap([12, 14, 28, 6])
@@ -413,9 +440,9 @@ def test_right_index():
         pass
 
     assert h.right_index(0) == 2
-    assert not h.right_index(1)
-    assert not h.right_index(2)
-    assert not h.right_index(3)
+    assert h.right_index(1) == -1
+    assert h.right_index(2) == -1
+    assert h.right_index(3) == -1
     assert h.left_index(1) == 3
 
 def test_has_children():

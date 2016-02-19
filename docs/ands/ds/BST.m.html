@@ -979,7 +979,7 @@ table {
     <li class="set"><h3><a href="#header-functions">Functions</a></h3>
       
   <ul>
-    <li class="mono"><a href="#ands.ds.BST.bst_invariant">bst_invariant</a></li>
+    <li class="mono"><a href="#ands.ds.BST.is_bst">is_bst</a></li>
   </ul>
 
     </li>
@@ -1089,19 +1089,19 @@ For example, "key" and "value" are self-descriptive.</p>
 <h2>Resources</h2>
 <ul>
 <li>
-<p>https://en.wikipedia.org/wiki/Binary_search_tree</p>
+<p><a href="https://en.wikipedia.org/wiki/Binary_search_tree">https://en.wikipedia.org/wiki/Binary_search_tree</a></p>
 </li>
 <li>
-<p>Introduction to Algorithms (3rd edition) by CLRS, chapter 12.</p>
+<p><a href="https://mitpress.mit.edu/books/introduction-algorithms">Introduction to Algorithms (3rd edition)</a> by CLRS, chapter 12</p>
 </li>
 <li>
-<p>http://algs4.cs.princeton.edu/32bst/</p>
+<p><a href="http://algs4.cs.princeton.edu/32bst/">http://algs4.cs.princeton.edu/32bst/</a></p>
 </li>
 <li>
-<p>http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf</p>
+<p><a href="http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf">http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf</a></p>
 </li>
 <li>
-<p>http://algs4.cs.princeton.edu/32bst/BST.java.html</p>
+<p><a href="http://algs4.cs.princeton.edu/32bst/BST.java.html">http://algs4.cs.princeton.edu/32bst/BST.java.html</a></p>
 </li>
 </ul>
 <h2>TODO</h2>
@@ -1165,15 +1165,16 @@ For example, "key" and "value" are self-descriptive.
 
 ## Resources
 
-- https://en.wikipedia.org/wiki/Binary_search_tree
+- [https://en.wikipedia.org/wiki/Binary_search_tree](https://en.wikipedia.org/wiki/Binary_search_tree)
 
-- Introduction to Algorithms (3rd edition) by CLRS, chapter 12.
+- [Introduction to Algorithms (3rd edition)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS, chapter 12
 
-- http://algs4.cs.princeton.edu/32bst/
+- [http://algs4.cs.princeton.edu/32bst/](http://algs4.cs.princeton.edu/32bst/)
 
-- http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf
+- [http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf](http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf
+)
 
-- http://algs4.cs.princeton.edu/32bst/BST.java.html
+- [http://algs4.cs.princeton.edu/32bst/BST.java.html](http://algs4.cs.princeton.edu/32bst/BST.java.html)
 
 ## TODO
 - add functions "intersection" and "union"
@@ -1184,7 +1185,7 @@ For example, "key" and "value" are self-descriptive.
 from ands.ds.BSTNode import BSTNode
 
 
-__all__ = ["BST", "bst_invariant"]
+__all__ = ["BST", "is_bst"]
 
 
 class BST:
@@ -1258,6 +1259,7 @@ class BST:
                     c = c.left
                 else:
                     c = c.right
+                    
             if x.key < p.key:
                 p.left = x
             else:
@@ -1593,7 +1595,7 @@ class BST:
         **Time Complexity**: O(h)."""
         if not isinstance(x, BSTNode):
             x = self.search(x)
-            if not x:
+            if x is None:
                 raise LookupError("No node was found with key=x.")
 
         if x.right:
@@ -1966,24 +1968,41 @@ class BSTPrinter:
         return lines, pos, width
 
 
-def bst_invariant(bst):
-    """Invariant: for each node `n` in `bst`,
+def is_bst(bst):
+    """Returns `True` if `bst` is a valid `BST` object. `False` otherwise.
+
+    Invariant: for each node `n` in `bst`,
     if `n.left` exists, then `n.left <= n`,
     and if `n.right` exists, then `n.right >= n`."""
-    def check_helper(n):
-        while n is not None:
-            if n.left is not None and n.key < n.left.key:
+    def all_bst_nodes(t):
+        def h(n):            
+            if n is not None:
+                if not isinstance(n, BSTNode):
+                    return False
+                return h(n.left) and h(n.right)
+            return True
+        return h(t.root)
+    
+    def h(n):
+        if n is not None:
+            if n.left and n.key < n.left.key:
                 return False
-            if n.right is not None and n.key > n.right.key:
+            if n.right and n.key > n.right.key:
                 return False
+
+            # Asserting n.left and n.right have n as parent
             if n.left:
                 assert n.left.parent == n
             if n.right:
                 assert n.right.parent == n
-            return check_helper(n.left) and check_helper(n.right)        
+                
+            return h(n.left) and h(n.right)
         return True
-    
-    return check_helper(bst.root)
+
+    if not isinstance(bst, BST):
+        return False
+
+    return all_bst_nodes(bst) and h(bst.root)
 </code></pre>
   </div>
 
@@ -1994,37 +2013,55 @@ def bst_invariant(bst):
     <h2 class="section-title" id="header-functions">Functions</h2>
       
   <div class="item">
-    <div class="name def" id="ands.ds.BST.bst_invariant">
-    <p>def <span class="ident">bst_invariant</span>(</p><p>bst)</p>
+    <div class="name def" id="ands.ds.BST.is_bst">
+    <p>def <span class="ident">is_bst</span>(</p><p>bst)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Invariant: for each node <code>n</code> in <code>bst</code>,
+    <div class="desc"><p>Returns <code>True</code> if <code>bst</code> is a valid <code>BST</code> object. <code>False</code> otherwise.</p>
+<p>Invariant: for each node <code>n</code> in <code>bst</code>,
 if <code>n.left</code> exists, then <code>n.left &lt;= n</code>,
 and if <code>n.right</code> exists, then <code>n.right &gt;= n</code>.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BST.bst_invariant', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.BST.bst_invariant" class="source">
-    <pre><code>def bst_invariant(bst):
-    """Invariant: for each node `n` in `bst`,
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BST.is_bst', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.BST.is_bst" class="source">
+    <pre><code>def is_bst(bst):
+    """Returns `True` if `bst` is a valid `BST` object. `False` otherwise.
+
+    Invariant: for each node `n` in `bst`,
     if `n.left` exists, then `n.left <= n`,
     and if `n.right` exists, then `n.right >= n`."""
-    def check_helper(n):
-        while n is not None:
-            if n.left is not None and n.key < n.left.key:
+    def all_bst_nodes(t):
+        def h(n):            
+            if n is not None:
+                if not isinstance(n, BSTNode):
+                    return False
+                return h(n.left) and h(n.right)
+            return True
+        return h(t.root)
+    
+    def h(n):
+        if n is not None:
+            if n.left and n.key < n.left.key:
                 return False
-            if n.right is not None and n.key > n.right.key:
+            if n.right and n.key > n.right.key:
                 return False
+
+            # Asserting n.left and n.right have n as parent
             if n.left:
                 assert n.left.parent == n
             if n.right:
                 assert n.right.parent == n
-            return check_helper(n.left) and check_helper(n.right)        
+                
+            return h(n.left) and h(n.right)
         return True
-    
-    return check_helper(bst.root)
+
+    if not isinstance(bst, BST):
+        return False
+
+    return all_bst_nodes(bst) and h(bst.root)
 </code></pre>
   </div>
 </div>
@@ -2112,6 +2149,7 @@ and if <code>n.right</code> exists, then <code>n.right &gt;= n</code>.</p></div>
                     c = c.left
                 else:
                     c = c.right
+                    
             if x.key < p.key:
                 p.left = x
             else:
@@ -2447,7 +2485,7 @@ and if <code>n.right</code> exists, then <code>n.right &gt;= n</code>.</p></div>
         **Time Complexity**: O(h)."""
         if not isinstance(x, BSTNode):
             x = self.search(x)
-            if not x:
+            if x is None:
                 raise LookupError("No node was found with key=x.")
 
         if x.right:
@@ -3059,6 +3097,7 @@ or it can be a key of a supposed node in <code>self</code>.</p>
                 c = c.left
             else:
                 c = c.right
+                
         if x.key < p.key:
             p.left = x
         else:
@@ -3732,7 +3771,7 @@ or it can be a key of a supposed node in self.</p>
     **Time Complexity**: O(h)."""
     if not isinstance(x, BSTNode):
         x = self.search(x)
-        if not x:
+        if x is None:
             raise LookupError("No node was found with key=x.")
     if x.right:
         return BST._minimum_r(x.right)

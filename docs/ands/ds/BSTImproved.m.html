@@ -2290,7 +2290,7 @@ or it can be a key of a supposed node in self.</p>
     **Time Complexity**: O(h)."""
     if not isinstance(x, BSTNode):
         x = self.search(x)
-        if not x:
+        if x is None:
             raise LookupError("No node was found with key=x.")
     if x.right:
         return BST._minimum_r(x.right)

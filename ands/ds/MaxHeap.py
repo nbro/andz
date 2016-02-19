@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 15/02/16
 
-Last update: 17/02/16
+Last update: 19/02/16
 
 Mirror-class to the MinHeap class.
 For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHeap.py).
@@ -17,7 +17,7 @@ For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHe
 
 - Slides by prof. A. Carzaniga
 
-- Chapter 13 of _Introduction to Algorithms_ (3rd ed.) by CLRS
+- Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 """
 
 from ands.ds.Heap import Heap
@@ -32,18 +32,7 @@ class MaxHeap(Heap):
     def __init__(self, ls=[]):
         Heap.__init__(self, ls)
 
-    def _build_heap(self):
-        """Creates a max-heap using the list passed to the constructor.
-
-        Note that in a heap A all nodes from A[n/2 + 1] to A[n] are leaf nodes.
-
-        **Time Complexity:** O(n)."""
-        if self.heap:
-            for index in range(len(self.heap) // 2, -1, -1):
-                self.push_down(index)
-        return self.heap
-
-    def push_down(self, i: int):
+    def push_down(self, i: int) -> None:
         """'Max-heapify' this max-heap starting from index `i`.
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
@@ -51,16 +40,16 @@ class MaxHeap(Heap):
         l = self.left_index(i)
         r = self.right_index(i)
 
-        if l and self.heap[l] > self.heap[m]:
+        if l != -1 and self.heap[l] > self.heap[m]:
             m = l
-        if r and self.heap[r] > self.heap[m]:
+        if r != -1 and self.heap[r] > self.heap[m]:
             m = r
 
         if m != i:
             self.swap(m, i)
             self.push_down(m)
 
-    def push_up(self, i: int):
+    def push_up(self, i: int) -> None:
         """Pushes up the node at index `i`.
 
         Note that this operation only happens
@@ -70,108 +59,30 @@ class MaxHeap(Heap):
         c = i  # current index
         p = self.parent_index(i)
         
-        if p is not None and self.heap[c] > self.heap[p]:
+        if p != -1 and self.heap[c] > self.heap[p]:
             c = p
             
         if c != i:
             self.swap(c, i)
             self.push_up(c)
-            
-    def add(self, x):
-        """Adds a `x` to this max-heap.
 
-        `x` can either be a key or a `HeapNode` object.
-        If it's a key, an `HeapNode` is first created,
-        whose key and value are equal to `x`.
-         
-        **Time Complexity:** O(log<sub>2</sub> n)."""
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, HeapNode):
-            x = HeapNode(x)
-            
-        self.heap.append(x)
-
-        if self.size() > 1:
-            self.push_up(self.size() - 1)
-
-    def find_max(self):
+    def find_max(self) -> HeapNode:
         """Returns (without removing) the greatest element in this max-heap.
 
         **Time Complexity:** O(1)."""
         return self.heap[0] if not self.is_empty() else None
 
-    def remove_max(self):
+    def remove_max(self) -> HeapNode:
         """Removes and returns the greatest element in this max-heap.
 
         **Time Complexity:** O(log<sub>2</sub> n),
         if removing the last element of a list is a constant-time operation."""
         if not self.is_empty():
-
             self.swap(0, self.size() - 1)
             m = self.heap.pop()
-            
             if not self.is_empty():
                 self.push_down(0)
-        
             return m
-
-    def search(self, x) -> int:
-        """Searches for `x` in this max-heap,
-        and if present, returns its index, otherwise returns -1.
-
-        `x` can either be a key or a `HeapNode` object.
-        If it's a key, an `HeapNode` is first created,
-        whose key and value are equal to `x`.
- 
-        **Time Complexity:** O(n)."""
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, HeapNode):
-            x = HeapNode(x)
-            
-        for i, node in enumerate(self.heap):
-            if node == x:
-                return i
-        return -1
-
-    def search_by_value(self, val) -> int:
-        """Returns the index of the `HeapNode` object with `value=val`.
-        -1 is returned if no such a `HeapNode` object exists.
-
-        If `val` and the values in this max-heap are not comparable,
-        the behaviour of this method is undefined.
-
-        **Time Complexity:** O(n)."""
-        if val is None:
-            raise ValueError("val cannot be None.")
-        
-        for i, node in enumerate(self.heap):
-            if node.value == val:
-                return i
-        return -1
-    
-    def contains(self, x) -> bool:
-        """Returns True, if `x` is in this max-heap. `False` otherwise.
-
-        `x` can either be a key or a `HeapNode` object.
-        If it's a key, an `HeapNode` is first created,
-        whose key and value are equal to `x`.
-        
-        **Time Complexity:** O(n)."""
-        return self.search(x) != -1    
-
-    def merge(self, other: Heap) -> list:
-        """Merges this max-heap with the `other` max-heap.
-        
-        Returns the `list` object representing internally the new merged max-heap.
-
-        **Time Complexity:** O(n + m).
-
-        Time complexity analysis based on:
-        [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-        self.heap += other.get()
-        return self._build_heap()
 
     def replace(self, i: int, x):
         """Replaces element at index `i` with `x`.
@@ -194,6 +105,7 @@ class MaxHeap(Heap):
             raise ValueError("x cannot be None.")
         if not isinstance(x, HeapNode):
             x = HeapNode(x)
+            
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")
 
@@ -204,10 +116,12 @@ class MaxHeap(Heap):
             self.push_down(i)
         elif x > c:
             self.push_up(i)
+            
         return c
 
 
 def is_max_heap(h):
+    """Returns `True` if `h` is a valid `MaxHeap`. `False` otherwise."""
     if not isinstance(h, MaxHeap):
         return False
     if h.heap:
@@ -217,10 +131,10 @@ def is_max_heap(h):
         for i, item in enumerate(h.heap):
             l = h.left_index(i)
             r = h.right_index(i)
-            if r and not l:
+            if r != -1 and l == -1:
                 return False
-            if l and item < h.heap[l]:
+            if l != -1 and item < h.heap[l]:
                 return False
-            if r and item < h.heap[r]:
+            if r != -1 and item < h.heap[r]:
                 return False
-    return True  # h is empty
+    return True 

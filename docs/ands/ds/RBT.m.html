@@ -8,7 +8,7 @@
 
 Creation: July, 2015
 
-Last update: 13/02/16
+Last update: 19/02/16
 
 Contains the class RBT for rep..." />
 
@@ -976,6 +976,15 @@ table {
     <h1>Index</h1>
     <ul id="index">
 
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.ds.RBT.bh">bh</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.is_rbt">is_rbt</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.upper_bound_height">upper_bound_height</a></li>
+  </ul>
+
+    </li>
 
     <li class="set"><h3><a href="#header-classes">Classes</a></h3>
       <ul>
@@ -1031,7 +1040,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.RBT</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 13/02/16</p>
+<p>Last update: 19/02/16</p>
 <p>Contains the class RBT for representing red-black trees.</p>
 <h2>Red-black tree property</h2>
 <ol>
@@ -1120,13 +1129,13 @@ that is T(n) = O(log<sub>2</sub> n), which is also the worst case complexity.</p
 <h2>References</h2>
 <ul>
 <li>
-<p><a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree">Red-black tree</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree">https://en.wikipedia.org/wiki/Red%E2%80%93black_tree</a></p>
 </li>
 <li>
 <p>Slides by prof. A. Carzaniga</p>
 </li>
 <li>
-<p>Chapter 13 of <em>Introduction to Algorithms</em> (3rd ed.) by CLRS</p>
+<p>Chapter 13 of <a href="https://mitpress.mit.edu/books/introduction-algorithms">Introduction to Algorithms (3rd ed.)</a> by CLRS</p>
 </li>
 </ul>
   
@@ -1140,7 +1149,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 13/02/16
+Last update: 19/02/16
 
 Contains the class RBT for representing red-black trees.
 
@@ -1223,18 +1232,19 @@ Now we log both parts
 
 ## References
 
-- [Red-black tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
+- [https://en.wikipedia.org/wiki/Red%E2%80%93black_tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
 
 - Slides by prof. A. Carzaniga
 
-- Chapter 13 of _Introduction to Algorithms_ (3rd ed.) by CLRS
+- Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 """
 
-from ands.ds.BST import *
+import math
+from ands.ds.BST import BST, is_bst
 from ands.ds.RBTNode import RBTNode, RED, BLACK
 
 
-__all__ = ["RBT"]
+__all__ = ["RBT", "is_rbt", "bh", "upper_bound_height"]
 
 
 class RBT(BST):
@@ -1603,6 +1613,82 @@ class RBT(BST):
             m = self.minimum()
             assert m
             return self.delete(m)
+
+
+def bh(n):
+    """Returns the black-height of the node `n`."""
+    if n is None:
+        return 1
+    
+    left_bh = bh(n.left)
+    right_bh = bh(n.right)
+    
+    if left_bh != right_bh:
+        return -1
+    else:
+        return left_bh + (1 if n.color == BLACK else 0)
+
+def upper_bound_height(t):
+    return t.height() <= 2 * math.log2(t.n + 1)
+
+def is_rbt(rbt):
+    """Returns `True` if `rbt` is a valid `RBT` object. `False` otherwise."""
+    
+    def prop_1(t):
+        """Returns `True` if all colors are either `RED` or `BLACK`."""
+        def h(n):            
+            if n:
+                if n.color != BLACK and n.color != RED:
+                    return False               
+                return h(n.right) and h(n.left)
+            return True
+        return h(t.root)
+
+    def prop_2(t):
+        """Returns `True` if the root is `BLACK` (or it is `None`),
+        `False` otherwise."""
+        if t.root:
+            return t.root.color == BLACK
+        return True
+
+    def prop_3(t):
+        # leaves are represented with Nones,
+        # so there's not need to check this property.
+        return True
+
+    def prop_4(t):
+        def h(n):
+            if n:
+                if n.parent and n.color == RED and n.parent.color == RED:
+                    return False
+                if not n.parent and n.color == RED:
+                    return False
+                return h(n.left) and h(n.right)
+            return True 
+        return h(t.root)
+
+    def prop_5(t):        
+        return bh(t.root) != -1
+
+    def all_rbt_nodes(t):
+        def h(n):            
+            if n is not None:
+                if not isinstance(n, RBTNode):
+                    return False
+                return h(n.left) and h(n.right)
+            return True
+        return h(t.root)
+
+    if not is_bst(rbt):
+        return False
+
+    if not isinstance(rbt, RBT):
+        return False
+
+    if not all_rbt_nodes(rbt):
+        return False    
+
+    return prop_1(rbt) and prop_2(rbt) and prop_4(rbt) and prop_5(rbt)
 </code></pre>
   </div>
 
@@ -1610,6 +1696,135 @@ class RBT(BST):
 
   <section id="section-items">
 
+    <h2 class="section-title" id="header-functions">Functions</h2>
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.bh">
+    <p>def <span class="ident">bh</span>(</p><p>n)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the black-height of the node <code>n</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.bh', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.bh" class="source">
+    <pre><code>def bh(n):
+    """Returns the black-height of the node `n`."""
+    if n is None:
+        return 1
+    
+    left_bh = bh(n.left)
+    right_bh = bh(n.right)
+    
+    if left_bh != right_bh:
+        return -1
+    else:
+        return left_bh + (1 if n.color == BLACK else 0)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.is_rbt">
+    <p>def <span class="ident">is_rbt</span>(</p><p>rbt)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>rbt</code> is a valid <code>RBT</code> object. <code>False</code> otherwise.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.is_rbt', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.is_rbt" class="source">
+    <pre><code>def is_rbt(rbt):
+    """Returns `True` if `rbt` is a valid `RBT` object. `False` otherwise."""
+    
+    def prop_1(t):
+        """Returns `True` if all colors are either `RED` or `BLACK`."""
+        def h(n):            
+            if n:
+                if n.color != BLACK and n.color != RED:
+                    return False               
+                return h(n.right) and h(n.left)
+            return True
+        return h(t.root)
+
+    def prop_2(t):
+        """Returns `True` if the root is `BLACK` (or it is `None`),
+        `False` otherwise."""
+        if t.root:
+            return t.root.color == BLACK
+        return True
+
+    def prop_3(t):
+        # leaves are represented with Nones,
+        # so there's not need to check this property.
+        return True
+
+    def prop_4(t):
+        def h(n):
+            if n:
+                if n.parent and n.color == RED and n.parent.color == RED:
+                    return False
+                if not n.parent and n.color == RED:
+                    return False
+                return h(n.left) and h(n.right)
+            return True 
+        return h(t.root)
+
+    def prop_5(t):        
+        return bh(t.root) != -1
+
+    def all_rbt_nodes(t):
+        def h(n):            
+            if n is not None:
+                if not isinstance(n, RBTNode):
+                    return False
+                return h(n.left) and h(n.right)
+            return True
+        return h(t.root)
+
+    if not is_bst(rbt):
+        return False
+
+    if not isinstance(rbt, RBT):
+        return False
+
+    if not all_rbt_nodes(rbt):
+        return False    
+
+    return prop_1(rbt) and prop_2(rbt) and prop_4(rbt) and prop_5(rbt)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.upper_bound_height">
+    <p>def <span class="ident">upper_bound_height</span>(</p><p>t)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.upper_bound_height', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.upper_bound_height" class="source">
+    <pre><code>def upper_bound_height(t):
+    return t.height() <= 2 * math.log2(t.n + 1)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
 
     <h2 class="section-title" id="header-classes">Classes</h2>
       
@@ -3054,7 +3269,7 @@ or it can be a key of a supposed node in self.</p>
     **Time Complexity**: O(h)."""
     if not isinstance(x, BSTNode):
         x = self.search(x)
-        if not x:
+        if x is None:
             raise LookupError("No node was found with key=x.")
     if x.right:
         return BST._minimum_r(x.right)

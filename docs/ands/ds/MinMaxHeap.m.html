@@ -3,14 +3,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands.ds.MaxHeap API documentation</title>
+    <title>ands.ds.MinMaxHeap API documentation</title>
     <meta name="description" content="Author: Nelson Brochado
 
-Creation: 15/02/16
+Creation: 18/02/16
 
 Last update: 19/02/16
 
-Mirror-class to the MinHeap clas..." />
+Min-Max Heap is a heap that supp..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -979,7 +979,7 @@ table {
     <li class="set"><h3><a href="#header-functions">Functions</a></h3>
       
   <ul>
-    <li class="mono"><a href="#ands.ds.MaxHeap.is_max_heap">is_max_heap</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.is_min_max_heap">is_min_max_heap</a></li>
   </ul>
 
     </li>
@@ -987,41 +987,50 @@ table {
     <li class="set"><h3><a href="#header-classes">Classes</a></h3>
       <ul>
         <li class="mono">
-        <span class="class_name"><a href="#ands.ds.MaxHeap.MaxHeap">MaxHeap</a></span>
+        <span class="class_name"><a href="#ands.ds.MinMaxHeap.MinMaxHeap">MinMaxHeap</a></span>
         
           
   <ul>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.__init__">__init__</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.add">add</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.build_heap">build_heap</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.clear">clear</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.contains">contains</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.delete">delete</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.find_max">find_max</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.get">get</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.grandparent_index">grandparent_index</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.has_children">has_children</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_child">is_child</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_empty">is_empty</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_good_index">is_good_index</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_grandchild">is_grandchild</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_grandparent">is_grandparent</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_on_even_level">is_on_even_level</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_on_odd_level">is_on_odd_level</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.is_parent">is_parent</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.left_index">left_index</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.merge">merge</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.parent_index">parent_index</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.push_down">push_down</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.push_up">push_up</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.remove_max">remove_max</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.replace">replace</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.right_index">right_index</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.search">search</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.search_by_value">search_by_value</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.show">show</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.size">size</a></li>
-    <li class="mono"><a href="#ands.ds.MaxHeap.MaxHeap.swap">swap</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.__init__">__init__</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.add">add</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.build_heap">build_heap</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.clear">clear</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.contains">contains</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.delete">delete</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.find_max">find_max</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.find_max_index">find_max_index</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.find_min">find_min</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.get">get</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.grandparent_index">grandparent_index</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.has_children">has_children</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.index_of_max">index_of_max</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.index_of_min">index_of_min</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.is_child">is_child</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.is_empty">is_empty</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.is_good_index">is_good_index</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.is_grandchild">is_grandchild</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.is_grandparent">is_grandparent</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.is_on_even_level">is_on_even_level</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.is_on_odd_level">is_on_odd_level</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.is_parent">is_parent</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.left_index">left_index</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.merge">merge</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.parent_index">parent_index</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.push_down">push_down</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.push_down_max">push_down_max</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.push_down_min">push_down_min</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.push_up">push_up</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.push_up_max">push_up_max</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.push_up_min">push_up_min</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.remove_max">remove_max</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.remove_min">remove_min</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.replace">replace</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.right_index">right_index</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.search">search</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.search_by_value">search_by_value</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.show">show</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.size">size</a></li>
+    <li class="mono"><a href="#ands.ds.MinMaxHeap.MinMaxHeap.swap">swap</a></li>
   </ul>
 
         </li>
@@ -1039,167 +1048,271 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands.ds.MaxHeap</span> module</h1>
+  <h1 class="title"><span class="name">ands.ds.MinMaxHeap</span> module</h1>
   <p>Author: Nelson Brochado</p>
-<p>Creation: 15/02/16</p>
+<p>Creation: 18/02/16</p>
 <p>Last update: 19/02/16</p>
-<p>Mirror-class to the MinHeap class.
-For more info, see the introductory doc-strings of the file <a href="MinHeap.py"><code>MinHeap.py</code></a>.</p>
-<h2>References</h2>
+<p>Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
+Moreover, both remove-min and remove-max are supported in logarithmic time.
+It's therefore an useful data structure to implement (or represent) double-ended priority queues.</p>
+<h2>References:</h2>
 <ul>
 <li>
-<p><a href="https://en.wikipedia.org/wiki/Binary_heap">https://en.wikipedia.org/wiki/Binary_heap</a></p>
+<p><a href="http://www.akira.ruc.dk/~keld/teaching/algoritmedesign_f03/Artikler/02../Atkinson86.pdf">Min-Max Heaps and Generalized Priority Queues</a></p>
 </li>
 <li>
-<p>Slides by prof. A. Carzaniga</p>
+<p><a href="https://github.com/brownhead/minmaxheap-cpp/blob/master/MinMaxHeap.hpp">brownhead/minmaxheap-cpp</a></p>
 </li>
 <li>
-<p>Chapter 13 of <a href="https://mitpress.mit.edu/books/introduction-algorithms">Introduction to Algorithms (3rd ed.)</a> by CLRS</p>
+<p><a href="https://gist.github.com/gnarmis/4647645">gnarmis/minmaxheap.py</a></p>
+</li>
+<li>
+<p><a href="http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html">http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html</a></p>
+</li>
+<li>
+<p><a href="http://www.math.clemson.edu/~warner/M865/HeapDelete.html">http://www.math.clemson.edu/~warner/M865/HeapDelete.html</a></p>
 </li>
 </ul>
   
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
 Author: Nelson Brochado
 
-Creation: 15/02/16
+Creation: 18/02/16
 
 Last update: 19/02/16
 
-Mirror-class to the MinHeap class.
-For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHeap.py).
+Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
+Moreover, both remove-min and remove-max are supported in logarithmic time.
+It's therefore an useful data structure to implement (or represent) double-ended priority queues.
 
-## References
+## References:
 
-- [https://en.wikipedia.org/wiki/Binary_heap](https://en.wikipedia.org/wiki/Binary_heap)
+- [Min-Max Heaps and Generalized Priority Queues](http://www.akira.ruc.dk/~keld/teaching/algoritmedesign_f03/Artikler/02../Atkinson86.pdf)
 
-- Slides by prof. A. Carzaniga
+- [brownhead/minmaxheap-cpp](https://github.com/brownhead/minmaxheap-cpp/blob/master/MinMaxHeap.hpp)
 
-- Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
+- [gnarmis/minmaxheap.py](https://gist.github.com/gnarmis/4647645)
+
+- [http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html](http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html)
+
+- [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
 """
 
 from ands.ds.Heap import Heap
 from ands.ds.HeapNode import HeapNode
 
 
-__all__ = ["MaxHeap", "is_max_heap"]
-
-
-class MaxHeap(Heap):
+class MinMaxHeap(Heap):
 
     def __init__(self, ls=[]):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
-        """'Max-heapify' this max-heap starting from index `i`.
+        if self.is_on_even_level(i):
+            self.push_down_min(i)
+        else:
+            self.push_down_max(i)
+            
+    def push_down_min(self, i: int) -> None:
+        """Helper method for `push_down`."""
+        if self.has_children(i):            
+            m = self.index_of_min(i)
+            
+            if self.is_grandchild(m, i):
+                if self.heap[m] < self.heap[i]:
+                    self.swap(i, m)
+                    
+                    mp = self.parent_index(m)
+                    if mp != -1 and self.heap[m] > self.heap[mp]:
+                        self.swap(m, mp)
+                    self.push_down_min(m)
+                    
+            else:  # self.heap[m] is a child of self.heap[i]
+                if self.heap[m] < self.heap[i]:
+                    self.swap(i, m)
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""
-        m = i
-        l = self.left_index(i)
+    def push_down_max(self, i: int) -> None:
+        """Helper method for `push_down`."""        
+        if self.has_children(i):
+            m = self.index_of_max(i)
+
+            if self.is_grandchild(m, i):        
+                if self.heap[m] > self.heap[i]:
+                    self.swap(i, m)
+
+                    mp = self.parent_index(m)
+                    if mp != -1 and self.heap[m] < self.heap[mp]:
+                        self.swap(m, mp)
+                    self.push_down_max(m)
+                    
+            else:  # self.heap[m] is a child of self.heap[i]
+                if self.heap[m] > self.heap[i]:
+                    self.swap(i, m)
+
+    def push_up(self, i: int) -> None:
+        if self.is_on_even_level(i):
+            p = self.parent_index(i)
+            if p != -1 and self.heap[i] > self.heap[p]:
+                self.swap(i, p)
+                self.push_up_max(p)
+            else:
+                 self.push_up_min(i)
+        else:
+            p = self.parent_index(i)            
+            if p != -1 and self.heap[i] < self.heap[p]:
+                self.swap(i, p)
+                self.push_up_min(p)
+            else:
+                self.push_up_max(i)
+
+    def push_up_min(self, i: int) -> None:
+        """Helper method for `push_up`."""        
+        g = self.grandparent_index(i)
+        if g != -1:
+            if self.heap[i] < self.heap[g]:
+                self.swap(i, g)
+                self.push_up_min(g)
+
+    def push_up_max(self, i: int) -> None:
+        """Helper method for `push_up`."""        
+        g = self.grandparent_index(i)
+        if g != -1:
+            if self.heap[i] > self.heap[g]:
+                self.swap(i, g)
+                self.push_up_max(g)
+                
+    def find_max(self) -> HeapNode:
+        """Returns the `HeapNode` object representing the maximum element."""
+        if not self.is_empty():
+            return self.heap[self.find_max_index()]
+
+    def find_min(self) -> HeapNode:
+        """Returns the `HeapNode` object representing the minimum element."""
+        if not self.is_empty():
+            return self.heap[0]
+        
+    def remove_max(self) -> HeapNode:
+        """Deletes and returns the `HeapNode` object representing the maximum element."""        
+        if not self.is_empty():
+            return self.delete(self.find_max_index())
+
+    def remove_min(self) -> HeapNode:
+        """Deletes and returns the `HeapNode` object representing the minimum element."""        
+        if not self.is_empty():
+            return self.delete(0)
+
+    def find_max_index(self) -> int:
+        """Returns the index of the maximum element in this min-max heap."""
+        if self.is_empty():
+            return -1
+        elif self.size() == 1:
+            return 0
+        elif self.size() == 2:
+            return 1
+        else:
+            return 1 if self.heap[1] > self.heap[2] else 2
+            
+    def index_of_min(self, i: int) -> int:
+        """Returns the index of the smallest element
+        among the children and grandchildren of the node at index `i`."""        
+        m = l = self.left_index(i)
         r = self.right_index(i)
 
-        if l != -1 and self.heap[l] > self.heap[m]:
-            m = l
+        if r != -1 and self.heap[r] < self.heap[m]:
+            m = r
+
+        if l != -1:
+            gll = self.left_index(l)
+            if gll != -1 and self.heap[gll] < self.heap[m]:
+                m = gll
+            glr = self.right_index(l)
+            if glr != -1 and self.heap[glr] < self.heap[m]:
+                m = glr
+            
+        if r != -1:
+            grl = self.left_index(r)
+            if grl != -1 and self.heap[grl] < self.heap[m]:
+                m = grl
+            grr = self.right_index(r)
+            if grr != -1 and self.heap[grr] < self.heap[m]:
+                m = grr
+
+        return m
+
+    def index_of_max(self, i: int) -> int:
+        """Returns the index of the largest element
+        among the children and grandchildren of the node at index `i`."""
+        m = l = self.left_index(i)
+        r = self.right_index(i)
+
         if r != -1 and self.heap[r] > self.heap[m]:
             m = r
 
-        if m != i:
-            self.swap(m, i)
-            self.push_down(m)
-
-    def push_up(self, i: int) -> None:
-        """Pushes up the node at index `i`.
-
-        Note that this operation only happens
-        if the node at index `i` is greater than its parent.
-
-        **Time Complexity:** O(log<sub>2</sub> n)."""
-        c = i  # current index
-        p = self.parent_index(i)
-        
-        if p != -1 and self.heap[c] > self.heap[p]:
-            c = p
+        if l != -1:
+            gll = self.left_index(l)
+            if gll != -1 and self.heap[gll] > self.heap[m]:
+                m = gll
+            glr = self.right_index(l)
+            if glr != -1 and self.heap[glr] > self.heap[m]:
+                m = glr
             
-        if c != i:
-            self.swap(c, i)
-            self.push_up(c)
+        if r != -1:
+            grl = self.left_index(r)
+            if grl != -1 and self.heap[grl] > self.heap[m]:
+                m = grl
+            grr = self.right_index(r)
+            if grr != -1 and self.heap[grr] > self.heap[m]:
+                m = grr
 
-    def find_max(self) -> HeapNode:
-        """Returns (without removing) the greatest element in this max-heap.
-
-        **Time Complexity:** O(1)."""
-        return self.heap[0] if not self.is_empty() else None
-
-    def remove_max(self) -> HeapNode:
-        """Removes and returns the greatest element in this max-heap.
-
-        **Time Complexity:** O(log<sub>2</sub> n),
-        if removing the last element of a list is a constant-time operation."""
-        if not self.is_empty():
-            self.swap(0, self.size() - 1)
-            m = self.heap.pop()
-            if not self.is_empty():
-                self.push_down(0)
-            return m
-
-    def replace(self, i: int, x):
-        """Replaces element at index `i` with `x`.
-
-        `x` can either be a key or a `HeapNode` object.
-        If it's a key, then a `HeapNode` object
-        first created to represent `x`.
-
-        1. If `x == self.heap[i]`,
-        then just replace `self.heap[i]` with `x`.
-
-        2. Else if `x > self.heap[i]`,
-        then push_up(index).
-
-        3. Else `x < self.heap[i]`,
-        then call `self.push_down(i)`.
-
-        **Time Complexity:** O(log<sub>2</sub> n)."""
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, HeapNode):
-            x = HeapNode(x)
-            
-        if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")
-
-        c = self.heap[i]
-        self.heap[i] = x
-
-        if x < c:
-            self.push_down(i)
-        elif x > c:
-            self.push_up(i)
-            
-        return c
+        return m
 
 
-def is_max_heap(h):
-    """Returns `True` if `h` is a valid `MaxHeap`. `False` otherwise."""
-    if not isinstance(h, MaxHeap):
+def is_min_max_heap(h):
+    """Returns `True` if `h` is a valid `MinMaxHeap` object. `False` otherwise."""
+    if not isinstance(h, MinMaxHeap):
         return False
+    
     if h.heap:
         for item in h.heap:
             if not isinstance(item, HeapNode):
                 return False
-        for i, item in enumerate(h.heap):
-            l = h.left_index(i)
-            r = h.right_index(i)
-            if r != -1 and l == -1:
+            
+        if h.size() == 1:
+            return True
+        
+        if h.size() == 2:
+            return h.heap[1] > h.heap[0]
+        
+        if h.size() >= 3:
+            if (h.heap[0] != min(h.heap) or
+                (h.heap[1] != max(h.heap) and
+                 h.heap[2] != max(h.heap))):
                 return False
-            if l != -1 and item < h.heap[l]:
-                return False
-            if r != -1 and item < h.heap[r]:
-                return False
-    return True 
+             
+        for i, item in reversed(list(enumerate(h.heap))):
+            p = h.parent_index(i)
+            if p != -1:
+                if h.is_on_even_level(i):
+                    if h.heap[p] < item:
+                        return False
+                else:
+                    if h.heap[p] > item:
+                        return False
+                
+            g = h.grandparent_index(i)
+            if g != -1:
+                if h.is_on_even_level(i):
+                    if h.heap[g] > item:
+                        return False
+                else:
+                    if h.heap[g] < item:
+                        return False
+    return True        
 </code></pre>
   </div>
 
@@ -1210,35 +1323,58 @@ def is_max_heap(h):
     <h2 class="section-title" id="header-functions">Functions</h2>
       
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.is_max_heap">
-    <p>def <span class="ident">is_max_heap</span>(</p><p>h)</p>
+    <div class="name def" id="ands.ds.MinMaxHeap.is_min_max_heap">
+    <p>def <span class="ident">is_min_max_heap</span>(</p><p>h)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Returns <code>True</code> if <code>h</code> is a valid <code>MaxHeap</code>. <code>False</code> otherwise.</p></div>
+    <div class="desc"><p>Returns <code>True</code> if <code>h</code> is a valid <code>MinMaxHeap</code> object. <code>False</code> otherwise.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.is_max_heap', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.is_max_heap" class="source">
-    <pre><code>def is_max_heap(h):
-    """Returns `True` if `h` is a valid `MaxHeap`. `False` otherwise."""
-    if not isinstance(h, MaxHeap):
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.is_min_max_heap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.is_min_max_heap" class="source">
+    <pre><code>def is_min_max_heap(h):
+    """Returns `True` if `h` is a valid `MinMaxHeap` object. `False` otherwise."""
+    if not isinstance(h, MinMaxHeap):
         return False
+    
     if h.heap:
         for item in h.heap:
             if not isinstance(item, HeapNode):
                 return False
-        for i, item in enumerate(h.heap):
-            l = h.left_index(i)
-            r = h.right_index(i)
-            if r != -1 and l == -1:
+            
+        if h.size() == 1:
+            return True
+        
+        if h.size() == 2:
+            return h.heap[1] > h.heap[0]
+        
+        if h.size() >= 3:
+            if (h.heap[0] != min(h.heap) or
+                (h.heap[1] != max(h.heap) and
+                 h.heap[2] != max(h.heap))):
                 return False
-            if l != -1 and item < h.heap[l]:
-                return False
-            if r != -1 and item < h.heap[r]:
-                return False
-    return True 
+             
+        for i, item in reversed(list(enumerate(h.heap))):
+            p = h.parent_index(i)
+            if p != -1:
+                if h.is_on_even_level(i):
+                    if h.heap[p] < item:
+                        return False
+                else:
+                    if h.heap[p] > item:
+                        return False
+                
+            g = h.grandparent_index(i)
+            if g != -1:
+                if h.is_on_even_level(i):
+                    if h.heap[g] > item:
+                        return False
+                else:
+                    if h.heap[g] < item:
+                        return False
+    return True        
 </code></pre>
   </div>
 </div>
@@ -1249,103 +1385,175 @@ def is_max_heap(h):
     <h2 class="section-title" id="header-classes">Classes</h2>
       
       <div class="item">
-      <p id="ands.ds.MaxHeap.MaxHeap" class="name">class <span class="ident">MaxHeap</span></p>
+      <p id="ands.ds.MinMaxHeap.MinMaxHeap" class="name">class <span class="ident">MinMaxHeap</span></p>
       
   
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap" class="source">
-    <pre><code>class MaxHeap(Heap):
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap" class="source">
+    <pre><code>class MinMaxHeap(Heap):
 
     def __init__(self, ls=[]):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
-        """'Max-heapify' this max-heap starting from index `i`.
+        if self.is_on_even_level(i):
+            self.push_down_min(i)
+        else:
+            self.push_down_max(i)
+            
+    def push_down_min(self, i: int) -> None:
+        """Helper method for `push_down`."""
+        if self.has_children(i):            
+            m = self.index_of_min(i)
+            
+            if self.is_grandchild(m, i):
+                if self.heap[m] < self.heap[i]:
+                    self.swap(i, m)
+                    
+                    mp = self.parent_index(m)
+                    if mp != -1 and self.heap[m] > self.heap[mp]:
+                        self.swap(m, mp)
+                    self.push_down_min(m)
+                    
+            else:  # self.heap[m] is a child of self.heap[i]
+                if self.heap[m] < self.heap[i]:
+                    self.swap(i, m)
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""
-        m = i
-        l = self.left_index(i)
+    def push_down_max(self, i: int) -> None:
+        """Helper method for `push_down`."""        
+        if self.has_children(i):
+            m = self.index_of_max(i)
+
+            if self.is_grandchild(m, i):        
+                if self.heap[m] > self.heap[i]:
+                    self.swap(i, m)
+
+                    mp = self.parent_index(m)
+                    if mp != -1 and self.heap[m] < self.heap[mp]:
+                        self.swap(m, mp)
+                    self.push_down_max(m)
+                    
+            else:  # self.heap[m] is a child of self.heap[i]
+                if self.heap[m] > self.heap[i]:
+                    self.swap(i, m)
+
+    def push_up(self, i: int) -> None:
+        if self.is_on_even_level(i):
+            p = self.parent_index(i)
+            if p != -1 and self.heap[i] > self.heap[p]:
+                self.swap(i, p)
+                self.push_up_max(p)
+            else:
+                 self.push_up_min(i)
+        else:
+            p = self.parent_index(i)            
+            if p != -1 and self.heap[i] < self.heap[p]:
+                self.swap(i, p)
+                self.push_up_min(p)
+            else:
+                self.push_up_max(i)
+
+    def push_up_min(self, i: int) -> None:
+        """Helper method for `push_up`."""        
+        g = self.grandparent_index(i)
+        if g != -1:
+            if self.heap[i] < self.heap[g]:
+                self.swap(i, g)
+                self.push_up_min(g)
+
+    def push_up_max(self, i: int) -> None:
+        """Helper method for `push_up`."""        
+        g = self.grandparent_index(i)
+        if g != -1:
+            if self.heap[i] > self.heap[g]:
+                self.swap(i, g)
+                self.push_up_max(g)
+                
+    def find_max(self) -> HeapNode:
+        """Returns the `HeapNode` object representing the maximum element."""
+        if not self.is_empty():
+            return self.heap[self.find_max_index()]
+
+    def find_min(self) -> HeapNode:
+        """Returns the `HeapNode` object representing the minimum element."""
+        if not self.is_empty():
+            return self.heap[0]
+        
+    def remove_max(self) -> HeapNode:
+        """Deletes and returns the `HeapNode` object representing the maximum element."""        
+        if not self.is_empty():
+            return self.delete(self.find_max_index())
+
+    def remove_min(self) -> HeapNode:
+        """Deletes and returns the `HeapNode` object representing the minimum element."""        
+        if not self.is_empty():
+            return self.delete(0)
+
+    def find_max_index(self) -> int:
+        """Returns the index of the maximum element in this min-max heap."""
+        if self.is_empty():
+            return -1
+        elif self.size() == 1:
+            return 0
+        elif self.size() == 2:
+            return 1
+        else:
+            return 1 if self.heap[1] > self.heap[2] else 2
+            
+    def index_of_min(self, i: int) -> int:
+        """Returns the index of the smallest element
+        among the children and grandchildren of the node at index `i`."""        
+        m = l = self.left_index(i)
         r = self.right_index(i)
 
-        if l != -1 and self.heap[l] > self.heap[m]:
-            m = l
+        if r != -1 and self.heap[r] < self.heap[m]:
+            m = r
+
+        if l != -1:
+            gll = self.left_index(l)
+            if gll != -1 and self.heap[gll] < self.heap[m]:
+                m = gll
+            glr = self.right_index(l)
+            if glr != -1 and self.heap[glr] < self.heap[m]:
+                m = glr
+            
+        if r != -1:
+            grl = self.left_index(r)
+            if grl != -1 and self.heap[grl] < self.heap[m]:
+                m = grl
+            grr = self.right_index(r)
+            if grr != -1 and self.heap[grr] < self.heap[m]:
+                m = grr
+
+        return m
+
+    def index_of_max(self, i: int) -> int:
+        """Returns the index of the largest element
+        among the children and grandchildren of the node at index `i`."""
+        m = l = self.left_index(i)
+        r = self.right_index(i)
+
         if r != -1 and self.heap[r] > self.heap[m]:
             m = r
 
-        if m != i:
-            self.swap(m, i)
-            self.push_down(m)
-
-    def push_up(self, i: int) -> None:
-        """Pushes up the node at index `i`.
-
-        Note that this operation only happens
-        if the node at index `i` is greater than its parent.
-
-        **Time Complexity:** O(log<sub>2</sub> n)."""
-        c = i  # current index
-        p = self.parent_index(i)
-        
-        if p != -1 and self.heap[c] > self.heap[p]:
-            c = p
+        if l != -1:
+            gll = self.left_index(l)
+            if gll != -1 and self.heap[gll] > self.heap[m]:
+                m = gll
+            glr = self.right_index(l)
+            if glr != -1 and self.heap[glr] > self.heap[m]:
+                m = glr
             
-        if c != i:
-            self.swap(c, i)
-            self.push_up(c)
+        if r != -1:
+            grl = self.left_index(r)
+            if grl != -1 and self.heap[grl] > self.heap[m]:
+                m = grl
+            grr = self.right_index(r)
+            if grr != -1 and self.heap[grr] > self.heap[m]:
+                m = grr
 
-    def find_max(self) -> HeapNode:
-        """Returns (without removing) the greatest element in this max-heap.
-
-        **Time Complexity:** O(1)."""
-        return self.heap[0] if not self.is_empty() else None
-
-    def remove_max(self) -> HeapNode:
-        """Removes and returns the greatest element in this max-heap.
-
-        **Time Complexity:** O(log<sub>2</sub> n),
-        if removing the last element of a list is a constant-time operation."""
-        if not self.is_empty():
-            self.swap(0, self.size() - 1)
-            m = self.heap.pop()
-            if not self.is_empty():
-                self.push_down(0)
-            return m
-
-    def replace(self, i: int, x):
-        """Replaces element at index `i` with `x`.
-
-        `x` can either be a key or a `HeapNode` object.
-        If it's a key, then a `HeapNode` object
-        first created to represent `x`.
-
-        1. If `x == self.heap[i]`,
-        then just replace `self.heap[i]` with `x`.
-
-        2. Else if `x > self.heap[i]`,
-        then push_up(index).
-
-        3. Else `x < self.heap[i]`,
-        then call `self.push_down(i)`.
-
-        **Time Complexity:** O(log<sub>2</sub> n)."""
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, HeapNode):
-            x = HeapNode(x)
-            
-        if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")
-
-        c = self.heap[i]
-        self.heap[i] = x
-
-        if x < c:
-            self.push_down(i)
-        elif x > c:
-            self.push_up(i)
-            
-        return c
+        return m
 </code></pre>
   </div>
 </div>
@@ -1354,14 +1562,14 @@ def is_max_heap(h):
       <div class="class">
           <h3>Ancestors (in MRO)</h3>
           <ul class="class_list">
-          <li><a href="#ands.ds.MaxHeap.MaxHeap">MaxHeap</a></li>
+          <li><a href="#ands.ds.MinMaxHeap.MinMaxHeap">MinMaxHeap</a></li>
           <li>ands.ds.Heap.Heap</li>
           <li>builtins.object</li>
           </ul>
           <h3>Static methods</h3>
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.__init__">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.__init__">
     <p>def <span class="ident">__init__</span>(</p><p>self, ls=[])</p>
     </div>
     
@@ -1370,8 +1578,8 @@ def is_max_heap(h):
   
     <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.__init__', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.__init__" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.__init__', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.__init__" class="source">
     <pre><code>def __init__(self, ls=[]):
     Heap.__init__(self, ls)
 </code></pre>
@@ -1382,7 +1590,7 @@ def is_max_heap(h):
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.add">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.add">
     <p>def <span class="ident">add</span>(</p><p>self, x)</p>
     </div>
     
@@ -1398,8 +1606,8 @@ If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.add', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.add" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.add', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.add" class="source">
     <pre><code>def add(self, x):
     """Adds `x` to this heap.
     In practice, it places `x` at an available leaf,
@@ -1427,7 +1635,7 @@ whose key and value are equal to <code>x</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.build_heap">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.build_heap">
     <p>def <span class="ident">build_heap</span>(</p><p>self)</p>
     </div>
     
@@ -1436,8 +1644,8 @@ whose key and value are equal to <code>x</code>.</p>
   
     <div class="desc"><p>Builds the heap data structure from <code>self.heap</code>.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.build_heap', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.build_heap" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.build_heap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.build_heap" class="source">
     <pre><code>def build_heap(self):
     """Builds the heap data structure from `self.heap`."""
     if self.heap:
@@ -1452,7 +1660,7 @@ whose key and value are equal to <code>x</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.clear">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.clear">
     <p>def <span class="ident">clear</span>(</p><p>self)</p>
     </div>
     
@@ -1464,8 +1672,8 @@ This mean that if you call <code>is_empty</code>,
 it will return <code>True</code>.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.clear', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.clear" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.clear', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.clear" class="source">
     <pre><code>def clear(self):
     """Clears all nodes from this heap.
     This mean that if you call `is_empty`,
@@ -1480,7 +1688,7 @@ it will return <code>True</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.contains">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.contains">
     <p>def <span class="ident">contains</span>(</p><p>self, x)</p>
     </div>
     
@@ -1493,8 +1701,8 @@ If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.</p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.contains', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.contains" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.contains', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.contains" class="source">
     <pre><code>def contains(self, x) -> bool:
     """Returns `True`, if `x` is in this heap. `False` otherwise.
     `x` can either be a key or a `HeapNode` object.
@@ -1511,7 +1719,7 @@ whose key and value are equal to <code>x</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.delete">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.delete">
     <p>def <span class="ident">delete</span>(</p><p>self, i)</p>
     </div>
     
@@ -1525,8 +1733,8 @@ whose key and value are equal to <code>x</code>.</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> h),
 where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.delete', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.delete" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.delete', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.delete" class="source">
     <pre><code>def delete(self, i: int):
     """Deletes and returns the `HeapNode` object at index `i`.
     `IndexError` is raised if `i` is not a valid index.      
@@ -1553,22 +1761,21 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.find_max">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.find_max">
     <p>def <span class="ident">find_max</span>(</p><p>self)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Returns (without removing) the greatest element in this max-heap.</p>
-<p><strong>Time Complexity:</strong> O(1).</p></div>
+    <div class="desc"><p>Returns the <code>HeapNode</code> object representing the maximum element.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.find_max', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.find_max" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.find_max', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.find_max" class="source">
     <pre><code>def find_max(self) -> HeapNode:
-    """Returns (without removing) the greatest element in this max-heap.
-    **Time Complexity:** O(1)."""
-    return self.heap[0] if not self.is_empty() else None
+    """Returns the `HeapNode` object representing the maximum element."""
+    if not self.is_empty():
+        return self.heap[self.find_max_index()]
 </code></pre>
   </div>
 </div>
@@ -1577,7 +1784,59 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.get">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.find_max_index">
+    <p>def <span class="ident">find_max_index</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the index of the maximum element in this min-max heap.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.find_max_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.find_max_index" class="source">
+    <pre><code>def find_max_index(self) -> int:
+    """Returns the index of the maximum element in this min-max heap."""
+    if self.is_empty():
+        return -1
+    elif self.size() == 1:
+        return 0
+    elif self.size() == 2:
+        return 1
+    else:
+        return 1 if self.heap[1] > self.heap[2] else 2
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.find_min">
+    <p>def <span class="ident">find_min</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the <code>HeapNode</code> object representing the minimum element.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.find_min', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.find_min" class="source">
+    <pre><code>def find_min(self) -> HeapNode:
+    """Returns the `HeapNode` object representing the minimum element."""
+    if not self.is_empty():
+        return self.heap[0]
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.get">
     <p>def <span class="ident">get</span>(</p><p>self)</p>
     </div>
     
@@ -1587,8 +1846,8 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
     <div class="desc"><p>Returns the list representing internally the heap.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.get', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.get" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.get', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.get" class="source">
     <pre><code>def get(self):
     """Returns the list representing internally the heap.
     **Time Complexity:** O(1)."""
@@ -1601,7 +1860,7 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.grandparent_index">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.grandparent_index">
     <p>def <span class="ident">grandparent_index</span>(</p><p>self, i)</p>
     </div>
     
@@ -1613,8 +1872,8 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
 the parent of <code>i</code> does not have a parent.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.grandparent_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.grandparent_index" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.grandparent_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.grandparent_index" class="source">
     <pre><code>def grandparent_index(self, i: int):
     """Returns the grandparent's index of the node at index `i`.
     -1 is returned either if `i` has not a parent or
@@ -1631,7 +1890,7 @@ the parent of <code>i</code> does not have a parent.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.has_children">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.has_children">
     <p>def <span class="ident">has_children</span>(</p><p>self, i)</p>
     </div>
     
@@ -1642,8 +1901,8 @@ the parent of <code>i</code> does not have a parent.</p>
 has at least one child, <code>False</code> otherwise.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.has_children', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.has_children" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.has_children', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.has_children" class="source">
     <pre><code>def has_children(self, i: int):
     """Returns `True` if the node at index `i`
     has at least one child, `False` otherwise.
@@ -1659,7 +1918,93 @@ has at least one child, <code>False</code> otherwise.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_child">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.index_of_max">
+    <p>def <span class="ident">index_of_max</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the index of the largest element
+among the children and grandchildren of the node at index <code>i</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.index_of_max', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.index_of_max" class="source">
+    <pre><code>def index_of_max(self, i: int) -> int:
+    """Returns the index of the largest element
+    among the children and grandchildren of the node at index `i`."""
+    m = l = self.left_index(i)
+    r = self.right_index(i)
+    if r != -1 and self.heap[r] > self.heap[m]:
+        m = r
+    if l != -1:
+        gll = self.left_index(l)
+        if gll != -1 and self.heap[gll] > self.heap[m]:
+            m = gll
+        glr = self.right_index(l)
+        if glr != -1 and self.heap[glr] > self.heap[m]:
+            m = glr
+        
+    if r != -1:
+        grl = self.left_index(r)
+        if grl != -1 and self.heap[grl] > self.heap[m]:
+            m = grl
+        grr = self.right_index(r)
+        if grr != -1 and self.heap[grr] > self.heap[m]:
+            m = grr
+    return m
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.index_of_min">
+    <p>def <span class="ident">index_of_min</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the index of the smallest element
+among the children and grandchildren of the node at index <code>i</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.index_of_min', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.index_of_min" class="source">
+    <pre><code>def index_of_min(self, i: int) -> int:
+    """Returns the index of the smallest element
+    among the children and grandchildren of the node at index `i`."""        
+    m = l = self.left_index(i)
+    r = self.right_index(i)
+    if r != -1 and self.heap[r] < self.heap[m]:
+        m = r
+    if l != -1:
+        gll = self.left_index(l)
+        if gll != -1 and self.heap[gll] < self.heap[m]:
+            m = gll
+        glr = self.right_index(l)
+        if glr != -1 and self.heap[glr] < self.heap[m]:
+            m = glr
+        
+    if r != -1:
+        grl = self.left_index(r)
+        if grl != -1 and self.heap[grl] < self.heap[m]:
+            m = grl
+        grr = self.right_index(r)
+        if grr != -1 and self.heap[grr] < self.heap[m]:
+            m = grr
+    return m
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.is_child">
     <p>def <span class="ident">is_child</span>(</p><p>self, c, i)</p>
     </div>
     
@@ -1669,8 +2014,8 @@ has at least one child, <code>False</code> otherwise.</p>
     <div class="desc"><p>Returns <code>True</code> if <code>c</code> is a child of <code>i</code>. <code>False</code> otherwise.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_child', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.is_child" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.is_child', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.is_child" class="source">
     <pre><code>def is_child(self, c: int, i: int):
     """Returns `True` if `c` is a child of `i`. `False` otherwise.
     **Time Complexity:** O(1)."""
@@ -1685,7 +2030,7 @@ has at least one child, <code>False</code> otherwise.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_empty">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.is_empty">
     <p>def <span class="ident">is_empty</span>(</p><p>self)</p>
     </div>
     
@@ -1695,8 +2040,8 @@ has at least one child, <code>False</code> otherwise.</p>
     <div class="desc"><p>Returns <code>True</code> if this heap is empty.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_empty', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.is_empty" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.is_empty', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.is_empty" class="source">
     <pre><code>def is_empty(self):
     """Returns `True` if this heap is empty.
     **Time Complexity:** O(1)."""
@@ -1709,7 +2054,7 @@ has at least one child, <code>False</code> otherwise.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_good_index">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.is_good_index">
     <p>def <span class="ident">is_good_index</span>(</p><p>self, i)</p>
     </div>
     
@@ -1720,8 +2065,8 @@ has at least one child, <code>False</code> otherwise.</p>
 <code>False</code> otherwise.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_good_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.is_good_index" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.is_good_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.is_good_index" class="source">
     <pre><code>def is_good_index(self, i: int) -> bool:
     """Returns `True` if `i` is valid index for `self.heap`,
     `False` otherwise.
@@ -1737,7 +2082,7 @@ has at least one child, <code>False</code> otherwise.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_grandchild">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.is_grandchild">
     <p>def <span class="ident">is_grandchild</span>(</p><p>self, g, i)</p>
     </div>
     
@@ -1747,8 +2092,8 @@ has at least one child, <code>False</code> otherwise.</p>
     <div class="desc"><p>Returns <code>True</code> if <code>g</code> is a grandchild of <code>i</code>. <code>False</code> otherwise.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_grandchild', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.is_grandchild" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.is_grandchild', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.is_grandchild" class="source">
     <pre><code>def is_grandchild(self, g: int, i: int):
     """Returns `True` if `g` is a grandchild of `i`. `False` otherwise.
     **Time Complexity:** O(1)."""
@@ -1771,7 +2116,7 @@ has at least one child, <code>False</code> otherwise.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_grandparent">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.is_grandparent">
     <p>def <span class="ident">is_grandparent</span>(</p><p>self, g, i)</p>
     </div>
     
@@ -1782,8 +2127,8 @@ has at least one child, <code>False</code> otherwise.</p>
 of the node at <code>i</code>, <code>False</code> otherwise.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_grandparent', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.is_grandparent" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.is_grandparent', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.is_grandparent" class="source">
     <pre><code>def is_grandparent(self, g: int, i: int):
     """Returns `True` if `g` is the index of the grandparent
     of the node at `i`, `False` otherwise.
@@ -1800,7 +2145,7 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_on_even_level">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.is_on_even_level">
     <p>def <span class="ident">is_on_even_level</span>(</p><p>self, i)</p>
     </div>
     
@@ -1812,8 +2157,8 @@ i.e., if <code>i</code> is on a level multiple of 2 (0, 2, 4, 6,...).
 If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_on_even_level', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.is_on_even_level" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.is_on_even_level', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.is_on_even_level" class="source">
     <pre><code>def is_on_even_level(self, i: int):
     """Returns `True` if node at index `i` is on a even-level,
     i.e., if `i` is on a level multiple of 2 (0, 2, 4, 6,...).
@@ -1830,7 +2175,7 @@ If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_on_odd_level">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.is_on_odd_level">
     <p>def <span class="ident">is_on_odd_level</span>(</p><p>self, i)</p>
     </div>
     
@@ -1840,8 +2185,8 @@ If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p
     <div class="desc"><p>Returns <code>True</code> (<code>False</code>) if <code>self.is_on_even_level(i)</code> returns <code>False</code> (<code>True</code>).</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_on_odd_level', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.is_on_odd_level" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.is_on_odd_level', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.is_on_odd_level" class="source">
     <pre><code>def is_on_odd_level(self, i: int):
     """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`).
     **Time Complexity:** O(log<sub>2</sub> n)."""
@@ -1854,7 +2199,7 @@ If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.is_parent">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.is_parent">
     <p>def <span class="ident">is_parent</span>(</p><p>self, p, i)</p>
     </div>
     
@@ -1865,8 +2210,8 @@ If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p
 of the node at <code>i</code>, <code>False</code> otherwise.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.is_parent', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.is_parent" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.is_parent', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.is_parent" class="source">
     <pre><code>def is_parent(self, p: int, i: int):
     """Returns `True` if `p` is the index of the parent
     of the node at `i`, `False` otherwise.
@@ -1882,7 +2227,7 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.left_index">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.left_index">
     <p>def <span class="ident">left_index</span>(</p><p>self, i)</p>
     </div>
     
@@ -1894,8 +2239,8 @@ if it exists, otherwise this function returns -1.</p>
 <p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.left_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.left_index" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.left_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.left_index" class="source">
     <pre><code>def left_index(self, i: int):
     """Returns the left child's index of the node at index `i`,
     if it exists, otherwise this function returns -1.
@@ -1914,7 +2259,7 @@ if it exists, otherwise this function returns -1.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.merge">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.merge">
     <p>def <span class="ident">merge</span>(</p><p>self, other)</p>
     </div>
     
@@ -1927,8 +2272,8 @@ if it exists, otherwise this function returns -1.</p>
 <p>Time complexity analysis based on:
 <a href="http://stackoverflow.com/a/29197855/3924118">http://stackoverflow.com/a/29197855/3924118</a>.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.merge', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.merge" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.merge', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.merge" class="source">
     <pre><code>def merge(self, other) -> list:
     """Merges this heap with the `other` heap.
     
@@ -1946,7 +2291,7 @@ if it exists, otherwise this function returns -1.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.parent_index">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.parent_index">
     <p>def <span class="ident">parent_index</span>(</p><p>self, i)</p>
     </div>
     
@@ -1958,8 +2303,8 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
 <p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.parent_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.parent_index" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.parent_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.parent_index" class="source">
     <pre><code>def parent_index(self, i: int):
     """Returns the parent's index of the node at index `i`.
     If `i = 0`, then -1 is returned, because the root has no parent.
@@ -1977,31 +2322,22 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.push_down">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.push_down">
     <p>def <span class="ident">push_down</span>(</p><p>self, i)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>'Max-heapify' this max-heap starting from index <code>i</code>.</p>
-<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
+    <div class="desc"><p>Classical so-called heapify operation for heaps.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.push_down', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.push_down" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.push_down', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_down" class="source">
     <pre><code>def push_down(self, i: int) -> None:
-    """'Max-heapify' this max-heap starting from index `i`.
-    **Time Complexity:** O(log<sub>2</sub> n)."""
-    m = i
-    l = self.left_index(i)
-    r = self.right_index(i)
-    if l != -1 and self.heap[l] > self.heap[m]:
-        m = l
-    if r != -1 and self.heap[r] > self.heap[m]:
-        m = r
-    if m != i:
-        self.swap(m, i)
-        self.push_down(m)
+    if self.is_on_even_level(i):
+        self.push_down_min(i)
+    else:
+        self.push_down_max(i)
 </code></pre>
   </div>
 </div>
@@ -2010,34 +2346,102 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.push_up">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.push_down_max">
+    <p>def <span class="ident">push_down_max</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Helper method for <code>push_down</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.push_down_max', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_down_max" class="source">
+    <pre><code>def push_down_max(self, i: int) -> None:
+    """Helper method for `push_down`."""        
+    if self.has_children(i):
+        m = self.index_of_max(i)
+        if self.is_grandchild(m, i):        
+            if self.heap[m] > self.heap[i]:
+                self.swap(i, m)
+                mp = self.parent_index(m)
+                if mp != -1 and self.heap[m] < self.heap[mp]:
+                    self.swap(m, mp)
+                self.push_down_max(m)
+                
+        else:  # self.heap[m] is a child of self.heap[i]
+            if self.heap[m] > self.heap[i]:
+                self.swap(i, m)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.push_down_min">
+    <p>def <span class="ident">push_down_min</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Helper method for <code>push_down</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.push_down_min', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_down_min" class="source">
+    <pre><code>def push_down_min(self, i: int) -> None:
+    """Helper method for `push_down`."""
+    if self.has_children(i):            
+        m = self.index_of_min(i)
+        
+        if self.is_grandchild(m, i):
+            if self.heap[m] < self.heap[i]:
+                self.swap(i, m)
+                
+                mp = self.parent_index(m)
+                if mp != -1 and self.heap[m] > self.heap[mp]:
+                    self.swap(m, mp)
+                self.push_down_min(m)
+                
+        else:  # self.heap[m] is a child of self.heap[i]
+            if self.heap[m] < self.heap[i]:
+                self.swap(i, m)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.push_up">
     <p>def <span class="ident">push_up</span>(</p><p>self, i)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Pushes up the node at index <code>i</code>.</p>
-<p>Note that this operation only happens
-if the node at index <code>i</code> is greater than its parent.</p>
-<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
+    <div class="desc"><p>Classical reverse-heapify operation for heaps.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.push_up', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.push_up" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.push_up', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_up" class="source">
     <pre><code>def push_up(self, i: int) -> None:
-    """Pushes up the node at index `i`.
-    Note that this operation only happens
-    if the node at index `i` is greater than its parent.
-    **Time Complexity:** O(log<sub>2</sub> n)."""
-    c = i  # current index
-    p = self.parent_index(i)
-    
-    if p != -1 and self.heap[c] > self.heap[p]:
-        c = p
-        
-    if c != i:
-        self.swap(c, i)
-        self.push_up(c)
+    if self.is_on_even_level(i):
+        p = self.parent_index(i)
+        if p != -1 and self.heap[i] > self.heap[p]:
+            self.swap(i, p)
+            self.push_up_max(p)
+        else:
+             self.push_up_min(i)
+    else:
+        p = self.parent_index(i)            
+        if p != -1 and self.heap[i] < self.heap[p]:
+            self.swap(i, p)
+            self.push_up_min(p)
+        else:
+            self.push_up_max(i)
 </code></pre>
   </div>
 </div>
@@ -2046,29 +2450,73 @@ if the node at index <code>i</code> is greater than its parent.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.remove_max">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.push_up_max">
+    <p>def <span class="ident">push_up_max</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Helper method for <code>push_up</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.push_up_max', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_up_max" class="source">
+    <pre><code>def push_up_max(self, i: int) -> None:
+    """Helper method for `push_up`."""        
+    g = self.grandparent_index(i)
+    if g != -1:
+        if self.heap[i] > self.heap[g]:
+            self.swap(i, g)
+            self.push_up_max(g)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.push_up_min">
+    <p>def <span class="ident">push_up_min</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Helper method for <code>push_up</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.push_up_min', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_up_min" class="source">
+    <pre><code>def push_up_min(self, i: int) -> None:
+    """Helper method for `push_up`."""        
+    g = self.grandparent_index(i)
+    if g != -1:
+        if self.heap[i] < self.heap[g]:
+            self.swap(i, g)
+            self.push_up_min(g)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.remove_max">
     <p>def <span class="ident">remove_max</span>(</p><p>self)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Removes and returns the greatest element in this max-heap.</p>
-<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n),
-if removing the last element of a list is a constant-time operation.</p></div>
+    <div class="desc"><p>Deletes and returns the <code>HeapNode</code> object representing the maximum element.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.remove_max', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.remove_max" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.remove_max', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.remove_max" class="source">
     <pre><code>def remove_max(self) -> HeapNode:
-    """Removes and returns the greatest element in this max-heap.
-    **Time Complexity:** O(log<sub>2</sub> n),
-    if removing the last element of a list is a constant-time operation."""
+    """Deletes and returns the `HeapNode` object representing the maximum element."""        
     if not self.is_empty():
-        self.swap(0, self.size() - 1)
-        m = self.heap.pop()
-        if not self.is_empty():
-            self.push_down(0)
-        return m
+        return self.delete(self.find_max_index())
 </code></pre>
   </div>
 </div>
@@ -2077,62 +2525,49 @@ if removing the last element of a list is a constant-time operation.</p></div>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.replace">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.remove_min">
+    <p>def <span class="ident">remove_min</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Deletes and returns the <code>HeapNode</code> object representing the minimum element.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.remove_min', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.remove_min" class="source">
+    <pre><code>def remove_min(self) -> HeapNode:
+    """Deletes and returns the `HeapNode` object representing the minimum element."""        
+    if not self.is_empty():
+        return self.delete(0)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.replace">
     <p>def <span class="ident">replace</span>(</p><p>self, i, x)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Replaces element at index <code>i</code> with <code>x</code>.</p>
+    <div class="desc"><p>Replaces the <code>HeapNode</code> object at index <code>i</code> with <code>x</code>.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
-If it's a key, then a <code>HeapNode</code> object
-first created to represent <code>x</code>.</p>
-<ol>
-<li>
-<p>If <code>x == self.heap[i]</code>,
-then just replace <code>self.heap[i]</code> with <code>x</code>.</p>
-</li>
-<li>
-<p>Else if <code>x &gt; self.heap[i]</code>,
-then push_up(index).</p>
-</li>
-<li>
-<p>Else <code>x &lt; self.heap[i]</code>,
-then call <code>self.push_down(i)</code>.</p>
-</li>
-</ol>
-<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
+If it's a key, an <code>HeapNode</code> is first created,
+whose key and value are equal to <code>x</code>.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.replace', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.replace" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.replace', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.replace" class="source">
     <pre><code>def replace(self, i: int, x):
-    """Replaces element at index `i` with `x`.
+    """Replaces the `HeapNode` object at index `i` with `x`.
     `x` can either be a key or a `HeapNode` object.
-    If it's a key, then a `HeapNode` object
-    first created to represent `x`.
-    1. If `x == self.heap[i]`,
-    then just replace `self.heap[i]` with `x`.
-    2. Else if `x > self.heap[i]`,
-    then push_up(index).
-    3. Else `x < self.heap[i]`,
-    then call `self.push_down(i)`.
-    **Time Complexity:** O(log<sub>2</sub> n)."""
-    if x is None:
-        raise ValueError("x cannot be None.")
-    if not isinstance(x, HeapNode):
-        x = HeapNode(x)
-        
-    if not self.is_good_index(i):
-        raise IndexError("i is not a valid index.")
-    c = self.heap[i]
-    self.heap[i] = x
-    if x < c:
-        self.push_down(i)
-    elif x > c:
-        self.push_up(i)
-        
-    return c
+    If it's a key, an `HeapNode` is first created,
+    whose key and value are equal to `x`."""
+    raise NotImplementedError()
 </code></pre>
   </div>
 </div>
@@ -2141,7 +2576,7 @@ then call <code>self.push_down(i)</code>.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.right_index">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.right_index">
     <p>def <span class="ident">right_index</span>(</p><p>self, i)</p>
     </div>
     
@@ -2153,8 +2588,8 @@ if it exists, otherwise this function returns -1.</p>
 <p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.right_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.right_index" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.right_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.right_index" class="source">
     <pre><code>def right_index(self, i: int):
     """Returns the right child's index of the node at index `i`,
     if it exists, otherwise this function returns -1.
@@ -2173,7 +2608,7 @@ if it exists, otherwise this function returns -1.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.search">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.search">
     <p>def <span class="ident">search</span>(</p><p>self, x)</p>
     </div>
     
@@ -2187,8 +2622,8 @@ If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.      </p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.search', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.search" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.search', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.search" class="source">
     <pre><code>def search(self, x) -> int:
     """Searches for `x` in this heap,
     and, if present, returns its index, otherwise returns -1.
@@ -2212,7 +2647,7 @@ whose key and value are equal to <code>x</code>.      </p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.search_by_value">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.search_by_value">
     <p>def <span class="ident">search_by_value</span>(</p><p>self, val)</p>
     </div>
     
@@ -2225,8 +2660,8 @@ whose key and value are equal to <code>x</code>.      </p>
 the behaviour of this method is undefined.</p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.search_by_value', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.search_by_value" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.search_by_value', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.search_by_value" class="source">
     <pre><code>def search_by_value(self, val) -> int:
     """Returns the index of the `HeapNode` object with `value=val`.
     -1 is returned if no such a `HeapNode` object exists.
@@ -2247,7 +2682,7 @@ the behaviour of this method is undefined.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.show">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.show">
     <p>def <span class="ident">show</span>(</p><p>self, total_width=36, fill=&#39; &#39;)</p>
     </div>
     
@@ -2256,8 +2691,8 @@ the behaviour of this method is undefined.</p>
   
     <div class="desc"><p>Pretty-prints this heap.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.show', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.show" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.show', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.show" class="source">
     <pre><code>def show(self, total_width=36, fill=" "):
     """Pretty-prints this heap."""
     print(HeapPrinter(self.heap).show(total_width, fill))
@@ -2269,7 +2704,7 @@ the behaviour of this method is undefined.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.size">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.size">
     <p>def <span class="ident">size</span>(</p><p>self)</p>
     </div>
     
@@ -2279,8 +2714,8 @@ the behaviour of this method is undefined.</p>
     <div class="desc"><p>Returns the size of this heaps.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.size', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.size" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.size', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.size" class="source">
     <pre><code>def size(self):
     """Returns the size of this heaps.
     **Time Complexity:** O(1)."""
@@ -2293,7 +2728,7 @@ the behaviour of this method is undefined.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MaxHeap.MaxHeap.swap">
+    <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.swap">
     <p>def <span class="ident">swap</span>(</p><p>self, i, j)</p>
     </div>
     
@@ -2305,8 +2740,8 @@ if they are valid indexes,
 otherwise an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.swap', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MaxHeap.MaxHeap.swap" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.swap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.swap" class="source">
     <pre><code>def swap(self, i: int, j: int):
     """Swaps elements at indexes `i` and `j`,
     if they are valid indexes,

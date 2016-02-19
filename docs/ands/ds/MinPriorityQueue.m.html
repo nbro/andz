@@ -986,26 +986,35 @@ table {
   <ul>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.__init__">__init__</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.add">add</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.build_heap">build_heap</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.change_priority">change_priority</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.clear">clear</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.contains">contains</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.contains_element">contains_element</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.delete">delete</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.extract_min">extract_min</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.find_min">find_min</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.get">get</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.get_left_child_index">get_left_child_index</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.get_parent_index">get_parent_index</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.get_right_child_index">get_right_child_index</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.grandparent_index">grandparent_index</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.has_children">has_children</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.insert_with_priority">insert_with_priority</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_child">is_child</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_empty">is_empty</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_good_index">is_good_index</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_grandchild">is_grandchild</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_grandparent">is_grandparent</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_on_even_level">is_on_even_level</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_on_odd_level">is_on_odd_level</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.is_parent">is_parent</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.left_index">left_index</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.merge">merge</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.parent_index">parent_index</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.peek">peek</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.push_down">push_down</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.push_up">push_up</a></li>
-    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.remove">remove</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.remove_min">remove_min</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.replace">replace</a></li>
+    <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.right_index">right_index</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.search">search</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.search_by_value">search_by_value</a></li>
     <li class="mono"><a href="#ands.ds.MinPriorityQueue.MinPriorityQueue.show">show</a></li>
@@ -1339,17 +1348,6 @@ where smaller numbers for priorities represent higher priorities.</p></div>
           <li>ands.ds.Heap.Heap</li>
           <li>builtins.object</li>
           </ul>
-          <h3>Class variables</h3>
-            <div class="item">
-            <p id="ands.ds.MinPriorityQueue.MinPriorityQueue.NIE" class="name">var <span class="ident">NIE</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
           <h3>Static methods</h3>
             
   <div class="item">
@@ -1391,7 +1389,10 @@ A smaller number means a higher priority.</p></div>
 
     
   
-    <div class="desc"><p>Adds a <code>x</code> to this min-heap.</p>
+    <div class="desc"><p>Adds <code>x</code> to this heap.</p>
+<p>In practice, it places <code>x</code> at an available leaf,
+then "bubbles up" from there,
+in order to maintain the heap property.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.</p>
@@ -1400,22 +1401,49 @@ whose key and value are equal to <code>x</code>.</p>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.add', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.add" class="source">
     <pre><code>def add(self, x):
-    """Adds a `x` to this min-heap.
+    """Adds `x` to this heap.
+    In practice, it places `x` at an available leaf,
+    then "bubbles up" from there,
+    in order to maintain the heap property.
+    
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
     whose key and value are equal to `x`.
-     
     **Time Complexity:** O(log<sub>2</sub> n)."""
     if x is None:
         raise ValueError("x cannot be None.")
-    
     if not isinstance(x, HeapNode):
         x = HeapNode(x)
-
+        
     self.heap.append(x)
     
-    if self.size() > 1:
+    if self.size() > 1:        
         self.push_up(self.size() - 1)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.build_heap">
+    <p>def <span class="ident">build_heap</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Builds the heap data structure from <code>self.heap</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.build_heap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.build_heap" class="source">
+    <pre><code>def build_heap(self):
+    """Builds the heap data structure from `self.heap`."""
+    if self.heap:
+        for index in range(len(self.heap) // 2, -1, -1):
+            self.push_down(index)
+    return self.heap
 </code></pre>
   </div>
 </div>
@@ -1504,7 +1532,7 @@ it will return <code>True</code>.</p>
 
     
   
-    <div class="desc"><p>Returns True, if <code>x</code> is in this min-heap. <code>False</code> otherwise.</p>
+    <div class="desc"><p>Returns <code>True</code>, if <code>x</code> is in this heap. <code>False</code> otherwise.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
 whose key and value are equal to <code>x</code>.</p>
@@ -1513,7 +1541,7 @@ whose key and value are equal to <code>x</code>.</p>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.contains', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.contains" class="source">
     <pre><code>def contains(self, x) -> bool:
-    """Returns True, if `x` is in this min-heap. `False` otherwise.
+    """Returns `True`, if `x` is in this heap. `False` otherwise.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
     whose key and value are equal to `x`.
@@ -1542,6 +1570,48 @@ whose key and value are equal to <code>x</code>.</p>
     if self.search_by_value(element) != -1:
         return True
     return False
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.delete">
+    <p>def <span class="ident">delete</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Deletes and returns the <code>HeapNode</code> object at index <code>i</code>.</p>
+<p><code>IndexError</code> is raised if <code>i</code> is not a valid index.      </p>
+<p>Implementation based on:
+<a href="http://www.math.clemson.edu/~warner/M865/HeapDelete.html">http://www.math.clemson.edu/~warner/M865/HeapDelete.html</a></p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub> h),
+where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.delete', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.delete" class="source">
+    <pre><code>def delete(self, i: int):
+    """Deletes and returns the `HeapNode` object at index `i`.
+    `IndexError` is raised if `i` is not a valid index.      
+    Implementation based on:
+    [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+    **Time Complexity:** O(log<sub>2</sub> h),
+    where `h` is the number of nodes rooted at `i`."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")
+    
+    if i == self.size() - 1:
+        return self.heap.pop()
+    
+    self.swap(i, self.size() - 1)
+    d = self.heap.pop()
+    self.push_down(i)
+    
+    return d             
 </code></pre>
   </div>
 </div>
@@ -1661,32 +1731,28 @@ only the element that was initial added (without the priority) is returned.</p>
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.get_left_child_index">
-    <p>def <span class="ident">get_left_child_index</span>(</p><p>ls, i)</p>
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.grandparent_index">
+    <p>def <span class="ident">grandparent_index</span>(</p><p>self, i)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Returns the left child of the node at index <code>i</code>, if it exists.
-Otherwise this function returns <code>None</code>.
-If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p>
+    <div class="desc"><p>Returns the grandparent's index of the node at index <code>i</code>.</p>
+<p>-1 is returned either if <code>i</code> has not a parent or
+the parent of <code>i</code> does not have a parent.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_left_child_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_left_child_index" class="source">
-    <pre><code>@staticmethod
-def get_left_child_index(ls: list, i: int):
-    """Returns the left child of the node at index `i`, if it exists.
-    Otherwise this function returns `None`.
-    If `i` is not a valid index for `ls`, an `IndexError` is raised.
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.grandparent_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.grandparent_index" class="source">
+    <pre><code>def grandparent_index(self, i: int):
+    """Returns the grandparent's index of the node at index `i`.
+    -1 is returned either if `i` has not a parent or
+    the parent of `i` does not have a parent.
+
     **Time Complexity:** O(1)."""
-    Heap.is_good_index(ls, i)
-    left = i * 2 + 1
-    if Heap.is_good_index(ls, left, raise_error=False):
-        return left
-    else:
-        return None
+    p = self.parent_index(i)
+    return -1 if p == -1 else self.parent_index(p)
 </code></pre>
   </div>
 </div>
@@ -1695,65 +1761,26 @@ def get_left_child_index(ls: list, i: int):
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.get_parent_index">
-    <p>def <span class="ident">get_parent_index</span>(</p><p>ls, i)</p>
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.has_children">
+    <p>def <span class="ident">has_children</span>(</p><p>self, i)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Returns the parent's position of the node at index <code>i</code>.
-If <code>i = 0</code>, then <code>None</code> is returned, because the root has no parent.
-If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p>
+    <div class="desc"><p>Returns <code>True</code> if the node at index <code>i</code>
+has at least one child, <code>False</code> otherwise.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_parent_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_parent_index" class="source">
-    <pre><code>@staticmethod
-def get_parent_index(ls: list, i: int):
-    """Returns the parent's position of the node at index `i`.
-    If `i = 0`, then `None` is returned, because the root has no parent.
-    If `i` is not a valid index for `ls`, an `IndexError` is raised.
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.has_children', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.has_children" class="source">
+    <pre><code>def has_children(self, i: int):
+    """Returns `True` if the node at index `i`
+    has at least one child, `False` otherwise.
     **Time Complexity:** O(1)."""
-    Heap.is_good_index(ls, i)
-    if i == 0:
-        return None
-    else:
-        return (i - 1) // 2
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.get_right_child_index">
-    <p>def <span class="ident">get_right_child_index</span>(</p><p>ls, i)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Returns the right child of the node at index <code>i</code>, if it exists.
-Otherwise this function returns <code>None</code>.
-If <code>i</code> is not a valid index for <code>ls</code>, an <code>IndexError</code> is raised.</p>
-<p><strong>Time Complexity:</strong> O(1).</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_right_child_index', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.get_right_child_index" class="source">
-    <pre><code>@staticmethod
-def get_right_child_index(ls: list, i: int):
-    """Returns the right child of the node at index `i`, if it exists.
-    Otherwise this function returns `None`.
-    If `i` is not a valid index for `ls`, an `IndexError` is raised.
-    **Time Complexity:** O(1)."""
-    Heap.is_good_index(ls, i)        
-    right = i * 2 + 2
-    if Heap.is_good_index(ls, right, raise_error=False):
-        return right
-    else:
-        return None
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.") 
+    return self.left_index(i) != -1 or self.right_index(i) != -1
 </code></pre>
   </div>
 </div>
@@ -1811,6 +1838,32 @@ and the priority of the element (HeapNode) is used.</p>
   
             
   <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_child">
+    <p>def <span class="ident">is_child</span>(</p><p>self, c, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>c</code> is a child of <code>i</code>. <code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_child', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_child" class="source">
+    <pre><code>def is_child(self, c: int, i: int):
+    """Returns `True` if `c` is a child of `i`. `False` otherwise.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(c) or not self.is_good_index(i):
+        raise IndexError("i or c are not valid indexes.")
+    return c == self.left_index(i) or c == self.right_index(i)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
     <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_empty">
     <p>def <span class="ident">is_empty</span>(</p><p>self)</p>
     </div>
@@ -1836,31 +1889,202 @@ and the priority of the element (HeapNode) is used.</p>
             
   <div class="item">
     <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_good_index">
-    <p>def <span class="ident">is_good_index</span>(</p><p>ls, i, raise_error=True)</p>
+    <p>def <span class="ident">is_good_index</span>(</p><p>self, i)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Checks if <code>i</code> is valid index for <code>ls</code>.</p>
-<p>By default, if <code>i</code> is not a good index, a <code>IndexError</code> is raised.
-If <code>raise_error</code> is set to <code>False</code>, then a <code>bool</code> value is returned.</p>
+    <div class="desc"><p>Returns <code>True</code> if <code>i</code> is valid index for <code>self.heap</code>,
+<code>False</code> otherwise.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_good_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_good_index" class="source">
-    <pre><code>@staticmethod
-def is_good_index(ls: list, i: int, raise_error=True):
-    """Checks if `i` is valid index for `ls`.
-    By default, if `i` is not a good index, a `IndexError` is raised.
-    If `raise_error` is set to `False`, then a `bool` value is returned.
+    <pre><code>def is_good_index(self, i: int) -> bool:
+    """Returns `True` if `i` is valid index for `self.heap`,
+    `False` otherwise.
     **Time Complexity:** O(1)."""
-    if i < 0 or i >= len(ls):
-        if raise_error:
-            raise IndexError("i is not a good index.")
-        else:
-            return False
-    return True
+    if not isinstance(i, int):
+        raise TypeError("indexes can only be int.")
+    return False if (i < 0 or i >= self.size()) else True        
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_grandchild">
+    <p>def <span class="ident">is_grandchild</span>(</p><p>self, g, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>g</code> is a grandchild of <code>i</code>. <code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_grandchild', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_grandchild" class="source">
+    <pre><code>def is_grandchild(self, g: int, i: int):
+    """Returns `True` if `g` is a grandchild of `i`. `False` otherwise.
+    **Time Complexity:** O(1)."""
+    l = self.left_index(i)
+    if l == -1:
+        assert self.right_index(i) == -1
+        if not self.is_good_index(g):
+            raise IndexError("g is not a valid index.")
+        return False
+    r = self.right_index(i)
+    if r == -1:
+        return self.is_child(g, l)
+    else:
+        return self.is_child(g, l) or self.is_child(g, r)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_grandparent">
+    <p>def <span class="ident">is_grandparent</span>(</p><p>self, g, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>g</code> is the index of the grandparent
+of the node at <code>i</code>, <code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_grandparent', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_grandparent" class="source">
+    <pre><code>def is_grandparent(self, g: int, i: int):
+    """Returns `True` if `g` is the index of the grandparent
+    of the node at `i`, `False` otherwise.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(g):
+        raise IndexError("g is not a valid index.")         
+    p = self.parent_index(i)
+    return False if p == -1 else self.is_parent(g, p)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_on_even_level">
+    <p>def <span class="ident">is_on_even_level</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if node at index <code>i</code> is on a even-level,
+i.e., if <code>i</code> is on a level multiple of 2 (0, 2, 4, 6,...).
+If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_on_even_level', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_on_even_level" class="source">
+    <pre><code>def is_on_even_level(self, i: int):
+    """Returns `True` if node at index `i` is on a even-level,
+    i.e., if `i` is on a level multiple of 2 (0, 2, 4, 6,...).
+    If `i` is not a valid index, an `IndexError` is raised.
+    **Time Complexity:** O(log<sub>2</sub> n)."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")
+    return int(math.log2(i + 1) % 2) == 0
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_on_odd_level">
+    <p>def <span class="ident">is_on_odd_level</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> (<code>False</code>) if <code>self.is_on_even_level(i)</code> returns <code>False</code> (<code>True</code>).</p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_on_odd_level', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_on_odd_level" class="source">
+    <pre><code>def is_on_odd_level(self, i: int):
+    """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`).
+    **Time Complexity:** O(log<sub>2</sub> n)."""
+    return not self.is_on_even_level(i)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.is_parent">
+    <p>def <span class="ident">is_parent</span>(</p><p>self, p, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>p</code> is the index of the parent
+of the node at <code>i</code>, <code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_parent', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.is_parent" class="source">
+    <pre><code>def is_parent(self, p: int, i: int):
+    """Returns `True` if `p` is the index of the parent
+    of the node at `i`, `False` otherwise.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(p):
+        raise IndexError("p is not a valid index.")        
+    return self.parent_index(i) == p
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.left_index">
+    <p>def <span class="ident">left_index</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the left child's index of the node at index <code>i</code>,
+if it exists, otherwise this function returns -1.</p>
+<p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.left_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.left_index" class="source">
+    <pre><code>def left_index(self, i: int):
+    """Returns the left child's index of the node at index `i`,
+    if it exists, otherwise this function returns -1.
+    
+    If `i` is not a valid index, an `IndexError` is raised.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")        
+    left = i * 2 + 1
+    return left if self.is_good_index(left) else -1
 </code></pre>
   </div>
 </div>
@@ -1876,23 +2100,54 @@ def is_good_index(ls: list, i: int, raise_error=True):
 
     
   
-    <div class="desc"><p>Merges this min-heap with the <code>other</code> heap.</p>
-<p>Returns the <code>list</code> object representing internally the new merged min-heap.</p>
+    <div class="desc"><p>Merges this heap with the <code>other</code> heap.</p>
+<p>Returns the <code>list</code> object representing internally the new merged heap.</p>
 <p><strong>Time Complexity:</strong> O(n + m).</p>
 <p>Time complexity analysis based on:
 <a href="http://stackoverflow.com/a/29197855/3924118">http://stackoverflow.com/a/29197855/3924118</a>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.merge', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.merge" class="source">
-    <pre><code>def merge(self, other: Heap) -> list:
-    """Merges this min-heap with the `other` heap.
+    <pre><code>def merge(self, other) -> list:
+    """Merges this heap with the `other` heap.
     
-    Returns the `list` object representing internally the new merged min-heap.
+    Returns the `list` object representing internally the new merged heap.
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
     [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
     self.heap += other.get()
-    return self._build_heap()
+    return self.build_heap()
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.parent_index">
+    <p>def <span class="ident">parent_index</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the parent's index of the node at index <code>i</code>.
+If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
+<p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.parent_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.parent_index" class="source">
+    <pre><code>def parent_index(self, i: int):
+    """Returns the parent's index of the node at index `i`.
+    If `i = 0`, then -1 is returned, because the root has no parent.
+    
+    If `i` is not a valid index, an `IndexError` is raised.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")
+    return -1 if i == 0 else (i - 1) // 2
 </code></pre>
   </div>
 </div>
@@ -1959,19 +2214,17 @@ where element is the element in self with highest priority.</p>
     <pre><code>def push_down(self, i: int):
     """'Min-heapify' this min-heap starting from index `i`.
     **Time Complexity:** O(log<sub>2</sub> n)."""
-    min_index = i
-    left_index = MinHeap.get_left_child_index(self.heap, i)
-    right_index = MinHeap.get_right_child_index(self.heap, i)
-    if left_index and self.heap[left_index] < self.heap[min_index]:
-        min_index = left_index
-    if right_index and self.heap[right_index] < self.heap[min_index]:
-        min_index = right_index
-    # One of the children of ls[i] was smaller than ls[i],
-    # and we need to swap ls[i] with its smallest child ls[m].
-    if min_index != i:
-        MinHeap.swap(self.heap, min_index, i)
-        self.push_down(min_index)
-    return min_index
+    m = i  # index of node with smallest value among i and its children
+    l = self.left_index(i)
+    r = self.right_index(i)
+    if l != -1 and self.heap[l] < self.heap[m]:
+        m = l
+    if r != -1 and self.heap[r] < self.heap[m]:
+        m = r
+        
+    if m != i:
+        self.swap(m, i)
+        self.push_down(m)
 </code></pre>
   </div>
 </div>
@@ -2006,35 +2259,13 @@ the current node's index with its parent's index.</p>
     the current node's index with its parent's index.
     **Time Complexity:** O(log<sub>2</sub> n)."""
     c = i  # current index
-    p = MinHeap.get_parent_index(self.heap, i)
-    # p could be 0, so we evaluate against not None.
-    if p is not None and self.heap[c] < self.heap[p]:
+    p = self.parent_index(i)
+    
+    if p != -1 and self.heap[c] < self.heap[p]:
         c = p
     if c != i:
-        MinHeap.swap(self.heap, c, i)
+        self.swap(c, i)
         self.push_up(c)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.remove">
-    <p>def <span class="ident">remove</span>(</p><p>self, i)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Removes the <code>HeapNode</code> object at index <code>i</code>.</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.remove', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.remove" class="source">
-    <pre><code>def remove(self, i: int) -> HeapNode:
-    """Removes the `HeapNode` object at index `i`. """
-    raise NotImplementedError("'remove'" + Heap.NIE)
 </code></pre>
   </div>
 </div>
@@ -2061,12 +2292,11 @@ if removing the last element of a list is a constant-time operation.</p></div>
     **Time Complexity:** O(log<sub>2</sub> n),
     if removing the last element of a list is a constant-time operation."""
     if not self.is_empty():
-        MinHeap.swap(self.heap, 0, self.size() - 1)
-        min_element = self.heap.pop()
-        
+        self.swap(0, self.size() - 1)
+        m = self.heap.pop()            
         if not self.is_empty():
             self.push_down(0)
-        return min_element
+        return m
 </code></pre>
   </div>
 </div>
@@ -2118,19 +2348,49 @@ then call <code>self.push_down(i)</code>.</p>
     **Time Complexity:** O(log<sub>2</sub> n)."""
     if x is None:
         raise ValueError("x cannot be None.")
-    
     if not isinstance(x, HeapNode):
         x = HeapNode(x)
-    
-    MinHeap.is_good_index(self.heap, i)
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")
     c = self.heap[i]
     self.heap[i] = x
     if x > c:
         self.push_down(i)
     elif x < c:
         self.push_up(i)
-        
     return c
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.right_index">
+    <p>def <span class="ident">right_index</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the right child's index of the node at index <code>i</code>,
+if it exists, otherwise this function returns -1.</p>
+<p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.right_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.right_index" class="source">
+    <pre><code>def right_index(self, i: int):
+    """Returns the right child's index of the node at index `i`,
+    if it exists, otherwise this function returns -1.
+    
+    If `i` is not a valid index, an `IndexError` is raised.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")        
+    right = i * 2 + 2
+    return right if self.is_good_index(right) else -1
 </code></pre>
   </div>
 </div>
@@ -2146,27 +2406,26 @@ then call <code>self.push_down(i)</code>.</p>
 
     
   
-    <div class="desc"><p>Searches for <code>x</code> in this min-heap,
-and if present, returns its index, otherwise returns -1.</p>
+    <div class="desc"><p>Searches for <code>x</code> in this heap,
+and, if present, returns its index, otherwise returns -1.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
-whose key and value are equal to <code>x</code>.</p>
+whose key and value are equal to <code>x</code>.      </p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.search', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.search" class="source">
     <pre><code>def search(self, x) -> int:
-    """Searches for `x` in this min-heap,
-    and if present, returns its index, otherwise returns -1.
+    """Searches for `x` in this heap,
+    and, if present, returns its index, otherwise returns -1.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
-    whose key and value are equal to `x`.
+    whose key and value are equal to `x`.      
     **Time Complexity:** O(n)."""
     if x is None:
         raise ValueError("x cannot be None.")
     if not isinstance(x, HeapNode):
         x = HeapNode(x)
-        
     for i, node in enumerate(self.heap):
         if node == x:
             return i
@@ -2188,7 +2447,7 @@ whose key and value are equal to <code>x</code>.</p>
   
     <div class="desc"><p>Returns the index of the <code>HeapNode</code> object with <code>value=val</code>.
 -1 is returned if no such a <code>HeapNode</code> object exists.</p>
-<p>If <code>val</code> and the values in this min-heap are not comparable,
+<p>If <code>val</code> and the values in this heap are not comparable,
 the behaviour of this method is undefined.</p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
@@ -2197,14 +2456,14 @@ the behaviour of this method is undefined.</p>
     <pre><code>def search_by_value(self, val) -> int:
     """Returns the index of the `HeapNode` object with `value=val`.
     -1 is returned if no such a `HeapNode` object exists.
-    If `val` and the values in this min-heap are not comparable,
+    If `val` and the values in this heap are not comparable,
     the behaviour of this method is undefined.
     **Time Complexity:** O(n)."""
     if val is None:
-        raise ValueError("val cannot be None.")    
+        raise ValueError("val cannot be None.")
     for i, node in enumerate(self.heap):
         if node.value == val:
-            return i
+            return i            
     return -1
 </code></pre>
   </div>
@@ -2221,53 +2480,13 @@ the behaviour of this method is undefined.</p>
 
     
   
-    <div class="desc"><p>Pretty-prints this heap.</p>
-<p>To increase/decrease the horizontal space between nodes,
-just increase/decrease the float number h_space.</p>
-<p>To increase/decrease the vertical space between nodes,
-just increase/decrease the integer number v_space.
-Note that v_space must be an integer.</p>
-<p>To change the length of the line under the heap,
-you can simply change the line_length variable.</p>
-<p>Adapted for Python 3 from:
-<a href="http://pymotw.com/2/heapq/">http://pymotw.com/2/heapq/</a>.</p></div>
+    <div class="desc"><p>Pretty-prints this heap.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.show', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.show" class="source">
     <pre><code>def show(self, total_width=36, fill=" "):
-    """Pretty-prints this heap.
-    To increase/decrease the horizontal space between nodes,
-    just increase/decrease the float number h_space.
-    To increase/decrease the vertical space between nodes,
-    just increase/decrease the integer number v_space.
-    Note that v_space must be an integer.
-    To change the length of the line under the heap,
-    you can simply change the line_length variable.
-    Adapted for Python 3 from:
-    [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/)."""
-    if self.heap:
-        from io import StringIO
-        import math
-        output = StringIO()
-        last_row = -1
-        h_space = 1.4  # float
-        v_space = 2    # int
-        for i, heap_node in enumerate(self.heap):
-            if i:
-                row = int(math.floor(math.log(i + 1, 2)))
-            else:
-                row = 0
-            if row != last_row:
-                output.write("\n"*v_space)
-            columns = 2 ** row
-            column_width = int(math.floor((total_width * h_space) / columns))
-            output.write(str(heap_node).center(column_width, fill))
-            last_row = row
-        print(output.getvalue())
-        line_length = total_width + 15  # int
-        print('-' * line_length)
-    else:
-        print("Nothing to show: heap is empty.")
+    """Pretty-prints this heap."""
+    print(HeapPrinter(self.heap).show(total_width, fill))
 </code></pre>
   </div>
 </div>
@@ -2301,7 +2520,7 @@ you can simply change the line_length variable.</p>
             
   <div class="item">
     <div class="name def" id="ands.ds.MinPriorityQueue.MinPriorityQueue.swap">
-    <p>def <span class="ident">swap</span>(</p><p>ls, i, j)</p>
+    <p>def <span class="ident">swap</span>(</p><p>self, i, j)</p>
     </div>
     
 
@@ -2314,16 +2533,16 @@ otherwise an <code>IndexError</code> is raised.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinPriorityQueue.MinPriorityQueue.swap', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinPriorityQueue.MinPriorityQueue.swap" class="source">
-    <pre><code>@staticmethod
-def swap(ls: list, i: int, j: int):
+    <pre><code>def swap(self, i: int, j: int):
     """Swaps elements at indexes `i` and `j`,
     if they are valid indexes,
     otherwise an `IndexError` is raised.
     
     **Time Complexity:** O(1)."""
-    Heap.is_good_index(ls, i)
-    Heap.is_good_index(ls, j)
-    ls[i], ls[j] = ls[j], ls[i]
+    if self.is_good_index(i) and self.is_good_index(j):
+        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+    else:
+        raise IndexError("i or j are not valid indexes.")
 </code></pre>
   </div>
 </div>

@@ -50,15 +50,16 @@ For example, "key" and "value" are self-descriptive.
 
 ## Resources
 
-- https://en.wikipedia.org/wiki/Binary_search_tree
+- [https://en.wikipedia.org/wiki/Binary_search_tree](https://en.wikipedia.org/wiki/Binary_search_tree)
 
-- Introduction to Algorithms (3rd edition) by CLRS, chapter 12.
+- [Introduction to Algorithms (3rd edition)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS, chapter 12
 
-- http://algs4.cs.princeton.edu/32bst/
+- [http://algs4.cs.princeton.edu/32bst/](http://algs4.cs.princeton.edu/32bst/)
 
-- http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf
+- [http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf](http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf
+)
 
-- http://algs4.cs.princeton.edu/32bst/BST.java.html
+- [http://algs4.cs.princeton.edu/32bst/BST.java.html](http://algs4.cs.princeton.edu/32bst/BST.java.html)
 
 ## TODO
 - add functions "intersection" and "union"
@@ -143,6 +144,7 @@ class BST:
                     c = c.left
                 else:
                     c = c.right
+                    
             if x.key < p.key:
                 p.left = x
             else:
@@ -478,7 +480,7 @@ class BST:
         **Time Complexity**: O(h)."""
         if not isinstance(x, BSTNode):
             x = self.search(x)
-            if not x:
+            if x is None:
                 raise LookupError("No node was found with key=x.")
 
         if x.right:
@@ -852,19 +854,37 @@ class BSTPrinter:
 
 
 def is_bst(bst):
-    """Invariant: for each node `n` in `bst`,
+    """Returns `True` if `bst` is a valid `BST` object. `False` otherwise.
+
+    Invariant: for each node `n` in `bst`,
     if `n.left` exists, then `n.left <= n`,
     and if `n.right` exists, then `n.right >= n`."""
+    def all_bst_nodes(t):
+        def h(n):            
+            if n is not None:
+                if not isinstance(n, BSTNode):
+                    return False
+                return h(n.left) and h(n.right)
+            return True
+        return h(t.root)
+    
     def h(n):
-        while n is not None:
-            if n.left is not None and n.key < n.left.key:
+        if n is not None:
+            if n.left and n.key < n.left.key:
                 return False
-            if n.right is not None and n.key > n.right.key:
+            if n.right and n.key > n.right.key:
                 return False
+
+            # Asserting n.left and n.right have n as parent
             if n.left:
                 assert n.left.parent == n
             if n.right:
                 assert n.right.parent == n
-            return h(n.left) and h(n.right)        
+                
+            return h(n.left) and h(n.right)
         return True
-    return h(bst.root)
+
+    if not isinstance(bst, BST):
+        return False
+
+    return all_bst_nodes(bst) and h(bst.root)
