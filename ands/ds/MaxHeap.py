@@ -84,7 +84,7 @@ class MaxHeap(Heap):
                 self.push_down(0)
             return m
 
-    def replace(self, i: int, x):
+    def replace(self, i: int, x) -> HeapNode:
         """Replaces element at index `i` with `x`.
 
         `x` can either be a key or a `HeapNode` object.
@@ -99,6 +99,8 @@ class MaxHeap(Heap):
 
         3. Else `x < self.heap[i]`,
         then call `self.push_down(i)`.
+
+        Returns the previous `HeapNode` object at `i`.
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
         if x is None:
@@ -120,7 +122,7 @@ class MaxHeap(Heap):
         return c
 
 
-def is_max_heap(h):
+def is_max_heap(h) -> bool:
     """Returns `True` if `h` is a valid `MaxHeap`. `False` otherwise."""
     if not isinstance(h, MaxHeap):
         return False

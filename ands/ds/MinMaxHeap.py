@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 18/02/16
 
-Last update: 19/02/16
+Last update: 20/02/16
 
 Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
 Moreover, both remove-min and remove-max are supported in logarithmic time.
@@ -83,7 +83,7 @@ class MinMaxHeap(Heap):
                 self.swap(i, p)
                 self.push_up_max(p)
             else:
-                 self.push_up_min(i)
+                self.push_up_min(i)
         else:
             p = self.parent_index(i)            
             if p != -1 and self.heap[i] < self.heap[p]:
@@ -194,7 +194,7 @@ class MinMaxHeap(Heap):
         return m
 
 
-def is_min_max_heap(h):
+def is_min_max_heap(h) -> bool:
     """Returns `True` if `h` is a valid `MinMaxHeap` object. `False` otherwise."""
     if not isinstance(h, MinMaxHeap):
         return False
@@ -208,16 +208,17 @@ def is_min_max_heap(h):
             return True
         
         if h.size() == 2:
-            return h.heap[1] > h.heap[0]
+            return max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0]
         
         if h.size() >= 3:
             if (h.heap[0] != min(h.heap) or
                 (h.heap[1] != max(h.heap) and
                  h.heap[2] != max(h.heap))):
                 return False
-             
+
         for i, item in reversed(list(enumerate(h.heap))):
             p = h.parent_index(i)
+            
             if p != -1:
                 if h.is_on_even_level(i):
                     if h.heap[p] < item:

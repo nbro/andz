@@ -50,7 +50,7 @@ class MinHeap(Heap):
     def __init__(self, ls=[]):
         Heap.__init__(self, ls)
 
-    def push_down(self, i: int):
+    def push_down(self, i: int) -> None:
         """'Min-heapify' this min-heap starting from index `i`.
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
@@ -67,7 +67,7 @@ class MinHeap(Heap):
             self.swap(m, i)
             self.push_down(m)
 
-    def push_up(self, i: int):
+    def push_up(self, i: int) -> None:
         """Pushes up the node at index `i`.
 
         Note that this operation only happens
@@ -88,13 +88,13 @@ class MinHeap(Heap):
             self.swap(c, i)
             self.push_up(c)
 
-    def find_min(self):
+    def find_min(self) -> HeapNode:
         """Returns (without removing) the smallest element in this min-heap.
 
         **Time Complexity:** O(1)."""
         return self.heap[0] if not self.is_empty() else None
 
-    def remove_min(self):
+    def remove_min(self) -> HeapNode:
         """Removes and returns the smallest element in this heap.
 
         **Time Complexity:** O(log<sub>2</sub> n),
@@ -106,7 +106,7 @@ class MinHeap(Heap):
                 self.push_down(0)
             return m
 
-    def replace(self, i: int, x):
+    def replace(self, i: int, x) -> HeapNode:
         """Replaces element at index `i` with `x`.
 
         `x` can either be a key or a `HeapNode` object.
@@ -121,6 +121,8 @@ class MinHeap(Heap):
 
         3. Else `x > self.heap[i]`,
         then call `self.push_down(i)`.
+
+        Returns the previous `HeapNode` object at `i`.        
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
         if x is None:
@@ -140,7 +142,7 @@ class MinHeap(Heap):
         return c
 
 
-def is_min_heap(h):
+def is_min_heap(h) -> bool:
     """Returns `True` if `h` is a valid `MinHeap`. `False` otherwise."""
     if not isinstance(h, MinHeap):
         return False

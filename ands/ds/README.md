@@ -12,7 +12,10 @@ Where `F` indicates that I've already started implementing the data structure, b
 | AVL Tree                            | S  | Based highly on rotations. It's more rigid in terms of ensuring logarithmic height than RBTs. First self-balancing binary-search tree invented, in 1962.                                                               |
 | Splay tree                          | S  |                                                                 |
 | Treap                          | S  |                                                                 |
-| 2-3 tree                          | S  |                                                                 |
+| 2-3 tree                          | S  |                                                                 
+| WAVL tree                          | S  |  - [Combine the advantages of AVL trees and red-black trees](http://www.cs.princeton.edu/~sssix/papers/rb-trees-talg.pdf). https://en.wikipedia.org/wiki/WAVL_tree#CITEREFHaeuplerSenTarjan2015                                                
+
+
 
 
 ### Other
@@ -28,5 +31,8 @@ Where `F` indicates that I've already started implementing the data structure, b
 | Double-Ended Priority Queue         | S  | This might be implemented using a min-max heap.                 |
 | Skip list | S | |
 | Leftist tree | S | |
+| Van Emde Boas tree| S | |
+| Fibonacci heap | S | Performs better than a normal binary heap|
+| Binomial heap | S | Supports better the merge of heaps |
 
 

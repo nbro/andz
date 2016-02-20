@@ -5,6 +5,10 @@
 ## Resources
 - [https://packaging.python.org/en/latest/distributing/#readme-rst](https://packaging.python.org/en/latest/distributing/#readme-rst
 )
+
+https://packaging.python.org/en/latest/distributing/#readme-rst
+
+http://docs.python-guide.org/en/latest/writing/structure/
 """
 
 from setuptools import setup, find_packages

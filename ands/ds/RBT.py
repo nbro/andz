@@ -109,7 +109,7 @@ class RBT(BST):
     def __init__(self, root=None, name="RBT"):
         BST.__init__(self, root, name)
 
-    def insert(self, x, value=None):
+    def insert(self, x, value=None) -> None:
         """Inserts `x` into this `RBT`.
 
         This operation is similar to the `insert` operation of a classical `BST`,
@@ -176,7 +176,7 @@ class RBT(BST):
         self.n += 1
         self._fix_insertion(x)
 
-    def _fix_insertion(self, u: RBTNode):
+    def _fix_insertion(self, u: RBTNode) -> None:
         # u is the root and we color it BLACK.
         if u.parent is None:
             u.color = BLACK
@@ -232,7 +232,7 @@ class RBT(BST):
             else:
                 assert False
 
-    def delete(self, x):
+    def delete(self, x) -> RBTNode:
         """Delete `x` from this `RBT` object.
 
         `x` can either be a `RBTNode` object or a key.
@@ -453,7 +453,7 @@ class RBT(BST):
         x.parent = x.left = x.right = None
         return x
 
-    def remove_max(self):
+    def remove_max(self) -> RBTNode:
         """Removes and returns the element with the greatest value from `self`.
 
         **Time Complexity:** O(log<sub>2</sub>(n))."""
@@ -462,7 +462,7 @@ class RBT(BST):
             assert m
             return self.delete(m)
 
-    def remove_min(self):
+    def remove_min(self) -> RBTNode:
         """Removes and returns the element with the smallest value from `self`.
 
         **Time Complexity:** O(log<sub>2</sub>(n))."""        
