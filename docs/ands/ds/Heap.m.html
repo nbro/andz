@@ -1100,15 +1100,15 @@ class Heap(object):
         self.build_heap()
     # ABSTRACT NOT-IMPLEMENTED METHODS
 
-    def push_down(self, i: int):
+    def push_down(self, i: int) -> None:
         """Classical so-called heapify operation for heaps."""
         raise NotImplementedError()
 
-    def push_up(self, i: int):
+    def push_up(self, i: int) -> None:
         """Classical reverse-heapify operation for heaps."""
         raise NotImplementedError()
     
-    def replace(self, i: int, x):
+    def replace(self, i: int, x) -> HeapNode:
         """Replaces the `HeapNode` object at index `i` with `x`.
 
         `x` can either be a key or a `HeapNode` object.
@@ -1118,14 +1118,14 @@ class Heap(object):
 
     # BASE-IMPLEMENTED METHODS
     
-    def build_heap(self):
+    def build_heap(self) -> list:
         """Builds the heap data structure from `self.heap`."""
         if self.heap:
             for index in range(len(self.heap) // 2, -1, -1):
                 self.push_down(index)
         return self.heap
 
-    def add(self, x):
+    def add(self, x) -> None:
         """Adds `x` to this heap.
 
         In practice, it places `x` at an available leaf,
@@ -1147,7 +1147,7 @@ class Heap(object):
         if self.size() > 1:        
             self.push_up(self.size() - 1)
 
-    def delete(self, i: int):
+    def delete(self, i: int) -> HeapNode:
         """Deletes and returns the `HeapNode` object at index `i`.
 
         `IndexError` is raised if `i` is not a valid index.      
@@ -1224,19 +1224,19 @@ class Heap(object):
         self.heap += other.get()
         return self.build_heap()
 
-    def size(self):
+    def size(self) -> int:
         """Returns the size of this heaps.
 
         **Time Complexity:** O(1)."""
         return len(self.heap)
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         """Returns `True` if this heap is empty.
 
         **Time Complexity:** O(1)."""
         return self.size() == 0
 
-    def clear(self):
+    def clear(self) -> None:
         """Clears all nodes from this heap.
         This mean that if you call `is_empty`,
         it will return `True`.
@@ -1244,13 +1244,13 @@ class Heap(object):
         **Time Complexity:** O(1)."""
         self.heap.clear()
 
-    def get(self):
+    def get(self) -> list:
         """Returns the list representing internally the heap.
 
         **Time Complexity:** O(1)."""
         return self.heap
 
-    def swap(self, i: int, j: int):
+    def swap(self, i: int, j: int) -> None:
         """Swaps elements at indexes `i` and `j`,
         if they are valid indexes,
         otherwise an `IndexError` is raised.
@@ -1272,7 +1272,7 @@ class Heap(object):
             raise TypeError("indexes can only be int.")
         return False if (i < 0 or i >= self.size()) else True        
 
-    def parent_index(self, i: int):
+    def parent_index(self, i: int) -> int:
         """Returns the parent's index of the node at index `i`.
         If `i = 0`, then -1 is returned, because the root has no parent.
         
@@ -1283,7 +1283,7 @@ class Heap(object):
             raise IndexError("i is not a valid index.")
         return -1 if i == 0 else (i - 1) // 2
 
-    def grandparent_index(self, i: int):
+    def grandparent_index(self, i: int) -> int:
         """Returns the grandparent's index of the node at index `i`.
 
         -1 is returned either if `i` has not a parent or
@@ -1293,7 +1293,7 @@ class Heap(object):
         p = self.parent_index(i)
         return -1 if p == -1 else self.parent_index(p)
 
-    def left_index(self, i: int):
+    def left_index(self, i: int) -> int:
         """Returns the left child's index of the node at index `i`,
         if it exists, otherwise this function returns -1.
         
@@ -1305,7 +1305,7 @@ class Heap(object):
         left = i * 2 + 1
         return left if self.is_good_index(left) else -1
 
-    def right_index(self, i: int):
+    def right_index(self, i: int) -> int:
         """Returns the right child's index of the node at index `i`,
         if it exists, otherwise this function returns -1.
         
@@ -1317,7 +1317,7 @@ class Heap(object):
         right = i * 2 + 2
         return right if self.is_good_index(right) else -1
 
-    def has_children(self, i: int):
+    def has_children(self, i: int) -> bool:
         """Returns `True` if the node at index `i`
         has at least one child, `False` otherwise.
 
@@ -1326,7 +1326,7 @@ class Heap(object):
             raise IndexError("i is not a valid index.") 
         return self.left_index(i) != -1 or self.right_index(i) != -1
 
-    def is_child(self, c: int, i: int):
+    def is_child(self, c: int, i: int) -> bool:
         """Returns `True` if `c` is a child of `i`. `False` otherwise.
 
         **Time Complexity:** O(1)."""
@@ -1334,7 +1334,7 @@ class Heap(object):
             raise IndexError("i or c are not valid indexes.")
         return c == self.left_index(i) or c == self.right_index(i)
 
-    def is_grandchild(self, g: int, i: int):
+    def is_grandchild(self, g: int, i: int) -> bool:
         """Returns `True` if `g` is a grandchild of `i`. `False` otherwise.
 
         **Time Complexity:** O(1)."""
@@ -1350,7 +1350,7 @@ class Heap(object):
         else:
             return self.is_child(g, l) or self.is_child(g, r)
 
-    def is_parent(self, p: int, i: int):
+    def is_parent(self, p: int, i: int) -> bool:
         """Returns `True` if `p` is the index of the parent
         of the node at `i`, `False` otherwise.
 
@@ -1359,7 +1359,7 @@ class Heap(object):
             raise IndexError("p is not a valid index.")        
         return self.parent_index(i) == p
 
-    def is_grandparent(self, g: int, i: int):
+    def is_grandparent(self, g: int, i: int) -> bool:
         """Returns `True` if `g` is the index of the grandparent
         of the node at `i`, `False` otherwise.
 
@@ -1369,38 +1369,36 @@ class Heap(object):
         p = self.parent_index(i)
         return False if p == -1 else self.is_parent(g, p)
             
-    def is_on_even_level(self, i: int):
+    def is_on_even_level(self, i: int) -> bool:
         """Returns `True` if node at index `i` is on a even-level,
         i.e., if `i` is on a level multiple of 2 (0, 2, 4, 6,...).
         If `i` is not a valid index, an `IndexError` is raised.
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""
+        **Time Complexity:** O(int(math.log2(i + 1) % 2) == 0)."""
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")
         return int(math.log2(i + 1) % 2) == 0
 
-    def is_on_odd_level(self, i: int):
-        """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`).
-
-        **Time Complexity:** O(log<sub>2</sub> n)."""
+    def is_on_odd_level(self, i: int) -> bool:
+        """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`)."""
         return not self.is_on_even_level(i)
 
     # PRINT FUNCTIONS
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.heap)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return HeapPrinter(self.heap).show()    
 
-    def show(self, total_width=36, fill=" "):
+    def show(self, total_width=36, fill=" ") -> None:
         """Pretty-prints this heap."""
         print(HeapPrinter(self.heap).show(total_width, fill))
 
     # STATIC FUNCTIONS
 
     @staticmethod
-    def _create_list_of_heap_nodes(ls: list):
+    def _create_list_of_heap_nodes(ls: list) -> list:
         """Creates and returns a list of `HeapNode`
         objects with the objects in `ls`.
 
@@ -1426,7 +1424,7 @@ class HeapPrinter:
     def __init__(self, heap):
         self.heap = heap
 
-    def show(self, total_width=36, fill=" "):
+    def show(self, total_width=36, fill=" ") -> str:
         """Adapted for Python 3 from:
         [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/).
 
@@ -1491,15 +1489,15 @@ class HeapPrinter:
         self.build_heap()
     # ABSTRACT NOT-IMPLEMENTED METHODS
 
-    def push_down(self, i: int):
+    def push_down(self, i: int) -> None:
         """Classical so-called heapify operation for heaps."""
         raise NotImplementedError()
 
-    def push_up(self, i: int):
+    def push_up(self, i: int) -> None:
         """Classical reverse-heapify operation for heaps."""
         raise NotImplementedError()
     
-    def replace(self, i: int, x):
+    def replace(self, i: int, x) -> HeapNode:
         """Replaces the `HeapNode` object at index `i` with `x`.
 
         `x` can either be a key or a `HeapNode` object.
@@ -1509,14 +1507,14 @@ class HeapPrinter:
 
     # BASE-IMPLEMENTED METHODS
     
-    def build_heap(self):
+    def build_heap(self) -> list:
         """Builds the heap data structure from `self.heap`."""
         if self.heap:
             for index in range(len(self.heap) // 2, -1, -1):
                 self.push_down(index)
         return self.heap
 
-    def add(self, x):
+    def add(self, x) -> None:
         """Adds `x` to this heap.
 
         In practice, it places `x` at an available leaf,
@@ -1538,7 +1536,7 @@ class HeapPrinter:
         if self.size() > 1:        
             self.push_up(self.size() - 1)
 
-    def delete(self, i: int):
+    def delete(self, i: int) -> HeapNode:
         """Deletes and returns the `HeapNode` object at index `i`.
 
         `IndexError` is raised if `i` is not a valid index.      
@@ -1615,19 +1613,19 @@ class HeapPrinter:
         self.heap += other.get()
         return self.build_heap()
 
-    def size(self):
+    def size(self) -> int:
         """Returns the size of this heaps.
 
         **Time Complexity:** O(1)."""
         return len(self.heap)
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         """Returns `True` if this heap is empty.
 
         **Time Complexity:** O(1)."""
         return self.size() == 0
 
-    def clear(self):
+    def clear(self) -> None:
         """Clears all nodes from this heap.
         This mean that if you call `is_empty`,
         it will return `True`.
@@ -1635,13 +1633,13 @@ class HeapPrinter:
         **Time Complexity:** O(1)."""
         self.heap.clear()
 
-    def get(self):
+    def get(self) -> list:
         """Returns the list representing internally the heap.
 
         **Time Complexity:** O(1)."""
         return self.heap
 
-    def swap(self, i: int, j: int):
+    def swap(self, i: int, j: int) -> None:
         """Swaps elements at indexes `i` and `j`,
         if they are valid indexes,
         otherwise an `IndexError` is raised.
@@ -1663,7 +1661,7 @@ class HeapPrinter:
             raise TypeError("indexes can only be int.")
         return False if (i < 0 or i >= self.size()) else True        
 
-    def parent_index(self, i: int):
+    def parent_index(self, i: int) -> int:
         """Returns the parent's index of the node at index `i`.
         If `i = 0`, then -1 is returned, because the root has no parent.
         
@@ -1674,7 +1672,7 @@ class HeapPrinter:
             raise IndexError("i is not a valid index.")
         return -1 if i == 0 else (i - 1) // 2
 
-    def grandparent_index(self, i: int):
+    def grandparent_index(self, i: int) -> int:
         """Returns the grandparent's index of the node at index `i`.
 
         -1 is returned either if `i` has not a parent or
@@ -1684,7 +1682,7 @@ class HeapPrinter:
         p = self.parent_index(i)
         return -1 if p == -1 else self.parent_index(p)
 
-    def left_index(self, i: int):
+    def left_index(self, i: int) -> int:
         """Returns the left child's index of the node at index `i`,
         if it exists, otherwise this function returns -1.
         
@@ -1696,7 +1694,7 @@ class HeapPrinter:
         left = i * 2 + 1
         return left if self.is_good_index(left) else -1
 
-    def right_index(self, i: int):
+    def right_index(self, i: int) -> int:
         """Returns the right child's index of the node at index `i`,
         if it exists, otherwise this function returns -1.
         
@@ -1708,7 +1706,7 @@ class HeapPrinter:
         right = i * 2 + 2
         return right if self.is_good_index(right) else -1
 
-    def has_children(self, i: int):
+    def has_children(self, i: int) -> bool:
         """Returns `True` if the node at index `i`
         has at least one child, `False` otherwise.
 
@@ -1717,7 +1715,7 @@ class HeapPrinter:
             raise IndexError("i is not a valid index.") 
         return self.left_index(i) != -1 or self.right_index(i) != -1
 
-    def is_child(self, c: int, i: int):
+    def is_child(self, c: int, i: int) -> bool:
         """Returns `True` if `c` is a child of `i`. `False` otherwise.
 
         **Time Complexity:** O(1)."""
@@ -1725,7 +1723,7 @@ class HeapPrinter:
             raise IndexError("i or c are not valid indexes.")
         return c == self.left_index(i) or c == self.right_index(i)
 
-    def is_grandchild(self, g: int, i: int):
+    def is_grandchild(self, g: int, i: int) -> bool:
         """Returns `True` if `g` is a grandchild of `i`. `False` otherwise.
 
         **Time Complexity:** O(1)."""
@@ -1741,7 +1739,7 @@ class HeapPrinter:
         else:
             return self.is_child(g, l) or self.is_child(g, r)
 
-    def is_parent(self, p: int, i: int):
+    def is_parent(self, p: int, i: int) -> bool:
         """Returns `True` if `p` is the index of the parent
         of the node at `i`, `False` otherwise.
 
@@ -1750,7 +1748,7 @@ class HeapPrinter:
             raise IndexError("p is not a valid index.")        
         return self.parent_index(i) == p
 
-    def is_grandparent(self, g: int, i: int):
+    def is_grandparent(self, g: int, i: int) -> bool:
         """Returns `True` if `g` is the index of the grandparent
         of the node at `i`, `False` otherwise.
 
@@ -1760,38 +1758,36 @@ class HeapPrinter:
         p = self.parent_index(i)
         return False if p == -1 else self.is_parent(g, p)
             
-    def is_on_even_level(self, i: int):
+    def is_on_even_level(self, i: int) -> bool:
         """Returns `True` if node at index `i` is on a even-level,
         i.e., if `i` is on a level multiple of 2 (0, 2, 4, 6,...).
         If `i` is not a valid index, an `IndexError` is raised.
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""
+        **Time Complexity:** O(int(math.log2(i + 1) % 2) == 0)."""
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")
         return int(math.log2(i + 1) % 2) == 0
 
-    def is_on_odd_level(self, i: int):
-        """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`).
-
-        **Time Complexity:** O(log<sub>2</sub> n)."""
+    def is_on_odd_level(self, i: int) -> bool:
+        """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`)."""
         return not self.is_on_even_level(i)
 
     # PRINT FUNCTIONS
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.heap)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return HeapPrinter(self.heap).show()    
 
-    def show(self, total_width=36, fill=" "):
+    def show(self, total_width=36, fill=" ") -> None:
         """Pretty-prints this heap."""
         print(HeapPrinter(self.heap).show(total_width, fill))
 
     # STATIC FUNCTIONS
 
     @staticmethod
-    def _create_list_of_heap_nodes(ls: list):
+    def _create_list_of_heap_nodes(ls: list) -> list:
         """Creates and returns a list of `HeapNode`
         objects with the objects in `ls`.
 
@@ -1864,7 +1860,7 @@ whose key and value are equal to <code>x</code>.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.add', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.add" class="source">
-    <pre><code>def add(self, x):
+    <pre><code>def add(self, x) -> None:
     """Adds `x` to this heap.
     In practice, it places `x` at an available leaf,
     then "bubbles up" from there,
@@ -1902,7 +1898,7 @@ whose key and value are equal to <code>x</code>.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.build_heap', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.build_heap" class="source">
-    <pre><code>def build_heap(self):
+    <pre><code>def build_heap(self) -> list:
     """Builds the heap data structure from `self.heap`."""
     if self.heap:
         for index in range(len(self.heap) // 2, -1, -1):
@@ -1930,7 +1926,7 @@ it will return <code>True</code>.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.clear', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.clear" class="source">
-    <pre><code>def clear(self):
+    <pre><code>def clear(self) -> None:
     """Clears all nodes from this heap.
     This mean that if you call `is_empty`,
     it will return `True`.
@@ -1991,7 +1987,7 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.delete', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.delete" class="source">
-    <pre><code>def delete(self, i: int):
+    <pre><code>def delete(self, i: int) -> HeapNode:
     """Deletes and returns the `HeapNode` object at index `i`.
     `IndexError` is raised if `i` is not a valid index.      
     Implementation based on:
@@ -2029,7 +2025,7 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.get', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.get" class="source">
-    <pre><code>def get(self):
+    <pre><code>def get(self) -> list:
     """Returns the list representing internally the heap.
     **Time Complexity:** O(1)."""
     return self.heap
@@ -2055,7 +2051,7 @@ the parent of <code>i</code> does not have a parent.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.grandparent_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.grandparent_index" class="source">
-    <pre><code>def grandparent_index(self, i: int):
+    <pre><code>def grandparent_index(self, i: int) -> int:
     """Returns the grandparent's index of the node at index `i`.
     -1 is returned either if `i` has not a parent or
     the parent of `i` does not have a parent.
@@ -2084,7 +2080,7 @@ has at least one child, <code>False</code> otherwise.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.has_children', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.has_children" class="source">
-    <pre><code>def has_children(self, i: int):
+    <pre><code>def has_children(self, i: int) -> bool:
     """Returns `True` if the node at index `i`
     has at least one child, `False` otherwise.
     **Time Complexity:** O(1)."""
@@ -2111,7 +2107,7 @@ has at least one child, <code>False</code> otherwise.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_child', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.is_child" class="source">
-    <pre><code>def is_child(self, c: int, i: int):
+    <pre><code>def is_child(self, c: int, i: int) -> bool:
     """Returns `True` if `c` is a child of `i`. `False` otherwise.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(c) or not self.is_good_index(i):
@@ -2137,7 +2133,7 @@ has at least one child, <code>False</code> otherwise.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_empty', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.is_empty" class="source">
-    <pre><code>def is_empty(self):
+    <pre><code>def is_empty(self) -> bool:
     """Returns `True` if this heap is empty.
     **Time Complexity:** O(1)."""
     return self.size() == 0
@@ -2189,7 +2185,7 @@ has at least one child, <code>False</code> otherwise.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_grandchild', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.is_grandchild" class="source">
-    <pre><code>def is_grandchild(self, g: int, i: int):
+    <pre><code>def is_grandchild(self, g: int, i: int) -> bool:
     """Returns `True` if `g` is a grandchild of `i`. `False` otherwise.
     **Time Complexity:** O(1)."""
     l = self.left_index(i)
@@ -2224,7 +2220,7 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_grandparent', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.is_grandparent" class="source">
-    <pre><code>def is_grandparent(self, g: int, i: int):
+    <pre><code>def is_grandparent(self, g: int, i: int) -> bool:
     """Returns `True` if `g` is the index of the grandparent
     of the node at `i`, `False` otherwise.
     **Time Complexity:** O(1)."""
@@ -2250,15 +2246,15 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
     <div class="desc"><p>Returns <code>True</code> if node at index <code>i</code> is on a even-level,
 i.e., if <code>i</code> is on a level multiple of 2 (0, 2, 4, 6,...).
 If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
-<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
+<p><strong>Time Complexity:</strong> O(int(math.log2(i + 1) % 2) == 0).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_on_even_level', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.is_on_even_level" class="source">
-    <pre><code>def is_on_even_level(self, i: int):
+    <pre><code>def is_on_even_level(self, i: int) -> bool:
     """Returns `True` if node at index `i` is on a even-level,
     i.e., if `i` is on a level multiple of 2 (0, 2, 4, 6,...).
     If `i` is not a valid index, an `IndexError` is raised.
-    **Time Complexity:** O(log<sub>2</sub> n)."""
+    **Time Complexity:** O(int(math.log2(i + 1) % 2) == 0)."""
     if not self.is_good_index(i):
         raise IndexError("i is not a valid index.")
     return int(math.log2(i + 1) % 2) == 0
@@ -2277,14 +2273,12 @@ If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p
 
     
   
-    <div class="desc"><p>Returns <code>True</code> (<code>False</code>) if <code>self.is_on_even_level(i)</code> returns <code>False</code> (<code>True</code>).</p>
-<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
+    <div class="desc"><p>Returns <code>True</code> (<code>False</code>) if <code>self.is_on_even_level(i)</code> returns <code>False</code> (<code>True</code>).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_on_odd_level', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.is_on_odd_level" class="source">
-    <pre><code>def is_on_odd_level(self, i: int):
-    """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`).
-    **Time Complexity:** O(log<sub>2</sub> n)."""
+    <pre><code>def is_on_odd_level(self, i: int) -> bool:
+    """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`)."""
     return not self.is_on_even_level(i)
 </code></pre>
   </div>
@@ -2307,7 +2301,7 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.is_parent', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.is_parent" class="source">
-    <pre><code>def is_parent(self, p: int, i: int):
+    <pre><code>def is_parent(self, p: int, i: int) -> bool:
     """Returns `True` if `p` is the index of the parent
     of the node at `i`, `False` otherwise.
     **Time Complexity:** O(1)."""
@@ -2336,7 +2330,7 @@ if it exists, otherwise this function returns -1.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.left_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.left_index" class="source">
-    <pre><code>def left_index(self, i: int):
+    <pre><code>def left_index(self, i: int) -> int:
     """Returns the left child's index of the node at index `i`,
     if it exists, otherwise this function returns -1.
     
@@ -2400,7 +2394,7 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.parent_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.parent_index" class="source">
-    <pre><code>def parent_index(self, i: int):
+    <pre><code>def parent_index(self, i: int) -> int:
     """Returns the parent's index of the node at index `i`.
     If `i = 0`, then -1 is returned, because the root has no parent.
     
@@ -2428,7 +2422,7 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.push_down', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.push_down" class="source">
-    <pre><code>def push_down(self, i: int):
+    <pre><code>def push_down(self, i: int) -> None:
     """Classical so-called heapify operation for heaps."""
     raise NotImplementedError()
 </code></pre>
@@ -2450,7 +2444,7 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.push_up', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.push_up" class="source">
-    <pre><code>def push_up(self, i: int):
+    <pre><code>def push_up(self, i: int) -> None:
     """Classical reverse-heapify operation for heaps."""
     raise NotImplementedError()
 </code></pre>
@@ -2475,7 +2469,7 @@ whose key and value are equal to <code>x</code>.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.replace', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.replace" class="source">
-    <pre><code>def replace(self, i: int, x):
+    <pre><code>def replace(self, i: int, x) -> HeapNode:
     """Replaces the `HeapNode` object at index `i` with `x`.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
@@ -2503,7 +2497,7 @@ if it exists, otherwise this function returns -1.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.right_index', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.right_index" class="source">
-    <pre><code>def right_index(self, i: int):
+    <pre><code>def right_index(self, i: int) -> int:
     """Returns the right child's index of the node at index `i`,
     if it exists, otherwise this function returns -1.
     
@@ -2606,7 +2600,7 @@ the behaviour of this method is undefined.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.show', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.show" class="source">
-    <pre><code>def show(self, total_width=36, fill=" "):
+    <pre><code>def show(self, total_width=36, fill=" ") -> None:
     """Pretty-prints this heap."""
     print(HeapPrinter(self.heap).show(total_width, fill))
 </code></pre>
@@ -2629,7 +2623,7 @@ the behaviour of this method is undefined.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.size', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.size" class="source">
-    <pre><code>def size(self):
+    <pre><code>def size(self) -> int:
     """Returns the size of this heaps.
     **Time Complexity:** O(1)."""
     return len(self.heap)
@@ -2655,7 +2649,7 @@ otherwise an <code>IndexError</code> is raised.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.swap', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.swap" class="source">
-    <pre><code>def swap(self, i: int, j: int):
+    <pre><code>def swap(self, i: int, j: int) -> None:
     """Swaps elements at indexes `i` and `j`,
     if they are valid indexes,
     otherwise an `IndexError` is raised.

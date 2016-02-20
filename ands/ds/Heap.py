@@ -316,15 +316,13 @@ class Heap(object):
         i.e., if `i` is on a level multiple of 2 (0, 2, 4, 6,...).
         If `i` is not a valid index, an `IndexError` is raised.
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""
+        **Time Complexity:** O(int(math.log2(i + 1) % 2) == 0)."""
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")
         return int(math.log2(i + 1) % 2) == 0
 
     def is_on_odd_level(self, i: int) -> bool:
-        """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`).
-
-        **Time Complexity:** O(log<sub>2</sub> n)."""
+        """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`)."""
         return not self.is_on_even_level(i)
 
     # PRINT FUNCTIONS

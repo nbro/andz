@@ -1252,7 +1252,7 @@ class RBT(BST):
     def __init__(self, root=None, name="RBT"):
         BST.__init__(self, root, name)
 
-    def insert(self, x, value=None):
+    def insert(self, x, value=None) -> None:
         """Inserts `x` into this `RBT`.
 
         This operation is similar to the `insert` operation of a classical `BST`,
@@ -1319,7 +1319,7 @@ class RBT(BST):
         self.n += 1
         self._fix_insertion(x)
 
-    def _fix_insertion(self, u: RBTNode):
+    def _fix_insertion(self, u: RBTNode) -> None:
         # u is the root and we color it BLACK.
         if u.parent is None:
             u.color = BLACK
@@ -1375,7 +1375,7 @@ class RBT(BST):
             else:
                 assert False
 
-    def delete(self, x):
+    def delete(self, x) -> RBTNode:
         """Delete `x` from this `RBT` object.
 
         `x` can either be a `RBTNode` object or a key.
@@ -1596,7 +1596,7 @@ class RBT(BST):
         x.parent = x.left = x.right = None
         return x
 
-    def remove_max(self):
+    def remove_max(self) -> RBTNode:
         """Removes and returns the element with the greatest value from `self`.
 
         **Time Complexity:** O(log<sub>2</sub>(n))."""
@@ -1605,7 +1605,7 @@ class RBT(BST):
             assert m
             return self.delete(m)
 
-    def remove_min(self):
+    def remove_min(self) -> RBTNode:
         """Removes and returns the element with the smallest value from `self`.
 
         **Time Complexity:** O(log<sub>2</sub>(n))."""        
@@ -1840,7 +1840,7 @@ def is_rbt(rbt):
     def __init__(self, root=None, name="RBT"):
         BST.__init__(self, root, name)
 
-    def insert(self, x, value=None):
+    def insert(self, x, value=None) -> None:
         """Inserts `x` into this `RBT`.
 
         This operation is similar to the `insert` operation of a classical `BST`,
@@ -1907,7 +1907,7 @@ def is_rbt(rbt):
         self.n += 1
         self._fix_insertion(x)
 
-    def _fix_insertion(self, u: RBTNode):
+    def _fix_insertion(self, u: RBTNode) -> None:
         # u is the root and we color it BLACK.
         if u.parent is None:
             u.color = BLACK
@@ -1963,7 +1963,7 @@ def is_rbt(rbt):
             else:
                 assert False
 
-    def delete(self, x):
+    def delete(self, x) -> RBTNode:
         """Delete `x` from this `RBT` object.
 
         `x` can either be a `RBTNode` object or a key.
@@ -2184,7 +2184,7 @@ def is_rbt(rbt):
         x.parent = x.left = x.right = None
         return x
 
-    def remove_max(self):
+    def remove_max(self) -> RBTNode:
         """Removes and returns the element with the greatest value from `self`.
 
         **Time Complexity:** O(log<sub>2</sub>(n))."""
@@ -2193,7 +2193,7 @@ def is_rbt(rbt):
             assert m
             return self.delete(m)
 
-    def remove_min(self):
+    def remove_min(self) -> RBTNode:
         """Removes and returns the element with the smallest value from `self`.
 
         **Time Complexity:** O(log<sub>2</sub>(n))."""        
@@ -2313,7 +2313,7 @@ then the behaviour of this method is undefined (for now).</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.delete', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.delete" class="source">
-    <pre><code>def delete(self, x):
+    <pre><code>def delete(self, x) -> RBTNode:
     """Delete `x` from this `RBT` object.
     `x` can either be a `RBTNode` object or a key.
     
@@ -2596,7 +2596,7 @@ the uncle will be the right child of <code>x.parent.parent</code>.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.insert', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.insert" class="source">
-    <pre><code>def insert(self, x, value=None):
+    <pre><code>def insert(self, x, value=None) -> None:
     """Inserts `x` into this `RBT`.
     This operation is similar to the `insert` operation of a classical `BST`,
     but, in this case, the red-black tree property must be maintained,
@@ -2992,7 +2992,7 @@ or it can be a key of a supposed node in self.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.remove_max', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.remove_max" class="source">
-    <pre><code>def remove_max(self):
+    <pre><code>def remove_max(self) -> RBTNode:
     """Removes and returns the element with the greatest value from `self`.
     **Time Complexity:** O(log<sub>2</sub>(n))."""
     if self.root:
@@ -3019,7 +3019,7 @@ or it can be a key of a supposed node in self.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT.remove_min', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT.remove_min" class="source">
-    <pre><code>def remove_min(self):
+    <pre><code>def remove_min(self) -> RBTNode:
     """Removes and returns the element with the smallest value from `self`.
     **Time Complexity:** O(log<sub>2</sub>(n))."""        
     if self.root:

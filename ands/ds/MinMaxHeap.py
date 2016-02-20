@@ -109,27 +109,37 @@ class MinMaxHeap(Heap):
                 self.push_up_max(g)
                 
     def find_max(self) -> HeapNode:
-        """Returns the `HeapNode` object representing the maximum element."""
+        """Returns the `HeapNode` object representing the maximum element.
+
+        **Time Complexity:** O(1)."""
         if not self.is_empty():
             return self.heap[self.find_max_index()]
 
     def find_min(self) -> HeapNode:
-        """Returns the `HeapNode` object representing the minimum element."""
+        """Returns the `HeapNode` object representing the minimum element.
+
+        **Time Complexity:** O(1)."""
         if not self.is_empty():
             return self.heap[0]
         
     def remove_max(self) -> HeapNode:
-        """Deletes and returns the `HeapNode` object representing the maximum element."""        
+        """Deletes and returns the `HeapNode` object representing the maximum element.
+
+        **Time Complexity:** O(log<sub>2</sub> n)."""        
         if not self.is_empty():
             return self.delete(self.find_max_index())
 
     def remove_min(self) -> HeapNode:
-        """Deletes and returns the `HeapNode` object representing the minimum element."""        
+        """Deletes and returns the `HeapNode` object representing the minimum element.
+
+        **Time Complexity:** O(log<sub>2</sub> n)."""        
         if not self.is_empty():
             return self.delete(0)
 
     def find_max_index(self) -> int:
-        """Returns the index of the maximum element in this min-max heap."""
+        """Returns the index of the maximum element in this min-max heap.
+
+        **Time Complexity:** O(1)."""
         if self.is_empty():
             return -1
         elif self.size() == 1:
@@ -141,7 +151,9 @@ class MinMaxHeap(Heap):
             
     def index_of_min(self, i: int) -> int:
         """Returns the index of the smallest element
-        among the children and grandchildren of the node at index `i`."""        
+        among the children and grandchildren of the node at index `i`.
+
+        **Time Complexity:** O(1)."""        
         m = l = self.left_index(i)
         r = self.right_index(i)
 
@@ -168,7 +180,9 @@ class MinMaxHeap(Heap):
 
     def index_of_max(self, i: int) -> int:
         """Returns the index of the largest element
-        among the children and grandchildren of the node at index `i`."""
+        among the children and grandchildren of the node at index `i`.
+
+        **Time Complexity:** O(1)."""
         m = l = self.left_index(i)
         r = self.right_index(i)
 
