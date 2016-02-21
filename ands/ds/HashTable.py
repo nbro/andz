@@ -9,6 +9,7 @@ Creation: June, 2015
 Last update: 21/02/16
 
 Hash table that re-sizes if no more slot is available.
+The process of re-sizing doubles the current capacity of the hash table each time (for now).
 It uses [linear probing](https://en.wikipedia.org/wiki/Linear_probing) when there's a collision.
 The hash function uses both the Python's built-in `hash` function and the `%` operator.
 You can access and put an item in the hash table by using the same convinient notation
@@ -33,7 +34,7 @@ __all__ = ["HashTable", "has_duplicates", "find_duplicates"]
 
 class HashTable:
 
-    def __init__(self, capacity=11):
+    def __init__(self, capacity:int=11):
         self.n = capacity
         self.keys = [None] * self.n 
         self.values = [None] * self.n
@@ -56,7 +57,7 @@ class HashTable:
 
     # PUT
 
-    def put(self, key, value):
+    def put(self, key: object, value: object):
         """Inserts the pair `key`-`value` in this map.
 
         If `key` is `None`, a `TypeError` is raised,
@@ -215,6 +216,7 @@ class HashTable:
 
     def __repr__(self):
         return self.__str__()
+    
 
 def has_duplicates(ls):
     ls = [item for item in ls if item is not None]

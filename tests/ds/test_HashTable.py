@@ -11,10 +11,33 @@ Test the HashTable class.
 
 import string
 import collections
-from random import sample, shuffle, randint, uniform
+from random import sample, shuffle, randint, uniform, choice
 from ands.ds.HashTable import HashTable, has_duplicates, find_duplicates
 
 
+def put_and_get_non_hashable_type():
+    t = HashTable()
+
+    def put_type_error(a):
+        try:
+            t.put(a, 12)
+            assert False
+        except TypeError:
+            pass
+
+    def get_type_error(a):
+        t.put(12, "Noi")
+        try:
+            t.get(a)
+            assert False
+        except TypeError:
+            pass
+        
+    put_type_error([])
+    put_type_error({})
+    get_type_error({})
+    get_type_error({})
+    
 def test_put_and_get_1():
     """Testing that errors are raised."""
     t = HashTable()
@@ -127,9 +150,36 @@ def test_put_and_get_4():
 def test_put_and_get_5():
     put_and_get_floats(uniform)
 
-def test_put_and_get_6():
-    """Test adding strings"""
-    pass
+def gen_rand_str(size):
+    return "".join(choice(string.printable) for _ in range(size))
+
+def test_put_and_get_6(n=100):
+    """Test adding different permutations of a list of the same strings."""
+    t = HashTable()
+    a = [gen_rand_str(10) for _ in range(100)]
+    p = None
+    
+    for i in range(1, n + 1):        
+        for j, string in enumerate(a):
+            if i == 1:
+                assert t.get(string) is None
+                assert p is None
+            else:
+                assert p is not None
+                assert t.get(string) == (i - 1) + p.index(string)
+
+            t.put(string, i + j)
+            
+        p = a
+        a = sample(a, len(a))
+
+        assert t.size == len(a)
+        assert not has_duplicates(t.keys)
+
+    for i, string in enumerate(a):
+        assert t.get(string) == p.index(string) + n
+        assert t.size == len(a)
+        assert not has_duplicates(t.keys)    
 
 def test_delete(n=100):
     t = HashTable()
@@ -162,9 +212,11 @@ def test_delete(n=100):
 def test_empty_hash_table_capacity():
     h = HashTable()
     assert h.capacity == 11
+    assert h.size == 0
 
     h = HashTable(capacity=47)
     assert h.capacity == 47
+    assert h.size == 0
 
         
 if __name__ == "__main__":
