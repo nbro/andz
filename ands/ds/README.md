@@ -9,11 +9,11 @@ Where `F` indicates that I've already started implementing the data structure, b
 
 |                 Name                | State     | Comments                                                        |
 |:-----------------------------------:|-----------|-----------------------------------------------------------------|
-| AVL Tree                            | S  | Based highly on rotations. It's more rigid in terms of ensuring logarithmic height than RBTs. First self-balancing binary-search tree invented, in 1962.                                                               |
-| Splay tree                          | S  |                                                                 |
-| Treap                          | S  |                                                                 |
+| AVL Tree                            | S  | Based highly on rotations. It's more rigid in terms of ensuring logarithmic height than RBTs. First self-balancing binary-search tree invented, in 1962.                                                               
 | 2-3 tree                          | S  |                                                                 
-| WAVL tree                          | S  |  - [Combine the advantages of AVL trees and red-black trees](http://www.cs.princeton.edu/~sssix/papers/rb-trees-talg.pdf). https://en.wikipedia.org/wiki/WAVL_tree#CITEREFHaeuplerSenTarjan2015                                                
+| WAVL tree                          | S  |  - [Combine the advantages of AVL trees and red-black trees](http://www.cs.princeton.edu/~sssix/papers/rb-trees-talg.pdf). https://en.wikipedia.org/wiki/WAVL_tree#CITEREFHaeuplerSenTarjan2015 
+| Splay tree                          | S  |                                                                 |
+| Treap                          | S  |                                                                                                                
 
 
 
@@ -22,17 +22,15 @@ Where `F` indicates that I've already started implementing the data structure, b
 
 |                 Name                | State     | Comments                                                        |
 |:-----------------------------------:|-----------|-----------------------------------------------------------------|
+| Double-Ended Priority Queue         | S  | This might be straightforward implemented using a min-max heap, which is already implemented.                 |
+| TST                                 | F |                                                                 
+| Fibonacci heap | S | Performs better than a normal binary heap|
+| Binomial heap | S | Supports better the merge of heaps |
 | Adjacency matrix representation of a graph | S  | Convert all current algorithms that work with the adjacent list |
-| TST                                 | F |                                                                 |
-| B-Tree                              | S  |                                                                 |
-| Radix-Tree                          | S  | What's the difference between Trie or Radix-Trie?               |
+| B-Tree                              | S  |                                                                 | Radix-Tree                          | S  | What's the difference between Trie or Radix-Trie?               |
 | Trie                                | S  | What's the difference between Radix-Tree or Radix-Trie?         |
-| Hash-Table                          | F |                                                                 |
-| Double-Ended Priority Queue         | S  | This might be implemented using a min-max heap.                 |
 | Skip list | S | |
 | Leftist tree | S | |
 | Van Emde Boas tree| S | |
-| Fibonacci heap | S | Performs better than a normal binary heap|
-| Binomial heap | S | Supports better the merge of heaps |
 
 
