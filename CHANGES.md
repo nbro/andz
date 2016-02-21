@@ -1,6 +1,12 @@
 
 # Changelog
 
+## Version 0.0.4
+
+- Adding the class `HashTable` which uses linear probing and resizes. This is a very simply class (which nonetheless can still contain some bugs, even if some tests have started to being done, and the class passed them)
+
+- Added first tests to the class `HashTable`.
+
 ## Version 0.0.3
 
 

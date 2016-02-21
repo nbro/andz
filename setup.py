@@ -20,7 +20,7 @@ def read(fname):
 
 setup(
     name = "ands",  # name of this project to be listed on PyPI
-    version = "0.0.3a1",  # alpha release
+    version = "0.0.4a1",  # alpha release
     author = "Nelson Brochado",
     author_email = "nelson.brochado@outlook.com",
     packages = find_packages(exclude=["env", "tests", "test*.*"]),

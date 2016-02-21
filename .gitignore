@@ -12,3 +12,5 @@ env/
 commands.txt
 templates/
 FUTURE.md
+
+kruskal.py
