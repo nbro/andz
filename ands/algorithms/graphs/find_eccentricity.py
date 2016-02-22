@@ -10,7 +10,7 @@ of the longest shortest path from n to any other node.
 """
 
 from ands.ds.Graph import *
-from ands.ds.BFSQueue import *
+from ands.ds.Queue import BFSQueue
 
 
 def bfs(graph, starting_node):

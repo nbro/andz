@@ -10,8 +10,7 @@ Tests for the MinMaxHeap class.
 """
 
 from random import randint, choice
-from ands.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap
-from ands.ds.HeapNode import HeapNode
+from ands.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap, HeapNode
 
 
 def test_empty_heap_creation():

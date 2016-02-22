@@ -12,8 +12,7 @@ Tests for the MaxHeap class.
 """
 
 from random import randint
-from ands.ds.MaxHeap import MaxHeap, is_max_heap
-from ands.ds.HeapNode import HeapNode
+from ands.ds.MaxHeap import MaxHeap, is_max_heap, HeapNode
 
 
 def assert_is_max_heap(h):

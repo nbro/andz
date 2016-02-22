@@ -6,14 +6,14 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 21/02/16
+Last update: 22/02/16
 
 Min-priority queue implementation using a min-heap.
 """
 
 import sys
 from ands.ds.MinHeap import MinHeap
-from ands.ds.HeapNode import HeapNode
+from ands.ds.Heap import HeapNode
 
 
 __all__ = ["MinPriorityQueue"]

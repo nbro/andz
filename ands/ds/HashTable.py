@@ -109,8 +109,8 @@ class HashTable:
 
                     # Reashing and putting all elements again
                     # Note that the following call to self._put
-                    # will never reach this state
-                    # because there will be slots available.
+                    # will never reach this statement
+                    # because there will be slots available
                     for k in keys:
                         v = self._get(k, keys, values, self.n)                        
                         self._put(k, v, new_size)

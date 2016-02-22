@@ -9,7 +9,7 @@ Creation: 15/02/16
 Tests for the HeapNode class.
 """
 
-from ands.ds.HeapNode import HeapNode
+from ands.ds.Heap import HeapNode
 
 
 def test_None():

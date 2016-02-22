@@ -6,9 +6,8 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 13/02/2016
+Last update: 22/02/2016
 
-`BST` is a class that represents a classical binary search tree.
 
 ## Names' Conventions
 In general, if a variable name has more than one word,
@@ -62,18 +61,129 @@ For example, "key" and "value" are self-descriptive.
 - [http://algs4.cs.princeton.edu/32bst/BST.java.html](http://algs4.cs.princeton.edu/32bst/BST.java.html)
 
 ## TODO
-- add functions "intersection" and "union"
+- Improve the "randomness" of insertion into the BSTImproved class.
+- Add functions "intersection" and "union".
 - Implement a recursive version of insert (OPTIONAL).
 - implement "is balanced" function (http://codereview.stackexchange.com/questions/108459/binary-tree-data-structure)
 """
 
-from ands.ds.BSTNode import BSTNode
+import sys
+from tabulate import tabulate
+from ands.ds.BaseNode import BaseNode
 
 
-__all__ = ["BST", "is_bst"]
+__all__ = ["BST", "BSTNode", "is_bst"]
+
+
+class BSTNode(BaseNode):
+    """Class to represent a BST's node."""
+
+    def __init__(self, key, value=None, parent=None, left=None, right=None):
+        BaseNode.__init__(self, key, value)
+        self.parent = parent
+        self.left = left
+        self.right = right
+        # Used for printing purposes.
+        self.label = "[" + str(self.key) + "]" 
+
+    @property
+    def sibling(self):
+        """Returns the sibling node of this node,
+        which can of course be `None`."""
+        if self.parent is not None:
+            if self.is_left_child():
+                return self.parent.right
+            else:
+                return self.parent.left
+
+    @property
+    def grandparent(self):
+        """Returns the parent of the parent of this node."""
+        if self.parent is not None:
+            return self.parent.parent
+
+    @property
+    def uncle(self):
+        """Returns the uncle node of this node.
+        The uncle is the sibling of the parent of this node,
+        if it exists. `None` is returned if it doesn't exist,
+        or the parent or grandparent of this node is `None`."""
+        if self.grandparent is not None:  # implies that also parent is not None
+            if self.parent == self.grandparent.left:
+                return self.grandparent.right
+            else:  # self.parent == self.grandparent.right:
+                return self.grandparent.left
+
+    def reset(self):
+        self.parent = None
+        self.left = None
+        self.right = None
+
+    def is_left_child(self) -> bool:
+        if self.parent is not None:
+            if self.parent.left is not None:
+                return self.parent.left == self
+        else:
+            raise AttributeError("self does not have a parent.")
+
+    def is_right_child(self) -> bool:
+        if self.parent is not None:
+            if self.parent.right is not None:
+                return self.parent.right == self
+        else:
+            raise AttributeError("self does not have a parent.")
+
+    def has_children(self) -> bool:
+        """Returns `True` if `self` has at least one child. `False` otherwise."""
+        return self.left or self.right
+
+    def has_one_child(self) -> bool:
+        """Returns `True` only if `self` has exactly one child. `False` otherwise."""
+        return (self.left and not self.right) or (not self.left and self.right)
+
+    def has_two_children(self) -> bool:
+        """Returns `True` if self has exactly two children. `False` otherwise."""
+        return self.left and self.right
+
+    def count(self) -> int:
+        """Counts the numbers of nodes under `self` (including `self`)."""
+        def _count(u, c: int):
+            if u is None:
+                return c
+            else:
+                c += 1
+            c = _count(u.left, c)
+            c = _count(u.right, c)
+            return c
+
+        if not self.has_children():
+            return 1
+        else:
+            c = 0
+            return _count(self, c)
+        
+    def __str__(self):
+        return "{" + str(self.key) + ": " + str(self.value) + "}"
+
+    def __fields(self):
+        return[["Node (Key)", self.key],
+              ["Value", self.value],
+              ["Parent", self.parent],
+              ["Left child", self.left],
+              ["Right child", self.right],
+              ["Sibling", self.sibling],
+              ["Grandparent", self.grandparent],
+              ["Uncle", self.uncle]]
+
+    def __repr__(self):
+        return tabulate(self.__fields(), tablefmt="fancy_grid")
+
+    def show(self):
+        print(self.__repr__())
 
 
 class BST:
+    """`BST` is a class that represents a classical binary search tree."""
 
     def __init__(self, root=None, name="BST"):
         self.root = root
@@ -888,3 +998,103 @@ def is_bst(bst):
         return False
 
     return all_bst_nodes(bst) and h(bst.root)
+
+
+class BSTImproved(BST):
+    """Binary-search tree that provides somehow randomness at insertion."""
+    
+    def __init__(self, root=None, name="BSTImproved"):
+        BST.__init__(self, root, name)
+
+    def insert(self, u, value=None):
+        """Inserts `x` into this tree.
+
+        `x` can either be a `BSTNode` object,
+        or it can be a _key_ of any other type,
+        but it should be comparable with the other keys,
+        and these keys should be comparable objects.
+
+        Note that the height of a `BST` varies
+        depending on how elements are inserted and removed.
+        For example, if we insert a list of numbers in increasing order,
+        the resulting `BST` object will look like a chain with height **n - 1**,
+        where `n` is the number of elements inserted.
+        In general, the optimal height is logarithmic on the number of nodes,
+        and to get closer to the optimal height,
+        randomly insertion of numbers is usually used.
+
+        If we have `n` keys to insert, there are `n!` (n-factorial)
+        ways of inserting those `n` keys into the binary search tree.
+        When we randomly insert them, those permutations are equally likely.
+
+        So, the expected height of a tree created with randomly insertions is O(log<sub>2</sub>(n)).
+        For a proof, see chapter 12 of Introduction to Algorithms (3rd ed.) by CLRS.
+
+        This function does a pseudo-random insertion of keys."""
+        r = randint(0, self.size() * 3 // 8)  # * 3 // 8 is just a random operation...
+        if r == 0:
+            self.root_insert(x, value)
+        else:
+            self.tail_insert(x, value)
+
+
+    def tail_insert(self, x, value=None):
+        """Inserts (normally) `x` into this BST object.
+
+        **Time Complexity**: O(h)."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+
+        if not isinstance(x, BSTNode):
+            x = BSTNode(x, value)
+
+        if x.left or x.right or x.parent:
+            raise ValueError("x cannot have left or right children, or parent.")
+
+        if self.root is None:
+            self._initialise(x)
+        else:
+            c = self.root  # c is the current node
+            p = self.root.parent  # parent of c
+
+            while c is not None:
+                p = c
+                if x.key < c.key:
+                    c = c.left
+                else:
+                    c = c.right
+            if x.key < p.key:
+                p.left = x
+            else:
+                p.right = x
+
+            x.parent = p
+            self.n += 1
+
+    def root_insert(self, x, value=None):
+        """Inserts `x` as the root of this tree.
+
+        **Time Complexity**: O(h)."""
+        def _root_insert(u: BSTNode, v: BSTNode):
+            """Helper method for `self.root_insert`."""
+            if u is None:
+                return v
+            if v.key < u.key:
+                u.left = _root_insert(u.left, v)
+                u = self.right_rotate(u)
+            else:
+                u.right = _root_insert(u.right, v)
+                u = self.left_rotate(u)
+            return u
+
+        if x is None:
+            raise ValueError("x cannot be None.")
+        if not isinstance(x, BSTNode):
+            x = BSTNode(x, value)
+        if x.left or x.right or x.parent:
+           raise ValueError("x cannot have left or right children, or parent.")
+        if self.root is None:
+            self._initialise(x)
+        else:
+            _root_insert(self.root, x)
+            self.n += 1

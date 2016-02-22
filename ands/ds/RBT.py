@@ -6,11 +6,10 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 19/02/16
+Last update: 22/02/16
 
-Contains the class RBT for representing red-black trees.
 
-## Red-black tree property
+## Red-black Tree Property
 
 1. Every node is either red or black.
 
@@ -97,14 +96,52 @@ Now we log both parts
 """
 
 import math
-from ands.ds.BST import BST, is_bst
-from ands.ds.RBTNode import RBTNode, RED, BLACK
+from ands.ds.BST import BST, BSTNode, is_bst
 
 
-__all__ = ["RBT", "is_rbt", "bh", "upper_bound_height"]
+__all__ = ["RBT", "RBTNode", "is_rbt", "bh", "upper_bound_height"]
+
+
+RED = "RED"
+BLACK = "BLACK"
+
+
+class RBTNode(BSTNode):
+    """Class to represent a `RBT`'s node."""
+
+    def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
+        BSTNode.__init__(self, key, value, parent, left, right)
+        self._color = color
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, value):
+        self._color = value
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
+        
+    def reset(self):
+        super().reset()
+        self.color = BLACK
+
+    def __fields(self):
+        """Used by __repr__."""
+        return[["Node (Key)", self.key],
+              ["Value", self.value],
+              ["Color", self.color],
+              ["Parent", self.parent],
+              ["Left child", self.left],
+              ["Right child", self.right],
+              ["Sibling", self.sibling],
+              ["Grandparent", self.grandparent],
+              ["Uncle", self.uncle]]
 
 
 class RBT(BST):
+    """Red-black tree, which is a self-balancing binary-search tree."""
 
     def __init__(self, root=None, name="RBT"):
         BST.__init__(self, root, name)

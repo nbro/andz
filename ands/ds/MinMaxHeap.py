@@ -25,8 +25,7 @@ It's therefore an useful data structure to implement (or represent) double-ended
 - [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
 """
 
-from ands.ds.Heap import Heap
-from ands.ds.HeapNode import HeapNode
+from ands.ds.Heap import Heap, HeapNode
 
 
 class MinMaxHeap(Heap):

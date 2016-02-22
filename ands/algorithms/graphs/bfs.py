@@ -16,8 +16,11 @@ The implementation is based on an adjacency list representation of graphs.
 
 from ands.ds.Graph import *
 from ands.ds.GraphNode import GraphNode
-from ands.ds.BFSQueue import BFSQueue
+from ands.ds.Queue import BFSQueue
 from build_shortest_path import *
+
+
+__all__ = ["bfs"]
 
 
 def bfs(g: Graph, s: GraphNode):

@@ -6,18 +6,14 @@ Author: Nelson Brochado
 
 Creation: 15/02/16
 
-Last update: 19/02/16
+Last update: 22/02/16
 
 Tests for the RBT class.
 """
 
 from random import randint
-from ands.ds.RBT import RBT, is_rbt, upper_bound_height
-from ands.ds.RBTNode import *
-
-
-from ands.ds.BSTNode import BSTNode
-from ands.ds.BST import BST
+from ands.ds.RBT import RED, BLACK, RBT, RBTNode, upper_bound_height, is_rbt
+from ands.ds.BST import BST, BSTNode
 
 
 # ASSERT FUNCTIONS

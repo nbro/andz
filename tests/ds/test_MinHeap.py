@@ -12,8 +12,7 @@ Tests for the MinHeap class.
 """
 
 from random import randint
-from ands.ds.MinHeap import MinHeap, is_min_heap
-from ands.ds.HeapNode import HeapNode
+from ands.ds.MinHeap import MinHeap, is_min_heap, HeapNode
 
 
 def assert_is_min_heap(h):

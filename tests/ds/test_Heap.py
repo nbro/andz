@@ -11,8 +11,7 @@ Last update: 19/02/16
 Tests for the abstract class Heap.
 """
 
-from ands.ds.Heap import Heap
-from ands.ds.HeapNode import HeapNode
+from ands.ds.Heap import Heap, HeapNode
 
 
 def test_heap_creation():

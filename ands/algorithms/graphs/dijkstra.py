@@ -13,22 +13,18 @@ Want to know more about Dijkstra's single-source shortest path algorithm?
 - https://www.youtube.com/watch?v=elUoBUwIlpQ (Computer Networks 5-3: Dijkstra's Algorithm)
 """
 
-from ands.ds.Graph import *
-from ands.ds.MinPriorityQueue import *
+from ands.ds.Graph import Graph
+from ands.ds.GraphNode import *
+from ands.ds.MinPriorityQueue import MinPriorityQueue
 
 
-def _initialise_single_source(graph, source_node):
+def initialise_single_source(g: Graph, s: GraphNode):
     """Initialisation step for Dijkstra's
-    single source shortest path algorithm.
-
-    :type graph : Graph
-    :type source_node : GraphNode
-    """
-    for u in graph.nodes:
+    single source shortest path algorithm."""
+    for u in g.nodes:
         u.distance = INFINITY
         u.predecessor = NIL
-
-    source_node.distance = 0
+    s.distance = 0
 
 
 def _relax(u: GraphNode, v: GraphNode, w: "function", q: MinPriorityQueue):
@@ -116,7 +112,7 @@ def dijkstra(g: Graph, s: GraphNode):
     but note that this algorithm gave us a shortest path to B of 2,
     which is incorrect!"""
 
-    _initialise_single_source(g, s)
+    initialise_single_source(g, s)
 
     # This set will contain the vertices of graph,
     # whose shortest path weights from s have already been determined.
@@ -128,7 +124,7 @@ def dijkstra(g: Graph, s: GraphNode):
     # The first item of each of these tuples
     # is a HeapNode and the second its distance from s,
     # At this point, all distances have been already set to INFINITY
-    # by _initialise_single_source,
+    # by initialise_single_source,
     # except for the source node s, whose distance has been set to 0.
     q = MinPriorityQueue(_nodes_and_distances(g))
 

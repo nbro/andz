@@ -7,7 +7,7 @@ Creation: July, 2015
 """
 
 from ands.ds.Graph import *
-from ands.ds.BFSQueue import *
+from ands.ds.Queue import BFSQueue
 
 
 def bfs(graph, s):

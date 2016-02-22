@@ -9,7 +9,7 @@ Creation: 15/02/16
 Tests for the BSTNode class.
 """
 
-from ands.ds.BSTNode import BSTNode
+from ands.ds.BST import BSTNode
 
 
 def test_None():

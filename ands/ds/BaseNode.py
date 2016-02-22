@@ -12,8 +12,7 @@ Base class for all kind of nodes,
 assuming they have a key and a value.
 """
 
-# Inheriting explicitly from object so that properties' setters work
-class BaseNode(object):
+class BaseNode:
 
     def __init__(self, key, value):
         if key is None:

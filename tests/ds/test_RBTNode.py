@@ -9,7 +9,7 @@ Creation: 15/02/16
 Tests for the RBTNode class.
 """
 
-from ands.ds.RBTNode import *
+from ands.ds.RBT import RBTNode, RED, BLACK
 
 
 def test_None():

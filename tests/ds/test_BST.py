@@ -11,8 +11,7 @@ Last update: 17/02/16
 Tests for the BST class.
 """
 
-from ands.ds.BST import BST, is_bst
-from ands.ds.BSTNode import BSTNode
+from ands.ds.BST import BST, BSTNode, is_bst
 
 
 def assert_consistencies(bst):

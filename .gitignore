@@ -9,8 +9,12 @@ env/
 *.egg
 
 # Other
-commands.txt
+COMMANDS.md
 templates/
 FUTURE.md
 
 kruskal.py
+
+ands/algorithms
+ands/ds/Graph.py
+ands/ds/GraphNode.py

@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 19/02/16
+Last update: 22/02/16
 
 Base abstract class to represent heaps.
 See `MinHeap` and `MaxHeap` if you want to instantiate heap objects.
@@ -29,17 +29,55 @@ when they require derived classes to override the method.
 
 import io
 import math
-from ands.ds.HeapNode import HeapNode
+from ands.ds.BST import BSTNode
 
 
-__all__ = ["Heap"]
+__all__ = ["Heap", "HeapNode"]
 
 
-class Heap(object):
+class HeapNode(BSTNode):
+    """All elements of Heap objects are represented
+    with objects of the class HeapNode."""    
+
+    def __init__(self, key, value=None, p=None, left=None, right=None):
+        """`key` is the priority used to heapify the heap,
+        and it must be a non-None comparable value.
+        `value` can be used for example for the name of the `HeapNode` object."""
+        if value is None:
+            value = key
+        BSTNode.__init__(self, key, value, p, left, right)
+
+    def __str__(self):
+        return str(self.key)
+
+    def __repr__(self):
+        return str(self.value) + " -> " + str(self.key) + "$"
+
+    def __eq__(self, other):
+        return self.key == other.key and self.value == other.value
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __le__(self, other):
+        return self.key <= other.key
+
+    def __ge__(self, other):
+        return self.key >= other.key
+
+    def __lt__(self, other):
+        return not self.__ge__(other)
+
+    def __gt__(self, other):
+        return not self.__le__(other)
+
+
+class Heap:
 
     def __init__(self, ls=[]):
         self.heap = Heap._create_list_of_heap_nodes(ls)
         self.build_heap()
+        
     # ABSTRACT NOT-IMPLEMENTED METHODS
 
     def push_down(self, i: int) -> None:

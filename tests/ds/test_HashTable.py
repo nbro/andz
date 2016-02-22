@@ -110,7 +110,7 @@ def test_put_and_get_3(n=100):
         assert t.size == len(a)
         assert not has_duplicates(t.keys)
 
-def put_and_get_floats(random_func=randint, n=100):
+def put_and_get_numbers(random_func=randint, n=100):
     t = HashTable()
     
     a = [random_func(-100, 100) for _ in range(100)]
@@ -144,16 +144,16 @@ def put_and_get_floats(random_func=randint, n=100):
             find_all_indices(num, a).index(t.get(num))
         assert not has_duplicates(t.keys)
 
-def test_put_and_get_4():
-    put_and_get_floats()
+def test_put_and_get_ints():
+    put_and_get_numbers()
 
-def test_put_and_get_5():
-    put_and_get_floats(uniform)
+def test_put_and_get_floats():
+    put_and_get_numbers(uniform)
 
 def gen_rand_str(size):
     return "".join(choice(string.printable) for _ in range(size))
 
-def test_put_and_get_6(n=100):
+def test_put_and_get_strings(n=100):
     """Test adding different permutations of a list of the same strings."""
     t = HashTable()
     a = [gen_rand_str(10) for _ in range(100)]
@@ -181,7 +181,7 @@ def test_put_and_get_6(n=100):
         assert t.size == len(a)
         assert not has_duplicates(t.keys)    
 
-def test_delete(n=100):
+def test_delete_letters(n=100):
     t = HashTable()
     ls = list(string.ascii_lowercase)
 
