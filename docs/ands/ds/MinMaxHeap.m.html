@@ -1103,8 +1103,7 @@ It's therefore an useful data structure to implement (or represent) double-ended
 - [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
 """
 
-from ands.ds.Heap import Heap
-from ands.ds.HeapNode import HeapNode
+from ands.ds.Heap import Heap, HeapNode
 
 
 class MinMaxHeap(Heap):
@@ -1651,10 +1650,8 @@ whose key and value are equal to <code>x</code>.</p>
     if x is None:
         raise ValueError("x cannot be None.")
     if not isinstance(x, HeapNode):
-        x = HeapNode(x)
-        
+        x = HeapNode(x)            
     self.heap.append(x)
-    
     if self.size() > 1:        
         self.push_up(self.size() - 1)
 </code></pre>
@@ -1774,14 +1771,11 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
     where `h` is the number of nodes rooted at `i`."""
     if not self.is_good_index(i):
         raise IndexError("i is not a valid index.")
-    
     if i == self.size() - 1:
         return self.heap.pop()
-    
     self.swap(i, self.size() - 1)
     d = self.heap.pop()
-    self.push_down(i)
-    
+    self.push_down(i)        
     return d             
 </code></pre>
   </div>
@@ -2298,13 +2292,13 @@ if it exists, otherwise this function returns -1.</p>
             
   <div class="item">
     <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.merge">
-    <p>def <span class="ident">merge</span>(</p><p>self, other)</p>
+    <p>def <span class="ident">merge</span>(</p><p>self, o)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Merges this heap with the <code>other</code> heap.</p>
+    <div class="desc"><p>Merges this heap with the <code>o</code> heap.</p>
 <p>Returns the <code>list</code> object representing internally the new merged heap.</p>
 <p><strong>Time Complexity:</strong> O(n + m).</p>
 <p>Time complexity analysis based on:
@@ -2312,14 +2306,14 @@ if it exists, otherwise this function returns -1.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.merge', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.merge" class="source">
-    <pre><code>def merge(self, other) -> list:
-    """Merges this heap with the `other` heap.
+    <pre><code>def merge(self, o) -> list:
+    """Merges this heap with the `o` heap.
     
     Returns the `list` object representing internally the new merged heap.
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
     [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-    self.heap += other.get()
+    self.heap += o.get()
     return self.build_heap()
 </code></pre>
   </div>

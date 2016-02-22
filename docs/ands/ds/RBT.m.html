@@ -8,9 +8,12 @@
 
 Creation: July, 2015
 
-Last update: 19/02/16
+Last update: 22/02/16
 
-Contains the class RBT for rep..." />
+
+## Red-black Tree Property
+
+1..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -1023,6 +1026,23 @@ table {
   </ul>
 
         </li>
+        <li class="mono">
+        <span class="class_name"><a href="#ands.ds.RBT.RBTNode">RBTNode</a></span>
+        
+          
+  <ul>
+    <li class="mono"><a href="#ands.ds.RBT.RBTNode.__init__">__init__</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.RBTNode.count">count</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.RBTNode.has_children">has_children</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.RBTNode.has_one_child">has_one_child</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.RBTNode.has_two_children">has_two_children</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.RBTNode.is_left_child">is_left_child</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.RBTNode.is_right_child">is_right_child</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.RBTNode.reset">reset</a></li>
+    <li class="mono"><a href="#ands.ds.RBT.RBTNode.show">show</a></li>
+  </ul>
+
+        </li>
       </ul>
     </li>
 
@@ -1040,9 +1060,8 @@ table {
   <h1 class="title"><span class="name">ands.ds.RBT</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 19/02/16</p>
-<p>Contains the class RBT for representing red-black trees.</p>
-<h2>Red-black tree property</h2>
+<p>Last update: 22/02/16</p>
+<h2>Red-black Tree Property</h2>
 <ol>
 <li>
 <p>Every node is either red or black.</p>
@@ -1149,11 +1168,10 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 19/02/16
+Last update: 22/02/16
 
-Contains the class RBT for representing red-black trees.
 
-## Red-black tree property
+## Red-black Tree Property
 
 1. Every node is either red or black.
 
@@ -1240,14 +1258,52 @@ Now we log both parts
 """
 
 import math
-from ands.ds.BST import BST, is_bst
-from ands.ds.RBTNode import RBTNode, RED, BLACK
+from ands.ds.BST import BST, BSTNode, is_bst
 
 
-__all__ = ["RBT", "is_rbt", "bh", "upper_bound_height"]
+__all__ = ["RBT", "RBTNode", "is_rbt", "bh", "upper_bound_height"]
+
+
+RED = "RED"
+BLACK = "BLACK"
+
+
+class RBTNode(BSTNode):
+    """Class to represent a `RBT`'s node."""
+
+    def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
+        BSTNode.__init__(self, key, value, parent, left, right)
+        self._color = color
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, value):
+        self._color = value
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
+        
+    def reset(self):
+        super().reset()
+        self.color = BLACK
+
+    def __fields(self):
+        """Used by __repr__."""
+        return[["Node (Key)", self.key],
+              ["Value", self.value],
+              ["Color", self.color],
+              ["Parent", self.parent],
+              ["Left child", self.left],
+              ["Right child", self.right],
+              ["Sibling", self.sibling],
+              ["Grandparent", self.grandparent],
+              ["Uncle", self.uncle]]
 
 
 class RBT(BST):
+    """Red-black tree, which is a self-balancing binary-search tree."""
 
     def __init__(self, root=None, name="RBT"):
         BST.__init__(self, root, name)
@@ -1832,10 +1888,12 @@ def is_rbt(rbt):
       <p id="ands.ds.RBT.RBT" class="name">class <span class="ident">RBT</span></p>
       
   
+    <div class="desc"><p>Red-black tree, which is a self-balancing binary-search tree.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBT', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.RBT.RBT" class="source">
     <pre><code>class RBT(BST):
+    """Red-black tree, which is a self-balancing binary-search tree."""
 
     def __init__(self, root=None, name="RBT"):
         BST.__init__(self, root, name)
@@ -3284,6 +3342,333 @@ or it can be a key of a supposed node in self.</p>
 
   </div>
   
+      </div>
+      </div>
+      
+      <div class="item">
+      <p id="ands.ds.RBT.RBTNode" class="name">class <span class="ident">RBTNode</span></p>
+      
+  
+    <div class="desc"><p>Class to represent a <code>RBT</code>'s node.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode" class="source">
+    <pre><code>class RBTNode(BSTNode):
+    """Class to represent a `RBT`'s node."""
+
+    def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
+        BSTNode.__init__(self, key, value, parent, left, right)
+        self._color = color
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, value):
+        self._color = value
+        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
+        
+    def reset(self):
+        super().reset()
+        self.color = BLACK
+
+    def __fields(self):
+        """Used by __repr__."""
+        return[["Node (Key)", self.key],
+              ["Value", self.value],
+              ["Color", self.color],
+              ["Parent", self.parent],
+              ["Left child", self.left],
+              ["Right child", self.right],
+              ["Sibling", self.sibling],
+              ["Grandparent", self.grandparent],
+              ["Uncle", self.uncle]]
+</code></pre>
+  </div>
+</div>
+
+
+      <div class="class">
+          <h3>Ancestors (in MRO)</h3>
+          <ul class="class_list">
+          <li><a href="#ands.ds.RBT.RBTNode">RBTNode</a></li>
+          <li>ands.ds.BST.BSTNode</li>
+          <li>ands.ds.BaseNode.BaseNode</li>
+          <li>builtins.object</li>
+          </ul>
+          <h3>Static methods</h3>
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.RBTNode.__init__">
+    <p>def <span class="ident">__init__</span>(</p><p>self, key, value=None, color=&#39;BLACK&#39;, parent=None, left=None, right=None)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode.__init__', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode.__init__" class="source">
+    <pre><code>def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
+    BSTNode.__init__(self, key, value, parent, left, right)
+    self._color = color
+    self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.RBTNode.count">
+    <p>def <span class="ident">count</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Counts the numbers of nodes under <code>self</code> (including <code>self</code>).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode.count', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode.count" class="source">
+    <pre><code>def count(self) -> int:
+    """Counts the numbers of nodes under `self` (including `self`)."""
+    def _count(u, c: int):
+        if u is None:
+            return c
+        else:
+            c += 1
+        c = _count(u.left, c)
+        c = _count(u.right, c)
+        return c
+    if not self.has_children():
+        return 1
+    else:
+        c = 0
+        return _count(self, c)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.RBTNode.has_children">
+    <p>def <span class="ident">has_children</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>self</code> has at least one child. <code>False</code> otherwise.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode.has_children', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode.has_children" class="source">
+    <pre><code>def has_children(self) -> bool:
+    """Returns `True` if `self` has at least one child. `False` otherwise."""
+    return self.left or self.right
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.RBTNode.has_one_child">
+    <p>def <span class="ident">has_one_child</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> only if <code>self</code> has exactly one child. <code>False</code> otherwise.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode.has_one_child', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode.has_one_child" class="source">
+    <pre><code>def has_one_child(self) -> bool:
+    """Returns `True` only if `self` has exactly one child. `False` otherwise."""
+    return (self.left and not self.right) or (not self.left and self.right)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.RBTNode.has_two_children">
+    <p>def <span class="ident">has_two_children</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if self has exactly two children. <code>False</code> otherwise.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode.has_two_children', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode.has_two_children" class="source">
+    <pre><code>def has_two_children(self) -> bool:
+    """Returns `True` if self has exactly two children. `False` otherwise."""
+    return self.left and self.right
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.RBTNode.is_left_child">
+    <p>def <span class="ident">is_left_child</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode.is_left_child', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode.is_left_child" class="source">
+    <pre><code>def is_left_child(self) -> bool:
+    if self.parent is not None:
+        if self.parent.left is not None:
+            return self.parent.left == self
+    else:
+        raise AttributeError("self does not have a parent.")
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.RBTNode.is_right_child">
+    <p>def <span class="ident">is_right_child</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode.is_right_child', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode.is_right_child" class="source">
+    <pre><code>def is_right_child(self) -> bool:
+    if self.parent is not None:
+        if self.parent.right is not None:
+            return self.parent.right == self
+    else:
+        raise AttributeError("self does not have a parent.")
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.RBTNode.reset">
+    <p>def <span class="ident">reset</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode.reset', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode.reset" class="source">
+    <pre><code>def reset(self):
+    super().reset()
+    self.color = BLACK
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.RBT.RBTNode.show">
+    <p>def <span class="ident">show</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.RBT.RBTNode.show', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.RBT.RBTNode.show" class="source">
+    <pre><code>def show(self):
+    print(self.__repr__())
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+          <h3>Instance variables</h3>
+            <div class="item">
+            <p id="ands.ds.RBT.RBTNode.color" class="name">var <span class="ident">color</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
+            <p id="ands.ds.RBT.RBTNode.grandparent" class="name">var <span class="ident">grandparent</span></p>
+            
+
+            
+  
+    <div class="desc"><p>Returns the parent of the parent of this node.</p></div>
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
+            <p id="ands.ds.RBT.RBTNode.label" class="name">var <span class="ident">label</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
+            <p id="ands.ds.RBT.RBTNode.sibling" class="name">var <span class="ident">sibling</span></p>
+            
+
+            
+  
+    <div class="desc"><p>Returns the sibling node of this node,
+which can of course be <code>None</code>.</p></div>
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
+            <p id="ands.ds.RBT.RBTNode.uncle" class="name">var <span class="ident">uncle</span></p>
+            
+
+            
+  
+    <div class="desc"><p>Returns the uncle node of this node.
+The uncle is the sibling of the parent of this node,
+if it exists. <code>None</code> is returned if it doesn't exist,
+or the parent or grandparent of this node is <code>None</code>.</p></div>
+  <div class="source_cont">
+</div>
+
+            </div>
       </div>
       </div>
 

@@ -47,29 +47,29 @@ class HeapNode(BSTNode):
             value = key
         BSTNode.__init__(self, key, value, p, left, right)
 
+    def __eq__(self, o):
+        return self.key == o.key and self.value == o.value
+
+    def __ne__(self, o):
+        return not self.__eq__(o)
+
+    def __le__(self, o):
+        return self.key <= o.key
+
+    def __ge__(self, o):
+        return self.key >= o.key
+
+    def __lt__(self, o):
+        return not self.__ge__(o)
+
+    def __gt__(self, o):
+        return not self.__le__(o)
+
     def __str__(self):
         return str(self.key)
 
     def __repr__(self):
-        return str(self.value) + " -> " + str(self.key) + "$"
-
-    def __eq__(self, other):
-        return self.key == other.key and self.value == other.value
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __le__(self, other):
-        return self.key <= other.key
-
-    def __ge__(self, other):
-        return self.key >= other.key
-
-    def __lt__(self, other):
-        return not self.__ge__(other)
-
-    def __gt__(self, other):
-        return not self.__le__(other)
+        return str(self.value) + " -> " + str(self.key)
 
 
 class Heap:
@@ -120,10 +120,8 @@ class Heap:
         if x is None:
             raise ValueError("x cannot be None.")
         if not isinstance(x, HeapNode):
-            x = HeapNode(x)
-            
+            x = HeapNode(x)            
         self.heap.append(x)
-        
         if self.size() > 1:        
             self.push_up(self.size() - 1)
 
@@ -139,14 +137,11 @@ class Heap:
         where `h` is the number of nodes rooted at `i`."""
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")
-        
         if i == self.size() - 1:
             return self.heap.pop()
-        
         self.swap(i, self.size() - 1)
         d = self.heap.pop()
-        self.push_down(i)
-        
+        self.push_down(i)        
         return d             
 
     def search(self, x) -> int:
@@ -192,8 +187,8 @@ class Heap:
         **Time Complexity:** O(n)."""
         return self.search(x) != -1    
 
-    def merge(self, other) -> list:
-        """Merges this heap with the `other` heap.
+    def merge(self, o) -> list:
+        """Merges this heap with the `o` heap.
         
         Returns the `list` object representing internally the new merged heap.
 
@@ -201,7 +196,7 @@ class Heap:
 
         Time complexity analysis based on:
         [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-        self.heap += other.get()
+        self.heap += o.get()
         return self.build_heap()
 
     def size(self) -> int:

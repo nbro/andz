@@ -12,10 +12,10 @@ Tests for the DSForests class and associated classes.
 from ands.ds.DSForests import DSForests
 
 
-def test_ds_forests_creation():
+def test_empty_creation():
     DSForests()
 
-def test_find():    
+def test_operations():    
     ds = DSForests()
     a = ds.make_set(12)
     b = ds.make_set(14)

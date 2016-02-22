@@ -1025,8 +1025,7 @@ Base class for all kind of nodes,
 assuming they have a key and a value.
 """
 
-# Inheriting explicitly from object so that properties' setters work
-class BaseNode(object):
+class BaseNode:
 
     def __init__(self, key, value):
         if key is None:
@@ -1057,7 +1056,7 @@ class BaseNode(object):
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BaseNode.BaseNode', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BaseNode.BaseNode" class="source">
-    <pre><code>class BaseNode(object):
+    <pre><code>class BaseNode:
 
     def __init__(self, key, value):
         if key is None:

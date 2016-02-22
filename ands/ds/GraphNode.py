@@ -8,8 +8,7 @@ Creation: July, 2015
 
 Last update: 05/02/16
 
-
-GraphNode for the `Graph` data structure defined in `Graph.py`.
+GraphNode for the `Graph` data structure.
 Nodes contain many fields that are used in the 2 main graph algorithms:
 - `bfs`
 - `dfs`
@@ -151,24 +150,36 @@ class GraphNode(BaseNode):
             a.append(["Predecessor", self.predecessor.key])
         else:
             a.append(["Predecessor", NIL])
-
         return a
 
     def show(self):
         """Prints the current status of this node."""
         print(tabulate(self._get_list_of_attributes(), tablefmt="fancy_grid", headers=("ATTRIBUTES", "VALUES")))
 
+    def __eq__(self, o):
+        return self.key == o.key and self.value == o.value
+
+    def __ne__(self, o):
+        return not self.__eq__(o)
+
+    def __le__(self, o):
+        return self.key <= o.key
+
+    def __ge__(self, o):
+        return self.key >= o.key
+
+    def __lt__(self, o):
+        return not self.__ge__(o)
+
+    def __gt__(self, o):
+        return not self.__le__(o)
+
+    def __hash__(self):
+        return hash(self.key) + id(self)
+
     def __str__(self):
         return str(self.key)
 
     def __repr__(self):
-        return self.__str__() + " => " + self.get_str_repr_of_adj_nodes()
+        return str(self.key) + " => " + self.get_str_repr_of_adj_nodes()
 
-    def __eq__(self, other):
-        return self.value == other.value and self.key == other.key
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __hash__(self):
-        return hash(self.key) + id(self)

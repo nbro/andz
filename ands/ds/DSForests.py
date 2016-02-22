@@ -29,7 +29,6 @@ Time complexity analysis based on Wiki's article.
 - http://code.activestate.com/recipes/215912-union-find-data-structure/
 
 - http://python-algorithms.readthedocs.org/en/latest/_modules/python_algorithms/basic/union_find.html
-
 """
 
 class DSNode:

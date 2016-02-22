@@ -974,25 +974,19 @@ table {
 
     <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
       <ul>
-        <li class="mono"><a href="BFSQueue.m.html">ands.ds.BFSQueue</a></li>
         <li class="mono"><a href="BST.m.html">ands.ds.BST</a></li>
-        <li class="mono"><a href="BSTImproved.m.html">ands.ds.BSTImproved</a></li>
-        <li class="mono"><a href="BSTNode.m.html">ands.ds.BSTNode</a></li>
         <li class="mono"><a href="BaseNode.m.html">ands.ds.BaseNode</a></li>
-        <li class="mono"><a href="BaseQueue.m.html">ands.ds.BaseQueue</a></li>
-        <li class="mono"><a href="BaseStack.m.html">ands.ds.BaseStack</a></li>
-        <li class="mono"><a href="DisjointSet.m.html">ands.ds.DisjointSet</a></li>
+        <li class="mono"><a href="DSForests.m.html">ands.ds.DSForests</a></li>
         <li class="mono"><a href="Graph.m.html">ands.ds.Graph</a></li>
         <li class="mono"><a href="GraphNode.m.html">ands.ds.GraphNode</a></li>
         <li class="mono"><a href="HashTable.m.html">ands.ds.HashTable</a></li>
         <li class="mono"><a href="Heap.m.html">ands.ds.Heap</a></li>
-        <li class="mono"><a href="HeapNode.m.html">ands.ds.HeapNode</a></li>
         <li class="mono"><a href="MaxHeap.m.html">ands.ds.MaxHeap</a></li>
         <li class="mono"><a href="MinHeap.m.html">ands.ds.MinHeap</a></li>
         <li class="mono"><a href="MinMaxHeap.m.html">ands.ds.MinMaxHeap</a></li>
-        <li class="mono"><a href="MinPriorityQueue.m.html">ands.ds.MinPriorityQueue</a></li>
+        <li class="mono"><a href="Queue.m.html">ands.ds.Queue</a></li>
         <li class="mono"><a href="RBT.m.html">ands.ds.RBT</a></li>
-        <li class="mono"><a href="RBTNode.m.html">ands.ds.RBTNode</a></li>
+        <li class="mono"><a href="Stack.m.html">ands.ds.Stack</a></li>
       </ul>
     </li>
     </ul>
@@ -1026,50 +1020,17 @@ table {
 
     <h2 class="section-title" id="header-submodules">Sub-modules</h2>
       <div class="item">
-      <p class="name"><a href="BFSQueue.m.html">ands.ds.BFSQueue</a></p>
-      
-  
-    <div class="desc"><p>Author: Nelson Brochado</p>
-<p>Creation: July, 2015</p>
-<p>Last update: 05/02/16</p>
-<p>Simple queue data structure used specifically by BFS.</p></div>
-
-      </div>
-      <div class="item">
       <p class="name"><a href="BST.m.html">ands.ds.BST</a></p>
       
   
     <div class="desc"><p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 13/02/2016</p>
-<p><code>BST</code> is a class that represents a classical binary search tree.</p>
+<p>Last update: 22/02/2016</p>
 <h2>Names' Conventions</h2>
 <p>In general, if a variable name has more than one word,
 those words are separated by _ (underscores).
-Functions' names should roughly describ...</p></div>
-
-      </div>
-      <div class="item">
-      <p class="name"><a href="BSTImproved.m.html">ands.ds.BSTImproved</a></p>
-      
-  
-    <div class="desc"><p>Author: Nelson Brochado</p>
-<p>Creation: 13/02/2016</p>
-<p>Binary-search tree that provides somehow randomness at insertion.</p>
-<h2>TODO</h2>
-<ul>
-<li>Improve the "randomness" of insertion into the bst.</li>
-</ul></div>
-
-      </div>
-      <div class="item">
-      <p class="name"><a href="BSTNode.m.html">ands.ds.BSTNode</a></p>
-      
-  
-    <div class="desc"><p>Author: Nelson Brochado</p>
-<p>Creation: July, 2015</p>
-<p>Last update: 15/02/16</p>
-<p>Class to represent a BST's node.</p></div>
+Functions' names should roughly describe what the function does.
+Names of functions' local variables are...</p></div>
 
       </div>
       <div class="item">
@@ -1084,35 +1045,16 @@ assuming they have a key and a value.</p></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="BaseQueue.m.html">ands.ds.BaseQueue</a></p>
+      <p class="name"><a href="DSForests.m.html">ands.ds.DSForests</a></p>
       
   
     <div class="desc"><p>Author: Nelson Brochado</p>
-<p>Creation: July, 2015</p>
-<p>Last update: 13/02/16</p>
-<p>Basic queue, which is FIFO (first-in-first-out) data structure.</p></div>
+<p>Creation: 21/02/16</p>
+<p>DSForests (DisjointSetForests) uses two heuristics that improve the performance with respect to a naive implementation.</p>
+<pre><code>1. Union by rank: attach the smaller tree to the root of the larger tree
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="BaseStack.m.html">ands.ds.BaseStack</a></p>
-      
-  
-    <div class="desc"><p>Author: Nelson Brochado</p>
-<p>Creation: July, 2015</p>
-<p>Last Update: 05/02/16</p>
-<p>Basic class to represent simple stacks,
-which are LIFO (last-in-first-out) data structures.</p></div>
-
-      </div>
-      <div class="item">
-      <p class="name"><a href="DisjointSet.m.html">ands.ds.DisjointSet</a></p>
-      
-  
-    <div class="desc"><p>Author: Nelson Brochado</p>
-<p>Creation: July, 2015</p>
-<p>Last update: 05/02/16</p>
-<p>Disjoint Set data structure for Kruskal's algorithm
-to find a minimum-spanning tree of a undirected weighted graph.</p></div>
+2. Path compression: is a way of flattening the stru...
+</code></pre></div>
 
       </div>
       <div class="item">
@@ -1136,12 +1078,12 @@ To ...</p></div>
     <div class="desc"><p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
 <p>Last update: 05/02/16</p>
-<p>GraphNode for the <code>Graph</code> data structure defined in <code>Graph.py</code>.
+<p>GraphNode for the <code>Graph</code> data structure.
 Nodes contain many fields that are used in the 2 main graph algorithms:
 - <code>bfs</code>
 - <code>dfs</code>
 These fields are for example <code>self.predecessor</code>, <code>self.distance</code>, etc.</p>
-<p>Nodes...</p></div>
+<p>Nodes keep also track of the...</p></div>
 
       </div>
       <div class="item">
@@ -1152,8 +1094,8 @@ These fields are for example <code>self.predecessor</code>, <code>self.distance<
 <p>Creation: June, 2015</p>
 <p>Last update: 21/02/16</p>
 <p>Hash table that re-sizes if no more slot is available.
-It uses <a href="https://en.wikipedia.org/wiki/Linear_probing">linear probing</a> when there's a collision.
-The hash function uses both the Python's built-in <code>hash</code> function and the <code>%</code> ...</p></div>
+The process of re-sizing doubles the current capacity of the hash table each time (for now).
+It uses <a href="https://en.wikipedia.org/wiki/Linear_probing">linear probing</a> when there'...</p></div>
 
       </div>
       <div class="item">
@@ -1162,22 +1104,11 @@ The hash function uses both the Python's built-in <code>hash</code> function and
   
     <div class="desc"><p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 19/02/16</p>
+<p>Last update: 22/02/16</p>
 <p>Base abstract class to represent heaps.
 See <code>MinHeap</code> and <code>MaxHeap</code> if you want to instantiate heap objects.</p>
 <h2><a href="https://docs.python.org/3/library/exceptions.html#NotImplementedError">NotImplementedError</a></h2>
 <p>This exception is deriv...</p></div>
-
-      </div>
-      <div class="item">
-      <p class="name"><a href="HeapNode.m.html">ands.ds.HeapNode</a></p>
-      
-  
-    <div class="desc"><p>Author: Nelson Brochado</p>
-<p>Creation: July, 2015</p>
-<p>Last update: 15/02/16</p>
-<p>All elements of Heap objects are represented
-with objects of the class HeapNode.</p></div>
 
       </div>
       <div class="item">
@@ -1226,13 +1157,13 @@ It's therefore an useful data structure to implement (or represent) ...</p></div
 
       </div>
       <div class="item">
-      <p class="name"><a href="MinPriorityQueue.m.html">ands.ds.MinPriorityQueue</a></p>
+      <p class="name"><a href="Queue.m.html">ands.ds.Queue</a></p>
       
   
     <div class="desc"><p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 05/02/16</p>
-<p>Contains an implementation of a min priority queue using a min heap.</p></div>
+<p>Last update: 22/02/16</p>
+<p>Basic queue, which is FIFO (first-in-first-out) data structure.</p></div>
 
       </div>
       <div class="item">
@@ -1241,9 +1172,8 @@ It's therefore an useful data structure to implement (or represent) ...</p></div
   
     <div class="desc"><p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 19/02/16</p>
-<p>Contains the class RBT for representing red-black trees.</p>
-<h2>Red-black tree property</h2>
+<p>Last update: 22/02/16</p>
+<h2>Red-black Tree Property</h2>
 <ol>
 <li>
 <p>Every node is either red or black.</p>
@@ -1255,19 +1185,21 @@ It's therefore an useful data structure to implement (or represent) ...</p></div
 <p>Every NIL or leaf node is black.</p>
 </li>
 <li>
-<p>If a node is red, then both its children a...</p>
+<p>If a node is red, then both its children are black,
+in other words, there cannot be two red nodes i...</p>
 </li>
 </ol></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="RBTNode.m.html">ands.ds.RBTNode</a></p>
+      <p class="name"><a href="Stack.m.html">ands.ds.Stack</a></p>
       
   
     <div class="desc"><p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 05/02/16</p>
-<p>Class to represent a <code>RBT</code>'s node.</p></div>
+<p>Last Update: 22/02/16</p>
+<p>Basic class to represent simple stacks,
+which are LIFO (last-in-first-out) data structures.</p></div>
 
       </div>
   </section>

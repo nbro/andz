@@ -1119,8 +1119,7 @@ Note that these indexes are for 0-index based lists (or arrays).
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 """
 
-from ands.ds.Heap import Heap
-from ands.ds.HeapNode import HeapNode
+from ands.ds.Heap import Heap, HeapNode
 
 
 __all__ = ["MinHeap", "is_min_heap"]
@@ -1458,10 +1457,8 @@ whose key and value are equal to <code>x</code>.</p>
     if x is None:
         raise ValueError("x cannot be None.")
     if not isinstance(x, HeapNode):
-        x = HeapNode(x)
-        
+        x = HeapNode(x)            
     self.heap.append(x)
-    
     if self.size() > 1:        
         self.push_up(self.size() - 1)
 </code></pre>
@@ -1581,14 +1578,11 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
     where `h` is the number of nodes rooted at `i`."""
     if not self.is_good_index(i):
         raise IndexError("i is not a valid index.")
-    
     if i == self.size() - 1:
         return self.heap.pop()
-    
     self.swap(i, self.size() - 1)
     d = self.heap.pop()
-    self.push_down(i)
-    
+    self.push_down(i)        
     return d             
 </code></pre>
   </div>
@@ -1958,13 +1952,13 @@ if it exists, otherwise this function returns -1.</p>
             
   <div class="item">
     <div class="name def" id="ands.ds.MinHeap.MinHeap.merge">
-    <p>def <span class="ident">merge</span>(</p><p>self, other)</p>
+    <p>def <span class="ident">merge</span>(</p><p>self, o)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Merges this heap with the <code>other</code> heap.</p>
+    <div class="desc"><p>Merges this heap with the <code>o</code> heap.</p>
 <p>Returns the <code>list</code> object representing internally the new merged heap.</p>
 <p><strong>Time Complexity:</strong> O(n + m).</p>
 <p>Time complexity analysis based on:
@@ -1972,14 +1966,14 @@ if it exists, otherwise this function returns -1.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.merge', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.merge" class="source">
-    <pre><code>def merge(self, other) -> list:
-    """Merges this heap with the `other` heap.
+    <pre><code>def merge(self, o) -> list:
+    """Merges this heap with the `o` heap.
     
     Returns the `list` object representing internally the new merged heap.
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
     [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-    self.heap += other.get()
+    self.heap += o.get()
     return self.build_heap()
 </code></pre>
   </div>
