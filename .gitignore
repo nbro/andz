@@ -8,13 +8,19 @@ env/
 *.egg-info/
 *.egg
 
+# MAIN
+
+kruskal.py
+ands/algorithms
+ands/ds/Graph.py
+ands/ds/GraphNode.py
+
+
 # Other
 COMMANDS.md
 templates/
 FUTURE.md
-
-kruskal.py
-
-ands/algorithms
-ands/ds/Graph.py
-ands/ds/GraphNode.py
+cn/
+ca/
+pkg/
+pyclean.sh
