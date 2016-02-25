@@ -11,11 +11,11 @@ env/
 # MAIN
 
 kruskal.py
-ands/algorithms
+ands/algorithms/graphs
 ands/ds/Graph.py
 ands/ds/GraphNode.py
 
-pyclean.sh
+*.sh
 
 # Other
 COMMANDS.md
