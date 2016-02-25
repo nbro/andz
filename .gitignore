@@ -15,6 +15,7 @@ ands/algorithms
 ands/ds/Graph.py
 ands/ds/GraphNode.py
 
+pyclean.sh
 
 # Other
 COMMANDS.md
@@ -23,4 +24,8 @@ FUTURE.md
 cn/
 ca/
 pkg/
-pyclean.sh
+in-construction/
+references/
+tools/
+
+
