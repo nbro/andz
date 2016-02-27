@@ -4,21 +4,49 @@
 """
 Author: Nelson Brochado
 
-A very simple example of recursion: factorial
+The factorial of a number n is defined recursively as follows:
+
+    fact(n):
+        # Assume n is int and n >= 0
+        if n == 0 or n == 1:
+            return 1
+        else:
+            return n * fact(n - 1)  # n * (n - 1)!
 
 ### Resources
 - [http://www.math.uah.edu/stat/foundations/Structures.html#com2](http://www.math.uah.edu/stat/foundations/Structures.html#com2)
 """
 
-def factorial(n):
-    """Returns the factorial of `n`.
+def fact_r(n):
+    """Returns the fact_r of `n`.
     Assumes that `n >= 0`."""
     if n == 0:
         return 1
     elif n == 1 or n == 2:
         return n
     else:
-        return n * factorial(n - 1)
+        return n * fact_r(n - 1)
+
+def fact_i(num):
+    if num == 0 or num == 1:
+        return 1
+    f = 1
+    for i in range(2, num + 1):
+        f *= i
+    return f
+
+def fact_cap(num):
+    i = 1
+    while fact_i(i) < num:
+        i += 1
+    return i
+
+def fact_cap_2(num):
+    i = f = 1
+    while i * f < num:
+        f *= i
+        i += 1
+    return i
 
 def n_choose_k(n, k):
     """Returnså the number of ways of choosing `k` elements,
@@ -30,7 +58,7 @@ def n_choose_k(n, k):
             return 0
     if n >= 0 and k < 0:
         return 0
-    return factorial(n) / (factorial(k) * factorial(n - k))
+    return fact_r(n) / (fact_r(k) * fact_r(n - k))
 
 def n_choose_k_2(n, k):
     """'n choose k' operation can be recursively defined as:
@@ -90,7 +118,7 @@ def sum_first_m_pos_nat_nums_3(m):
 
 def _mf_r(n, i, a):
     if i <= n:        
-        a.append(factorial(i))
+        a.append(fact_r(i))
         _mf_r(n, i + 1, a)
     return a
 
@@ -103,10 +131,10 @@ def mf_r(n):
 
 def test1():
     for i in range(10):
-        print(factorial(i))
+        print(fact_r(i))
 
-    print(factorial(8))
-    print(factorial(12))
+    print(fact_r(8))
+    print(fact_r(12))
 
 def test2():
     print(n_choose_k(5, 5))

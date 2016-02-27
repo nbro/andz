@@ -6,8 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 22/02/2016
-
+Last update: 27/02/2016
 
 ## Names' Conventions
 In general, if a variable name has more than one word,
@@ -69,17 +68,19 @@ For example, "key" and "value" are self-descriptive.
 
 import sys
 from tabulate import tabulate
-from ands.ds.BaseNode import BaseNode
 
 
 __all__ = ["BST", "BSTNode", "is_bst"]
 
 
-class BSTNode(BaseNode):
+class BSTNode:
     """Class to represent a BST's node."""
 
     def __init__(self, key, value=None, parent=None, left=None, right=None):
-        BaseNode.__init__(self, key, value)
+        if key is None:
+            raise ValueError("key cannot be None")
+        self.key = key
+        self.value = value
         self.parent = parent
         self.left = left
         self.right = right

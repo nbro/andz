@@ -6,10 +6,9 @@
     <title>ands.algorithms.recursion.factorial API documentation</title>
     <meta name="description" content="Author: Nelson Brochado
 
-A very simple example of recursion: factorial
+The factorial of a number n is defined recursively as follows:
 
-### Resources
-- [http://www...." />
+    fact(n)..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -979,7 +978,10 @@ table {
       
   <ul>
     <li class="mono"><a href="#ands.algorithms.recursion.factorial.a_plus_b_all_to_n">a_plus_b_all_to_n</a></li>
-    <li class="mono"><a href="#ands.algorithms.recursion.factorial.factorial">factorial</a></li>
+    <li class="mono"><a href="#ands.algorithms.recursion.factorial.fact_cap">fact_cap</a></li>
+    <li class="mono"><a href="#ands.algorithms.recursion.factorial.fact_cap_2">fact_cap_2</a></li>
+    <li class="mono"><a href="#ands.algorithms.recursion.factorial.fact_i">fact_i</a></li>
+    <li class="mono"><a href="#ands.algorithms.recursion.factorial.fact_r">fact_r</a></li>
     <li class="mono"><a href="#ands.algorithms.recursion.factorial.mf_r">mf_r</a></li>
     <li class="mono"><a href="#ands.algorithms.recursion.factorial.n_choose_k">n_choose_k</a></li>
     <li class="mono"><a href="#ands.algorithms.recursion.factorial.n_choose_k_2">n_choose_k_2</a></li>
@@ -1010,7 +1012,14 @@ table {
   <header id="section-intro">
   <h1 class="title"><span class="name">ands.algorithms.recursion.factorial</span> module</h1>
   <p>Author: Nelson Brochado</p>
-<p>A very simple example of recursion: factorial</p>
+<p>The factorial of a number n is defined recursively as follows:</p>
+<pre><code>fact(n):
+    # Assume n is int and n &gt;= 0
+    if n == 0 or n == 1:
+        return 1
+    else:
+        return n * fact(n - 1)  # n * (n - 1)!
+</code></pre>
 <h3>Resources</h3>
 <ul>
 <li><a href="http://www.math.uah.edu/stat/foundations/Structures.html#com2">http://www.math.uah.edu/stat/foundations/Structures.html#com2</a></li>
@@ -1024,21 +1033,49 @@ table {
 """
 Author: Nelson Brochado
 
-A very simple example of recursion: factorial
+The factorial of a number n is defined recursively as follows:
+
+    fact(n):
+        # Assume n is int and n >= 0
+        if n == 0 or n == 1:
+            return 1
+        else:
+            return n * fact(n - 1)  # n * (n - 1)!
 
 ### Resources
 - [http://www.math.uah.edu/stat/foundations/Structures.html#com2](http://www.math.uah.edu/stat/foundations/Structures.html#com2)
 """
 
-def factorial(n):
-    """Returns the factorial of `n`.
+def fact_r(n):
+    """Returns the fact_r of `n`.
     Assumes that `n >= 0`."""
     if n == 0:
         return 1
     elif n == 1 or n == 2:
         return n
     else:
-        return n * factorial(n - 1)
+        return n * fact_r(n - 1)
+
+def fact_i(num):
+    if num == 0 or num == 1:
+        return 1
+    f = 1
+    for i in range(2, num + 1):
+        f *= i
+    return f
+
+def fact_cap(num):
+    i = 1
+    while fact_i(i) < num:
+        i += 1
+    return i
+
+def fact_cap_2(num):
+    i = f = 1
+    while i * f < num:
+        f *= i
+        i += 1
+    return i
 
 def n_choose_k(n, k):
     """Returnså the number of ways of choosing `k` elements,
@@ -1050,7 +1087,7 @@ def n_choose_k(n, k):
             return 0
     if n >= 0 and k < 0:
         return 0
-    return factorial(n) / (factorial(k) * factorial(n - k))
+    return fact_r(n) / (fact_r(k) * fact_r(n - k))
 
 def n_choose_k_2(n, k):
     """'n choose k' operation can be recursively defined as:
@@ -1110,7 +1147,7 @@ def sum_first_m_pos_nat_nums_3(m):
 
 def _mf_r(n, i, a):
     if i <= n:        
-        a.append(factorial(i))
+        a.append(fact_r(i))
         _mf_r(n, i + 1, a)
     return a
 
@@ -1123,10 +1160,10 @@ def mf_r(n):
 
 def test1():
     for i in range(10):
-        print(factorial(i))
+        print(fact_r(i))
 
-    print(factorial(8))
-    print(factorial(12))
+    print(fact_r(8))
+    print(fact_r(12))
 
 def test2():
     print(n_choose_k(5, 5))
@@ -1197,27 +1234,99 @@ if __name__ == "__main__":
   
       
   <div class="item">
-    <div class="name def" id="ands.algorithms.recursion.factorial.factorial">
-    <p>def <span class="ident">factorial</span>(</p><p>n)</p>
+    <div class="name def" id="ands.algorithms.recursion.factorial.fact_cap">
+    <p>def <span class="ident">fact_cap</span>(</p><p>num)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>Returns the factorial of <code>n</code>.
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.recursion.factorial.fact_cap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.recursion.factorial.fact_cap" class="source">
+    <pre><code>def fact_cap(num):
+    i = 1
+    while fact_i(i) < num:
+        i += 1
+    return i
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.recursion.factorial.fact_cap_2">
+    <p>def <span class="ident">fact_cap_2</span>(</p><p>num)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.recursion.factorial.fact_cap_2', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.recursion.factorial.fact_cap_2" class="source">
+    <pre><code>def fact_cap_2(num):
+    i = f = 1
+    while i * f < num:
+        f *= i
+        i += 1
+    return i
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.recursion.factorial.fact_i">
+    <p>def <span class="ident">fact_i</span>(</p><p>num)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.recursion.factorial.fact_i', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.recursion.factorial.fact_i" class="source">
+    <pre><code>def fact_i(num):
+    if num == 0 or num == 1:
+        return 1
+    f = 1
+    for i in range(2, num + 1):
+        f *= i
+    return f
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.recursion.factorial.fact_r">
+    <p>def <span class="ident">fact_r</span>(</p><p>n)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the fact_r of <code>n</code>.
 Assumes that <code>n &gt;= 0</code>.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.recursion.factorial.factorial', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.recursion.factorial.factorial" class="source">
-    <pre><code>def factorial(n):
-    """Returns the factorial of `n`.
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.recursion.factorial.fact_r', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.recursion.factorial.fact_r" class="source">
+    <pre><code>def fact_r(n):
+    """Returns the fact_r of `n`.
     Assumes that `n >= 0`."""
     if n == 0:
         return 1
     elif n == 1 or n == 2:
         return n
     else:
-        return n * factorial(n - 1)
+        return n * fact_r(n - 1)
 </code></pre>
   </div>
 </div>
@@ -1270,7 +1379,7 @@ disregarding their order, from a set of <code>n</code> elements.</p></div>
             return 0
     if n >= 0 and k < 0:
         return 0
-    return factorial(n) / (factorial(k) * factorial(n - k))
+    return fact_r(n) / (fact_r(k) * fact_r(n - k))
 </code></pre>
   </div>
 </div>
@@ -1447,10 +1556,10 @@ between subsets of size <code>k</code> and subsets of size <code>n − k</code>.
   <div id="source-ands.algorithms.recursion.factorial.test1" class="source">
     <pre><code>def test1():
     for i in range(10):
-        print(factorial(i))
+        print(fact_r(i))
 
-    print(factorial(8))
-    print(factorial(12))
+    print(fact_r(8))
+    print(fact_r(12))
 </code></pre>
   </div>
 </div>

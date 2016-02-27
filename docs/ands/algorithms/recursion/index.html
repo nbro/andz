@@ -1046,10 +1046,17 @@ This is just an example of recursion!</p></div>
       
   
     <div class="desc"><p>Author: Nelson Brochado</p>
-<p>A very simple example of recursion: factorial</p>
+<p>The factorial of a number n is defined recursively as follows:</p>
+<pre><code>fact(n):
+    # Assume n is int and n &gt;= 0
+    if n == 0 or n == 1:
+        return 1
+    else:
+        return n * fact(n - 1)  # n * (n - 1)!
+</code></pre>
 <h3>Resources</h3>
 <ul>
-<li><a href="http://www.math.uah.edu/stat/foundations/Structures.html#com2">http://www.math.uah.edu/stat/foundations/Structures.html#com2</a></li>
+<li>[http://www.math.uah.edu/stat...</li>
 </ul></div>
 
       </div>

@@ -8,11 +8,10 @@
 
 Creation: July, 2015
 
-Last update: 22/02/2016
-
+Last update: 27/02/2016
 
 ## Names' Conventions
-In ge..." />
+In gen..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -1057,7 +1056,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.BST</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 22/02/2016</p>
+<p>Last update: 27/02/2016</p>
 <h2>Names' Conventions</h2>
 <p>In general, if a variable name has more than one word,
 those words are separated by _ (underscores).
@@ -1140,8 +1139,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 22/02/2016
-
+Last update: 27/02/2016
 
 ## Names' Conventions
 In general, if a variable name has more than one word,
@@ -1203,17 +1201,19 @@ For example, "key" and "value" are self-descriptive.
 
 import sys
 from tabulate import tabulate
-from ands.ds.BaseNode import BaseNode
 
 
 __all__ = ["BST", "BSTNode", "is_bst"]
 
 
-class BSTNode(BaseNode):
+class BSTNode:
     """Class to represent a BST's node."""
 
     def __init__(self, key, value=None, parent=None, left=None, right=None):
-        BaseNode.__init__(self, key, value)
+        if key is None:
+            raise ValueError("key cannot be None")
+        self.key = key
+        self.value = value
         self.parent = parent
         self.left = left
         self.right = right
@@ -4059,11 +4059,14 @@ or it can be a key of a supposed node in self.</p>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BST.BSTNode', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BST.BSTNode" class="source">
-    <pre><code>class BSTNode(BaseNode):
+    <pre><code>class BSTNode:
     """Class to represent a BST's node."""
 
     def __init__(self, key, value=None, parent=None, left=None, right=None):
-        BaseNode.__init__(self, key, value)
+        if key is None:
+            raise ValueError("key cannot be None")
+        self.key = key
+        self.value = value
         self.parent = parent
         self.left = left
         self.right = right
@@ -4173,7 +4176,6 @@ or it can be a key of a supposed node in self.</p>
           <h3>Ancestors (in MRO)</h3>
           <ul class="class_list">
           <li><a href="#ands.ds.BST.BSTNode">BSTNode</a></li>
-          <li>ands.ds.BaseNode.BaseNode</li>
           <li>builtins.object</li>
           </ul>
           <h3>Static methods</h3>
@@ -4191,7 +4193,10 @@ or it can be a key of a supposed node in self.</p>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.BST.BSTNode.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.BST.BSTNode.__init__" class="source">
     <pre><code>def __init__(self, key, value=None, parent=None, left=None, right=None):
-    BaseNode.__init__(self, key, value)
+    if key is None:
+        raise ValueError("key cannot be None")
+    self.key = key
+    self.value = value
     self.parent = parent
     self.left = left
     self.right = right
@@ -4406,6 +4411,16 @@ or it can be a key of a supposed node in self.</p>
 
             </div>
             <div class="item">
+            <p id="ands.ds.BST.BSTNode.key" class="name">var <span class="ident">key</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
             <p id="ands.ds.BST.BSTNode.label" class="name">var <span class="ident">label</span></p>
             
 
@@ -4467,6 +4482,16 @@ which can of course be <code>None</code>.</p></div>
 The uncle is the sibling of the parent of this node,
 if it exists. <code>None</code> is returned if it doesn't exist,
 or the parent or grandparent of this node is <code>None</code>.</p></div>
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
+            <p id="ands.ds.BST.BSTNode.value" class="name">var <span class="ident">value</span></p>
+            
+
+            
+  
   <div class="source_cont">
 </div>
 

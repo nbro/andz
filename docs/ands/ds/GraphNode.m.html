@@ -1070,8 +1070,6 @@ where:
 
 import sys
 from tabulate import tabulate
-from ands.ds.BaseNode import BaseNode
-
 
 __all__ = ["GraphNode", "WHITE", "BLACK", "GREY", "INFINITY", "NIL"]
 
@@ -1083,11 +1081,13 @@ INFINITY = sys.maxsize
 NIL = None
 
 
-class GraphNode(BaseNode):
+class GraphNode:
 
     def __init__(self, key, value=None):
-        BaseNode.__init__(self, key, value)
-
+        if key is None:
+            raise ValueError("key cannot be None")
+        self.key = key
+        self.value = value
         # Attributes used mostly in algorithms for graphs, such as in bfs or dfs.
         self.predecessor = NIL
         self.distance = INFINITY
@@ -1284,11 +1284,13 @@ class GraphNode(BaseNode):
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.GraphNode.GraphNode', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.GraphNode.GraphNode" class="source">
-    <pre><code>class GraphNode(BaseNode):
+    <pre><code>class GraphNode:
 
     def __init__(self, key, value=None):
-        BaseNode.__init__(self, key, value)
-
+        if key is None:
+            raise ValueError("key cannot be None")
+        self.key = key
+        self.value = value
         # Attributes used mostly in algorithms for graphs, such as in bfs or dfs.
         self.predecessor = NIL
         self.distance = INFINITY
@@ -1435,7 +1437,6 @@ class GraphNode(BaseNode):
           <h3>Ancestors (in MRO)</h3>
           <ul class="class_list">
           <li><a href="#ands.ds.GraphNode.GraphNode">GraphNode</a></li>
-          <li>ands.ds.BaseNode.BaseNode</li>
           <li>builtins.object</li>
           </ul>
           <h3>Static methods</h3>
@@ -1453,7 +1454,10 @@ class GraphNode(BaseNode):
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.GraphNode.GraphNode.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.GraphNode.GraphNode.__init__" class="source">
     <pre><code>def __init__(self, key, value=None):
-    BaseNode.__init__(self, key, value)
+    if key is None:
+        raise ValueError("key cannot be None")
+    self.key = key
+    self.value = value
     # Attributes used mostly in algorithms for graphs, such as in bfs or dfs.
     self.predecessor = NIL
     self.distance = INFINITY
@@ -1761,6 +1765,16 @@ belongs to the connected component 1.</p></div>
 
             </div>
             <div class="item">
+            <p id="ands.ds.GraphNode.GraphNode.key" class="name">var <span class="ident">key</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
             <p id="ands.ds.GraphNode.GraphNode.out_degree" class="name">var <span class="ident">out_degree</span></p>
             
 
@@ -1792,6 +1806,16 @@ belongs to the connected component 1.</p></div>
             </div>
             <div class="item">
             <p id="ands.ds.GraphNode.GraphNode.start" class="name">var <span class="ident">start</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+            <div class="item">
+            <p id="ands.ds.GraphNode.GraphNode.value" class="name">var <span class="ident">value</span></p>
             
 
             

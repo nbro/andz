@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 22/02/16
+Last update: 27/02/16
 
 Base abstract class to represent heaps.
 See `MinHeap` and `MaxHeap` if you want to instantiate heap objects.
@@ -29,23 +29,23 @@ when they require derived classes to override the method.
 
 import io
 import math
-from ands.ds.BST import BSTNode
 
 
 __all__ = ["Heap", "HeapNode"]
 
 
-class HeapNode(BSTNode):
+class HeapNode:
     """All elements of Heap objects are represented
     with objects of the class HeapNode."""    
 
-    def __init__(self, key, value=None, p=None, left=None, right=None):
+    def __init__(self, key, value=None):
         """`key` is the priority used to heapify the heap,
         and it must be a non-None comparable value.
         `value` can be used for example for the name of the `HeapNode` object."""
-        if value is None:
-            value = key
-        BSTNode.__init__(self, key, value, p, left, right)
+        if key is None:
+            raise ValueError("key cannot be None.")
+        self.key = key
+        self.value = value if value is not None else self.key
 
     def __eq__(self, o):
         return self.key == o.key and self.value == o.value
