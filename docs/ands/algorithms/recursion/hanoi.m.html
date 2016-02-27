@@ -3,9 +3,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands.algorithms.graphs.is_bipartite API documentation</title>
+    <title>ands.algorithms.recursion.hanoi API documentation</title>
     <meta name="description" content="Author: Nelson Brochado
-Creation: July, 2015" />
+
+Creation: 27/02/16
+
+Towers of Hanoi is a mathematical game.
+It consists of ..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -970,25 +974,11 @@ table {
   <div id="sidebar">
     <h1>Index</h1>
     <ul id="index">
-    <li class="set"><h3><a href="#header-variables">Module variables</a></h3>
-      
-  <ul>
-    <li class="mono"><a href="#ands.algorithms.graphs.is_bipartite.BLACK">BLACK</a></li>
-    <li class="mono"><a href="#ands.algorithms.graphs.is_bipartite.GREY">GREY</a></li>
-    <li class="mono"><a href="#ands.algorithms.graphs.is_bipartite.INFINITY">INFINITY</a></li>
-    <li class="mono"><a href="#ands.algorithms.graphs.is_bipartite.NIL">NIL</a></li>
-    <li class="mono"><a href="#ands.algorithms.graphs.is_bipartite.WHITE">WHITE</a></li>
-  </ul>
-
-    </li>
 
     <li class="set"><h3><a href="#header-functions">Functions</a></h3>
       
   <ul>
-    <li class="mono"><a href="#ands.algorithms.graphs.is_bipartite.bfs">bfs</a></li>
-    <li class="mono"><a href="#ands.algorithms.graphs.is_bipartite.is_bipartite">is_bipartite</a></li>
-    <li class="mono"><a href="#ands.algorithms.graphs.is_bipartite.test_is_bipartite">test_is_bipartite</a></li>
-    <li class="mono"><a href="#ands.algorithms.graphs.is_bipartite.test_is_bipartite2">test_is_bipartite2</a></li>
+    <li class="mono"><a href="#ands.algorithms.recursion.hanoi.hanoi_r">hanoi_r</a></li>
   </ul>
 
     </li>
@@ -1005,489 +995,146 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands.algorithms.graphs.is_bipartite</span> module</h1>
-  <p>Author: Nelson Brochado
-Creation: July, 2015</p>
+  <h1 class="title"><span class="name">ands.algorithms.recursion.hanoi</span> module</h1>
+  <p>Author: Nelson Brochado</p>
+<p>Creation: 27/02/16</p>
+<p>Towers of Hanoi is a mathematical game.
+It consists of 3 rods, and a number of disks of different sizes,
+which can slide onto any rod.
+The game starts with the disks in a neat stack
+in ascending order of size on one rod,
+the smallest at the top, thus making a conical shape.</p>
+<p>The objective of the game is to move the entire stack to another rod,
+obeying the following rules:</p>
+<ol>
+<li>
+<p>Only 1 disk can be moved at a time.</p>
+</li>
+<li>
+<p>Each move consists of taking the upper disk
+from one of the stacks and placing it on top of another stack,
+i.e. a disk can only be moved if it is the uppermost disk on its stack.</p>
+</li>
+<li>
+<p>No disk may be placed on top of a smaller disk.</p>
+</li>
+</ol>
+<p>With 3 disks, the game can be solved with at least 7 moves (best case).
+The minimum number of moves required to solve a tower of hanoi game
+is 2^n - 1, where n is the number of disks.</p>
+<h1>References</h1>
+<ul>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Tower_of_Hanoi">https://en.wikipedia.org/wiki/Tower_of_Hanoi</a></p>
+</li>
+<li>
+<p><a href="http://www.cut-the-knot.org/recurrence/hanoi.shtml">http://www.cut-the-knot.org/recurrence/hanoi.shtml</a></p>
+</li>
+<li>
+<p><a href="http://stackoverflow.com/questions/105838/real-world-examples-of-recursion">http://stackoverflow.com/questions/105838/real-world-examples-of-recursion</a></p>
+</li>
+</ul>
   
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.is_bipartite', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.graphs.is_bipartite" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.recursion.hanoi', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.recursion.hanoi" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
 Author: Nelson Brochado
-Creation: July, 2015
+
+Creation: 27/02/16
+
+Towers of Hanoi is a mathematical game.
+It consists of 3 rods, and a number of disks of different sizes,
+which can slide onto any rod.
+The game starts with the disks in a neat stack
+in ascending order of size on one rod,
+the smallest at the top, thus making a conical shape.
+
+The objective of the game is to move the entire stack to another rod,
+obeying the following rules:
+
+1. Only 1 disk can be moved at a time.
+
+2. Each move consists of taking the upper disk
+from one of the stacks and placing it on top of another stack,
+i.e. a disk can only be moved if it is the uppermost disk on its stack.
+
+3. No disk may be placed on top of a smaller disk.
+
+With 3 disks, the game can be solved with at least 7 moves (best case).
+The minimum number of moves required to solve a tower of hanoi game
+is 2^n - 1, where n is the number of disks.
+
+
+# References
+
+- [https://en.wikipedia.org/wiki/Tower_of_Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi)
+
+- [http://www.cut-the-knot.org/recurrence/hanoi.shtml](http://www.cut-the-knot.org/recurrence/hanoi.shtml)
+
+- [http://stackoverflow.com/questions/105838/real-world-examples-of-recursion](http://stackoverflow.com/questions/105838/real-world-examples-of-recursion)
 """
 
-from ands.ds.Graph import *
-from ands.ds.Queue import BFSQueue
 
+def hanoi_r(n, src='A', aux='B', dst='C'):
+    """Recursively solve the Towers of Hannoi game for `n` disks.
 
-def bfs(graph, s):
-    """BFS algorithm implemented specifically
-    to check if a graph is bipartite or not.
+    The smallest disk, which is the topmost one at the beginning,
+    is called 1, and the largest one is called `n`.
 
-    Running time complexity: O(|N| + |E|),
-    where |N| is the number of nodes
-    and |E| is the number of edges.
-    The complexity is linear in the size of the nodes + edges
-    because each node and edge is visited once,
-    in other words, each of these visits cost O(1).
-
-    :type graph : Graph
-    :type s : GraphNode
-    """
-
-    if s not in graph.nodes:
-        raise Exception("'" + s.key + "' not in the graph '" + graph.name + "'")
-
-    for u in graph.nodes:
-        u.distance = INFINITY
-        u.predecessor = NIL
-        u.color = WHITE
-
-    q = BFSQueue()
-    q.enqueue(s)
-    s.color = GREY
-    s.predecessor = NIL
-    s.distance = 0
-
-    while not q.is_empty():
-
-        n = q.dequeue()
-
-        for adj_node in n.get_adjacent_nodes():
-
-            # When checking if a graph is bipartite,
-            # it is sufficient to check if all adjacent nodes
-            # are note GREY and they have not the same distance
-            # as the node that is being explored.
-            # Why?
-            # Since BFS proceeds the exploration of a graph by levels,
-            # when exploring a node n at a certain level i,
-            # all the nodes of that level can either be GREY or BLACK
-            # and their distances must be the same as the distance of n,
-            # the node being explored.
-            # If one of the adjacent nodes happens to be GREY
-            # that would mean that it is in the same level
-            # and its distance should also be equal to n's distance.
-            # Note that if the color of an adjacent node is BLACK,
-            # it cannot be in the same level,
-            # because the first node in the level that detects this cycle
-            # to a node in the same level,
-            # would always find first un unexplored node GREY.
-            # If the adjacent node is BLACK,
-            # that means the node has already been completely explored
-            # and is in a previous level,
-            # It could not even be in the previous level of the previous current level,
-            # because that would mean that the current node n
-            # should have a different distance. Can you see why?
-
-            if adj_node.color == GREY and adj_node.distance == n.distance:
-                return False
-
-            if adj_node.color == WHITE:
-                adj_node.color = GREY
-                adj_node.distance = n.distance + 1
-                adj_node.predecessor = n
-                q.enqueue(adj_node)
-
-        n.color = BLACK  # mark "n" as completely explored
-
-    return True  # graph is bipartite
-
-
-# Idea: https://www.youtube.com/watch?v=r1-8p11fSPw&list=PLBF3763AF2E1C572F&index=26
-
-def is_bipartite(graph, verbose=False):
-    """Check if the graph is bipartite.
-    A graph is bipartite, if every node A in a certain level i
-    is connected to another node B in either a level i - 1 or i + 1, or,
-    in other words, nodes in the same level cannot be connected together.
-
-    :type graph : Graph
-    """
-    starting_node = graph.nodes[0]
-
-    if verbose:
-        print("Starting bfs from", starting_node.key)
-
-    return bfs(graph, starting_node)
-
-
-def test_is_bipartite():
-    g = Graph()
-
-    # nodes for the graph
-    A = GraphNode("A")
-    B = GraphNode("B")
-    C = GraphNode("C")
-    D = GraphNode("D")
-    E = GraphNode("E")
-    F = GraphNode("F")
-
-    # add the just created total_nodes to the graph
-    g.add_node(A)
-    g.add_node(B)
-    g.add_node(C)
-    g.add_node(D)
-    g.add_node(E)
-    g.add_node(F)
-
-    A.add_adjacent_node(E)
-    A.add_adjacent_node(D)
-
-    B.add_adjacent_node(D)
-    B.add_adjacent_node(F)
-
-    C.add_adjacent_node(E)
-
-    D.add_adjacent_node(A)
-    D.add_adjacent_node(B)
-    D.add_adjacent_node(E)
-
-    E.add_adjacent_node(A)
-    E.add_adjacent_node(C)
-    E.add_adjacent_node(D)
-
-    F.add_adjacent_node(B)
-
-    print("Is bipartite:", is_bipartite(g, verbose=True))
-
-
-def test_is_bipartite2():
-    g = Graph()
-
-    # total_nodes for the graph
-    a = GraphNode("A")
-    b = GraphNode("B")
-    c = GraphNode("C")
-    d = GraphNode("D")
-    e = GraphNode("E")
-    f = GraphNode("F")
-
-    # add the just created total_nodes to the graph
-    g.add_node(a)
-    g.add_node(b)
-    g.add_node(c)
-    g.add_node(d)
-    g.add_node(e)
-    g.add_node(f)
-
-    a.add_adjacent_node(d)
-    d.add_adjacent_node(a)
-
-    a.add_adjacent_node(e)
-    e.add_adjacent_node(a)
-
-    b.add_adjacent_node(d)
-    d.add_adjacent_node(b)
-    b.add_adjacent_node(f)
-    f.add_adjacent_node(b)
-
-    c.add_adjacent_node(e)
-    e.add_adjacent_node(c)
-
-    c.add_adjacent_node(f)
-    f.add_adjacent_node(c)
-
-    print("Is bipartite:", is_bipartite(g, verbose=True))
-
+    `src` is the start rod where all disks are set in a neat stack in ascending order.
+    `aux` is the third rod.
+    `dst` is similarly the destination rod."""
+    if n > 0:
+        hanoi_r(n - 1, src, dst, aux)
+        print("Move disk", n, "from", src, "to", dst)
+        hanoi_r(n - 1, aux, src, dst)    
+        
 
 if __name__ == "__main__":
-    test_is_bipartite()
-    test_is_bipartite2()
+    hanoi_r(3)
+    hanoi_r(4)
 </code></pre>
   </div>
 
   </header>
 
   <section id="section-items">
-    <h2 class="section-title" id="header-variables">Module variables</h2>
-      <div class="item">
-      <p id="ands.algorithms.graphs.is_bipartite.BLACK" class="name">var <span class="ident">BLACK</span></p>
-      
-  
-  <div class="source_cont">
-</div>
-
-      </div>
-      <div class="item">
-      <p id="ands.algorithms.graphs.is_bipartite.GREY" class="name">var <span class="ident">GREY</span></p>
-      
-  
-  <div class="source_cont">
-</div>
-
-      </div>
-      <div class="item">
-      <p id="ands.algorithms.graphs.is_bipartite.INFINITY" class="name">var <span class="ident">INFINITY</span></p>
-      
-  
-  <div class="source_cont">
-</div>
-
-      </div>
-      <div class="item">
-      <p id="ands.algorithms.graphs.is_bipartite.NIL" class="name">var <span class="ident">NIL</span></p>
-      
-  
-  <div class="source_cont">
-</div>
-
-      </div>
-      <div class="item">
-      <p id="ands.algorithms.graphs.is_bipartite.WHITE" class="name">var <span class="ident">WHITE</span></p>
-      
-  
-  <div class="source_cont">
-</div>
-
-      </div>
 
     <h2 class="section-title" id="header-functions">Functions</h2>
       
   <div class="item">
-    <div class="name def" id="ands.algorithms.graphs.is_bipartite.bfs">
-    <p>def <span class="ident">bfs</span>(</p><p>graph, s)</p>
+    <div class="name def" id="ands.algorithms.recursion.hanoi.hanoi_r">
+    <p>def <span class="ident">hanoi_r</span>(</p><p>n, src=&#39;A&#39;, aux=&#39;B&#39;, dst=&#39;C&#39;)</p>
     </div>
     
 
     
   
-    <div class="desc"><p>BFS algorithm implemented specifically
-to check if a graph is bipartite or not.</p>
-<p>Running time complexity: O(|N| + |E|),
-where |N| is the number of nodes
-and |E| is the number of edges.
-The complexity is linear in the size of the nodes + edges
-because each node and edge is visited once,
-in other words, each of these visits cost O(1).</p>
-<p>:type graph : Graph
-:type s : GraphNode</p></div>
+    <div class="desc"><p>Recursively solve the Towers of Hannoi game for <code>n</code> disks.</p>
+<p>The smallest disk, which is the topmost one at the beginning,
+is called 1, and the largest one is called <code>n</code>.</p>
+<p><code>src</code> is the start rod where all disks are set in a neat stack in ascending order.
+<code>aux</code> is the third rod.
+<code>dst</code> is similarly the destination rod.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.is_bipartite.bfs', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.graphs.is_bipartite.bfs" class="source">
-    <pre><code>def bfs(graph, s):
-    """BFS algorithm implemented specifically
-    to check if a graph is bipartite or not.
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.recursion.hanoi.hanoi_r', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.recursion.hanoi.hanoi_r" class="source">
+    <pre><code>def hanoi_r(n, src='A', aux='B', dst='C'):
+    """Recursively solve the Towers of Hannoi game for `n` disks.
 
-    Running time complexity: O(|N| + |E|),
-    where |N| is the number of nodes
-    and |E| is the number of edges.
-    The complexity is linear in the size of the nodes + edges
-    because each node and edge is visited once,
-    in other words, each of these visits cost O(1).
+    The smallest disk, which is the topmost one at the beginning,
+    is called 1, and the largest one is called `n`.
 
-    :type graph : Graph
-    :type s : GraphNode
-    """
-
-    if s not in graph.nodes:
-        raise Exception("'" + s.key + "' not in the graph '" + graph.name + "'")
-
-    for u in graph.nodes:
-        u.distance = INFINITY
-        u.predecessor = NIL
-        u.color = WHITE
-
-    q = BFSQueue()
-    q.enqueue(s)
-    s.color = GREY
-    s.predecessor = NIL
-    s.distance = 0
-
-    while not q.is_empty():
-
-        n = q.dequeue()
-
-        for adj_node in n.get_adjacent_nodes():
-
-            # When checking if a graph is bipartite,
-            # it is sufficient to check if all adjacent nodes
-            # are note GREY and they have not the same distance
-            # as the node that is being explored.
-            # Why?
-            # Since BFS proceeds the exploration of a graph by levels,
-            # when exploring a node n at a certain level i,
-            # all the nodes of that level can either be GREY or BLACK
-            # and their distances must be the same as the distance of n,
-            # the node being explored.
-            # If one of the adjacent nodes happens to be GREY
-            # that would mean that it is in the same level
-            # and its distance should also be equal to n's distance.
-            # Note that if the color of an adjacent node is BLACK,
-            # it cannot be in the same level,
-            # because the first node in the level that detects this cycle
-            # to a node in the same level,
-            # would always find first un unexplored node GREY.
-            # If the adjacent node is BLACK,
-            # that means the node has already been completely explored
-            # and is in a previous level,
-            # It could not even be in the previous level of the previous current level,
-            # because that would mean that the current node n
-            # should have a different distance. Can you see why?
-
-            if adj_node.color == GREY and adj_node.distance == n.distance:
-                return False
-
-            if adj_node.color == WHITE:
-                adj_node.color = GREY
-                adj_node.distance = n.distance + 1
-                adj_node.predecessor = n
-                q.enqueue(adj_node)
-
-        n.color = BLACK  # mark "n" as completely explored
-
-    return True  # graph is bipartite
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.algorithms.graphs.is_bipartite.is_bipartite">
-    <p>def <span class="ident">is_bipartite</span>(</p><p>graph, verbose=False)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Check if the graph is bipartite.
-A graph is bipartite, if every node A in a certain level i
-is connected to another node B in either a level i - 1 or i + 1, or,
-in other words, nodes in the same level cannot be connected together.</p>
-<p>:type graph : Graph</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.is_bipartite.is_bipartite', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.graphs.is_bipartite.is_bipartite" class="source">
-    <pre><code>def is_bipartite(graph, verbose=False):
-    """Check if the graph is bipartite.
-    A graph is bipartite, if every node A in a certain level i
-    is connected to another node B in either a level i - 1 or i + 1, or,
-    in other words, nodes in the same level cannot be connected together.
-
-    :type graph : Graph
-    """
-    starting_node = graph.nodes[0]
-
-    if verbose:
-        print("Starting bfs from", starting_node.key)
-
-    return bfs(graph, starting_node)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.algorithms.graphs.is_bipartite.test_is_bipartite">
-    <p>def <span class="ident">test_is_bipartite</span>(</p><p>)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.is_bipartite.test_is_bipartite', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.graphs.is_bipartite.test_is_bipartite" class="source">
-    <pre><code>def test_is_bipartite():
-    g = Graph()
-
-    # nodes for the graph
-    A = GraphNode("A")
-    B = GraphNode("B")
-    C = GraphNode("C")
-    D = GraphNode("D")
-    E = GraphNode("E")
-    F = GraphNode("F")
-
-    # add the just created total_nodes to the graph
-    g.add_node(A)
-    g.add_node(B)
-    g.add_node(C)
-    g.add_node(D)
-    g.add_node(E)
-    g.add_node(F)
-
-    A.add_adjacent_node(E)
-    A.add_adjacent_node(D)
-
-    B.add_adjacent_node(D)
-    B.add_adjacent_node(F)
-
-    C.add_adjacent_node(E)
-
-    D.add_adjacent_node(A)
-    D.add_adjacent_node(B)
-    D.add_adjacent_node(E)
-
-    E.add_adjacent_node(A)
-    E.add_adjacent_node(C)
-    E.add_adjacent_node(D)
-
-    F.add_adjacent_node(B)
-
-    print("Is bipartite:", is_bipartite(g, verbose=True))
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.algorithms.graphs.is_bipartite.test_is_bipartite2">
-    <p>def <span class="ident">test_is_bipartite2</span>(</p><p>)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.is_bipartite.test_is_bipartite2', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.graphs.is_bipartite.test_is_bipartite2" class="source">
-    <pre><code>def test_is_bipartite2():
-    g = Graph()
-
-    # total_nodes for the graph
-    a = GraphNode("A")
-    b = GraphNode("B")
-    c = GraphNode("C")
-    d = GraphNode("D")
-    e = GraphNode("E")
-    f = GraphNode("F")
-
-    # add the just created total_nodes to the graph
-    g.add_node(a)
-    g.add_node(b)
-    g.add_node(c)
-    g.add_node(d)
-    g.add_node(e)
-    g.add_node(f)
-
-    a.add_adjacent_node(d)
-    d.add_adjacent_node(a)
-
-    a.add_adjacent_node(e)
-    e.add_adjacent_node(a)
-
-    b.add_adjacent_node(d)
-    d.add_adjacent_node(b)
-    b.add_adjacent_node(f)
-    f.add_adjacent_node(b)
-
-    c.add_adjacent_node(e)
-    e.add_adjacent_node(c)
-
-    c.add_adjacent_node(f)
-    f.add_adjacent_node(c)
-
-    print("Is bipartite:", is_bipartite(g, verbose=True))
+    `src` is the start rod where all disks are set in a neat stack in ascending order.
+    `aux` is the third rod.
+    `dst` is similarly the destination rod."""
+    if n > 0:
+        hanoi_r(n - 1, src, dst, aux)
+        print("Move disk", n, "from", src, "to", dst)
+        hanoi_r(n - 1, aux, src, dst)    
 </code></pre>
   </div>
 </div>

@@ -988,6 +988,8 @@ table {
       
   <ul>
     <li class="mono"><a href="#ands.algorithms.graphs.prim.build_prim_mst">build_prim_mst</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.prim.build_priority_list">build_priority_list</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.prim.initialise_prim_mst">initialise_prim_mst</a></li>
     <li class="mono"><a href="#ands.algorithms.graphs.prim.prim_mst">prim_mst</a></li>
     <li class="mono"><a href="#ands.algorithms.graphs.prim.print_prim_mst">print_prim_mst</a></li>
   </ul>
@@ -1026,69 +1028,61 @@ https://www.youtube.com/watch?v=YyLaRffCdk4
 """
 
 from ands.ds.Graph import *
-from ands.ds.MinPriorityQueue import *
+from ands.ds.Queue import MinPriorityQueue
 
 
-def _nodes_and_values(g):
-    """Returns a list of tuples,
-    each of them having 2 items:
-    t_i[0] = reference to the node i
-    t_i[1] = value (in this case is the priority) of node i.
-
-    This method was created as a utility
-    for the Prim's algorithm to find a MST.
-    """
-    ls = []
-    for node in g.nodes:
-        ls.append((node, node.value))
-    return ls
-
-
-def _initialise_prim_mst(g: Graph, s: GraphNode):
+def initialise_prim_mst(g: Graph, s: GraphNode):
     for u in g.nodes:
         u.predecessor = NIL
         u.value = INFINITY
     s.value = 0
 
+def build_priority_list(g: Graph):
+    """Returns a list of tuples t<sub>i</sub>,
+    each of them having 2 items:
+
+    - t<sub>i</sub>[0] = priority
+
+    - t<sub>i</sub>[1] = GraphNode's reference"""
+    return [(n.key, n) for n in g.nodes]
 
 def prim_mst(g: Graph, s: GraphNode):
-    """Creates a MST.
+    """Creates a MST from the `Graph` object `g`.
 
     During execution of this algorithm,
-    nodes that are NOT yet in the tree,
+    nodes that are not yet in the tree,
     reside in the min priority queue,
-    which is based on the "value" attribute.
+    which is based on the `key` attribute.
 
-    For each vertex v in the g,
-    the attribute v.value is the minimum weight of any edge
-    connecting v to a vertex in the tree.
-    The attribute v.predecessor names the parent of v in the tree.
+    For each vertex `v` in `g`,
+    the `v.key` is the minimum weight of any edge
+    connecting `v` to a vertex in the tree.
+    `v.predecessor` names the parent of `v` in the tree.
 
     The algorithm implicitly maintains a set A:
     A = {(v, v.predecessor) : v in V - {r} - Q}
 
-    When the algorithm terminates, the mpq is empty,
+    When the algorithm terminates, the `q` is empty,
     and A = {(v, v.predecessor) : v in V - {r}}."""
 
-    _initialise_prim_mst(g, s)
-
-    q = MinPriorityQueue(_nodes_and_values(g))
-
-    last_node_added = s
+    initialise_prim_mst(g, s)
+    q = MinPriorityQueue(build_priority_list(g))
+    last = s
 
     while not q.is_empty():
-
-        u = q.extract_min()  # Returns the minimum element
+        
+        u = q.extract_min()
 
         for v in u.get_adjacent_nodes():
-            if q.contains_element(v) and g.weight(u, v) < v.value:
+            
+            if q.contains(v) and g.weight(u, v) < v.key:
                 v.value = g.weight(u, v)
                 v.predecessor = u
                 q.change_priority(v, new_priority=v.value)
 
-        last_node_added = u
+        last = u
 
-    return last_node_added
+    return last
 
 
 def print_prim_mst(last):
@@ -1247,6 +1241,65 @@ if __name__ == "__main__":
   
       
   <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.prim.build_priority_list">
+    <p>def <span class="ident">build_priority_list</span>(</p><p>g)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns a list of tuples t<sub>i</sub>,
+each of them having 2 items:</p>
+<ul>
+<li>
+<p>t<sub>i</sub>[0] = priority</p>
+</li>
+<li>
+<p>t<sub>i</sub>[1] = GraphNode's reference</p>
+</li>
+</ul></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.prim.build_priority_list', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.prim.build_priority_list" class="source">
+    <pre><code>def build_priority_list(g: Graph):
+    """Returns a list of tuples t<sub>i</sub>,
+    each of them having 2 items:
+
+    - t<sub>i</sub>[0] = priority
+
+    - t<sub>i</sub>[1] = GraphNode's reference"""
+    return [(n.key, n) for n in g.nodes]
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.prim.initialise_prim_mst">
+    <p>def <span class="ident">initialise_prim_mst</span>(</p><p>g, s)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.prim.initialise_prim_mst', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.prim.initialise_prim_mst" class="source">
+    <pre><code>def initialise_prim_mst(g: Graph, s: GraphNode):
+    for u in g.nodes:
+        u.predecessor = NIL
+        u.value = INFINITY
+    s.value = 0
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
     <div class="name def" id="ands.algorithms.graphs.prim.prim_mst">
     <p>def <span class="ident">prim_mst</span>(</p><p>g, s)</p>
     </div>
@@ -1254,60 +1307,59 @@ if __name__ == "__main__":
 
     
   
-    <div class="desc"><p>Creates a MST.</p>
+    <div class="desc"><p>Creates a MST from the <code>Graph</code> object <code>g</code>.</p>
 <p>During execution of this algorithm,
-nodes that are NOT yet in the tree,
+nodes that are not yet in the tree,
 reside in the min priority queue,
-which is based on the "value" attribute.</p>
-<p>For each vertex v in the g,
-the attribute v.value is the minimum weight of any edge
-connecting v to a vertex in the tree.
-The attribute v.predecessor names the parent of v in the tree.</p>
+which is based on the <code>key</code> attribute.</p>
+<p>For each vertex <code>v</code> in <code>g</code>,
+the <code>v.key</code> is the minimum weight of any edge
+connecting <code>v</code> to a vertex in the tree.
+<code>v.predecessor</code> names the parent of <code>v</code> in the tree.</p>
 <p>The algorithm implicitly maintains a set A:
 A = {(v, v.predecessor) : v in V - {r} - Q}</p>
-<p>When the algorithm terminates, the mpq is empty,
+<p>When the algorithm terminates, the <code>q</code> is empty,
 and A = {(v, v.predecessor) : v in V - {r}}.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.prim.prim_mst', this);">Show source &equiv;</a></p>
   <div id="source-ands.algorithms.graphs.prim.prim_mst" class="source">
     <pre><code>def prim_mst(g: Graph, s: GraphNode):
-    """Creates a MST.
+    """Creates a MST from the `Graph` object `g`.
 
     During execution of this algorithm,
-    nodes that are NOT yet in the tree,
+    nodes that are not yet in the tree,
     reside in the min priority queue,
-    which is based on the "value" attribute.
+    which is based on the `key` attribute.
 
-    For each vertex v in the g,
-    the attribute v.value is the minimum weight of any edge
-    connecting v to a vertex in the tree.
-    The attribute v.predecessor names the parent of v in the tree.
+    For each vertex `v` in `g`,
+    the `v.key` is the minimum weight of any edge
+    connecting `v` to a vertex in the tree.
+    `v.predecessor` names the parent of `v` in the tree.
 
     The algorithm implicitly maintains a set A:
     A = {(v, v.predecessor) : v in V - {r} - Q}
 
-    When the algorithm terminates, the mpq is empty,
+    When the algorithm terminates, the `q` is empty,
     and A = {(v, v.predecessor) : v in V - {r}}."""
 
-    _initialise_prim_mst(g, s)
-
-    q = MinPriorityQueue(_nodes_and_values(g))
-
-    last_node_added = s
+    initialise_prim_mst(g, s)
+    q = MinPriorityQueue(build_priority_list(g))
+    last = s
 
     while not q.is_empty():
-
-        u = q.extract_min()  # Returns the minimum element
+        
+        u = q.extract_min()
 
         for v in u.get_adjacent_nodes():
-            if q.contains_element(v) and g.weight(u, v) < v.value:
+            
+            if q.contains(v) and g.weight(u, v) < v.key:
                 v.value = g.weight(u, v)
                 v.predecessor = u
                 q.change_priority(v, new_priority=v.value)
 
-        last_node_added = u
+        last = u
 
-    return last_node_added
+    return last
 </code></pre>
   </div>
 </div>

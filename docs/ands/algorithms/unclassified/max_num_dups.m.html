@@ -999,27 +999,27 @@ table {
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-def max_num_dups(A):
+def max_num_dups(ls):
     """Find the maximum number of duplicated numbers.
 
-    A must be sorted!!
+    ls must be sorted!!
     """
     m = 0
     c = 1
-    for i in range(len(A) - 1):
-        if A[i] == A[i + 1]:
+    for i in range(len(ls) - 1):
+        if ls[i] == ls[i + 1]:
             c += 1
         elif c > m:
             m = c
             c = 1
     return m
 
-
 def test():
     ls = [12, 12, 12, 92, 92]
     print("List:", ls)
     print("Max number of duplicates:", max_num_dups(ls))
-    
+
+
 if __name__ == '__main__':
     test()
 </code></pre>
@@ -1033,26 +1033,26 @@ if __name__ == '__main__':
       
   <div class="item">
     <div class="name def" id="ands.algorithms.unclassified.max_num_dups.max_num_dups">
-    <p>def <span class="ident">max_num_dups</span>(</p><p>A)</p>
+    <p>def <span class="ident">max_num_dups</span>(</p><p>ls)</p>
     </div>
     
 
     
   
     <div class="desc"><p>Find the maximum number of duplicated numbers.</p>
-<p>A must be sorted!!</p></div>
+<p>ls must be sorted!!</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.unclassified.max_num_dups.max_num_dups', this);">Show source &equiv;</a></p>
   <div id="source-ands.algorithms.unclassified.max_num_dups.max_num_dups" class="source">
-    <pre><code>def max_num_dups(A):
+    <pre><code>def max_num_dups(ls):
     """Find the maximum number of duplicated numbers.
 
-    A must be sorted!!
+    ls must be sorted!!
     """
     m = 0
     c = 1
-    for i in range(len(A) - 1):
-        if A[i] == A[i + 1]:
+    for i in range(len(ls) - 1):
+        if ls[i] == ls[i + 1]:
             c += 1
         elif c > m:
             m = c

@@ -4,7 +4,7 @@
 | Author               | Nelson Brochado |
 |----------------------|-----------------|
 | Programming Language | Python 3        |
-| Created on           | June, 2015      |
+| Creation           | June, 2015      |
 
 ## Introduction
 
@@ -96,5 +96,8 @@ The main references that I have used are:
 
 
 ## TODO
+
+I would like to improve the citation of references that I used to implement an algorithm or a data structure in all modules.
+
 
 See `README.md` files of subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds).
