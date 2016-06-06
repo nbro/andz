@@ -15,6 +15,7 @@ FUTURE.md
 ands/ds/Graph.py
 ands/ds/GraphNode.py
 *.sh
+ands/algorithms/greedy/huffman.py
 
 # DIRECTORIES
 ands/algorithms/graphs
