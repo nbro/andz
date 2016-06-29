@@ -14,3 +14,6 @@ script:
 
 after_success:
   - pdoc --html --overwrite --html-dir docs ands
+  - autopep8 --in-place --aggressive --recursive --max-line-length 120 .
+  
+  
