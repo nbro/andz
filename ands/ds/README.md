@@ -32,8 +32,10 @@ Where `F` indicates that I've already started implementing the data structure, b
 | Skip list | S | |
 | Leftist tree | S | |
 | Van Emde Boas tree| S | |
-|Hashed array tree|
-| T-Tree|
+|Hashed array tree| S |
+| T-Tree| S | 
+| Ring Buffer | S |https://en.wikipedia.org/wiki/Circular_buffer |
+| XOR Linked List | S | https://en.wikipedia.org/wiki/XOR_linked_list 
 
 
 A more exhaustive list of data structures can be found here:
