@@ -6,7 +6,7 @@
 
 This project was created for _personal use_ mostly while studying for an _exam_ (starting in the month of June in 2015) of a previous course that I followed called _Algorithms and Data Structures_ I decided to make it publicly available to use and modify, so that people with difficulties in understanding and applying these topics can take benefit from it. 
 
-_So far all the algorithms and data structures were written to be interpreted by Python 3.5, but other versions of Python, and eventually other programming languages, may be supported._
+_So far all the algorithms and data structures were written to be interpreted by Python 3 (from 0 to 5), but other versions of Python, and eventually other programming languages, may be supported._
 
 I discourage every beginner from copying **shamelessly** the source code, but instead you should definitely give a chance to your brain and sense of challenge first! At the end, you will definetely feel a better and more serious programmer! If you really do not have any ideas on how to do something, try to read the comments next to each function and/or class that you are interested in. They are there for reason!
 

@@ -1,11 +1,22 @@
 language: python
 
 python:
+  - 3.0
+  - 3.1
+  - 3.2
+  - 3.3
+  - 3.4
   - 3.5
 
 # command to install dependencies
 install:
-  - pip3.5 install -e .
+
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.0 ]]; then pip3.0 install -e .; fi 
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.1 ]]; then pip3.1 install -e .; fi 
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.2 ]]; then pip3.2 install -e .; fi 
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; then pip3.3 install -e .; fi 
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.4 ]]; then pip3.4 install -e .; fi 
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.5 ]]; then pip3.5 install -e .; fi 
   
 # command to run tests
 script: 
