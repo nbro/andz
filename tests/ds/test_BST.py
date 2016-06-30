@@ -33,7 +33,7 @@ class TestBST(unittest.TestCase):
         self.assertTrue(is_bst(b))
 
     def test_empty_contains(self):
-        b = BST()
+        b = BST()        
         for i in range(-10, 11):
             self.assertFalse(b.contains(i))
 
@@ -54,7 +54,7 @@ class TestBST(unittest.TestCase):
 
         for i in range(-10, 11):
             self.assertFalse(b.contains(i))
-
+            
         self.assertTrue(b.contains(12))
 
     def test_many_size(self):
@@ -103,12 +103,7 @@ class TestBST(unittest.TestCase):
         
     def test_delete_not_found(self):
         b = BST()
-        
-        try:
-            b.delete(12)
-            self.fail("should not have reached this statement...")
-        except LookupError as e:
-            pass
+        self.assertRaises(LookupError, b.delete, 12)
 
     def test_delete_one_size(self):
         b = BST()
@@ -145,12 +140,7 @@ class TestBST(unittest.TestCase):
             b.insert(i)
             
         for i in range(-1, 15, 2):
-            try:
-                b.delete(i)                
-                self.fail("should not have reached this statement...")
-            except LookupError:
-                pass
-
+            self.assertRaises(LookupError, b.delete, i)
             self.assertFalse(b.contains(i))
             
         for i in range(0, 15, 2):
@@ -203,12 +193,8 @@ class TestBST(unittest.TestCase):
         b.insert(10)
         b.insert(5)
         b.insert(15)
-        
-        try:
-            b.search(None)
-            self.fail("shouldn't have reached this statement...")
-        except ValueError:
-            pass
+
+        self.assertRaises(ValueError, b.search, None)
 
         self.assertIsNone(b.search(12))
         self.assertIsNotNone(b.search(5))
@@ -276,18 +262,14 @@ class TestBST(unittest.TestCase):
         self.assertIs(b.successor(12), b.search(14))
         self.assertIsNone(b.predecessor(12))
         self.assertIs(b.predecessor(14), b.search(12))
-        
-        try:
-            b.successor(7)
-            b.predecessor(6)
-            self.fail("should not have reached this...")
-        except LookupError as e:
-            pass
+
+        self.assertRaises(LookupError, b.successor, 7)        
+        self.assertRaises(LookupError, b.predecessor, 6)
 
     def test_rank(self):
         b = BST()
         
-        self.assertRaises(LookupError, b.rank, None)
+        self.assertRaises(ValueError, b.rank, None)
         self.assertRaises(LookupError, b.rank, 12)
         
         b.insert(12)
@@ -326,23 +308,9 @@ class TestBST(unittest.TestCase):
             self.assertTrue(is_bst(b))
             assert_consistencies(b)
 
-        try:
-            b._switch(b.search(12), b.search(12))
-            self.fail("should not have reached this...")
-        except ValueError as e:
-            pass
-        
-        try:
-            b._switch(b.search(12), None)
-            self.fail("should not have reached this...")
-        except ValueError as e:
-            pass
-
-        try:
-            b._switch(b.search(12), BSTNode(100), search_first=True)
-            self.fail("should not have reached this...")
-        except LookupError as e:
-            pass
+        self.assertRaises(ValueError, b._switch, b.search(12), b.search(12))
+        self.assertRaises(ValueError, b._switch, b.search(12), None)
+        self.assertRaises(LookupError, b._switch, b.search(12), BSTNode(100), True)
 
         asserts()
 
