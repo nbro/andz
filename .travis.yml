@@ -14,9 +14,9 @@ install:
 # command to run tests
 script: 
   - cd tests/ds
-  - coverage run  --source=ands/ds -m unittest discover -v
+  - coverage run --source=../../ands/ds -m unittest discover -v
   - cd ../algorithms
-  - coverage run --source=ands/algorithms -m unittest discover -v
+  - coverage run --source=../../ands/algorithms -m unittest discover -v
 
 after_success:
   - pdoc --html --overwrite --html-dir docs ands

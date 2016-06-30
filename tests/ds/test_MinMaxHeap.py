@@ -115,8 +115,6 @@ class TestMinMaxHeap(unittest.TestCase):
         assert_errors("0")
         assert_errors(30)
 
-        h.show()
-
         assert h.index_of_min(0) == 5
         assert h.index_of_max(0) == 1
 

@@ -68,14 +68,21 @@ If you want to create tests, you need to write them within the folder [`tests`](
 
 ### How to run tests?
 
-You can find the tests under [tests](tests). To run them, you must first install the module `ands`, and then you can simply run the script `run_all_tests.py` as follows
+You need first to install the module as specified above either on a virtual environment (advisable) or directly on your usable Python's distribution `site-packages` folder.
+
+Then, from inside either `tests/ds` or `tests/algorithms`, you can do
+
+    python -m unittest discover . -v
 
 
-    ./run_all_tests.py
-    
-    
-Eventually you can run single specific tests.
+or 
 
+    coverage run -m unittest discover . -v
+
+
+This last one should also report you the amount of code covered by the tests, after your run the command
+
+    coverage report
 
 ## References
 
