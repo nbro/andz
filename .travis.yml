@@ -20,8 +20,10 @@ install:
   
 # command to run tests
 script: 
-  - cd tests
-  - ./run_all_tests.py
+  - cd tests/ds
+  - python -m unittest discover
+  - cd ../algorithms
+  - python -m unittest discover
 
 after_success:
   - pdoc --html --overwrite --html-dir docs ands
