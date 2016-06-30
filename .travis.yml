@@ -13,12 +13,11 @@ install:
   
 # command to run tests
 script: 
-  - cd tests/ds
-  - coverage run --source=../../ands/ds -m unittest discover -v
-  - cd ../algorithms
-  - coverage run --source=../../ands/algorithms -m unittest discover -v
+  - cd tests
+  - coverage run --source=../ands -m unittest discover -v
 
 after_success:
   - pdoc --html --overwrite --html-dir docs ands
   - autopep8 --in-place --aggressive --recursive --max-line-length 120 .
   - coveralls
+  
