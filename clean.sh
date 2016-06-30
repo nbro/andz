@@ -15,7 +15,11 @@ clean() {
     find . -type d -name "__pycache__" -delete && \
     
     # removes directory ands.egg-info
-    rm -rf ands.egg-info
+    rm -rf ands.egg-info && \
+
+    # deletes all .coverage files
+    find . -type f -name ".coverage" -delete
+
 }
 
 clean
