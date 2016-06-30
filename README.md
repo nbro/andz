@@ -1,6 +1,6 @@
 # Algorithms and Data Structures (AnDS)
 
-[![Build Status](https://travis-ci.org/dossan/ands.svg?branch=master)](https://travis-ci.org/dossan/ands)
+[![Build Status](https://travis-ci.org/dossan/ands.svg?branch=master)](https://travis-ci.org/dossan/ands) [![Coverage Status](https://coveralls.io/repos/github/dossan/ands/badge.svg?branch=master)](https://coveralls.io/github/dossan/ands?branch=master)
 
 ## Introduction
 

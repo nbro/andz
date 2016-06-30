@@ -24,7 +24,7 @@ setup(
     author = "Nelson Brochado",
     author_email = "nelson.brochado@outlook.com",
     packages = find_packages(exclude=["env", "tests", "test*.*"]),
-    install_requires=["tabulate", "pdoc"],  # package's dependencies
+    install_requires=["tabulate", "pdoc", "python-coveralls"],  # package's dependencies
     description = "Algorithms and Data Structures",
     long_description = read("README.md"),
     license = "MIT",
