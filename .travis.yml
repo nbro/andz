@@ -7,9 +7,24 @@ python:
 
 # command to install dependencies
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; then pip3.3 install -e .; fi 
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.4 ]]; then pip3.4 install -e .; fi 
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.5 ]]; then pip3.5 install -e .; fi 
+  
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; 
+    then 
+        pip3.3 install python-coveralls;
+        pip3.3 install -e .;    
+    fi 
+    
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.4 ]]; 
+    then 
+        pip3.4 install python-coveralls;
+        pip3.4 install -e .; 
+    fi 
+    
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.5 ]]; 
+    then 
+        pip3.5 install python-coveralls;
+        pip3.5 install -e .; 
+    fi 
   
 # command to run tests
 script: 
@@ -17,7 +32,5 @@ script:
   - coverage run --source=../ands -m unittest discover -v
 
 after_success:
-  - pdoc --html --overwrite --html-dir docs ands
-  - autopep8 --in-place --aggressive --recursive --max-line-length 120 .
   - coveralls
   
