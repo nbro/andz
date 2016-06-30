@@ -3,7 +3,7 @@ language: python
 # for now I'm not supporting 2.7
 python:
   #- 2.7  
-  - 3.2
+  #- 3.2  # because list.clear() is not supported
   - 3.3
   - 3.4
   - 3.5
@@ -11,7 +11,7 @@ python:
 # command to install dependencies
 install:
   #- if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then pip2.7 install -e .; fi 
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.2 ]]; then pip3.2 install -e .; fi 
+  #- if [[ $TRAVIS_PYTHON_VERSION == 3.2 ]]; then pip3.2 install -e .; fi 
   - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; then pip3.3 install -e .; fi 
   - if [[ $TRAVIS_PYTHON_VERSION == 3.4 ]]; then pip3.4 install -e .; fi 
   - if [[ $TRAVIS_PYTHON_VERSION == 3.5 ]]; then pip3.5 install -e .; fi 
