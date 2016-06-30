@@ -287,30 +287,21 @@ class TestBST(unittest.TestCase):
     def test_rank(self):
         b = BST()
         
-        try:
-            b.rank(None)
-            self.fail("should not have reached this...")
-        except ValueError:
-            pass
-        
-        try:
-            b.rank(12)
-            self.fail("should not have reached this...")
-        except LookupError:
-            pass
+        self.assertRaises(LookupError, b.rank, None)
+        self.assertRaises(LookupError, b.rank, 12)
         
         b.insert(12)
 
-        self.assertEqual(b.rank(12) == 0)
+        self.assertEqual(b.rank(12), 0)
         
         b.insert(14)
         b.insert(28)
         b.insert(10)
         b.insert(7)
 
-        self.assertEqual(b.rank(12) == 2)
-        self.assertEqual(b.rank(7) == 0)
-        self.assertEqual(b.rank(28) == 4)
+        self.assertEqual(b.rank(12), 2)
+        self.assertEqual(b.rank(7), 0)
+        self.assertEqual(b.rank(28), 4)
 
     def test_switch(self):
         b = BST()
