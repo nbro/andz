@@ -18,29 +18,6 @@ from random import sample, shuffle, randint, uniform, choice
 from ands.ds.HashTable import HashTable, has_duplicates, find_duplicates
 
 
-def put_and_get_non_hashable_type():
-    t = HashTable()
-
-    def put_type_error(a):
-        try:
-            t.put(a, 12)
-            assert False
-        except TypeError:
-            pass
-
-    def get_type_error(a):
-        t.put(12, "Noi")
-        try:
-            t.get(a)
-            assert False
-        except TypeError:
-            pass
-        
-    put_type_error([])
-    put_type_error({})
-    get_type_error({})
-    get_type_error({})
-
 def gen_rand_str(size):
     return "".join(choice(string.printable) for _ in range(size))
 
@@ -187,6 +164,29 @@ class TestHashTable(unittest.TestCase):
             assert t.size == len(a)
             assert not has_duplicates(t.keys)    
 
+    def test_put_and_get_non_hashable_type(self):
+        t = HashTable()
+
+        def put_type_error(a):
+            try:
+                t.put(a, 12)
+                assert False
+            except TypeError:
+                pass
+
+        def get_type_error(a):
+            t.put(12, "Noi")
+            try:
+                t.get(a)
+                assert False
+            except TypeError:
+                pass
+            
+        put_type_error([])
+        put_type_error({})
+        get_type_error({})
+        get_type_error({})
+    
     def test_delete_letters(self, n=100):
         t = HashTable()
         ls = list(string.ascii_lowercase)
