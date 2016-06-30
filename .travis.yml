@@ -1,8 +1,7 @@
 language: python
 
 python:
-  - 3.0
-  - 3.1
+  #- 2.7  
   - 3.2
   - 3.3
   - 3.4
@@ -11,8 +10,7 @@ python:
 # command to install dependencies
 install:
 
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.0 ]]; then pip3.0 install -e .; fi 
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.1 ]]; then pip3.1 install -e .; fi 
+  #- if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then pip2.7 install -e .; fi 
   - if [[ $TRAVIS_PYTHON_VERSION == 3.2 ]]; then pip3.2 install -e .; fi 
   - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; then pip3.3 install -e .; fi 
   - if [[ $TRAVIS_PYTHON_VERSION == 3.4 ]]; then pip3.4 install -e .; fi 
@@ -21,9 +19,9 @@ install:
 # command to run tests
 script: 
   - cd tests/ds
-  - python -m unittest discover
+  - python -m unittest -v discover
   - cd ../algorithms
-  - python -m unittest discover
+  - python -m unittest -v discover
 
 after_success:
   - pdoc --html --overwrite --html-dir docs ands
