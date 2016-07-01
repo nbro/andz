@@ -1,7 +1,8 @@
 # Algorithms and Data Structures (AnDS)
 
-[![Build Status](https://travis-ci.org/dossan/ands.svg?branch=master)](https://travis-ci.org/dossan/ands)
 [![Coverage Status](https://coveralls.io/repos/github/dossan/ands/badge.svg?branch=master)](https://coveralls.io/github/dossan/ands?branch=master)
+[![Build Status](https://travis-ci.org/dossan/ands.svg?branch=master)](https://travis-ci.org/dossan/ands)
+
 ## Introduction
 
 This project was created for _personal use_ mostly while studying for an _exam_ (starting in the month of June in 2015) of a previous course that I followed called _Algorithms and Data Structures_ I decided to make it publicly available to use and modify, so that people with difficulties in understanding and applying these topics can take benefit from it. 
