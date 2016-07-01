@@ -18,7 +18,9 @@ clean() {
     rm -rf ands.egg-info && \
 
     # deletes all .coverage files
-    find . -type f -name ".coverage" -delete
+    find . -type f -name ".coverage" -delete && \
+    
+    rm -rf venv
 
 }
 

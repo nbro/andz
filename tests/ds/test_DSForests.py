@@ -20,11 +20,11 @@ class TestDSForests(unittest.TestCase):
     def test_empty_creation(self):
         DSForests()
 
-    def test_operations(self):    
+    def test_operations(self):
         ds = DSForests()
         a = ds.make_set(12)
         b = ds.make_set(14)
-        
+
         assert ds.find(a) == a
         assert a.value == 12 and a.rank == 0 and a.parent == a
         assert ds.find(b) == b
@@ -46,7 +46,7 @@ class TestDSForests(unittest.TestCase):
         assert ds.find(c) == a
         assert c.value == 28 and c.rank == 0 and c.parent == a
         assert a.value == 12 and a.rank == 1 and a.parent == a
-         
+
         u3 = ds.union(14, 28)
         assert u3 == a
         assert ds.find(c) == a
@@ -55,7 +55,7 @@ class TestDSForests(unittest.TestCase):
 
         d = ds.make_set(7)
         e = ds.make_set(10)
-        
+
         u4 = ds.union(7, 10)
         assert u4 == d
         assert ds.find(d) == d
@@ -72,6 +72,6 @@ class TestDSForests(unittest.TestCase):
         assert ds.find(e) == ds.find(a)
         assert ds.find(d) == ds.find(a)
 
-    
+
 if __name__ == "__main__":
     unittest.main(verbose=2)

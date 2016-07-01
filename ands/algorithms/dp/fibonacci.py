@@ -44,7 +44,8 @@ def _memoized_fib_aux(n, memo):
     if n == 0 or n == 1:
         return n
     if n not in memo.keys():
-        memo[n] = _memoized_fib_aux(n - 1, memo) + _memoized_fib_aux(n - 2, memo)
+        memo[n] = _memoized_fib_aux(n - 1, memo) + \
+            _memoized_fib_aux(n - 2, memo)
     return memo[n]
 
 
@@ -72,7 +73,7 @@ def bottom_up_fib(n, ls=False):
     if n == 1:
         return n if not ls else [0, n]
 
-    fib = [0]*(n + 1)
+    fib = [0] * (n + 1)
     fib[0] = 0
     fib[1] = 1
 

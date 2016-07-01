@@ -37,7 +37,7 @@ class Queue:
         return self.size() == 0
 
     def size(self):
-        """Returns the size of this stack."""        
+        """Returns the size of this stack."""
         return len(self.q)
 
     def __str__(self):
@@ -52,7 +52,7 @@ class BFSQueue(Queue):
 
     def __init__(self):
         Queue.__init__(self, ls=[])
-    
+
     def __str__(self):
         return "[" + ", ".join([u.key for u in self.q]) + "]"
 

@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 09/09/15
 
-Modified: 03/02/16
+Modified: 01/07/16
 
 ### Resources
 - [Heap Sort](https://en.wikipedia.org/wiki/Heapsort), Wiki's article
@@ -26,10 +26,12 @@ def max_heapify(ls: list, heap_size: int, i: int):
         ls[i], ls[m] = ls[m], ls[i]
         max_heapify(ls, heap_size, m)
 
+
 def build_max_heap(ls: list):
     for i in range(len(ls) // 2, -1, -1):
         max_heapify(ls, len(ls), i)
     return ls
+
 
 def heap_sort(ls: list):
     """In-place sorting algorithm.
@@ -41,8 +43,3 @@ def heap_sort(ls: list):
         ls[i], ls[0] = ls[0], ls[i]
         max_heapify(ls, i, 0)
     return ls
-
-
-if __name__ == "__main__":
-    from util import run_tests
-    run_tests(heap_sort)

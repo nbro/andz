@@ -20,13 +20,15 @@ def build_alphabet_table():
 
 alphabet = build_alphabet_table()
 
+
 def _make_decimal(n, base, pos):
     if len(n) == 0:
         return 0
     else:
         last = base**pos * alphabet[n[-1]]
         return _make_decimal(n[:-1], base, pos + 1) + last
-    
+
+
 def make_decimal(n, base):
     if base > 36 or base < 2:
         raise ValueError("not base >= 2 and base <= 36")

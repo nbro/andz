@@ -19,10 +19,11 @@ def generate_palindromes(n, s):
         p = []
         for i in range(s):
             char = choice(string.ascii_letters)
-            p.insert(len(p) // 2, char) 
+            p.insert(len(p) // 2, char)
             p.insert(len(p) // 2, char)
         palindromes.append("".join(p))
     return palindromes
+
 
 def generate_random_words(n, s):
     w = []
@@ -34,6 +35,7 @@ def generate_random_words(n, s):
         w.append("".join(p))
     return w
 
+
 def _is_palindrome(s, i, j):
     if i >= j:
         return True
@@ -41,6 +43,7 @@ def _is_palindrome(s, i, j):
         return _is_palindrome(s, i + 1, j - 1)
     else:
         return False
+
 
 def is_palindrome(s):
     if len(s) <= 1:
@@ -51,7 +54,7 @@ def is_palindrome(s):
 
 if __name__ == "__main__":
     p = generate_palindromes(10000, 10)
-    
+
     for i in p:
         if not is_palindrome(i):
             raise Exception("Something wrong with the implementation...")

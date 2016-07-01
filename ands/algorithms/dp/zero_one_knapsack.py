@@ -39,7 +39,8 @@ def _get_zero_one_knapsack_matrix(total_weight, n):
 def zero_one_knapsack_verbose(total_weight, weights, values):
     """Verbose version of zero_one_knapsack."""
     if len(weights) != len(values):
-        raise Exception("List of weights must have the same size as the list of values.")
+        raise Exception(
+            "List of weights must have the same size as the list of values.")
 
     n = len(weights)
 
@@ -53,7 +54,7 @@ def zero_one_knapsack_verbose(total_weight, weights, values):
 
         for w in range(2, total_weight + 2):
 
-            print("-"*30)
+            print("-" * 30)
             print("Weight of item", i - 1, ":", weights[i - 2])
             print("Value of item", i - 1, ":", values[i - 2])
             print("Current total weight:", w - 1)
@@ -62,7 +63,8 @@ def zero_one_knapsack_verbose(total_weight, weights, values):
             if weights[i - 2] > w - 1:
                 profits[i][w] = profits[i - 1][w]
             else:
-                profits[i][w] = max(profits[i - 1][w], values[i - 2] + profits[i - 1][w - weights[i - 2]])
+                profits[i][w] = max(
+                    profits[i - 1][w], values[i - 2] + profits[i - 1][w - weights[i - 2]])
 
             print("Profits matrix after calculation:\n")
             pprint(profits)
@@ -92,7 +94,8 @@ def zero_one_knapsack(total_weight, weights, values):
     """
 
     if len(weights) != len(values):
-        raise Exception("List of weights must have the same size as the list of values.")
+        raise Exception(
+            "List of weights must have the same size as the list of values.")
 
     n = len(weights)
 
@@ -107,24 +110,29 @@ def zero_one_knapsack(total_weight, weights, values):
             # If the weight of the (i - 2)th item is greater than w - 1,
             # which is the current weight being analysed.
 
-            # Note that the weights in the matrix profits are shifted to the right by 1.
+            # Note that the weights in the matrix profits are shifted to the
+            # right by 1.
             if weights[i - 2] > w - 1:
                 profits[i][w] = profits[i - 1][w]
 
             # The weight of the current item is less than the total weight,
-            # but we need to decide if it is convenient to include this item or not.
+            # but we need to decide if it is convenient to include this item or
+            # not.
             else:
                 # We need to decide if it is convenient to include the current item i - 2.
                 # (Note that indices are also shifted 2 positions to the bottom in the matrix "profits").
-                # To do this, we compare if we gain more by including it or not including it.
+                # To do this, we compare if we gain more by including it or not
+                # including it.
 
                 # "profits[i - 1][w]" refers to the profit of not including current item
                 # "values[i - 2]" refers to the value of the current item
                 # "w - weights[i - 2]" is the remaining weight, if we include the current item.
                 # Note that "weights[i - 2]" is the weight of the current item.
                 # "profits[i - 1][w - items[i - 2][1]]" refers to the profit obtained by
-                # an item with the remaining weight (not including the current item: i - 1)
-                profits[i][w] = max(profits[i - 1][w], values[i - 2] + profits[i - 1][w - weights[i - 2]])
+                # an item with the remaining weight (not including the current
+                # item: i - 1)
+                profits[i][w] = max(
+                    profits[i - 1][w], values[i - 2] + profits[i - 1][w - weights[i - 2]])
 
     return profits[-1][-1]
 
@@ -166,7 +174,8 @@ def _memoized_01_knapsack_aux(capacity, w, v, value, m):
     if len(w) > 0 and len(v) > 0:
 
         if w[-1] > capacity:  # We cannot include the nth item
-            value = _memoized_01_knapsack_aux(capacity, w[:-1], v[:-1], value, m)
+            value = _memoized_01_knapsack_aux(
+                capacity, w[:-1], v[:-1], value, m)
         else:
             value = max(v[-1] + _memoized_01_knapsack_aux(capacity - w[-1], w[:-1], v[:-1], value, m),
                         _memoized_01_knapsack_aux(capacity, w[:-1], v[:-1], value, m))

@@ -20,6 +20,7 @@ def _count(n, ls, index):
             return _count(n, ls, index + 1)
     return 0
 
+
 def count(n, ls):
     """Counts how many times `n` appears in the list or tuple `ls`."""
     return _count(n, ls, 0)
@@ -28,26 +29,27 @@ def count(n, ls):
 def test1():
     from random import randint
     import sys
-    
+
     RECURSION_LIMIT = sys.getrecursionlimit()
     # print(RECURSION_LIMIT)
 
-    # Keep this number smaller than RECURSION_LIMIT    
+    # Keep this number smaller than RECURSION_LIMIT
     LIST_SIZE = RECURSION_LIMIT - 100
-    
+
     for i in range(10):
-        
-        ls = [randint(0, 10) for _ in range(LIST_SIZE)]  
+
+        ls = [randint(0, 10) for _ in range(LIST_SIZE)]
         # print("List:", ls)
-        
+
         r = randint(0, 10)
         # print("Counting number:", r)
 
         c = count(r, ls)
         # print("Counted:", c)
-        
+
         if c != ls.count(r):
-            raise Exception("Something is wrong with the implementation of count...!")
+            raise Exception(
+                "Something is wrong with the implementation of count...!")
 
 
 if __name__ == "__main__":

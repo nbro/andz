@@ -8,7 +8,7 @@
 
 Creation: July, 2015
 
-Last Update: 22/02/16
+Last Update: 01/07/16
 
 Basic class to represent simpl..." />
 
@@ -560,7 +560,7 @@ table {
   html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100%;
   }
   body {
     background: #fff;
@@ -985,8 +985,7 @@ table {
           
   <ul>
     <li class="mono"><a href="#ands.ds.Stack.Stack.__init__">__init__</a></li>
-    <li class="mono"><a href="#ands.ds.Stack.Stack.empty">empty</a></li>
-    <li class="mono"><a href="#ands.ds.Stack.Stack.get">get</a></li>
+    <li class="mono"><a href="#ands.ds.Stack.Stack.is_empty">is_empty</a></li>
     <li class="mono"><a href="#ands.ds.Stack.Stack.pop">pop</a></li>
     <li class="mono"><a href="#ands.ds.Stack.Stack.push">push</a></li>
     <li class="mono"><a href="#ands.ds.Stack.Stack.size">size</a></li>
@@ -1011,7 +1010,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.Stack</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last Update: 22/02/16</p>
+<p>Last Update: 01/07/16</p>
 <p>Basic class to represent simple stacks,
 which are LIFO (last-in-first-out) data structures.</p>
   
@@ -1025,7 +1024,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last Update: 22/02/16
+Last Update: 01/07/16
 
 Basic class to represent simple stacks,
 which are LIFO (last-in-first-out) data structures.
@@ -1042,46 +1041,32 @@ class Stack:
     def __init__(self, s=[]):
         self.stack = s
 
-    def get(self):
-        """Returns the list containing the elements of `self`."""
-        return self.stack
-
     def push(self, e):
         """Pushes `e` on top of this stack."""
         self.stack.append(e)
 
     def pop(self):
         """Returns the top of this stack, or `None` if the stack is empty."""
-        return None if self.empty() else self.stack.pop()
+        return None if self.is_empty() else self.stack.pop()
 
     def size(self):
         """Returns the size of this stack."""
         return len(self.stack)
 
-    def empty(self):
+    def is_empty(self):
         """Returns `True` if this stack is empty, `False` otherwise."""
         return self.size() == 0
 
     def top(self):
         """Returns but does **not** pop the top of the stack.
         If the stack is empty, `None` is returned."""
-        return None if self.empty() else self.stack[-1]
+        return None if self.is_empty() else self.stack[-1]
 
     def __str__(self):
         return tabulate([[e] for e in reversed(self.stack)], tablefmt="grid")
 
     def __repr__(self):
         return self.__str__()
-    
-
-if __name__ == "__main__":
-    s = Stack()
-    s.push(12)
-    s.push(14)
-    s.push(28)
-    print(s)
-    
-    
 </code></pre>
   </div>
 
@@ -1104,30 +1089,26 @@ if __name__ == "__main__":
     def __init__(self, s=[]):
         self.stack = s
 
-    def get(self):
-        """Returns the list containing the elements of `self`."""
-        return self.stack
-
     def push(self, e):
         """Pushes `e` on top of this stack."""
         self.stack.append(e)
 
     def pop(self):
         """Returns the top of this stack, or `None` if the stack is empty."""
-        return None if self.empty() else self.stack.pop()
+        return None if self.is_empty() else self.stack.pop()
 
     def size(self):
         """Returns the size of this stack."""
         return len(self.stack)
 
-    def empty(self):
+    def is_empty(self):
         """Returns `True` if this stack is empty, `False` otherwise."""
         return self.size() == 0
 
     def top(self):
         """Returns but does **not** pop the top of the stack.
         If the stack is empty, `None` is returned."""
-        return None if self.empty() else self.stack[-1]
+        return None if self.is_empty() else self.stack[-1]
 
     def __str__(self):
         return tabulate([[e] for e in reversed(self.stack)], tablefmt="grid")
@@ -1169,8 +1150,8 @@ if __name__ == "__main__":
   
             
   <div class="item">
-    <div class="name def" id="ands.ds.Stack.Stack.empty">
-    <p>def <span class="ident">empty</span>(</p><p>self)</p>
+    <div class="name def" id="ands.ds.Stack.Stack.is_empty">
+    <p>def <span class="ident">is_empty</span>(</p><p>self)</p>
     </div>
     
 
@@ -1178,33 +1159,11 @@ if __name__ == "__main__":
   
     <div class="desc"><p>Returns <code>True</code> if this stack is empty, <code>False</code> otherwise.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Stack.Stack.empty', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.Stack.Stack.empty" class="source">
-    <pre><code>def empty(self):
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Stack.Stack.is_empty', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Stack.Stack.is_empty" class="source">
+    <pre><code>def is_empty(self):
     """Returns `True` if this stack is empty, `False` otherwise."""
     return self.size() == 0
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.Stack.Stack.get">
-    <p>def <span class="ident">get</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Returns the list containing the elements of <code>self</code>.</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Stack.Stack.get', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.Stack.Stack.get" class="source">
-    <pre><code>def get(self):
-    """Returns the list containing the elements of `self`."""
-    return self.stack
 </code></pre>
   </div>
 </div>
@@ -1226,7 +1185,7 @@ if __name__ == "__main__":
   <div id="source-ands.ds.Stack.Stack.pop" class="source">
     <pre><code>def pop(self):
     """Returns the top of this stack, or `None` if the stack is empty."""
-    return None if self.empty() else self.stack.pop()
+    return None if self.is_empty() else self.stack.pop()
 </code></pre>
   </div>
 </div>
@@ -1294,7 +1253,7 @@ If the stack is empty, <code>None</code> is returned.</p></div>
     <pre><code>def top(self):
     """Returns but does **not** pop the top of the stack.
     If the stack is empty, `None` is returned."""
-    return None if self.empty() else self.stack[-1]
+    return None if self.is_empty() else self.stack[-1]
 </code></pre>
   </div>
 </div>
@@ -1322,7 +1281,7 @@ If the stack is empty, <code>None</code> is returned.</p></div>
   <footer id="footer">
     <p>
       Documentation generated by
-      <a href="https://github.com/BurntSushi/pdoc">pdoc 0.3.1</a>
+      <a href="https://github.com/BurntSushi/pdoc">pdoc 0.3.2</a>
     </p>
 
     <p>pdoc is in the public domain with the

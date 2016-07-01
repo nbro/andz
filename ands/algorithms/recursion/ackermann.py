@@ -16,6 +16,7 @@ So, do not even try to run this function!
 
 """
 
+
 def ackermann(x, y):
     if x == 0:
         return y + 1
@@ -31,5 +32,3 @@ if __name__ == "__main__":
         print(ackermann(3, 10))
     except RuntimeError:
         pass
-
-

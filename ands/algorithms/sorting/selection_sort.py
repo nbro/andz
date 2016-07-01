@@ -4,7 +4,7 @@
 """
 Author: Nelson Brochado
 
-Modified: 03/02/16
+Modified: 01/07/16
 
 ### Resources
 
@@ -26,8 +26,3 @@ def selection_sort(ls: list):
             if ls[j] < ls[k]:
                 ls[k], ls[j] = ls[j], ls[k]
     return ls
-
-
-if __name__ == "__main__":
-    from util import run_tests
-    run_tests(selection_sort)

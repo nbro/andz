@@ -4,7 +4,7 @@
 """
 Author: Nelson Brochado
 
-Modified: 03/02/16
+Modified: 01/07/16
 
 
 ### Parts of the quicksort algorithm
@@ -13,11 +13,11 @@ Modified: 03/02/16
 
     All elements smaller than a number  usually called "pivot"
     are put to the left of the pivot.
-    
+
     In this quick sort algorithm, the pivot is chosen to be
     the last element of the range [`start`, `end`],
     but it could also have been choosen, e.g., to be the middle element.
-    
+
     We keep searching for elements less than the pivot,
     from the left to the right of the range [`start`, `end`[,
     and we insert them at the position tracked by the variable `p_index`.
@@ -42,7 +42,7 @@ section of online book on searching and sorting by
 
 
 def partition(ls: list, start: int, end: int):
-    """Shifts all elements in `ls` that are less than the pivot 
+    """Shifts all elements in `ls` that are less than the pivot
     to the left of the position `p_index`, which is at the end returned.
 
     **Time Complexity:** O(k), where k is the size of `ls`."""
@@ -58,6 +58,7 @@ def partition(ls: list, start: int, end: int):
     ls[p_index], ls[end] = ls[end], ls[p_index]
     return p_index
 
+
 def _quick_sort_aux(ls: list, start: int, end: int):
     """Keeps calling partition to find the pivot index,
     and then calls itself recursively on the left and right
@@ -72,19 +73,15 @@ def _quick_sort_aux(ls: list, start: int, end: int):
         # Calling quick_sort on the right side of the pivot.
         _quick_sort_aux(ls, p_index + 1, end)
 
+
 def quick_sort(ls: list):
     """In-place sorting algorithm.
     Returns a reference to `ls`.
 
     **Time Complexity**
-    
+
     - Worst Case: O(n<sup>2</sup>)
-    
+
     - Average Case: O(n*log<sub>2</sub>(n))"""
     _quick_sort_aux(ls, 0, len(ls) - 1)
     return ls
-
-
-if __name__ == "__main__":
-    from util import run_tests
-    run_tests(quick_sort)

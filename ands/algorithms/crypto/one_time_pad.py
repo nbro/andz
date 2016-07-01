@@ -17,13 +17,16 @@ def gen_message(size):
     """Generate a random message of printable characters."""
     return "".join(choice(string.printable) for _ in range(size))
 
+
 def gen_key(size):
     """Generate a random key of printable characters."""
     return gen_message(size)
 
+
 def encrypt(message, key):
     """Encrypt message using key according to the one-time-pad algorithm."""
-    return "".join(chr(ord(i) ^ ord(j)) for (i, j) in zip(message, key)) 
+    return "".join(chr(ord(i) ^ ord(j)) for (i, j) in zip(message, key))
+
 
 def decrypt(ciphertext, key):
     """Decript ciphertext using key according to the OTP algorithm."""
@@ -35,16 +38,16 @@ def test1(n, m):
     for i in range(n):
         message = gen_message(m)
         # print("Message:", message)
-        
+
         key = gen_key(m)
         # print("Key:", key)
-        
+
         ciphertext = encrypt(message, key)
         # print("Ciphertext:", ciphertext)
-        
-        original = decrypt(ciphertext, key)            
+
+        original = decrypt(ciphertext, key)
         # print("Decoded message:", original)
-        
+
         assert original == message
 
 

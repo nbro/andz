@@ -43,10 +43,20 @@ def ask_objects():
     objects.sort(key=operator.itemgetter(3), reverse=True)
 
     print("\n\nThe following are the items that you have:\n")
-    print(tabulate(objects, tablefmt="grid", headers=("Name", "Value", "Weight", "Value/Weight Ratio")))
-    capacity = int(input("\nEnter the maximum weight you can bring (in grams): "))
+    print(
+        tabulate(
+            objects,
+            tablefmt="grid",
+            headers=(
+                "Name",
+                "Value",
+                "Weight",
+                "Value/Weight Ratio")))
+    capacity = int(
+        input("\nEnter the maximum weight you can bring (in grams): "))
 
     return objects, capacity
+
 
 def interactive_fractional_knapsack():
     objects, capacity = ask_objects()
@@ -63,6 +73,7 @@ def interactive_fractional_knapsack():
             break
     output_fractional_knapsack(knapsack_objects, objects)
 
+
 def output_fractional_knapsack(knapsack_objects, objects):
     s = "You should take "
 
@@ -72,10 +83,11 @@ def output_fractional_knapsack(knapsack_objects, objects):
             if i < len(knapsack_objects) - 1:
                 s += ", "
         else:
-            s += " and " + str(item[1]) + " gram(s) of " + objects[item[0]][0] + "."
+            s += " and " + str(item[1]) + " gram(s) of " + \
+                objects[item[0]][0] + "."
 
     print("\n\n" + s)
 
 
-##if __name__ == "__main__":
-##    interactive_fractional_knapsack()
+# if __name__ == "__main__":
+# interactive_fractional_knapsack()

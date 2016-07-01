@@ -31,8 +31,9 @@ Time complexity analysis based on Wiki's article.
 - http://python-algorithms.readthedocs.org/en/latest/_modules/python_algorithms/basic/union_find.html
 """
 
+
 class DSNode:
-    
+
     def __init__(self, x, rank=0):
         self.value = x
         self.rank = rank
@@ -40,9 +41,11 @@ class DSNode:
 
     def __repr__(self):
         if self.parent == self:
-            return "(value: {0}, rank: {1}, parent: self)".format(self.value, self.rank)
+            return "(value: {0}, rank: {1}, parent: self)".format(
+                self.value, self.rank)
         else:
-            return "(value: {0}, rank: {1}, parent: {2})".format(self.value, self.rank, self.parent)
+            return "(value: {0}, rank: {1}, parent: {2})".format(
+                self.value, self.rank, self.parent)
 
 
 class DSForests:
@@ -67,7 +70,7 @@ class DSForests:
         The idea is that each node visited on the way to a root node
         may as well be attached directly to the root node;
         they all share the same representative.
-        
+
         To effect this, as `self.find` recursively traverses up the tree,
         it changes each node's parent reference
         to point to the root that it found.
@@ -75,7 +78,7 @@ class DSForests:
         The resulting tree is much flatter,
         speeding up future operations not only on these elements
         but on those referencing them, directly or indirectly.
- 
+
         This algorithm does not change any ranks of the `Set` objects.
 
         **Time Complexity:** O*(&alpha; (n)),
@@ -102,7 +105,7 @@ class DSForests:
         the tree with smaller depth gets added
         under the root of the deeper tree,
         which only increases the depth if the depths were equal.
-        
+
         In the context of this algorithm,
         the term _rank_ is used instead of depth,
         since it stops being equal to the depth
@@ -122,7 +125,7 @@ class DSForests:
         Thus, the amortized running time per operation
         is effectively a small constant."""
         assert x in self.sets and y in self.sets
-                
+
         x_root = self.find(self.sets[x])
         y_root = self.find(self.sets[y])
 
@@ -139,6 +142,6 @@ class DSForests:
             if x_root.rank == y_root.rank:
                 x_root.rank += 1
             return x_root
-    
+
     def __str__(self):
         return str(self.sets)

@@ -36,7 +36,7 @@ __all__ = ["Heap", "HeapNode"]
 
 class HeapNode:
     """All elements of Heap objects are represented
-    with objects of the class HeapNode."""    
+    with objects of the class HeapNode."""
 
     def __init__(self, key, value=None):
         """`key` is the priority used to heapify the heap,
@@ -77,7 +77,7 @@ class Heap:
     def __init__(self, ls=[]):
         self.heap = Heap._create_list_of_heap_nodes(ls)
         self.build_heap()
-        
+
     # ABSTRACT NOT-IMPLEMENTED METHODS
 
     def push_down(self, i: int) -> None:
@@ -87,7 +87,7 @@ class Heap:
     def push_up(self, i: int) -> None:
         """Classical reverse-heapify operation for heaps."""
         raise NotImplementedError()
-    
+
     def replace(self, i: int, x) -> HeapNode:
         """Replaces the `HeapNode` object at index `i` with `x`.
 
@@ -97,7 +97,7 @@ class Heap:
         raise NotImplementedError()
 
     # BASE-IMPLEMENTED METHODS
-    
+
     def build_heap(self) -> list:
         """Builds the heap data structure from `self.heap`."""
         if self.heap:
@@ -111,7 +111,7 @@ class Heap:
         In practice, it places `x` at an available leaf,
         then "bubbles up" from there,
         in order to maintain the heap property.
-        
+
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
         whose key and value are equal to `x`.
@@ -120,15 +120,15 @@ class Heap:
         if x is None:
             raise ValueError("x cannot be None.")
         if not isinstance(x, HeapNode):
-            x = HeapNode(x)            
+            x = HeapNode(x)
         self.heap.append(x)
-        if self.size() > 1:        
+        if self.size() > 1:
             self.push_up(self.size() - 1)
 
     def delete(self, i: int) -> HeapNode:
         """Deletes and returns the `HeapNode` object at index `i`.
 
-        `IndexError` is raised if `i` is not a valid index.      
+        `IndexError` is raised if `i` is not a valid index.
 
         Implementation based on:
         [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
@@ -141,8 +141,8 @@ class Heap:
             return self.heap.pop()
         self.swap(i, self.size() - 1)
         d = self.heap.pop()
-        self.push_down(i)        
-        return d             
+        self.push_down(i)
+        return d
 
     def search(self, x) -> int:
         """Searches for `x` in this heap,
@@ -150,8 +150,8 @@ class Heap:
 
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
-        whose key and value are equal to `x`.      
- 
+        whose key and value are equal to `x`.
+
         **Time Complexity:** O(n)."""
         if x is None:
             raise ValueError("x cannot be None.")
@@ -174,22 +174,22 @@ class Heap:
             raise ValueError("val cannot be None.")
         for i, node in enumerate(self.heap):
             if node.value == val:
-                return i            
+                return i
         return -1
-    
+
     def contains(self, x) -> bool:
         """Returns `True`, if `x` is in this heap. `False` otherwise.
 
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
         whose key and value are equal to `x`.
-        
+
         **Time Complexity:** O(n)."""
-        return self.search(x) != -1    
+        return self.search(x) != -1
 
     def merge(self, o) -> list:
         """Merges this heap with the `o` heap.
-        
+
         Returns the `list` object representing internally the new merged heap.
 
         **Time Complexity:** O(n + m).
@@ -229,7 +229,7 @@ class Heap:
         """Swaps elements at indexes `i` and `j`,
         if they are valid indexes,
         otherwise an `IndexError` is raised.
-        
+
         **Time Complexity:** O(1)."""
         if self.is_good_index(i) and self.is_good_index(j):
             self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
@@ -245,12 +245,12 @@ class Heap:
         **Time Complexity:** O(1)."""
         if not isinstance(i, int):
             raise TypeError("indexes can only be int.")
-        return False if (i < 0 or i >= self.size()) else True        
+        return False if (i < 0 or i >= self.size()) else True
 
     def parent_index(self, i: int) -> int:
         """Returns the parent's index of the node at index `i`.
         If `i = 0`, then -1 is returned, because the root has no parent.
-        
+
         If `i` is not a valid index, an `IndexError` is raised.
 
         **Time Complexity:** O(1)."""
@@ -263,7 +263,7 @@ class Heap:
 
         -1 is returned either if `i` has not a parent or
         the parent of `i` does not have a parent.
-    
+
         **Time Complexity:** O(1)."""
         p = self.parent_index(i)
         return -1 if p == -1 else self.parent_index(p)
@@ -271,24 +271,24 @@ class Heap:
     def left_index(self, i: int) -> int:
         """Returns the left child's index of the node at index `i`,
         if it exists, otherwise this function returns -1.
-        
+
         If `i` is not a valid index, an `IndexError` is raised.
 
         **Time Complexity:** O(1)."""
         if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")        
+            raise IndexError("i is not a valid index.")
         left = i * 2 + 1
         return left if self.is_good_index(left) else -1
 
     def right_index(self, i: int) -> int:
         """Returns the right child's index of the node at index `i`,
         if it exists, otherwise this function returns -1.
-        
+
         If `i` is not a valid index, an `IndexError` is raised.
 
         **Time Complexity:** O(1)."""
         if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")        
+            raise IndexError("i is not a valid index.")
         right = i * 2 + 2
         return right if self.is_good_index(right) else -1
 
@@ -298,7 +298,7 @@ class Heap:
 
         **Time Complexity:** O(1)."""
         if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.") 
+            raise IndexError("i is not a valid index.")
         return self.left_index(i) != -1 or self.right_index(i) != -1
 
     def is_child(self, c: int, i: int) -> bool:
@@ -331,7 +331,7 @@ class Heap:
 
         **Time Complexity:** O(1)."""
         if not self.is_good_index(p):
-            raise IndexError("p is not a valid index.")        
+            raise IndexError("p is not a valid index.")
         return self.parent_index(i) == p
 
     def is_grandparent(self, g: int, i: int) -> bool:
@@ -340,10 +340,10 @@ class Heap:
 
         **Time Complexity:** O(1)."""
         if not self.is_good_index(g):
-            raise IndexError("g is not a valid index.")         
+            raise IndexError("g is not a valid index.")
         p = self.parent_index(i)
         return False if p == -1 else self.is_parent(g, p)
-            
+
     def is_on_even_level(self, i: int) -> bool:
         """Returns `True` if node at index `i` is on a even-level,
         i.e., if `i` is on a level multiple of 2 (0, 2, 4, 6,...).
@@ -364,7 +364,7 @@ class Heap:
         return str(self.heap)
 
     def __repr__(self) -> str:
-        return HeapPrinter(self.heap).show()    
+        return HeapPrinter(self.heap).show()
 
     def show(self, total_width=36, fill=" ") -> None:
         """Pretty-prints this heap."""
@@ -385,7 +385,8 @@ class Heap:
                 nodes.append(HeapNode(x))
             else:
                 if len(x) != 2:
-                    raise ValueError("x should be a tuple or list of 2 elements.")
+                    raise ValueError(
+                        "x should be a tuple or list of 2 elements.")
                 # x[0] := priority
                 # x[1] := value associated with x[0]
                 if x[0] is None or x[1] is None:
@@ -414,7 +415,7 @@ class HeapPrinter:
         you can simply change the line_length variable."""
         if not self.heap:
             return "Nothing to print: heap is empty."
-        
+
         output = io.StringIO()
         last_row = -1
 
@@ -427,7 +428,7 @@ class HeapPrinter:
             else:
                 row = 0
             if row != last_row:
-                output.write("\n"*v_space)
+                output.write("\n" * v_space)
 
             columns = 2 ** row
 

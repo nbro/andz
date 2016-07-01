@@ -80,9 +80,9 @@ def bottom_up_max_sum_contiguous_subsequence(s):
 
     :type s : list
     """
-    indices = [0]*len(s)
+    indices = [0] * len(s)
 
-    _sum = [0]*len(s)
+    _sum = [0] * len(s)
     _sum[0] = s[0]
     _max = _sum[0]
 

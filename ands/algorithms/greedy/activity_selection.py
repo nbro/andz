@@ -37,6 +37,7 @@ activities = [["a", 12, 14], ["b", 0, 6], ["c", 2, 13], ["d", 3, 5],
               ["e", 5, 7], ["f", 1, 4], ["g", 5, 9], ["h", 3, 8],
               ["i", 12, 14], ["j", 6, 10], ["k", 8, 11]]
 
+
 def ask_activities():
     print("Welcome to the Activity Selection problem!\n\n" +
           "You tell me your activities and their starting\n" +
@@ -45,7 +46,7 @@ def ask_activities():
 
     print("=" * 48, end="\n\n")
     activities.clear()
-    
+
     while True:
         name = input("Enter name of the activity: ")
         starting_time = int(input("Enter the starting time of " + name + ": "))
@@ -53,11 +54,12 @@ def ask_activities():
         activities.append([name, starting_time, ending_time])
 
         a = input("\nType q if you don't have more activities: ")
-        
+
         if a.lower() == "q":
             break
         else:
             print("-" * 48, end="\n\n")
+
 
 def activity_selector(activities, verbose=True):
     # sorting activities by finish time
@@ -66,7 +68,10 @@ def activity_selector(activities, verbose=True):
     if verbose:
         print("\nAll activities ordered by finish time:")
         print(tabulate(activities,
-                       headers=("Activity's Name", "Starting Time", "Ending Time"),
+                       headers=(
+                           "Activity's Name",
+                           "Starting Time",
+                           "Ending Time"),
                        tablefmt="grid"))
 
     last_selected_activity = activities[0]
@@ -85,13 +90,17 @@ def activity_selector(activities, verbose=True):
     if verbose:
         print("\n\nYou should schedule your activities in the following way:")
         print(tabulate(selected_activities,
-                       headers=("Activity's Name", "Starting Time", "Ending Time"),
+                       headers=(
+                           "Activity's Name",
+                           "Starting Time",
+                           "Ending Time"),
                        tablefmt="grid"))
 
     return selected_activities
 
 
 if __name__ == "__main__":
-    # ask_activities()  # uncomment this line if you want to choose your activities manually
+    # ask_activities()  # uncomment this line if you want to choose your
+    # activities manually
     sa = activity_selector(activities)
     print(sa)

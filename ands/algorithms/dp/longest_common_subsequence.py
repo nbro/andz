@@ -53,7 +53,19 @@ def _recursive_lcs_length_aux(s1, n, s2, m, result):
     elif s1[n - 1] == s2[m - 1]:
         result = 1 + _recursive_lcs_length_aux(s1, n - 1, s2, m - 1, result)
     else:
-        result = max(_recursive_lcs_length_aux(s1, n - 1, s2, m, result), _recursive_lcs_length_aux(s1, n, s2, m - 1, result))
+        result = max(
+            _recursive_lcs_length_aux(
+                s1,
+                n - 1,
+                s2,
+                m,
+                result),
+            _recursive_lcs_length_aux(
+                s1,
+                n,
+                s2,
+                m - 1,
+                result))
     return result
 
 
@@ -87,7 +99,9 @@ def _memoized_recursive_lcs_length_aux(s1, n, s2, m, result, matrix):
     elif matrix[n - 1][m - 1] is not None:
         return matrix[n - 1][m - 1]
     elif s1[n - 1] == s2[m - 1]:
-        result = 1 + _memoized_recursive_lcs_length_aux(s1, n - 1, s2, m - 1, result, matrix)
+        result = 1 + \
+            _memoized_recursive_lcs_length_aux(
+                s1, n - 1, s2, m - 1, result, matrix)
     else:
         result = max(_memoized_recursive_lcs_length_aux(s1, n - 1, s2, m, result, matrix),
                      _memoized_recursive_lcs_length_aux(s1, n, s2, m - 1, result, matrix))

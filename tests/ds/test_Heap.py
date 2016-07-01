@@ -24,12 +24,13 @@ class TestHeap(unittest.TestCase):
         except NotImplementedError:
             pass
 
-        # Unfortunetely the creation of an empty Heap does not throw an exception
+        # Unfortunetely the creation of an empty Heap does not throw an
+        # exception
         assert Heap()
 
 
 class TestHeapNode(unittest.TestCase):
-    
+
     def test_None(self):
         try:
             HeapNode(None)
@@ -37,7 +38,7 @@ class TestHeapNode(unittest.TestCase):
         except ValueError:
             pass
 
-    def test_comparisons(self):        
+    def test_comparisons(self):
         h = HeapNode(12)
         assert h.value is not None
         assert h.key == h.value
@@ -62,18 +63,18 @@ class TestHeapNode(unittest.TestCase):
         assert h == h
         assert h2 == h2
         assert h3 == h3
-        
+
         assert h3 <= h3
         assert h2 <= h2
         assert h <= h
-        
+
         assert not h < h
         assert not h > h
         assert not h2 < h2
         assert not h2 > h2
         assert not h3 < h3
         assert not h3 > h3
-        
+
 
 if __name__ == "__main__":
     unittest.main(verbose=2)

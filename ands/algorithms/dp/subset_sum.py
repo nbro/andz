@@ -56,7 +56,7 @@ def recursive_subset_sum(subset, s):
     # Allows negative numbers too...
     c_sum = 0
     i = 0
-    solution = [0]*len(subset)
+    solution = [0] * len(subset)
 
     return _recursive_subset_sum_aux(subset, c_sum, i, s, solution)
 

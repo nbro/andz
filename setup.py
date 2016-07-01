@@ -23,7 +23,7 @@ setup(
     version = "0.0.4a1",  # alpha release
     author = "Nelson Brochado",
     author_email = "nelson.brochado@outlook.com",
-    packages = find_packages(exclude=["env", "tests", "test*.*"]),
+    packages = find_packages(exclude=["env"]),
     install_requires=["tabulate", "pdoc"],  # package's dependencies
     description = "Algorithms and Data Structures",
     long_description = read("README.md"),

@@ -47,7 +47,7 @@ class TestMinHeap(unittest.TestCase):
         assert h.remove_min() == HeapNode(12)
         assert h.is_empty()
         assert_is_min_heap(h)
-        
+
         h = MinHeap([28, 14, 12, 10, 7, 6, 18])
         assert h.search_by_value(6) == 0
         assert h.contains(28)
@@ -72,7 +72,7 @@ class TestMinHeap(unittest.TestCase):
         h.heap[0] = HeapNode(94)
         h.push_down(0)
         assert_is_min_heap(h)
-        
+
     def test_push_up(self):
         h = MinHeap([28, 14, 12, 10, 7, 6, 18])
         h.heap[h.size() - 1] = HeapNode(3)
@@ -87,7 +87,7 @@ class TestMinHeap(unittest.TestCase):
             assert False
         except ValueError:
             pass
-        
+
         h.add(12)
 
         assert not h.is_empty()
@@ -104,7 +104,7 @@ class TestMinHeap(unittest.TestCase):
             ls.append(randint(-100, 100))
             h.add(ls[-1])
             assert h.size() == (i + 1)
-            assert h.contains(HeapNode(ls[-1]))        
+            assert h.contains(HeapNode(ls[-1]))
             assert_is_min_heap(h)
 
         c = 0
@@ -113,10 +113,9 @@ class TestMinHeap(unittest.TestCase):
             assert n and n.key in ls
             c += 1
             assert_is_min_heap(h)
-            
+
         assert c == t
         assert h.is_empty()
-
 
         s = h.size()
         h.add(HeapNode(1024))
@@ -156,7 +155,7 @@ class TestMinHeap(unittest.TestCase):
             assert_is_min_heap(h)
 
         assert h.is_empty()
-        
+
     def test_find_min(self):
         h = MinHeap([28, 14, 12, 10])
         assert h.size() == 4
@@ -165,7 +164,7 @@ class TestMinHeap(unittest.TestCase):
         assert m == h.remove_min() == HeapNode(10)
         assert h.size() == 3
         assert_is_min_heap(h)
-        
+
         m = h.find_min()
         assert m == h.remove_min() == HeapNode(12)
         assert h.size() == 2
@@ -181,29 +180,29 @@ class TestMinHeap(unittest.TestCase):
         assert h.size() == 0
         assert not h.find_min()
         assert_is_min_heap(h)
-        
+
     def test_remove_min(self):
         ls = [28, 14, 12, 10, 7, 6, 18]
-        
+
         h = MinHeap(ls)
         assert_is_min_heap(h)
         c = len(ls)
-        
+
         while not h.is_empty():
             m = h.remove_min()
-            
+
             for e in h.heap:
-                assert m.key <= e.key            
+                assert m.key <= e.key
             assert m
             assert m.key in ls
             assert h.size() == (c - 1)
             c -= 1
             assert_is_min_heap(h)
-            
+
         assert c == 0
         assert not h.remove_min()
         assert_is_min_heap(h)
-        
+
     def test_search(self):
         ls = [28, 14, 12, 10, 7, 6, 18]
         h = MinHeap(ls)
@@ -212,7 +211,7 @@ class TestMinHeap(unittest.TestCase):
         assert v in range(0, len(ls))
         assert h.size() == len(ls)
         assert_is_min_heap(h)
-        
+
         v = h.search(HeapNode(14))
         assert v in range(0, len(ls))
         assert h.size() == len(ls)
@@ -228,7 +227,7 @@ class TestMinHeap(unittest.TestCase):
             assert False
         except ValueError:
             assert_is_min_heap(h)
-        
+
     def test_search_by_value(self):
         ls = [28, 14, 12]
         h = MinHeap(ls)
@@ -243,7 +242,7 @@ class TestMinHeap(unittest.TestCase):
             v = h.search_by_value(None)
             assert False
         except ValueError:
-            assert_is_min_heap(h)        
+            assert_is_min_heap(h)
 
         v = h.search_by_value(14)
         assert v in range(0, len(ls))
@@ -255,21 +254,21 @@ class TestMinHeap(unittest.TestCase):
         v = h.search_by_value("Tu")
         assert v in range(0, len(ls))
         assert h.size() == len(ls)
-        assert_is_min_heap(h)  
-        
+        assert_is_min_heap(h)
+
     def test_contains(self):
         ls = [28, 14, 12]
         h = MinHeap(ls)
         assert h.contains(28) and h.contains(14) and h.contains(12)
         assert not h.contains(200) and not h.contains(7)
         assert_is_min_heap(h)
-        
+
         try:
             h.contains(None)
             assert False
         except ValueError:
-            assert_is_min_heap(h)  
-        
+            assert_is_min_heap(h)
+
     def test_merge(self):
         h = MinHeap([12, 14, 28])
         assert_is_min_heap(h)
@@ -284,7 +283,7 @@ class TestMinHeap(unittest.TestCase):
         assert h.find_min() == HeapNode(1, "1")
         assert h2.size() == 2
         assert_is_min_heap(h)
-        
+
     def test_replace(self):
         h = MinHeap([28, 12, 14, 7])
 
@@ -344,7 +343,7 @@ class TestMinHeap(unittest.TestCase):
             h.swap(-3, 2)
             assert False
         except IndexError:
-            pass        
+            pass
 
     def test_is_good_index(self):
         h = MinHeap([12, 14, 28])
@@ -355,7 +354,7 @@ class TestMinHeap(unittest.TestCase):
                 assert False
             except TypeError:
                 pass
-            
+
         assert_type(3.14159)
         assert_type("cyka blyat")
         assert_type(None)
@@ -369,7 +368,7 @@ class TestMinHeap(unittest.TestCase):
 
     def test_parent_index(self):
         h = MinHeap([12, 14, 28])
-        
+
         try:
             h.parent_index(-1)
             assert False
@@ -388,7 +387,7 @@ class TestMinHeap(unittest.TestCase):
 
     def test_grandparent_index(self):
         h = MinHeap([12, 14, 28, 6, 7])
-        
+
         try:
             h.parent_index(-1)
             assert False
@@ -409,7 +408,7 @@ class TestMinHeap(unittest.TestCase):
 
     def test_left_index(self):
         h = MinHeap([12, 14, 28])
-        
+
         try:
             h.left_index(-1)
             assert False
@@ -448,13 +447,13 @@ class TestMinHeap(unittest.TestCase):
 
     def test_has_children(self):
         h = MinHeap([12, 14, 28, 6])
-        
+
         try:
             h.has_children(-1)
             assert False
         except IndexError:
             pass
-        
+
         assert h.has_children(0)
         assert h.has_children(1)
         assert not h.has_children(2)
@@ -462,7 +461,7 @@ class TestMinHeap(unittest.TestCase):
 
     def test_is_child(self):
         h = MinHeap([12, 14, 28, 6])
-        
+
         try:
             h.is_child(-1, 3)
             assert False
@@ -488,7 +487,7 @@ class TestMinHeap(unittest.TestCase):
 
     def test_is_grandchild(self):
         h = MinHeap([12, 14, 28, 6, 7])
-      
+
         try:
             h.is_grandchild(-1, 3)
             assert False
@@ -501,7 +500,7 @@ class TestMinHeap(unittest.TestCase):
         except IndexError:
             pass
 
-        assert not h.is_grandchild(0, 0)    
+        assert not h.is_grandchild(0, 0)
         assert not h.is_grandchild(1, 1)
         assert not h.is_grandchild(2, 2)
         assert not h.is_grandchild(3, 3)
@@ -509,19 +508,19 @@ class TestMinHeap(unittest.TestCase):
 
         assert h.is_grandchild(3, 0)
         assert not h.is_grandchild(3, 1)
-        assert not h.is_grandchild(3, 2)    
-        assert not h.is_grandchild(3, 4)    
+        assert not h.is_grandchild(3, 2)
+        assert not h.is_grandchild(3, 4)
 
         assert h.is_grandchild(4, 0)
         assert not h.is_grandchild(4, 1)
         assert not h.is_grandchild(4, 2)
         assert not h.is_grandchild(4, 3)
-        
+
         assert not h.is_grandchild(1, 0)
         assert not h.is_grandchild(1, 2)
         assert not h.is_grandchild(1, 3)
         assert not h.is_grandchild(1, 4)
-        
+
         assert not h.is_grandchild(2, 0)
         assert not h.is_grandchild(2, 1)
         assert not h.is_grandchild(2, 3)
@@ -557,7 +556,7 @@ class TestMinHeap(unittest.TestCase):
         assert h.is_parent(1, 4)
         assert not h.is_parent(1, 2)
         assert not h.is_parent(1, 0)
-        
+
         assert not h.is_parent(2, 0)
         assert not h.is_parent(2, 1)
         assert not h.is_parent(2, 3)
@@ -618,7 +617,7 @@ class TestMinHeap(unittest.TestCase):
         assert not h.is_grandparent(4, 1)
         assert not h.is_grandparent(4, 2)
         assert not h.is_grandparent(4, 3)
-        
+
     def test_is_on_even_level(self):
         h = MinHeap([12, 14, 28, 6, 7, 18, 10, 3, 1])
 
@@ -637,7 +636,7 @@ class TestMinHeap(unittest.TestCase):
         assert h.is_on_even_level(6)
         assert not h.is_on_even_level(7)
         assert not h.is_on_even_level(8)
-        
+
     def test_is_on_odd_level(self):
         h = MinHeap([12, 14, 28, 6, 7, 18, 10, 3, 1])
 
@@ -656,7 +655,7 @@ class TestMinHeap(unittest.TestCase):
         assert not h.is_on_odd_level(6)
         assert h.is_on_odd_level(7)
         assert h.is_on_odd_level(8)
-    
-    
+
+
 if __name__ == "__main__":
     unittest.main(verbose=2)

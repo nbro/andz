@@ -48,16 +48,17 @@ def lis(s):
     # The LIS from s[0] to s[1] is still one.
     # The LIS from s[0] to s[2] is 2,
     # because we can either pick 3 or 2 and 5.
-    a = [1]*len(s)
+    a = [1] * len(s)
 
     # This array is useful to retrieve information
     # about the indexes of the chosen numbers to belong to the LIS.
     # See the function build_longest_increasing_subsequence,
     # if you understand how to retrieve the numbers in the LIS.
-    prev = [-1]*len(s)
+    prev = [-1] * len(s)
 
     # Current maximum size of the increasing subsequence
-    # Note that initially all numbers in s are increasing subsequences of size 1
+    # Note that initially all numbers in s are increasing subsequences of size
+    # 1
     current_max_size = 1
 
     # Index of a, which contains the size of the current L.I.S.

@@ -22,7 +22,7 @@ def partition(ls: list, start: int, end: int):
             ls[p], ls[i] = ls[i], ls[p]
             p += 1
 
-    ls[p], ls[end] = ls[end], ls[p]    
+    ls[p], ls[end] = ls[end], ls[p]
     return p
 
 
@@ -31,7 +31,7 @@ def select(ls: list, k: int):
     such that at most k elements of ls are less than x.
     """
     p = partition(ls, 0, len(ls) - 1)  # p := pivot's index
-    
+
     if p == k:
         return ls[p]
     elif p > k:
@@ -47,4 +47,3 @@ if __name__ == "__main__":
     print("List:", a)
 
     print("Selected:", select(a, 4))
-

@@ -4,7 +4,7 @@
 """
 Author: Nelson Brochado
 
-Modified: 03/02/16
+Modified: 01/07/16
 
 ### Resources
 
@@ -26,8 +26,3 @@ def insertion_sort(ls: list):
             ls[n], ls[n - 1] = ls[n - 1], ls[n]
             n -= 1
     return ls
-
-
-if __name__ == "__main__":
-    from util import run_tests
-    run_tests(insertion_sort)

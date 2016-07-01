@@ -33,35 +33,37 @@ You will also find some algorithms related to some particular _design paradigm_,
 
 ## How to use?
 
-Download this repository. Open a terminal, and enter inside the `ands` folder. For example, if `ands` is in your desktop, type:
+Download this repository. 
+
+Open a terminal, and enter inside the `ands` folder. For example, if `ands` is in your desktop, type:
 
     cd ands
 
-Once inside `ands` type
+Once inside `ands` type, if you want to install this module `ands` globally in your usual Python distribution's `site-packages` folder:
 
     python3.5 setup.py install
     
-You might want to install this package in a virtualenv in order not to pollute your Python's distribution. See for example the following tutorials and posts on how to setup a virtualenv:
+You might want to install `ands` in a **virtual environment** in order not to pollute your Python's distribution.
+
+If you want to install `ands` in _editable_ mode (useful if you want to see your changes in real time) in a **virtualenv**, you need first to have the module `virtualenv`, which you can install as follows with `pip`:
+
+    pip3.5 install virtualenv
+    
+Then, to create a virtual environment named `venv`, type:
+
+    virtualenv venv
+
+
+Finally just type the following command to install `ands` on the virtual environment `venv`:
+
+    pip3.5 install -e .
+    
+    
+For more info on how to setup a virtual environment, see for example the following tutorials and posts:
 
 - [http://docs.python-guide.org/en/latest/dev/virtualenvs/](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
 
 - [http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial](http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial)
-
-If you want to install the module in _editable_ mode in a **virtualenv**, you can do:
-
-    pip3.5 install -e .
-
-## Documentation
-
-You can find the documentation for all data structures and algorithms based on the doc-strings of the classes and functions in HTML format in the folder [`docs`](docs).
-
-### How to produce the documentation?
-
-Install `pdoc`. If you still don't have a opened terminal, open it, and then move inside the `ands` repository, and type the following command:
-
-    pdoc --html --overwrite --html-dir docs ands
-
-which should create a folder called `ands` inside the already existent folder `docs`.
 
 ## Tests
 

@@ -85,7 +85,7 @@ class BSTNode:
         self.left = left
         self.right = right
         # Used for printing purposes.
-        self.label = "[" + str(self.key) + "]" 
+        self.label = "[" + str(self.key) + "]"
 
     @property
     def sibling(self):
@@ -162,19 +162,19 @@ class BSTNode:
         else:
             c = 0
             return _count(self, c)
-        
+
     def __str__(self):
         return "{" + str(self.key) + ": " + str(self.value) + "}"
 
     def __fields(self):
         return[["Node (Key)", self.key],
-              ["Value", self.value],
-              ["Parent", self.parent],
-              ["Left child", self.left],
-              ["Right child", self.right],
-              ["Sibling", self.sibling],
-              ["Grandparent", self.grandparent],
-              ["Uncle", self.uncle]]
+               ["Value", self.value],
+               ["Parent", self.parent],
+               ["Left child", self.left],
+               ["Right child", self.right],
+               ["Sibling", self.sibling],
+               ["Grandparent", self.grandparent],
+               ["Uncle", self.uncle]]
 
     def __repr__(self):
         return tabulate(self.__fields(), tablefmt="fancy_grid")
@@ -219,10 +219,10 @@ class BST:
         """Checks if `u` is the root.
 
         **Time Complexity**: O(1)."""
-        if u == self.root:            
+        if u == self.root:
             assert u.parent is None
         return u == self.root
-    
+
     def clear(self):
         """Removes all nodes from this tree.
 
@@ -241,7 +241,8 @@ class BST:
         if not isinstance(x, BSTNode):
             x = BSTNode(x, value)
         if x.left or x.right or x.parent:
-            raise ValueError("x cannot have left or right children, or parent.")
+            raise ValueError(
+                "x cannot have left or right children, or parent.")
 
         if self.root is None:
             self._initialise(x)
@@ -255,7 +256,7 @@ class BST:
                     c = c.left
                 else:
                     c = c.right
-                    
+
             if x.key < p.key:
                 p.left = x
             else:
@@ -291,7 +292,7 @@ class BST:
 
     def search_r(self, key) -> BSTNode:
         """Searches recursively for `key` starting from `self.root`.
-        
+
         **Time Complexity**: O(h)."""
         return self._search_r(key, self.root)
 
@@ -409,7 +410,7 @@ class BST:
     def post_order_traversal(self):
         """Prints the keys of this tree in post-order.
         It does the opposite of `pre_order_traversal`.
-        
+
         **Time Complexity**: O(h)."""
         self._post_order_traversal(self.root)
         print("\n")
@@ -458,18 +459,18 @@ class BST:
                 raise LookupError("key node was not found in the tree.")
         else:
             c = x
-        
+
         # To left rotate a node, its right child must exist.
         if c.right is None:
             raise ValueError("Left rotation cannot be performed on " + str(c) +
-                            " because it does not have a right child.")
+                             " because it does not have a right child.")
 
         c.right.parent = c.parent
 
         # Only the root has a None parent.
         if c.parent is None:
             self.root = c.right
-            
+
         # Checking if c is a left or a right child,
         # in order to set the new left
         # or right child respectively of its parent.
@@ -509,7 +510,7 @@ class BST:
 
         if c.left is None:
             raise ValueError("Right rotation cannot be performed on " + str(c) +
-                            " because it does not have a left child.")
+                             " because it does not have a left child.")
 
         c.left.parent = c.parent
 
@@ -578,11 +579,11 @@ class BST:
     def successor(self, x):
         """Finds the successor of `x`,
         i.e. the smallest element greater than `x`.
-        
+
         If `x` has a right subtree,
         then the successor of `x` is the minimum of that right subtree.
 
-        Otherwise it is the first ancestor of `x`, lets call it `A`, 
+        Otherwise it is the first ancestor of `x`, lets call it `A`,
         such that `x` falls in the left subtree of `A`.
 
         `x` can either be a reference to an actual `BSTNode` object,
@@ -607,7 +608,7 @@ class BST:
     def predecessor(self, x):
         """Finds the predecessor of the node `x`,
         i.e. the greatest element smaller than `x`.
-        
+
         `x` can either be a reference to an actual `BSTNode` object,
         or it can be a key of a supposed node in self.
 
@@ -641,7 +642,7 @@ class BST:
 
             If `u` is `None`, exceptions will be thrown."""
             m = BST._maximum_r(u)
-            
+
             if m.left:  # m has a left subtree.
                 if self.is_root(m):  # m is the root.
                     self.root = m.left
@@ -654,7 +655,7 @@ class BST:
                     self.root = None
                 else:
                     m.parent.right = None
-                    
+
             m.parent = m.left = None
             self.n -= 1
             return m
@@ -670,7 +671,7 @@ class BST:
             """Removes and returns the minimum element of the subtree rooted at `u`.
             If `u` is `None`, exceptions will be thrown."""
             m = BST._minimum_r(u)
-            
+
             if m.right:
                 if self.is_root(m):
                     self.root = m.right
@@ -700,12 +701,12 @@ class BST:
             1. `x` has no children
             2. `x` has one subtree (or child)
             3. `x` has the left and right subtrees (or children).
-            
+
         `x` can either be a reference to an actual `BSTNode` object,
         or it can be a key of a supposed node in `self`.
 
         **Time Complexity**: O(h)."""
-        
+
         def delete_helper(u: BSTNode):
             """This is a helper method to the delete method,
             thus it should not be called by clients.
@@ -742,11 +743,11 @@ class BST:
             Suppose s is not the right child of u,
             in this case, we replace s by its own right child,
             and then we replace u by s.
-            
+
             Note that "delete_two_children" does NOT exactly do that,
             but instead it simply replaces the positions of u and s,
             as if s was u and u was s.
-            
+
             After that, delete_helper is called again on u,
             but note that u is now in the previous s's position,
             and thus u has now no left subtree, but at most a right subtree."""
@@ -767,14 +768,14 @@ class BST:
                 # child is None iff v.right and v.left are None.
                 if child:
                     child.parent = v.parent
-                    
+
             def delete_two_children(v: BSTNode):
                 """Called by `delete_helper` when a node has two children."""
-                 # Replace v with its successor s.
-                self._switch(v, self.successor(v))                
-                # v has at most a right child now.              
+                # Replace v with its successor s.
+                self._switch(v, self.successor(v))
+                # v has at most a right child now.
                 delete_helper(v)
-            
+
             if u.has_two_children():
                 delete_two_children(u)
             else:  # u has at most one child
@@ -789,12 +790,12 @@ class BST:
             x = self.search_r(x)
             if x is None:
                 raise LookupError("No node was found with key=x.")
-            
+
         if x.parent is None and not self.is_root(x):
             raise ValueError("x is not a valid node.")
 
         self.n -= 1
-        return delete_helper(x)        
+        return delete_helper(x)
 
     def _switch(self, u: BSTNode, v: BSTNode, search_first=False):
         """"Switches the roles of `u` and `v` in the tree by moving references.
@@ -817,14 +818,14 @@ class BST:
             """Switches the roles of p and s,
             where p (parent) is the direct parent of s (son)."""
             assert s.parent == p
-            
+
             if s.is_left_child():
                 p.left = s.left
                 if s.left:
                     s.left.parent = p
-            
+
                 s.left = p
-                
+
                 s.right, p.right = p.right, s.right
                 if s.right:
                     s.right.parent = s
@@ -834,23 +835,23 @@ class BST:
                 p.right = s.right
                 if s.right:
                     s.right.parent = p
-                    
+
                 s.right = p
-                
+
                 s.left, p.left = p.left, s.left
                 if s.left:
                     s.left.parent = s
                 if p.left:
                     p.left.parent = p
-            
+
             if p.parent:
                 if p.is_left_child():
-                    p.parent.left = s 
+                    p.parent.left = s
                 else:
                     p.parent.right = s
             else:  # p is the root
                 self.root = s
-                
+
             s.parent = p.parent
             p.parent = s
 
@@ -860,7 +861,7 @@ class BST:
 
             **Time Complexity**: O(1)."""
             assert z.parent != w and w.parent != z
-            
+
             if not z.parent:
                 self.root = w
                 if w.is_left_child():
@@ -873,18 +874,18 @@ class BST:
                     z.parent.left = w
                 else:
                     z.parent.right = w
-            else:  # neither z nor w is the root                
+            else:  # neither z nor w is the root
                 if z.is_left_child():
-                    if w.is_left_child():                   
+                    if w.is_left_child():
                         w.parent.left, z.parent.left = z, w
                     else:
                         w.parent.right, z.parent.left = z, w
                 else:
-                    if w.is_left_child():                   
+                    if w.is_left_child():
                         w.parent.left, z.parent.right = z, w
                     else:
-                        w.parent.right, z.parent.right = z, w                    
-                    
+                        w.parent.right, z.parent.right = z, w
+
             w.parent, z.parent = z.parent, w.parent
             z.left, w.left = w.left, z.left
             z.right, w.right = w.right, z.right
@@ -896,10 +897,10 @@ class BST:
             if w.left:
                 w.left.parent = w
             if w.right:
-                w.right.parent = w        
-        
+                w.right.parent = w
+
         if u.parent == v:
-            switch_parent_son(v, u)            
+            switch_parent_son(v, u)
         elif v.parent == u:
             switch_parent_son(u, v)
         else:
@@ -971,14 +972,14 @@ def is_bst(bst):
     if `n.left` exists, then `n.left <= n`,
     and if `n.right` exists, then `n.right >= n`."""
     def all_bst_nodes(t):
-        def h(n):            
+        def h(n):
             if n is not None:
                 if not isinstance(n, BSTNode):
                     return False
                 return h(n.left) and h(n.right)
             return True
         return h(t.root)
-    
+
     def h(n):
         if n is not None:
             if n.left and n.key < n.left.key:
@@ -991,7 +992,7 @@ def is_bst(bst):
                 assert n.left.parent == n
             if n.right:
                 assert n.right.parent == n
-                
+
             return h(n.left) and h(n.right)
         return True
 
@@ -1003,7 +1004,7 @@ def is_bst(bst):
 
 class BSTImproved(BST):
     """Binary-search tree that provides somehow randomness at insertion."""
-    
+
     def __init__(self, root=None, name="BSTImproved"):
         BST.__init__(self, root, name)
 
@@ -1032,12 +1033,15 @@ class BSTImproved(BST):
         For a proof, see chapter 12 of Introduction to Algorithms (3rd ed.) by CLRS.
 
         This function does a pseudo-random insertion of keys."""
-        r = randint(0, self.size() * 3 // 8)  # * 3 // 8 is just a random operation...
+        r = randint(
+            0,
+            self.size() *
+            3 //
+            8)  # * 3 // 8 is just a random operation...
         if r == 0:
             self.root_insert(x, value)
         else:
             self.tail_insert(x, value)
-
 
     def tail_insert(self, x, value=None):
         """Inserts (normally) `x` into this BST object.
@@ -1050,7 +1054,8 @@ class BSTImproved(BST):
             x = BSTNode(x, value)
 
         if x.left or x.right or x.parent:
-            raise ValueError("x cannot have left or right children, or parent.")
+            raise ValueError(
+                "x cannot have left or right children, or parent.")
 
         if self.root is None:
             self._initialise(x)
@@ -1093,7 +1098,8 @@ class BSTImproved(BST):
         if not isinstance(x, BSTNode):
             x = BSTNode(x, value)
         if x.left or x.right or x.parent:
-           raise ValueError("x cannot have left or right children, or parent.")
+            raise ValueError(
+                "x cannot have left or right children, or parent.")
         if self.root is None:
             self._initialise(x)
         else:

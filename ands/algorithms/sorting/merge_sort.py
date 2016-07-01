@@ -4,7 +4,7 @@
 """
 Author: Nelson Brochado
 
-Modified: 03/02/16
+Modified: 01/07/16
 
 ### Resources
 - [Merge Sort](http://en.wikipedia.org/wiki/Merge_sort), Wiki's article
@@ -31,15 +31,15 @@ def merge(left: list, right: list):
         else:
             mid.append(right[j])
             j += 1
-            
+
     while i < len(left):
         mid.append(left[i])
         i += 1
-        
+
     while j < len(right):
         mid.append(right[j])
         j += 1
-        
+
     return mid
 
 
@@ -64,9 +64,9 @@ def _merge_sort_aux(ls: list):
 
     Splits the original list `ls` until we have many sub-lists
     of one element (which is by the way the base case).
-    
+
     Note that a list of 1 element is sorted by definition.
-    
+
     Using the merge algorithm,
     we can easily merge two sorted lists of size 1,
     to obtain a merged sorted list of size 2.
@@ -101,8 +101,3 @@ def merge_sort(ls: list):
     **Time Complexity**: O(n*log<sub>2</sub>(n))."""
     ls = _merge_sort_aux(ls)
     return ls
-
-
-if __name__ == "__main__":
-    from util import run_tests
-    run_tests(merge_sort, in_place=False)

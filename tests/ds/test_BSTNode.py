@@ -16,7 +16,7 @@ from ands.ds.BST import BSTNode
 
 
 class TestBSTNode(unittest.TestCase):
-    
+
     def test_None(self):
         try:
             BSTNode(None)
@@ -114,7 +114,7 @@ class TestBSTNode(unittest.TestCase):
         p.right = r
         l.parent = p
         r.parent = p
-        
+
         assert l.sibling and r.sibling
         assert l.sibling == r and r.sibling == l
         p.left = None
@@ -129,7 +129,7 @@ class TestBSTNode(unittest.TestCase):
         n2.left = n
         n.parent = n2
         assert not n.grandparent
-        
+
         n3 = BSTNode(28)
         n3.right = n2
         n2.parent = n3

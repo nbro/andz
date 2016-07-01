@@ -7,6 +7,7 @@ Author: Nelson Brochado
 Primality Tests.
 """
 
+
 def is_prime(n):
     """Return `True` if `n` is prime, `False` otherwise."""
     if n < 2:  # primes are greater than 1
@@ -20,6 +21,7 @@ def is_prime(n):
         i += 2
     return True
 
+
 def _is_prime_r(n, i):
     if i * i <= n:
         if n % i == 0:
@@ -28,9 +30,10 @@ def _is_prime_r(n, i):
             return _is_prime_r(n, i + 2)
     return True
 
+
 def is_prime_r(n):
     """Return `True` if `n` is prime, `False` otherwise.
-    
+
     This function uses recursion.
     In general, you should prefer an iterative approach,
     because the stack has a limit,
@@ -40,6 +43,7 @@ def is_prime_r(n):
     if n % 2 == 0:
         return n == 2
     return _is_prime_r(n, 3)
+
 
 def is_prime_2(n):
     """Return `True` if `n` is prime, `False` otherwise.
@@ -54,23 +58,24 @@ def is_prime_2(n):
     for i in range(3, int(n**0.5) + 1, 2):
         if n % i == 0:
             return False
-    return True    
+    return True
 
 
 # TESTS
 
 def test1():
     from time import time
-    a = time()   
+    a = time()
     for i in range(10000000):
         is_prime_2(i)
 #        assert is_prime(i) == is_prime_2(i)
     b = time()
     print(b - a)
-    
+
+
 def test2():
     from time import time
-    a = time()    
+    a = time()
     is_prime_2(10093100991010310111)
     b = time()
     print(b - a)
@@ -78,4 +83,4 @@ def test2():
 
 if __name__ == "__main__":
     test2()
-    #test1()
+    # test1()

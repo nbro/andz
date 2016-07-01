@@ -51,8 +51,8 @@ def hanoi_r(n, src='A', aux='B', dst='C'):
     if n > 0:
         hanoi_r(n - 1, src, dst, aux)
         print("Move disk", n, "from", src, "to", dst)
-        hanoi_r(n - 1, aux, src, dst)    
-        
+        hanoi_r(n - 1, aux, src, dst)
+
 
 if __name__ == "__main__":
     hanoi_r(3)

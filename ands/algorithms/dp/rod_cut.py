@@ -50,7 +50,13 @@ def recursive_rod_cut(prices, n):
     max_revenue = -sys.maxsize
 
     for i in range(1, n + 1):  # Last i is n.
-        max_revenue = max(max_revenue, prices[i] + recursive_rod_cut(prices, n - i))
+        max_revenue = max(
+            max_revenue,
+            prices[i] +
+            recursive_rod_cut(
+                prices,
+                n -
+                i))
 
     return max_revenue
 
@@ -76,9 +82,17 @@ def _memoized_rod_cut_aux(prices, n, revenues):
         max_revenue = 0
     else:
         for i in range(1, n + 1):
-            max_revenue = max(max_revenue, prices[i] + _memoized_rod_cut_aux(prices, n - i, revenues))
+            max_revenue = max(
+                max_revenue,
+                prices[i] +
+                _memoized_rod_cut_aux(
+                    prices,
+                    n -
+                    i,
+                    revenues))
 
-    revenues[n] = max_revenue  # Memoising the maximum revenue for sub-problem with a rod of length n.
+    # Memoising the maximum revenue for sub-problem with a rod of length n.
+    revenues[n] = max_revenue
 
     return max_revenue
 

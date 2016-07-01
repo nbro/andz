@@ -57,10 +57,10 @@ class MaxHeap(Heap):
         **Time Complexity:** O(log<sub>2</sub> n)."""
         c = i  # current index
         p = self.parent_index(i)
-        
+
         if p != -1 and self.heap[c] > self.heap[p]:
             c = p
-            
+
         if c != i:
             self.swap(c, i)
             self.push_up(c)
@@ -106,7 +106,7 @@ class MaxHeap(Heap):
             raise ValueError("x cannot be None.")
         if not isinstance(x, HeapNode):
             x = HeapNode(x)
-            
+
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")
 
@@ -117,7 +117,7 @@ class MaxHeap(Heap):
             self.push_down(i)
         elif x > c:
             self.push_up(i)
-            
+
         return c
 
 
@@ -138,4 +138,4 @@ def is_max_heap(h) -> bool:
                 return False
             if r != -1 and item < h.heap[r]:
                 return False
-    return True 
+    return True

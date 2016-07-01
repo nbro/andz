@@ -116,7 +116,8 @@ def extended_change_making(coins, rest):
             # We can use coins[c - 1].
             # We need to decide which one of the following solutions is the best:
             # 1. Using the previous solution for making r (without using coins[c - 1]).
-            # 2. Using coins[c - 1] + the optimal solution for making r - coins[c - 1].
+            # 2. Using coins[c - 1] + the optimal solution for making r -
+            # coins[c - 1].
             else:
                 if m[c - 1][r] < 1 + m[c][r - coins[c - 1]]:
                     p[c][r] = p[c - 1][r]
@@ -139,7 +140,8 @@ def recursive_change_making(coins, n, index):
     if index == len(coins) and n > 0:
         return 0
 
-    return recursive_change_making(coins, n - coins[index], index) + recursive_change_making(coins, n, index + 1)
+    return recursive_change_making(
+        coins, n - coins[index], index) + recursive_change_making(coins, n, index + 1)
 
 
 if __name__ == "__main__":

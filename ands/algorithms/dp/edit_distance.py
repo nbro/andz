@@ -82,7 +82,8 @@ def min_edit_distance(s1, s2, return_matrix=False):
             if s1[i - 1] == s2[j - 1]:
                 m[i][j] = m[i - 1][j - 1]
             else:
-                m[i][j] = min(m[i - 1][j - 1] + 1, m[i - 1][j] + 1, m[i][j - 1] + 1)
+                m[i][j] = min(m[i - 1][j - 1] + 1, m[i - 1]
+                              [j] + 1, m[i][j - 1] + 1)
 
         # pprint(m)
         # input()
@@ -167,7 +168,8 @@ def build_min_edit_instructions(s1, s2, o):
 
         # Case 2
         else:  # next_c[0] < c[0] and next_c[1] == c[1]
-            i.append("Delete from '" + s1 + "' char at index " + str(c[0] - 1) + " (" + s1[c[0] - 1] + ").")
+            i.append("Delete from '" + s1 + "' char at index " +
+                     str(c[0] - 1) + " (" + s1[c[0] - 1] + ").")
 
         c = next_c
 
@@ -183,7 +185,8 @@ def convert(str1, str2):
     pprint(min_edit_distance(str1, str2, return_matrix=True))
     print()
 
-    instructions = build_min_edit_instructions(str1, str2, extended_min_edit_distance(str1, str2)[1])
+    instructions = build_min_edit_instructions(
+        str1, str2, extended_min_edit_distance(str1, str2)[1])
 
     for i in instructions:
         print(i)
@@ -200,6 +203,3 @@ if __name__ == "__main__":
     convert("kitten", "sitting")
     convert(str3, str3)  # nothing will be indicated to do!
     convert(str3, str4)
-    
-    
-

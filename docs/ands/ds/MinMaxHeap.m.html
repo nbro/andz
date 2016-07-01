@@ -560,7 +560,7 @@ table {
   html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100%;
   }
   body {
     background: #fff;
@@ -1116,31 +1116,31 @@ class MinMaxHeap(Heap):
             self.push_down_min(i)
         else:
             self.push_down_max(i)
-            
+
     def push_down_min(self, i: int) -> None:
         """Helper method for `push_down`."""
-        if self.has_children(i):            
+        if self.has_children(i):
             m = self.index_of_min(i)
-            
+
             if self.is_grandchild(m, i):
                 if self.heap[m] < self.heap[i]:
                     self.swap(i, m)
-                    
+
                     mp = self.parent_index(m)
                     if mp != -1 and self.heap[m] > self.heap[mp]:
                         self.swap(m, mp)
                     self.push_down_min(m)
-                    
+
             else:  # self.heap[m] is a child of self.heap[i]
                 if self.heap[m] < self.heap[i]:
                     self.swap(i, m)
 
     def push_down_max(self, i: int) -> None:
-        """Helper method for `push_down`."""        
+        """Helper method for `push_down`."""
         if self.has_children(i):
             m = self.index_of_max(i)
 
-            if self.is_grandchild(m, i):        
+            if self.is_grandchild(m, i):
                 if self.heap[m] > self.heap[i]:
                     self.swap(i, m)
 
@@ -1148,7 +1148,7 @@ class MinMaxHeap(Heap):
                     if mp != -1 and self.heap[m] < self.heap[mp]:
                         self.swap(m, mp)
                     self.push_down_max(m)
-                    
+
             else:  # self.heap[m] is a child of self.heap[i]
                 if self.heap[m] > self.heap[i]:
                     self.swap(i, m)
@@ -1162,7 +1162,7 @@ class MinMaxHeap(Heap):
             else:
                 self.push_up_min(i)
         else:
-            p = self.parent_index(i)            
+            p = self.parent_index(i)
             if p != -1 and self.heap[i] < self.heap[p]:
                 self.swap(i, p)
                 self.push_up_min(p)
@@ -1170,7 +1170,7 @@ class MinMaxHeap(Heap):
                 self.push_up_max(i)
 
     def push_up_min(self, i: int) -> None:
-        """Helper method for `push_up`."""        
+        """Helper method for `push_up`."""
         g = self.grandparent_index(i)
         if g != -1:
             if self.heap[i] < self.heap[g]:
@@ -1178,13 +1178,13 @@ class MinMaxHeap(Heap):
                 self.push_up_min(g)
 
     def push_up_max(self, i: int) -> None:
-        """Helper method for `push_up`."""        
+        """Helper method for `push_up`."""
         g = self.grandparent_index(i)
         if g != -1:
             if self.heap[i] > self.heap[g]:
                 self.swap(i, g)
                 self.push_up_max(g)
-                
+
     def find_max(self) -> HeapNode:
         """Returns the `HeapNode` object representing the maximum element.
 
@@ -1198,18 +1198,18 @@ class MinMaxHeap(Heap):
         **Time Complexity:** O(1)."""
         if not self.is_empty():
             return self.heap[0]
-        
+
     def remove_max(self) -> HeapNode:
         """Deletes and returns the `HeapNode` object representing the maximum element.
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""        
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         if not self.is_empty():
             return self.delete(self.find_max_index())
 
     def remove_min(self) -> HeapNode:
         """Deletes and returns the `HeapNode` object representing the minimum element.
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""        
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         if not self.is_empty():
             return self.delete(0)
 
@@ -1225,12 +1225,12 @@ class MinMaxHeap(Heap):
             return 1
         else:
             return 1 if self.heap[1] > self.heap[2] else 2
-            
+
     def index_of_min(self, i: int) -> int:
         """Returns the index of the smallest element
         among the children and grandchildren of the node at index `i`.
 
-        **Time Complexity:** O(1)."""        
+        **Time Complexity:** O(1)."""
         m = l = self.left_index(i)
         r = self.right_index(i)
 
@@ -1244,7 +1244,7 @@ class MinMaxHeap(Heap):
             glr = self.right_index(l)
             if glr != -1 and self.heap[glr] < self.heap[m]:
                 m = glr
-            
+
         if r != -1:
             grl = self.left_index(r)
             if grl != -1 and self.heap[grl] < self.heap[m]:
@@ -1273,7 +1273,7 @@ class MinMaxHeap(Heap):
             glr = self.right_index(l)
             if glr != -1 and self.heap[glr] > self.heap[m]:
                 m = glr
-            
+
         if r != -1:
             grl = self.left_index(r)
             if grl != -1 and self.heap[grl] > self.heap[m]:
@@ -1289,18 +1289,18 @@ def is_min_max_heap(h) -> bool:
     """Returns `True` if `h` is a valid `MinMaxHeap` object. `False` otherwise."""
     if not isinstance(h, MinMaxHeap):
         return False
-    
+
     if h.heap:
         for item in h.heap:
             if not isinstance(item, HeapNode):
                 return False
-            
+
         if h.size() == 1:
             return True
-        
+
         if h.size() == 2:
             return max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0]
-        
+
         if h.size() >= 3:
             if (h.heap[0] != min(h.heap) or
                 (h.heap[1] != max(h.heap) and
@@ -1309,7 +1309,7 @@ def is_min_max_heap(h) -> bool:
 
         for i, item in reversed(list(enumerate(h.heap))):
             p = h.parent_index(i)
-            
+
             if p != -1:
                 if h.is_on_even_level(i):
                     if h.heap[p] < item:
@@ -1317,7 +1317,7 @@ def is_min_max_heap(h) -> bool:
                 else:
                     if h.heap[p] > item:
                         return False
-                
+
             g = h.grandparent_index(i)
             if g != -1:
                 if h.is_on_even_level(i):
@@ -1326,7 +1326,7 @@ def is_min_max_heap(h) -> bool:
                 else:
                     if h.heap[g] < item:
                         return False
-    return True        
+    return True
 </code></pre>
   </div>
 
@@ -1352,18 +1352,18 @@ def is_min_max_heap(h) -> bool:
     """Returns `True` if `h` is a valid `MinMaxHeap` object. `False` otherwise."""
     if not isinstance(h, MinMaxHeap):
         return False
-    
+
     if h.heap:
         for item in h.heap:
             if not isinstance(item, HeapNode):
                 return False
-            
+
         if h.size() == 1:
             return True
-        
+
         if h.size() == 2:
             return max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0]
-        
+
         if h.size() >= 3:
             if (h.heap[0] != min(h.heap) or
                 (h.heap[1] != max(h.heap) and
@@ -1372,7 +1372,7 @@ def is_min_max_heap(h) -> bool:
 
         for i, item in reversed(list(enumerate(h.heap))):
             p = h.parent_index(i)
-            
+
             if p != -1:
                 if h.is_on_even_level(i):
                     if h.heap[p] < item:
@@ -1380,7 +1380,7 @@ def is_min_max_heap(h) -> bool:
                 else:
                     if h.heap[p] > item:
                         return False
-                
+
             g = h.grandparent_index(i)
             if g != -1:
                 if h.is_on_even_level(i):
@@ -1389,7 +1389,7 @@ def is_min_max_heap(h) -> bool:
                 else:
                     if h.heap[g] < item:
                         return False
-    return True        
+    return True
 </code></pre>
   </div>
 </div>
@@ -1416,31 +1416,31 @@ def is_min_max_heap(h) -> bool:
             self.push_down_min(i)
         else:
             self.push_down_max(i)
-            
+
     def push_down_min(self, i: int) -> None:
         """Helper method for `push_down`."""
-        if self.has_children(i):            
+        if self.has_children(i):
             m = self.index_of_min(i)
-            
+
             if self.is_grandchild(m, i):
                 if self.heap[m] < self.heap[i]:
                     self.swap(i, m)
-                    
+
                     mp = self.parent_index(m)
                     if mp != -1 and self.heap[m] > self.heap[mp]:
                         self.swap(m, mp)
                     self.push_down_min(m)
-                    
+
             else:  # self.heap[m] is a child of self.heap[i]
                 if self.heap[m] < self.heap[i]:
                     self.swap(i, m)
 
     def push_down_max(self, i: int) -> None:
-        """Helper method for `push_down`."""        
+        """Helper method for `push_down`."""
         if self.has_children(i):
             m = self.index_of_max(i)
 
-            if self.is_grandchild(m, i):        
+            if self.is_grandchild(m, i):
                 if self.heap[m] > self.heap[i]:
                     self.swap(i, m)
 
@@ -1448,7 +1448,7 @@ def is_min_max_heap(h) -> bool:
                     if mp != -1 and self.heap[m] < self.heap[mp]:
                         self.swap(m, mp)
                     self.push_down_max(m)
-                    
+
             else:  # self.heap[m] is a child of self.heap[i]
                 if self.heap[m] > self.heap[i]:
                     self.swap(i, m)
@@ -1462,7 +1462,7 @@ def is_min_max_heap(h) -> bool:
             else:
                 self.push_up_min(i)
         else:
-            p = self.parent_index(i)            
+            p = self.parent_index(i)
             if p != -1 and self.heap[i] < self.heap[p]:
                 self.swap(i, p)
                 self.push_up_min(p)
@@ -1470,7 +1470,7 @@ def is_min_max_heap(h) -> bool:
                 self.push_up_max(i)
 
     def push_up_min(self, i: int) -> None:
-        """Helper method for `push_up`."""        
+        """Helper method for `push_up`."""
         g = self.grandparent_index(i)
         if g != -1:
             if self.heap[i] < self.heap[g]:
@@ -1478,13 +1478,13 @@ def is_min_max_heap(h) -> bool:
                 self.push_up_min(g)
 
     def push_up_max(self, i: int) -> None:
-        """Helper method for `push_up`."""        
+        """Helper method for `push_up`."""
         g = self.grandparent_index(i)
         if g != -1:
             if self.heap[i] > self.heap[g]:
                 self.swap(i, g)
                 self.push_up_max(g)
-                
+
     def find_max(self) -> HeapNode:
         """Returns the `HeapNode` object representing the maximum element.
 
@@ -1498,18 +1498,18 @@ def is_min_max_heap(h) -> bool:
         **Time Complexity:** O(1)."""
         if not self.is_empty():
             return self.heap[0]
-        
+
     def remove_max(self) -> HeapNode:
         """Deletes and returns the `HeapNode` object representing the maximum element.
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""        
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         if not self.is_empty():
             return self.delete(self.find_max_index())
 
     def remove_min(self) -> HeapNode:
         """Deletes and returns the `HeapNode` object representing the minimum element.
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""        
+        **Time Complexity:** O(log<sub>2</sub> n)."""
         if not self.is_empty():
             return self.delete(0)
 
@@ -1525,12 +1525,12 @@ def is_min_max_heap(h) -> bool:
             return 1
         else:
             return 1 if self.heap[1] > self.heap[2] else 2
-            
+
     def index_of_min(self, i: int) -> int:
         """Returns the index of the smallest element
         among the children and grandchildren of the node at index `i`.
 
-        **Time Complexity:** O(1)."""        
+        **Time Complexity:** O(1)."""
         m = l = self.left_index(i)
         r = self.right_index(i)
 
@@ -1544,7 +1544,7 @@ def is_min_max_heap(h) -> bool:
             glr = self.right_index(l)
             if glr != -1 and self.heap[glr] < self.heap[m]:
                 m = glr
-            
+
         if r != -1:
             grl = self.left_index(r)
             if grl != -1 and self.heap[grl] < self.heap[m]:
@@ -1573,7 +1573,7 @@ def is_min_max_heap(h) -> bool:
             glr = self.right_index(l)
             if glr != -1 and self.heap[glr] > self.heap[m]:
                 m = glr
-            
+
         if r != -1:
             grl = self.left_index(r)
             if grl != -1 and self.heap[grl] > self.heap[m]:
@@ -1642,7 +1642,6 @@ whose key and value are equal to <code>x</code>.</p>
     In practice, it places `x` at an available leaf,
     then "bubbles up" from there,
     in order to maintain the heap property.
-    
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
     whose key and value are equal to `x`.
@@ -1650,9 +1649,9 @@ whose key and value are equal to <code>x</code>.</p>
     if x is None:
         raise ValueError("x cannot be None.")
     if not isinstance(x, HeapNode):
-        x = HeapNode(x)            
+        x = HeapNode(x)
     self.heap.append(x)
-    if self.size() > 1:        
+    if self.size() > 1:
         self.push_up(self.size() - 1)
 </code></pre>
   </div>
@@ -1735,9 +1734,8 @@ whose key and value are equal to <code>x</code>.</p>
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
     whose key and value are equal to `x`.
-    
     **Time Complexity:** O(n)."""
-    return self.search(x) != -1    
+    return self.search(x) != -1
 </code></pre>
   </div>
 </div>
@@ -1754,7 +1752,7 @@ whose key and value are equal to <code>x</code>.</p>
     
   
     <div class="desc"><p>Deletes and returns the <code>HeapNode</code> object at index <code>i</code>.</p>
-<p><code>IndexError</code> is raised if <code>i</code> is not a valid index.      </p>
+<p><code>IndexError</code> is raised if <code>i</code> is not a valid index.</p>
 <p>Implementation based on:
 <a href="http://www.math.clemson.edu/~warner/M865/HeapDelete.html">http://www.math.clemson.edu/~warner/M865/HeapDelete.html</a></p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> h),
@@ -1764,7 +1762,7 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.delete" class="source">
     <pre><code>def delete(self, i: int) -> HeapNode:
     """Deletes and returns the `HeapNode` object at index `i`.
-    `IndexError` is raised if `i` is not a valid index.      
+    `IndexError` is raised if `i` is not a valid index.
     Implementation based on:
     [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
     **Time Complexity:** O(log<sub>2</sub> h),
@@ -1775,8 +1773,8 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
         return self.heap.pop()
     self.swap(i, self.size() - 1)
     d = self.heap.pop()
-    self.push_down(i)        
-    return d             
+    self.push_down(i)
+    return d
 </code></pre>
   </div>
 </div>
@@ -1908,7 +1906,6 @@ the parent of <code>i</code> does not have a parent.</p>
     """Returns the grandparent's index of the node at index `i`.
     -1 is returned either if `i` has not a parent or
     the parent of `i` does not have a parent.
-
     **Time Complexity:** O(1)."""
     p = self.parent_index(i)
     return -1 if p == -1 else self.parent_index(p)
@@ -1938,7 +1935,7 @@ has at least one child, <code>False</code> otherwise.</p>
     has at least one child, `False` otherwise.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(i):
-        raise IndexError("i is not a valid index.") 
+        raise IndexError("i is not a valid index.")
     return self.left_index(i) != -1 or self.right_index(i) != -1
 </code></pre>
   </div>
@@ -1976,7 +1973,6 @@ among the children and grandchildren of the node at index <code>i</code>.</p>
         glr = self.right_index(l)
         if glr != -1 and self.heap[glr] > self.heap[m]:
             m = glr
-        
     if r != -1:
         grl = self.left_index(r)
         if grl != -1 and self.heap[grl] > self.heap[m]:
@@ -2009,7 +2005,7 @@ among the children and grandchildren of the node at index <code>i</code>.</p>
     <pre><code>def index_of_min(self, i: int) -> int:
     """Returns the index of the smallest element
     among the children and grandchildren of the node at index `i`.
-    **Time Complexity:** O(1)."""        
+    **Time Complexity:** O(1)."""
     m = l = self.left_index(i)
     r = self.right_index(i)
     if r != -1 and self.heap[r] < self.heap[m]:
@@ -2021,7 +2017,6 @@ among the children and grandchildren of the node at index <code>i</code>.</p>
         glr = self.right_index(l)
         if glr != -1 and self.heap[glr] < self.heap[m]:
             m = glr
-        
     if r != -1:
         grl = self.left_index(r)
         if grl != -1 and self.heap[grl] < self.heap[m]:
@@ -2107,7 +2102,7 @@ among the children and grandchildren of the node at index <code>i</code>.</p>
     **Time Complexity:** O(1)."""
     if not isinstance(i, int):
         raise TypeError("indexes can only be int.")
-    return False if (i < 0 or i >= self.size()) else True        
+    return False if (i < 0 or i >= self.size()) else True
 </code></pre>
   </div>
 </div>
@@ -2168,7 +2163,7 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
     of the node at `i`, `False` otherwise.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(g):
-        raise IndexError("g is not a valid index.")         
+        raise IndexError("g is not a valid index.")
     p = self.parent_index(i)
     return False if p == -1 else self.is_parent(g, p)
 </code></pre>
@@ -2249,7 +2244,7 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
     of the node at `i`, `False` otherwise.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(p):
-        raise IndexError("p is not a valid index.")        
+        raise IndexError("p is not a valid index.")
     return self.parent_index(i) == p
 </code></pre>
   </div>
@@ -2276,11 +2271,10 @@ if it exists, otherwise this function returns -1.</p>
     <pre><code>def left_index(self, i: int) -> int:
     """Returns the left child's index of the node at index `i`,
     if it exists, otherwise this function returns -1.
-    
     If `i` is not a valid index, an `IndexError` is raised.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(i):
-        raise IndexError("i is not a valid index.")        
+        raise IndexError("i is not a valid index.")
     left = i * 2 + 1
     return left if self.is_good_index(left) else -1
 </code></pre>
@@ -2308,7 +2302,6 @@ if it exists, otherwise this function returns -1.</p>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.merge" class="source">
     <pre><code>def merge(self, o) -> list:
     """Merges this heap with the `o` heap.
-    
     Returns the `list` object representing internally the new merged heap.
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
@@ -2340,7 +2333,6 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
     <pre><code>def parent_index(self, i: int) -> int:
     """Returns the parent's index of the node at index `i`.
     If `i = 0`, then -1 is returned, because the root has no parent.
-    
     If `i` is not a valid index, an `IndexError` is raised.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(i):
@@ -2390,17 +2382,16 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.push_down_max', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_down_max" class="source">
     <pre><code>def push_down_max(self, i: int) -> None:
-    """Helper method for `push_down`."""        
+    """Helper method for `push_down`."""
     if self.has_children(i):
         m = self.index_of_max(i)
-        if self.is_grandchild(m, i):        
+        if self.is_grandchild(m, i):
             if self.heap[m] > self.heap[i]:
                 self.swap(i, m)
                 mp = self.parent_index(m)
                 if mp != -1 and self.heap[m] < self.heap[mp]:
                     self.swap(m, mp)
                 self.push_down_max(m)
-                
         else:  # self.heap[m] is a child of self.heap[i]
             if self.heap[m] > self.heap[i]:
                 self.swap(i, m)
@@ -2425,18 +2416,15 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_down_min" class="source">
     <pre><code>def push_down_min(self, i: int) -> None:
     """Helper method for `push_down`."""
-    if self.has_children(i):            
+    if self.has_children(i):
         m = self.index_of_min(i)
-        
         if self.is_grandchild(m, i):
             if self.heap[m] < self.heap[i]:
                 self.swap(i, m)
-                
                 mp = self.parent_index(m)
                 if mp != -1 and self.heap[m] > self.heap[mp]:
                     self.swap(m, mp)
                 self.push_down_min(m)
-                
         else:  # self.heap[m] is a child of self.heap[i]
             if self.heap[m] < self.heap[i]:
                 self.swap(i, m)
@@ -2468,7 +2456,7 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
         else:
             self.push_up_min(i)
     else:
-        p = self.parent_index(i)            
+        p = self.parent_index(i)
         if p != -1 and self.heap[i] < self.heap[p]:
             self.swap(i, p)
             self.push_up_min(p)
@@ -2494,7 +2482,7 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.push_up_max', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_up_max" class="source">
     <pre><code>def push_up_max(self, i: int) -> None:
-    """Helper method for `push_up`."""        
+    """Helper method for `push_up`."""
     g = self.grandparent_index(i)
     if g != -1:
         if self.heap[i] > self.heap[g]:
@@ -2520,7 +2508,7 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.push_up_min', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.push_up_min" class="source">
     <pre><code>def push_up_min(self, i: int) -> None:
-    """Helper method for `push_up`."""        
+    """Helper method for `push_up`."""
     g = self.grandparent_index(i)
     if g != -1:
         if self.heap[i] < self.heap[g]:
@@ -2548,7 +2536,7 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.remove_max" class="source">
     <pre><code>def remove_max(self) -> HeapNode:
     """Deletes and returns the `HeapNode` object representing the maximum element.
-    **Time Complexity:** O(log<sub>2</sub> n)."""        
+    **Time Complexity:** O(log<sub>2</sub> n)."""
     if not self.is_empty():
         return self.delete(self.find_max_index())
 </code></pre>
@@ -2573,7 +2561,7 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.remove_min" class="source">
     <pre><code>def remove_min(self) -> HeapNode:
     """Deletes and returns the `HeapNode` object representing the minimum element.
-    **Time Complexity:** O(log<sub>2</sub> n)."""        
+    **Time Complexity:** O(log<sub>2</sub> n)."""
     if not self.is_empty():
         return self.delete(0)
 </code></pre>
@@ -2629,11 +2617,10 @@ if it exists, otherwise this function returns -1.</p>
     <pre><code>def right_index(self, i: int) -> int:
     """Returns the right child's index of the node at index `i`,
     if it exists, otherwise this function returns -1.
-    
     If `i` is not a valid index, an `IndexError` is raised.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(i):
-        raise IndexError("i is not a valid index.")        
+        raise IndexError("i is not a valid index.")
     right = i * 2 + 2
     return right if self.is_good_index(right) else -1
 </code></pre>
@@ -2655,7 +2642,7 @@ if it exists, otherwise this function returns -1.</p>
 and, if present, returns its index, otherwise returns -1.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
-whose key and value are equal to <code>x</code>.      </p>
+whose key and value are equal to <code>x</code>.</p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.search', this);">Show source &equiv;</a></p>
@@ -2665,7 +2652,7 @@ whose key and value are equal to <code>x</code>.      </p>
     and, if present, returns its index, otherwise returns -1.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
-    whose key and value are equal to `x`.      
+    whose key and value are equal to `x`.
     **Time Complexity:** O(n)."""
     if x is None:
         raise ValueError("x cannot be None.")
@@ -2708,7 +2695,7 @@ the behaviour of this method is undefined.</p>
         raise ValueError("val cannot be None.")
     for i, node in enumerate(self.heap):
         if node.value == val:
-            return i            
+            return i
     return -1
 </code></pre>
   </div>
@@ -2782,7 +2769,6 @@ otherwise an <code>IndexError</code> is raised.</p>
     """Swaps elements at indexes `i` and `j`,
     if they are valid indexes,
     otherwise an `IndexError` is raised.
-    
     **Time Complexity:** O(1)."""
     if self.is_good_index(i) and self.is_good_index(j):
         self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
@@ -2804,7 +2790,7 @@ otherwise an <code>IndexError</code> is raised.</p>
   <footer id="footer">
     <p>
       Documentation generated by
-      <a href="https://github.com/BurntSushi/pdoc">pdoc 0.3.1</a>
+      <a href="https://github.com/BurntSushi/pdoc">pdoc 0.3.2</a>
     </p>
 
     <p>pdoc is in the public domain with the

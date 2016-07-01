@@ -61,7 +61,7 @@ class MinHeap(Heap):
             m = l
         if r != -1 and self.heap[r] < self.heap[m]:
             m = r
-            
+
         if m != i:
             self.swap(m, i)
             self.push_down(m)
@@ -79,7 +79,7 @@ class MinHeap(Heap):
         **Time Complexity:** O(log<sub>2</sub> n)."""
         c = i  # current index
         p = self.parent_index(i)
-        
+
         if p != -1 and self.heap[c] < self.heap[p]:
             c = p
 
@@ -100,7 +100,7 @@ class MinHeap(Heap):
         if removing the last element of a list is a constant-time operation."""
         if not self.is_empty():
             self.swap(0, self.size() - 1)
-            m = self.heap.pop()            
+            m = self.heap.pop()
             if not self.is_empty():
                 self.push_down(0)
             return m
@@ -121,7 +121,7 @@ class MinHeap(Heap):
         3. Else `x > self.heap[i]`,
         then call `self.push_down(i)`.
 
-        Returns the previous `HeapNode` object at `i`.        
+        Returns the previous `HeapNode` object at `i`.
 
         **Time Complexity:** O(log<sub>2</sub> n)."""
         if x is None:

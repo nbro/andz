@@ -24,7 +24,7 @@ class TestStack(unittest.TestCase):
     def test_is_empty(self):
         s = Stack()
         self.assertTrue(s.is_empty())
-        
+
         s.push(12)
         self.assertFalse(s.is_empty())
 
@@ -36,7 +36,7 @@ class TestStack(unittest.TestCase):
     def test_size(self):
         s = Stack()
         self.assertEqual(s.size(), 0)
-        
+
         for i in range(100):
             s.push(i)
             self.assertEqual(s.size(), i + 1)
@@ -52,7 +52,7 @@ class TestStack(unittest.TestCase):
 
     def test_top(self):
         s = Stack()
-        
+
         self.assertTrue(s.is_empty())
         self.assertIsNone(s.top())
         self.assertEqual(s.size(), 0)
@@ -69,17 +69,17 @@ class TestStack(unittest.TestCase):
         self.assertEqual(s.size(), size)
 
         n = 0
-        
+
         while not s.is_empty():
-            self.assertEqual(s.top(), n)            
+            self.assertEqual(s.top(), n)
             n -= 1
             self.assertIsNotNone(s.pop())
-            
+
         self.assertEqual(s.size(), 0)
 
     def test_push(self):
         s = Stack()
-        
+
         s.push(None)
         self.assertEqual(s.size(), 1)
         self.assertIs(s.pop(), None)
@@ -101,9 +101,9 @@ class TestStack(unittest.TestCase):
 
     def test_pop(self):
         s = Stack()
-        
+
         self.assertIsNone(s.pop())
-        
+
         s.push(None)
         self.assertEqual(s.size(), 1)
         self.assertIsNone(s.pop())

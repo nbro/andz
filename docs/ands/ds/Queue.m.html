@@ -560,7 +560,7 @@ table {
   html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100%;
   }
   body {
     background: #fff;
@@ -1109,7 +1109,7 @@ class Queue:
         return self.size() == 0
 
     def size(self):
-        """Returns the size of this stack."""        
+        """Returns the size of this stack."""
         return len(self.q)
 
     def __str__(self):
@@ -1124,7 +1124,7 @@ class BFSQueue(Queue):
 
     def __init__(self):
         Queue.__init__(self, ls=[])
-    
+
     def __str__(self):
         return "[" + ", ".join([u.key for u in self.q]) + "]"
 
@@ -1244,7 +1244,7 @@ class MinPriorityQueue(MinHeap):
 
     def __init__(self):
         Queue.__init__(self, ls=[])
-    
+
     def __str__(self):
         return "[" + ", ".join([u.key for u in self.q]) + "]"
 
@@ -1290,14 +1290,10 @@ class MinPriorityQueue(MinHeap):
     <p>def <span class="ident">dequeue</span>(</p><p>self)</p>
     </div>
     
-    <p class="inheritance">
-     <strong>Inheritance:</strong>
-       <code><a href="#ands.ds.Queue.Queue">Queue</a></code>.<code><a href="#ands.ds.Queue.Queue.dequeue">dequeue</a></code>
-    </p>
 
     
   
-    <div class="desc inherited"><p>Returns the first element of this queue.</p></div>
+    <div class="desc"><p>Returns the first element of this queue.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Queue.BFSQueue.dequeue', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Queue.BFSQueue.dequeue" class="source">
@@ -1316,10 +1312,14 @@ class MinPriorityQueue(MinHeap):
     <p>def <span class="ident">enqueue</span>(</p><p>self, n)</p>
     </div>
     
+    <p class="inheritance">
+     <strong>Inheritance:</strong>
+       <code><a href="#ands.ds.Queue.Queue">Queue</a></code>.<code><a href="#ands.ds.Queue.Queue.enqueue">enqueue</a></code>
+    </p>
 
     
   
-    <div class="desc"><p>Adds <code>n</code> to the end of this queue.</p></div>
+    <div class="desc inherited"><p>Adds <code>n</code> to the end of this queue.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Queue.BFSQueue.enqueue', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Queue.BFSQueue.enqueue" class="source">
@@ -1368,7 +1368,7 @@ class MinPriorityQueue(MinHeap):
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Queue.BFSQueue.size', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Queue.BFSQueue.size" class="source">
     <pre><code>def size(self):
-    """Returns the size of this stack."""        
+    """Returns the size of this stack."""
     return len(self.q)
 </code></pre>
   </div>
@@ -1544,7 +1544,6 @@ whose key and value are equal to <code>x</code>.</p>
     In practice, it places `x` at an available leaf,
     then "bubbles up" from there,
     in order to maintain the heap property.
-    
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
     whose key and value are equal to `x`.
@@ -1552,9 +1551,9 @@ whose key and value are equal to <code>x</code>.</p>
     if x is None:
         raise ValueError("x cannot be None.")
     if not isinstance(x, HeapNode):
-        x = HeapNode(x)            
+        x = HeapNode(x)
     self.heap.append(x)
-    if self.size() > 1:        
+    if self.size() > 1:
         self.push_up(self.size() - 1)
 </code></pre>
   </div>
@@ -1680,7 +1679,7 @@ it will return <code>True</code>.</p>
     
   
     <div class="desc"><p>Deletes and returns the <code>HeapNode</code> object at index <code>i</code>.</p>
-<p><code>IndexError</code> is raised if <code>i</code> is not a valid index.      </p>
+<p><code>IndexError</code> is raised if <code>i</code> is not a valid index.</p>
 <p>Implementation based on:
 <a href="http://www.math.clemson.edu/~warner/M865/HeapDelete.html">http://www.math.clemson.edu/~warner/M865/HeapDelete.html</a></p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> h),
@@ -1690,7 +1689,7 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
   <div id="source-ands.ds.Queue.MinPriorityQueue.delete" class="source">
     <pre><code>def delete(self, i: int) -> HeapNode:
     """Deletes and returns the `HeapNode` object at index `i`.
-    `IndexError` is raised if `i` is not a valid index.      
+    `IndexError` is raised if `i` is not a valid index.
     Implementation based on:
     [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
     **Time Complexity:** O(log<sub>2</sub> h),
@@ -1701,8 +1700,8 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
         return self.heap.pop()
     self.swap(i, self.size() - 1)
     d = self.heap.pop()
-    self.push_down(i)        
-    return d             
+    self.push_down(i)
+    return d
 </code></pre>
   </div>
 </div>
@@ -1820,7 +1819,6 @@ the parent of <code>i</code> does not have a parent.</p>
     """Returns the grandparent's index of the node at index `i`.
     -1 is returned either if `i` has not a parent or
     the parent of `i` does not have a parent.
-
     **Time Complexity:** O(1)."""
     p = self.parent_index(i)
     return -1 if p == -1 else self.parent_index(p)
@@ -1850,7 +1848,7 @@ has at least one child, <code>False</code> otherwise.</p>
     has at least one child, `False` otherwise.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(i):
-        raise IndexError("i is not a valid index.") 
+        raise IndexError("i is not a valid index.")
     return self.left_index(i) != -1 or self.right_index(i) != -1
 </code></pre>
   </div>
@@ -1976,7 +1974,7 @@ and the priority of the key field of <code>HeapNode</code> is used as priority.<
     **Time Complexity:** O(1)."""
     if not isinstance(i, int):
         raise TypeError("indexes can only be int.")
-    return False if (i < 0 or i >= self.size()) else True        
+    return False if (i < 0 or i >= self.size()) else True
 </code></pre>
   </div>
 </div>
@@ -2037,7 +2035,7 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
     of the node at `i`, `False` otherwise.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(g):
-        raise IndexError("g is not a valid index.")         
+        raise IndexError("g is not a valid index.")
     p = self.parent_index(i)
     return False if p == -1 else self.is_parent(g, p)
 </code></pre>
@@ -2118,7 +2116,7 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
     of the node at `i`, `False` otherwise.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(p):
-        raise IndexError("p is not a valid index.")        
+        raise IndexError("p is not a valid index.")
     return self.parent_index(i) == p
 </code></pre>
   </div>
@@ -2145,11 +2143,10 @@ if it exists, otherwise this function returns -1.</p>
     <pre><code>def left_index(self, i: int) -> int:
     """Returns the left child's index of the node at index `i`,
     if it exists, otherwise this function returns -1.
-    
     If `i` is not a valid index, an `IndexError` is raised.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(i):
-        raise IndexError("i is not a valid index.")        
+        raise IndexError("i is not a valid index.")
     left = i * 2 + 1
     return left if self.is_good_index(left) else -1
 </code></pre>
@@ -2177,7 +2174,6 @@ if it exists, otherwise this function returns -1.</p>
   <div id="source-ands.ds.Queue.MinPriorityQueue.merge" class="source">
     <pre><code>def merge(self, o) -> list:
     """Merges this heap with the `o` heap.
-    
     Returns the `list` object representing internally the new merged heap.
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
@@ -2209,7 +2205,6 @@ If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
     <pre><code>def parent_index(self, i: int) -> int:
     """Returns the parent's index of the node at index `i`.
     If `i = 0`, then -1 is returned, because the root has no parent.
-    
     If `i` is not a valid index, an `IndexError` is raised.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(i):
@@ -2288,7 +2283,6 @@ where element is the element in self with highest priority.</p>
         m = l
     if r != -1 and self.heap[r] < self.heap[m]:
         m = r
-        
     if m != i:
         self.swap(m, i)
         self.push_down(m)
@@ -2327,7 +2321,6 @@ the current node's index with its parent's index.</p>
     **Time Complexity:** O(log<sub>2</sub> n)."""
     c = i  # current index
     p = self.parent_index(i)
-    
     if p != -1 and self.heap[c] < self.heap[p]:
         c = p
     if c != i:
@@ -2360,7 +2353,7 @@ if removing the last element of a list is a constant-time operation.</p></div>
     if removing the last element of a list is a constant-time operation."""
     if not self.is_empty():
         self.swap(0, self.size() - 1)
-        m = self.heap.pop()            
+        m = self.heap.pop()
         if not self.is_empty():
             self.push_down(0)
         return m
@@ -2397,7 +2390,7 @@ then push_up(index).</p>
 then call <code>self.push_down(i)</code>.</p>
 </li>
 </ol>
-<p>Returns the previous <code>HeapNode</code> object at <code>i</code>.        </p>
+<p>Returns the previous <code>HeapNode</code> object at <code>i</code>.</p>
 <p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Queue.MinPriorityQueue.replace', this);">Show source &equiv;</a></p>
@@ -2413,7 +2406,7 @@ then call <code>self.push_down(i)</code>.</p>
     then push_up(index).
     3. Else `x > self.heap[i]`,
     then call `self.push_down(i)`.
-    Returns the previous `HeapNode` object at `i`.        
+    Returns the previous `HeapNode` object at `i`.
     **Time Complexity:** O(log<sub>2</sub> n)."""
     if x is None:
         raise ValueError("x cannot be None.")
@@ -2453,11 +2446,10 @@ if it exists, otherwise this function returns -1.</p>
     <pre><code>def right_index(self, i: int) -> int:
     """Returns the right child's index of the node at index `i`,
     if it exists, otherwise this function returns -1.
-    
     If `i` is not a valid index, an `IndexError` is raised.
     **Time Complexity:** O(1)."""
     if not self.is_good_index(i):
-        raise IndexError("i is not a valid index.")        
+        raise IndexError("i is not a valid index.")
     right = i * 2 + 2
     return right if self.is_good_index(right) else -1
 </code></pre>
@@ -2479,7 +2471,7 @@ if it exists, otherwise this function returns -1.</p>
 and, if present, returns its index, otherwise returns -1.</p>
 <p><code>x</code> can either be a key or a <code>HeapNode</code> object.
 If it's a key, an <code>HeapNode</code> is first created,
-whose key and value are equal to <code>x</code>.      </p>
+whose key and value are equal to <code>x</code>.</p>
 <p><strong>Time Complexity:</strong> O(n).</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Queue.MinPriorityQueue.search', this);">Show source &equiv;</a></p>
@@ -2489,7 +2481,7 @@ whose key and value are equal to <code>x</code>.      </p>
     and, if present, returns its index, otherwise returns -1.
     `x` can either be a key or a `HeapNode` object.
     If it's a key, an `HeapNode` is first created,
-    whose key and value are equal to `x`.      
+    whose key and value are equal to `x`.
     **Time Complexity:** O(n)."""
     if x is None:
         raise ValueError("x cannot be None.")
@@ -2532,7 +2524,7 @@ the behaviour of this method is undefined.</p>
         raise ValueError("val cannot be None.")
     for i, node in enumerate(self.heap):
         if node.value == val:
-            return i            
+            return i
     return -1
 </code></pre>
   </div>
@@ -2606,7 +2598,6 @@ otherwise an <code>IndexError</code> is raised.</p>
     """Swaps elements at indexes `i` and `j`,
     if they are valid indexes,
     otherwise an `IndexError` is raised.
-    
     **Time Complexity:** O(1)."""
     if self.is_good_index(i) and self.is_good_index(j):
         self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
@@ -2646,7 +2637,7 @@ otherwise an <code>IndexError</code> is raised.</p>
         return self.size() == 0
 
     def size(self):
-        """Returns the size of this stack."""        
+        """Returns the size of this stack."""
         return len(self.q)
 
     def __str__(self):
@@ -2767,7 +2758,7 @@ otherwise an <code>IndexError</code> is raised.</p>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Queue.Queue.size', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Queue.Queue.size" class="source">
     <pre><code>def size(self):
-    """Returns the size of this stack."""        
+    """Returns the size of this stack."""
     return len(self.q)
 </code></pre>
   </div>
@@ -2796,7 +2787,7 @@ otherwise an <code>IndexError</code> is raised.</p>
   <footer id="footer">
     <p>
       Documentation generated by
-      <a href="https://github.com/BurntSushi/pdoc">pdoc 0.3.1</a>
+      <a href="https://github.com/BurntSushi/pdoc">pdoc 0.3.2</a>
     </p>
 
     <p>pdoc is in the public domain with the
