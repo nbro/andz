@@ -13,7 +13,7 @@ install:
 # command to run tests
 script: 
   - cd tests/ds/
-  - coverage run -m unittest discover -v
+  - coverage run --exclude tabulate.py -m unittest discover -v
   - cp .coverage ../../.coverage
   - cd ../../
 
