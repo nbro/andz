@@ -12,10 +12,10 @@ install:
     
 # command to run tests
 script: 
-  - cd tests/ds/
-  - coverage run -m unittest discover -v
-  - cp .coverage ../../.coverage
-  - cd ../../
+  - cd tests/
+  - coverage run -m unittest discover . -v
+  - cp .coverage ../.coverage
+  - cd ../
 
 after_success:
   - coveralls
