@@ -1,14 +1,9 @@
-# Tests
-
 ## TODO
-
-
-### Data Structures
 
 - Tests for 
 
     - `MinPriorityQueue`.
 
-    - `Graph`
+    - `Graph` (I need to re-implement this ds)
 
-    - `DisjointSet`
+    - Normal queue
