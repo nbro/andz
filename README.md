@@ -1,7 +1,7 @@
 # Algorithms and Data Structures (AnDS)
 
 [![Build Status](https://travis-ci.org/dossan/ands.svg?branch=master)](https://travis-ci.org/dossan/ands)
-[![Coverage Status](https://coveralls.io/repos/github/dossan/ands/badge.svg?branch=master)](https://coveralls.io/github/dossan/ands?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/dossan/ands/badge.png?branch=master)](https://coveralls.io/github/dossan/ands?branch=master)
 
 ## Introduction
 
@@ -35,7 +35,7 @@ You will also find some algorithms related to some particular _design paradigm_,
 
 Download this repository. 
 
-Open a terminal, and enter inside the `ands` folder. For example, if `ands` is in your desktop, type:
+Open a terminal, and enter inside the `ands` folder. For example, if `ands` is in your desktop and your current working directory is your desktop, type:
 
     cd ands
 
