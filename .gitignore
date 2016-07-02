@@ -11,8 +11,8 @@ env/
 
 
 # FILES 
-ands/ds/Graph.py
-ands/ds/GraphNode.py
+ands/ds/TST/
+
 ands/algorithms/greedy/huffman.py
 
 

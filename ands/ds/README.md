@@ -1,6 +1,10 @@
 # Data Structures
 
 
+- Missing removal/deletion operation from `DSForests`...
+
+- Testing the queues in `Queue.py`...
+
 ## TODO
 
 Where `F` indicates that I've already started implementing the data structure, but it needs to be finished, and `S` indicates that nothing has been done yet.
