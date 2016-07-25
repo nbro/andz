@@ -1,14 +1,10 @@
 # Algorithms and Data Structures (AnDS)
 
 
-![Python 3.3](https://img.shields.io/badge/python-3.3-blue.svg)
-![Python 3.4](https://img.shields.io/badge/python-3.4-blue.svg)
-![Python 3.5](https://img.shields.io/badge/python-3.5-blue.svg)
+![Python 3.3, 3.4, 3.5](https://img.shields.io/badge/python-3.3%2C%203.4%2C%203.5-blue.svg)
 [![Build Status](https://travis-ci.org/dossan/ands.svg?branch=master)](https://travis-ci.org/dossan/ands)
 [![Coverage Status](https://coveralls.io/repos/github/dossan/ands/badge.svg)](https://coveralls.io/github/dossan/ands)
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 ## Introduction
 
