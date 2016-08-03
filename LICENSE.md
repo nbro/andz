@@ -1,6 +1,4 @@
-# License
-
-### [A common form of the MIT License](https://en.wikipedia.org/wiki/MIT_License)
+# License: [MIT](https://en.wikipedia.org/wiki/MIT_License)
 
 Copyright (c) 2016 Nelson Brochado
 
