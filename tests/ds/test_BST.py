@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 13/02/16
 
-Last update: 30/06/16
+Last update: 28/08/16
 
 Tests for the BST class.
 """
@@ -41,21 +41,17 @@ class TestBST(unittest.TestCase):
     def test_one_size(self):
         b = BST()
         b.insert(12)
-
-        self.assertTrue(b.size() == b.n)
-        self.assertTrue(b.size() == b.root.count())
         self.assertTrue(b.size() == 1)
         self.assertTrue(is_bst(b))
-
         assert_consistencies(b)
 
     def test_one_contains(self):
         b = BST()
         b.insert(12)
-
+        
         for i in range(-10, 11):
             self.assertFalse(b.contains(i))
-
+            
         self.assertTrue(b.contains(12))
 
     def test_many_size(self):
@@ -65,10 +61,7 @@ class TestBST(unittest.TestCase):
         for i in range(-10, 11):
             b.insert(i)
             size += 1
-
             self.assertTrue(size == b.size())
-            self.assertTrue(size == b.n)
-            self.assertTrue(size == b.root.count())
             self.assertTrue(is_bst(b))
             assert_consistencies(b)
 
@@ -77,7 +70,7 @@ class TestBST(unittest.TestCase):
 
         for i in range(-10, 11):
             b.insert(i)
-
+            
         for i in range(-10, 11):
             self.assertTrue(b.contains(i))
 
@@ -96,10 +89,7 @@ class TestBST(unittest.TestCase):
         b.insert(4)
 
         self.assertTrue(11 == b.size())
-        self.assertTrue(11 == b.n)
-        self.assertTrue(11 == b.root.count())
         self.assertTrue(is_bst(b))
-
         assert_consistencies(b)
 
     def test_delete_not_found(self):
@@ -128,8 +118,6 @@ class TestBST(unittest.TestCase):
         for i in range(1, 15, 2):
             self.assertTrue(b.contains(i))
 
-        self.assertTrue(b.size() == b.n)
-        self.assertTrue(b.size() == b.root.count())
         self.assertTrue(b.size() == 7)
         self.assertTrue(is_bst(b))
         assert_consistencies(b)
@@ -147,16 +135,12 @@ class TestBST(unittest.TestCase):
         for i in range(0, 15, 2):
             self.assertTrue(b.contains(i))
 
-        self.assertTrue(b.size() == b.n)
-        self.assertTrue(b.size() == b.root.count())
         self.assertTrue(b.size() == 8)
         self.assertTrue(is_bst(b))
-
         assert_consistencies(b)
 
     def test_multiple_remove3(self):
         b = BST()
-
         assert_empty(b)
 
         b.insert(5)
@@ -170,31 +154,23 @@ class TestBST(unittest.TestCase):
         b.insert(12)
         b.insert(11)
 
-        self.assertTrue(b.size() == b.n)
-        self.assertTrue(b.size() == b.root.count())
         self.assertTrue(b.size() == 10)
         self.assertTrue(is_bst(b))
-
         assert_consistencies(b)
 
         b.delete(3)
         b.delete(10)
         b.delete(12)
 
-        self.assertTrue(b.size() == b.n)
-        self.assertTrue(b.size() == b.root.count())
         self.assertTrue(b.size() == 7)
         self.assertTrue(is_bst(b))
-
         assert_consistencies(b)
 
     def test_search(self):
         b = BST()
-
         b.insert(10)
         b.insert(5)
         b.insert(15)
-
         self.assertRaises(ValueError, b.search, None)
 
         self.assertIsNone(b.search(12))
@@ -203,24 +179,18 @@ class TestBST(unittest.TestCase):
         self.assertIsNotNone(b.search(15))
 
         self.assertTrue(b.size() == 3)
-        self.assertTrue(b.n == 3)
-        self.assertTrue(b.root.count() == 3)
         self.assertTrue(is_bst(b))
         assert_consistencies(b)
 
         b.delete(10)
-
         self.assertIsNone(b.search(10))
 
         self.assertTrue(b.size() == 2)
-        self.assertTrue(b.n == 2)
-        self.assertTrue(b.root.count() == 2)
         self.assertTrue(is_bst(b))
         assert_consistencies(b)
 
     def test_remove_min_and_max(self):
         b = BST()
-
         self.assertIsNone(b.remove_min())
         self.assertIsNone(b.remove_max())
 
@@ -229,32 +199,23 @@ class TestBST(unittest.TestCase):
         b.insert(28)
 
         m = b.remove_min()
-
         self.assertIsNotNone(m)
         self.assertTrue(m.key == 12)
 
         self.assertTrue(b.size() == 2)
-        self.assertTrue(b.n == 2)
-        self.assertTrue(b.root.count() == 2)
-
         self.assertTrue(is_bst(b))
         assert_consistencies(b)
 
         M = b.remove_max()
-
         self.assertIsNotNone(M)
         self.assertTrue(M.key == 28)
 
         self.assertTrue(b.size() == 1)
-        self.assertTrue(b.n == 1)
-        self.assertTrue(b.root.count() == 1)
-
         self.assertTrue(is_bst(b))
         assert_consistencies(b)
 
     def test_predecessor_and_successor(self):
         b = BST()
-
         b.insert(12)
         b.insert(14)
         b.insert(28)
@@ -269,12 +230,10 @@ class TestBST(unittest.TestCase):
 
     def test_rank(self):
         b = BST()
-
         self.assertRaises(ValueError, b.rank, None)
         self.assertRaises(LookupError, b.rank, 12)
 
         b.insert(12)
-
         self.assertEqual(b.rank(12), 0)
 
         b.insert(14)
