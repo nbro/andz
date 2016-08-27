@@ -2,7 +2,7 @@
 
 
 ![Python 3.3, 3.4, 3.5](https://img.shields.io/badge/python-3.3%2C%203.4%2C%203.5-blue.svg)
-[![Build Status](https://travis-ci.org/dossan/ands.svg?branch=master)](https://travis-ci.org/dossan/ands)
+[![Build Status](https://travis-ci.org/nelson-brochado/ands.svg?branch=master)](https://travis-ci.org/nelson-brochado/ands)
 [![Coverage Status](https://coveralls.io/repos/github/dossan/ands/badge.svg)](https://coveralls.io/github/dossan/ands)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c88538816f424aea916c251428f78c0a)](https://www.codacy.com/app/nelson-brochado/ands?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dossan/ands&amp;utm_campaign=Badge_Grade)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)](./LICENSE.md)
@@ -115,7 +115,7 @@ The main references that I have used are:
 
 ## TODO
 
-I would like to improve the citation of references that I used to implement an algorithm or a data structure in all modules.
+I would like to improve the _citation of references_ that I used to implement an algorithm or a data structure in all modules.
 
 
-See `README.md` files of subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds).
+I also want to develop a lot more algorithms and data structures. See the `README.md` files of the subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds) for more info.
