@@ -15,7 +15,6 @@ is the same as adding and removing from a list.
 """
 
 import unittest
-import random
 from ands.ds.Stack import Stack
 
 
@@ -118,3 +117,7 @@ class TestStack(unittest.TestCase):
             self.assertEqual(p, i)
 
         self.assertEqual(s.size(), 0)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

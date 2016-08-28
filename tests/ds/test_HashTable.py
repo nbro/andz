@@ -6,16 +6,15 @@ Author: Nelson Brochado
 
 Creation: 21/02/16
 
-Last update: 30/06/16
+Last update: 28/08/16
 
 Test the HashTable class.
 """
 
 import unittest
 import string
-import collections
-from random import sample, shuffle, randint, uniform, choice
-from ands.ds.HashTable import HashTable, has_duplicates, find_duplicates
+from random import sample, randint, uniform, choice
+from ands.ds.HashTable import HashTable, has_duplicates
 
 
 def gen_rand_str(size):
@@ -32,7 +31,7 @@ def put_and_get_numbers(random_func=randint, n=100):
         return [i for i, item in enumerate(ls) if item == a]
 
     for i in range(1, n + 1):
-        for j, num in enumerate(a):
+        for _, num in enumerate(a):
 
             if i == 1:
                 assert p is None
@@ -63,7 +62,7 @@ class TestHashTable(unittest.TestCase):
         """Testing that errors are raised."""
         t = HashTable()
         try:
-            t.put(None)
+            t.put(None, 12)
             assert False
         except TypeError:
             pass
@@ -227,4 +226,4 @@ class TestHashTable(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main(verbose=2)
+    unittest.main(verbosity=2)

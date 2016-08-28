@@ -35,7 +35,7 @@ def decrypt(ciphertext, key):
 
 def test1(n, m):
     """m is the size of the string and key"""
-    for i in range(n):
+    for _ in range(n):
         message = gen_message(m)
         # print("Message:", message)
 

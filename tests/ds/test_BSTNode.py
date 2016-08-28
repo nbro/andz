@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 15/02/16
 
-Last update: 30/06/16
+Last update: 28/08/16
 
 Tests for the BSTNode class.
 """

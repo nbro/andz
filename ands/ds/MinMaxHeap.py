@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 18/02/16
 
-Last update: 20/02/16
+Last update: 28/08/16
 
 Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
 Moreover, both remove-min and remove-max are supported in logarithmic time.
@@ -30,7 +30,7 @@ from ands.ds.Heap import Heap, HeapNode
 
 class MinMaxHeap(Heap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:

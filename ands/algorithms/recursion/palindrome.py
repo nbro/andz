@@ -15,7 +15,7 @@ def generate_palindromes(n, s):
     """Generates `n` palindromes of lower and upper case letters
     and numbers (in a list) of size `s`."""
     palindromes = []
-    for i in range(n):
+    for _ in range(n):
         p = []
         for i in range(s):
             char = choice(string.ascii_letters)

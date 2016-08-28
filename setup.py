@@ -38,14 +38,15 @@ setup(
         #   4 - Beta
         #   5 - Production/Stable
         "Development Status :: 3 - Alpha",
-
-        # Indicate who your project is intended for
+        "Environment :: Console",
         "Intended Audience :: Developers",
-
         "License :: OSI Approved :: MIT License",
-        
-        "Topic :: Software Development :: Build Tools",
-
+        "Operating System :: MacOS :: Mac OS X",
+        "Operating System :: Microsoft :: Windows",       
+        "Operating System :: Microsoft :: Linux",       
+        "Topic :: Software Development :: Algorithms and Data Structures",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
     ],
     #entry_points = {  # http://stackoverflow.com/questions/774824/explain-python-entry-points

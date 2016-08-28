@@ -64,7 +64,7 @@ class SortingAlgoTests:
         self.assert_commonalities(ls)
 
     def test_when_random_size(self):
-        for i in range(10):
+        for _ in range(10):
             n = randint(0, 1000)
             ls = get_list(n, -100, 100)
             self.assertEqual(len(ls), n)

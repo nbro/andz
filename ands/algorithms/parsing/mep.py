@@ -9,7 +9,6 @@ Includes also a calculator that receives a postfix expression.
 """
 
 import re
-from pprint import pprint
 import operator
 
 

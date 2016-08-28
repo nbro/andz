@@ -48,10 +48,8 @@ class TestBST(unittest.TestCase):
     def test_one_contains(self):
         b = BST()
         b.insert(12)
-        
         for i in range(-10, 11):
             self.assertFalse(b.contains(i))
-            
         self.assertTrue(b.contains(12))
 
     def test_many_size(self):

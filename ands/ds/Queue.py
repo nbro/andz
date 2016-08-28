@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 22/02/16
+Last update: 28/08/16
 
 Basic queue, which is FIFO (first-in-first-out) data structure.
 """
@@ -51,7 +51,7 @@ class BFSQueue(Queue):
     """Queue for the bfs algorihm."""
 
     def __init__(self):
-        Queue.__init__(self, ls=[])
+        Queue.__init__(self, ls=None)
 
     def __str__(self):
         return "[" + ", ".join([u.key for u in self.q]) + "]"
@@ -62,7 +62,7 @@ class BFSQueue(Queue):
 
 class MinPriorityQueue(MinHeap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         """If `ls` is provided, it should be a list of tuples,
         each of which contains 2 items:
         The first item of the tuple is the priority of the element,

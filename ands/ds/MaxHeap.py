@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 15/02/16
 
-Last update: 19/02/16
+Last update: 28/08/16
 
 Mirror-class to the MinHeap class.
 For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHeap.py).
@@ -28,7 +28,7 @@ __all__ = ["MaxHeap", "is_max_heap"]
 
 class MaxHeap(Heap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:

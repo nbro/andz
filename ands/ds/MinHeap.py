@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 19/02/16
+Last update: 28/08/16
 
 A binary min-heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.
@@ -46,7 +46,7 @@ __all__ = ["MinHeap", "is_min_heap"]
 
 class MinHeap(Heap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:

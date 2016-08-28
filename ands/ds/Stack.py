@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last Update: 01/07/16
+Last Update: 28/08/16
 
 Basic class to represent simple stacks,
 which are LIFO (last-in-first-out) data structures.
@@ -20,7 +20,7 @@ __all__ = ["Stack"]
 
 class Stack:
 
-    def __init__(self, s=[]):
+    def __init__(self, s=None):
         self.stack = s
 
     def push(self, e):

@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 22/02/16
+Last update: 28/08/16
 
 
 ## Red-black Tree Property
@@ -549,10 +549,10 @@ def is_rbt(rbt):
             return t.root.color == BLACK
         return True
 
-    def prop_3(t):
+    #def prop_3(t):
         # leaves are represented with Nones,
         # so there's not need to check this property.
-        return True
+    #    return True
 
     def prop_4(t):
         def h(n):

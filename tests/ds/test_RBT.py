@@ -6,16 +6,16 @@ Author: Nelson Brochado
 
 Creation: 15/02/16
 
-Last update: 30/06/16
+Last update: 28/08/16
 
 Tests for the RBT class.
 """
 
 import unittest
 
-from random import randint
+from random import randint, shuffle
 from ands.ds.RBT import RED, BLACK, RBT, RBTNode, upper_bound_height, is_rbt
-from ands.ds.BST import BST, BSTNode
+from ands.ds.BST import BSTNode
 
 
 def assert_rbt_props(t):
@@ -304,13 +304,12 @@ class TestRBT(unittest.TestCase):
         assert_rbt_props(rbt)
 
     def test_delete_all_rand_items(self):
-        from random import randint, shuffle
         rbt = RBT()
 
         def get_rand_list():
             return [randint(-100, 100) for _ in range(randint(0, 100))]
 
-        for i in range(100):
+        for _ in range(100):
             ls = get_rand_list()
 
             for j, x in enumerate(ls):
@@ -382,4 +381,4 @@ class TestRBT(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main(verbose=2)
+    unittest.main(verbosity=2)

@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 22/02/16
 
-Last update: 30/06/16
+Last update: 28/08/16
 
 Tests for the DSForests class and associated classes.
 """
@@ -68,10 +68,10 @@ class TestDSForests(unittest.TestCase):
         assert ds.find(e) != ds.find(a)
         assert ds.find(d) != ds.find(a)
 
-        u5 = ds.union(7, 12)
+        ds.union(7, 12)
         assert ds.find(e) == ds.find(a)
         assert ds.find(d) == ds.find(a)
 
 
 if __name__ == "__main__":
-    unittest.main(verbose=2)
+    unittest.main(verbosity=2)

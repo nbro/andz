@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 27/02/2016
+Last update: 28/08/2016
 
 ## Names' Conventions
 In general, if a variable name has more than one word,
@@ -66,7 +66,6 @@ For example, "key" and "value" are self-descriptive.
 - implement "is balanced" function (http://codereview.stackexchange.com/questions/108459/binary-tree-data-structure)
 """
 
-import sys
 from tabulate import tabulate
 
 

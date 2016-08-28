@@ -26,7 +26,7 @@ def _check_negativeness(subset):
 
 def _shift_numbers(subset, smallest):
     m = -smallest
-    for i in range(len(subset)):
+    for i, _ in enumerate(subset):
         subset[i] += m
 
 

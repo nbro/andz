@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 27/02/16
+Last update: 28/08/16
 
 Base abstract class to represent heaps.
 See `MinHeap` and `MaxHeap` if you want to instantiate heap objects.
@@ -74,7 +74,7 @@ class HeapNode:
 
 class Heap:
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         self.heap = Heap._create_list_of_heap_nodes(ls)
         self.build_heap()
 
@@ -379,7 +379,7 @@ class Heap:
 
         **Time Complexity:** O(n)."""
         nodes = []
-        for i, x in enumerate(ls):
+        for _, x in enumerate(ls):
             # x represents also its priority.
             if isinstance(x, (int, float)):
                 nodes.append(HeapNode(x))
