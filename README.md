@@ -3,7 +3,7 @@
 
 ![Python 3.3, 3.4, 3.5](https://img.shields.io/badge/python-3.3%2C%203.4%2C%203.5-blue.svg)
 [![Build Status](https://travis-ci.org/nelson-brochado/ands.svg?branch=master)](https://travis-ci.org/nelson-brochado/ands)
-[![Coverage Status](https://coveralls.io/repos/github/dossan/ands/badge.svg)](https://coveralls.io/github/dossan/ands)
+[![Coverage Status](https://coveralls.io/repos/github/nelson-brochado/ands/badge.svg)](https://coveralls.io/github/nelson-brochado/ands)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c88538816f424aea916c251428f78c0a)](https://www.codacy.com/app/nelson-brochado/ands?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dossan/ands&amp;utm_campaign=Badge_Grade)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)](./LICENSE.md)
 
