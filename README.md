@@ -81,7 +81,7 @@ Then, from inside either `tests/ds` or `tests/algorithms`, you can do
     python -m unittest discover . -v
 
 
-or 
+or, after installing the package `coveralls`
 
     coverage run -m unittest discover . -v
 

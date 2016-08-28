@@ -10,8 +10,8 @@ printf "./clean.sh TERMINATED EXECUTING.\n\n"
 
 # Format the code under ./ands/ and ./tests/
 printf "FORMATTING CODE UNDER './ands' AND './tests' AGGRESSIVELY AND RECURSIVELY...\n"
-autopep8 --in-place --aggressive --recursive ./ands
-autopep8 --in-place --aggressive --recursive ./tests
+autopep8 --in-place --aggressive --recursive --max-line-length 110 ./ands
+autopep8 --in-place --aggressive --recursive --max-line-length 110 ./tests
 printf "DONE.\n\n"
 
 

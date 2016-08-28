@@ -985,14 +985,9 @@ table {
   <ul>
     <li class="mono"><a href="#ands.algorithms.crypto.caesar.decrypt">decrypt</a></li>
     <li class="mono"><a href="#ands.algorithms.crypto.caesar.encrypt">encrypt</a></li>
-    <li class="mono"><a href="#ands.algorithms.crypto.caesar.find_max">find_max</a></li>
-    <li class="mono"><a href="#ands.algorithms.crypto.caesar.gen_rand_keys">gen_rand_keys</a></li>
-    <li class="mono"><a href="#ands.algorithms.crypto.caesar.gen_rand_message">gen_rand_message</a></li>
     <li class="mono"><a href="#ands.algorithms.crypto.caesar.move_char">move_char</a></li>
     <li class="mono"><a href="#ands.algorithms.crypto.caesar.multi_decrypt">multi_decrypt</a></li>
     <li class="mono"><a href="#ands.algorithms.crypto.caesar.multi_encrypt">multi_encrypt</a></li>
-    <li class="mono"><a href="#ands.algorithms.crypto.caesar.test1">test1</a></li>
-    <li class="mono"><a href="#ands.algorithms.crypto.caesar.test2">test2</a></li>
   </ul>
 
     </li>
@@ -1030,8 +1025,12 @@ Caeser cipher is far from being a good cryptographic algorithm,
 so, in general, you should prefer other algorithms.
 """
 
-import string
 import random
+
+
+# Using `sys.maxunicode` causes some problems with encondings
+# i.e. an error is thrown because Tcl/Tk do not support certain characters
+MAX = 2**16 - 1
 
 
 def move_char(c, k):
@@ -1067,89 +1066,6 @@ def multi_decrypt(cipher, pattern):
     """`len(pattern) == len(keys)`,
     where `keys` are the keys passed to `multi_encrypt`."""
     return "".join(move_char(cipher[i], -k) for i, k in enumerate(pattern))
-
-
-def gen_rand_message(size):
-    return "".join(random.choice(string.printable) for _ in range(size))
-
-
-def find_max(m):
-    return max(ord(c) for c in m)
-
-
-# Using `sys.maxunicode` causes some problems with encondings
-# i.e. an error is thrown because Tcl/Tk do not support certain characters
-MAX = 2**16 - 1
-
-
-def test1(n, size):
-    for _ in range(n):
-        m = gen_rand_message(size)
-        # print("Message:", m)
-
-        key = random.randint(1, MAX - find_max(m))
-        # print("Key:", key)
-
-        cipher = encrypt(m, key)
-        # print("Cipher:", repr(cipher))
-
-        o = decrypt(cipher, key)
-        # print("Original:", o)
-
-        assert m == o
-
-    print("Test of size", n, "with message size =", size, "finished.")
-
-
-def gen_rand_keys(size, _min, _max):
-    return [random.randint(_min, _max) for _ in range(size)]
-
-
-def test2(n, size, total_keys):
-    for _ in range(n):
-        m = gen_rand_message(size)
-        # print("Message:", m)
-
-        keys = gen_rand_keys(total_keys, 1, MAX - find_max(m))
-        # print("Keys:", keys)
-
-        cipher, pattern = multi_encrypt(m, keys)
-        # print("Cipher:", repr(cipher))
-        # print("Pattern:", pattern)
-
-        o = multi_decrypt(cipher, pattern)
-        # print("Original:", o)
-
-        assert m == o
-
-    print(
-        "Test of size",
-        n,
-        "with message size =",
-        size,
-        "and with",
-        total_keys,
-        "keys finished.")
-
-
-if __name__ == "__main__":
-    # Testing the Caesar cipher
-    test1(5, 1)
-    test1(5, 1000000)
-    test1(10, 100000)
-    test1(15, 10000)
-    test1(20, 1000)
-    test1(25, 100)
-    test1(30, 10)
-
-    # Testing the polyalphabetic cryptographic algorithm
-    test2(10, 10, 1)  # Equivalent to Caesar because we just 1 key
-    test2(10, 100000, 5)
-    test2(5, 100000, 10)
-    test2(10, 100000, 15)
-    test2(15, 100000, 10)
-    test2(15, 100000, 20)
-    test2(20, 100000, 15)
 </code></pre>
   </div>
 
@@ -1201,66 +1117,6 @@ if __name__ == "__main__":
   <div id="source-ands.algorithms.crypto.caesar.encrypt" class="source">
     <pre><code>def encrypt(m, k):
     return "".join(move_char(c, k) for c in m)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.algorithms.crypto.caesar.find_max">
-    <p>def <span class="ident">find_max</span>(</p><p>m)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.crypto.caesar.find_max', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.crypto.caesar.find_max" class="source">
-    <pre><code>def find_max(m):
-    return max(ord(c) for c in m)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.algorithms.crypto.caesar.gen_rand_keys">
-    <p>def <span class="ident">gen_rand_keys</span>(</p><p>size, _min, _max)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.crypto.caesar.gen_rand_keys', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.crypto.caesar.gen_rand_keys" class="source">
-    <pre><code>def gen_rand_keys(size, _min, _max):
-    return [random.randint(_min, _max) for _ in range(size)]
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.algorithms.crypto.caesar.gen_rand_message">
-    <p>def <span class="ident">gen_rand_message</span>(</p><p>size)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.crypto.caesar.gen_rand_message', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.crypto.caesar.gen_rand_message" class="source">
-    <pre><code>def gen_rand_message(size):
-    return "".join(random.choice(string.printable) for _ in range(size))
 </code></pre>
   </div>
 </div>
@@ -1339,84 +1195,6 @@ The random pattern is the second item of the tuple returned.</p></div>
         cipher.append(move_char(c, k))
 
     return "".join(cipher), pattern
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.algorithms.crypto.caesar.test1">
-    <p>def <span class="ident">test1</span>(</p><p>n, size)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.crypto.caesar.test1', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.crypto.caesar.test1" class="source">
-    <pre><code>def test1(n, size):
-    for _ in range(n):
-        m = gen_rand_message(size)
-        # print("Message:", m)
-
-        key = random.randint(1, MAX - find_max(m))
-        # print("Key:", key)
-
-        cipher = encrypt(m, key)
-        # print("Cipher:", repr(cipher))
-
-        o = decrypt(cipher, key)
-        # print("Original:", o)
-
-        assert m == o
-
-    print("Test of size", n, "with message size =", size, "finished.")
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-      
-  <div class="item">
-    <div class="name def" id="ands.algorithms.crypto.caesar.test2">
-    <p>def <span class="ident">test2</span>(</p><p>n, size, total_keys)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.crypto.caesar.test2', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.crypto.caesar.test2" class="source">
-    <pre><code>def test2(n, size, total_keys):
-    for _ in range(n):
-        m = gen_rand_message(size)
-        # print("Message:", m)
-
-        keys = gen_rand_keys(total_keys, 1, MAX - find_max(m))
-        # print("Keys:", keys)
-
-        cipher, pattern = multi_encrypt(m, keys)
-        # print("Cipher:", repr(cipher))
-        # print("Pattern:", pattern)
-
-        o = multi_decrypt(cipher, pattern)
-        # print("Original:", o)
-
-        assert m == o
-
-    print(
-        "Test of size",
-        n,
-        "with message size =",
-        size,
-        "and with",
-        total_keys,
-        "keys finished.")
 </code></pre>
   </div>
 </div>

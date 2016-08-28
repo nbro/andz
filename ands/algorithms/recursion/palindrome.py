@@ -17,7 +17,7 @@ def generate_palindromes(n, s):
     palindromes = []
     for _ in range(n):
         p = []
-        for i in range(s):
+        for _ in range(s):
             char = choice(string.ascii_letters)
             p.insert(len(p) // 2, char)
             p.insert(len(p) // 2, char)
@@ -27,7 +27,7 @@ def generate_palindromes(n, s):
 
 def generate_random_words(n, s):
     w = []
-    for i in range(n):
+    for _ in range(n):
         p = []
         for i in range(s):
             char = choice(string.ascii_letters)
