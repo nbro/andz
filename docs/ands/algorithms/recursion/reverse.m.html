@@ -1031,16 +1031,12 @@ def reverse(ls):
 if __name__ == "__main__":
     print(reverse([1, 2, 3]))
 
-    import string
     import random
     from collections import Counter
 
     for i in range(10000):
         ls = [random.randint(0, 100) for _ in range(100)]
-        # print("List:", ls)
-
         r = reverse(ls)
-        # print("Reversed:", r)
         ls.reverse()
 
         # the elements of the list passed to Counter must be hashable

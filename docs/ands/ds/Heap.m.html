@@ -8,7 +8,7 @@
 
 Creation: July, 2015
 
-Last update: 27/02/16
+Last update: 28/08/16
 
 Base abstract class to represe..." />
 
@@ -1042,7 +1042,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.Heap</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 27/02/16</p>
+<p>Last update: 28/08/16</p>
 <p>Base abstract class to represent heaps.
 See <code>MinHeap</code> and <code>MaxHeap</code> if you want to instantiate heap objects.</p>
 <h2><a href="https://docs.python.org/3/library/exceptions.html#NotImplementedError">NotImplementedError</a></h2>
@@ -1073,7 +1073,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 27/02/16
+Last update: 28/08/16
 
 Base abstract class to represent heaps.
 See `MinHeap` and `MaxHeap` if you want to instantiate heap objects.
@@ -1141,7 +1141,9 @@ class HeapNode:
 
 class Heap:
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
+        if ls is None:
+            ls = []
         self.heap = Heap._create_list_of_heap_nodes(ls)
         self.build_heap()
 
@@ -1446,7 +1448,7 @@ class Heap:
 
         **Time Complexity:** O(n)."""
         nodes = []
-        for i, x in enumerate(ls):
+        for _, x in enumerate(ls):
             # x represents also its priority.
             if isinstance(x, (int, float)):
                 nodes.append(HeapNode(x))
@@ -1527,7 +1529,9 @@ class HeapPrinter:
   <div id="source-ands.ds.Heap.Heap" class="source">
     <pre><code>class Heap:
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
+        if ls is None:
+            ls = []
         self.heap = Heap._create_list_of_heap_nodes(ls)
         self.build_heap()
 
@@ -1832,7 +1836,7 @@ class HeapPrinter:
 
         **Time Complexity:** O(n)."""
         nodes = []
-        for i, x in enumerate(ls):
+        for _, x in enumerate(ls):
             # x represents also its priority.
             if isinstance(x, (int, float)):
                 nodes.append(HeapNode(x))
@@ -1861,7 +1865,7 @@ class HeapPrinter:
             
   <div class="item">
     <div class="name def" id="ands.ds.Heap.Heap.__init__">
-    <p>def <span class="ident">__init__</span>(</p><p>self, ls=[])</p>
+    <p>def <span class="ident">__init__</span>(</p><p>self, ls=None)</p>
     </div>
     
 
@@ -1871,7 +1875,9 @@ class HeapPrinter:
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.__init__" class="source">
-    <pre><code>def __init__(self, ls=[]):
+    <pre><code>def __init__(self, ls=None):
+    if ls is None:
+        ls = []
     self.heap = Heap._create_list_of_heap_nodes(ls)
     self.build_heap()
 </code></pre>

@@ -8,7 +8,7 @@
 
 Creation: 18/02/16
 
-Last update: 20/02/16
+Last update: 28/08/16
 
 Min-Max Heap is a heap that supp..." />
 
@@ -1051,7 +1051,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.MinMaxHeap</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: 18/02/16</p>
-<p>Last update: 20/02/16</p>
+<p>Last update: 28/08/16</p>
 <p>Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
 Moreover, both remove-min and remove-max are supported in logarithmic time.
 It's therefore an useful data structure to implement (or represent) double-ended priority queues.</p>
@@ -1084,7 +1084,7 @@ Author: Nelson Brochado
 
 Creation: 18/02/16
 
-Last update: 20/02/16
+Last update: 28/08/16
 
 Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
 Moreover, both remove-min and remove-max are supported in logarithmic time.
@@ -1108,7 +1108,7 @@ from ands.ds.Heap import Heap, HeapNode
 
 class MinMaxHeap(Heap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
@@ -1408,7 +1408,7 @@ def is_min_max_heap(h) -> bool:
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap" class="source">
     <pre><code>class MinMaxHeap(Heap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
@@ -1599,7 +1599,7 @@ def is_min_max_heap(h) -> bool:
             
   <div class="item">
     <div class="name def" id="ands.ds.MinMaxHeap.MinMaxHeap.__init__">
-    <p>def <span class="ident">__init__</span>(</p><p>self, ls=[])</p>
+    <p>def <span class="ident">__init__</span>(</p><p>self, ls=None)</p>
     </div>
     
 
@@ -1609,7 +1609,7 @@ def is_min_max_heap(h) -> bool:
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinMaxHeap.MinMaxHeap.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinMaxHeap.MinMaxHeap.__init__" class="source">
-    <pre><code>def __init__(self, ls=[]):
+    <pre><code>def __init__(self, ls=None):
     Heap.__init__(self, ls)
 </code></pre>
   </div>

@@ -1057,7 +1057,7 @@ def _get_sets_of_coins_matrix(set_of_coins, r):
     m = [[[] for _ in range(r + 1)] for _ in range(len(set_of_coins) + 1)]
 
     for i in range(r + 1):
-        for x in range(i):
+        for _ in range(i):
             m[0][i].append(1)
 
     for j in range(len(set_of_coins) + 1):

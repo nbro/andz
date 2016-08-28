@@ -1038,7 +1038,7 @@ def _get_edit_distance_matrix(s1, s2):
     for j in range(len(matrix[0])):
         matrix[0][j] = j
 
-    for i in range(len(matrix)):
+    for i, _ in enumerate(matrix):
         matrix[i][0] = i
 
     return matrix

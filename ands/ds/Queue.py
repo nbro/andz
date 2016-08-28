@@ -21,7 +21,9 @@ __all__ = ["Queue", "BFSQueue", "MinPriorityQueue"]
 
 class Queue:
 
-    def __init__(self, ls):
+    def __init__(self, ls=None):
+        if ls is None:
+            ls = []
         self.q = ls
 
     def enqueue(self, n):
@@ -51,7 +53,7 @@ class BFSQueue(Queue):
     """Queue for the bfs algorihm."""
 
     def __init__(self):
-        Queue.__init__(self, ls=None)
+        Queue.__init__(self)
 
     def __str__(self):
         return "[" + ", ".join([u.key for u in self.q]) + "]"

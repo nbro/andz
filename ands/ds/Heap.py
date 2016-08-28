@@ -75,6 +75,8 @@ class HeapNode:
 class Heap:
 
     def __init__(self, ls=None):
+        if ls is None:
+            ls = []
         self.heap = Heap._create_list_of_heap_nodes(ls)
         self.build_heap()
 

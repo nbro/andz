@@ -15,7 +15,6 @@ import unittest
 
 from random import randint, shuffle
 from ands.ds.RBT import RED, BLACK, RBT, RBTNode, upper_bound_height, is_rbt
-from ands.ds.BST import BSTNode
 
 
 def assert_rbt_props(t):

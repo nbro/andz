@@ -549,7 +549,7 @@ def is_rbt(rbt):
             return t.root.color == BLACK
         return True
 
-    #def prop_3(t):
+    # def prop_3(t):
         # leaves are represented with Nones,
         # so there's not need to check this property.
     #    return True

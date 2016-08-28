@@ -65,10 +65,8 @@ class TestBST(unittest.TestCase):
 
     def test_many_contains(self):
         b = BST()
-
         for i in range(-10, 11):
             b.insert(i)
-            
         for i in range(-10, 11):
             self.assertTrue(b.contains(i))
 

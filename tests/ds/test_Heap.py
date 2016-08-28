@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 14/02/16
 
-Last update: 30/06/16
+Last update: 28/08/16
 
 Tests for the abstract class Heap.
 """
@@ -23,9 +23,6 @@ class TestHeap(unittest.TestCase):
             assert False
         except NotImplementedError:
             pass
-
-        # Unfortunetely the creation of an empty Heap does not throw an
-        # exception
         assert Heap()
 
 

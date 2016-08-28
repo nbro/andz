@@ -21,6 +21,8 @@ __all__ = ["Stack"]
 class Stack:
 
     def __init__(self, s=None):
+        if s is None:
+            s = []
         self.stack = s
 
     def push(self, e):

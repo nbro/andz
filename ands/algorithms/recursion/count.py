@@ -31,21 +31,14 @@ def test1():
     import sys
 
     RECURSION_LIMIT = sys.getrecursionlimit()
-    # print(RECURSION_LIMIT)
 
     # Keep this number smaller than RECURSION_LIMIT
     LIST_SIZE = RECURSION_LIMIT - 100
 
-    for i in range(10):
-
+    for _ in range(10):
         ls = [randint(0, 10) for _ in range(LIST_SIZE)]
-        # print("List:", ls)
-
         r = randint(0, 10)
-        # print("Counting number:", r)
-
         c = count(r, ls)
-        # print("Counted:", c)
 
         if c != ls.count(r):
             raise Exception(

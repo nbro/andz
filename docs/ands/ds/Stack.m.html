@@ -8,7 +8,7 @@
 
 Creation: July, 2015
 
-Last Update: 01/07/16
+Last Update: 28/08/16
 
 Basic class to represent simpl..." />
 
@@ -1010,7 +1010,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.Stack</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last Update: 01/07/16</p>
+<p>Last Update: 28/08/16</p>
 <p>Basic class to represent simple stacks,
 which are LIFO (last-in-first-out) data structures.</p>
   
@@ -1024,7 +1024,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last Update: 01/07/16
+Last Update: 28/08/16
 
 Basic class to represent simple stacks,
 which are LIFO (last-in-first-out) data structures.
@@ -1038,7 +1038,9 @@ __all__ = ["Stack"]
 
 class Stack:
 
-    def __init__(self, s=[]):
+    def __init__(self, s=None):
+        if s is None:
+            s = []
         self.stack = s
 
     def push(self, e):
@@ -1086,7 +1088,9 @@ class Stack:
   <div id="source-ands.ds.Stack.Stack" class="source">
     <pre><code>class Stack:
 
-    def __init__(self, s=[]):
+    def __init__(self, s=None):
+        if s is None:
+            s = []
         self.stack = s
 
     def push(self, e):
@@ -1130,7 +1134,7 @@ class Stack:
             
   <div class="item">
     <div class="name def" id="ands.ds.Stack.Stack.__init__">
-    <p>def <span class="ident">__init__</span>(</p><p>self, s=[])</p>
+    <p>def <span class="ident">__init__</span>(</p><p>self, s=None)</p>
     </div>
     
 
@@ -1140,7 +1144,9 @@ class Stack:
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Stack.Stack.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Stack.Stack.__init__" class="source">
-    <pre><code>def __init__(self, s=[]):
+    <pre><code>def __init__(self, s=None):
+    if s is None:
+        s = []
     self.stack = s
 </code></pre>
   </div>

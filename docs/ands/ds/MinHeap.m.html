@@ -8,7 +8,7 @@
 
 Creation: July, 2015
 
-Last update: 19/02/16
+Last update: 28/08/16
 
 A binary min-heap is a data st..." />
 
@@ -1042,7 +1042,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.MinHeap</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: July, 2015</p>
-<p>Last update: 19/02/16</p>
+<p>Last update: 28/08/16</p>
 <p>A binary min-heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.</p>
 <p>In addition to the previous constraint, a binary min-heap is a complete binary tree,
@@ -1087,7 +1087,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 19/02/16
+Last update: 28/08/16
 
 A binary min-heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.
@@ -1127,7 +1127,7 @@ __all__ = ["MinHeap", "is_min_heap"]
 
 class MinHeap(Heap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
@@ -1297,7 +1297,7 @@ def is_min_heap(h) -> bool:
   <div id="source-ands.ds.MinHeap.MinHeap" class="source">
     <pre><code>class MinHeap(Heap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
@@ -1406,7 +1406,7 @@ def is_min_heap(h) -> bool:
             
   <div class="item">
     <div class="name def" id="ands.ds.MinHeap.MinHeap.__init__">
-    <p>def <span class="ident">__init__</span>(</p><p>self, ls=[])</p>
+    <p>def <span class="ident">__init__</span>(</p><p>self, ls=None)</p>
     </div>
     
 
@@ -1416,7 +1416,7 @@ def is_min_heap(h) -> bool:
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MinHeap.MinHeap.__init__" class="source">
-    <pre><code>def __init__(self, ls=[]):
+    <pre><code>def __init__(self, ls=None):
     Heap.__init__(self, ls)
 </code></pre>
   </div>

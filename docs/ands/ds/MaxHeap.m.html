@@ -8,7 +8,7 @@
 
 Creation: 15/02/16
 
-Last update: 19/02/16
+Last update: 28/08/16
 
 Mirror-class to the MinHeap clas..." />
 
@@ -1042,7 +1042,7 @@ table {
   <h1 class="title"><span class="name">ands.ds.MaxHeap</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>Creation: 15/02/16</p>
-<p>Last update: 19/02/16</p>
+<p>Last update: 28/08/16</p>
 <p>Mirror-class to the MinHeap class.
 For more info, see the introductory doc-strings of the file <a href="MinHeap.py"><code>MinHeap.py</code></a>.</p>
 <h2>References</h2>
@@ -1068,7 +1068,7 @@ Author: Nelson Brochado
 
 Creation: 15/02/16
 
-Last update: 19/02/16
+Last update: 28/08/16
 
 Mirror-class to the MinHeap class.
 For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHeap.py).
@@ -1090,7 +1090,7 @@ __all__ = ["MaxHeap", "is_max_heap"]
 
 class MaxHeap(Heap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
@@ -1258,7 +1258,7 @@ def is_max_heap(h) -> bool:
   <div id="source-ands.ds.MaxHeap.MaxHeap" class="source">
     <pre><code>class MaxHeap(Heap):
 
-    def __init__(self, ls=[]):
+    def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
@@ -1365,7 +1365,7 @@ def is_max_heap(h) -> bool:
             
   <div class="item">
     <div class="name def" id="ands.ds.MaxHeap.MaxHeap.__init__">
-    <p>def <span class="ident">__init__</span>(</p><p>self, ls=[])</p>
+    <p>def <span class="ident">__init__</span>(</p><p>self, ls=None)</p>
     </div>
     
 
@@ -1375,7 +1375,7 @@ def is_max_heap(h) -> bool:
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MaxHeap.MaxHeap.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.MaxHeap.MaxHeap.__init__" class="source">
-    <pre><code>def __init__(self, ls=[]):
+    <pre><code>def __init__(self, ls=None):
     Heap.__init__(self, ls)
 </code></pre>
   </div>
