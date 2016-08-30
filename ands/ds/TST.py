@@ -33,14 +33,12 @@ whereas a hash map supports any kind of hashable key.
 
 class TSTNode:
 
-    def __init__(self, key, value=None, parent=None,
-                 left=None, mid=None, right=None):
+    def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
         if key is None:
             raise ValueError("key cannot be None")
 
         self.key = key
         self.value = value
-
         self.parent = parent  # not used so far...
         self.left = left
         self.mid = mid
@@ -193,19 +191,14 @@ class TST:
 
 if __name__ == "__main__":
     tst = TST()
-
     tst.insert("M", 12)
     tst.insert("Nelson", 28)
     tst.insert("Mamma", 1)
     tst.insert("Anna", 12)
-
     # print(tst.search_r("Me"))
-
     print(tst.search("M"))
     print(tst.search_recursively("M"))
     # print(tst.search("Nelson"))
     # print(tst.size())
-
     tst.traverse()
-
     print(tst.count())

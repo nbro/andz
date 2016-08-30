@@ -13,15 +13,12 @@ env/
 # FILES 
 ands/ds/TST/
 
-ands/algorithms/greedy/huffman.py
-
+#ands/algorithms/greedy/huffman.py
+#ands/algorithms/graphs
+#ands/algorithms/unclassified
 
 # DIRECTORIES
-ands/algorithms/graphs
-ands/algorithms/unclassified
-
 venv/
-
 _ignore/
 
 

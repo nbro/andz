@@ -119,3 +119,8 @@ I would like to improve the _citation of references_ that I used to implement an
 
 
 I also want to develop a lot more algorithms and data structures. See the `README.md` files of the subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds) for more info. In some cases, you will also find a `README.md` file under the subpackages of the subpackages I've just mentioned.
+
+
+## Developers
+
+* Nelson <nelson.brochado@outlook.com>
