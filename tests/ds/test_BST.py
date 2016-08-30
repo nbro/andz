@@ -6,31 +6,32 @@ Author: Nelson Brochado
 
 Creation: 13/02/16
 
-Last update: 28/08/16
+Last update: 30/08/16
 
 Tests for the BST class.
 """
 
 import unittest
+
 from ands.ds.BST import BST, BSTNode, is_bst
-
-
-def assert_consistencies(bst):
-    """Call only when bst.root is not None"""
-    assert bst.root.count() == bst.n == bst.size()
-    assert bst.root.parent is None
-
-
-def assert_empty(b):
-    assert not b.root
-    assert b.size() == b.n == 0
 
 
 class TestBST(unittest.TestCase):
 
+    def assert_consistencies(self, bst):
+        """Call only when bst.root is not None"""
+        self.assertEqual(bst.root.count(), bst.n)
+        self.assertEqual(bst.n, bst.size())
+        self.assertIsNone(bst.root.parent)
+
+    def assert_empty(self, b):
+        self.assertIsNone(b.root)
+        self.assertEqual(b.n, 0)
+        self.assertEqual(b.size(), 0)
+
     def test_empty_size(self):
         b = BST()
-        assert_empty(b)
+        self.assert_empty(b)
         self.assertTrue(is_bst(b))
 
     def test_empty_contains(self):
@@ -41,9 +42,9 @@ class TestBST(unittest.TestCase):
     def test_one_size(self):
         b = BST()
         b.insert(12)
-        self.assertTrue(b.size() == 1)
+        self.assertEqual(b.size(), 1)
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
     def test_one_contains(self):
         b = BST()
@@ -55,13 +56,12 @@ class TestBST(unittest.TestCase):
     def test_many_size(self):
         b = BST()
         size = 0
-
         for i in range(-10, 11):
             b.insert(i)
             size += 1
-            self.assertTrue(size == b.size())
+            self.assertEqual(size, b.size())
             self.assertTrue(is_bst(b))
-            assert_consistencies(b)
+            self.assert_consistencies(b)
 
     def test_many_contains(self):
         b = BST()
@@ -83,10 +83,9 @@ class TestBST(unittest.TestCase):
         b.insert(12)
         b.insert(3)
         b.insert(4)
-
-        self.assertTrue(11 == b.size())
+        self.assertEqual(11, b.size())
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
     def test_delete_not_found(self):
         b = BST()
@@ -96,9 +95,8 @@ class TestBST(unittest.TestCase):
         b = BST()
         b.insert(12)
         b.delete(12)
-
         self.assertFalse(b.contains(12))
-        assert_empty(b)
+        self.assert_empty(b)
         self.assertTrue(is_bst(b))
 
     def test_multiple_remove1(self):
@@ -114,9 +112,9 @@ class TestBST(unittest.TestCase):
         for i in range(1, 15, 2):
             self.assertTrue(b.contains(i))
 
-        self.assertTrue(b.size() == 7)
+        self.assertEqual(b.size(), 7)
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
     def test_multiple_remove2(self):
         b = BST()
@@ -131,13 +129,13 @@ class TestBST(unittest.TestCase):
         for i in range(0, 15, 2):
             self.assertTrue(b.contains(i))
 
-        self.assertTrue(b.size() == 8)
+        self.assertEqual(b.size(), 8)
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
     def test_multiple_remove3(self):
         b = BST()
-        assert_empty(b)
+        self.assert_empty(b)
 
         b.insert(5)
         b.insert(3)
@@ -149,18 +147,16 @@ class TestBST(unittest.TestCase):
         b.insert(9)
         b.insert(12)
         b.insert(11)
-
-        self.assertTrue(b.size() == 10)
+        self.assertEqual(b.size(), 10)
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
         b.delete(3)
         b.delete(10)
         b.delete(12)
-
-        self.assertTrue(b.size() == 7)
+        self.assertEqual(b.size(), 7)
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
     def test_search(self):
         b = BST()
@@ -173,17 +169,15 @@ class TestBST(unittest.TestCase):
         self.assertIsNotNone(b.search(5))
         self.assertIsNotNone(b.search(10))
         self.assertIsNotNone(b.search(15))
-
-        self.assertTrue(b.size() == 3)
+        self.assertEqual(b.size(), 3)
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
         b.delete(10)
         self.assertIsNone(b.search(10))
-
-        self.assertTrue(b.size() == 2)
+        self.assertEqual(b.size(), 2)
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
     def test_remove_min_and_max(self):
         b = BST()
@@ -196,19 +190,17 @@ class TestBST(unittest.TestCase):
 
         m = b.remove_min()
         self.assertIsNotNone(m)
-        self.assertTrue(m.key == 12)
-
-        self.assertTrue(b.size() == 2)
+        self.assertEqual(m.key, 12)
+        self.assertEqual(b.size(), 2)
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
         M = b.remove_max()
         self.assertIsNotNone(M)
-        self.assertTrue(M.key == 28)
-
-        self.assertTrue(b.size() == 1)
+        self.assertEqual(M.key, 28)
+        self.assertEqual(b.size(), 1)
         self.assertTrue(is_bst(b))
-        assert_consistencies(b)
+        self.assert_consistencies(b)
 
     def test_predecessor_and_successor(self):
         b = BST()
@@ -262,17 +254,11 @@ class TestBST(unittest.TestCase):
 
         def asserts():
             self.assertTrue(is_bst(b))
-            assert_consistencies(b)
+            self.assert_consistencies(b)
 
         self.assertRaises(ValueError, b._switch, b.search(12), b.search(12))
         self.assertRaises(ValueError, b._switch, b.search(12), None)
-        self.assertRaises(
-            LookupError,
-            b._switch,
-            b.search(12),
-            BSTNode(100),
-            True)
-
+        self.assertRaises(LookupError, b._switch, b.search(12), BSTNode(100), True)
         asserts()
 
         b._switch(b.search(8), b.search(12))

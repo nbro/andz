@@ -68,7 +68,6 @@ For example, "key" and "value" are self-descriptive.
 
 from tabulate import tabulate
 
-
 __all__ = ["BST", "BSTNode", "is_bst"]
 
 
@@ -147,6 +146,7 @@ class BSTNode:
 
     def count(self) -> int:
         """Counts the numbers of nodes under `self` (including `self`)."""
+
         def _count(u, c: int):
             if u is None:
                 return c
@@ -166,14 +166,14 @@ class BSTNode:
         return "{" + str(self.key) + ": " + str(self.value) + "}"
 
     def __fields(self):
-        return[["Node (Key)", self.key],
-               ["Value", self.value],
-               ["Parent", self.parent],
-               ["Left child", self.left],
-               ["Right child", self.right],
-               ["Sibling", self.sibling],
-               ["Grandparent", self.grandparent],
-               ["Uncle", self.uncle]]
+        return [["Node (Key)", self.key],
+                ["Value", self.value],
+                ["Parent", self.parent],
+                ["Left child", self.left],
+                ["Right child", self.right],
+                ["Sibling", self.sibling],
+                ["Grandparent", self.grandparent],
+                ["Uncle", self.uncle]]
 
     def __repr__(self):
         return tabulate(self.__fields(), tablefmt="fancy_grid")
@@ -275,7 +275,7 @@ class BST:
 
     # SEARCH
 
-    def search(self, key, s: BSTNode=None) -> BSTNode:
+    def search(self, key, s: BSTNode = None) -> BSTNode:
         """Searches for the key in the tree.
         If `s` is specified, then this procedure starts searching from `s`.
 
@@ -632,6 +632,7 @@ class BST:
         """Removes and returns the maximum element of the tree, if it is not empty.
 
         **Time Complexity**: O(h)."""
+
         def _remove_max(u: BSTNode):
             """Removes the maximum element of the subtree rooted at `u`.
 
@@ -666,6 +667,7 @@ class BST:
         """Removes and returns the minimum element of the tree, if it is not empty.
 
         **Time Complexity**: O(h)."""
+
         def _remove_min(u: BSTNode):
             """Removes and returns the minimum element of the subtree rooted at `u`.
             If `u` is `None`, exceptions will be thrown."""
@@ -942,7 +944,7 @@ class BSTPrinter:
             right_lines.append(' ' * right_width)
 
         if (middle - len(node.label)) % 2 == 1 and node.parent is not None and \
-           node is node.parent.left and len(node.label) < middle:
+                node is node.parent.left and len(node.label) < middle:
             node.label += fill
 
         node.label = node.label.center(middle, fill)
@@ -970,6 +972,7 @@ def is_bst(bst):
     Invariant: for each node `n` in `bst`,
     if `n.left` exists, then `n.left <= n`,
     and if `n.right` exists, then `n.right >= n`."""
+
     def all_bst_nodes(t):
         def h(n):
             if n is not None:
@@ -977,6 +980,7 @@ def is_bst(bst):
                     return False
                 return h(n.left) and h(n.right)
             return True
+
         return h(t.root)
 
     def h(n):
@@ -1080,6 +1084,7 @@ class BSTImproved(BST):
         """Inserts `x` as the root of this tree.
 
         **Time Complexity**: O(h)."""
+
         def _root_insert(u: BSTNode, v: BSTNode):
             """Helper method for `self.root_insert`."""
             if u is None:

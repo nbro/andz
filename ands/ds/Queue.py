@@ -12,9 +12,9 @@ Basic queue, which is FIFO (first-in-first-out) data structure.
 """
 
 import sys
-from ands.ds.MinHeap import MinHeap
-from ands.ds.Heap import HeapNode
 
+from ands.ds.Heap import HeapNode
+from ands.ds.MinHeap import MinHeap
 
 __all__ = ["Queue", "BFSQueue", "MinPriorityQueue"]
 

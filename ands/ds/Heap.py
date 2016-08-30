@@ -30,7 +30,6 @@ when they require derived classes to override the method.
 import io
 import math
 
-
 __all__ = ["Heap", "HeapNode"]
 
 
@@ -422,7 +421,7 @@ class HeapPrinter:
         last_row = -1
 
         h_space = 1.4  # float
-        v_space = 2    # int
+        v_space = 2  # int
 
         for i, heap_node in enumerate(self.heap):
             if i:

@@ -22,7 +22,6 @@ For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHe
 
 from ands.ds.Heap import Heap, HeapNode
 
-
 __all__ = ["MaxHeap", "is_max_heap"]
 
 

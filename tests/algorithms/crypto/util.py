@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import string
 import random
+import string
 
 
 def gen_rand_message(size):
@@ -16,3 +16,8 @@ def gen_key(size):
 
 def gen_rand_keys(size, _min, _max):
     return [random.randint(_min, _max) for _ in range(size)]
+
+
+def find_max(m):
+    """m is a message"""
+    return max(ord(c) for c in m)

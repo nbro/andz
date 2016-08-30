@@ -8,19 +8,15 @@ Tests for the caesar cipher algorithms.
 """
 
 import unittest
-import random
+
 from ands.algorithms.crypto.caesar import *
 from tests.algorithms.crypto.util import *
 
 
-def find_max(m):
-    return max(ord(c) for c in m)
-
-
 class TestCaesarCipher(unittest.TestCase):
 
-    def __init__(self, methodName="runTest"):
-        unittest.TestCase.__init__(self, methodName)
+    def __init__(self, method_name="runTest"):
+        unittest.TestCase.__init__(self, method_name)
 
     def template_test1(self, n, size):
         for _ in range(n):
@@ -28,7 +24,7 @@ class TestCaesarCipher(unittest.TestCase):
             key = random.randint(1, MAX - find_max(m))
             cipher = encrypt(m, key)
             o = decrypt(cipher, key)
-            assert m == o
+            self.assertEqual(m, o)
 
     def template_test2(self, n, size, total_keys):
         for _ in range(n):
@@ -36,14 +32,14 @@ class TestCaesarCipher(unittest.TestCase):
             keys = gen_rand_keys(total_keys, 1, MAX - find_max(m))
             cipher, pattern = multi_encrypt(m, keys)
             o = multi_decrypt(cipher, pattern)
-            assert m == o
+            self.assertEqual(m, o)
 
     def test_empty_message(self):
         for i in range(100):
             m = ""
             cipher = encrypt(m, i)
             o = decrypt(cipher, i)
-            assert m == o
+            self.assertEqual(m, o)
 
     def test_encrypt_and_decrypt(self):
         self.template_test1(5, 1)

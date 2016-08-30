@@ -69,7 +69,6 @@ def lis(s):
         for j in range(0, i):
 
             if s[j] < s[i] and a[i] < a[j] + 1:
-
                 a[i] = a[j] + 1
 
                 prev[i] = j
@@ -86,6 +85,7 @@ def lis(s):
 def recursive_lis(s):
     pass
     # http://stackoverflow.com/questions/2631726/how-to-determine-the-longest-increasing-subsequence-using-dynamic-programming
+
 
 # print(lis([3, 2, 6, 4, 5, 1]))
 print(lis([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]))

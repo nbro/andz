@@ -9,6 +9,7 @@ because of the call to sort the items by value/weight ratio.
 """
 
 import operator
+
 from tabulate import tabulate
 
 
@@ -84,10 +85,9 @@ def output_fractional_knapsack(knapsack_objects, objects):
                 s += ", "
         else:
             s += " and " + str(item[1]) + " gram(s) of " + \
-                objects[item[0]][0] + "."
+                 objects[item[0]][0] + "."
 
     print("\n\n" + s)
-
 
 # if __name__ == "__main__":
 # interactive_fractional_knapsack()

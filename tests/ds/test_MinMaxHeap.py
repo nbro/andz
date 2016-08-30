@@ -12,8 +12,8 @@ Tests for the MinMaxHeap class.
 """
 
 import unittest
-
 from random import randint, choice
+
 from ands.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap, HeapNode
 
 
@@ -69,7 +69,7 @@ class TestMinMaxHeap(unittest.TestCase):
                 assert h.find_max() == h.heap[1] == max(h.heap)
             else:
                 assert (max(h.heap) == h.find_max() == h.heap[
-                        1] or max(h.heap) == h.find_max() == h.heap[2])
+                    1] or max(h.heap) == h.find_max() == h.heap[2])
             assert is_min_max_heap(h)
 
         while not h.is_empty():

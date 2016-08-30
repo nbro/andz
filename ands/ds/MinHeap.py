@@ -40,7 +40,6 @@ Note that these indexes are for 0-index based lists (or arrays).
 
 from ands.ds.Heap import Heap, HeapNode
 
-
 __all__ = ["MinHeap", "is_min_heap"]
 
 

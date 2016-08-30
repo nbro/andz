@@ -1005,8 +1005,6 @@ Author: Nelson Brochado
 Creation: 02/09/15
 """
 
-from pprint import *
-
 
 def _get_longest_common_substring_matrix(s1, s2):
     return [[0 for _ in range(len(s2) + 1)] for _ in range(len(s1) + 1)]
@@ -1040,6 +1038,7 @@ def longest_common_substring(s1, s2):
                 m[i][j] = 0
 
     return _build_longest_common_substring(s1, c, m)
+
 
 if __name__ == "__main__":
     print(longest_common_substring("abcdaf", "zbcdf"))

@@ -55,7 +55,7 @@ def is_prime_2(n):
         return True
     if n % 2 == 0 or n < 2:
         return False
-    for i in range(3, int(n**0.5) + 1, 2):
+    for i in range(3, int(n ** 0.5) + 1, 2):
         if n % i == 0:
             return False
     return True
@@ -68,7 +68,7 @@ def test1():
     a = time()
     for i in range(10000000):
         is_prime_2(i)
-#        assert is_prime(i) == is_prime_2(i)
+    # assert is_prime(i) == is_prime_2(i)
     b = time()
     print(b - a)
 

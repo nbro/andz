@@ -105,7 +105,7 @@ def plus_sign_game(s, k):
     p = len(s) - 1
 
     # Number of possible combinations
-    combinations = 2**p
+    combinations = 2 ** p
 
     # Generating a matrix with all possible combinations
     # of alternating between +  and no +

@@ -6,105 +6,86 @@ Author: Nelson Brochado
 
 Creation: 15/02/16
 
-Last update: 28/08/16
+Last update: 30/08/16
 
 Tests for the BSTNode class.
 """
 
 import unittest
+
 from ands.ds.BST import BSTNode
 
 
 class TestBSTNode(unittest.TestCase):
 
     def test_None(self):
-        try:
-            BSTNode(None)
-            assert False
-        except ValueError:
-            pass
+        self.assertRaises(ValueError, BSTNode, None)
 
     def test_init(self):
-        try:
-            BSTNode()
-            assert False
-        except TypeError:
-            pass
+        self.assertRaises(TypeError, BSTNode)
 
         n = BSTNode(12)
-        assert n.key == 12
-        assert not n.value
-        assert not n.left and not n.right and not n.parent
-        assert n.label == "[" + str(n.key) + "]"
-        assert not n.sibling
-        assert not n.grandparent
-        assert not n.uncle
+        self.assertEqual(n.key, 12)
+        self.assertIsNone(n.value)
+        self.assertIsNone(n.left)
+        self.assertIsNone(n.right)
+        self.assertIsNone(n.parent)
+        self.assertEqual(n.label, "[" + str(n.key) + "]")
+        self.assertIsNone(n.sibling)
+        self.assertIsNone(n.grandparent)
+        self.assertIsNone(n.uncle)
 
-        try:
-            n.is_left_child()
-            assert False
-        except AttributeError:
-            pass
+        self.assertRaises(AttributeError, n.is_left_child)
+        self.assertRaises(AttributeError, n.is_right_child)
 
-        try:
-            n.is_right_child()
-            assert False
-        except AttributeError:
-            pass
-
-        assert not n.has_children()
-        assert not n.has_one_child()
-        assert not n.has_two_children()
-        assert n.count() == 1
+        self.assertFalse(n.has_children())
+        self.assertFalse(n.has_one_child())
+        self.assertFalse(n.has_two_children())
+        self.assertEqual(n.count(), 1)
 
         n2 = BSTNode(14, "Fourteen")
-        assert n2.value == "Fourteen"
+        self.assertEqual(n2.value, "Fourteen")
 
         # BSTNode objects are not comparable
-        try:
+        with self.assertRaises(TypeError):
             n < n2
-            assert False
-        except TypeError:
-            pass
-
-        try:
+        with self.assertRaises(TypeError):
             n >= n2
-            assert False
-        except TypeError:
-            pass
 
         # You need explicitly to set the parent
         n.left = n2
-        assert n.left == n2
-        assert n2.parent is None
+        self.assertIs(n.left, n2)
+        self.assertIsNone(n2.parent)
 
         n2.parent = n
-        assert n2.parent == n
-        assert n.has_children()
-        assert n.has_one_child()
-        assert not n.has_two_children()
-        assert n.count() == 2
-        assert not n.parent
+        self.assertIs(n2.parent, n)
+        self.assertTrue(n.has_children())
+        self.assertTrue(n.has_one_child())
+        self.assertFalse(n.has_two_children())
+        self.assertEqual(n.count(), 2)
+        self.assertIsNone(n.parent)
 
         n3 = BSTNode(28)
         n.right = n3
-        assert n.has_children()
-        assert not n.has_one_child()
-        assert n.has_two_children()
-        assert n.count() == 3
-        assert not n.right.parent
-        assert n.left == n2 and n.right == n3
-        assert not n.parent
+        self.assertTrue(n.has_children())
+        self.assertFalse(n.has_one_child())
+        self.assertTrue(n.has_two_children())
+        self.assertEqual(n.count(), 3)
+        self.assertIsNone(n.right.parent)
+
+        self.assertIs(n.left, n2)
+        self.assertIs(n.right, n3)
+        self.assertIsNone(n.parent)
 
         n3.parent = n
-        assert n.right.parent
+        self.assertIsNotNone(n.right.parent)
 
         n.reset()
-        assert not n.has_children()
-        assert not n.has_one_child()
-        assert not n.has_two_children()
-        assert n.count() == 1
-        assert not n.parent
+        self.assertFalse(n.has_children())
+        self.assertFalse(n.has_one_child())
+        self.assertFalse(n.has_two_children())
+        self.assertEqual(n.count(), 1)
+        self.assertIsNone(n.parent)
 
     def test_sibling(self):
         p = BSTNode(12)
@@ -114,27 +95,32 @@ class TestBSTNode(unittest.TestCase):
         p.right = r
         l.parent = p
         r.parent = p
+        self.assertIsNotNone(l.sibling)
+        self.assertIsNotNone(r.sibling)
+        self.assertIs(l.sibling, r)
+        self.assertIs(r.sibling, l)
 
-        assert l.sibling and r.sibling
-        assert l.sibling == r and r.sibling == l
         p.left = None
-        assert not r.sibling
-        assert not l.sibling
+        self.assertIsNone(r.sibling)
+        self.assertIsNone(l.sibling)
 
     def test_grandparent(self):
         n = BSTNode(12)
-        assert not n.grandparent
+        self.assertIsNone(n.grandparent)
 
         n2 = BSTNode(14)
         n2.left = n
         n.parent = n2
-        assert not n.grandparent
+        self.assertIsNone(n.grandparent)
 
         n3 = BSTNode(28)
         n3.right = n2
         n2.parent = n3
-        assert not n2.grandparent and n2.parent and not n3.grandparent
-        assert n.grandparent and n.grandparent == n3
+        self.assertIsNone(n2.grandparent)
+        self.assertIsNotNone(n2.parent)
+        self.assertIsNone(n3.grandparent)
+        self.assertIsNotNone(n.grandparent)
+        self.assertIs(n.grandparent, n3)
 
     def test_uncle(self):
         n = BSTNode(12)
@@ -145,21 +131,23 @@ class TestBSTNode(unittest.TestCase):
         p.left = n
         p.parent = g
         g.right = p
-        assert n.parent and n.grandparent
-        assert not n.sibling
-        assert not n.uncle
+        self.assertIsNotNone(n.parent)
+        self.assertIsNotNone(n.grandparent)
+        self.assertIsNone(n.sibling)
+        self.assertIsNone(n.uncle)
 
         u = BSTNode(7)
         g.left = u
         u.parent = g
-        assert n.uncle and n.uncle == u
+        self.assertIsNotNone(n.uncle)
+        self.assertIs(n.uncle, u)
+
         n.reset()
-        assert not n.parent and not n.grandparent and not n.uncle and not n.sibling
-        try:
-            n.is_left_child()
-            assert False
-        except AttributeError:
-            pass
+        self.assertIsNone(n.parent)
+        self.assertIsNone(n.grandparent)
+        self.assertIsNone(n.uncle)
+        self.assertIsNone(n.sibling)
+        self.assertRaises(AttributeError, n.is_left_child)
 
 
 if __name__ == "__main__":

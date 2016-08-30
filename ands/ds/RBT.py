@@ -96,11 +96,10 @@ Now we log both parts
 """
 
 import math
+
 from ands.ds.BST import BST, BSTNode, is_bst
 
-
 __all__ = ["RBT", "RBTNode", "is_rbt", "bh", "upper_bound_height"]
-
 
 RED = "RED"
 BLACK = "BLACK"
@@ -130,15 +129,15 @@ class RBTNode(BSTNode):
 
     def __fields(self):
         """Used by __repr__."""
-        return[["Node (Key)", self.key],
-               ["Value", self.value],
-               ["Color", self.color],
-               ["Parent", self.parent],
-               ["Left child", self.left],
-               ["Right child", self.right],
-               ["Sibling", self.sibling],
-               ["Grandparent", self.grandparent],
-               ["Uncle", self.uncle]]
+        return [["Node (Key)", self.key],
+                ["Value", self.value],
+                ["Color", self.color],
+                ["Parent", self.parent],
+                ["Left child", self.left],
+                ["Right child", self.right],
+                ["Sibling", self.sibling],
+                ["Grandparent", self.grandparent],
+                ["Uncle", self.uncle]]
 
 
 class RBT(BST):
@@ -294,6 +293,7 @@ class RBT(BST):
         then the behaviour of this method is undefined (for now).
 
         **Time Complexity:** O(log<sub>2</sub>(n))."""
+
         def delete_case1(v):
             if v.parent is not None:
                 delete_case2(v)
@@ -342,7 +342,7 @@ class RBT(BST):
 
             if v.sibling.color == BLACK:
                 if (v.is_left_child() and
-                        (not v.sibling.right or v.sibling.right.color == BLACK) and
+                    (not v.sibling.right or v.sibling.right.color == BLACK) and
                         v.sibling.left.color == RED):
 
                     v.sibling.color = RED
@@ -534,12 +534,14 @@ def is_rbt(rbt):
 
     def prop_1(t):
         """Returns `True` if all colors are either `RED` or `BLACK`."""
+
         def h(n):
             if n:
                 if n.color != BLACK and n.color != RED:
                     return False
                 return h(n.right) and h(n.left)
             return True
+
         return h(t.root)
 
     def prop_2(t):
@@ -549,9 +551,10 @@ def is_rbt(rbt):
             return t.root.color == BLACK
         return True
 
-    # def prop_3(t):
+        # def prop_3(t):
         # leaves are represented with Nones,
         # so there's not need to check this property.
+
     #    return True
 
     def prop_4(t):
@@ -563,6 +566,7 @@ def is_rbt(rbt):
                     return False
                 return h(n.left) and h(n.right)
             return True
+
         return h(t.root)
 
     def prop_5(t):
@@ -575,6 +579,7 @@ def is_rbt(rbt):
                     return False
                 return h(n.left) and h(n.right)
             return True
+
         return h(t.root)
 
     if not is_bst(rbt):

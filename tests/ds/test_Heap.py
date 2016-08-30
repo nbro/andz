@@ -12,6 +12,7 @@ Tests for the abstract class Heap.
 """
 
 import unittest
+
 from ands.ds.Heap import Heap, HeapNode
 
 

@@ -11,9 +11,10 @@ Last update: 28/08/16
 Test the HashTable class.
 """
 
-import unittest
 import string
+import unittest
 from random import sample, randint, uniform, choice
+
 from ands.ds.HashTable import HashTable, has_duplicates
 
 

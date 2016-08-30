@@ -1027,10 +1027,9 @@ so, in general, you should prefer other algorithms.
 
 import random
 
-
 # Using `sys.maxunicode` causes some problems with encondings
 # i.e. an error is thrown because Tcl/Tk do not support certain characters
-MAX = 2**16 - 1
+MAX = 2 ** 16 - 1
 
 
 def move_char(c, k):

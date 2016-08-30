@@ -85,9 +85,9 @@ def min_edit_distance(s1, s2, return_matrix=False):
                 m[i][j] = min(m[i - 1][j - 1] + 1, m[i - 1]
                               [j] + 1, m[i][j - 1] + 1)
 
-        # pprint(m)
-        # input()
-        # print()
+                # pprint(m)
+                # input()
+                # print()
 
     return m[len(s1)][len(s2)] if not return_matrix else m
 

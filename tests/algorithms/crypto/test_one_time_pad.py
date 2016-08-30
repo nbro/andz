@@ -8,23 +8,24 @@ Testing the one_time_pad algorithm.
 """
 
 import unittest
+
 from ands.algorithms.crypto.one_time_pad import *
 from tests.algorithms.crypto.util import *
 
 
 class TestOneTimePad(unittest.TestCase):
 
-    def __init__(self, methodName="runTest"):
-        unittest.TestCase.__init__(self, methodName)
+    def __init__(self, method_name="runTest"):
+        unittest.TestCase.__init__(self, method_name)
 
     def template_test(self, n, m):
         """m is the size of the string and key"""
         for _ in range(n):
             message = gen_rand_message(m)
             key = gen_key(m)
-            ciphertext = encrypt(message, key)
-            original = decrypt(ciphertext, key)
-            assert original == message
+            cipher_text = encrypt(message, key)
+            original = decrypt(cipher_text, key)
+            self.assertEqual(original, message)
 
     def test_empty_message(self):
         self.template_test(1000, 0)

@@ -15,6 +15,7 @@ is the same as adding and removing from a list.
 """
 
 import unittest
+
 from ands.ds.Stack import Stack
 
 

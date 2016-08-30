@@ -99,7 +99,7 @@ def a_plus_b_all_to_n(a, b, n):
     """Solve polynomials of the form (a + b)<sup>n</sup>."""
     s = 0
     for k in range(0, n + 1):
-        s += n_choose_k(n, k) * (a**k) * (b**(n - k))
+        s += n_choose_k(n, k) * (a ** k) * (b ** (n - k))
     return s
 
 

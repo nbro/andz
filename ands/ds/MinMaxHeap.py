@@ -225,8 +225,8 @@ def is_min_max_heap(h) -> bool:
 
         if h.size() >= 3:
             if (h.heap[0] != min(h.heap) or
-                (h.heap[1] != max(h.heap) and
-                 h.heap[2] != max(h.heap))):
+                    (h.heap[1] != max(h.heap) and
+                     h.heap[2] != max(h.heap))):
                 return False
 
         for i, item in reversed(list(enumerate(h.heap))):

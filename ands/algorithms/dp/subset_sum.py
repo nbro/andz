@@ -113,5 +113,5 @@ if __name__ == "__main__":
 
     recursive_subset_sum([-2, 8, 6], 6)
     # recursive_subset_sum((4, 2, 6), 6)
-    #recursive_subset_sum((0, 0, 6), 6)
-    #recursive_subset_sum((1, 3, 5, 5, 2, 1, 1, 6), 12)
+    # recursive_subset_sum((0, 0, 6), 6)
+    # recursive_subset_sum((1, 3, 5, 5, 2, 1, 1, 6), 12)

@@ -29,18 +29,16 @@ def is_sorted(ls, rev=False):
     return True
 
 
-class SortingAlgoTests:
+class SortingAlgorithmTests:
 
-    def __init__(self, sorting_algo, in_place):
-        self.sorting_algo = sorting_algo
+    def __init__(self, sorting_algorithm, in_place):
+        self.sorting_algorithm = sorting_algorithm
         self.in_place = in_place
 
     def assert_commonalities(self, ls):
-        ls2 = self.sorting_algo(ls)
-
+        ls2 = self.sorting_algorithm(ls)
         if self.in_place:
             self.assertIs(ls, ls2)
-
         self.assertTrue(is_sorted(ls2))
 
     def test_empty(self):

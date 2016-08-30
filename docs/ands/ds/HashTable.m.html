@@ -1069,16 +1069,14 @@ that is used by the Python's standard `dict` class, that is:
 - [http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table](http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table)
 """
 
-
 from tabulate import tabulate
-
 
 __all__ = ["HashTable", "has_duplicates", "find_duplicates"]
 
 
 class HashTable:
 
-    def __init__(self, capacity: int=11):
+    def __init__(self, capacity: int = 11):
         self.n = capacity
         self.keys = [None] * self.n
         self.values = [None] * self.n
@@ -1334,7 +1332,7 @@ def find_duplicates(ls):
   <div id="source-ands.ds.HashTable.HashTable" class="source">
     <pre><code>class HashTable:
 
-    def __init__(self, capacity: int=11):
+    def __init__(self, capacity: int = 11):
         self.n = capacity
         self.keys = [None] * self.n
         self.values = [None] * self.n
@@ -1543,7 +1541,7 @@ def find_duplicates(ls):
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.HashTable.HashTable.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.HashTable.HashTable.__init__" class="source">
-    <pre><code>def __init__(self, capacity: int=11):
+    <pre><code>def __init__(self, capacity: int = 11):
     self.n = capacity
     self.keys = [None] * self.n
     self.values = [None] * self.n

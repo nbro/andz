@@ -8,9 +8,8 @@ An mathematical infix-to-postfix expression parser/converter.
 Includes also a calculator that receives a postfix expression.
 """
 
-import re
 import operator
-
+import re
 
 # higher number => higher precedence
 OPERATORS = {
@@ -145,11 +144,11 @@ def tostr(ls):
 # TESTS
 
 def test1():
-    #ifx = "a+b/c*(d+e)-f"
-    #ifx = "(12)^3 * x^3 +  (4  * 3)^3 + ()"
-    #ifx = "a+b*c"
-    #ifx = "3 + 2 * 2 ^ 3 % 3"
-    #ifx = "(((3 + 2) * 4))"
+    # ifx = "a+b/c*(d+e)-f"
+    # ifx = "(12)^3 * x^3 +  (4  * 3)^3 + ()"
+    # ifx = "a+b*c"
+    # ifx = "3 + 2 * 2 ^ 3 % 3"
+    # ifx = "(((3 + 2) * 4))"
 
     ifx = "((12*2^3+44*3)*3)"
     print("Infix:", ifx)
@@ -157,8 +156,8 @@ def test1():
     ls = parse(ifx)
     print("Infix list:", ls)
 
-    #ls = ['(', '(', '(', '3', '+', '2', '(', ')', ')', '*', '4', ')', ')']
-    #print("Infix:", tostr(ls))
+    # ls = ['(', '(', '(', '3', '+', '2', '(', ')', ')', '*', '4', ')', ')']
+    # print("Infix:", tostr(ls))
 
     pfx = infix_to_postfix(ls)
     print("Postfix list:", pfx)

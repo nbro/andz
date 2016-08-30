@@ -101,7 +101,7 @@ def extended_change_making(coins, rest):
 
         for r in range(1, rest + 1):
 
-             # Just use the coin coins[c - 1].
+            # Just use the coin coins[c - 1].
             if coins[c - 1] == r:
                 m[c][r] = 1
                 p[c][r].append(coins[c - 1])

@@ -13,6 +13,7 @@ Tests for the MinHeap class.
 
 import unittest
 from random import randint
+
 from ands.ds.MinHeap import MinHeap, is_min_heap, HeapNode
 
 

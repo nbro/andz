@@ -25,16 +25,14 @@ that is used by the Python's standard `dict` class, that is:
 - [http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table](http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table)
 """
 
-
 from tabulate import tabulate
-
 
 __all__ = ["HashTable", "has_duplicates", "find_duplicates"]
 
 
 class HashTable:
 
-    def __init__(self, capacity: int=11):
+    def __init__(self, capacity: int = 11):
         self.n = capacity
         self.keys = [None] * self.n
         self.values = [None] * self.n
