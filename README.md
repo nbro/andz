@@ -14,72 +14,87 @@ This project was created for _personal use_ mostly while studying for an _exam_ 
 
 I discourage every beginner from copying **shamelessly** the source code, but instead you should definitely give a chance to your brain and sense of challenge first! At the end, you will definetely feel a better and more serious programmer! If you really do not have any ideas on how to do something, try to read the comments next to each function and/or class (or even the code itself) that you are interested in. They are there for areason!
 
-Any suggestions to improve the code, or the design of an algorithm or data structure, or corrections are of course welcome, and therefore I encourage you to _fork_ this repository and eventually send a [_pull request_](https://help.github.com/articles/about-pull-requests/).
+Any suggestions to improve the code, or the design of an algorithm or data structure, or corrections are of course welcome, and therefore I encourage you to _fork_ this repository and eventually send a [_pull request_](https://help.github.com/articles/about-pull-requests/). See below for more info.
 
-## Structure
+## Content
 
 In this repository, you will find data structures, such as _binary-search trees_ or _graphs_, and _algorithms_ that often work on (those) data structures. 
 You will also find some algorithms related to some particular _design paradigm_, for example algorithms related to the _greedy_ or _dynamic programming_ design paradigms.
 
-## Notes and Warnings
+## Notes, Warnings and "Philosophy"
 
 - This is a **work in progress**, don't expect to find here all the data structures and algorithms you're searching. Consider to contribute to the quality and size of the project.
 
-- Again, **mistakes are possible** (even if decent tests are starting to being done). You can find them under the folder [`tests`](tests). So, as the [license](LICENSE.md) says, this project is provided "as is", etc.
+- Again, **mistakes are possible**, even if decent tests are starting to being done. You can find them under the folder [`tests`](tests). So, as the [license](LICENSE.md) says, this project is provided "as is", etc.
 
 - **No optimisation** has been done to any algorithm or data structure. The purpose of the implementations is just for demonstration.
 
-- This repository only contains **usable** (therefore complete) data structures and algorithms, that is, more details can be added, but the basic behaviour is implemented. If a bug is found in a data structure or algorithm, the respective data structure or algorithm is removed (temporarily) until it's fixed.
+- The `master` branch only contains **usable** (therefore complete) data structures and algorithms, that is, more details can be added, but the basic behaviour is implemented. If a bug is found in a data structure or algorithm, the respective data structure or algorithm is removed from that branch and moved to another one, for example to the one called `dev` or `debug`, until it's fixed.
 
 - My intent is to continue to contribute to this repository in my free time, and **new data structures and algorithms** will therefore be added. I have also other semi-implemented data structures and algorithms that I will include once I finish implementing them.
 
 
-## How to use?
+## How can you support this project?
 
-Download this repository. 
+You can support this project by either reporting a bug or suggesting an improvement after reading the source code, the documentation and/or the doc strings, or you can do it by fixing the problem or introducing new algorithms and data structures by writing the code by yourself.
 
-Open a terminal, and enter inside the `ands` folder. For example, if `ands` is in your desktop and your current working directory is your desktop, type:
+To accomplish the first one, I suggest you to simply [_open an issue on Github_](https://help.github.com/articles/creating-an-issue/). To accomplish the second one, read the next section.
+ 
+## How to contribute by writing code?
 
-    cd ands
+### Notes
 
-Once inside `ands` type, if you want to install this module `ands` **globally** in your usual Python distribution's `site-packages` folder:
+- This description and commands are for unix-like systems, i.e. Linux and Mac OS X. If you need help to do it on Windows, just send me an e-mail eventually. Note that the process should be identical, only the commands and eventually tools could be slightly different.
 
-    python3.5 setup.py install
+- I'm currently using Python 3.5 and also `pip3.5` to develop, but the module is currently being tested against Python 3.3, 3.4 and 3.5 on Travis CI. Use other versions of Python and `pip` at your own responsibility!
+
+- I really advise you to use `Git` and `Github` as your tools to develop, but you could eventually do it in different ways, and I would try to merge what you have done with the current structure of the module. 
+
+    This means that you can simply write your own Python script containing an algorithm or a data structure independently, and send it to me via either e-mail or by posting it as an issue, and I (or someone else) would be responsible for porting your code for the module, etc. **Just avoid this option, please.**
     
-You might want to install `ands` in a **virtual environment** in order not to pollute your Python's distribution.
+    I allow this second option because some people could not be very familiar yet with Git and Github.
 
-If you want to install `ands` in _editable_ mode (useful if you want to see your changes in real time) in a **virtualenv**, you need first to have the module `virtualenv`, which you can install as follows with `pip`:
+### Using Git and Github
 
-    pip3.5 install virtualenv
+First things first, you should fork the [`ands` repository from my `Github`'s account](https://github.com/nelson-brochado/ands) to your own. After that you should download your forked repository to your local machine. Once that's done, follow the following steps.
+
+1. Open a terminal, and enter inside the `ands` folder. For example, if `ands` is in your desktop and your current working directory is your desktop, type:
+
+        cd ands
+
+2. You're going to install the `ands` module in _editable_ mode in a virtual environment. If you don't know what's a virtual environment, it's time to know it. Here are a few useful resources:
+
+    - [http://docs.python-guide.org/en/latest/dev/virtualenvs/](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+
+    - [http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial](http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial)
+
+    The essential reason for developing in a virtual environment is that you probably just want to develop or simply modify the code, i.e. you probably don't want to use this module in other projects yet, because it's in early stage.
     
-Then, to create a virtual environment named `venv`, type:
+     So, the first thing to do is to install the `virtualenv` module, which you can do as follows
 
-    virtualenv venv
+        pip3.5 install virtualenv
 
 
-Finally just type the following command to install `ands` on the virtual environment `venv`:
-
-    pip3.5 install -e .
+    Then, to create a virtual environment named `venv` (you can name it as you want), type:
+    
+        virtualenv venv
     
     
-For more info on how to setup a virtual environment, see for example the following tutorials and posts:
-
-- [http://docs.python-guide.org/en/latest/dev/virtualenvs/](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
-
-- [http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial](http://stackoverflow.com/questions/5844869/comprehensive-beginners-virtualenv-tutorial)
+    Finally just type the following command to install `ands` on the virtual environment `venv`:
+    
+        pip3.5 install -e .
+        
+3. Once you finish developing, you need to commit your changes and then do a pull request. If you don't know what this means, check online, because these things are very useful for any serious programmer.
 
 ## Tests
 
-If you want to create tests, you need to write them within the folder [`tests`](tests), and their names' conventions (i.e. scripts' and functions' names) should follow the same name conventions of the already existent tests.
+If you want to create tests (_I strongly recommend you to write or modify them whenever respectively you write something new or modify something_), you need to write them within the folder [`tests`](tests), and their names' conventions (i.e. scripts' and functions' names) should follow the same name conventions of the already existent tests.
 
 ### How to run tests?
 
-You need first to install the module as specified above either on a virtual environment (advisable) or directly on your usable Python's distribution `site-packages` folder.
-
-Then, from inside either `tests/ds` or `tests/algorithms`, you can do
+From inside either `tests/ds` or `tests/algorithms`, you can do
 
     python -m unittest discover . -v
-
 
 or, after installing the package `coveralls`
 
@@ -89,6 +104,8 @@ or, after installing the package `coveralls`
 This last one should also report you the amount of code covered by the tests, after your run the command
 
     coverage report
+
+You can also simply run the [`./run.sh`](./run.sh) script on the terminal, which does that and other things...
 
 ## References
 
