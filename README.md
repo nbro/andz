@@ -84,7 +84,7 @@ First things first, you should fork the [`ands` repository from my `Github`'s ac
     
         pip3.5 install -e .
         
-3. Once you finish developing, you need to commit your changes and then do a pull request. If you don't know what this means, check online, because these things are very useful for any serious programmer.
+3. Once you finish developing, you need to commit your changes and then do a pull request. If you don't know what this means, check online, because these things are very useful for any serious programmer who considers itself to know Git and Github.
 
 ## Tests
 
@@ -92,7 +92,7 @@ If you want to create tests (_I strongly recommend you to write or modify them w
 
 ### How to run tests?
 
-From inside either `tests/ds` or `tests/algorithms`, you can do
+From inside either [`tests/ds`](./tests/ds) or [`tests/algorithms`](./tests/algorithms), you can do
 
     python -m unittest discover . -v
 
@@ -106,6 +106,13 @@ This last one should also report you the amount of code covered by the tests, af
     coverage report
 
 You can also simply run the [`./run.sh`](./run.sh) script on the terminal, which does that and other things...
+
+## TODO
+
+I would like to improve the _citation of references_ that I used to implement an algorithm or a data structure in all modules, even though in most of the cases, especially in the ones that required more effort to write, I've been doing it already. If your a contributor, please try to follow this "philosophy"/process.
+
+
+I also want to develop a lot more algorithms and data structures. See the `README.md` files of the subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds) for more info. In some cases, you will also find a `README.md` file under the subpackages of the subpackages I've just mentioned.
 
 ## References
 
@@ -128,14 +135,6 @@ The main references that I have used are:
 - [Algorithms: Design and Analysis, Part 1](https://www.coursera.org/learn/algorithm-design-analysis), Coursera's course taught by Tim Roughgarden
 
 - [Algorithms: Design and Analysis, Part 2](https://www.coursera.org/learn/algorithm-design-analysis-2), Coursera's course taught by Tim Roughgarden
-
-
-## TODO
-
-I would like to improve the _citation of references_ that I used to implement an algorithm or a data structure in all modules.
-
-
-I also want to develop a lot more algorithms and data structures. See the `README.md` files of the subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds) for more info. In some cases, you will also find a `README.md` file under the subpackages of the subpackages I've just mentioned.
 
 
 ## Developers
