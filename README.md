@@ -27,11 +27,9 @@ You will also find some algorithms related to some particular _design paradigm_,
 
 - Again, **mistakes are possible**, even if decent tests are starting to being done. You can find them under the folder [`tests`](tests). So, as the [license](LICENSE.md) says, this project is provided "as is", etc.
 
-- **No optimisation** has been done to any algorithm or data structure. The purpose of the implementations is just for demonstration.
+- **No optimisation** has been done to any algorithm or data structure. The purpose of the implementations is just for **_demonstration of the concepts_**!
 
-- The `master` branch only contains **usable** (therefore complete) data structures and algorithms, that is, more details can be added, but the basic behaviour is implemented. If a bug is found in a data structure or algorithm, the respective data structure or algorithm is removed from that branch and moved to another one, for example to the one called `dev` or `debug`, until it's fixed.
-
-- My intent is to continue to contribute to this repository in my free time, and **new data structures and algorithms** will therefore be added. I have also other semi-implemented data structures and algorithms that I will include once I finish implementing them.
+- My intent is to continue to contribute to this repository in my free time, and **new data structures and algorithms** will therefore be added. You can find semi-implemented things in the `dev` branch.
 
 
 ## How can you support this project?
