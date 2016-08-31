@@ -35,8 +35,9 @@ format() {
     # Format the code under ./ands/ and ./tests/
     printf "${RED}FORMATTING CODE UNDER './ands' AND './tests' AGGRESSIVELY AND RECURSIVELY...${NORMAL}\n"
 
-
-    if ! [ command -v virtualenv > /dev/null 2>&1 ] ; then
+    command -v autopep8
+    rc=$?
+    if [[ $rc != 0 ]]; then 
         printf "${RED}COMMAND 'autopep8' NOT FOUND.\nINSTALLING IT USING 'pip3.5'...${NORMAL}\n";
         pip3.5 install autopep8
     fi
@@ -77,7 +78,9 @@ new_virtualenv(){
     # Creates and switches to the new virtual environment
     printf "${YELLOW}CREATING NEW VIRTUAL ENVIRONMENT...${NORMAL}\n"
 
-    if ! [ command -v virtualenv > /dev/null 2>&1 ] ; then
+    command -v virtualenv
+    rc=$?; 
+    if [[ $rc != 0 ]]; then 
         printf "${RED}COMMAND 'virtualenv' NOT FOUND.\nINSTALLING IT USING 'pip3.5'...${NORMAL}\n";
         pip3.5 install virtualenv
     fi

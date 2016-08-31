@@ -21,7 +21,7 @@ Any suggestions to improve the code, or the design of an algorithm or data struc
 In this repository, you will find data structures, such as _binary-search trees_ or _graphs_, and _algorithms_ that often work on (those) data structures. 
 You will also find some algorithms related to some particular _design paradigm_, for example algorithms related to the _greedy_ or _dynamic programming_ design paradigms.
 
-## Notes, Warnings and "Philosophy"
+## Notes, warnings and "philosophy"
 
 - This is a **work in progress**, don't expect to find here all the data structures and algorithms you're searching. Consider to contribute to the quality and size of the project.
 
@@ -82,7 +82,29 @@ First things first, you should fork the [`ands` repository from my `Github`'s ac
     
         pip3.5 install -e .
         
-3. Once you finish developing, you need to commit your changes and then do a pull request. If you don't know what this means, check online, because these things are very useful for any serious programmer who considers itself to know Git and Github.
+3. Once you finish developing, you need to 
+
+    1. commit your changes to your local repository, 
+
+    2. push your local changes (as per the last commit) to your remote (forked) repository, and then 
+
+    3. _do a pull request_  
+
+    If you don't know what this means, check online, because these things are very useful for any serious programmer who considers itself to know Git and Github. You can do all of these steps without writing any command on the terminal...
+
+    Before that though, you should write tests to test what you've done. I would like that every algorithm and data structure is tested (which is not the case right now), in order to reduce the number of bugs as much as possible. Read the next section to know more about testing.
+    
+    Furthermore, before commiting your changes, I recommended you to run the script [`./run.sh`](./run.sh), which is responsible for doing the following tasks:
+    
+    1. Format all the source code using the tool `autopep8`
+
+    2. Create a virtual environment to test the module
+
+    3. Run the tests in the virtual environment
+
+    4. Create the new documentation
+
+    5. Clean up "junk" files
 
 ## Tests
 
@@ -103,7 +125,13 @@ This last one should also report you the amount of code covered by the tests, af
 
     coverage report
 
-You can also simply run the [`./run.sh`](./run.sh) script on the terminal, which does that and other things...
+You could also simply run the [`./run.sh`](./run.sh) script on the terminal, which runs also the tests, as I mentioned in the previous section.
+
+## Documentation
+
+The documentation, in HTML format, is being created using the tool `pdoc` and is being placed under the folder [`docs/ands`](./docs/ands). `pdoc` produces the documentation from the doc strings of the scripts.
+
+I really encourage you just to run the script [`./run.sh`](./run.sh), before commiting your changes, if you want to update the documentation.
 
 ## TODO
 
