@@ -9,6 +9,7 @@ env/
 *.egg-info/
 *.egg
 
+**/.DS_Store
 
 # FILES 
 ands/ds/TST/

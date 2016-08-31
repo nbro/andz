@@ -7,7 +7,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c88538816f424aea916c251428f78c0a)](https://www.codacy.com/app/nelson-brochado/ands?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dossan/ands&amp;utm_campaign=Badge_Grade)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)](./LICENSE.md)
 
-
 ## Introduction
 
 This project was created for _personal use_ mostly while studying for an _exam_ (starting in the month of June in 2015) of a previous course that I followed called _Algorithms and Data Structures_ I decided to make it publicly available to use and modify, so that people with difficulties in understanding and applying these topics can take benefit from it. 
@@ -139,6 +138,10 @@ I would like to improve the _citation of references_ that I used to implement an
 
 
 I also want to develop a lot more algorithms and data structures. See the `README.md` files of the subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds) for more info. In some cases, you will also find a `README.md` file under the subpackages of the subpackages I've just mentioned.
+
+## IRC Channel
+
+The internet relay chat channel for this repository is `##ands` at the server `irc.freenode.net`. 
 
 ## References
 
