@@ -26,14 +26,14 @@ setup(
     author="Nelson Brochado",
     author_email="nelson.brochado@outlook.com",
     packages=find_packages(exclude=["env"]),
-    install_requires=["tabulate", "pdoc"],  # package's dependencies
+    install_requires=["tabulate", "pdoc"],  # dependencies
     description="Algorithms and Data Structures",
     long_description=read("README.md"),
     license="MIT",
     keywords="algorithms data structures",
-    url="https://github.com/dossan/ands",
+    url="https://github.com/nelson-brochado/ands",
     include_package_data=True,  # include everything in source control
-    exclude_package_data={'': ['__pycache__']},  # but exclude __pycache__ from all packages
+    exclude_package_data={'': ['__pycache__']},
     classifiers=[
         # How mature is this project? Common values are
         #   3 - Alpha
@@ -50,10 +50,5 @@ setup(
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
-    ],
-    # entry_points = {  # http://stackoverflow.com/questions/774824/explain-python-entry-points
-    #        "console_scripts" : [
-    #        "ands = ands.main:main"  # type `ands` on the command line to run the function main with main.py
-    #    ]
-    # }
+    ]
 )
