@@ -1,23 +1,20 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-
-# Distribution / packaging
-env/
-*.egg-info/
-*.egg
-
-**/.DS_Store
-
-# FILES
+# FILES 
 ands/algorithms/greedy/huffman.py
 ands/ds/Graph.py
 
+*.egg
+*.py[cod]
+*$py.class
+.DS_Store
+
 # DIRECTORIES
+ands/ds/TST/
+ands/algorithms/graphs
+ands/algorithms/unclassified
+
 venv/
 _ignore/
-ands/ds/TST/
-ands/algorithms/graphs/
-ands/algorithms/unclassified/
+env/
+*.egg-info/
+__pycache__/
+.idea/

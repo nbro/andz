@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands.algorithms API documentation</title>
+    <title>ands.algorithms.graphs API documentation</title>
     <meta name="description" content="" />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
@@ -974,15 +974,16 @@ table {
 
     <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
       <ul>
-        <li class="mono"><a href="crypto/index.html">ands.algorithms.crypto</a></li>
-        <li class="mono"><a href="dac/index.html">ands.algorithms.dac</a></li>
-        <li class="mono"><a href="dp/index.html">ands.algorithms.dp</a></li>
-        <li class="mono"><a href="graphs/index.html">ands.algorithms.graphs</a></li>
-        <li class="mono"><a href="greedy/index.html">ands.algorithms.greedy</a></li>
-        <li class="mono"><a href="parsing/index.html">ands.algorithms.parsing</a></li>
-        <li class="mono"><a href="primes/index.html">ands.algorithms.primes</a></li>
-        <li class="mono"><a href="recursion/index.html">ands.algorithms.recursion</a></li>
-        <li class="mono"><a href="sorting/index.html">ands.algorithms.sorting</a></li>
+        <li class="mono"><a href="best_team_of_three.m.html">ands.algorithms.graphs.best_team_of_three</a></li>
+        <li class="mono"><a href="build_shortest_path.m.html">ands.algorithms.graphs.build_shortest_path</a></li>
+        <li class="mono"><a href="connected_components.m.html">ands.algorithms.graphs.connected_components</a></li>
+        <li class="mono"><a href="dfs.m.html">ands.algorithms.graphs.dfs</a></li>
+        <li class="mono"><a href="find_eccentricity.m.html">ands.algorithms.graphs.find_eccentricity</a></li>
+        <li class="mono"><a href="find_triangle.m.html">ands.algorithms.graphs.find_triangle</a></li>
+        <li class="mono"><a href="four_cycle.m.html">ands.algorithms.graphs.four_cycle</a></li>
+        <li class="mono"><a href="is_bipartite.m.html">ands.algorithms.graphs.is_bipartite</a></li>
+        <li class="mono"><a href="top_sort.m.html">ands.algorithms.graphs.top_sort</a></li>
+        <li class="mono"><a href="top_three_friends_of_friends.m.html">ands.algorithms.graphs.top_three_friends_of_friends</a></li>
       </ul>
     </li>
     </ul>
@@ -996,11 +997,11 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands.algorithms</span> module</h1>
+  <h1 class="title"><span class="name">ands.algorithms.graphs</span> module</h1>
   
   
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
@@ -1016,57 +1017,120 @@ table {
 
     <h2 class="section-title" id="header-submodules">Sub-modules</h2>
       <div class="item">
-      <p class="name"><a href="crypto/index.html">ands.algorithms.crypto</a></p>
+      <p class="name"><a href="best_team_of_three.m.html">ands.algorithms.graphs.best_team_of_three</a></p>
       
   
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: 06/09/15, 12:37</p>
+<p>My solution to exercise 139 from the series of exercises by prof. A. Carzaniga</p>
+<p>Consider a weighted undirected graph G = (V, E)
+representing a group of programmers and their affinity for team work,
+such that the weight w(e) of an edge e = (u, v) is ...</p></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dac/index.html">ands.algorithms.dac</a></p>
+      <p class="name"><a href="build_shortest_path.m.html">ands.algorithms.graphs.build_shortest_path</a></p>
       
   
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: 29/08/15, 17:57</p>
+<p>build_shortest_path can be used
+to construct a list of nodes
+that represent the shortest path
+from a source node to a destination node.</p>
+<p>Note that you should call this function
+only after an algorithm, such as BFS,
+has run on the graph,
+i.e. precede...</p></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dp/index.html">ands.algorithms.dp</a></p>
+      <p class="name"><a href="connected_components.m.html">ands.algorithms.graphs.connected_components</a></p>
       
   
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: 26/08/15</p>
+<p>Utility functions related to connected components of a graph.</p></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="graphs/index.html">ands.algorithms.graphs</a></p>
+      <p class="name"><a href="dfs.m.html">ands.algorithms.graphs.dfs</a></p>
       
   
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: July, 2015</p>
+<p>Implementation of depth-first search,
+which uses starting and ending times of visiting nodes,
+and keeps also track of the predecessor of each node,
+in order to be able to backtrack from a node to the source, if necessary.</p></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="greedy/index.html">ands.algorithms.greedy</a></p>
+      <p class="name"><a href="find_eccentricity.m.html">ands.algorithms.graphs.find_eccentricity</a></p>
       
   
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: 26/08/15</p>
+<p>The eccentricity of a node n is defined as the length
+of the longest shortest path from n to any other node.</p></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="parsing/index.html">ands.algorithms.parsing</a></p>
+      <p class="name"><a href="find_triangle.m.html">ands.algorithms.graphs.find_triangle</a></p>
       
   
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: 05/09/15</p>
+<p>Exercise 112.</p></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="primes/index.html">ands.algorithms.primes</a></p>
+      <p class="name"><a href="four_cycle.m.html">ands.algorithms.graphs.four_cycle</a></p>
       
   
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: 06/09/15</p>
+<p>My solution to exercise 146 from the series of exercise by prof. A. Carzaniga</p>
+<p>Write an algorithm called Four-Cycle(G)
+that takes a directed graph represented with its adjacency matrix G,
+and that returns true if and only if G contains a 4-cycle.</p>
+<p>A 4-cycl...</p></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="recursion/index.html">ands.algorithms.recursion</a></p>
+      <p class="name"><a href="is_bipartite.m.html">ands.algorithms.graphs.is_bipartite</a></p>
       
   
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: July, 2015</p></div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="sorting/index.html">ands.algorithms.sorting</a></p>
+      <p class="name"><a href="top_sort.m.html">ands.algorithms.graphs.top_sort</a></p>
       
   
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: 25/08/15</p>
+<p>Notes: To reduce dependencies between modules,
+I decided to included a clean version of dfs here,
+specifically for the top_sort algorithm.</p>
+<p>Explanation:
+A topological ordering (or sorting, sort, order) of a directed graph with no cycles (DAG),
+is an order ...</p></div>
+
+      </div>
+      <div class="item">
+      <p class="name"><a href="top_three_friends_of_friends.m.html">ands.algorithms.graphs.top_three_friends_of_friends</a></p>
+      
+  
+    <div class="desc"><p>Author: Nelson Brochado
+Creation: 05/09/15</p>
+<p>Exercise 127.</p>
+<p>Consider a social network system that, for each user u,
+stores u's friends in a list friends(u).
+Implement an algorithm Top-Three-Friends-Of-Friends(u) that,
+given a user u, recommends the three other users that are not
+already among u's fri...</p></div>
 
       </div>
   </section>

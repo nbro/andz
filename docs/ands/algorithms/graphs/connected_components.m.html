@@ -3,8 +3,11 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands.algorithms API documentation</title>
-    <meta name="description" content="" />
+    <title>ands.algorithms.graphs.connected_components API documentation</title>
+    <meta name="description" content="Author: Nelson Brochado
+Creation: 26/08/15
+
+Utility functions related to connected components of a g..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -969,22 +972,31 @@ table {
   <div id="sidebar">
     <h1>Index</h1>
     <ul id="index">
+    <li class="set"><h3><a href="#header-variables">Module variables</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.BLACK">BLACK</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.GREY">GREY</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.INFINITY">INFINITY</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.NIL">NIL</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.WHITE">WHITE</a></li>
+  </ul>
 
-
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="crypto/index.html">ands.algorithms.crypto</a></li>
-        <li class="mono"><a href="dac/index.html">ands.algorithms.dac</a></li>
-        <li class="mono"><a href="dp/index.html">ands.algorithms.dp</a></li>
-        <li class="mono"><a href="graphs/index.html">ands.algorithms.graphs</a></li>
-        <li class="mono"><a href="greedy/index.html">ands.algorithms.greedy</a></li>
-        <li class="mono"><a href="parsing/index.html">ands.algorithms.parsing</a></li>
-        <li class="mono"><a href="primes/index.html">ands.algorithms.primes</a></li>
-        <li class="mono"><a href="recursion/index.html">ands.algorithms.recursion</a></li>
-        <li class="mono"><a href="sorting/index.html">ands.algorithms.sorting</a></li>
-      </ul>
     </li>
+
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.bfs">bfs</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.count_connected_components">count_connected_components</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.dfs">dfs</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.find_connected_components">find_connected_components</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.connected_components.is_connected">is_connected</a></li>
+  </ul>
+
+    </li>
+
+
     </ul>
   </div>
 
@@ -996,79 +1008,395 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands.algorithms</span> module</h1>
+  <h1 class="title"><span class="name">ands.algorithms.graphs.connected_components</span> module</h1>
+  <p>Author: Nelson Brochado
+Creation: 26/08/15</p>
+<p>Utility functions related to connected components of a graph.</p>
   
-  
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.connected_components', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.connected_components" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# File to allow this directory to be treated as a python package.
+"""
+Author: Nelson Brochado
+Creation: 26/08/15
+
+Utility functions related to connected components of a graph.
+"""
+
+from ands.ds.Graph import *
+from ands.ds.Queue import BFSQueue
+
+
+def bfs(g: Graph, s: GraphNode):
+    """BFS algorithm implemented specifically
+    to find the connected components of a graph.
+
+    Time complexity: O(number of nodes + number of edges),
+
+    The complexity is linear in the size of the nodes + edges
+    because each node and edge is visited once,
+    in other words, each of these visits cost O(1)."""
+
+    # Adding a new empty list to represent this connected component
+    g.connected_components.append([])
+
+    s.color = GREY
+
+    q = BFSQueue()
+    q.enqueue(s)
+
+    while not q.is_empty():
+
+        u = q.dequeue()
+
+        for v in u.get_adjacent_nodes():
+            if v.color == WHITE:
+                v.color = GREY
+                q.enqueue(v)
+
+        u.color = BLACK
+
+        # Each Graph object contains a field, a list of lists,
+        # each of them containing the nodes of different connected components,
+        # basically each of these lists is a connected component.
+        g.connected_components[-1].append(u)
+
+        # Each node contains also a field called "connected_component",
+        # which represents the connected component to which they belong.
+        u.connected_component = len(g.connected_components)
+
+
+def find_connected_components(g: Graph):
+    """Finds the connected components in graph using bfs.
+
+    Connected components of graph are sub-graphs of graph
+    that are not connected together by an edge.
+
+    This procedure is useful for:
+        - checking if a network is disconnected
+        - visualising the parts of a graph
+        - ..."""
+
+    # Clearing possible previous calculations
+    g.connected_components.clear()
+
+    for u in g.nodes:
+        u.color = WHITE
+        u.connected_component = NIL
+
+    for v in g.nodes:
+        # If a node is still WHITE, that means it has not yet been visited,
+        # either because this is the first iteration
+        # or because v belongs to a different connected component
+        # than the ones of the previous found.
+        if v.color == WHITE:
+            bfs(g, v)
+
+    return g.connected_components
+
+
+def dfs(g: Graph, u: GraphNode):
+    u.color = GREY
+
+    for v in u.get_adjacent_nodes():
+        if v.color == WHITE:
+            dfs(g, v)
+
+    u.color = BLACK
+
+
+def count_connected_components(g: Graph):
+    """Find connected components using dfs."""
+    cc = 0
+
+    for u in g.nodes:
+        u.color = WHITE
+
+    for u in g.nodes:
+        if u.color == WHITE:
+            dfs(g, u)
+            cc += 1
+
+    return cc
+
+
+def is_connected(g: Graph):
+    """Returns true if g has only one connected component,
+    which would also imply that it is connected."""
+    return count_connected_components(g) == 1
+
+
+if __name__ == "__main__":
+    graph = Graph()
+
+    a = GraphNode("a")
+    b = GraphNode("b")
+    c = GraphNode("c")
+    d = GraphNode("d")
+    e = GraphNode("e")
+    f = GraphNode("f")
+
+    graph.add_undirected_edge(a, b)
+    graph.add_undirected_edge(b, c)
+    graph.add_undirected_edge(a, c)
+    # graph.add_undirected_edge(b, d)
+    graph.add_undirected_edge(e, f)
+    # graph.add_undirected_edge(e, d)
+
+    graph.add_nodes((a, b, c, d, e, f))
+
+    print(count_connected_components(graph))
+    print(find_connected_components(graph))
+
+    graph.show_connected_components()
 </code></pre>
   </div>
 
   </header>
 
   <section id="section-items">
-
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
+    <h2 class="section-title" id="header-variables">Module variables</h2>
       <div class="item">
-      <p class="name"><a href="crypto/index.html">ands.algorithms.crypto</a></p>
+      <p id="ands.algorithms.graphs.connected_components.BLACK" class="name">var <span class="ident">BLACK</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dac/index.html">ands.algorithms.dac</a></p>
+      <p id="ands.algorithms.graphs.connected_components.GREY" class="name">var <span class="ident">GREY</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dp/index.html">ands.algorithms.dp</a></p>
+      <p id="ands.algorithms.graphs.connected_components.INFINITY" class="name">var <span class="ident">INFINITY</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="graphs/index.html">ands.algorithms.graphs</a></p>
+      <p id="ands.algorithms.graphs.connected_components.NIL" class="name">var <span class="ident">NIL</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="greedy/index.html">ands.algorithms.greedy</a></p>
+      <p id="ands.algorithms.graphs.connected_components.WHITE" class="name">var <span class="ident">WHITE</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
-      <div class="item">
-      <p class="name"><a href="parsing/index.html">ands.algorithms.parsing</a></p>
+
+    <h2 class="section-title" id="header-functions">Functions</h2>
       
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.connected_components.bfs">
+    <p>def <span class="ident">bfs</span>(</p><p>g, s)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>BFS algorithm implemented specifically
+to find the connected components of a graph.</p>
+<p>Time complexity: O(number of nodes + number of edges),</p>
+<p>The complexity is linear in the size of the nodes + edges
+because each node and edge is visited once,
+in other words, each of these visits cost O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.connected_components.bfs', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.connected_components.bfs" class="source">
+    <pre><code>def bfs(g: Graph, s: GraphNode):
+    """BFS algorithm implemented specifically
+    to find the connected components of a graph.
+
+    Time complexity: O(number of nodes + number of edges),
+
+    The complexity is linear in the size of the nodes + edges
+    because each node and edge is visited once,
+    in other words, each of these visits cost O(1)."""
+
+    # Adding a new empty list to represent this connected component
+    g.connected_components.append([])
+
+    s.color = GREY
+
+    q = BFSQueue()
+    q.enqueue(s)
+
+    while not q.is_empty():
+
+        u = q.dequeue()
+
+        for v in u.get_adjacent_nodes():
+            if v.color == WHITE:
+                v.color = GREY
+                q.enqueue(v)
+
+        u.color = BLACK
+
+        # Each Graph object contains a field, a list of lists,
+        # each of them containing the nodes of different connected components,
+        # basically each of these lists is a connected component.
+        g.connected_components[-1].append(u)
+
+        # Each node contains also a field called "connected_component",
+        # which represents the connected component to which they belong.
+        u.connected_component = len(g.connected_components)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.connected_components.count_connected_components">
+    <p>def <span class="ident">count_connected_components</span>(</p><p>g)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Find connected components using dfs.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.connected_components.count_connected_components', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.connected_components.count_connected_components" class="source">
+    <pre><code>def count_connected_components(g: Graph):
+    """Find connected components using dfs."""
+    cc = 0
+
+    for u in g.nodes:
+        u.color = WHITE
+
+    for u in g.nodes:
+        if u.color == WHITE:
+            dfs(g, u)
+            cc += 1
+
+    return cc
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.connected_components.dfs">
+    <p>def <span class="ident">dfs</span>(</p><p>g, u)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.connected_components.dfs', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.connected_components.dfs" class="source">
+    <pre><code>def dfs(g: Graph, u: GraphNode):
+    u.color = GREY
+
+    for v in u.get_adjacent_nodes():
+        if v.color == WHITE:
+            dfs(g, v)
+
+    u.color = BLACK
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.connected_components.find_connected_components">
+    <p>def <span class="ident">find_connected_components</span>(</p><p>g)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Finds the connected components in graph using bfs.</p>
+<p>Connected components of graph are sub-graphs of graph
+that are not connected together by an edge.</p>
+<p>This procedure is useful for:
+    - checking if a network is disconnected
+    - visualising the parts of a graph
+    - ...</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.connected_components.find_connected_components', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.connected_components.find_connected_components" class="source">
+    <pre><code>def find_connected_components(g: Graph):
+    """Finds the connected components in graph using bfs.
+
+    Connected components of graph are sub-graphs of graph
+    that are not connected together by an edge.
+
+    This procedure is useful for:
+        - checking if a network is disconnected
+        - visualising the parts of a graph
+        - ..."""
+
+    # Clearing possible previous calculations
+    g.connected_components.clear()
+
+    for u in g.nodes:
+        u.color = WHITE
+        u.connected_component = NIL
+
+    for v in g.nodes:
+        # If a node is still WHITE, that means it has not yet been visited,
+        # either because this is the first iteration
+        # or because v belongs to a different connected component
+        # than the ones of the previous found.
+        if v.color == WHITE:
+            bfs(g, v)
+
+    return g.connected_components
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.connected_components.is_connected">
+    <p>def <span class="ident">is_connected</span>(</p><p>g)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns true if g has only one connected component,
+which would also imply that it is connected.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.connected_components.is_connected', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.connected_components.is_connected" class="source">
+    <pre><code>def is_connected(g: Graph):
+    """Returns true if g has only one connected component,
+    which would also imply that it is connected."""
+    return count_connected_components(g) == 1
+</code></pre>
+  </div>
+</div>
+
+  </div>
   
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="primes/index.html">ands.algorithms.primes</a></p>
-      
-  
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="recursion/index.html">ands.algorithms.recursion</a></p>
-      
-  
-
-      </div>
-      <div class="item">
-      <p class="name"><a href="sorting/index.html">ands.algorithms.sorting</a></p>
-      
-  
-
-      </div>
   </section>
 
     </article>

@@ -3,8 +3,11 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands.algorithms API documentation</title>
-    <meta name="description" content="" />
+    <title>ands.algorithms.graphs.find_triangle API documentation</title>
+    <meta name="description" content="Author: Nelson Brochado
+Creation: 05/09/15
+
+Exercise 112." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -969,22 +972,30 @@ table {
   <div id="sidebar">
     <h1>Index</h1>
     <ul id="index">
+    <li class="set"><h3><a href="#header-variables">Module variables</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.algorithms.graphs.find_triangle.BLACK">BLACK</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.find_triangle.GREY">GREY</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.find_triangle.INFINITY">INFINITY</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.find_triangle.NIL">NIL</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.find_triangle.WHITE">WHITE</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.find_triangle.edges">edges</a></li>
+  </ul>
 
-
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="crypto/index.html">ands.algorithms.crypto</a></li>
-        <li class="mono"><a href="dac/index.html">ands.algorithms.dac</a></li>
-        <li class="mono"><a href="dp/index.html">ands.algorithms.dp</a></li>
-        <li class="mono"><a href="graphs/index.html">ands.algorithms.graphs</a></li>
-        <li class="mono"><a href="greedy/index.html">ands.algorithms.greedy</a></li>
-        <li class="mono"><a href="parsing/index.html">ands.algorithms.parsing</a></li>
-        <li class="mono"><a href="primes/index.html">ands.algorithms.primes</a></li>
-        <li class="mono"><a href="recursion/index.html">ands.algorithms.recursion</a></li>
-        <li class="mono"><a href="sorting/index.html">ands.algorithms.sorting</a></li>
-      </ul>
     </li>
+
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.algorithms.graphs.find_triangle.find_triangle">find_triangle</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.find_triangle.improved_find_triangle">improved_find_triangle</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.find_triangle.is_an_edge">is_an_edge</a></li>
+  </ul>
+
+    </li>
+
+
     </ul>
   </div>
 
@@ -996,79 +1007,245 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands.algorithms</span> module</h1>
+  <h1 class="title"><span class="name">ands.algorithms.graphs.find_triangle</span> module</h1>
+  <p>Author: Nelson Brochado
+Creation: 05/09/15</p>
+<p>Exercise 112.</p>
   
-  
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.find_triangle', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.find_triangle" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# File to allow this directory to be treated as a python package.
+"""
+Author: Nelson Brochado
+Creation: 05/09/15
+
+Exercise 112.
+"""
+
+from ands.ds.Graph import *
+
+edges = {}
+
+
+def is_an_edge(u, v):
+    """Returns true if v is an adjacent node to u.
+
+    Running time complexity: O(number of adjacent nodes to u).
+
+    :type u : GraphNode
+    :type v : GraphNode
+    """
+    if (u, v) not in edges:
+        edges[(u, v)] = w in u.get_adjacent_nodes()
+    return edges[(u, v)]
+
+
+def find_triangle(g):
+    """Returns true if there's a triangle in g.
+
+    A triangle in a graph is a triple of vertices u, v and w,
+    such that all three edges  (u, v), (v, w) and (u, w) are in the graph.
+
+    Note that a triangle is not composed of the edges (u, v), (v, w) and (w, u)!
+
+    :type g : Graph
+    """
+    for u in g.nodes:
+        for v in u.get_adjacent_nodes():
+            for w in g.nodes:
+                if is_an_edge(v, w) and is_an_edge(u, w):
+                    return True
+    return False
+
+
+def improved_find_triangle(g):
+    for e in g.edges:  # e = (u, v)
+        for w in g.nodes:
+            if is_an_edge(e[1], w) and is_an_edge(e[0], w):
+                return True
+    return False
+
+
+if __name__ == "__main__":
+    g = Graph()
+
+    u = GraphNode("u")
+    w = GraphNode("w")
+    v = GraphNode("v")
+    z = GraphNode("z")
+
+    u.add_adjacent_node(v)
+    u.add_adjacent_node(w)  # comment this line to remove the triangle
+
+    v.add_adjacent_node(w)
+    v.add_adjacent_node(z)
+
+    # w.add_adjacent_node(u)
+    w.add_adjacent_node(z)
+
+    g.add_nodes((u, v, w, z))
+
+    print(g)
+
+    print(find_triangle(g))
+    print(improved_find_triangle(g))
 </code></pre>
   </div>
 
   </header>
 
   <section id="section-items">
-
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
+    <h2 class="section-title" id="header-variables">Module variables</h2>
       <div class="item">
-      <p class="name"><a href="crypto/index.html">ands.algorithms.crypto</a></p>
+      <p id="ands.algorithms.graphs.find_triangle.BLACK" class="name">var <span class="ident">BLACK</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dac/index.html">ands.algorithms.dac</a></p>
+      <p id="ands.algorithms.graphs.find_triangle.GREY" class="name">var <span class="ident">GREY</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dp/index.html">ands.algorithms.dp</a></p>
+      <p id="ands.algorithms.graphs.find_triangle.INFINITY" class="name">var <span class="ident">INFINITY</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="graphs/index.html">ands.algorithms.graphs</a></p>
+      <p id="ands.algorithms.graphs.find_triangle.NIL" class="name">var <span class="ident">NIL</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="greedy/index.html">ands.algorithms.greedy</a></p>
+      <p id="ands.algorithms.graphs.find_triangle.WHITE" class="name">var <span class="ident">WHITE</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="parsing/index.html">ands.algorithms.parsing</a></p>
+      <p id="ands.algorithms.graphs.find_triangle.edges" class="name">var <span class="ident">edges</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
-      <div class="item">
-      <p class="name"><a href="primes/index.html">ands.algorithms.primes</a></p>
+
+    <h2 class="section-title" id="header-functions">Functions</h2>
       
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.find_triangle.find_triangle">
+    <p>def <span class="ident">find_triangle</span>(</p><p>g)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns true if there's a triangle in g.</p>
+<p>A triangle in a graph is a triple of vertices u, v and w,
+such that all three edges  (u, v), (v, w) and (u, w) are in the graph.</p>
+<p>Note that a triangle is not composed of the edges (u, v), (v, w) and (w, u)!</p>
+<p>:type g : Graph</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.find_triangle.find_triangle', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.find_triangle.find_triangle" class="source">
+    <pre><code>def find_triangle(g):
+    """Returns true if there's a triangle in g.
+
+    A triangle in a graph is a triple of vertices u, v and w,
+    such that all three edges  (u, v), (v, w) and (u, w) are in the graph.
+
+    Note that a triangle is not composed of the edges (u, v), (v, w) and (w, u)!
+
+    :type g : Graph
+    """
+    for u in g.nodes:
+        for v in u.get_adjacent_nodes():
+            for w in g.nodes:
+                if is_an_edge(v, w) and is_an_edge(u, w):
+                    return True
+    return False
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.find_triangle.improved_find_triangle">
+    <p>def <span class="ident">improved_find_triangle</span>(</p><p>g)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.find_triangle.improved_find_triangle', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.find_triangle.improved_find_triangle" class="source">
+    <pre><code>def improved_find_triangle(g):
+    for e in g.edges:  # e = (u, v)
+        for w in g.nodes:
+            if is_an_edge(e[1], w) and is_an_edge(e[0], w):
+                return True
+    return False
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.find_triangle.is_an_edge">
+    <p>def <span class="ident">is_an_edge</span>(</p><p>u, v)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns true if v is an adjacent node to u.</p>
+<p>Running time complexity: O(number of adjacent nodes to u).</p>
+<p>:type u : GraphNode
+:type v : GraphNode</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.find_triangle.is_an_edge', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.find_triangle.is_an_edge" class="source">
+    <pre><code>def is_an_edge(u, v):
+    """Returns true if v is an adjacent node to u.
+
+    Running time complexity: O(number of adjacent nodes to u).
+
+    :type u : GraphNode
+    :type v : GraphNode
+    """
+    if (u, v) not in edges:
+        edges[(u, v)] = w in u.get_adjacent_nodes()
+    return edges[(u, v)]
+</code></pre>
+  </div>
+</div>
+
+  </div>
   
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="recursion/index.html">ands.algorithms.recursion</a></p>
-      
-  
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="sorting/index.html">ands.algorithms.sorting</a></p>
-      
-  
-
-      </div>
   </section>
 
     </article>

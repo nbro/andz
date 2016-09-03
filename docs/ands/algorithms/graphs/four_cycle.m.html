@@ -3,8 +3,11 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands.algorithms API documentation</title>
-    <meta name="description" content="" />
+    <title>ands.algorithms.graphs.four_cycle API documentation</title>
+    <meta name="description" content="Author: Nelson Brochado
+Creation: 06/09/15
+
+My solution to exercise 146 from the series of exercise ..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -969,22 +972,28 @@ table {
   <div id="sidebar">
     <h1>Index</h1>
     <ul id="index">
+    <li class="set"><h3><a href="#header-variables">Module variables</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.algorithms.graphs.four_cycle.BLACK">BLACK</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.four_cycle.GREY">GREY</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.four_cycle.INFINITY">INFINITY</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.four_cycle.NIL">NIL</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.four_cycle.WHITE">WHITE</a></li>
+  </ul>
 
-
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="crypto/index.html">ands.algorithms.crypto</a></li>
-        <li class="mono"><a href="dac/index.html">ands.algorithms.dac</a></li>
-        <li class="mono"><a href="dp/index.html">ands.algorithms.dp</a></li>
-        <li class="mono"><a href="graphs/index.html">ands.algorithms.graphs</a></li>
-        <li class="mono"><a href="greedy/index.html">ands.algorithms.greedy</a></li>
-        <li class="mono"><a href="parsing/index.html">ands.algorithms.parsing</a></li>
-        <li class="mono"><a href="primes/index.html">ands.algorithms.primes</a></li>
-        <li class="mono"><a href="recursion/index.html">ands.algorithms.recursion</a></li>
-        <li class="mono"><a href="sorting/index.html">ands.algorithms.sorting</a></li>
-      </ul>
     </li>
+
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.algorithms.graphs.four_cycle.four_cycle">four_cycle</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.four_cycle.is_an_edge">is_an_edge</a></li>
+  </ul>
+
+    </li>
+
+
     </ul>
   </div>
 
@@ -996,79 +1005,194 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands.algorithms</span> module</h1>
+  <h1 class="title"><span class="name">ands.algorithms.graphs.four_cycle</span> module</h1>
+  <p>Author: Nelson Brochado
+Creation: 06/09/15</p>
+<p>My solution to exercise 146 from the series of exercise by prof. A. Carzaniga</p>
+<p>Write an algorithm called Four-Cycle(G)
+that takes a directed graph represented with its adjacency matrix G,
+and that returns true if and only if G contains a 4-cycle.</p>
+<p>A 4-cycle is a sequence of four distinct vertexes a, b, c, d
+such that there is an arc from a to b, from b to c, from c to d,
+and from d to a.</p>
+<p>Also, analyze the complexity of Four-Cycle(G).</p>
   
-  
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.four_cycle', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.four_cycle" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# File to allow this directory to be treated as a python package.
+"""
+Author: Nelson Brochado
+Creation: 06/09/15
+
+My solution to exercise 146 from the series of exercise by prof. A. Carzaniga
+
+Write an algorithm called Four-Cycle(G)
+that takes a directed graph represented with its adjacency matrix G,
+and that returns true if and only if G contains a 4-cycle.
+
+A 4-cycle is a sequence of four distinct vertexes a, b, c, d
+such that there is an arc from a to b, from b to c, from c to d,
+and from d to a.
+
+Also, analyze the complexity of Four-Cycle(G).
+"""
+
+from ands.ds.Graph import *
+
+
+def is_an_edge(u, v):
+    return v in u.get_adjacent_nodes()
+
+
+def four_cycle(g):
+    """Detects a four cycle in a graph represented as an adjacency list.
+
+    Running time complexity(O^5),
+    but using a adjacency matrix representation,
+    it would only be O(n^4),
+    because checking if there's an edge is a constant operation.
+
+    :type g : Graph
+    """
+    for a in g.nodes:
+        for b in a.get_adjacent_nodes():
+            for c in b.get_adjacent_nodes():
+                for d in c.get_adjacent_nodes():
+                    if is_an_edge(d, a):
+                        return True
+
+    return False
+
+
+if __name__ == "__main__":
+    g = Graph()
+
+    a = GraphNode("a")
+    b = GraphNode("b")
+    c = GraphNode("c")
+    d = GraphNode("d")
+
+    g.add_directed_edge(a, b)
+    g.add_directed_edge(b, c)
+    g.add_directed_edge(c, a)  # change a to d, i.e. (c, d) to form a 4-cycle
+    g.add_directed_edge(d, a)
+
+    print(four_cycle(g))
 </code></pre>
   </div>
 
   </header>
 
   <section id="section-items">
-
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
+    <h2 class="section-title" id="header-variables">Module variables</h2>
       <div class="item">
-      <p class="name"><a href="crypto/index.html">ands.algorithms.crypto</a></p>
+      <p id="ands.algorithms.graphs.four_cycle.BLACK" class="name">var <span class="ident">BLACK</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dac/index.html">ands.algorithms.dac</a></p>
+      <p id="ands.algorithms.graphs.four_cycle.GREY" class="name">var <span class="ident">GREY</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dp/index.html">ands.algorithms.dp</a></p>
+      <p id="ands.algorithms.graphs.four_cycle.INFINITY" class="name">var <span class="ident">INFINITY</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="graphs/index.html">ands.algorithms.graphs</a></p>
+      <p id="ands.algorithms.graphs.four_cycle.NIL" class="name">var <span class="ident">NIL</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="greedy/index.html">ands.algorithms.greedy</a></p>
+      <p id="ands.algorithms.graphs.four_cycle.WHITE" class="name">var <span class="ident">WHITE</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
-      <div class="item">
-      <p class="name"><a href="parsing/index.html">ands.algorithms.parsing</a></p>
+
+    <h2 class="section-title" id="header-functions">Functions</h2>
       
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.four_cycle.four_cycle">
+    <p>def <span class="ident">four_cycle</span>(</p><p>g)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Detects a four cycle in a graph represented as an adjacency list.</p>
+<p>Running time complexity(O^5),
+but using a adjacency matrix representation,
+it would only be O(n^4),
+because checking if there's an edge is a constant operation.</p>
+<p>:type g : Graph</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.four_cycle.four_cycle', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.four_cycle.four_cycle" class="source">
+    <pre><code>def four_cycle(g):
+    """Detects a four cycle in a graph represented as an adjacency list.
+
+    Running time complexity(O^5),
+    but using a adjacency matrix representation,
+    it would only be O(n^4),
+    because checking if there's an edge is a constant operation.
+
+    :type g : Graph
+    """
+    for a in g.nodes:
+        for b in a.get_adjacent_nodes():
+            for c in b.get_adjacent_nodes():
+                for d in c.get_adjacent_nodes():
+                    if is_an_edge(d, a):
+                        return True
+
+    return False
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.four_cycle.is_an_edge">
+    <p>def <span class="ident">is_an_edge</span>(</p><p>u, v)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.four_cycle.is_an_edge', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.four_cycle.is_an_edge" class="source">
+    <pre><code>def is_an_edge(u, v):
+    return v in u.get_adjacent_nodes()
+</code></pre>
+  </div>
+</div>
+
+  </div>
   
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="primes/index.html">ands.algorithms.primes</a></p>
-      
-  
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="recursion/index.html">ands.algorithms.recursion</a></p>
-      
-  
-
-      </div>
-      <div class="item">
-      <p class="name"><a href="sorting/index.html">ands.algorithms.sorting</a></p>
-      
-  
-
-      </div>
   </section>
 
     </article>

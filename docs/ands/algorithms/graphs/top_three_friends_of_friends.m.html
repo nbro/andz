@@ -3,8 +3,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands.algorithms API documentation</title>
-    <meta name="description" content="" />
+    <title>ands.algorithms.graphs.top_three_friends_of_friends API documentation</title>
+    <meta name="description" content="Author: Nelson Brochado
+Creation: 05/09/15
+
+Exercise 127.
+
+Consider a social network system that, fo..." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -969,22 +974,27 @@ table {
   <div id="sidebar">
     <h1>Index</h1>
     <ul id="index">
+    <li class="set"><h3><a href="#header-variables">Module variables</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.algorithms.graphs.top_three_friends_of_friends.BLACK">BLACK</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.top_three_friends_of_friends.GREY">GREY</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.top_three_friends_of_friends.INFINITY">INFINITY</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.top_three_friends_of_friends.NIL">NIL</a></li>
+    <li class="mono"><a href="#ands.algorithms.graphs.top_three_friends_of_friends.WHITE">WHITE</a></li>
+  </ul>
 
-
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="crypto/index.html">ands.algorithms.crypto</a></li>
-        <li class="mono"><a href="dac/index.html">ands.algorithms.dac</a></li>
-        <li class="mono"><a href="dp/index.html">ands.algorithms.dp</a></li>
-        <li class="mono"><a href="graphs/index.html">ands.algorithms.graphs</a></li>
-        <li class="mono"><a href="greedy/index.html">ands.algorithms.greedy</a></li>
-        <li class="mono"><a href="parsing/index.html">ands.algorithms.parsing</a></li>
-        <li class="mono"><a href="primes/index.html">ands.algorithms.primes</a></li>
-        <li class="mono"><a href="recursion/index.html">ands.algorithms.recursion</a></li>
-        <li class="mono"><a href="sorting/index.html">ands.algorithms.sorting</a></li>
-      </ul>
     </li>
+
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.algorithms.graphs.top_three_friends_of_friends.top_three_friends_of_friends">top_three_friends_of_friends</a></li>
+  </ul>
+
+    </li>
+
+
     </ul>
   </div>
 
@@ -996,79 +1006,215 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands.algorithms</span> module</h1>
+  <h1 class="title"><span class="name">ands.algorithms.graphs.top_three_friends_of_friends</span> module</h1>
+  <p>Author: Nelson Brochado
+Creation: 05/09/15</p>
+<p>Exercise 127.</p>
+<p>Consider a social network system that, for each user u,
+stores u's friends in a list friends(u).
+Implement an algorithm Top-Three-Friends-Of-Friends(u) that,
+given a user u, recommends the three other users that are not
+already among u's friends but are among
+the friends of most of u's friends.
+Also, analyze the complexity of the Top-Three-Friends-Of-Friends algorithm.</p>
+<p>My idea:
+Build the network system as a graph.</p>
+<p>But how do we find the 3 friends of friends to suggest to the user u?</p>
+<p>Given a user u, we can iterate through its friends.</p>
+<p>First, we should create an empty list "suggestions" to store the suggestions.</p>
+<p>Then we iterate through each adjacent node w
+of each adjacent node "v" of the node "user",
+and we check two things:
+    1. that w is not adjacent to "user"
+    2. w is not already in the list "suggestions".</p>
   
-  
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.top_three_friends_of_friends', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.top_three_friends_of_friends" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# File to allow this directory to be treated as a python package.
+"""
+Author: Nelson Brochado
+Creation: 05/09/15
+
+Exercise 127.
+
+Consider a social network system that, for each user u,
+stores u's friends in a list friends(u).
+Implement an algorithm Top-Three-Friends-Of-Friends(u) that,
+given a user u, recommends the three other users that are not
+already among u's friends but are among
+the friends of most of u's friends.
+Also, analyze the complexity of the Top-Three-Friends-Of-Friends algorithm.
+
+
+My idea:
+Build the network system as a graph.
+
+But how do we find the 3 friends of friends to suggest to the user u?
+
+Given a user u, we can iterate through its friends.
+
+First, we should create an empty list "suggestions" to store the suggestions.
+
+Then we iterate through each adjacent node w
+of each adjacent node "v" of the node "user",
+and we check two things:
+    1. that w is not adjacent to "user"
+    2. w is not already in the list "suggestions".
+"""
+
+from pprint import pprint
+
+from ands.ds.Graph import *
+
+
+def top_three_friends_of_friends(user, k=3):
+    """Return a list of suggestions of friends for user.
+
+    Running time complexity:
+     - O(n^3) in the worst case
+     - O(n^2) in the average case.
+
+    Node that searching for element in a set
+    is in average a constant operation,
+    but in the worst case it can be linear.
+
+    :type user : GraphNode
+    """
+    friends = set(user.get_adjacent_nodes())
+    suggestions = set()
+
+    for friend in friends:
+        for ff in friend.get_adjacent_nodes():
+            if ff != user and ff not in friends and \
+                    ff not in suggestions and len(suggestions) < k:
+                suggestions.add(ff)
+
+    return suggestions
+
+
+if __name__ == "__main__":
+    sn = Graph("Social Network")
+
+    a = GraphNode("a")
+    b = GraphNode("b")
+    c = GraphNode("c")
+    d = GraphNode("d")
+    e = GraphNode("e")
+    f = GraphNode("f")
+    g = GraphNode("g")
+
+    sn.add_nodes((a, b, c, d, e, f, g))
+
+    sn.add_undirected_edge(a, d)
+    sn.add_undirected_edge(a, c)
+    sn.add_undirected_edge(a, b)
+    sn.add_undirected_edge(b, g)
+    sn.add_undirected_edge(d, f)
+    sn.add_undirected_edge(d, e)
+
+    pprint(top_three_friends_of_friends(a))
 </code></pre>
   </div>
 
   </header>
 
   <section id="section-items">
-
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
+    <h2 class="section-title" id="header-variables">Module variables</h2>
       <div class="item">
-      <p class="name"><a href="crypto/index.html">ands.algorithms.crypto</a></p>
+      <p id="ands.algorithms.graphs.top_three_friends_of_friends.BLACK" class="name">var <span class="ident">BLACK</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dac/index.html">ands.algorithms.dac</a></p>
+      <p id="ands.algorithms.graphs.top_three_friends_of_friends.GREY" class="name">var <span class="ident">GREY</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="dp/index.html">ands.algorithms.dp</a></p>
+      <p id="ands.algorithms.graphs.top_three_friends_of_friends.INFINITY" class="name">var <span class="ident">INFINITY</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="graphs/index.html">ands.algorithms.graphs</a></p>
+      <p id="ands.algorithms.graphs.top_three_friends_of_friends.NIL" class="name">var <span class="ident">NIL</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
       <div class="item">
-      <p class="name"><a href="greedy/index.html">ands.algorithms.greedy</a></p>
+      <p id="ands.algorithms.graphs.top_three_friends_of_friends.WHITE" class="name">var <span class="ident">WHITE</span></p>
       
   
+  <div class="source_cont">
+</div>
 
       </div>
-      <div class="item">
-      <p class="name"><a href="parsing/index.html">ands.algorithms.parsing</a></p>
+
+    <h2 class="section-title" id="header-functions">Functions</h2>
       
+  <div class="item">
+    <div class="name def" id="ands.algorithms.graphs.top_three_friends_of_friends.top_three_friends_of_friends">
+    <p>def <span class="ident">top_three_friends_of_friends</span>(</p><p>user, k=3)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Return a list of suggestions of friends for user.</p>
+<p>Running time complexity:
+ - O(n^3) in the worst case
+ - O(n^2) in the average case.</p>
+<p>Node that searching for element in a set
+is in average a constant operation,
+but in the worst case it can be linear.</p>
+<p>:type user : GraphNode</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.graphs.top_three_friends_of_friends.top_three_friends_of_friends', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.graphs.top_three_friends_of_friends.top_three_friends_of_friends" class="source">
+    <pre><code>def top_three_friends_of_friends(user, k=3):
+    """Return a list of suggestions of friends for user.
+
+    Running time complexity:
+     - O(n^3) in the worst case
+     - O(n^2) in the average case.
+
+    Node that searching for element in a set
+    is in average a constant operation,
+    but in the worst case it can be linear.
+
+    :type user : GraphNode
+    """
+    friends = set(user.get_adjacent_nodes())
+    suggestions = set()
+
+    for friend in friends:
+        for ff in friend.get_adjacent_nodes():
+            if ff != user and ff not in friends and \
+                    ff not in suggestions and len(suggestions) < k:
+                suggestions.add(ff)
+
+    return suggestions
+</code></pre>
+  </div>
+</div>
+
+  </div>
   
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="primes/index.html">ands.algorithms.primes</a></p>
-      
-  
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="recursion/index.html">ands.algorithms.recursion</a></p>
-      
-  
-
-      </div>
-      <div class="item">
-      <p class="name"><a href="sorting/index.html">ands.algorithms.sorting</a></p>
-      
-  
-
-      </div>
   </section>
 
     </article>
