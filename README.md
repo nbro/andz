@@ -1,5 +1,7 @@
 # Algorithms and Data Structures (AnDS)
 
+[![Join the chat at https://gitter.im/ands-project/Lobby](https://badges.gitter.im/ands-project/Lobby.svg)](https://gitter.im/ands-project/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 [![Python 3.3, 3.4, 3.5](https://img.shields.io/badge/python-3.3%2C%203.4%2C%203.5-blue.svg)](https://www.python.org/downloads/)
 [![Build Status](https://travis-ci.org/nelson-brochado/ands.svg?branch=master)](https://travis-ci.org/nelson-brochado/ands)
