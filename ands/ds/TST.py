@@ -3,18 +3,18 @@
 
 """
 Author: Nelson Brochado
-
 Creation: 05/09/15
-
-Last update: 01/07/16
+Last update: 04/09/16
 
 Resources:
-
 - https://www.cs.upc.edu/~ps/downloads/tst/tst.html
+- https://www.cs.princeton.edu/~rs/strings/
 - http://algs4.cs.princeton.edu/52trie/TST.java.html
 - https://www.youtube.com/watch?v=CIGyewO7868
 - https://en.wikipedia.org/wiki/Ternary_search_tree
 - https://www.youtube.com/watch?v=xv4oRyqSKiw
+- http://www.keithschwarz.com/interesting/code/?dir=ternary-search-tree (good analysis of the operations of a TST)
+- http://p2p.wrox.com/book-beginning-algorithms/60350-remove-method-ternary-search-tree.html
 
 Description:
 Ternary-search tries (or trees) combine
@@ -22,12 +22,9 @@ the time efficiency of other tries
 with the space efficiency of binary-search trees.
 
 An advantage compared to hash maps
-is that ternary search tries support sorting,
-but the keys of a ternary-search trie can only be strings,
+is that ternary search tries (or trees) support sorting,
+but the KEYS of a ternary-search trie can only be STRINGS,
 whereas a hash map supports any kind of hashable key.
-
-# TODO
-- Delete operation
 """
 
 
@@ -35,170 +32,174 @@ class TSTNode:
 
     def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
         if key is None:
-            raise ValueError("key cannot be None")
-
+            raise ValueError("key cannot be None.")
         self.key = key
         self.value = value
-        self.parent = parent  # not used so far...
+        self.parent = parent
         self.left = left
         self.mid = mid
         self.right = right
 
 
 class TST:
-    # Ternary Search Trie
 
     def __init__(self, root=None):
-        self.n = 0  # Size of the ternary search tree
+        self.n = 0  # number of key/values pairs
         self.root = root
 
     def size(self):
         return self.n
-
-    def contains(self, key: str):
-        """Returns True if the key is in self, False otherwise."""
-        return self.search_recursively(key) is not None
-
-    def search_recursively(self, key: str):
-        """Returns the value associated with key."""
-        if not key:
-            raise TypeError("key must be a string of length >= 1")
-
-        node = TST._search_recursively(self.root, key, 0)
-
-        if node:
-            return node.value
-
-    @staticmethod
-    def _search_recursively(node: TSTNode, key: str, index: int):
-        """Returns sub-TST corresponding to given key."""
-        if not key:
-            raise TypeError("key must be a string of length >= 1")
-
-        if node is None:
-            return None
-
-        c = key[index]  # char of key at index
-
-        if c < node.key:
-            return TST._search_recursively(node.left, key, index)
-        elif c > node.key:
-            return TST._search_recursively(node.right, key, index)
-        elif index < len(key) - 1:
-            return TST._search_recursively(node.mid, key, index + 1)
-        else:
-            return node
-
-    def search(self, key):
-        return TST._search(self.root, key)
-
-    @staticmethod
-    def _search(node, key):
-
-        if node is None or not key:
-            return None
-
-        for i in range(len(key) - 1):
-
-            while node and key[i] != node.key:
-                if key[i] < node.key:
-                    node = node.left
-                else:
-                    node = node.right
-
-            if node is None:  # Unsuccessful search
-                return None
-            else:
-                node = node.mid
-
-        # In case the length of the key is 1
-        return node.value if node.key == key else None
 
     def insert(self, key: str, value: object):
         """Inserts the key-value pair into the symbol table,
         overwriting the old value with the new value,
         if the key is already in the symbol table."""
         if value is None:
-            raise TypeError("'value' cannot be None.")
+            raise TypeError("value cannot be None")
+        if not key:
+            raise ValueError("key must be a string of length >= 1")
+        self.root = self._insert(self.root, key, value, 0)
 
-        if not self.contains(key):
-            self.n += 1
-
-        self.root = TST._insert(self.root, key, value, 0)
-
-    @staticmethod
-    def _insert(node: TSTNode, key: str, value: object, index: int):
-        """Inserts key into self starting from node."""
-        c = key[index]
-
+    def _insert(self, node: TSTNode, key: str, value: object, index: int):
+        """Inserts key into self starting from node.
+        This is helper method and should not be called by any client of TST."""
         if node is None:
-            node = TSTNode(c)
+            node = TSTNode(key[index])
 
-        if c < node.key:
-            node.left = TST._insert(node.left, key, value, index)
-        elif c > node.key:
-            node.right = TST._insert(node.right, key, value, index)
-        elif index < len(key) - 1:
-            """if we're not at the end of the key,
-            this is a match, so we recursively call search from index + 1,
-            and we move to the mid node (char) of node."""
-            node.mid = TST._insert(node.mid, key, value, index + 1)
-        else:
-            node.value = value
+        if key[index] < node.key:
+            node.left = self._insert(node.left, key, value, index)
+        elif key[index] > node.key:
+            node.right = self._insert(node.right, key, value, index)
+        else:  # c == node.key
+            if index < len(key) - 1:
+                # If we're NOT at the end of the key, this is a match,
+                # so we recursively call search from index + 1,
+                # and we move to the mid node (char) of node.
+                # Note that the last index of the key is len(key) - 1.
+                node.mid = self._insert(node.mid, key, value, index + 1)
+            else:
+                if not node.value:
+                    self.n += 1
+                node.value = value
 
         return node
 
-    def traverse(self):
-        return TST._traverse(self.root, "")
+    def delete(self, key: str):
+        """Deletes and returns the value associated with key in this TST.
+        This operation does not change the structure of this TST,
+        but only merely makes it "forget" that there's a map with key `key`."""
+        if not key:
+            raise TypeError("key must be a string of length >= 1")
+        return self._delete(self.root, key)
+
+    def _delete(self, node: TSTNode, key: str):
+        """Implementation based on the non-recursive implementation of _search."""
+        if node is None:
+            return None
+
+        for i in range(len(key) - 1):
+            while node and key[i] != node.key:
+                if key[i] < node.key:
+                    node = node.left
+                else:
+                    node = node.right
+            if node is None:  # unsuccessful search
+                return None
+            else:
+                # arriving here only if exited from the while loop
+                # because the condition key[i] != node.key was false
+                node = node.mid
+
+        if not node or node.key != key[-1]:
+            return None
+        else:
+            result = node.value
+            node.value = None
+            self.n -= 1
+            return result
+
+    def search_recursively(self, key: str):
+        """Returns the value associated with key."""
+        if not key:
+            raise TypeError("key must be a string of length >= 1")
+        node = self._search_recursively(self.root, key, 0)
+        return node.value if node else None
+
+    def _search_recursively(self, node: TSTNode, key: str, index: int):
+        """Returns sub-TST corresponding to given key."""
+        if node is None:
+            return None
+
+        if key[index] < node.key:
+            return self._search_recursively(node.left, key, index)
+        elif key[index] > node.key:
+            return self._search_recursively(node.right, key, index)
+        elif index < len(key) - 1:
+            return self._search_recursively(node.mid, key, index + 1)
+        else:
+            return node
+
+    def search(self, key):
+        if not key:
+            raise TypeError("key must be a string of length >= 1")
+        return TST._search(self.root, key)
 
     @staticmethod
-    def _traverse(node, prefix):
+    def _search(node, key):
+        if node is None:
+            return None
+
+        for i in range(len(key) - 1):
+            while node and key[i] != node.key:
+                if key[i] < node.key:
+                    node = node.left
+                else:
+                    node = node.right
+
+            if node is None:  # unsuccessful search
+                return None
+            else:
+                # arriving here only if exited from the while loop
+                # because the condition key[i] != node.key was false
+                node = node.mid
+
+        if not node or node.key != key[-1]:
+            return None
+        else:
+            return node.value
+
+    def contains(self, key: str):
+        """Returns True if the key is in self, False otherwise."""
+        return self.search_recursively(key) is not None
+
+    def traverse(self):
+        return self._traverse(self.root, "")
+
+    def _traverse(self, node, prefix):
         """Based on: http://stackoverflow.com/a/27178771/3924118"""
         if node is None:
             return
 
-        TST._traverse(node.left, prefix)
+        self._traverse(node.left, prefix)
 
         if node.value is not None:
             print(prefix + node.key, "=>", node.value)
 
-        TST._traverse(node.mid, prefix + node.key)
-        TST._traverse(node.right, prefix)
+        self._traverse(node.mid, prefix + node.key)
+        self._traverse(node.right, prefix)
 
     def count(self):
         """Counts the number of strings in self.
         You should call instead self.size(),
-        whose time complexity is constant.
-        """
+        whose time complexity is constant."""
         return self._count(self.root, 0)
 
-    @staticmethod
-    def _count(node, counter):
+    def _count(self, node, counter):
         if node is None:
             return counter
-
-        counter = TST._count(node.left, counter)
-
+        counter = self._count(node.left, counter)
         if node.value is not None:
             counter += 1
-
-        counter = TST._count(node.mid, counter)
-
-        counter = TST._count(node.right, counter)
-
+        counter = self._count(node.mid, counter)
+        counter = self._count(node.right, counter)
         return counter
-
-
-if __name__ == "__main__":
-    tst = TST()
-    tst.insert("M", 12)
-    tst.insert("Nelson", 28)
-    tst.insert("Mamma", 1)
-    tst.insert("Anna", 12)
-    # print(tst.search_r("Me"))
-    print(tst.search("M"))
-    print(tst.search_recursively("M"))
-    # print(tst.search("Nelson"))
-    # print(tst.size())
-    tst.traverse()
-    print(tst.count())

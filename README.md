@@ -164,3 +164,7 @@ The main references that I have used are:
 - [Algorithms: Design and Analysis, Part 1](https://www.coursera.org/learn/algorithm-design-analysis), Coursera's course taught by Tim Roughgarden
 
 - [Algorithms: Design and Analysis, Part 2](https://www.coursera.org/learn/algorithm-design-analysis-2), Coursera's course taught by Tim Roughgarden
+
+- [The Archive of Interesting Code](http://www.keithschwarz.com/interesting/) by Keith Schwarz
+
+- [http://www.sanfoundry.com/](http://www.sanfoundry.com/)

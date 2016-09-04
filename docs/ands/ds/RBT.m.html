@@ -1348,8 +1348,7 @@ class RBT(BST):
             x = RBTNode(x, value)
 
         if x.left or x.right or x.parent:
-            raise ValueError(
-                "x cannot have left or right children, or parent.")
+            raise ValueError("x cannot have left or right children, or parent.")
 
         c = self.root  # Current node
         p = None  # Current node's parent
@@ -1646,7 +1645,8 @@ class RBT(BST):
                         x.parent.right = None
                 else:
                     self.root = None
-            else:
+
+            else:  # the flow of control should never reach this statement
                 assert False
 
         # Ensures that x has no reference to any node of this RBT.
@@ -1952,8 +1952,7 @@ def is_rbt(rbt):
             x = RBTNode(x, value)
 
         if x.left or x.right or x.parent:
-            raise ValueError(
-                "x cannot have left or right children, or parent.")
+            raise ValueError("x cannot have left or right children, or parent.")
 
         c = self.root  # Current node
         p = None  # Current node's parent
@@ -2250,7 +2249,8 @@ def is_rbt(rbt):
                         x.parent.right = None
                 else:
                     self.root = None
-            else:
+
+            else:  # the flow of control should never reach this statement
                 assert False
 
         # Ensures that x has no reference to any node of this RBT.
@@ -2558,7 +2558,7 @@ then the behaviour of this method is undefined (for now).</p>
                     x.parent.right = None
             else:
                 self.root = None
-        else:
+        else:  # the flow of control should never reach this statement
             assert False
     # Ensures that x has no reference to any node of this RBT.
     self.n -= 1
@@ -2687,8 +2687,7 @@ the uncle will be the right child of <code>x.parent.parent</code>.</p>
     if not isinstance(x, RBTNode):
         x = RBTNode(x, value)
     if x.left or x.right or x.parent:
-        raise ValueError(
-            "x cannot have left or right children, or parent.")
+        raise ValueError("x cannot have left or right children, or parent.")
     c = self.root  # Current node
     p = None  # Current node's parent
     while c is not None:

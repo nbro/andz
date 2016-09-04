@@ -186,8 +186,7 @@ class RBT(BST):
             x = RBTNode(x, value)
 
         if x.left or x.right or x.parent:
-            raise ValueError(
-                "x cannot have left or right children, or parent.")
+            raise ValueError("x cannot have left or right children, or parent.")
 
         c = self.root  # Current node
         p = None  # Current node's parent
@@ -465,10 +464,10 @@ class RBT(BST):
                     assert x.sibling is not None
 
                     # Note that x.sibling cannot be None,
-                    # because otherwise the substree containing it
+                    # because otherwise the subtree containing it
                     # would have fewer black nodes
                     # than the subtree containing x.
-                    # Specifically, the subree containing x
+                    # Specifically, the subtree containing x
                     # would have a black height of 2,
                     # whereas the one containing the sibling
                     # would have a black height of 1.
@@ -484,11 +483,11 @@ class RBT(BST):
                         x.parent.right = None
                 else:
                     self.root = None
-            else:
+            else:  # the flow of control should never reach this statement
                 assert False
 
-        # Ensures that x has no reference to any node of this RBT.
         self.n -= 1
+        # Ensures that x has no reference to any node of this RBT.
         x.parent = x.left = x.right = None
         return x
 

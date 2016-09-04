@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 21/02/16
 
-Last update: 28/08/16
+Last update: 04/09/16
 
 Test the HashTable class.
 """
@@ -62,17 +62,8 @@ class TestHashTable(unittest.TestCase):
     def test_put_and_get_1(self):
         """Testing that errors are raised."""
         t = HashTable()
-        try:
-            t.put(None, 12)
-            assert False
-        except TypeError:
-            pass
-
-        try:
-            t.get(None)
-            assert False
-        except TypeError:
-            pass
+        self.assertRaises(TypeError, t.put, None, 12)
+        self.assertRaises(TypeError, t.get, None)
 
     def test_put_and_get_2(self, n=100):
         """Testing that the same elements inserted
@@ -83,21 +74,19 @@ class TestHashTable(unittest.TestCase):
 
         for i in range(1, n + 1):
             for j, letter in enumerate(ls):
-
                 if i == 1:
-                    assert t.get(letter) is None
+                    self.assertIsNone(t.get(letter))
                 else:
-                    assert t.get(letter) == (i - 1) + j
-
+                    self.assertEqual(t.get(letter), (i - 1) + j)
                 t.put(letter, i + j)
 
-            assert t.size == len(ls)
-            assert not has_duplicates(t.keys)
+            self.assertEqual(t.size, len(ls))
+            self.assertFalse(has_duplicates(t.keys))
 
         for i, letter in enumerate(ls):
-            assert t.get(letter) == ls.index(letter) + n
-            assert t.size == len(ls)
-            assert not has_duplicates(t.keys)
+            self.assertEqual(t.get(letter), ls.index(letter) + n)
+            self.assertEqual(t.size, len(ls))
+            self.assertFalse(has_duplicates(t.keys))
 
     def test_put_and_get_3(self, n=100):
         """Testing insertion of permutations of the same items
