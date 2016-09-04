@@ -25,27 +25,26 @@ def assert_rbt_props(t):
 
 
 class TestRBTNode(unittest.TestCase):
-
     def test_None(self):
-        try:
-            RBTNode(None)
-            assert False
-        except ValueError:
-            pass
+        self.assertRaises(ValueError, RBTNode, None)
 
     def test_init(self):
         n = RBTNode(12)
-        assert n.key == 12 and not n.value
-        assert n.color == BLACK
+        self.assertEqual(n.key, 12)
+        self.assertIsNone(n.value)
+        self.assertEqual(n.color, BLACK)
+
         n.color = RED
-        assert n.color == RED
-        assert not n.parent and not n.left and not n.right
+        self.assertEqual(n.color, RED)
+        self.assertIsNone(n.parent)
+        self.assertIsNone(n.left)
+        self.assertIsNone(n.right)
+
         n.reset()
-        assert n.color == BLACK
+        self.assertEqual(n.color, BLACK)
 
 
 class TestRBT(unittest.TestCase):
-
     def test_insert_one(self):
         rbt = RBT()
         try:

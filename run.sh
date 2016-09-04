@@ -105,7 +105,7 @@ new_virtualenv(){
 run() {
     clean
 
-    format
+    # format
 
     new_virtualenv
 
