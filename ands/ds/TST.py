@@ -87,6 +87,9 @@ class TST:
     def size(self):
         return self.n
 
+    def is_root(self, u):
+        return self.root == u
+
     def insert(self, key: str, value: object):
         """Inserts the key-value pair into the symbol table,
         overwriting the old value with the new value,
@@ -133,8 +136,12 @@ class TST:
     def _delete(self, node: TSTNode, key: str):
         """Implementation based on the non-recursive implementation of _search."""
 
-        def _delete_fix(u):
-            while not u.has_children():
+        def _delete_fix(u):            
+            while u and not u.has_children():
+                if self.is_root(u):
+                    assert u.parent is None
+                    self.root = None
+                    break                    
                 if u.is_left_child():
                     u.parent.left = None
                 elif u.is_right_child():
