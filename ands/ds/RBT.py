@@ -295,7 +295,7 @@ class RBT(BST):
 
         def delete_case1(v):
             # this check is necessary because this function
-            # is also called from the delete_case1 function.
+            # is also called from the delete_case3 function.
             if v.parent is not None:
                 delete_case2(v)
 

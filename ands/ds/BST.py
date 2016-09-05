@@ -64,6 +64,7 @@ For example, "key" and "value" are self-descriptive.
 - Add functions "intersection" and "union".
 - Implement a recursive version of insert (OPTIONAL).
 - implement "is balanced" function (http://codereview.stackexchange.com/questions/108459/binary-tree-data-structure)
+- Maybe the methods of the BSTNode need an improvement in terms of implementation...
 """
 
 from tabulate import tabulate

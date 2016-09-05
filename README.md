@@ -1,5 +1,7 @@
 # Algorithms and Data Structures (AnDS)
 
+
+![](https://img.shields.io/badge/stability-experimental-red.svg)
 [![Python 3.3, 3.4, 3.5](https://img.shields.io/badge/python-3.3%2C%203.4%2C%203.5-blue.svg)](https://www.python.org/downloads/)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)](./LICENSE.md)
 [![Join the chat at https://gitter.im/ands-project/Lobby](https://badges.gitter.im/ands-project/Lobby.svg)](https://gitter.im/ands-project/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -143,9 +145,11 @@ I also want to develop a lot more algorithms and data structures. See the `READM
 
 The internet relay chat channel for this repository is `##ands` at the server `irc.freenode.net`. 
 
+
+
 ## References
 
-The main references that I have used are:
+### Main references
 
 - [_Introduction to Algorithms_ (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms), book by Cormen, Leiserson, Rivest, Stein
 
@@ -161,6 +165,8 @@ The main references that I have used are:
 
 - [Algorithms, 4th Edition](http://algs4.cs.princeton.edu/home/), online book by Robert Sedgewick and Kevin Wayne
 
+### Secondary references
+
 - [Algorithms: Design and Analysis, Part 1](https://www.coursera.org/learn/algorithm-design-analysis), Coursera's course taught by Tim Roughgarden
 
 - [Algorithms: Design and Analysis, Part 2](https://www.coursera.org/learn/algorithm-design-analysis-2), Coursera's course taught by Tim Roughgarden
@@ -168,3 +174,5 @@ The main references that I have used are:
 - [The Archive of Interesting Code](http://www.keithschwarz.com/interesting/) by Keith Schwarz
 
 - [http://www.sanfoundry.com/](http://www.sanfoundry.com/)
+
+- [Notes on Data Structures and Programming Techniques](http://www.cs.yale.edu/homes/aspnes/classes/223/)

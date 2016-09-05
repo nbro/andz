@@ -1457,7 +1457,7 @@ class RBT(BST):
 
         def delete_case1(v):
             # this check is necessary because this function
-            # is also called from the delete_case1 function.
+            # is also called from the delete_case3 function.
             if v.parent is not None:
                 delete_case2(v)
 
@@ -2070,7 +2070,7 @@ def is_rbt(rbt):
 
         def delete_case1(v):
             # this check is necessary because this function
-            # is also called from the delete_case1 function.
+            # is also called from the delete_case3 function.
             if v.parent is not None:
                 delete_case2(v)
 
@@ -2425,7 +2425,7 @@ then the behaviour of this method is UNDEFINED!</p>
     **Time Complexity:** O(log<sub>2</sub>(n))."""
     def delete_case1(v):
         # this check is necessary because this function
-        # is also called from the delete_case1 function.
+        # is also called from the delete_case3 function.
         if v.parent is not None:
             delete_case2(v)
     def delete_case2(v):
