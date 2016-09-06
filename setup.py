@@ -3,16 +3,15 @@
 
 """
 ## Resources
-- [https://packaging.python.org/en/latest/distributing/#readme-rst](https://packaging.python.org/en/latest/distributing/#readme-rst
-)
-
-https://packaging.python.org/en/latest/distributing/#readme-rst
-
-http://docs.python-guide.org/en/latest/writing/structure/
+- [https://packaging.python.org/en/latest/distributing/#readme-rst]
+(https://packaging.python.org/en/latest/distributing/#readme-rst)
+- [https://packaging.python.org/en/latest/distributing/#readme-rst]
+(https://packaging.python.org/en/latest/distributing/#readme-rst)
+[http://docs.python-guide.org/en/latest/writing/structure/]
+(http://docs.python-guide.org/en/latest/writing/structure/)
 """
 
 import os
-
 from setuptools import setup, find_packages
 
 
@@ -21,21 +20,21 @@ def read(fname):
 
 
 setup(
-    name="ands",  # name of this project to be listed on PyPI
-    version="0.0.4a1",  # alpha release
+    name="ands",
+    version="0.0.1",
     author="Nelson Brochado",
     author_email="nelson.brochado@outlook.com",
     packages=find_packages(exclude=["env"]),
-    install_requires=["tabulate", "pdoc"],  # dependencies
+    install_requires=["tabulate", "pdoc"],
     description="Algorithms and Data Structures",
     long_description=read("README.md"),
     license="MIT",
     keywords="algorithms data structures",
     url="https://github.com/nelson-brochado/ands",
-    include_package_data=True,  # include everything in source control
+    include_package_data=True,
     exclude_package_data={'': ['__pycache__']},
     classifiers=[
-        # How mature is this project? Common values are
+        # How mature is this project?
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable

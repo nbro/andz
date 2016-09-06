@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands.algorithms.parsing.mep API documentation</title>
+    <title>ands.algorithms.parsing.smep API documentation</title>
     <meta name="description" content="Author: Nelson Brochado
 
 An mathematical infix-to-postfix expression parser/converter.
@@ -975,10 +975,10 @@ table {
     <li class="set"><h3><a href="#header-variables">Module variables</a></h3>
       
   <ul>
-    <li class="mono"><a href="#ands.algorithms.parsing.mep.OPERATORS">OPERATORS</a></li>
-    <li class="mono"><a href="#ands.algorithms.parsing.mep.OPS">OPS</a></li>
-    <li class="mono"><a href="#ands.algorithms.parsing.mep.PARENTHESIS">PARENTHESIS</a></li>
-    <li class="mono"><a href="#ands.algorithms.parsing.mep.REGEX">REGEX</a></li>
+    <li class="mono"><a href="#ands.algorithms.parsing.smep.OPERATORS">OPERATORS</a></li>
+    <li class="mono"><a href="#ands.algorithms.parsing.smep.OPS">OPS</a></li>
+    <li class="mono"><a href="#ands.algorithms.parsing.smep.PARENTHESIS">PARENTHESIS</a></li>
+    <li class="mono"><a href="#ands.algorithms.parsing.smep.REGEX">REGEX</a></li>
   </ul>
 
     </li>
@@ -986,11 +986,11 @@ table {
     <li class="set"><h3><a href="#header-functions">Functions</a></h3>
       
   <ul>
-    <li class="mono"><a href="#ands.algorithms.parsing.mep.calc">calc</a></li>
-    <li class="mono"><a href="#ands.algorithms.parsing.mep.infix_to_postfix">infix_to_postfix</a></li>
-    <li class="mono"><a href="#ands.algorithms.parsing.mep.parse">parse</a></li>
-    <li class="mono"><a href="#ands.algorithms.parsing.mep.test1">test1</a></li>
-    <li class="mono"><a href="#ands.algorithms.parsing.mep.tostr">tostr</a></li>
+    <li class="mono"><a href="#ands.algorithms.parsing.smep.calc">calc</a></li>
+    <li class="mono"><a href="#ands.algorithms.parsing.smep.infix_to_postfix">infix_to_postfix</a></li>
+    <li class="mono"><a href="#ands.algorithms.parsing.smep.parse">parse</a></li>
+    <li class="mono"><a href="#ands.algorithms.parsing.smep.test1">test1</a></li>
+    <li class="mono"><a href="#ands.algorithms.parsing.smep.tostr">tostr</a></li>
   </ul>
 
     </li>
@@ -1007,13 +1007,13 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands.algorithms.parsing.mep</span> module</h1>
+  <h1 class="title"><span class="name">ands.algorithms.parsing.smep</span> module</h1>
   <p>Author: Nelson Brochado</p>
 <p>An mathematical infix-to-postfix expression parser/converter.
 Includes also a calculator that receives a postfix expression.</p>
   
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.mep', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.parsing.mep" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.smep', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.parsing.smep" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
@@ -1193,7 +1193,7 @@ if __name__ == "__main__":
   <section id="section-items">
     <h2 class="section-title" id="header-variables">Module variables</h2>
       <div class="item">
-      <p id="ands.algorithms.parsing.mep.OPERATORS" class="name">var <span class="ident">OPERATORS</span></p>
+      <p id="ands.algorithms.parsing.smep.OPERATORS" class="name">var <span class="ident">OPERATORS</span></p>
       
   
   <div class="source_cont">
@@ -1201,7 +1201,7 @@ if __name__ == "__main__":
 
       </div>
       <div class="item">
-      <p id="ands.algorithms.parsing.mep.OPS" class="name">var <span class="ident">OPS</span></p>
+      <p id="ands.algorithms.parsing.smep.OPS" class="name">var <span class="ident">OPS</span></p>
       
   
   <div class="source_cont">
@@ -1209,7 +1209,7 @@ if __name__ == "__main__":
 
       </div>
       <div class="item">
-      <p id="ands.algorithms.parsing.mep.PARENTHESIS" class="name">var <span class="ident">PARENTHESIS</span></p>
+      <p id="ands.algorithms.parsing.smep.PARENTHESIS" class="name">var <span class="ident">PARENTHESIS</span></p>
       
   
   <div class="source_cont">
@@ -1217,7 +1217,7 @@ if __name__ == "__main__":
 
       </div>
       <div class="item">
-      <p id="ands.algorithms.parsing.mep.REGEX" class="name">var <span class="ident">REGEX</span></p>
+      <p id="ands.algorithms.parsing.smep.REGEX" class="name">var <span class="ident">REGEX</span></p>
       
   
   <div class="source_cont">
@@ -1228,7 +1228,7 @@ if __name__ == "__main__":
     <h2 class="section-title" id="header-functions">Functions</h2>
       
   <div class="item">
-    <div class="name def" id="ands.algorithms.parsing.mep.calc">
+    <div class="name def" id="ands.algorithms.parsing.smep.calc">
     <p>def <span class="ident">calc</span>(</p><p>postfix)</p>
     </div>
     
@@ -1237,8 +1237,8 @@ if __name__ == "__main__":
   
     <div class="desc"><p>Simple mathematical postfix expression calculator.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.mep.calc', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.parsing.mep.calc" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.smep.calc', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.parsing.smep.calc" class="source">
     <pre><code>def calc(postfix):
     """Simple mathematical postfix expression calculator."""
     stack = []
@@ -1258,7 +1258,7 @@ if __name__ == "__main__":
   
       
   <div class="item">
-    <div class="name def" id="ands.algorithms.parsing.mep.infix_to_postfix">
+    <div class="name def" id="ands.algorithms.parsing.smep.infix_to_postfix">
     <p>def <span class="ident">infix_to_postfix</span>(</p><p>infix)</p>
     </div>
     
@@ -1276,8 +1276,8 @@ if __name__ == "__main__":
 </li>
 </ul></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.mep.infix_to_postfix', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.parsing.mep.infix_to_postfix" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.smep.infix_to_postfix', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.parsing.smep.infix_to_postfix" class="source">
     <pre><code>def infix_to_postfix(infix):
     """Return a list representing the postfix representation of the list `infix`.
 
@@ -1367,7 +1367,7 @@ if __name__ == "__main__":
   
       
   <div class="item">
-    <div class="name def" id="ands.algorithms.parsing.mep.parse">
+    <div class="name def" id="ands.algorithms.parsing.smep.parse">
     <p>def <span class="ident">parse</span>(</p><p>e, regex=re.compile(&#39;(\\d+|\\w+|[-+*/^%()])&#39;))</p>
     </div>
     
@@ -1376,8 +1376,8 @@ if __name__ == "__main__":
   
     <div class="desc"><p>Parses a string expression e to a infix represation list.</p></div>
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.mep.parse', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.parsing.mep.parse" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.smep.parse', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.parsing.smep.parse" class="source">
     <pre><code>def parse(e, regex=REGEX):
     """Parses a string expression e to a infix represation list."""
     return regex.findall(e)
@@ -1389,7 +1389,7 @@ if __name__ == "__main__":
   
       
   <div class="item">
-    <div class="name def" id="ands.algorithms.parsing.mep.test1">
+    <div class="name def" id="ands.algorithms.parsing.smep.test1">
     <p>def <span class="ident">test1</span>(</p><p>)</p>
     </div>
     
@@ -1397,8 +1397,8 @@ if __name__ == "__main__":
     
   
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.mep.test1', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.parsing.mep.test1" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.smep.test1', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.parsing.smep.test1" class="source">
     <pre><code>def test1():
     # ifx = "a+b/c*(d+e)-f"
     # ifx = "(12)^3 * x^3 +  (4  * 3)^3 + ()"
@@ -1429,7 +1429,7 @@ if __name__ == "__main__":
   
       
   <div class="item">
-    <div class="name def" id="ands.algorithms.parsing.mep.tostr">
+    <div class="name def" id="ands.algorithms.parsing.smep.tostr">
     <p>def <span class="ident">tostr</span>(</p><p>ls)</p>
     </div>
     
@@ -1437,8 +1437,8 @@ if __name__ == "__main__":
     
   
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.mep.tostr', this);">Show source &equiv;</a></p>
-  <div id="source-ands.algorithms.parsing.mep.tostr" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.parsing.smep.tostr', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.parsing.smep.tostr" class="source">
     <pre><code>def tostr(ls):
     return " ".join(ls)
 </code></pre>

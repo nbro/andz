@@ -1,45 +1,76 @@
 
 # Changelog
 
-## Version 0.0.4
+In this long I describe which algorithms and data structures are introduced in each version. 
 
-- Adding the class `HashTable` which uses linear probing and resizes. This is a very simply class (which nonetheless can still contain some bugs, even if some tests have started to being done, and the class passed them)
-
-- Added first tests to the class `HashTable`.
-
-## Version 0.0.3
-
-
-- Added new "utility" functions to the class `Heap`, useful mostly for the `MinMaxHeap` class.
-
-- Added new tests to `MinHeap`, `MaxHeap`, `Heap`. In general, tests have been slightly changed.
-
-- Moved the "is-bst", "is-rbt", "is-min-heap" and "is-max-heap" to files where their respective classes are defined.
-
-- Added class `MinMaxHeap`.
-
-- Starting the tests for the `MinMaxHeap` class.
-
-- Fixed some bugs around.
-
-- When an index is not found `None` is **no** more returned, but instead -1 is returned (in all methods of the class `Heap`).
-
-
-## Version 0.0.2
-
-- Added `RBT` and `RBTNode` classes. 
-
-- Moved randomness insertion of `BST` to another class called `BSTImproved`.
-
-- Added `MaxHeap` class, which is basically a mirror-class of the `MinHeap`.
-
-- Starting adding and moving tests to the folder [tests](tests).
-
-- Created script to automise the run of tests.
 
 ## Version 0.0.1
 
+### Algorithms
 
-- Adding first algorithms and data structures.
+#### Cryptography
+- caeser cipher
+- one time pad
 
-- Available documentation (produced using `pdoc`) in HTML format.
+#### Divide and conquer
+- binary search
+- find max
+- find min 
+- find peak
+- select
+
+#### Dynamic Programming
+- change making
+- edit distance
+- fibonacci
+- longest common subsequence
+- longest common substring
+- longest increasing subsequence
+- max non adjacent sequence weight
+- max sum contiguous subsequence
+- plus sign game
+- rod cut
+- subset sum
+- zero-one knapsack
+
+#### Greedy
+
+- activity selection
+- fractional knapsack
+- smep (simple mathematical expression parser)
+
+#### Primes
+
+- Simple famous deterministic primality test
+
+#### Recursion
+
+- ackermann
+- count
+- factorial
+- hanoi
+- make decimal
+- palindrome
+- power
+- reverse
+
+#### Sorting
+
+- bubble sort
+- heap sort
+- insertion sort
+- merge sort
+- quick sort
+- selection sort
+
+### Data structures
+
+- Binary-search tree
+- Red-black tree
+- DSForests
+- HashTable
+- MinHeap
+- MaxHeap
+- MinMaxHeap
+- Queue
+- Stack

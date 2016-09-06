@@ -136,12 +136,12 @@ class TST:
     def _delete(self, node: TSTNode, key: str):
         """Implementation based on the non-recursive implementation of _search."""
 
-        def _delete_fix(u):            
+        def _delete_fix(u):
             while u and not u.has_children():
                 if self.is_root(u):
                     assert u.parent is None
                     self.root = None
-                    break                    
+                    break
                 if u.is_left_child():
                     u.parent.left = None
                 elif u.is_right_child():

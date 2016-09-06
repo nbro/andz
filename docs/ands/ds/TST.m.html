@@ -991,6 +991,7 @@ table {
     <li class="mono"><a href="#ands.ds.TST.TST.count">count</a></li>
     <li class="mono"><a href="#ands.ds.TST.TST.delete">delete</a></li>
     <li class="mono"><a href="#ands.ds.TST.TST.insert">insert</a></li>
+    <li class="mono"><a href="#ands.ds.TST.TST.is_root">is_root</a></li>
     <li class="mono"><a href="#ands.ds.TST.TST.search">search</a></li>
     <li class="mono"><a href="#ands.ds.TST.TST.search_recursively">search_recursively</a></li>
     <li class="mono"><a href="#ands.ds.TST.TST.size">size</a></li>
@@ -1148,6 +1149,9 @@ class TST:
     def size(self):
         return self.n
 
+    def is_root(self, u):
+        return self.root == u
+
     def insert(self, key: str, value: object):
         """Inserts the key-value pair into the symbol table,
         overwriting the old value with the new value,
@@ -1195,7 +1199,11 @@ class TST:
         """Implementation based on the non-recursive implementation of _search."""
 
         def _delete_fix(u):
-            while not u.has_children():
+            while u and not u.has_children():
+                if self.is_root(u):
+                    assert u.parent is None
+                    self.root = None
+                    break
                 if u.is_left_child():
                     u.parent.left = None
                 elif u.is_right_child():
@@ -1335,6 +1343,9 @@ class TST:
     def size(self):
         return self.n
 
+    def is_root(self, u):
+        return self.root == u
+
     def insert(self, key: str, value: object):
         """Inserts the key-value pair into the symbol table,
         overwriting the old value with the new value,
@@ -1382,7 +1393,11 @@ class TST:
         """Implementation based on the non-recursive implementation of _search."""
 
         def _delete_fix(u):
-            while not u.has_children():
+            while u and not u.has_children():
+                if self.is_root(u):
+                    assert u.parent is None
+                    self.root = None
+                    break
                 if u.is_left_child():
                     u.parent.left = None
                 elif u.is_right_child():
@@ -1627,6 +1642,26 @@ if the key is already in the symbol table.</p></div>
     if not key:
         raise ValueError("key must be a string of length >= 1.")
     self.root = self._insert(self.root, key, value, 0)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.TST.TST.is_root">
+    <p>def <span class="ident">is_root</span>(</p><p>self, u)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.TST.TST.is_root', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.TST.TST.is_root" class="source">
+    <pre><code>def is_root(self, u):
+    return self.root == u
 </code></pre>
   </div>
 </div>
