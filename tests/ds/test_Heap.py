@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 14/02/16
 
-Last update: 28/08/16
+Last update: 06/09/16
 
 Tests for the abstract class Heap.
 """
@@ -17,61 +17,70 @@ from ands.ds.Heap import Heap, HeapNode
 
 
 class TestHeap(unittest.TestCase):
-
     def test_heap_creation(self):
-        try:
-            Heap([12, 14, 28])
-            assert False
-        except NotImplementedError:
-            pass
-        assert Heap()
+        self.assertRaises(NotImplementedError, Heap, [12, 14, 28])
+        self.assertIsNotNone(Heap())
+        self.assertEqual(Heap().heap, [])
+        self.assertEqual(Heap([]).heap, [])
 
 
 class TestHeapNode(unittest.TestCase):
-
     def test_None(self):
-        try:
-            HeapNode(None)
-            assert False
-        except ValueError:
-            pass
+        self.assertRaises(ValueError, HeapNode, None)
 
-    def test_comparisons(self):
+    def test_creation_key_value_same(self):
+        n = HeapNode(26)
+        self.assertIsNotNone(n.value)
+        self.assertEqual(n.key, n.value)
+
+    def test_creation_key_value_different(self):
+        n = HeapNode(2, "two")
+        self.assertIsNotNone(n.value)
+        self.assertNotEqual(n.value, n.key)
+
+    def test_less_and_greater_than(self):
         h = HeapNode(12)
-        assert h.value is not None
-        assert h.key == h.value
-
         h2 = HeapNode(14)
-        assert h.value is not None
-
         h3 = HeapNode(12, "Twelve")
-        assert h3.key != h3.value
 
-        assert h < h2
-        assert h != h3
-        assert h3 < h2
-        assert h3 == HeapNode(12, "Twelve")
-        assert h3 != HeapNode("Twelve", 12)
+        self.assertLess(h, h2)
+        self.assertGreater(h2, h)
+        self.assertLess(h3, h2)
+        self.assertGreater(h2, h3)
+        self.assertFalse(h < h)
+        self.assertFalse(h > h)
+        self.assertFalse(h2 < h2)
+        self.assertFalse(h2 > h2)
+        self.assertFalse(h3 < h3)
+        self.assertFalse(h3 > h3)
 
-        assert h <= h3
-        assert h3 <= h
-        assert h >= h3
-        assert h3 >= h
+    def test_equal_not_equal(self):
+        h = HeapNode(12)
+        h2 = HeapNode(14)
+        h3 = HeapNode(12)
+        h4 = HeapNode(14, "fourteen")
 
-        assert h == h
-        assert h2 == h2
-        assert h3 == h3
+        self.assertEqual(h, h)
+        self.assertEqual(h4, h4)
+        self.assertEqual(h, h3)
+        self.assertNotEqual(h, h2)
+        self.assertNotEqual(h3, h2)
+        self.assertNotEqual(h2, h4)
+        self.assertEqual(h4, HeapNode(14, "fourteen"))
+        self.assertNotEqual(h4, HeapNode("fourteen", 14))
 
-        assert h3 <= h3
-        assert h2 <= h2
-        assert h <= h
+    def test_less_and_greater_or_equal(self):
+        h = HeapNode(12)
+        h2 = HeapNode(14)
+        h3 = HeapNode(12, "Twelve")
 
-        assert not h < h
-        assert not h > h
-        assert not h2 < h2
-        assert not h2 > h2
-        assert not h3 < h3
-        assert not h3 > h3
+        self.assertLessEqual(h, h3)
+        self.assertLessEqual(h3, h)
+        self.assertGreaterEqual(h, h3)
+        self.assertGreaterEqual(h3, h)
+        self.assertLessEqual(h3, h3)
+        self.assertLessEqual(h2, h2)
+        self.assertLessEqual(h, h)
 
 
 if __name__ == "__main__":

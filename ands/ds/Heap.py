@@ -386,8 +386,7 @@ class Heap:
                 nodes.append(HeapNode(x))
             else:
                 if len(x) != 2:
-                    raise ValueError(
-                        "x should be a tuple or list of 2 elements.")
+                    raise ValueError("x should be a tuple or list of 2 elements.")
                 # x[0] := priority
                 # x[1] := value associated with x[0]
                 if x[0] is None or x[1] is None:

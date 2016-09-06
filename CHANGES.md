@@ -1,7 +1,7 @@
 
 # Changelog
 
-In this long I describe which algorithms and data structures are introduced in each version. 
+In this log I describe which algorithms and data structures are introduced in each version. 
 
 
 ## Version 0.0.1
