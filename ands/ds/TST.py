@@ -41,6 +41,7 @@ This TST should NOT allow empty strings to be inserted.
 
 
 class TSTNode:
+
     def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
         if not key:
             raise ValueError("key must be a string of length >= 1.")
@@ -80,6 +81,7 @@ class TSTNode:
 
 
 class TST:
+
     def __init__(self, root=None):
         self.n = 0  # number of key/values pairs
         self.root = root

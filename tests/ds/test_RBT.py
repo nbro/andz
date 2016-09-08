@@ -25,6 +25,7 @@ def assert_rbt_props(t):
 
 
 class TestRBTNode(unittest.TestCase):
+
     def test_None(self):
         self.assertRaises(ValueError, RBTNode, None)
 
@@ -45,6 +46,7 @@ class TestRBTNode(unittest.TestCase):
 
 
 class TestRBT(unittest.TestCase):
+
     def test_insert_one(self):
         rbt = RBT()
         try:

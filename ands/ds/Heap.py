@@ -21,16 +21,14 @@ when they require derived classes to override the method.
 ## References
 
 - [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
-
 - Slides by prof. A. Carzaniga
-
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 """
 
 import io
 import math
 
-__all__ = ["Heap", "HeapNode"]
+__all__ = ["BaseHeap", "Heap", "HeapNode"]
 
 
 class HeapNode:
@@ -71,15 +69,15 @@ class HeapNode:
         return str(self.value) + " -> " + str(self.key)
 
 
-class Heap:
+class BaseHeap:
 
     def __init__(self, ls=None):
         if ls is None:
             ls = []
-        self.heap = Heap._create_list_of_heap_nodes(ls)
+        self.heap = BaseHeap._create_list_of_heap_nodes(ls)
         self.build_heap()
 
-    # ABSTRACT NOT-IMPLEMENTED METHODS
+    # ABSTRACT METHODS
 
     def push_down(self, i: int) -> None:
         """Classical so-called heapify operation for heaps."""
@@ -95,6 +93,9 @@ class Heap:
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
         whose key and value are equal to `x`."""
+        raise NotImplementedError()
+
+    def delete(self, i: int) -> HeapNode:
         raise NotImplementedError()
 
     # BASE-IMPLEMENTED METHODS
@@ -125,25 +126,6 @@ class Heap:
         self.heap.append(x)
         if self.size() > 1:
             self.push_up(self.size() - 1)
-
-    def delete(self, i: int) -> HeapNode:
-        """Deletes and returns the `HeapNode` object at index `i`.
-
-        `IndexError` is raised if `i` is not a valid index.
-
-        Implementation based on:
-        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
-
-        **Time Complexity:** O(log<sub>2</sub> h),
-        where `h` is the number of nodes rooted at `i`."""
-        if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")
-        if i == self.size() - 1:
-            return self.heap.pop()
-        self.swap(i, self.size() - 1)
-        d = self.heap.pop()
-        self.push_down(i)
-        return d
 
     def search(self, x) -> int:
         """Searches for `x` in this heap,
@@ -395,6 +377,34 @@ class Heap:
         return nodes
 
 
+class Heap(BaseHeap):
+
+    # Abstract class from which MinHeap and MaxHeap derive.
+    # MinMaxHeap instead derives from the root abstract class BaseHeap.
+
+    def __init__(self, ls=None):
+        BaseHeap.__init__(self, ls)
+
+    def delete(self, i: int) -> HeapNode:
+        """Deletes and returns the `HeapNode` object at index `i`.
+
+        `IndexError` is raised if `i` is not a valid index.
+
+        Implementation based on:
+        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
+        **Time Complexity:** O(log<sub>2</sub> h),
+        where `h` is the number of nodes rooted at `i`."""
+        if not self.is_good_index(i):
+            raise IndexError("i is not a valid index.")
+        if i == self.size() - 1:
+            return self.heap.pop()
+        self.swap(i, self.size() - 1)
+        d = self.heap.pop()
+        self.push_down(i)
+        return d
+
+
 class HeapPrinter:
 
     def __init__(self, heap):
@@ -419,7 +429,7 @@ class HeapPrinter:
         output = io.StringIO()
         last_row = -1
 
-        h_space = 1.4  # float
+        h_space = 3.0  # float
         v_space = 2  # int
 
         for i, heap_node in enumerate(self.heap):

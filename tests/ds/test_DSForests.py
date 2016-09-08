@@ -17,6 +17,7 @@ from ands.ds.DSForests import DSForests
 
 
 class TestDSForests(unittest.TestCase):
+
     def test_empty_creation(self):
         DSForests()
 

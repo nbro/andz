@@ -585,8 +585,6 @@ class TestMaxHeap(unittest.TestCase):
         except IndexError:
             pass
 
-        print(h.is_grandparent(1, 1))
-
         assert not h.is_grandparent(0, 0)
         assert not h.is_grandparent(1, 1)
         assert not h.is_grandparent(2, 2)

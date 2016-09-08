@@ -53,15 +53,15 @@ run_tests() {
     coverage run -m unittest discover . -v
     cd ..
     cp tests/.coverage ./.coverage
-    coverage report
+    coverage report # -m
     printf "${GREEN}DONE.${NORMAL}\n\n"
 }
 
 install_dependencies(){
     printf "${YELLOW}INSTALLING REQUIRED DEPENDENCIES...${NORMAL}\n"
-    pip install coveralls
-    pip install pdoc
-    pip install -e .
+    pip3.5 install coveralls
+    pip3.5 install pdoc
+    pip3.5 install -e .
     printf "${GREEN}DONE.${NORMAL}\n\n"
 }
 
@@ -74,17 +74,30 @@ new_docs(){
     printf "${GREEN}DONE.${NORMAL}\n\n"
 }
 
-new_virtualenv(){
-    # Creates and switches to the new virtual environment
-    printf "${YELLOW}CREATING NEW VIRTUAL ENVIRONMENT...${NORMAL}\n"
+run_specific_test(){
+    printf "${YELLOW}EXECUTING TESTS UNDER './tests/$1'...${NORMAL}\n"
+    cd tests/$1
+    coverage run -m unittest $2
+    cd ../../
+    cp tests/ds/.coverage ./.coverage
+    coverage report # -m
+    printf "${GREEN}DONE.${NORMAL}\n\n"
+}
 
+assert_virtualenv_installed(){
     command -v virtualenv
-    rc=$?; 
-    if [[ $rc != 0 ]]; then 
+    rc=$?;
+    if [[ $rc != 0 ]]; then
         printf "${RED}COMMAND 'virtualenv' NOT FOUND.\nINSTALLING IT USING 'pip3.5'...${NORMAL}\n";
         pip3.5 install virtualenv
     fi
+}
 
+test_in_virtual_environment(){
+
+    # Creates and switches to the new virtual environment
+    printf "${YELLOW}CREATING NEW VIRTUAL ENVIRONMENT...${NORMAL}\n"
+    assert_virtualenv_installed
     virtualenv venv
     printf "${GREEN}DONE.${NORMAL}\n\n"
 
@@ -94,22 +107,27 @@ new_virtualenv(){
     # installing dependencies inside the virtual environment
     install_dependencies
 
-    run_tests
+    if [ "$#" =  "3" ]; then
+        if ([ "$1" = "--specific_test" ] || [ "$1" = "-st" ]); then
+            run_specific_test $2 $3
+        fi
+    else
+        run_tests
+    fi
 
-    new_docs
+    # new_docs
 
     deactivate
     printf "${YELLOW}EXITED FROM VIRTUAL ENVIRONMENT.${NORMAL}\n\n"
 }
 
-run() {
+run(){
     clean
-
     # format
-
-    new_virtualenv
-
+    test_in_virtual_environment "$@"
     clean
 }
 
-run
+# "$@" expands all command-line parameters separated by spaces
+# which are passed to the run function
+run "$@"

@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 18/02/16
 
-Last update: 28/08/16
+Last update: 08/09/16
 
 Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
 Moreover, both remove-min and remove-max are supported in logarithmic time.
@@ -14,24 +14,46 @@ It's therefore an useful data structure to implement (or represent) double-ended
 
 ## References:
 
-- [Min-Max Heaps and Generalized Priority Queues](http://www.akira.ruc.dk/~keld/teaching/algoritmedesign_f03/Artikler/02../Atkinson86.pdf)
-
-- [brownhead/minmaxheap-cpp](https://github.com/brownhead/minmaxheap-cpp/blob/master/MinMaxHeap.hpp)
-
-- [gnarmis/minmaxheap.py](https://gist.github.com/gnarmis/4647645)
-
+- [Min-Max Heaps and Generalized Priority Queues](http://www.akira.ruc.dk/~keld/teaching/algoritmedesign_f03/Artikler/02/Atkinson86.pdf),
+original paper describing and introducing the min-max heap data structure, by M. D. Atkinson, J.R. Sack, N. Santoro and T. Strothotte.
 - [http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html](http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html)
 
-- [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+## TODO
+
+- Implement "replace" method
 """
 
-from ands.ds.Heap import Heap, HeapNode
+from ands.ds.Heap import BaseHeap, HeapNode
 
 
-class MinMaxHeap(Heap):
+class MinMaxHeap(BaseHeap):
 
     def __init__(self, ls=None):
-        Heap.__init__(self, ls)
+        BaseHeap.__init__(self, ls)
+
+    def delete(self, i: int) -> HeapNode:
+        """Deletes and returns the `HeapNode` object at index `i`.
+
+        `IndexError` is raised if `i` is not a valid index.
+
+        Implementation based on:
+        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
+        **Time Complexity:** O(log<sub>2</sub> h),
+        where `h` is the number of nodes rooted at `i`."""
+        if not self.is_good_index(i):
+            raise IndexError("i is not a valid index.")
+        if i == self.size() - 1:
+            return self.heap.pop()
+        self.swap(i, self.size() - 1)
+        d = self.heap.pop()
+        self.push_up(i)
+        self.push_down(i)
+        return d
+
+    def replace(self, i: int, x):
+        # TODO
+        raise NotImplementedError()
 
     def push_down(self, i: int) -> None:
         if self.is_on_even_level(i):
@@ -76,15 +98,22 @@ class MinMaxHeap(Heap):
                     self.swap(i, m)
 
     def push_up(self, i: int) -> None:
+        p = self.parent_index(i)
+
+        # Let x be the element at index i.
+        # If x has a parent at position p, we call it y.
         if self.is_on_even_level(i):
-            p = self.parent_index(i)
             if p != -1 and self.heap[i] > self.heap[p]:
+                # If x is greater than y, swap x with y.
+                # Now, x is at index p, and y at index i.
+                # push_up_max from the new index of x, i.e. p.
                 self.swap(i, p)
                 self.push_up_max(p)
             else:
+                # x does not have a parent OR x <= y.
                 self.push_up_min(i)
         else:
-            p = self.parent_index(i)
+            # Odd or max level.
             if p != -1 and self.heap[i] < self.heap[p]:
                 self.swap(i, p)
                 self.push_up_min(p)
@@ -94,18 +123,22 @@ class MinMaxHeap(Heap):
     def push_up_min(self, i: int) -> None:
         """Helper method for `push_up`."""
         g = self.grandparent_index(i)
-        if g != -1:
-            if self.heap[i] < self.heap[g]:
-                self.swap(i, g)
-                self.push_up_min(g)
+        # Let x be the element at index i.
+        # If x has a grandparent at position g,
+        # we call it z.
+
+        # If the z exists and x is smaller than z,
+        # swap x and z. Now, x is at index g and z at index i.
+        if g != -1 and self.heap[i] < self.heap[g]:
+            self.swap(i, g)
+            self.push_up_min(g)
 
     def push_up_max(self, i: int) -> None:
         """Helper method for `push_up`."""
         g = self.grandparent_index(i)
-        if g != -1:
-            if self.heap[i] > self.heap[g]:
-                self.swap(i, g)
-                self.push_up_max(g)
+        if g != -1 and self.heap[i] > self.heap[g]:
+            self.swap(i, g)
+            self.push_up_max(g)
 
     def find_max(self) -> HeapNode:
         """Returns the `HeapNode` object representing the maximum element.
@@ -208,7 +241,11 @@ class MinMaxHeap(Heap):
 
 
 def is_min_max_heap(h) -> bool:
-    """Returns `True` if `h` is a valid `MinMaxHeap` object. `False` otherwise."""
+    """Returns `True` if `h` is a valid `MinMaxHeap` object. `False` otherwise.
+
+    Min-max heap property:
+    each node at an EVEN level in the tree is LESS THAN all of its descendants
+    while each node at an ODD level in the tree is GREATER THAN all of its descendants."""
     if not isinstance(h, MinMaxHeap):
         return False
 
@@ -224,12 +261,12 @@ def is_min_max_heap(h) -> bool:
             return max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0]
 
         if h.size() >= 3:
-            if (h.heap[0] != min(h.heap) or
-                    (h.heap[1] != max(h.heap) and
-                     h.heap[2] != max(h.heap))):
+            if h.heap[0] != min(h.heap) or (h.heap[1] != max(h.heap) and h.heap[2] != max(h.heap)):
                 return False
 
+        # i is the index of the current node
         for i, item in reversed(list(enumerate(h.heap))):
+
             p = h.parent_index(i)
 
             if p != -1:

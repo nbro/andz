@@ -137,6 +137,7 @@ class MinHeap(Heap):
             self.push_down(i)
         elif x < c:
             self.push_up(i)
+
         return c
 
 

@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
-    <title>ands API documentation</title>
+    <title>ands.algorithms.unclassified.max_num_dups API documentation</title>
     <meta name="description" content="" />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
@@ -970,14 +970,16 @@ table {
     <h1>Index</h1>
     <ul id="index">
 
+    <li class="set"><h3><a href="#header-functions">Functions</a></h3>
+      
+  <ul>
+    <li class="mono"><a href="#ands.algorithms.unclassified.max_num_dups.max_num_dups">max_num_dups</a></li>
+    <li class="mono"><a href="#ands.algorithms.unclassified.max_num_dups.test">test</a></li>
+  </ul>
 
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="algorithms/index.html">ands.algorithms</a></li>
-        <li class="mono"><a href="ds/index.html">ands.ds</a></li>
-      </ul>
     </li>
+
+
     </ul>
   </div>
 
@@ -989,20 +991,39 @@ table {
 
 
   <header id="section-intro">
-  <h1 class="title"><span class="name">ands</span> module</h1>
+  <h1 class="title"><span class="name">ands.algorithms.unclassified.max_num_dups</span> module</h1>
   
   
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands', this);">Show source &equiv;</a></p>
-  <div id="source-ands" class="source">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.unclassified.max_num_dups', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.unclassified.max_num_dups" class="source">
     <pre><code>#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# File to allow this directory to be treated as a python package.
 
-# From Python 3.3+ this way of constructing subpackages
-# should no more be necessary, but for some reason,
-# at the moment of this writing, pdoc does not seem to work
-# as expected if I omit these __init__.py files.
+def max_num_dups(A):
+    """Find the maximum number of duplicated numbers.
+
+    A must be sorted!!
+    """
+    m = 0
+    c = 1
+    for i in range(len(A) - 1):
+        if A[i] == A[i + 1]:
+            c += 1
+        elif c > m:
+            m = c
+            c = 1
+    return m
+
+
+def test():
+    ls = [12, 12, 12, 92, 92]
+    print("List:", ls)
+    print("Max number of duplicates:", max_num_dups(ls))
+
+
+if __name__ == '__main__':
+    test()
 </code></pre>
   </div>
 
@@ -1010,21 +1031,65 @@ table {
 
   <section id="section-items">
 
-
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
-      <div class="item">
-      <p class="name"><a href="algorithms/index.html">ands.algorithms</a></p>
+    <h2 class="section-title" id="header-functions">Functions</h2>
       
+  <div class="item">
+    <div class="name def" id="ands.algorithms.unclassified.max_num_dups.max_num_dups">
+    <p>def <span class="ident">max_num_dups</span>(</p><p>A)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Find the maximum number of duplicated numbers.</p>
+<p>A must be sorted!!</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.unclassified.max_num_dups.max_num_dups', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.unclassified.max_num_dups.max_num_dups" class="source">
+    <pre><code>def max_num_dups(A):
+    """Find the maximum number of duplicated numbers.
+
+    A must be sorted!!
+    """
+    m = 0
+    c = 1
+    for i in range(len(A) - 1):
+        if A[i] == A[i + 1]:
+            c += 1
+        elif c > m:
+            m = c
+            c = 1
+    return m
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+      
+  <div class="item">
+    <div class="name def" id="ands.algorithms.unclassified.max_num_dups.test">
+    <p>def <span class="ident">test</span>(</p><p>)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.algorithms.unclassified.max_num_dups.test', this);">Show source &equiv;</a></p>
+  <div id="source-ands.algorithms.unclassified.max_num_dups.test" class="source">
+    <pre><code>def test():
+    ls = [12, 12, 12, 92, 92]
+    print("List:", ls)
+    print("Max number of duplicates:", max_num_dups(ls))
+</code></pre>
+  </div>
+</div>
+
+  </div>
   
 
-      </div>
-      <div class="item">
-      <p class="name"><a href="ds/index.html">ands.ds</a></p>
-      
-  
 
-      </div>
   </section>
 
     </article>

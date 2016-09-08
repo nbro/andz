@@ -17,6 +17,7 @@ from ands.ds.Heap import Heap, HeapNode
 
 
 class TestHeap(unittest.TestCase):
+
     def test_heap_creation(self):
         self.assertRaises(NotImplementedError, Heap, [12, 14, 28])
         self.assertIsNotNone(Heap())
@@ -25,6 +26,7 @@ class TestHeap(unittest.TestCase):
 
 
 class TestHeapNode(unittest.TestCase):
+
     def test_None(self):
         self.assertRaises(ValueError, HeapNode, None)
 
