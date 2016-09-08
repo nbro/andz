@@ -31,13 +31,14 @@ class MinMaxHeap(BaseHeap):
     def __init__(self, ls=None):
         BaseHeap.__init__(self, ls)
 
+    def replace(self, i: int, x):
+        # TODO
+        raise NotImplementedError()
+
     def delete(self, i: int) -> HeapNode:
         """Deletes and returns the `HeapNode` object at index `i`.
 
         `IndexError` is raised if `i` is not a valid index.
-
-        Implementation based on:
-        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
 
         **Time Complexity:** O(log<sub>2</sub> h),
         where `h` is the number of nodes rooted at `i`."""
@@ -50,10 +51,6 @@ class MinMaxHeap(BaseHeap):
         self.push_up(i)
         self.push_down(i)
         return d
-
-    def replace(self, i: int, x):
-        # TODO
-        raise NotImplementedError()
 
     def push_down(self, i: int) -> None:
         if self.is_on_even_level(i):
