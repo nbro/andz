@@ -980,6 +980,42 @@ table {
     <li class="set"><h3><a href="#header-classes">Classes</a></h3>
       <ul>
         <li class="mono">
+        <span class="class_name"><a href="#ands.ds.Heap.BaseHeap">BaseHeap</a></span>
+        
+          
+  <ul>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.__init__">__init__</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.add">add</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.build_heap">build_heap</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.clear">clear</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.contains">contains</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.delete">delete</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.grandparent_index">grandparent_index</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.has_children">has_children</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.is_child">is_child</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.is_empty">is_empty</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.is_good_index">is_good_index</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.is_grandchild">is_grandchild</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.is_grandparent">is_grandparent</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.is_on_even_level">is_on_even_level</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.is_on_odd_level">is_on_odd_level</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.is_parent">is_parent</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.left_index">left_index</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.merge">merge</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.parent_index">parent_index</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.push_down">push_down</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.push_up">push_up</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.replace">replace</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.right_index">right_index</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.search">search</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.search_by_value">search_by_value</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.show">show</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.size">size</a></li>
+    <li class="mono"><a href="#ands.ds.Heap.BaseHeap.swap">swap</a></li>
+  </ul>
+
+        </li>
+        <li class="mono">
         <span class="class_name"><a href="#ands.ds.Heap.Heap">Heap</a></span>
         
           
@@ -990,7 +1026,6 @@ table {
     <li class="mono"><a href="#ands.ds.Heap.Heap.clear">clear</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.contains">contains</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.delete">delete</a></li>
-    <li class="mono"><a href="#ands.ds.Heap.Heap.get">get</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.grandparent_index">grandparent_index</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.has_children">has_children</a></li>
     <li class="mono"><a href="#ands.ds.Heap.Heap.is_child">is_child</a></li>
@@ -1052,15 +1087,9 @@ abstract methods should raise this exception
 when they require derived classes to override the method.</p>
 <h2>References</h2>
 <ul>
-<li>
-<p><a href="http://www.math.clemson.edu/~warner/M865/HeapDelete.html">http://www.math.clemson.edu/~warner/M865/HeapDelete.html</a></p>
-</li>
-<li>
-<p>Slides by prof. A. Carzaniga</p>
-</li>
-<li>
-<p>Chapter 13 of <a href="https://mitpress.mit.edu/books/introduction-algorithms">Introduction to Algorithms (3rd ed.)</a> by CLRS</p>
-</li>
+<li><a href="http://www.math.clemson.edu/~warner/M865/HeapDelete.html">http://www.math.clemson.edu/~warner/M865/HeapDelete.html</a></li>
+<li>Slides by prof. A. Carzaniga</li>
+<li>Chapter 13 of <a href="https://mitpress.mit.edu/books/introduction-algorithms">Introduction to Algorithms (3rd ed.)</a> by CLRS</li>
 </ul>
   
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap', this);">Show source &equiv;</a></p>
@@ -1088,16 +1117,14 @@ when they require derived classes to override the method.
 ## References
 
 - [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
-
 - Slides by prof. A. Carzaniga
-
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 """
 
 import io
 import math
 
-__all__ = ["Heap", "HeapNode"]
+__all__ = ["BaseHeap", "Heap", "HeapNode"]
 
 
 class HeapNode:
@@ -1138,15 +1165,15 @@ class HeapNode:
         return str(self.value) + " -> " + str(self.key)
 
 
-class Heap:
+class BaseHeap:
 
     def __init__(self, ls=None):
         if ls is None:
             ls = []
-        self.heap = Heap._create_list_of_heap_nodes(ls)
+        self.heap = BaseHeap._create_list_of_heap_nodes(ls)
         self.build_heap()
 
-    # ABSTRACT NOT-IMPLEMENTED METHODS
+    # ABSTRACT METHODS
 
     def push_down(self, i: int) -> None:
         """Classical so-called heapify operation for heaps."""
@@ -1162,6 +1189,9 @@ class Heap:
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
         whose key and value are equal to `x`."""
+        raise NotImplementedError()
+
+    def delete(self, i: int) -> HeapNode:
         raise NotImplementedError()
 
     # BASE-IMPLEMENTED METHODS
@@ -1192,25 +1222,6 @@ class Heap:
         self.heap.append(x)
         if self.size() > 1:
             self.push_up(self.size() - 1)
-
-    def delete(self, i: int) -> HeapNode:
-        """Deletes and returns the `HeapNode` object at index `i`.
-
-        `IndexError` is raised if `i` is not a valid index.
-
-        Implementation based on:
-        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
-
-        **Time Complexity:** O(log<sub>2</sub> h),
-        where `h` is the number of nodes rooted at `i`."""
-        if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")
-        if i == self.size() - 1:
-            return self.heap.pop()
-        self.swap(i, self.size() - 1)
-        d = self.heap.pop()
-        self.push_down(i)
-        return d
 
     def search(self, x) -> int:
         """Searches for `x` in this heap,
@@ -1264,7 +1275,7 @@ class Heap:
 
         Time complexity analysis based on:
         [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-        self.heap += o.get()
+        self.heap += o.heap
         return self.build_heap()
 
     def size(self) -> int:
@@ -1286,12 +1297,6 @@ class Heap:
 
         **Time Complexity:** O(1)."""
         self.heap.clear()
-
-    def get(self) -> list:
-        """Returns the list representing internally the heap.
-
-        **Time Complexity:** O(1)."""
-        return self.heap
 
     def swap(self, i: int, j: int) -> None:
         """Swaps elements at indexes `i` and `j`,
@@ -1462,6 +1467,34 @@ class Heap:
         return nodes
 
 
+class Heap(BaseHeap):
+
+    # Abstract class from which MinHeap and MaxHeap derive.
+    # MinMaxHeap instead derives from the root abstract class BaseHeap.
+
+    def __init__(self, ls=None):
+        BaseHeap.__init__(self, ls)
+
+    def delete(self, i: int) -> HeapNode:
+        """Deletes and returns the `HeapNode` object at index `i`.
+
+        `IndexError` is raised if `i` is not a valid index.
+
+        Implementation based on:
+        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
+        **Time Complexity:** O(log<sub>2</sub> h),
+        where `h` is the number of nodes rooted at `i`."""
+        if not self.is_good_index(i):
+            raise IndexError("i is not a valid index.")
+        if i == self.size() - 1:
+            return self.heap.pop()
+        self.swap(i, self.size() - 1)
+        d = self.heap.pop()
+        self.push_down(i)
+        return d
+
+
 class HeapPrinter:
 
     def __init__(self, heap):
@@ -1486,7 +1519,7 @@ class HeapPrinter:
         output = io.StringIO()
         last_row = -1
 
-        h_space = 1.4  # float
+        h_space = 3.0  # float
         v_space = 2  # int
 
         for i, heap_node in enumerate(self.heap):
@@ -1519,21 +1552,21 @@ class HeapPrinter:
     <h2 class="section-title" id="header-classes">Classes</h2>
       
       <div class="item">
-      <p id="ands.ds.Heap.Heap" class="name">class <span class="ident">Heap</span></p>
+      <p id="ands.ds.Heap.BaseHeap" class="name">class <span class="ident">BaseHeap</span></p>
       
   
   <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.Heap.Heap" class="source">
-    <pre><code>class Heap:
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap" class="source">
+    <pre><code>class BaseHeap:
 
     def __init__(self, ls=None):
         if ls is None:
             ls = []
-        self.heap = Heap._create_list_of_heap_nodes(ls)
+        self.heap = BaseHeap._create_list_of_heap_nodes(ls)
         self.build_heap()
 
-    # ABSTRACT NOT-IMPLEMENTED METHODS
+    # ABSTRACT METHODS
 
     def push_down(self, i: int) -> None:
         """Classical so-called heapify operation for heaps."""
@@ -1549,6 +1582,9 @@ class HeapPrinter:
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
         whose key and value are equal to `x`."""
+        raise NotImplementedError()
+
+    def delete(self, i: int) -> HeapNode:
         raise NotImplementedError()
 
     # BASE-IMPLEMENTED METHODS
@@ -1579,25 +1615,6 @@ class HeapPrinter:
         self.heap.append(x)
         if self.size() > 1:
             self.push_up(self.size() - 1)
-
-    def delete(self, i: int) -> HeapNode:
-        """Deletes and returns the `HeapNode` object at index `i`.
-
-        `IndexError` is raised if `i` is not a valid index.
-
-        Implementation based on:
-        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
-
-        **Time Complexity:** O(log<sub>2</sub> h),
-        where `h` is the number of nodes rooted at `i`."""
-        if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")
-        if i == self.size() - 1:
-            return self.heap.pop()
-        self.swap(i, self.size() - 1)
-        d = self.heap.pop()
-        self.push_down(i)
-        return d
 
     def search(self, x) -> int:
         """Searches for `x` in this heap,
@@ -1651,7 +1668,7 @@ class HeapPrinter:
 
         Time complexity analysis based on:
         [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-        self.heap += o.get()
+        self.heap += o.heap
         return self.build_heap()
 
     def size(self) -> int:
@@ -1673,12 +1690,6 @@ class HeapPrinter:
 
         **Time Complexity:** O(1)."""
         self.heap.clear()
-
-    def get(self) -> list:
-        """Returns the list representing internally the heap.
-
-        **Time Complexity:** O(1)."""
-        return self.heap
 
     def swap(self, i: int, j: int) -> None:
         """Swaps elements at indexes `i` and `j`,
@@ -1855,7 +1866,860 @@ class HeapPrinter:
       <div class="class">
           <h3>Ancestors (in MRO)</h3>
           <ul class="class_list">
+          <li><a href="#ands.ds.Heap.BaseHeap">BaseHeap</a></li>
+          <li>builtins.object</li>
+          </ul>
+          <h3>Static methods</h3>
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.__init__">
+    <p>def <span class="ident">__init__</span>(</p><p>self, ls=None)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.__init__', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.__init__" class="source">
+    <pre><code>def __init__(self, ls=None):
+    if ls is None:
+        ls = []
+    self.heap = BaseHeap._create_list_of_heap_nodes(ls)
+    self.build_heap()
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.add">
+    <p>def <span class="ident">add</span>(</p><p>self, x)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Adds <code>x</code> to this heap.</p>
+<p>In practice, it places <code>x</code> at an available leaf,
+then "bubbles up" from there,
+in order to maintain the heap property.</p>
+<p><code>x</code> can either be a key or a <code>HeapNode</code> object.
+If it's a key, an <code>HeapNode</code> is first created,
+whose key and value are equal to <code>x</code>.</p>
+<p><strong>Time Complexity:</strong> O(log<sub>2</sub> n).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.add', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.add" class="source">
+    <pre><code>def add(self, x) -> None:
+    """Adds `x` to this heap.
+    In practice, it places `x` at an available leaf,
+    then "bubbles up" from there,
+    in order to maintain the heap property.
+    `x` can either be a key or a `HeapNode` object.
+    If it's a key, an `HeapNode` is first created,
+    whose key and value are equal to `x`.
+    **Time Complexity:** O(log<sub>2</sub> n)."""
+    if x is None:
+        raise ValueError("x cannot be None.")
+    if not isinstance(x, HeapNode):
+        x = HeapNode(x)
+    self.heap.append(x)
+    if self.size() > 1:
+        self.push_up(self.size() - 1)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.build_heap">
+    <p>def <span class="ident">build_heap</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Builds the heap data structure from <code>self.heap</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.build_heap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.build_heap" class="source">
+    <pre><code>def build_heap(self) -> list:
+    """Builds the heap data structure from `self.heap`."""
+    if self.heap:
+        for index in range(len(self.heap) // 2, -1, -1):
+            self.push_down(index)
+    return self.heap
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.clear">
+    <p>def <span class="ident">clear</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Clears all nodes from this heap.
+This mean that if you call <code>is_empty</code>,
+it will return <code>True</code>.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.clear', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.clear" class="source">
+    <pre><code>def clear(self) -> None:
+    """Clears all nodes from this heap.
+    This mean that if you call `is_empty`,
+    it will return `True`.
+    **Time Complexity:** O(1)."""
+    self.heap.clear()
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.contains">
+    <p>def <span class="ident">contains</span>(</p><p>self, x)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code>, if <code>x</code> is in this heap. <code>False</code> otherwise.</p>
+<p><code>x</code> can either be a key or a <code>HeapNode</code> object.
+If it's a key, an <code>HeapNode</code> is first created,
+whose key and value are equal to <code>x</code>.</p>
+<p><strong>Time Complexity:</strong> O(n).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.contains', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.contains" class="source">
+    <pre><code>def contains(self, x) -> bool:
+    """Returns `True`, if `x` is in this heap. `False` otherwise.
+    `x` can either be a key or a `HeapNode` object.
+    If it's a key, an `HeapNode` is first created,
+    whose key and value are equal to `x`.
+    **Time Complexity:** O(n)."""
+    return self.search(x) != -1
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.delete">
+    <p>def <span class="ident">delete</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.delete', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.delete" class="source">
+    <pre><code>def delete(self, i: int) -> HeapNode:
+    raise NotImplementedError()
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.grandparent_index">
+    <p>def <span class="ident">grandparent_index</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the grandparent's index of the node at index <code>i</code>.</p>
+<p>-1 is returned either if <code>i</code> has not a parent or
+the parent of <code>i</code> does not have a parent.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.grandparent_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.grandparent_index" class="source">
+    <pre><code>def grandparent_index(self, i: int) -> int:
+    """Returns the grandparent's index of the node at index `i`.
+    -1 is returned either if `i` has not a parent or
+    the parent of `i` does not have a parent.
+    **Time Complexity:** O(1)."""
+    p = self.parent_index(i)
+    return -1 if p == -1 else self.parent_index(p)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.has_children">
+    <p>def <span class="ident">has_children</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if the node at index <code>i</code>
+has at least one child, <code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.has_children', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.has_children" class="source">
+    <pre><code>def has_children(self, i: int) -> bool:
+    """Returns `True` if the node at index `i`
+    has at least one child, `False` otherwise.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")
+    return self.left_index(i) != -1 or self.right_index(i) != -1
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.is_child">
+    <p>def <span class="ident">is_child</span>(</p><p>self, c, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>c</code> is a child of <code>i</code>. <code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.is_child', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.is_child" class="source">
+    <pre><code>def is_child(self, c: int, i: int) -> bool:
+    """Returns `True` if `c` is a child of `i`. `False` otherwise.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(c) or not self.is_good_index(i):
+        raise IndexError("i or c are not valid indexes.")
+    return c == self.left_index(i) or c == self.right_index(i)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.is_empty">
+    <p>def <span class="ident">is_empty</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if this heap is empty.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.is_empty', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.is_empty" class="source">
+    <pre><code>def is_empty(self) -> bool:
+    """Returns `True` if this heap is empty.
+    **Time Complexity:** O(1)."""
+    return self.size() == 0
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.is_good_index">
+    <p>def <span class="ident">is_good_index</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>i</code> is valid index for <code>self.heap</code>,
+<code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.is_good_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.is_good_index" class="source">
+    <pre><code>def is_good_index(self, i: int) -> bool:
+    """Returns `True` if `i` is valid index for `self.heap`,
+    `False` otherwise.
+    **Time Complexity:** O(1)."""
+    if not isinstance(i, int):
+        raise TypeError("indexes can only be int.")
+    return False if (i < 0 or i >= self.size()) else True
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.is_grandchild">
+    <p>def <span class="ident">is_grandchild</span>(</p><p>self, g, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>g</code> is a grandchild of <code>i</code>. <code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.is_grandchild', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.is_grandchild" class="source">
+    <pre><code>def is_grandchild(self, g: int, i: int) -> bool:
+    """Returns `True` if `g` is a grandchild of `i`. `False` otherwise.
+    **Time Complexity:** O(1)."""
+    l = self.left_index(i)
+    if l == -1:
+        assert self.right_index(i) == -1
+        if not self.is_good_index(g):
+            raise IndexError("g is not a valid index.")
+        return False
+    r = self.right_index(i)
+    if r == -1:
+        return self.is_child(g, l)
+    else:
+        return self.is_child(g, l) or self.is_child(g, r)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.is_grandparent">
+    <p>def <span class="ident">is_grandparent</span>(</p><p>self, g, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>g</code> is the index of the grandparent
+of the node at <code>i</code>, <code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.is_grandparent', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.is_grandparent" class="source">
+    <pre><code>def is_grandparent(self, g: int, i: int) -> bool:
+    """Returns `True` if `g` is the index of the grandparent
+    of the node at `i`, `False` otherwise.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(g):
+        raise IndexError("g is not a valid index.")
+    p = self.parent_index(i)
+    return False if p == -1 else self.is_parent(g, p)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.is_on_even_level">
+    <p>def <span class="ident">is_on_even_level</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if node at index <code>i</code> is on a even-level,
+i.e., if <code>i</code> is on a level multiple of 2 (0, 2, 4, 6,...).
+If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
+<p><strong>Time Complexity:</strong> O(int(math.log2(i + 1) % 2) == 0).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.is_on_even_level', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.is_on_even_level" class="source">
+    <pre><code>def is_on_even_level(self, i: int) -> bool:
+    """Returns `True` if node at index `i` is on a even-level,
+    i.e., if `i` is on a level multiple of 2 (0, 2, 4, 6,...).
+    If `i` is not a valid index, an `IndexError` is raised.
+    **Time Complexity:** O(int(math.log2(i + 1) % 2) == 0)."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")
+    return int(math.log2(i + 1) % 2) == 0
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.is_on_odd_level">
+    <p>def <span class="ident">is_on_odd_level</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> (<code>False</code>) if <code>self.is_on_even_level(i)</code> returns <code>False</code> (<code>True</code>).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.is_on_odd_level', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.is_on_odd_level" class="source">
+    <pre><code>def is_on_odd_level(self, i: int) -> bool:
+    """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`)."""
+    return not self.is_on_even_level(i)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.is_parent">
+    <p>def <span class="ident">is_parent</span>(</p><p>self, p, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns <code>True</code> if <code>p</code> is the index of the parent
+of the node at <code>i</code>, <code>False</code> otherwise.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.is_parent', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.is_parent" class="source">
+    <pre><code>def is_parent(self, p: int, i: int) -> bool:
+    """Returns `True` if `p` is the index of the parent
+    of the node at `i`, `False` otherwise.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(p):
+        raise IndexError("p is not a valid index.")
+    return self.parent_index(i) == p
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.left_index">
+    <p>def <span class="ident">left_index</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the left child's index of the node at index <code>i</code>,
+if it exists, otherwise this function returns -1.</p>
+<p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.left_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.left_index" class="source">
+    <pre><code>def left_index(self, i: int) -> int:
+    """Returns the left child's index of the node at index `i`,
+    if it exists, otherwise this function returns -1.
+    If `i` is not a valid index, an `IndexError` is raised.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")
+    left = i * 2 + 1
+    return left if self.is_good_index(left) else -1
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.merge">
+    <p>def <span class="ident">merge</span>(</p><p>self, o)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Merges this heap with the <code>o</code> heap.</p>
+<p>Returns the <code>list</code> object representing internally the new merged heap.</p>
+<p><strong>Time Complexity:</strong> O(n + m).</p>
+<p>Time complexity analysis based on:
+<a href="http://stackoverflow.com/a/29197855/3924118">http://stackoverflow.com/a/29197855/3924118</a>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.merge', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.merge" class="source">
+    <pre><code>def merge(self, o) -> list:
+    """Merges this heap with the `o` heap.
+    Returns the `list` object representing internally the new merged heap.
+    **Time Complexity:** O(n + m).
+    Time complexity analysis based on:
+    [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
+    self.heap += o.heap
+    return self.build_heap()
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.parent_index">
+    <p>def <span class="ident">parent_index</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the parent's index of the node at index <code>i</code>.
+If <code>i = 0</code>, then -1 is returned, because the root has no parent.</p>
+<p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.parent_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.parent_index" class="source">
+    <pre><code>def parent_index(self, i: int) -> int:
+    """Returns the parent's index of the node at index `i`.
+    If `i = 0`, then -1 is returned, because the root has no parent.
+    If `i` is not a valid index, an `IndexError` is raised.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")
+    return -1 if i == 0 else (i - 1) // 2
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.push_down">
+    <p>def <span class="ident">push_down</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Classical so-called heapify operation for heaps.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.push_down', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.push_down" class="source">
+    <pre><code>def push_down(self, i: int) -> None:
+    """Classical so-called heapify operation for heaps."""
+    raise NotImplementedError()
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.push_up">
+    <p>def <span class="ident">push_up</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Classical reverse-heapify operation for heaps.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.push_up', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.push_up" class="source">
+    <pre><code>def push_up(self, i: int) -> None:
+    """Classical reverse-heapify operation for heaps."""
+    raise NotImplementedError()
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.replace">
+    <p>def <span class="ident">replace</span>(</p><p>self, i, x)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Replaces the <code>HeapNode</code> object at index <code>i</code> with <code>x</code>.</p>
+<p><code>x</code> can either be a key or a <code>HeapNode</code> object.
+If it's a key, an <code>HeapNode</code> is first created,
+whose key and value are equal to <code>x</code>.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.replace', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.replace" class="source">
+    <pre><code>def replace(self, i: int, x) -> HeapNode:
+    """Replaces the `HeapNode` object at index `i` with `x`.
+    `x` can either be a key or a `HeapNode` object.
+    If it's a key, an `HeapNode` is first created,
+    whose key and value are equal to `x`."""
+    raise NotImplementedError()
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.right_index">
+    <p>def <span class="ident">right_index</span>(</p><p>self, i)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the right child's index of the node at index <code>i</code>,
+if it exists, otherwise this function returns -1.</p>
+<p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.right_index', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.right_index" class="source">
+    <pre><code>def right_index(self, i: int) -> int:
+    """Returns the right child's index of the node at index `i`,
+    if it exists, otherwise this function returns -1.
+    If `i` is not a valid index, an `IndexError` is raised.
+    **Time Complexity:** O(1)."""
+    if not self.is_good_index(i):
+        raise IndexError("i is not a valid index.")
+    right = i * 2 + 2
+    return right if self.is_good_index(right) else -1
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.search">
+    <p>def <span class="ident">search</span>(</p><p>self, x)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Searches for <code>x</code> in this heap,
+and, if present, returns its index, otherwise returns -1.</p>
+<p><code>x</code> can either be a key or a <code>HeapNode</code> object.
+If it's a key, an <code>HeapNode</code> is first created,
+whose key and value are equal to <code>x</code>.</p>
+<p><strong>Time Complexity:</strong> O(n).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.search', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.search" class="source">
+    <pre><code>def search(self, x) -> int:
+    """Searches for `x` in this heap,
+    and, if present, returns its index, otherwise returns -1.
+    `x` can either be a key or a `HeapNode` object.
+    If it's a key, an `HeapNode` is first created,
+    whose key and value are equal to `x`.
+    **Time Complexity:** O(n)."""
+    if x is None:
+        raise ValueError("x cannot be None.")
+    if not isinstance(x, HeapNode):
+        x = HeapNode(x)
+    for i, node in enumerate(self.heap):
+        if node == x:
+            return i
+    return -1
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.search_by_value">
+    <p>def <span class="ident">search_by_value</span>(</p><p>self, val)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the index of the <code>HeapNode</code> object with <code>value=val</code>.
+-1 is returned if no such a <code>HeapNode</code> object exists.</p>
+<p>If <code>val</code> and the values in this heap are not comparable,
+the behaviour of this method is undefined.</p>
+<p><strong>Time Complexity:</strong> O(n).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.search_by_value', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.search_by_value" class="source">
+    <pre><code>def search_by_value(self, val) -> int:
+    """Returns the index of the `HeapNode` object with `value=val`.
+    -1 is returned if no such a `HeapNode` object exists.
+    If `val` and the values in this heap are not comparable,
+    the behaviour of this method is undefined.
+    **Time Complexity:** O(n)."""
+    if val is None:
+        raise ValueError("val cannot be None.")
+    for i, node in enumerate(self.heap):
+        if node.value == val:
+            return i
+    return -1
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.show">
+    <p>def <span class="ident">show</span>(</p><p>self, total_width=36, fill=&#39; &#39;)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Pretty-prints this heap.</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.show', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.show" class="source">
+    <pre><code>def show(self, total_width=36, fill=" ") -> None:
+    """Pretty-prints this heap."""
+    print(HeapPrinter(self.heap).show(total_width, fill))
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.size">
+    <p>def <span class="ident">size</span>(</p><p>self)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Returns the size of this heaps.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.size', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.size" class="source">
+    <pre><code>def size(self) -> int:
+    """Returns the size of this heaps.
+    **Time Complexity:** O(1)."""
+    return len(self.heap)
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+            
+  <div class="item">
+    <div class="name def" id="ands.ds.Heap.BaseHeap.swap">
+    <p>def <span class="ident">swap</span>(</p><p>self, i, j)</p>
+    </div>
+    
+
+    
+  
+    <div class="desc"><p>Swaps elements at indexes <code>i</code> and <code>j</code>,
+if they are valid indexes,
+otherwise an <code>IndexError</code> is raised.</p>
+<p><strong>Time Complexity:</strong> O(1).</p></div>
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.BaseHeap.swap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.BaseHeap.swap" class="source">
+    <pre><code>def swap(self, i: int, j: int) -> None:
+    """Swaps elements at indexes `i` and `j`,
+    if they are valid indexes,
+    otherwise an `IndexError` is raised.
+    **Time Complexity:** O(1)."""
+    if self.is_good_index(i) and self.is_good_index(j):
+        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+    else:
+        raise IndexError("i or j are not valid indexes.")
+</code></pre>
+  </div>
+</div>
+
+  </div>
+  
+          <h3>Instance variables</h3>
+            <div class="item">
+            <p id="ands.ds.Heap.BaseHeap.heap" class="name">var <span class="ident">heap</span></p>
+            
+
+            
+  
+  <div class="source_cont">
+</div>
+
+            </div>
+      </div>
+      </div>
+      
+      <div class="item">
+      <p id="ands.ds.Heap.Heap" class="name">class <span class="ident">Heap</span></p>
+      
+  
+  <div class="source_cont">
+  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap', this);">Show source &equiv;</a></p>
+  <div id="source-ands.ds.Heap.Heap" class="source">
+    <pre><code>class Heap(BaseHeap):
+
+    # Abstract class from which MinHeap and MaxHeap derive.
+    # MinMaxHeap instead derives from the root abstract class BaseHeap.
+
+    def __init__(self, ls=None):
+        BaseHeap.__init__(self, ls)
+
+    def delete(self, i: int) -> HeapNode:
+        """Deletes and returns the `HeapNode` object at index `i`.
+
+        `IndexError` is raised if `i` is not a valid index.
+
+        Implementation based on:
+        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
+        **Time Complexity:** O(log<sub>2</sub> h),
+        where `h` is the number of nodes rooted at `i`."""
+        if not self.is_good_index(i):
+            raise IndexError("i is not a valid index.")
+        if i == self.size() - 1:
+            return self.heap.pop()
+        self.swap(i, self.size() - 1)
+        d = self.heap.pop()
+        self.push_down(i)
+        return d
+</code></pre>
+  </div>
+</div>
+
+
+      <div class="class">
+          <h3>Ancestors (in MRO)</h3>
+          <ul class="class_list">
           <li><a href="#ands.ds.Heap.Heap">Heap</a></li>
+          <li><a href="#ands.ds.Heap.BaseHeap">BaseHeap</a></li>
           <li>builtins.object</li>
           </ul>
           <h3>Static methods</h3>
@@ -1873,10 +2737,7 @@ class HeapPrinter:
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.__init__', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.Heap.Heap.__init__" class="source">
     <pre><code>def __init__(self, ls=None):
-    if ls is None:
-        ls = []
-    self.heap = Heap._create_list_of_heap_nodes(ls)
-    self.build_heap()
+    BaseHeap.__init__(self, ls)
 </code></pre>
   </div>
 </div>
@@ -2041,30 +2902,6 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
     d = self.heap.pop()
     self.push_down(i)
     return d
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.Heap.Heap.get">
-    <p>def <span class="ident">get</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Returns the list representing internally the heap.</p>
-<p><strong>Time Complexity:</strong> O(1).</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Heap.Heap.get', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.Heap.Heap.get" class="source">
-    <pre><code>def get(self) -> list:
-    """Returns the list representing internally the heap.
-    **Time Complexity:** O(1)."""
-    return self.heap
 </code></pre>
   </div>
 </div>
@@ -2355,10 +3192,14 @@ of the node at <code>i</code>, <code>False</code> otherwise.</p>
     <p>def <span class="ident">left_index</span>(</p><p>self, i)</p>
     </div>
     
+    <p class="inheritance">
+     <strong>Inheritance:</strong>
+       <code><a href="#ands.ds.Heap.BaseHeap">BaseHeap</a></code>.<code><a href="#ands.ds.Heap.BaseHeap.left_index">left_index</a></code>
+    </p>
 
     
   
-    <div class="desc"><p>Returns the left child's index of the node at index <code>i</code>,
+    <div class="desc inherited"><p>Returns the left child's index of the node at index <code>i</code>,
 if it exists, otherwise this function returns -1.</p>
 <p>If <code>i</code> is not a valid index, an <code>IndexError</code> is raised.</p>
 <p><strong>Time Complexity:</strong> O(1).</p></div>
@@ -2403,7 +3244,7 @@ if it exists, otherwise this function returns -1.</p>
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
     [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-    self.heap += o.get()
+    self.heap += o.heap
     return self.build_heap()
 </code></pre>
   </div>
@@ -2695,17 +3536,6 @@ otherwise an <code>IndexError</code> is raised.</p>
 
   </div>
   
-          <h3>Instance variables</h3>
-            <div class="item">
-            <p id="ands.ds.Heap.Heap.heap" class="name">var <span class="ident">heap</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
       </div>
       </div>
       

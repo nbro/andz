@@ -998,7 +998,6 @@ table {
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.contains">contains</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.delete">delete</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.find_min">find_min</a></li>
-    <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.get">get</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.grandparent_index">grandparent_index</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.has_children">has_children</a></li>
     <li class="mono"><a href="#ands.ds.MinHeap.MinHeap.is_child">is_child</a></li>
@@ -1218,6 +1217,7 @@ class MinHeap(Heap):
             self.push_down(i)
         elif x < c:
             self.push_up(i)
+
         return c
 
 
@@ -1388,6 +1388,7 @@ def is_min_heap(h) -> bool:
             self.push_down(i)
         elif x < c:
             self.push_up(i)
+
         return c
 </code></pre>
   </div>
@@ -1399,6 +1400,7 @@ def is_min_heap(h) -> bool:
           <ul class="class_list">
           <li><a href="#ands.ds.MinHeap.MinHeap">MinHeap</a></li>
           <li>ands.ds.Heap.Heap</li>
+          <li>ands.ds.Heap.BaseHeap</li>
           <li>builtins.object</li>
           </ul>
           <h3>Static methods</h3>
@@ -1605,30 +1607,6 @@ where <code>h</code> is the number of nodes rooted at <code>i</code>.</p></div>
     """Returns (without removing) the smallest element in this min-heap.
     **Time Complexity:** O(1)."""
     return self.heap[0] if not self.is_empty() else None
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.MinHeap.MinHeap.get">
-    <p>def <span class="ident">get</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Returns the list representing internally the heap.</p>
-<p><strong>Time Complexity:</strong> O(1).</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.MinHeap.MinHeap.get', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.MinHeap.MinHeap.get" class="source">
-    <pre><code>def get(self) -> list:
-    """Returns the list representing internally the heap.
-    **Time Complexity:** O(1)."""
-    return self.heap
 </code></pre>
   </div>
 </div>
@@ -1967,7 +1945,7 @@ if it exists, otherwise this function returns -1.</p>
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
     [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-    self.heap += o.get()
+    self.heap += o.heap
     return self.build_heap()
 </code></pre>
   </div>

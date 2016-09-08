@@ -115,7 +115,7 @@ test_in_virtual_environment(){
         run_tests
     fi
 
-    # new_docs
+    new_docs
 
     deactivate
     printf "${YELLOW}EXITED FROM VIRTUAL ENVIRONMENT.${NORMAL}\n\n"
@@ -123,7 +123,7 @@ test_in_virtual_environment(){
 
 run(){
     clean
-    # format
+    format
     test_in_virtual_environment "$@"
     clean
 }

@@ -321,11 +321,6 @@ class TestMinHeap(unittest.TestCase):
         h.clear()
         assert h.size() == 0
 
-    def test_get(self):
-        ls = [12, 14]
-        h = MinHeap(ls)
-        assert h.get() == [HeapNode(12), HeapNode(14)]
-
     def test_swap(self):
         h = MinHeap([12, 14, 28])
 

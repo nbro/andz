@@ -319,11 +319,6 @@ class TestMaxHeap(unittest.TestCase):
         h.clear()
         assert h.size() == 0
 
-    def test_get(self):
-        ls = [12, 14]
-        h = MaxHeap(ls)
-        assert h.get() == [HeapNode(14), HeapNode(12)]
-
     def test_swap(self):
         h = MaxHeap([12, 14, 28])
 

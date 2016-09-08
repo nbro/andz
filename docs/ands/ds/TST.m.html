@@ -1103,6 +1103,7 @@ This TST should NOT allow empty strings to be inserted.
 
 
 class TSTNode:
+
     def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
         if not key:
             raise ValueError("key must be a string of length >= 1.")
@@ -1142,6 +1143,7 @@ class TSTNode:
 
 
 class TST:
+
     def __init__(self, root=None):
         self.n = 0  # number of key/values pairs
         self.root = root
@@ -1336,6 +1338,7 @@ class TST:
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.TST.TST', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.TST.TST" class="source">
     <pre><code>class TST:
+
     def __init__(self, root=None):
         self.n = 0  # number of key/values pairs
         self.root = root
@@ -1787,6 +1790,7 @@ if the key is already in the symbol table.</p></div>
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.TST.TSTNode', this);">Show source &equiv;</a></p>
   <div id="source-ands.ds.TST.TSTNode" class="source">
     <pre><code>class TSTNode:
+
     def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
         if not key:
             raise ValueError("key must be a string of length >= 1.")

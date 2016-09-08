@@ -1006,7 +1006,6 @@ table {
     <li class="mono"><a href="#ands.ds.Queue.MinPriorityQueue.delete">delete</a></li>
     <li class="mono"><a href="#ands.ds.Queue.MinPriorityQueue.extract_min">extract_min</a></li>
     <li class="mono"><a href="#ands.ds.Queue.MinPriorityQueue.find_min">find_min</a></li>
-    <li class="mono"><a href="#ands.ds.Queue.MinPriorityQueue.get">get</a></li>
     <li class="mono"><a href="#ands.ds.Queue.MinPriorityQueue.grandparent_index">grandparent_index</a></li>
     <li class="mono"><a href="#ands.ds.Queue.MinPriorityQueue.has_children">has_children</a></li>
     <li class="mono"><a href="#ands.ds.Queue.MinPriorityQueue.insert">insert</a></li>
@@ -1488,6 +1487,7 @@ class MinPriorityQueue(MinHeap):
           <li><a href="#ands.ds.Queue.MinPriorityQueue">MinPriorityQueue</a></li>
           <li>ands.ds.MinHeap.MinHeap</li>
           <li>ands.ds.Heap.Heap</li>
+          <li>ands.ds.Heap.BaseHeap</li>
           <li>builtins.object</li>
           </ul>
           <h3>Static methods</h3>
@@ -1771,30 +1771,6 @@ and the second item is the priority of the element.</p>
     """Returns (without removing) the smallest element in this min-heap.
     **Time Complexity:** O(1)."""
     return self.heap[0] if not self.is_empty() else None
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="ands.ds.Queue.MinPriorityQueue.get">
-    <p>def <span class="ident">get</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Returns the list representing internally the heap.</p>
-<p><strong>Time Complexity:</strong> O(1).</p></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-ands.ds.Queue.MinPriorityQueue.get', this);">Show source &equiv;</a></p>
-  <div id="source-ands.ds.Queue.MinPriorityQueue.get" class="source">
-    <pre><code>def get(self) -> list:
-    """Returns the list representing internally the heap.
-    **Time Complexity:** O(1)."""
-    return self.heap
 </code></pre>
   </div>
 </div>
@@ -2180,7 +2156,7 @@ if it exists, otherwise this function returns -1.</p>
     **Time Complexity:** O(n + m).
     Time complexity analysis based on:
     [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-    self.heap += o.get()
+    self.heap += o.heap
     return self.build_heap()
 </code></pre>
   </div>

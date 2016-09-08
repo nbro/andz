@@ -179,7 +179,7 @@ class BaseHeap:
 
         Time complexity analysis based on:
         [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)."""
-        self.heap += o.get()
+        self.heap += o.heap
         return self.build_heap()
 
     def size(self) -> int:
@@ -201,12 +201,6 @@ class BaseHeap:
 
         **Time Complexity:** O(1)."""
         self.heap.clear()
-
-    def get(self) -> list:
-        """Returns the list representing internally the heap.
-
-        **Time Complexity:** O(1)."""
-        return self.heap
 
     def swap(self, i: int, j: int) -> None:
         """Swaps elements at indexes `i` and `j`,
