@@ -6,128 +6,155 @@ RED=$(tput setaf 1)
 NORMAL=$(tput sgr0)
 YELLOW=$(tput setaf 3)
 
-clean() {
-    # Cleans a little bit everything, including previously created virtual environments
-    # source: http://stackoverflow.com/a/22916141/3924118
-    # run this file with: ./name_of_this_script.sh
-
-    printf "${RED}REMOVING ALL 'JUNK' FILES...${NORMAL}\n"
-
-    # removes all .pyc and .pyo files
-    find . -type f -name "*.py[co]" -delete && \
-
-    # removes directory with name __pycache__
-    find . -type d -name "__pycache__" -delete && \
-
-    # removes directory ands.egg-info
-    rm -rf ands.egg-info && \
-
-    # deletes all .coverage files
-    find . -type f -name ".coverage" -delete && \
-
+clean()
+{
+    find . -type f -name "*.py[co]" -delete
+    find . -type d -name "__pycache__" -delete
+    rm -rf ands.egg-info
+    find . -type f -name ".coverage" -delete
     rm -rf venv
-
-    printf "${GREEN}DONE.${NORMAL}\n\n"
+    printf "${RED}All 'junk' files removed.${NORMAL}\n\n"
 }
 
 
-format() {
+format()
+{
     # Format the code under ./ands/ and ./tests/
-    printf "${RED}FORMATTING CODE UNDER './ands' AND './tests' AGGRESSIVELY AND RECURSIVELY...${NORMAL}\n"
+    printf "${RED}Formatting code under './ands' and './tests' aggressively and recursively...${NORMAL}\n"
 
     command -v autopep8
-    rc=$?
-    if [[ $rc != 0 ]]; then 
-        printf "${RED}COMMAND 'autopep8' NOT FOUND.\nINSTALLING IT USING 'pip3.5'...${NORMAL}\n";
+    if [ $? != 0 ];
+    then
+        printf "${RED}Command 'autopep8' not found.\nInstalling it using 'pip3.5'...${NORMAL}\n";
         pip3.5 install autopep8
     fi
 
     autopep8 --in-place --aggressive --recursive --max-line-length 110 ./ands
     autopep8 --in-place --aggressive --recursive --max-line-length 110 ./tests
-    printf "${GREEN}DONE.${NORMAL}\n\n"
+    printf "${GREEN}Done.${NORMAL}\n\n"
 }
 
-run_tests() {
-    printf "${YELLOW}EXECUTING TESTS UNDER './tests/'...${NORMAL}\n"
+new_docs()
+{
+    printf "\n${YELLOW}Creating new documentation under './docs'...${NORMAL}\n"
+    rm -rf ./docs
+    mkdir docs
+    pdoc --html --overwrite --html-dir docs ands
+    printf "${GREEN}Done.${NORMAL}\n\n"
+}
+
+run_tests()
+{
+    printf "${YELLOW}Executing tests under './tests/'...${NORMAL}\n"
     cd tests
     coverage run -m unittest discover . -v
     cd ..
     cp tests/.coverage ./.coverage
     coverage report # -m
-    printf "${GREEN}DONE.${NORMAL}\n\n"
+    printf "${GREEN}Done.${NORMAL}\n\n"
 }
 
-install_dependencies(){
-    printf "${YELLOW}INSTALLING REQUIRED DEPENDENCIES...${NORMAL}\n"
+cd_n_times()
+{
+    # source: http://stackoverflow.com/a/16679459/3924118
+    slash="/"
+    number_of_slashes=$(grep -o "$slash" <<< "$1" | wc -l)
+    for (( i = 0; i < ${number_of_slashes}; i++));
+    do
+      cd ..
+    done
+}
+
+run_specific_test()
+{
+    printf "${YELLOW}Executing tests under './tests/$1'...${NORMAL}\n"
+    cd tests/$1  # entering the specific folder
+    coverage run -m unittest $2 -v
+    cd ../../  # we need to go back at least twice in order to be in the main folder
+    cd_n_times "$@"
+    cp tests/$1/.coverage ./.coverage
+    coverage report
+    printf "${GREEN}Done.${NORMAL}\n\n"
+}
+
+install_dependencies()
+{
+    printf "${YELLOW}Installing required dependencies...${NORMAL}\n"
     pip3.5 install coveralls
     pip3.5 install pdoc
     pip3.5 install -e .
-    printf "${GREEN}DONE.${NORMAL}\n\n"
+    printf "${GREEN}Done.${NORMAL}\n\n"
 }
 
-new_docs(){
-    # Creating new documentation
-    printf "\n${YELLOW}CREATING NEW DOCUMENTATION UNDER './docs'...${NORMAL}\n"
-    rm -rf ./docs
-    mkdir docs
-    pdoc --html --overwrite --html-dir docs ands
-    printf "${GREEN}DONE.${NORMAL}\n\n"
-}
-
-run_specific_test(){
-    printf "${YELLOW}EXECUTING TESTS UNDER './tests/$1'...${NORMAL}\n"
-    cd tests/$1
-    coverage run -m unittest $2
-    cd ../../
-    cp tests/ds/.coverage ./.coverage
-    coverage report # -m
-    printf "${GREEN}DONE.${NORMAL}\n\n"
-}
-
-assert_virtualenv_installed(){
-    command -v virtualenv
-    rc=$?;
-    if [[ $rc != 0 ]]; then
-        printf "${RED}COMMAND 'virtualenv' NOT FOUND.\nINSTALLING IT USING 'pip3.5'...${NORMAL}\n";
-        pip3.5 install virtualenv
-    fi
-}
-
-test_in_virtual_environment(){
-
+# Syntax to invoke the run of a specific test:
+# ./run.sh -st folder_name_inside_tests test_name.py
+test_in_virtual_environment()
+{
     # Creates and switches to the new virtual environment
-    printf "${YELLOW}CREATING NEW VIRTUAL ENVIRONMENT...${NORMAL}\n"
+    printf "${YELLOW}Creating new virtual environment...${NORMAL}\n"
     assert_virtualenv_installed
     virtualenv venv
-    printf "${GREEN}DONE.${NORMAL}\n\n"
+    printf "${GREEN}Done.${NORMAL}\n\n"
 
     source venv/bin/activate
-    printf "${YELLOW}USING THE NEWLY CREATED VIRTUAL ENVIRONMENT...${NORMAL}\n\n"
+    printf "${YELLOW}Using newly created virtual environment...${NORMAL}\n\n"
 
     # installing dependencies inside the virtual environment
     install_dependencies
 
-    if [ "$#" =  "3" ]; then
-        if ([ "$1" = "--specific_test" ] || [ "$1" = "-st" ]); then
+    if [ "$#" =  "3" ];
+    then
+        if [ "$1" = "-st" ];
+        then
             run_specific_test $2 $3
         fi
     else
         run_tests
     fi
 
-    new_docs
+    # new_docs
 
     deactivate
-    printf "${YELLOW}EXITED FROM VIRTUAL ENVIRONMENT.${NORMAL}\n\n"
+    printf "${YELLOW}Exited from virtual environment.${NORMAL}\n\n"
 }
 
-run(){
+# ASSERT FUNCTIONS
+
+assert_virtualenv_installed()
+{
+    command -v virtualenv
+    if [ $? != 0 ];
+    then
+        printf "${RED}Command 'virtualenv' not found.\nInstalling it using 'pip3.5'...${NORMAL}\n";
+        pip3.5 install virtualenv
+    fi
+}
+
+assert_python35_installed()
+{
+    command -v python3.5
+    if [ $? != 0 ];
+    then
+        printf "${RED}'python3.5' not installed. Install it first before proceeding.${NORMAL}\n";
+        exit 1
+    fi
+
+    command -v pip3.5
+    if [ $? != 0 ]; then
+        printf "${RED}'pip3.5' not installed. Install it first before proceeding.${NORMAL}\n";
+        exit 1
+    fi
+}
+
+main()
+{
+    assert_python35_installed
     clean
-    format
+    # format
     test_in_virtual_environment "$@"
     clean
 }
 
 # "$@" expands all command-line parameters separated by spaces
 # which are passed to the run function
-run "$@"
+main "$@"

@@ -1,14 +1,13 @@
 # Algorithms and Data Structures (ands) 
 
 
-[![Python 3.3, 3.4, 3.5](https://img.shields.io/badge/python-3.3%2C%203.4%2C%203.5-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.3+](https://img.shields.io/badge/python-3.3+-blue.svg)](https://www.python.org/downloads/)
 [![](https://img.shields.io/badge/stability-experimental-red.svg)](http://www.engr.sjsu.edu/fayad/SoftwareStability/)
 [![Build Status](https://travis-ci.org/nelson-brochado/ands.svg?branch=master)](https://travis-ci.org/nelson-brochado/ands)
 [![Coverage Status](https://coveralls.io/repos/github/nelson-brochado/ands/badge.svg)](https://coveralls.io/github/nelson-brochado/ands)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c88538816f424aea916c251428f78c0a)](https://www.codacy.com/app/nelson-brochado/ands?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dossan/ands&amp;utm_campaign=Badge_Grade)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)](./LICENSE.md)
 [![Join the chat at https://gitter.im/ands-project/Lobby](https://badges.gitter.im/ands-project/Lobby.svg)](https://gitter.im/ands-project/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 
 ## Introduction

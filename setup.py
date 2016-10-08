@@ -15,8 +15,8 @@ import os
 from setuptools import setup, find_packages
 
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+def read(file_name):
+    return open(os.path.join(os.path.dirname(__file__), file_name)).read()
 
 
 setup(
@@ -25,7 +25,7 @@ setup(
     author="Nelson Brochado",
     author_email="nelson.brochado@outlook.com",
     packages=find_packages(exclude=["env"]),
-    install_requires=["tabulate", "pdoc"],
+    install_requires=["numpy", "tabulate", "pdoc"],
     description="Algorithms and Data Structures",
     long_description=read("README.md"),
     license="MIT",
