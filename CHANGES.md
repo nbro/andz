@@ -39,6 +39,10 @@ In this log I describe which algorithms and data structures are introduced in ea
 - fractional knapsack
 - smep (simple mathematical expression parser)
 
+#### ODE
+
+- forward Euler method
+
 #### Primes
 
 - Simple famous deterministic primality test

@@ -13,6 +13,10 @@ All except the ones mentioned in the next section.
 - caeser cipher
 - one time pad
 
+#### ODE 
+
+- forward Euler method
+
 #### Sorting
 
 - bubble sort
