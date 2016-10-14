@@ -70,7 +70,6 @@ class HeapNode:
 
 
 class BaseHeap:
-
     def __init__(self, ls=None):
         if ls is None:
             ls = []
@@ -372,7 +371,6 @@ class BaseHeap:
 
 
 class Heap(BaseHeap):
-
     # Abstract class from which MinHeap and MaxHeap derive.
     # MinMaxHeap instead derives from the root abstract class BaseHeap.
 
@@ -400,7 +398,6 @@ class Heap(BaseHeap):
 
 
 class HeapPrinter:
-
     def __init__(self, heap):
         self.heap = heap
 

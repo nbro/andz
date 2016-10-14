@@ -26,7 +26,6 @@ __all__ = ["MaxHeap", "is_max_heap"]
 
 
 class MaxHeap(Heap):
-
     def __init__(self, ls=None):
         Heap.__init__(self, ls)
 

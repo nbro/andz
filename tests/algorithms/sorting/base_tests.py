@@ -30,7 +30,6 @@ def is_sorted(ls, rev=False):
 
 
 class SortingAlgorithmTests:
-
     def __init__(self, sorting_algorithm, in_place):
         self.sorting_algorithm = sorting_algorithm
         self.in_place = in_place

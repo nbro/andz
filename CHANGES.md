@@ -76,5 +76,5 @@ In this log I describe which algorithms and data structures are introduced in ea
 - MinHeap
 - MaxHeap
 - MinMaxHeap
-- Queue
-- Stack
+- Queue (FIFO)
+- Stack (LIFO)

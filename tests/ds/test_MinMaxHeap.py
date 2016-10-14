@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 20/02/16
 
-Last update: 08/09/16
+Last Update: 08/10/16
 
 Tests for the MinMaxHeap class.
 """
@@ -18,7 +18,6 @@ from ands.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap, HeapNode
 
 
 class TestMinMaxHeap(unittest.TestCase):
-
     def test_empty_heap_creation(self):
         h = MinMaxHeap()
         self.assertTrue(is_min_max_heap(h))
@@ -41,9 +40,12 @@ class TestMinMaxHeap(unittest.TestCase):
             h.add(item)
             self.assertEqual(h.size(), 6 + i)
             self.assertEqual(h.find_min(), h.heap[0])
+
             m = h.heap[1] if h.heap[1] > h.heap[2] else h.heap[2]
+
             self.assertEqual(h.find_max(), m)
             self.assertTrue(is_min_max_heap(h))
+
         self.assertEqual(h.size(), 5 + t)
 
     def test_add_heap_nodes(self):
@@ -187,6 +189,7 @@ class TestMinMaxHeap(unittest.TestCase):
 
         h.add(randint(-10, 10))
         self.assertEqual(h.find_max_index(), 0)
+
         h.add(randint(-10, 10))
         self.assertEqual(h.find_max_index(), 1)
 

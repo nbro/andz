@@ -343,16 +343,16 @@ class RBT(BST):
 
             if v.sibling.color == BLACK:
                 if (v.is_left_child() and
-                    (not v.sibling.right or v.sibling.right.color == BLACK) and
-                        v.sibling.left.color == RED):
+                        (not v.sibling.right or v.sibling.right.color == BLACK) and
+                            v.sibling.left.color == RED):
 
                     v.sibling.color = RED
                     v.sibling.left.color = BLACK
                     self.right_rotate(v.sibling)
 
                 elif (v.is_right_child() and
-                      (not v.sibling.left or v.sibling.left.color == BLACK) and
-                      v.sibling.right.color == RED):
+                          (not v.sibling.left or v.sibling.left.color == BLACK) and
+                              v.sibling.right.color == RED):
 
                     v.sibling.color = RED
                     v.sibling.right.color = BLACK

@@ -22,7 +22,6 @@ def assert_is_min_heap(h):
 
 
 class TestMinHeap(unittest.TestCase):
-
     def test_empty_heap_creation(self):
         h = MinHeap()
         assert_is_min_heap(h)

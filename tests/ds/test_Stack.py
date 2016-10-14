@@ -20,7 +20,6 @@ from ands.ds.Stack import Stack
 
 
 class TestStack(unittest.TestCase):
-
     def test_is_empty(self):
         s = Stack()
         self.assertTrue(s.is_empty())

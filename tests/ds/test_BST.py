@@ -17,7 +17,6 @@ from ands.ds.BST import BST, BSTNode, is_bst
 
 
 class TestBST(unittest.TestCase):
-
     def assert_consistencies(self, bst):
         """Call only when bst.root is not None"""
         self.assertEqual(bst.root.count(), bst.n)

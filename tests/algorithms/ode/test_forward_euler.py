@@ -6,12 +6,11 @@ Author: Nelson Brochado
 """
 
 import unittest
+
 from ands.algorithms.ode.forward_euler import *
-from pprint import pprint
 
 
 class TestForwardEuler(unittest.TestCase):
-
     def __init__(self, method_name="runTest"):
         unittest.TestCase.__init__(self, method_name)
 

@@ -14,7 +14,6 @@ from tests.algorithms.crypto.util import *
 
 
 class TestOneTimePad(unittest.TestCase):
-
     def __init__(self, method_name="runTest"):
         unittest.TestCase.__init__(self, method_name)
 

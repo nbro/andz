@@ -31,7 +31,6 @@ __all__ = ["HashTable", "has_duplicates", "find_duplicates"]
 
 
 class HashTable:
-
     def __init__(self, capacity: int = 11):
         self.n = capacity
         self.keys = [None] * self.n
@@ -91,7 +90,7 @@ class HashTable:
             rehashed = False
 
             while self.keys[next_slot] is not None and self.keys[
-                    next_slot] != key:
+                next_slot] != key:
 
                 next_slot = self.rehash(next_slot, size)
 

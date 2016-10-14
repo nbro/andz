@@ -62,7 +62,6 @@ from ands.ds.Heap import BaseHeap, HeapNode
 
 
 class MinMaxHeap(BaseHeap):
-
     def __init__(self, ls=None):
         BaseHeap.__init__(self, ls)
 

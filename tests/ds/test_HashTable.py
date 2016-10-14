@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 21/02/16
 
-Last update: 04/09/16
+Last Update: 08/10/16
 
 Test the HashTable class.
 """
