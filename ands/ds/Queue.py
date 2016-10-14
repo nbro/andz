@@ -20,7 +20,6 @@ __all__ = ["Queue", "BFSQueue", "MinPriorityQueue"]
 
 
 class Queue:
-
     def __init__(self, ls=None):
         if ls is None:
             ls = []
@@ -50,7 +49,7 @@ class Queue:
 
 
 class BFSQueue(Queue):
-    """Queue for the bfs algorihm."""
+    """Queue for the bfs algorithm."""
 
     def __init__(self):
         Queue.__init__(self)
@@ -63,7 +62,6 @@ class BFSQueue(Queue):
 
 
 class MinPriorityQueue(MinHeap):
-
     def __init__(self, ls=None):
         """If `ls` is provided, it should be a list of tuples,
         each of which contains 2 items:

@@ -64,6 +64,7 @@ For example, "key" and "value" are self-descriptive.
 - Add functions "intersection" and "union".
 - Implement a recursive version of insert (OPTIONAL).
 - implement "is balanced" function (http://codereview.stackexchange.com/questions/108459/binary-tree-data-structure)
+- Maybe the methods of the BSTNode need an improvement in terms of implementation...
 """
 
 from tabulate import tabulate
@@ -944,7 +945,7 @@ class BSTPrinter:
             right_lines.append(' ' * right_width)
 
         if (middle - len(node.label)) % 2 == 1 and node.parent is not None and \
-                node is node.parent.left and len(node.label) < middle:
+                        node is node.parent.left and len(node.label) < middle:
             node.label += fill
 
         node.label = node.label.center(middle, fill)
@@ -958,11 +959,11 @@ class BSTPrinter:
         lines = [' ' * left_pos + node.label + ' ' * (right_width - right_pos),
                  ' ' * left_pos + '/' + ' ' * (middle - 2) +
                  '\\' + ' ' * (right_width - right_pos)] + \
-            [left_line + ' ' * (width - left_width - right_width) +
+                [left_line + ' ' * (width - left_width - right_width) +
 
-             right_line
+                 right_line
 
-             for left_line, right_line in zip(left_lines, right_lines)]
+                 for left_line, right_line in zip(left_lines, right_lines)]
         return lines, pos, width
 
 

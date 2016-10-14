@@ -17,7 +17,6 @@ from ands.ds.BST import BSTNode
 
 
 class TestBSTNode(unittest.TestCase):
-
     def test_None(self):
         self.assertRaises(ValueError, BSTNode, None)
 

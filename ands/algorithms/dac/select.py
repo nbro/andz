@@ -4,7 +4,8 @@
 """
 Author: Nelson Brochado
 
-Find an element x in a list, such that at most k elements of the list are less than x.
+Find an element x in a list,
+such that at most k elements of the list are less than x.
 """
 
 

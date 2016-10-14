@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # File to allow this directory to be treated as a python package.
-# http://mikegrouchy.com/blog/2012/05/be-pythonic-__init__py.html
 
-__all__ = ["algorithms", "ds"]
+# From Python 3.3+ this way of constructing subpackages
+# should no more be necessary, but for some reason,
+# at the moment of this writing, pdoc does not seem to work
+# as expected if I omit these __init__.py files.

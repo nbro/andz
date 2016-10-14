@@ -1,6 +1,7 @@
+# Travis CI only supports Python builds for Linux (at this moment)
 os:
   - linux
-#  - osx  # Travis CI still does not support Python builds
+
 
 language: python
 

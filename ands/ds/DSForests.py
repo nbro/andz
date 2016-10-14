@@ -33,7 +33,6 @@ Time complexity analysis based on Wiki's article.
 
 
 class DSNode:
-
     def __init__(self, x, rank=0):
         self.value = x
         self.rank = rank
@@ -49,7 +48,6 @@ class DSNode:
 
 
 class DSForests:
-
     def __init__(self):
         self.sets = {}
 

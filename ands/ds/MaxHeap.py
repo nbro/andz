@@ -26,7 +26,6 @@ __all__ = ["MaxHeap", "is_max_heap"]
 
 
 class MaxHeap(Heap):
-
     def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
@@ -105,7 +104,6 @@ class MaxHeap(Heap):
             raise ValueError("x cannot be None.")
         if not isinstance(x, HeapNode):
             x = HeapNode(x)
-
         if not self.is_good_index(i):
             raise IndexError("i is not a valid index.")
 

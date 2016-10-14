@@ -44,7 +44,6 @@ __all__ = ["MinHeap", "is_min_heap"]
 
 
 class MinHeap(Heap):
-
     def __init__(self, ls=None):
         Heap.__init__(self, ls)
 
@@ -137,6 +136,7 @@ class MinHeap(Heap):
             self.push_down(i)
         elif x < c:
             self.push_up(i)
+
         return c
 
 

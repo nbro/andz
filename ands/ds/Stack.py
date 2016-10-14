@@ -18,7 +18,6 @@ __all__ = ["Stack"]
 
 
 class Stack:
-
     def __init__(self, s=None):
         if s is None:
             s = []

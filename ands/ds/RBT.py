@@ -186,8 +186,7 @@ class RBT(BST):
             x = RBTNode(x, value)
 
         if x.left or x.right or x.parent:
-            raise ValueError(
-                "x cannot have left or right children, or parent.")
+            raise ValueError("x cannot have left or right children, or parent.")
 
         c = self.root  # Current node
         p = None  # Current node's parent
@@ -289,12 +288,14 @@ class RBT(BST):
         really belongs to this `RBT` object,
         because no search is performed (for now).
 
-        If it doesn't belong to this `RBT` object,
-        then the behaviour of this method is undefined (for now).
+        If it does NOT belong to this `RBT` object,
+        then the behaviour of this method is UNDEFINED!
 
         **Time Complexity:** O(log<sub>2</sub>(n))."""
 
         def delete_case1(v):
+            # this check is necessary because this function
+            # is also called from the delete_case3 function.
             if v.parent is not None:
                 delete_case2(v)
 
@@ -342,16 +343,16 @@ class RBT(BST):
 
             if v.sibling.color == BLACK:
                 if (v.is_left_child() and
-                    (not v.sibling.right or v.sibling.right.color == BLACK) and
-                        v.sibling.left.color == RED):
+                        (not v.sibling.right or v.sibling.right.color == BLACK) and
+                            v.sibling.left.color == RED):
 
                     v.sibling.color = RED
                     v.sibling.left.color = BLACK
                     self.right_rotate(v.sibling)
 
                 elif (v.is_right_child() and
-                      (not v.sibling.left or v.sibling.left.color == BLACK) and
-                      v.sibling.right.color == RED):
+                          (not v.sibling.left or v.sibling.left.color == BLACK) and
+                              v.sibling.right.color == RED):
 
                     v.sibling.color = RED
                     v.sibling.right.color = BLACK
@@ -373,6 +374,7 @@ class RBT(BST):
                 v.sibling.left.color = BLACK
                 self.right_rotate(v.parent)
 
+        # a few checks of the inputs given
         if x is None:
             raise ValueError("x cannot be None.")
 
@@ -384,29 +386,33 @@ class RBT(BST):
         if x.parent is None and not self.is_root(x):
             raise ValueError("x is not a valid node.")
 
-        # If x has two non-leaf children, then replace x with its successor.
+        # If x has 2 non-leaf children, then replace x with its successor.
+        # Note that we exchange also the colors of x and its successor.
         if x.left is not None and x.right is not None:
             s = self.successor(x)
             self._switch(x, s)
             x.color, s.color = s.color, x.color
 
         # At least one of the children must be None.
+        # Particularly, if `x` was exchanged with its successor,
+        # `x` now should NOT have a left child.
         assert x.left is None or x.right is None
 
-        # Case 1
-        # If `x` is a red node, we simply replace it with its child `c`,
-        # which must be black by property 4, if any.
-        # This can only occur when `x` has two leaf children,
-        # because if the red node `x` had a black non-leaf child on one side,
+        # At this point `x` has at most 1 child.
+        # Keep in mind this when reading the next cases.
+
+        # If `x` is a red node and it has a child,
+        # we simply replace it with its child `c`,
+        # which must be black by property 4.
+
+        # This can only occur when `x` has 2 leaf children,
+        # because if `x` had a black NON-leaf child on one side,
         # but just a leaf child on the other side,
         # then the count of black nodes on both sides would be different,
         # thus the tree would violate property 5.
-        # All paths through the deleted node
-        # will simply pass through one fewer red node,
-        # and both the deleted node's parent and child must be black,
-        # so property 3 (all leaves are black) and property 4
-        # (both children of every red node are black) still hold.
         if x.color == RED:
+
+            # a few checks while in alpha stage
             assert x.left is None and x.right is None
             assert not self.is_root(x)
 
@@ -417,14 +423,16 @@ class RBT(BST):
 
         else:  # x.color == BLACK
 
-            # One of the children of x is RED.
-            # Simply removing a black node (x) could break properties 4,
+            # One of the children of `x` is red.
+
+            # Simply removing `x` could break properties 4,
             # i.e., both children of every red node are black,
-            # because x.parent could be RED (e.g.), and 5,
+            # because x.parent could be red, and 5,
             # i.e. all paths from any given node to its leaf nodes
             # contain the same number of black nodes),
-            # but if we repaint `c` BLACK,
+            # but if we repaint `c` (the child) BLACK,
             # both of these properties are preserved.
+
             if x.left is not None and x.left.color == RED:
                 if not self.is_root(x):
                     if x.is_left_child():
@@ -450,25 +458,28 @@ class RBT(BST):
 
                 if self.is_root(x):
                     self.root = x.right
+            else:
+                # This the complex case: both `x` and `c` (the child) are BLACK.
 
-            # The complex case is when both `x` and `c` are BLACK.
-            # This can only occur when deleting a black node
-            # which has two leaf children, because if the black node `x`
-            # had a black non-leaf child on one side
-            # but just a leaf child on the other side,
-            # then the count of black nodes on both sides would be different,
-            # thus the tree would have been an invalid red–black tree
-            # by violation of property 5.
-            elif x.left is None and x.right is None:
+                # This can only occur when deleting a black node
+                # which has 2 LEAF children, because if the black node `x`
+                # had a black NON-leaf child on one side
+                # but just a leaf child on the other side,
+                # then the count of black nodes on both sides would be different,
+                # thus the tree would have been an invalid red–black tree
+                # by violation of property 5.
+                assert x.left is None and x.right is None
+
                 # 6 cases
                 if not self.is_root(x):
+
                     assert x.sibling is not None
 
                     # Note that x.sibling cannot be None,
-                    # because otherwise the substree containing it
+                    # because otherwise the subtree containing it
                     # would have fewer black nodes
                     # than the subtree containing x.
-                    # Specifically, the subree containing x
+                    # Specifically, the subtree containing x
                     # would have a black height of 2,
                     # whereas the one containing the sibling
                     # would have a black height of 1.
@@ -476,19 +487,17 @@ class RBT(BST):
                     delete_case1(x)
 
                     # We begin by replacing x with its child c.
-                    # Note that both children of x are null-leaf children,
-                    # as we observed
+                    # Note that both children of x are leaf children.
                     if x.is_left_child():
                         x.parent.left = None
                     else:
                         x.parent.right = None
+
                 else:
                     self.root = None
-            else:
-                assert False
 
-        # Ensures that x has no reference to any node of this RBT.
         self.n -= 1
+        # Ensures that x has no reference to any node of this RBT.
         x.parent = x.left = x.right = None
         return x
 

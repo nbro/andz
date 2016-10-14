@@ -6,133 +6,245 @@ Author: Nelson Brochado
 
 Creation: 20/02/16
 
-Last update: 28/08/16
+Last Update: 08/10/16
 
 Tests for the MinMaxHeap class.
 """
 
 import unittest
-from random import randint, choice
+from random import randint, randrange
 
 from ands.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap, HeapNode
 
 
 class TestMinMaxHeap(unittest.TestCase):
-
     def test_empty_heap_creation(self):
         h = MinMaxHeap()
-        assert is_min_max_heap(h)
-        assert h.size() == 0 and h.is_empty()
+        self.assertTrue(is_min_max_heap(h))
+        self.assertEqual(h.size(), 0)
+        self.assertTrue(h.is_empty())
 
     def test_build_heap(self):
-        h = MinMaxHeap([12, 14, 28, 7, 10, 6, 18])
-        assert is_min_max_heap(h)
-        assert h.size() == 7
-
-        t = 20
+        t = randint(100, 500)
         ls = [randint(0, 100) for _ in range(t)]
         h = MinMaxHeap(ls)
-        assert h.size() == t
-        assert is_min_max_heap(h)
+        self.assertTrue(is_min_max_heap(h))
+        self.assertEqual(h.size(), t)
 
     def test_add(self):
         h = MinMaxHeap([100, 12, 14, 28, 7])
-        assert is_min_max_heap(h)
-        assert h.size() == 5
-
-        t = 20
+        t = randint(100, 500)
         ls = [randint(0, 100) for _ in range(t)]
 
         for i, item in enumerate(ls):
             h.add(item)
-            assert h.size() == 6 + i
-            assert h.find_min() == h.heap[0]
-            assert (h.find_max() == h.heap[1] or h.find_max() == h.heap[2])
-            assert is_min_max_heap(h)
-        assert h.size() == 25
+            self.assertEqual(h.size(), 6 + i)
+            self.assertEqual(h.find_min(), h.heap[0])
 
-    def test_remove_and_find_min_and_remove_max(self):
+            m = h.heap[1] if h.heap[1] > h.heap[2] else h.heap[2]
+
+            self.assertEqual(h.find_max(), m)
+            self.assertTrue(is_min_max_heap(h))
+
+        self.assertEqual(h.size(), 5 + t)
+
+    def test_add_heap_nodes(self):
         h = MinMaxHeap()
-        assert is_min_max_heap(h)
+        t = randint(100, 500)
+        ls = [HeapNode(randint(0, 100)) for _ in range(t)]
 
-        t = 20
-        ls = [randint(0, 100) for _ in range(t)]
         for i, item in enumerate(ls):
             h.add(item)
-            assert 1 + i == h.size()
-            assert is_min_max_heap(h)
-            assert h.find_min() == h.heap[0] == min(h.heap)
+            self.assertEqual(h.size(), i + 1)
+            self.assertEqual(h.find_min(), h.heap[0])
+
             if h.size() == 1:
-                assert h.find_max() == h.find_min() == h.heap[
-                    0] == min(h.heap) == max(h.heap)
+                self.assertEqual(h.find_max(), h.heap[0])
             elif h.size() == 2:
-                assert h.find_max() == h.heap[1] == max(h.heap)
+                self.assertEqual(h.find_max(), h.heap[1])
             else:
-                assert (max(h.heap) == h.find_max() == h.heap[
-                    1] or max(h.heap) == h.find_max() == h.heap[2])
-            assert is_min_max_heap(h)
+                m = h.heap[1] if h.heap[1] > h.heap[2] else h.heap[2]
+                self.assertEqual(h.find_max(), m)
+
+            self.assertTrue(is_min_max_heap(h))
+
+        self.assertEqual(h.size(), t)
+
+    def test_find_min_and_max(self):
+        h = MinMaxHeap()
+
+        # should return none if heap is empty
+        self.assertIsNone(h.find_max())
+        self.assertIsNone(h.find_min())
+
+        t = randint(100, 500)
+        ls = [randint(0, 100) for _ in range(t)]
+
+        for i, item in enumerate(ls):
+            h.add(item)
+
+            # asserts that the min is always at index 0
+            self.assertEqual(1 + i, h.size())
+            self.assertEqual(h.find_min(), h.heap[0])
+            self.assertEqual(h.heap[0], min(h.heap))
+
+            # checking that max is in correct position
+            # depending if size is 1, 2 or >2
+            if h.size() == 1:
+                self.assertEqual(h.find_max(), h.find_min())
+                self.assertEqual(h.find_min(), h.heap[0])
+                self.assertEqual(h.heap[0], min(h.heap))
+                self.assertEqual(min(h.heap), max(h.heap))
+            elif h.size() == 2:
+                self.assertEqual(h.find_max(), h.heap[1])
+                self.assertEqual(h.heap[1], max(h.heap))
+            else:
+                m = h.heap[1] if h.heap[1] > h.heap[2] else h.heap[2]
+                self.assertEqual(max(h.heap), h.find_max())
+                self.assertEqual(h.find_max(), m)
+
+            self.assertTrue(is_min_max_heap(h))
+
+    def test_remove_min_and_max(self):
+        t = randint(500, 1000)
+        ls = [randint(0, 100) for _ in range(t)]
+        h = MinMaxHeap(ls)
 
         while not h.is_empty():
             m = h.remove_min()
-            assert isinstance(m, HeapNode)
-            assert min(ls) == m.key
+            self.assertIsInstance(m, HeapNode)
+            self.assertEqual(min(ls), m.key)
             ls.remove(m.key)
-            assert len(ls) == h.size()
-            assert is_min_max_heap(h)
+            self.assertEqual(len(ls), h.size())
+            self.assertTrue(is_min_max_heap(h))
 
-            M = h.remove_max()
-            assert isinstance(M, HeapNode)
-            assert max(ls) == M.key
-            ls.remove(M.key)
-            assert len(ls) == h.size()
-            assert is_min_max_heap(h)
+            if not h.is_empty():
+                M = h.remove_max()
+                self.assertIsInstance(M, HeapNode)
+                self.assertEqual(max(ls), M.key)
+                ls.remove(M.key)
+                self.assertEqual(len(ls), h.size())
+                self.assertTrue(is_min_max_heap(h))
 
-        assert h.is_empty()
+        self.assertTrue(h.is_empty())
+        self.assertIsNone(h.remove_max())
+        self.assertIsNone(h.remove_min())
 
     def test_delete(self):
-        h = MinMaxHeap([28, 12, 14, 7, 10])
-        assert is_min_max_heap(h)
-        assert h.size() == 5
+        t = randint(500, 1000)
+        ls = [randint(0, 100) for _ in range(t)]
+        h = MinMaxHeap(ls)
+
+        self.assertRaises(IndexError, h.delete, -1)
+        self.assertRaises(IndexError, h.delete, h.size())
 
         while not h.is_empty():
-            n = h.delete(choice(range(h.size())))
-            assert isinstance(n, HeapNode)
-            assert is_min_max_heap(h)
+            n = h.delete(randrange(0, h.size()))
+            t -= 1
+            self.assertIsInstance(n, HeapNode)
+            self.assertEqual(h.size(), t)
+            self.assertTrue(is_min_max_heap(h))
+
+    def replace_helper(self, h, t, ls):
+        for x in ls:
+            i = randrange(0, h.size())
+            elem = h.heap[i]
+            d = h.replace(i, x)
+            self.assertIs(d, elem)
+            self.assertEqual(h.size(), t)
+            self.assertTrue(is_min_max_heap(h))
+
+    def test_replace(self):
+        m1, m2 = 500, 1000
+        t = randint(m1, m2)
+        ls = [randint(0, 100) for _ in range(t)]
+
+        h = MinMaxHeap(ls)
+
+        self.assertRaises(IndexError, h.delete, -1)
+        self.assertRaises(IndexError, h.delete, h.size())
+        self.assertRaises(ValueError, h.replace, 0, None)
+
+        t2 = randint(m1, m2)
+        ls = [randint(0, 100) for _ in range(t2)]
+
+        self.replace_helper(h, t, ls)
+
+    def test_replace_with_heap_nodes(self):
+        # testing when replacing with a HeapNode object
+        m1, m2 = 500, 1000
+        t = randint(m1, m2)
+        ls = [randint(0, 100) for _ in range(t)]
+
+        h = MinMaxHeap(ls)
+
+        t2 = randint(m1, m2)
+        ls = [HeapNode(randint(0, 100)) for _ in range(t2)]
+
+        self.replace_helper(h, t, ls)
+
+    def test_find_max_index(self):
+        h = MinMaxHeap()
+        self.assertEqual(h.find_max_index(), -1)
+
+        h.add(randint(-10, 10))
+        self.assertEqual(h.find_max_index(), 0)
+
+        h.add(randint(-10, 10))
+        self.assertEqual(h.find_max_index(), 1)
+
+        t = randint(50, 100)
+        ls = [randint(0, 100) for _ in range(t)]
+
+        for elem in ls:
+            h.add(elem)
+            i = h.find_max_index()
+            self.assertTrue(i == 1 or i == 2)
+
+            m = h.heap[i]
+            real_m = max(h.heap)
+            self.assertEqual(real_m, m)
+            self.assertTrue(is_min_max_heap(h))
+
+        while not h.is_empty():
+            i = h.find_max_index()
+
+            if h.size() > 1:
+                self.assertTrue(i == 1 or i == 2)
+            else:
+                self.assertEqual(i, 0)
+
+            m = h.heap[i]
+            real_m = max(h.heap)
+            self.assertEqual(real_m, m)
+            self.assertIsNotNone(h.delete(randrange(0, h.size())))
+            self.assertTrue(is_min_max_heap(h))
 
     def test_index_of_min_and_max(self):
         h = MinMaxHeap([28, 12, 14, 7, 10, 6, 18, 3, 11])
-        assert is_min_max_heap(h)
 
-        def assert_errors(a):
-            try:
-                h.index_of_min(a)
-                assert False
-            except IndexError:
-                pass
-            except TypeError:
-                pass
+        self.assertRaises(IndexError, h.index_of_min, -1)
+        self.assertRaises(IndexError, h.index_of_min, 30)
+        self.assertRaises(TypeError, h.index_of_min, "0")
+        self.assertRaises(TypeError, h.index_of_min, None)
 
-        assert_errors(-1)
-        assert_errors(None)
-        assert_errors("0")
-        assert_errors(30)
+        self.assertEqual(h.index_of_min(0), 5)
+        self.assertEqual(h.index_of_max(0), 1)
+        self.assertEqual(h.index_of_min(1), 3)
+        self.assertEqual(h.index_of_max(1), 7)
+        self.assertEqual(h.index_of_min(2), 5)
+        self.assertEqual(h.index_of_max(2), 6)
+        self.assertEqual(h.index_of_min(3), 8)
+        self.assertEqual(h.index_of_max(3), 7)
 
-        assert h.index_of_min(0) == 5
-        assert h.index_of_max(0) == 1
-
-        assert h.index_of_min(1) == 3
-        assert h.index_of_max(1) == 7
-
-        assert h.index_of_min(2) == 5
-        assert h.index_of_max(2) == 6
-
-        assert h.index_of_min(3) == 8
-        assert h.index_of_max(3) == 7
-
-        assert h.index_of_min(5) == -1 == h.index_of_max(5)
-        assert h.index_of_min(6) == -1 == h.index_of_max(6)
-        assert h.index_of_min(7) == -1 == h.index_of_max(7)
-        assert h.index_of_min(8) == -1 == h.index_of_max(8)
+        self.assertEqual(h.index_of_min(5), -1)
+        self.assertEqual(h.index_of_max(5), -1)
+        self.assertEqual(h.index_of_min(6), -1)
+        self.assertEqual(h.index_of_max(6), -1)
+        self.assertEqual(h.index_of_min(7), -1)
+        self.assertEqual(h.index_of_max(7), -1)
+        self.assertEqual(h.index_of_min(8), -1)
+        self.assertEqual(h.index_of_max(8), -1)
 
 
 if __name__ == "__main__":
