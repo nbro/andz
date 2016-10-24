@@ -25,17 +25,22 @@
 - `Queue.py`
  - Add tests
  - Re-implement a MinPriorityQueue 
-  - Add tests for MinPriorityQueue
+   - Add tests for MinPriorityQueue
 
 - `Graph`
+
  - Redesign the graph data structure:
+
  - It should allow the possibility to be represented either as _adjacency list_ or _adjacency matrix_. 
+ 
  - It should also give the possibility to create either directed or undirected graphs.
+ 
  - It should support the common operations efficiently
  
- - `RBT`
+- `RBT`
  
   - Augment RBT to support order statistic trees (OS-RANK and OS-SELECT in O(log n))
+ 
   - Augment RBT to support interval trees
 
 ### NON-PRIORITY
