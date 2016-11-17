@@ -50,13 +50,7 @@ def recursive_rod_cut(prices, n):
     max_revenue = -sys.maxsize
 
     for i in range(1, n + 1):  # Last i is n.
-        max_revenue = max(
-            max_revenue,
-            prices[i] +
-            recursive_rod_cut(
-                prices,
-                n -
-                i))
+        max_revenue = max(max_revenue, prices[i] + recursive_rod_cut(prices, n - i))
 
     return max_revenue
 
@@ -82,14 +76,7 @@ def _memoized_rod_cut_aux(prices, n, revenues):
         max_revenue = 0
     else:
         for i in range(1, n + 1):
-            max_revenue = max(
-                max_revenue,
-                prices[i] +
-                _memoized_rod_cut_aux(
-                    prices,
-                    n -
-                    i,
-                    revenues))
+            max_revenue = max(max_revenue, prices[i] + _memoized_rod_cut_aux(prices, n - i, revenues))
 
     # Memoising the maximum revenue for sub-problem with a rod of length n.
     revenues[n] = max_revenue
@@ -98,8 +85,19 @@ def _memoized_rod_cut_aux(prices, n, revenues):
 
 
 def memoized_rod_cut(prices, n):
-    """Dynamic programming version of recursive_rod_cut,
-    using "memoisation" to store sub problems' solutions.
+    """_Top-down_ dynamic programming version of `recursive_rod_cut`,
+    using _memoisation_ to store sub problems' solutions.
+    _Memoisation_ is basically the name to the technique 
+    of storing what it's been computed previously.
+
+    In this algorithm, as opppose to the plain recursive one,
+    instead of repeatedly solving the same subproblems,
+    we store the solution to a subproblem in a table,
+    the first time we solve the subproblem,
+    so that this solution can simply be looked up, if needed again.
+
+    The disadvantge of this solution is that we need additional memory,
+    i.e., a table, to store intermediary solutions.
 
     Running time complexity: theta(n^2)
 
@@ -116,13 +114,12 @@ def memoized_rod_cut(prices, n):
     # Note that revenue values are always nonnegative,
     # unless prices contain negative numbers.
     revenues = [-sys.maxsize] * (n + 1)
+    
     return _memoized_rod_cut_aux(prices, n, revenues)
 
 
 def bottom_up_rod_cut(prices, n):
-    """Dynamic programming solution to the rod cut problem.
-
-    This dynamic programming version uses a bottom-up approach.
+    """_Bottom-up_ dynamic programming solution to the rod cut problem.
 
     Running time complexity: theta(n^2)
 
@@ -132,7 +129,7 @@ def bottom_up_rod_cut(prices, n):
     revenues = [-sys.maxsize] * (n + 1)
     revenues[0] = 0  # Revenue for rod of length 0 is 0.
 
-    for i in range(1, n + 1):
+    for i in range(1, n + 1):        
         max_revenue = -sys.maxsize
 
         for j in range(1, i + 1):
@@ -193,6 +190,7 @@ def extended_bottom_up_rod_cut(prices, n):
 
 
 if __name__ == "__main__":
+    
     p1 = [0, 1, 5, 2, 9, 10, 17, 17, 20, 27, 30]
 
     r, pieces = extended_bottom_up_rod_cut(p1, 10)
