@@ -155,7 +155,7 @@ def extended_bottom_up_rod_cut(prices, n):
     :rtype : tuple
     """
     revenues = [-sys.maxsize] * (n + 1)
-    s = [[]] * (n + 1)
+    s = [[]] * (n + 1) # Used to store the optimal choices
 
     revenues[0] = 0
     s[0] = [0]
@@ -173,7 +173,7 @@ def extended_bottom_up_rod_cut(prices, n):
             # To obtain a rod of size i, we need at least 2 other smaller rods,
             # unless we do not cut the rod.
             # Now, to obtain a rod of length i,
-            # we need to insert_key together a rod of length j < i and a rod of length i - j < j,
+            # we need to insert together a rod of length j < i and a rod of length i - j < j,
             # because j + (i - j) = i, as we stated at the beginning.
             if max_revenue < prices[j] + revenues[i - j]:
 
@@ -182,7 +182,9 @@ def extended_bottom_up_rod_cut(prices, n):
                 if revenues[i - j] != 0:
                     s[i] = [j] + s[i - j]
                 else:
-                    s[i] = [j]
+                    # revenue[i] (current) uses a rod of length j
+                    # left most cut is at j
+                    s[i] = [j]  
 
         revenues[i] = max_revenue
 
