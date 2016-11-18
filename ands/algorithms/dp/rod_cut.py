@@ -4,9 +4,12 @@
 """
 Author: Nelson Brochado
 Creation: 30/08/15
+Last update: 18/11/2016
 
-Based on pseudo-codes that you can find in
-"Introduction to Algorithms" (3rd edition) by CLSR.
+## References:
+- http://www.radford.edu/~nokie/classes/360/dp-rod-cutting.html
+- Introduction to Algorithms (3rd edition) by CLSR
+- Slides by prof. E. Papadopoulou
 """
 
 import sys
@@ -55,7 +58,7 @@ def recursive_rod_cut(prices, n):
     return max_revenue
 
 
-def _memoized_rod_cut_aux(prices, n, revenues):
+def _memoized_rod_cut_aux(prices, n, revenues, s):
     """Auxiliary function for the memoized_rod_cut function.
 
     :type prices : list | tuple
@@ -76,7 +79,11 @@ def _memoized_rod_cut_aux(prices, n, revenues):
         max_revenue = 0
     else:
         for i in range(1, n + 1):
-            max_revenue = max(max_revenue, prices[i] + _memoized_rod_cut_aux(prices, n - i, revenues))
+            q = _memoized_rod_cut_aux(prices, n - i, revenues, s)
+
+            if prices[i] + q > max_revenue:
+                max_revenue = prices[i] + q
+                s[n] = i
 
     # Memoising the maximum revenue for sub-problem with a rod of length n.
     revenues[n] = max_revenue
@@ -114,8 +121,11 @@ def memoized_rod_cut(prices, n):
     # Note that revenue values are always nonnegative,
     # unless prices contain negative numbers.
     revenues = [-sys.maxsize] * (n + 1)
+
+    # optimal first cut for rods of length 0..n
+    s = [0] * (n + 1)
     
-    return _memoized_rod_cut_aux(prices, n, revenues)
+    return _memoized_rod_cut_aux(prices, n, revenues, s), s
 
 
 def bottom_up_rod_cut(prices, n):
@@ -132,7 +142,7 @@ def bottom_up_rod_cut(prices, n):
     for i in range(1, n + 1):        
         max_revenue = -sys.maxsize
 
-        for j in range(1, i + 1):
+        for j in range(1, i + 1): # Find the max cut position for length i
             max_revenue = max(max_revenue, prices[j] + revenues[i - j])
 
         revenues[i] = max_revenue
@@ -191,11 +201,43 @@ def extended_bottom_up_rod_cut(prices, n):
     return revenues, s
 
 
+def rod_cut_solution_print(prices, n, s):
+    """prices is the list of initial prices.
+    n is the number of those prices - 1.
+    s is the solution returned by memoized_rod_cut."""
+    while n > 0:
+        print(s[n], end=" ")
+        n = n - s[n]
+    print()
+
+
 if __name__ == "__main__":
-    
-    p1 = [0, 1, 5, 2, 9, 10, 17, 17, 20, 27, 30]
+    p1 = [0, 1, 5, 8, 9, 10, 17, 17, 20]
 
-    r, pieces = extended_bottom_up_rod_cut(p1, 10)
+    def test0():
+        r = recursive_rod_cut(p1, len(p1) - 1)
+        print("Revenue:", r)
+        print("--------------------------------------------")
 
-    print("Revenues:", r)
-    print("Pieces:", pieces)
+    def test1():
+        r, s = memoized_rod_cut(p1, len(p1) - 1)
+        print("Revenue:", r)
+        print("s:", s) 
+        rod_cut_solution_print(p1, len(p1) - 1, s)
+        print("--------------------------------------------")
+
+    def test2():
+        r = bottom_up_rod_cut(p1, len(p1) - 1)
+        print("Revenue:", r)
+        print("--------------------------------------------")
+
+    def test3():
+        r, s = extended_bottom_up_rod_cut(p1, len(p1) - 1)
+        print("Revenues:", r)
+        print("s:", s)
+        print("--------------------------------------------")
+
+    test0()
+    test1()
+    test2()
+    test3()
