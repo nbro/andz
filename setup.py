@@ -3,12 +3,9 @@
 
 """
 ## Resources
-- [https://packaging.python.org/en/latest/distributing/#readme-rst]
-(https://packaging.python.org/en/latest/distributing/#readme-rst)
-- [https://packaging.python.org/en/latest/distributing/#readme-rst]
-(https://packaging.python.org/en/latest/distributing/#readme-rst)
-[http://docs.python-guide.org/en/latest/writing/structure/]
-(http://docs.python-guide.org/en/latest/writing/structure/)
+- [https://packaging.python.org/en/latest/distributing/#readme-rst](https://packaging.python.org/en/latest/distributing/#readme-rst)
+- [https://packaging.python.org/en/latest/distributing/#readme-rst](https://packaging.python.org/en/latest/distributing/#readme-rst)
+- [http://docs.python-guide.org/en/latest/writing/structure/](http://docs.python-guide.org/en/latest/writing/structure/)
 """
 
 import os
@@ -30,7 +27,7 @@ setup(
     long_description=read("README.md"),
     license="MIT",
     keywords="algorithms data structures",
-    url="https://github.com/nelson-brochado/ands",
+    url="https://github.com/nbro/ands",
     include_package_data=True,
     exclude_package_data={'': ['__pycache__']},
     classifiers=[
@@ -39,7 +36,7 @@ setup(
         #   4 - Beta
         #   5 - Production/Stable
         "Development Status :: 3 - Alpha",
-        "Environment :: Console",
+        "Environment :: Console",
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Algorithms and Data Structures",
         "License :: OSI Approved :: MIT License",
