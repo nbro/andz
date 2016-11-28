@@ -18,6 +18,7 @@ from ands.ds.MaxHeap import MaxHeap, is_max_heap, HeapNode
 
 
 class TestMaxHeap(unittest.TestCase):
+
     def test_empty_heap_creation(self):
         h = MaxHeap()
         self.assertTrue(is_max_heap(h))
