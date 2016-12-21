@@ -27,11 +27,11 @@ You will also find some algorithms related to some particular _design paradigm_,
 
 - This is a **work in progress**, don't expect to find here all the data structures and algorithms you're searching. Consider to contribute to the quality and size of the project.
 
-- Again, **mistakes are possible**, even if decent tests are starting to being done. You can find them under the folder [`tests`](tests). So, as the [license](LICENSE.md) says, this project is provided "as is", etc.
+- Again, **mistakes are possible**, even if decent tests are starting to being done. You can find them under the folder [`tests`](tests). So, as the [license](LICENSE) says, this project is provided "as is", etc.
 
 - **No optimisation** has been done to any algorithm or data structure. The purpose of the implementations is just for **_demonstration of the concepts_**!
 
-- My intent is to continue to contribute to this repository in my free time, and **new data structures and algorithms** will therefore be added. You can find semi-implemented things in the `dev` branch.
+- My intent is to continue to contribute to this repository in my free time, and **new data structures and algorithms** will therefore be added.
 
 
 ## How can you support this project?
