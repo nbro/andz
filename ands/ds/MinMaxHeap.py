@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: 18/02/16
 
-Last update: 08/09/16
+Last update: 29/12/16
 
 Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
 Moreover, both remove-min and remove-max are supported in logarithmic time.
@@ -39,17 +39,22 @@ The most important methods used to build and support the data structure are:
 - swap
 
 - `add` in O(log n) time
-- `delete_at` in O(log n) time
-- `replace_at` in O(log n) time
+- `delete-at` in O(log n) time
+- `replace-at` in O(log n) time
 - `remove-min` in O(log n) time
 - `remove-max` in O(log n) time
 - `find-min` in O(1) time
-- `find max` in O(1) time
+- `find-max` in O(1) time
 - `size` in O(1) time
 - `is-empty` in O(1) time
 - `contains` in O(n) time
 - `merge` in O(n + m) time
 - `clear` in O(1) time
+
+## TODO
+
+- `find-kth`, i.e. find the kth smallest element in the structure, in O(1) time 
+- `delete-kth`, i.e. delete the kth smallest element, in O(log n) time 
 
 ## References:
 
