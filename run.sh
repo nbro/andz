@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# RUN SPECIFIC TEST
+# ./run.sh -st folder_name_inside_tests test_name.py
+
 # colors used when printing
 GREEN=$(tput setaf 2)
 RED=$(tput setaf 1)
@@ -86,8 +89,6 @@ install_dependencies()
     printf "${GREEN}Done.${NORMAL}\n\n"
 }
 
-# Syntax to invoke the run of a specific test:
-# ./run.sh -st folder_name_inside_tests test_name.py
 test_in_virtual_environment()
 {
     # Creates and switches to the new virtual environment

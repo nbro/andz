@@ -4,7 +4,6 @@
 """
 ## Resources
 - [https://packaging.python.org/en/latest/distributing/#readme-rst](https://packaging.python.org/en/latest/distributing/#readme-rst)
-- [https://packaging.python.org/en/latest/distributing/#readme-rst](https://packaging.python.org/en/latest/distributing/#readme-rst)
 - [http://docs.python-guide.org/en/latest/writing/structure/](http://docs.python-guide.org/en/latest/writing/structure/)
 """
 
@@ -26,7 +25,7 @@ setup(
     description="Algorithms and Data Structures",
     long_description=read("README.md"),
     license="MIT",
-    keywords="algorithms data structures",
+    keywords="algorithms data structures python",
     url="https://github.com/nbro/ands",
     include_package_data=True,
     exclude_package_data={'': ['__pycache__']},
