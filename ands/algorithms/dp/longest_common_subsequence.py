@@ -18,8 +18,6 @@ instead of just computing its length, like all other implementations do.
 - Slides by prof. Evanthia Papadopoulou
 """
 
-from pprint import pprint
-
 
 def _get_lcs_length_matrix(s1, s2):
     """Returns a (len(s1) + 1)x(len(s2) + 1) matrix,
@@ -57,7 +55,8 @@ def _recursive_lcs_length_aux(s1, n, s2, m, result):
     elif s1[n - 1] == s2[m - 1]:
         result = 1 + _recursive_lcs_length_aux(s1, n - 1, s2, m - 1, result)
     else:
-        result = max(_recursive_lcs_length_aux(s1, n - 1, s2, m, result), _recursive_lcs_length_aux(s1, n, s2, m - 1, result))
+        result = max(_recursive_lcs_length_aux(s1, n - 1, s2, m, result),
+                     _recursive_lcs_length_aux(s1, n, s2, m - 1, result))
     return result
 
 
@@ -190,22 +189,39 @@ def bottom_up_lcs_length(s1, s2, matrix=False):
     return m[-1][-1] if not matrix else m
 
 
-# def backtrack(m, s1, s2, i, j):
-#     if i == 1 or j == 1:
-#         return ""
-#     elif s1[i] == s2[j]:
-#         print(s1[i])
-#         return backtrack(m, s1, s2, i - 1, j - 1) + s1[i]
-#     else:
-#         if m[i][j - 1] > m[i - 1][j]:
-#             return backtrack(m, s1, s2, i, j - 1)
-#         else:
-#             return backtrack(m, s1, s2, i - 1, j)
-#
-#
-# def get_lcs(s1, s2):
-#     m = bottom_up_lcs_length(s1, s2, matrix=True)
-#     backtrack(m, s1, s2, len(s1) - 1, len(s2) - 1)
+def bottom_up_lcs_length_partial(s1, s2, matrix=False):
+    m = _get_lcs_length_matrix(s1, s2)
+
+    for i in range(1, len(s1) + 1):
+
+        for j in range(1, len(s2) + 1):
+
+            if s1[i - 1] == s2[j - 1]:
+                m[i][j] = m[i - 1][j - 1] + 1
+            elif (s1[i - 1] == 'c' and s2[j - 1] == 'e') or (s1[i - 1] == 'e' and s2[j - 1] == 'c'):
+                m[i][j] = max(m[i - 1][j], m[i][j - 1], m[i - 1][j - 1] + 0.5)
+            else:
+                m[i][j] = max(m[i - 1][j], m[i][j - 1])
+
+    return m[-1][-1] if not matrix else m
+
+
+def backtrack(m, s1, s2, i, j):
+    if i == 1 or j == 1:
+        return ""
+    elif s1[i] == s2[j]:
+        print(s1[i])
+        return backtrack(m, s1, s2, i - 1, j - 1) + s1[i]
+    else:
+        if m[i][j - 1] > m[i - 1][j]:
+            return backtrack(m, s1, s2, i, j - 1)
+        else:
+            return backtrack(m, s1, s2, i - 1, j)
+
+
+def get_lcs(s1, s2):
+    m = bottom_up_lcs_length(s1, s2, matrix=True)
+    backtrack(m, s1, s2, len(s1) - 1, len(s2) - 1)
 
 
 def bottom_up_lcs(s1, s2):
@@ -251,22 +267,33 @@ if __name__ == "__main__":
     str9 = "ABAZDC"
     str10 = "BACBAD"
 
-    print(bottom_up_lcs_length(str9, str10))
-    print(recursive_lcs_length(str9, str10))
-    print(memoized_recursive_lcs_length(str9, str10))
-    pprint(bottom_up_lcs(str9, str10))
+    a = "abdeccbbaede"
+    b = "bbdccedacde"
 
-    print(bottom_up_lcs_length(str3, str4))
-    print(recursive_lcs_length(str3, str4))
-    print(memoized_recursive_lcs_length(str3, str4))
-    pprint(bottom_up_lcs(str3, str4))
+    ##    print(bottom_up_lcs_length(a, b, True))
+    ##    print(recursive_lcs_length(a, b))
+    ##    print(memoized_recursive_lcs_length(a, b))
+    m = bottom_up_lcs_length_partial(a, b, True)
+    backtrack(m, a, b, len(a) - 1, len(b) - 1)
+    # pprint(bottom_up_lcs(a, b))
 
-    print(bottom_up_lcs_length(str5, str6))
-    print(recursive_lcs_length(str5, str6))
-    print(memoized_recursive_lcs_length(str5, str6))
-    pprint(bottom_up_lcs(str5, str6))
 
-    print(bottom_up_lcs_length(str7, str8))
-    print(recursive_lcs_length(str7, str8))
-    print(memoized_recursive_lcs_length(str7, str8))
-    pprint(bottom_up_lcs(str7, str8))
+##    print(bottom_up_lcs_length(str9, str10))
+##    print(recursive_lcs_length(str9, str10))
+##    print(memoized_recursive_lcs_length(str9, str10))
+##    pprint(bottom_up_lcs(str9, str10))
+##
+##    print(bottom_up_lcs_length(str3, str4))
+##    print(recursive_lcs_length(str3, str4))
+##    print(memoized_recursive_lcs_length(str3, str4))
+##    pprint(bottom_up_lcs(str3, str4))
+##
+##    print(bottom_up_lcs_length(str5, str6))
+##    print(recursive_lcs_length(str5, str6))
+##    print(memoized_recursive_lcs_length(str5, str6))
+##    pprint(bottom_up_lcs(str5, str6))
+##
+##    print(bottom_up_lcs_length(str7, str8))
+##    print(recursive_lcs_length(str7, str8))
+##    print(memoized_recursive_lcs_length(str7, str8))
+##    pprint(bottom_up_lcs(str7, str8))
