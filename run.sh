@@ -76,7 +76,8 @@ run_specific_test()
     cd ../../  # we need to go back at least twice in order to be in the main folder
     cd_n_times "$@"
     cp tests/$1/.coverage ./.coverage
-    coverage report
+    # add option -m at the end if you want to see the lines missing
+    coverage report #-m
     printf "${GREEN}Done.${NORMAL}\n\n"
 }
 
@@ -113,7 +114,7 @@ test_in_virtual_environment()
         run_tests
     fi
 
-    # new_docs
+    #new_docs
 
     deactivate
     printf "${YELLOW}Exited from virtual environment.${NORMAL}\n\n"

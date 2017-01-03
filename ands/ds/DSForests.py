@@ -2,63 +2,114 @@
 # -*- coding: utf-8 -*-
 
 """
+## Meta info
+
 Author: Nelson Brochado
 
 Creation: 21/02/16
 
-DSForests (DisjointSetForests) uses two heuristics that improve the performance with respect to a naive implementation.
+Last update: 03/01/16
 
-    1. Union by rank: attach the smaller tree to the root of the larger tree
+## Description
 
-    2. Path compression: is a way of flattening the structure of the tree whenever find is used on it.
+A disjoint-set (forests) or union-find data structure is a data structure which keeps track of a set of elements
+partitioned into disjoint (non-overlapping, i.e. their intersection is the empty set) sets.
+The usual operations supported by this data structure are:
 
-These two techniques complement each other;
-applied together, the amortized time per operation is only O( &alpha; (n))
-Time complexity analysis based on Wiki's article.
+  1. make-set(x): creates a single-element set containing x, and x is the representative of that set.
 
-## References:
+  2. find(x): returns the "representative" of the set where the element x is.
+    If the data structure is implemented a tree, the representative is the root of the tree.
 
-- Chapter 21 (specifically paragraph 3, i.e. 21.3)
+  3. union(x, y): unions the sets where x and y are (if they do not belong already to the same set).
 
-- http://orionsword.no-ip.org/blog/wordpress/?p=246
+`DSForests` uses two heuristics that improve the performance with respect to a naive implementation.
 
-- https://en.wikipedia.org/wiki/Disjoint-set_data_structure
+  1. Union by rank: attach the smaller tree to the root of the larger tree
 
-## Other Readings
+  2. Path compression: is a way of flattening the structure of the tree whenever find is used on it.
 
-- http://code.activestate.com/recipes/215912-union-find-data-structure/
+These two techniques complement each other: applied together, the amortized time per operation is only O( &alpha; (n)).
 
-- http://python-algorithms.readthedocs.org/en/latest/_modules/python_algorithms/basic/union_find.html
+## References
+
+- Introduction to algorithms (by C.L.R.S.), chapter 21.3
+
+- [https://en.wikipedia.org/wiki/Disjoint-set_data_structure](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
+
+- [http://orionsword.no-ip.org/blog/wordpress/?p=246](http://orionsword.no-ip.org/blog/wordpress/?p=246)
+
+- [http://stackoverflow.com/a/22945492/3924118](http://stackoverflow.com/a/22945492/3924118)
+
+- [http://stackoverflow.com/q/23055236/3924118](http://stackoverflow.com/q/23055236/3924118)
+
+- [https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html](https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html)
+to visualize how disjoint-sets work.
+
+## TODO
+
+- Deletion operation (OPTIONAL, since it's usually not part of the interface of a disjoint-set data structure)
+
+- Pretty-print(x), for some element x in the disjoint-set data structure.
+
+- Implement the version explained [here](http://algs4.cs.princeton.edu/15uf/)
+
 """
 
 
 class DSNode:
+
     def __init__(self, x, rank=0):
+        # This attribute can contain any hashable value.
         self.value = x
+
+        # The rank of node x only changes in one specific union(x, y) case:
+        # when x is the representative of its set
+        # and the representative of the set where y resides has the same rank as x.
+        # In the DSForests implementation below, if a situation as just described occurs,
+        # then the x.rank is increased by 1.
         self.rank = rank
+
+        # Reference to the representative of the set where this node resides
+        # Since DSForests actually implements a tree,
+        # self.parent is also the root of that tree.
         self.parent = self
+
+        # Reference used to help printing all nodes
+        # belonging to where this node belongs in O(m) time,
+        # where m is the size of the mentioned set.
+        self.next = self
+
+    def is_root(self):
+        """A DSNode x is a root or representative of a set
+        whenever its parent pointer points to himself.
+        Of course this is only true if x is already in a DSForests object."""
+        return self.parent == self
+
+    def __str__(self):
+        return str(self.value)
 
     def __repr__(self):
         if self.parent == self:
-            return "(value: {0}, rank: {1}, parent: self)".format(
-                self.value, self.rank)
+            return "(value: {0}, rank: {1}, parent: self)".format(self.value, self.rank)
         else:
-            return "(value: {0}, rank: {1}, parent: {2})".format(
-                self.value, self.rank, self.parent)
+            return "(value: {0}, rank: {1}, parent: {2})".format(self.value, self.rank, self.parent)
 
 
 class DSForests:
+
     def __init__(self):
+        # keys tracks of the DSNodes in this disjoint-set
         self.sets = {}
 
-    def make_set(self, x) -> None:
+    def make_set(self, x) -> DSNode:
         """Creates a set object for `x`."""
         assert x not in self.sets
         self.sets[x] = DSNode(x)
         return self.sets[x]
 
     def find(self, x: DSNode) -> DSNode:
-        """Finds and returns the representative of `x`.
+        """Finds and returns the representative (or root) of `x`.
         It follows parent nodes until it reaches
         the root of the tree (set) to which `x` belongs.
 
@@ -86,9 +137,33 @@ class DSForests:
         &alpha; (n) is less than 5 for all remotely practical values of n.
         Thus, the amortized running time per operation
         is effectively a small constant."""
+        assert x
         if x.parent != x:
             x.parent = self.find(x.parent)
         return x.parent
+
+    def find_iteratively(self, x: DSNode) -> DSNode:
+        """This version is just an iterative alternative to the find method."""
+        assert x
+
+        y = x
+
+        # find the representative of the set where x resides
+        while y != y.parent:
+            y = y.parent
+
+        # post-condition
+        assert y == self.find(x)
+
+        # now y is the representative of x,
+        # but we also want to do a path compression,
+        # i.e. connect all nodes in the path from x to y directly to y.
+        while x != x.parent:
+            p = x.parent
+            x.parent = y
+            x = p
+
+        return y
 
     def union(self, x, y) -> DSNode:
         """"Union by rank" 2 trees (sets) into one by attaching
@@ -124,12 +199,24 @@ class DSForests:
         is effectively a small constant."""
         assert x in self.sets and y in self.sets
 
-        x_root = self.find(self.sets[x])
-        y_root = self.find(self.sets[y])
+        # Since the original values x and y are not used afterwards,
+        # and what we actually need in two places of this algorithm are the corresponding DSNodes
+        # we set x and y to be respectively their DSNode counter-part.
+        x = self.sets[x]
+        y = self.sets[y]
+
+        x_root = self.find(x)
+        y_root = self.find(y)
 
         # x and y are already joined.
         if x_root == y_root:
-            return x_root
+            return
+
+        # Exchanging the next pointers of x and y.
+        # This is needed in order to print the elements of a set in O(m) time,
+        # where m is the size of the same set.
+        # Check here: http://stackoverflow.com/a/22945492/3924118.
+        x.next, y.next = y.next, x.next
 
         # x and y are not in the same set, therefore we merge them.
         if x_root.rank < y_root.rank:
@@ -140,6 +227,18 @@ class DSForests:
             if x_root.rank == y_root.rank:
                 x_root.rank += 1
             return x_root
+
+    def print_set(self, x) -> None:
+        assert x in self.sets
+
+        x = self.sets[x]
+        y = x
+
+        print("{0} -> {{{1}".format(x, x), end="")
+        while y.next != x:
+            print(",", y.next, end="")
+            y = y.next
+        print("}")
 
     def __str__(self):
         return str(self.sets)

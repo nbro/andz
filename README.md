@@ -29,7 +29,7 @@ You will also find some algorithms related to some particular _design paradigm_,
 
 - Again, **mistakes are possible**, even if decent tests are starting to being done. You can find them under the folder [`tests`](tests). So, as the [license](LICENSE) says, this project is provided "as is", etc.
 
-- **No optimisation** has been done to any algorithm or data structure. The purpose of the implementations is just for **_demonstration of the concepts_**!
+- **No optimisation** has been done to any algorithm or data structure. The purpose of the implementations is just for **_exposition of the concepts_**!
 
 - My intent is to continue to contribute to this repository in my free time, and **new data structures and algorithms** will therefore be added.
 
@@ -47,12 +47,6 @@ To accomplish the first one, I suggest you to simply [_open an issue on Github_]
 - This description and commands are for unix-like systems, i.e. Linux and Mac OS X. If you need help to do it on Windows, just send me an e-mail eventually. Note that the process should be identical, only the commands and eventually tools could be slightly different.
 
 - I'm currently using Python 3.5 and also `pip3.5` to develop, but the module is currently being tested against Python 3.3, 3.4 and 3.5 on Travis CI. Use other versions of Python and `pip` at your own responsibility!
-
-- I really advise you to use `Git` and `Github` as your tools to develop, but you could eventually do it in different ways, and I would try to merge what you have done with the current structure of the module. 
-
-    This means that you can simply write your own Python script containing an algorithm or a data structure independently, and send it to me via either e-mail or by posting it as an issue, and I (or someone else) would be responsible for porting your code for the module, etc. **Just avoid this option, please.**
-    
-    I allow this second option because some people could not be very familiar yet with Git and Github.
 
 ### Using Git and Github
 
@@ -122,25 +116,20 @@ or, after installing the package `coveralls`
 
     coverage run -m unittest discover . -v
 
-
 This last one should also report you the amount of code covered by the tests, after your run the command
 
     coverage report
 
-You could also simply run the [`./run.sh`](./run.sh) script on the terminal, which runs also the tests, as I mentioned in the previous section.
+## [`run.sh`](./run.sh)    
+    
+I created this script to automate the tasks of creating the virtual environment, installing dependencies, running the tests and reporting its results. 
+If you want to run the script by running all tests (which takes some time), from inside the main folder, execute the following command on the terminal
 
-## Documentation
+    ./run.sh
 
-The documentation, in HTML format, is being created using the tool `pdoc` and is being placed under the folder [`docs/ands`](./docs/ands). `pdoc` produces the documentation from the doc strings of the scripts.
+On the other hand, if you want to run a specific single-class test, e.g. [`test_DSForests.py`](./tests/ds/test_DSForests.py), execute
 
-I really encourage you just to run the script [`./run.sh`](./run.sh), before commiting your changes, if you want to update the documentation.
-
-## TODO
-
-I would like to improve the _citation of references_ that I used to implement an algorithm or a data structure in all modules, even though in most of the cases, especially in the ones that required more effort to write, I've been doing it already. If your a contributor, please try to follow this "philosophy"/process.
-
-
-I also want to develop a lot more algorithms and data structures. See the `README.md` files of the subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds) for more info. In some cases, you will also find a `README.md` file under the subpackages of the subpackages I've just mentioned.
+    ./run.sh -st ds test_DSForests.py
 
 ## References
 
