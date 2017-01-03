@@ -16,18 +16,18 @@ A disjoint-set (forests) or union-find data structure is a data structure which 
 partitioned into disjoint (non-overlapping, i.e. their intersection is the empty set) sets.
 The usual operations supported by this data structure are:
 
-    1. make-set(x): creates a single-element set containing x, and x is the representative of that set.
+  1. make-set(x): creates a single-element set containing x, and x is the representative of that set.
 
-    2. find(x): returns the "representative" of the set where the element x is.
+  2. find(x): returns the "representative" of the set where the element x is.
     If the data structure is implemented a tree, the representative is the root of the tree.
 
-    3. union(x, y): unions the sets where x and y are (if they do not belong already to the same set).
+  3. union(x, y): unions the sets where x and y are (if they do not belong already to the same set).
 
 `DSForests` uses two heuristics that improve the performance with respect to a naive implementation.
 
-    1. Union by rank: attach the smaller tree to the root of the larger tree
+  1. Union by rank: attach the smaller tree to the root of the larger tree
 
-    2. Path compression: is a way of flattening the structure of the tree whenever find is used on it.
+  2. Path compression: is a way of flattening the structure of the tree whenever find is used on it.
 
 These two techniques complement each other: applied together, the amortized time per operation is only O( &alpha; (n)).
 
@@ -64,7 +64,9 @@ class DSNode:
 
 
 class DSForests:
+
     def __init__(self):
+        # keys tracks of the DSNodes in this disjoint-set
         self.sets = {}
 
     def make_set(self, x) -> object:
@@ -169,7 +171,7 @@ class DSForests:
 
         # x and y are already joined.
         if x_root == y_root:
-            return x_root
+            return
 
         # x and y are not in the same set, therefore we merge them.
         if x_root.rank < y_root.rank:

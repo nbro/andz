@@ -114,7 +114,7 @@ test_in_virtual_environment()
         run_tests
     fi
 
-    new_docs
+    #new_docs
 
     deactivate
     printf "${YELLOW}Exited from virtual environment.${NORMAL}\n\n"
