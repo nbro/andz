@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Creation: 21/02/16
 
-Last update: 02/01/16
+Last update: 03/01/16
 
 ## Description
 
@@ -39,22 +39,55 @@ These two techniques complement each other: applied together, the amortized time
 
 - [http://orionsword.no-ip.org/blog/wordpress/?p=246](http://orionsword.no-ip.org/blog/wordpress/?p=246)
 
+- [http://stackoverflow.com/a/22945492/3924118](http://stackoverflow.com/a/22945492/3924118)
+
+- [http://stackoverflow.com/q/23055236/3924118](http://stackoverflow.com/q/23055236/3924118)
+
 - [https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html](https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html)
 to visualize how disjoint-sets work.
+
+## TODO
+
+- Deletion operation (OPTIONAL, since it's usually not part of the interface of a disjoint-set data structure)
+
+- Pretty-print(x), for some element x in the disjoint-set data structure.
+
+- Implement the version explained [here](http://algs4.cs.princeton.edu/15uf/)
 
 """
 
 
 class DSNode:
+
     def __init__(self, x, rank=0):
+        # This attribute can contain any hashable value.
         self.value = x
+
+        # The rank of node x only changes in one specific union(x, y) case:
+        # when x is the representative of its set
+        # and the representative of the set where y resides has the same rank as x.
+        # In the DSForests implementation below, if a situation as just described occurs,
+        # then the x.rank is increased by 1.
         self.rank = rank
-        self.parent = self  # also called "representative" or "root"
+
+        # Reference to the representative of the set where this node resides
+        # Since DSForests actually implements a tree,
+        # self.parent is also the root of that tree.
+        self.parent = self
+
+        # Reference used to help printing all nodes
+        # belonging to where this node belongs in O(m) time,
+        # where m is the size of the mentioned set.
+        self.next = self
 
     def is_root(self):
-        """A DSNode is a root or representative of a set
-        whenever its parent pointer points to himself."""
+        """A DSNode x is a root or representative of a set
+        whenever its parent pointer points to himself.
+        Of course this is only true if x is already in a DSForests object."""
         return self.parent == self
+
+    def __str__(self):
+        return str(self.value)
 
     def __repr__(self):
         if self.parent == self:
@@ -69,7 +102,7 @@ class DSForests:
         # keys tracks of the DSNodes in this disjoint-set
         self.sets = {}
 
-    def make_set(self, x) -> object:
+    def make_set(self, x) -> DSNode:
         """Creates a set object for `x`."""
         assert x not in self.sets
         self.sets[x] = DSNode(x)
@@ -166,12 +199,24 @@ class DSForests:
         is effectively a small constant."""
         assert x in self.sets and y in self.sets
 
-        x_root = self.find(self.sets[x])
-        y_root = self.find(self.sets[y])
+        # Since the original values x and y are not used afterwards,
+        # and what we actually need in two places of this algorithm are the corresponding DSNodes
+        # we set x and y to be respectively their DSNode counter-part.
+        x = self.sets[x]
+        y = self.sets[y]
+
+        x_root = self.find(x)
+        y_root = self.find(y)
 
         # x and y are already joined.
         if x_root == y_root:
             return
+
+        # Exchanging the next pointers of x and y.
+        # This is needed in order to print the elements of a set in O(m) time,
+        # where m is the size of the same set.
+        # Check here: http://stackoverflow.com/a/22945492/3924118.
+        x.next, y.next = y.next, x.next
 
         # x and y are not in the same set, therefore we merge them.
         if x_root.rank < y_root.rank:
@@ -182,6 +227,18 @@ class DSForests:
             if x_root.rank == y_root.rank:
                 x_root.rank += 1
             return x_root
+
+    def print_set(self, x) -> None:
+        assert x in self.sets
+
+        x = self.sets[x]
+        y = x
+
+        print("{0} -> {{{1}".format(x, x), end="")
+        while y.next != x:
+            print(",", y.next, end="")
+            y = y.next
+        print("}")
 
     def __str__(self):
         return str(self.sets)

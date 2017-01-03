@@ -29,7 +29,7 @@ You will also find some algorithms related to some particular _design paradigm_,
 
 - Again, **mistakes are possible**, even if decent tests are starting to being done. You can find them under the folder [`tests`](tests). So, as the [license](LICENSE) says, this project is provided "as is", etc.
 
-- **No optimisation** has been done to any algorithm or data structure. The purpose of the implementations is just for **_demonstration of the concepts_**!
+- **No optimisation** has been done to any algorithm or data structure. The purpose of the implementations is just for **_exposition of the concepts_**!
 
 - My intent is to continue to contribute to this repository in my free time, and **new data structures and algorithms** will therefore be added.
 
