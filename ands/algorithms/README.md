@@ -1,25 +1,19 @@
 # Algorithms
 
-## TODO
+I would like to include algorithms regarding the following topics:
 
-|                Name                | State | Comments                                                                                                                                                                                                                              |
-|:----------------------------------:|-------|--------------------------------------------------------------------------------------                                                                                                                                                                                       |
-| Pseudo-Random generator            | S     |                                                                                                                                                                                                       |
-| Hamming code                       | S     |                                                                                                                                                                                                       |
-| CNF to DNF                         | S     |                                                                                                                                                                                                       |
-| Quadratic Equation | S |
-| Cubic Equation | S | [http://www.sosmath.com/algebra/factor/fac11/fac11.html](http://www.sosmath.com/algebra/factor/fac11/fac11.html)
-| Quartic Equation | S | [http://mathworld.wolfram.com/QuarticEquation.html](http://mathworld.wolfram.com/QuarticEquation.html)
-|RREF and Guassian Elimination |
-|Matrix-Matrix multiplication |
-| Determinant of matrix |
-| Convert linear mapping to matrix map |
-| 2-satisfiability |
-| Horner |
-
-There are many other algorithms I hope to implement in a near future. You can find those lists in each `README.md` file of each section under [`algorithms`](algorithms). What I would also like to include are some _linear programming_ algorithms.
+- Linear algebra (Guassian, RREF, Jacobi, determinants, ...)
+- Numerical computing (PDE, ODE, Poisson, Social Networks, Graph Partioning, Conjugate Gradient, Page Rank, Horner...)
+- Linear programming
+- Artificial intelligence (Swarm intelligence, A<sup>*</sup>, Genetic algorithms, ...)
+- Geometrical algorithms (Convex hull, ...)
+- Generation of random numbers
+- Error correction codes
+- CNF, DNF, 2-satisfiability
+- Equations (quadratic, cubic and quartic equations formulas ...)
+- Heuristics to NP-complete problems
 
 
 A more exhaustive list of interesting algorithms can be found here:
 
-- [https://en.wikipedia.org/wiki/List_of_algorithms](https://en.wikipedia.org/wiki/List_of_algorithms)
+> [https://en.wikipedia.org/wiki/List_of_algorithms](https://en.wikipedia.org/wiki/List_of_algorithms)

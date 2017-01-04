@@ -33,7 +33,7 @@ These two techniques complement each other: applied together, the amortized time
 
 ## References
 
-- Introduction to algorithms (by C.L.R.S.), chapter 21.3
+- Introduction to algorithms, 3rd, by C.L.R.S., chapter 21.3
 
 - [https://en.wikipedia.org/wiki/Disjoint-set_data_structure](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
 
@@ -76,7 +76,7 @@ class DSNode:
         self.parent = self
 
         # Reference used to help printing all nodes
-        # belonging to where this node belongs in O(m) time,
+        # belonging to the set to which this node belongs in O(m) time,
         # where m is the size of the mentioned set.
         self.next = self
 

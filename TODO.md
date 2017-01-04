@@ -1,6 +1,6 @@
 # TODO
 
-_This is a schematic and concise list of the things that I really would like to do (except for the things mentioned in the issues!)_
+_This is a schematic and concise list of the things for which I should constantly be prepared to fix or improve or simply things that I found unnecessary to be reported as an issue.
 
 
 - Improve the _citation of references_ (that I used to implement an algorithm or a data structure) in all modules
@@ -13,13 +13,9 @@ _This is a schematic and concise list of the things that I really would like to 
 
 - Make sure that the doc-strings of the files containing each data structure or algorithm contain an introduction to what's being presented.
 
-- Make sure that I'm using "X is None" or "X is not None" in conditions, when I really mean that X should be respectively None or not None.
-In other words, I should not be using "X" or "not X", because "X" could be 0, and could conceptually still be a "valid input".
+- Make sure that I'm using `X is None` or `X is not None` in conditions, when I really mean that `X` should be respectively `None` or `not None`.
+In other words, I should not be using `X` or `not X`, because `X` could be 0, and could conceptually still be a "valid input".
 
 
 - When testing, should I just test the interface of what I'm testing or should I also test the properties of the objects?
 In a usual case I think we should just test the interface, but since we're dealing with data structures, we want to control everything inside them?!
-
-## TO IMPLEMENT
-
-See the `README.md` files of the subpackages [`algorithms`](ands/algorithms) and [`ds`](ands/ds) for more info.
