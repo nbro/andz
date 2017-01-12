@@ -18,7 +18,15 @@
 	- Heuristics
 		
 2. Implement as many as possible of the most interesting and useful algorithms and data structures in the fields mentioned above.
-Here interesting can be from the implementation or concepts' point of view. Usefulness instead is especially with respect to me (since so far this is a personal project), but also with respect to any student or person involved in one of the fields mentioned above.
+
+
+    - "Interesting" here can be from the implementation or concepts' point of view. 
+
+    - "Usefulness", instead, is especially with respect to me (since so far this is a personal project), but also with respect to any student or person involved in one of the fields mentioned above.
+
+    - Implementation is performed in a very high-level and user-friendly programming language: Python.
+
+    - No optimization of the implemetations. This doesn't mean at all that I will always try to implement the best algorithm for the task or operation, but simply that I will not introduce tricks of any sort to make the implementation faster.
 
 3. Learn to analyse the asymptotic complexity of the algorithms and in particular of their implementation.
 
