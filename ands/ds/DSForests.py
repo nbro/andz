@@ -99,7 +99,7 @@ class DSNode:
 class DSForests:
 
     def __init__(self):
-        # keys tracks of the DSNodes in this disjoint-set
+        # keeps tracks of the DSNodes in this disjoint-set forests.
         self.sets = {}
 
     def make_set(self, x) -> DSNode:

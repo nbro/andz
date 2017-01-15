@@ -67,6 +67,8 @@ For example, "key" and "value" are self-descriptive.
 - Maybe the methods of the BSTNode need an improvement in terms of implementation...
 """
 
+from random import randint
+
 from tabulate import tabulate
 
 __all__ = ["BST", "BSTNode", "is_bst"]
@@ -1012,7 +1014,7 @@ class BSTImproved(BST):
     def __init__(self, root=None, name="BSTImproved"):
         BST.__init__(self, root, name)
 
-    def insert(self, u, value=None):
+    def insert(self, x, value=None):
         """Inserts `x` into this tree.
 
         `x` can either be a `BSTNode` object,
@@ -1037,11 +1039,7 @@ class BSTImproved(BST):
         For a proof, see chapter 12 of Introduction to Algorithms (3rd ed.) by CLRS.
 
         This function does a pseudo-random insertion of keys."""
-        r = randint(
-            0,
-            self.size() *
-            3 //
-            8)  # * 3 // 8 is just a random operation...
+        r = randint(0, self.size() * 3 // 8)  # * 3 // 8 is just a random operation...
         if r == 0:
             self.root_insert(x, value)
         else:
@@ -1058,8 +1056,7 @@ class BSTImproved(BST):
             x = BSTNode(x, value)
 
         if x.left or x.right or x.parent:
-            raise ValueError(
-                "x cannot have left or right children, or parent.")
+            raise ValueError("x cannot have left or right children, or parent.")
 
         if self.root is None:
             self._initialise(x)
@@ -1103,8 +1100,7 @@ class BSTImproved(BST):
         if not isinstance(x, BSTNode):
             x = BSTNode(x, value)
         if x.left or x.right or x.parent:
-            raise ValueError(
-                "x cannot have left or right children, or parent.")
+            raise ValueError("x cannot have left or right children, or parent.")
         if self.root is None:
             self._initialise(x)
         else:

@@ -32,8 +32,8 @@ format()
         pip3.5 install autopep8
     fi
 
-    autopep8 --in-place --aggressive --recursive --max-line-length 110 ./ands
-    autopep8 --in-place --aggressive --recursive --max-line-length 110 ./tests
+    autopep8 --in-place --aggressive --recursive --max-line-length 120 ./ands
+    autopep8 --in-place --aggressive --recursive --max-line-length 120 ./tests
     printf "${GREEN}Done.${NORMAL}\n\n"
 }
 
@@ -53,7 +53,7 @@ run_tests()
     coverage run -m unittest discover . -v
     cd ..
     cp tests/.coverage ./.coverage
-    coverage report # -m
+    coverage report -m
     printf "${GREEN}Done.${NORMAL}\n\n"
 }
 
@@ -77,7 +77,7 @@ run_specific_test()
     cd_n_times "$@"
     cp tests/$1/.coverage ./.coverage
     # add option -m at the end if you want to see the lines missing
-    coverage report #-m
+    coverage report -m
     printf "${GREEN}Done.${NORMAL}\n\n"
 }
 
