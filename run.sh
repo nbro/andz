@@ -2,6 +2,7 @@
 
 # RUN SPECIFIC TEST
 # ./run.sh -st folder_name_inside_tests test_name.py
+# Example: ./run.sh -st algorithms/recursion test_reverse.py
 
 # colors used when printing
 GREEN=$(tput setaf 2)

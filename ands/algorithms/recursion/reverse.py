@@ -4,39 +4,25 @@
 """
 Author: Nelson Brochado
 
-Reverse the elements of a list using recursion.
-This method can also be applied to strings
-and other iterables with some modifications.
+Created: 2015
+
+Last update: 16/01/2017
+
+Reverses in-place the elements of a list using recursion.
+This method could also be adapted to work with other mutable collections.
 """
 
 
-def _reverse(ls, i, j):
+def _reverse(ls: list, i: int, j: int) -> list:
     if (j - i) >= 1:
         ls[j], ls[i] = ls[i], ls[j]
         _reverse(ls, i + 1, j - 1)
     return ls
 
 
-def reverse(ls):
+def reverse(ls: list) -> list:
     """Returns the reverse of the list `ls` using recursion."""
     if len(ls) < 2:
         return ls
     else:
         return _reverse(ls, 0, len(ls) - 1)
-
-
-if __name__ == "__main__":
-    print(reverse([1, 2, 3]))
-
-    import random
-    from collections import Counter
-
-    for i in range(10000):
-        ls = [random.randint(0, 100) for _ in range(100)]
-        r = reverse(ls)
-        ls.reverse()
-
-        # the elements of the list passed to Counter must be hashable
-        if Counter(ls) != Counter(r):
-            raise Exception(
-                "Something wrong with the implementation of 'reverse'")
