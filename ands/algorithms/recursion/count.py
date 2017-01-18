@@ -13,15 +13,15 @@ This is just an example of recursive algorithm!
 """
 
 
-def _count(o: object, ls, index: int) -> int:
+def _count(elem: object, ls, index: int) -> int:
     if index < len(ls):
-        if ls[index] == o:
-            return 1 + _count(o, ls, index + 1)
+        if ls[index] == elem:
+            return 1 + _count(elem, ls, index + 1)
         else:
-            return _count(o, ls, index + 1)
+            return _count(elem, ls, index + 1)
     return 0
 
 
-def count(o: object, ls):
-    """Counts how many times `o` appears in the list or tuple `ls`."""
-    return _count(o, ls, 0)
+def count(elem: object, ls) -> int:
+    """Counts how many times `elem` appears in the list or tuple `ls`."""
+    return _count(elem, ls, 0)

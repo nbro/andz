@@ -4,27 +4,22 @@
 """
 Author: Nelson Brochado
 
-Raising `a` to the `k` using recursion, i.e., a<sup>k</sup> = b.
+Created: 2015
+
+Updated: 18/01/2017
+
+Raising an integer `a` to the `k >= 0` using recursion, i.e., a<sup>k</sup> = b.
 """
 
 
-def power_r(base, power, show_steps=False):
-    """Base case: a<sup>0</sup> = 1.
+def power(base: int, p: int) -> int:
+    """Assumes inputs are integers and that the power `p >= 0`.
 
+    Base case: a<sup>0</sup> = 1.
     Recursive step: a<sup>n + 1</sup> = a<sup>n</sup> * a."""
-    if power == 0:  # Base case
-        if show_steps:
-            print(base, "^{0} = 1", sep="")
+    assert p >= 0
+
+    if p == 0:
         return 1
-    else:  # recursive step
-        if show_steps:
-            print(base, "^{", power, "} = ", base, " * ",
-                  base, "^{", power - 1, "}", sep="")
-        return base * power_r(base, power - 1, show_steps)
-
-
-if __name__ == "__main__":
-    for i in range(5):
-        for j in range(5):
-            print(power_r(i, j))
-        print("-" * 18)
+    else:
+        return base * power(base, p - 1)
