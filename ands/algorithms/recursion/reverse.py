@@ -12,6 +12,8 @@ Reverses in-place the elements of a list using recursion.
 This method could also be adapted to work with other mutable collections.
 """
 
+__all__ = ["reverse"]
+
 
 def _reverse(ls: list, i: int, j: int) -> list:
     if (j - i) >= 1:

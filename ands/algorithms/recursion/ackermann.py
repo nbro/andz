@@ -30,7 +30,7 @@ It grows faster than an exponential function, or even a multiple exponential fun
 """
 
 
-def ackermann(m, n):
+def ackermann(m: int, n: int) -> int:
     assert m >= 0 and n >= 0
     if m == 0:
         return n + 1

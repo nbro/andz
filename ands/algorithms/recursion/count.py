@@ -12,6 +12,8 @@ for example, in Python the stack limit is quite small: 1000
 This is just an example of recursive algorithm!
 """
 
+__all__ = ["count"]
+
 
 def _count(elem: object, ls, index: int) -> int:
     if index < len(ls):
