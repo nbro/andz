@@ -11,10 +11,12 @@ Updated: 20/01/2017
 Checking recursively if a string is a palindrome.
 """
 
+__all__ = ["is_palindrome"]
+
 
 def _is_palindrome(s: str, l: int, r: int) -> bool:
     """`l` is the index that indexes `s` from the left
-    and similarly `r` indexes from the right."""
+    and, similarly, `r` indexes it from the right."""
     if l >= r:
         return True
     if s[l] == s[r]:
