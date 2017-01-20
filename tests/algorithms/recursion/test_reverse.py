@@ -41,7 +41,3 @@ class TestRecursiveReverse(unittest.TestCase):
         copy.reverse()
         self.assertIs(rev, l)
         self.assertEqual(rev, copy)
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)

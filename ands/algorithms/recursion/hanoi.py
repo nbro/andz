@@ -65,9 +65,12 @@ def _hanoi(n: int, ls: list, src='A', aux='B', dst='C') -> list:
 
 
 def hanoi(n: int) -> list:
-    """Returns a list L of tuples each of them represent a move to be done.
-    L[i] must be done before L[i + 1], for all i.
+    """Returns a list L of tuples each of them representing a move to be done.
 
+    `n` is the number of disks.
+    The number of rods is clearly always 3.
+
+    L[i] must be done before L[i + 1], for all i.
     L[i][0] := the disk number (or id).
     Numbers start from 1 and go up to n.
     L[i][1] := the source rod from which to move L[i][0].
