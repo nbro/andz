@@ -22,7 +22,7 @@ def _build_alpha_numeric_alphabet() -> dict:
     """Returns a dictionary whose keys are all nine digits from 0 to 9
     and the 26 letters of the English alphabet.
     The values of the numbers are the numbers themselves;
-    the values of the letters are 10 for 'a', 11 for 'b', and so on until 26 for 'z'."""
+    the values of the letters are 10 for 'a', 11 for 'b', and so on until 36 for 'z'."""
     alphabet = {}
     for i, char in enumerate(ascii_lowercase):
         # Letters of the alphabet start after digit 9.
@@ -51,7 +51,7 @@ def _make_decimal(n: str, b: int, pos: int) -> int:
         2 + 240 + 3584 =
         3826
 
-    Note in any number `xyz` in any base `b`,
+    Note: in any number `xyz` in any base `b`,
     z is in the "ones" position (has the smaller "value"),
     y is in the "tens" position and
     x is in the "hundreds" position (has the greatest "value").
@@ -64,7 +64,7 @@ def _make_decimal(n: str, b: int, pos: int) -> int:
 
 
 def make_decimal(n: str, base: int) -> int:
-    """`n` number in any base in the range [2, 36].
+    """`n` is a number in any base in the range [2, 36].
     `base` is the base in which `n` is currently represented.
 
     Assumes `n` only contains digits in the range 0..9

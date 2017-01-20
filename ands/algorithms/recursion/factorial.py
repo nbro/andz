@@ -54,7 +54,7 @@ def fact_cap_2(num):
 
 
 def n_choose_k(n, k):
-    """Returnså the number of ways of choosing `k` elements,
+    """Returns the number of ways of choosing `k` elements,
     disregarding their order, from a set of `n` elements."""
     if n >= 0 and k >= 0:
         if n == k or k == 0:
