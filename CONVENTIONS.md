@@ -2,8 +2,11 @@
 
 ## General
 
-- Do not introduce features that are incomplete
-- Do not introduce features that are not tested
+- Do not introduce features that are 
+    - incomplete, or
+    - not tested
+
+ to the `master` branch!!
 
 ## Assertions
 

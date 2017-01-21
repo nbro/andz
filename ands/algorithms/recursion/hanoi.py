@@ -39,9 +39,7 @@ and therefore the algorithm always shows the steps to go from 'A' to 'C'.
 ## References
 
 - [https://en.wikipedia.org/wiki/Tower_of_Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi)
-
 - [http://www.cut-the-knot.org/recurrence/hanoi.shtml](http://www.cut-the-knot.org/recurrence/hanoi.shtml)
-
 - [http://stackoverflow.com/questions/105838/real-world-examples-of-recursion](http://stackoverflow.com/questions/105838/real-world-examples-of-recursion)
 """
 

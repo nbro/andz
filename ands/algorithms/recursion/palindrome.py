@@ -2,13 +2,24 @@
 # -*- coding: utf-8 -*-
 
 """
+## Meta info
+
 Author: Nelson Brochado
 
 Created: 2015
 
 Updated: 20/01/2017
 
+## Description
+
 Checking recursively if a string is a palindrome.
+A palindrome is a string that reads the same way forward and backward.
+For example, "anna" is a palindrome, whereas "prime" is not.
+
+## Resources
+
+- [https://en.wikipedia.org/wiki/Palindrome](https://en.wikipedia.org/wiki/Palindrome)
+
 """
 
 __all__ = ["is_palindrome"]

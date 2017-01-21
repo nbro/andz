@@ -15,6 +15,9 @@ from ands.algorithms.recursion.ackermann import ackermann
 
 
 class TestAckermann(unittest.TestCase):
+    # m is the first parameter to the Ackermann function
+    # whereas n is the second one.
+
     def test_m0_n0(self):
         self.assertEqual(ackermann(0, 0), 1)
 

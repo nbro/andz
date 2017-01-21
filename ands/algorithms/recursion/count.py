@@ -2,7 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
+## Meta info
+
 Author: Nelson Brochado
+
+Created: 2015
+
+Updated: 21/01/2017
+
+## Description
 
 A very simple example of how to count the number occurrences
 of a certain object `o` in a list `ls`.
