@@ -18,7 +18,6 @@ from ands.ds.MinHeap import MinHeap, is_min_heap, HeapNode
 
 
 class TestMinHeap(unittest.TestCase):
-
     def test_empty_heap_creation(self):
         h = MinHeap()
         self.assertTrue(is_min_heap(h))
@@ -216,9 +215,6 @@ class TestMinHeap(unittest.TestCase):
         h = MinHeap(ls)
 
         self.assertRaises(Exception, h.search_by_value, HeapNode(13))
-        self.assertTrue(is_min_heap(h))
-
-        self.assertRaises(ValueError, h.search_by_value, None)
         self.assertTrue(is_min_heap(h))
 
     def test_search_by_value_default(self):

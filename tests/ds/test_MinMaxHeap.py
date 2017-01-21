@@ -245,7 +245,3 @@ class TestMinMaxHeap(unittest.TestCase):
         self.assertEqual(h.index_of_max(7), -1)
         self.assertEqual(h.index_of_min(8), -1)
         self.assertEqual(h.index_of_max(8), -1)
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
