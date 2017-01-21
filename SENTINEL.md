@@ -6,7 +6,7 @@ _This is a schematic and concise list of the things for which I should constantl
 
 #### Make sure that...
 
-- **_default mutable values (like lists) end up acting as expected_**
+1. **_default mutable values (like lists) end up acting as expected_**
 
     - Default parameter values seem to be treated as static
         
@@ -22,20 +22,16 @@ _This is a schematic and concise list of the things for which I should constantl
         - [http://effbot.org/zone/default-values.htm](http://effbot.org/zone/default-values.htm)
         - [http://stackoverflow.com/questions/4841782/python-constructor-and-default-value](http://stackoverflow.com/questions/4841782/python-constructor-and-default-value)
 
-- I'm using `X is None` or `X is not None` in conditions, when I really mean that `X` should be respectively `None` or `not None`.
+2. I'm using `X is None` or `X is not None` in conditions, when I really mean that `X` should be respectively `None` or `not None`.
 In other words, I should not be using `X` or `not X`, because `X` could be 0, and could conceptually still _contain_ a valid value.
 
-- citations to resources used to implement an algorithm or data structure are provided at the beginning of each module.
+3. I'm raising the most appropriate exception for each specific anomaly.
 
-- the doc-strings of the files containing each data structure or algorithm contain a (good) introduction to what's being implemented.
+4. exceptions raised are consistent inside each module: 
+    
+    - the same exception should be raised when the "same" error occurs in different methods or even within the same method!
 
-- I'm raising the most appropriate exception for each specific anomaly.
-
-- exceptions raised are consistent inside each module: the same exception should be raised when the "same" error occurs in different methods or even within the same method.
-
-- I use the same naming conventions throughout the modules.
-
-- unit tests 
+5. unit tests 
 
     - are not redundant
 
@@ -44,3 +40,15 @@ In other words, I should not be using `X` or `not X`, because `X` could be 0, an
     - cover all statements
 
     - cover all boundary values
+    
+    - are descriptive
+     
+    - test only one feature
+    
+    - are short
+
+6. citations to resources used to implement an algorithm or data structure are provided at the beginning of each module.
+
+7. the doc-strings of the files containing each data structure or algorithm contain a (good) introduction to what's being implemented.
+
+8. I use the same naming conventions throughout the modules.

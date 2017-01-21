@@ -44,3 +44,12 @@
 - Use closures ?? When ???
 - Closures instead of private functions to modules that start with `_`?
 
+## Testing
+
+- Test only the public interface
+    - but make sure all statements, even those containing private fields or methods, are covered!!
+
+- Unit tests should test only one feature:
+    - unit tests should be short
+    - signature of unit test methods should be descriptive
+
