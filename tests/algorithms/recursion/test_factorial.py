@@ -28,10 +28,6 @@ class TestFactorial(unittest.TestCase):
         self.assertEqual(factorial(r), math.factorial(r))
         self.assertEqual(iterative_factorial(r), math.factorial(r))
 
-    def test_multiple_factorial_negative_number(self):
-        r = randint(-10, -1)
-        self.assertEqual(multiple_factorial(r), [])
-
     def test_multiple_factorial_0(self):
         self.assertEqual(multiple_factorial(0), [1])
 

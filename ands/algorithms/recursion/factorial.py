@@ -98,8 +98,7 @@ def multiple_factorial(n: int) -> list:
         ...
         L[n] := n!
     If n is a negative number, returns an empty list.
-    """
-    if n >= 0:
-        return _multiple_factorial(n, 0, [])
-    else:
-        return []
+
+    Assumes n >= 0."""
+    assert n >= 0
+    return _multiple_factorial(n, 0, [])
