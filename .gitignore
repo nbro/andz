@@ -20,3 +20,5 @@ env/
 *.egg-info/
 __pycache__/
 .idea/
+/ands/algorithms/math/combinatorics/
+/ands/algorithms/math/

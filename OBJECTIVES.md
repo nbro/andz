@@ -6,16 +6,19 @@
 	- Sorting
 	- Dynamic programming
 	- Greedy algorithms
+	- Hashing
 	- Graphs
 	- Trees
-	- Hash tables
 	- Heaps
-	- Artificial intelligence
-	- Numerical computing
-	- Linear algebra algorithms
 	- Geometrical algorithms
 	- Approximation algorithms
 	- Heuristics
+	
+or even to more general scientific areas
+	
+	- Artificial intelligence
+	- Numerical computing
+	- Linear algebra algorithms
 		
 2. Implement as many as possible of the most interesting and useful algorithms and data structures in the fields mentioned above (but not exclusively).
 
@@ -25,7 +28,7 @@
 
     - Implementation is performed in a very high-level and user-friendly programming language: Python.
 
-    - No optimization of the implemetations. This doesn't mean at all that I won't always try to implement the best algorithm for the task (or operation), but simply that I will not introduce tricks of any sort to make the implementation faster.
+    - No optimization of the implementations. This doesn't mean at all that I won't always try to implement the best algorithm for the task (or operation), but simply that I will not introduce tricks of any sort to make the implementation faster.
 
 3. Learn to analyse the asymptotic complexity of the algorithms and in particular of their implementation.
 
@@ -36,6 +39,9 @@
 		- Rate of implementation of new algorithms and data structures may be slow.
 		
 		- Greater reliability of the implementations and information given.
+		
+		    - May serve as starting point to implement a high-performance version of a specific data structure, 
+		    maybe in another programming language.
 
 	- Specific goals:
 
@@ -54,7 +60,7 @@
 
 5. Learn how to create unit tests. Specifically I should at least consider the following techniques:
 
-	- Equivalence partioning
+	- Equivalence partitioning
 
 	- Boundary values
 
