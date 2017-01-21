@@ -6,7 +6,7 @@ Author: Nelson Brochado
 
 Creation: July, 2015
 
-Last update: 28/08/16
+Updated: 21/01/2017
 
 Base abstract class to represent heaps.
 See `MinHeap` and `MaxHeap` if you want to instantiate heap objects.
@@ -151,9 +151,10 @@ class BaseHeap:
         If `val` and the values in this heap are not comparable,
         the behaviour of this method is undefined.
 
+        By construction, HeapNode objects can't be initialized with None values,
+        but that field could also be set manually after creation.
+
         **Time Complexity:** O(n)."""
-        if val is None:
-            raise ValueError("val cannot be None.")
         for i, node in enumerate(self.heap):
             if node.value == val:
                 return i

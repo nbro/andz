@@ -18,7 +18,6 @@ from ands.ds.MaxHeap import MaxHeap, is_max_heap, HeapNode
 
 
 class TestMaxHeap(unittest.TestCase):
-
     def test_empty_heap_creation(self):
         h = MaxHeap()
         self.assertTrue(is_max_heap(h))
@@ -221,14 +220,15 @@ class TestMaxHeap(unittest.TestCase):
         self.assertRaises(ValueError, h.search, None)
         self.assertTrue(is_max_heap(h))
 
+    def test_search_by_value_incompatible_values(self):
+        ls = [28, 14, 12]
+        h = MaxHeap(ls)
+        self.assertRaises(Exception, h.search_by_value, HeapNode(14))
+        self.assertTrue(is_max_heap(h))
+
     def test_search_by_value(self):
         ls = [28, 14, 12]
         h = MaxHeap(ls)
-
-        self.assertRaises(Exception, h.search_by_value, HeapNode(14))
-        self.assertRaises(ValueError, h.search_by_value, None)
-
-        self.assertTrue(is_max_heap(h))
 
         v = h.search_by_value(14)
         self.assertIn(v, range(0, len(ls)))
