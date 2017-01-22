@@ -43,8 +43,12 @@ This TST should NOT allow empty strings to be inserted.
 
 class TSTNode:
     def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
+
+        if not isinstance(key, str):
+            raise TypeError("key must be an instance of str.")
         if not key:
             raise ValueError("key must be a string of length >= 1.")
+
         self.key = key
         self.value = value
         self.parent = parent
@@ -95,10 +99,12 @@ class TST:
         """Inserts the key-value pair into the symbol table,
         overwriting the old value with the new value,
         if the key is already in the symbol table."""
-        if value is None:
-            raise TypeError("value cannot be None.")
+        if not isinstance(key, str):
+            raise TypeError("key must be an instance of type str.")
         if not key:
             raise ValueError("key must be a string of length >= 1.")
+        if value is None:
+            raise TypeError("value cannot be None.")
         self.root = self._insert(self.root, key, value, 0)
 
     def _insert(self, node: TSTNode, key: str, value: object, index: int):
@@ -126,12 +132,14 @@ class TST:
                 node.value = value
         return node
 
-    def delete(self, key: str):
+    def delete(self, key: str) -> TSTNode:
         """Deletes and returns the value associated with key in this TST.
         This operation does not change the structure of this TST,
         but only merely makes it "forget" that there's a map with key `key`."""
+        if not isinstance(key, str):
+            raise TypeError("key must be an instance of type str.")
         if not key:
-            raise TypeError("key must be a string of length >= 1.")
+            raise ValueError("key must be a string of length >= 1.")
         return self._delete(self.root, key)
 
     def _delete(self, node: TSTNode, key: str):
@@ -178,9 +186,11 @@ class TST:
             return result
 
     def search_recursively(self, key: str):
-        """Returns the value associated with key."""
+        """Returns the value associated with key, if key is in self, else None."""
+        if not isinstance(key, str):
+            raise TypeError("key must be an instance of type str.")
         if not key:
-            raise TypeError("key must be a string of length >= 1.")
+            raise ValueError("key must be a string of length >= 1.")
         node = self._search_recursively(self.root, key, 0)
         return node.value if node else None
 
@@ -198,9 +208,12 @@ class TST:
         else:
             return node
 
-    def search(self, key):
+    def search(self, key: str):
+        """Iterative alternative to `self.search_recursively`."""
+        if not isinstance(key, str):
+            raise TypeError("key must be an instance of type str.")
         if not key:
-            raise TypeError("key must be a string of length >= 1.")
+            raise ValueError("key must be a string of length >= 1.")
         return TST._search(self.root, key)
 
     @staticmethod
