@@ -2,42 +2,44 @@
 # -*- coding: utf-8 -*-
 
 """
+## Meta info
+
 Author: Nelson Brochado
 
 Creation: 05/09/15
 
-Last update: 04/09/16
-
-## Resources
-
-- [Ternary Search Trees](https://www.cs.upc.edu/~ps/downloads/tst/tst.html)
-by By Jon Bentley and Bob Sedgewick
-- [Fast Algorithms for Sorting and Searching Strings](https://www.cs.princeton.edu/~rs/strings/),
-by Jon Bentley and Robert Sedgewick
-- [TST.java](http://algs4.cs.princeton.edu/52trie/TST.java.html)
-Java implementation by Robert Sedgewick and Kevin Wayne
-- [Ternary Search Tries](https://www.youtube.com/watch?v=CIGyewO7868),
-video lecture by Robert Sedgewick
-- [Ternary search tree](https://en.wikipedia.org/wiki/Ternary_search_tree) at Wikipedia
-- [Ternary search tree introduction](https://www.youtube.com/watch?v=xv4oRyqSKiw) by [Balazs Holczer](https://www.udemy.com/user/holczerbalazs/)
-- [TernarySearchTree.hh](http://www.keithschwarz.com/interesting/code/?dir=ternary-search-tree),
-C++ implementation of a TST by Keith Schwarz, which provides a good analysis of the complexity of the operations of a TST.
-- [Remove method for Ternary Search Tree](http://p2p.wrox.com/book-beginning-algorithms/60350-remove-method-ternary-search-tree.html)
-at [http://p2p.wrox.com/book-beginning-algorithms](http://p2p.wrox.com/book-beginning-algorithms)
-- [How to list in an alphabetical order the words of a ternary search tree?](http://stackoverflow.com/a/27178771/3924118)
-- [Plant your data in a ternary search tree](http://www.javaworld.com/article/2075027/java-app-dev/plant-your-data-in-a-ternary-search-tree.html?page=1)
+Updated 22/01/2017
 
 ## Description
-Ternary-search tries (or trees) combine
-the time efficiency of other tries
+
+Ternary-search tries (or trees) combine the time efficiency of other tries
 with the space efficiency of binary-search trees.
 
-An advantage compared to hash maps
-is that ternary search tries (or trees) support sorting,
-but the KEYS of a ternary-search trie can only be STRINGS,
+An advantage compared to hash maps is that ternary search tries support sorting,
+but the _keys_ of a ternary-search trie can only be _strings_,
 whereas a hash map supports any kind of hashable key.
 
 This TST should NOT allow empty strings to be inserted.
+
+## References
+
+- [Ternary Search Trees](https://www.cs.upc.edu/~ps/downloads/tst/tst.html) by By Jon Bentley and Bob Sedgewick
+- [Fast Algorithms for Sorting and Searching Strings](https://www.cs.princeton.edu/~rs/strings/), by Jon Bentley and Robert Sedgewick
+- [TST.java](http://algs4.cs.princeton.edu/52trie/TST.java.html), Java implementation by Robert Sedgewick and Kevin Wayne
+- [Ternary Search Tries](https://www.youtube.com/watch?v=CIGyewO7868), video lecture by Robert Sedgewick
+- [Ternary search tree](https://en.wikipedia.org/wiki/Ternary_search_tree) at Wikipedia
+- [How to list in an alphabetical order the words of a ternary search tree?](http://stackoverflow.com/a/27178771/3924118)
+
+## Resources
+
+- [Ternary search tree introduction](https://www.youtube.com/watch?v=xv4oRyqSKiw),
+by [Balazs Holczer](https://www.udemy.com/user/holczerbalazs/)
+- [TernarySearchTree.hh](http://www.keithschwarz.com/interesting/code/?dir=ternary-search-tree),
+C++ implementation of a TST by Keith Schwarz, which provides a good analysis of the complexity of the operations of a TST.
+- [Remove method for Ternary Search Tree](http://p2p.wrox.com/book-beginning-algorithms/60350-remove-method-ternary-search-tree.html),
+at [http://p2p.wrox.com/book-beginning-algorithms](http://p2p.wrox.com/book-beginning-algorithms)
+- [Plant your data in a ternary search tree](http://www.javaworld.com/article/2075027/java-app-dev/plant-your-data-in-a-ternary-search-tree.html?page=1)
+
 """
 
 
