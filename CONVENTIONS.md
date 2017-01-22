@@ -2,7 +2,7 @@
 
 ## General
 
-- Do not introduce features that are 
+- Do not introduce features that are
     - incomplete, or
     - not tested
 
@@ -17,8 +17,13 @@
 ## Parameters
 
 - Use type hints
-- Do not check the type of the parameter if using type hints
-- Check about parameter type when you need to decide between which code to execute
+- Do not check the type of the arguments if using type hints, unless 
+
+	1. you need to decide between portions of code to execute
+	2. the state of the data structure (in the case of the input is an input to a data structure's method) needs to be preserved (defensive programming)
+	3. If the function supports more than one type for a certain parameter
+
+	_Comment_: in general, assume the client passes the right types because he's read the documentation, otherwise _undefined behavior_ may happen.
 
 
 ## Return value
@@ -32,16 +37,24 @@
 
 ## Comments
 
-- Modules' doc-strings should contain the author name, the creation date, the last update date, a description of module, references used to implement the module (if any) and eventually links to resources talking about the topic.
+- Modules' doc-strings should contain the
+	- author name,
+	- the creation date,
+	- the last update date,
+	- a description of module,
+	- references used to implement the module (if any), and eventually
+	- links to resources talking about the topic
+
 
 ## Functions
 
 - Functions should have a doc-string comment containing:
 	- A description of the purpose of the function
-	- Assumptions about parameters and return values
+	- Assumptions about parameters and return values (optional, if using assertions for this!)
 	- Complexity analysis of the algorithm !!!
 
 - Use closures ?? When ???
+    - See: [http://stackoverflow.com/a/3182622/3924118](http://stackoverflow.com/a/3182622/3924118)
 - Closures instead of private functions to modules that start with `_`?
 
 ## Testing
@@ -52,4 +65,3 @@
 - Unit tests should test only one feature:
     - unit tests should be short
     - signature of unit test methods should be descriptive
-
