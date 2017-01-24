@@ -10,9 +10,17 @@
 
 ## Assertions
 
-- Use assertions for assumptions ?
-	- Assertions could be disabled eventually!
-- Use assertions for pre-conditions, invariants and post-conditions or should exceptions be raised ?
+- Use assertions for broken assumptions ?
+   - Use assertions for 
+        - pre-conditions, 
+        - invariants, and 
+        - post-conditions   
+   - Assertions could be disabled eventually! Whare are the problems and consequences??
+
+## Exceptions
+
+- Use exceptions to handle what you expect as bad input
+    - what's the difference between this and broken assumptions (which, as suggested above, could be handled using assertions)? 
 
 ## Parameters
 
