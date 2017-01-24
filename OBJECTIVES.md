@@ -14,7 +14,7 @@
 	- Approximation algorithms
 	- Heuristics
 	
-or even to more general scientific areas
+ or even to more general scientific areas
 	
 	- Artificial intelligence
 	- Numerical computing

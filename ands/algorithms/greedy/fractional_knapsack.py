@@ -17,7 +17,7 @@ def ask_objects():
     objects = []
     print("Welcome to the Fractional Knapsack problem!\n\n" +
           "You will tell me the objects that you have,\n" +
-          "their cost and their weight.\n\n" +
+          "their path_cost and their weight.\n\n" +
           "You should also tell me after that\n"
           "how much weight you can carry with you.\n\n" +
           "I will tell you then which items or\n" +
@@ -38,7 +38,7 @@ def ask_objects():
             print("-" * 40, end="\n\n")
 
     for obj in objects:
-        # adding as forth property of each object its cost/weight ratio
+        # adding as forth property of each object its path_cost/weight ratio
         obj.append(obj[1] / obj[2])
 
     objects.sort(key=operator.itemgetter(3), reverse=True)

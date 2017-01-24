@@ -45,22 +45,22 @@ class Queue:
             ls = []
         self.q = deque(ls)
 
-    def enqueue(self, elem) -> None:
+    def enqueue(self, elem: object) -> None:
         """Adds `elem` to the end of this queue.
 
         Assumes `elem` is not None."""
         assert elem is not None
         self.q.append(elem)
 
-    def dequeue(self):
+    def dequeue(self) -> object:
         """Returns the first element of this queue."""
         return None if self.is_empty() else self.q.popleft()
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         """Returns `True` if this queue is empty, `False` otherwise."""
         return self.size() == 0
 
-    def size(self):
+    def size(self) -> int:
         """Returns the size of this queue."""
         return len(self.q)
 

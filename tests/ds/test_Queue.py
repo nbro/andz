@@ -65,15 +65,12 @@ class TestQueue(unittest.TestCase):
         self.assertTrue(q.is_empty())
 
     def test_dequeue_many(self):
-
-        r = randint(2, 100)
-        ls = [randint(-100, 100) for _ in range(r)]
-
+        ls = [2, 3, 5, 7, 11, 13]
         q = Queue(ls)
 
-        for _ in range(r):
+        for i in range(len(ls)):
             elem = q.dequeue()
-            self.assertIsNotNone(elem)
+            self.assertEqual(elem, ls[i])
 
         self.assertTrue(q.is_empty())
 
