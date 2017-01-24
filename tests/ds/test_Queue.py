@@ -71,11 +71,11 @@ class TestQueue(unittest.TestCase):
 
         q = Queue(ls)
 
-        for i in range(r):
+        for _ in range(r):
             elem = q.dequeue()
             self.assertIsNotNone(elem)
 
         self.assertTrue(q.is_empty())
 
     def test_str(self):
-        print(repr(Queue(["first", "second", "last"])))
+        self.assertEqual(repr(Queue(["first", "second", "last"])), str(["first", "second", "last"]))

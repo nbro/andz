@@ -62,8 +62,4 @@ class TestCaesarCipher(unittest.TestCase):
         it = randint(3, 13)
         size = randint(10, 1000)
         keys = randint(3, 11)
-        self.template_test_multi_keys(100, 1, keys)
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
+        self.template_test_multi_keys(it, size, keys)

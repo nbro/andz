@@ -152,7 +152,7 @@ class TestMinHeap(unittest.TestCase):
         h = MinHeap(ls)
 
         n = len(ls)
-        for i in range(n):
+        for _ in range(n):
             self.assertEqual(HeapNode(min(ls)), h.find_min())
             self.assertEqual(h.find_min(), h.remove_min())
             self.assertEqual(h.size(), len(ls) - 1)
