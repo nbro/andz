@@ -44,7 +44,7 @@
     - I think the answer depends on what `f` is intended to be used by, that is
         - if the users of `f` are intended to be programmers, then we should establish contracts
         
-        - if the users of `f` are real users, then usually the really user doesn't care about the implementation of `f`, and therefore exceptions should be raised.
+        - if the users of `f` are real users, then usually the real user doesn't care about the implementation of `f`, and therefore exceptions should be raised.
     
     1. We don't know 100% sure that only a certain type of user is going to use `f`, so what should we do in these cases?
 
@@ -105,30 +105,32 @@
 
 ## Assertions and Exceptions
 
-Since the users intended to use `ands` are not just programmers, assertions should be used only to catch implementation errors in the _development_ phase. 
+Since the clients intended to use `ands` are not just programmers, assertions should be used only to catch implementation errors in the _development_ phase. 
 
 In all other cases use exceptions!!!
 
 ## Type hints
 
-- Use type hints (both for parameters and return values) as a form of documented the code!!
+- Use type hints (both for parameters and return values) as a form of documenting the code!!
 
-- Should we use it in every case???
+    - Should we use it in every case???
 
 
 ## Parameters
 
 - Use `isinstance` if 
 
- - you need to decide between portions of code to execute
- - the function supports more than one type for a certain parameter
+    - the function supports more than one type for a certain parameter, and
+ 
+    - you need to decide between portions of code to execute
+ 
  
 
 ## Names
 
 - Names should be as explicit and descriptive as possible:
 
-	- If abbreviated, they should have an associated comment explaining its purpose.
+	- If abbreviated to improve readability, they should have an associated comment explaining its purpose.
 
 ## Comments
 
