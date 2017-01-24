@@ -1,7 +1,10 @@
-# Tests
+# Testing
 
-A few algorithms and data structures that I would like to test first:
+## TODO
 
 - TST
-- Queue
-- MinPriorityQueue
+
+## To refactor
+
+- All tests for the data structures except for Queue.
+- forward Euler method

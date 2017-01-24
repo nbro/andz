@@ -23,9 +23,9 @@ class Stack:
             s = []
         self.stack = s
 
-    def push(self, e):
-        """Pushes `e` on top of this stack."""
-        self.stack.append(e)
+    def push(self, elem):
+        """Pushes `elem` on top of this stack."""
+        self.stack.append(elem)
 
     def pop(self):
         """Returns the top of this stack, or `None` if the stack is empty."""
