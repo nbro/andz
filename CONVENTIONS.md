@@ -12,9 +12,9 @@
 
 - Consists in asserting:
 
-    - _precondtions_, 
+    - _preconditions_, 
     - _invariants_, and 
-    - _postconditins_
+    - _postconditions_
 
 - Use assertions to ensure preconditions, invariants and postconditions
 
@@ -60,7 +60,7 @@
 
 - Use assertions for something that **should never happen**:
 
-    - Use assertions in code **to catch implementation errors** (before realeasing)!!!
+    - Use assertions in code **to catch implementation errors** (before releasing)!!!
 
     - Since these things should never happen, then in the release mode, assertions can be disable to speed up computations.
 

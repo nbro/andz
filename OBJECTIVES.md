@@ -28,7 +28,7 @@
 
     - Implementation is performed in a very high-level and user-friendly programming language: Python.
 
-    - No optimization of the implementations. This doesn't mean at all that I won't always try to implement the best algorithm for the task (or operation), but simply that I will not introduce tricks of any sort to make the implementation faster.
+    - No optimisation of the implementations. This doesn't mean at all that I won't always try to implement the best algorithm for the task (or operation), but simply that I will not introduce tricks of any sort to make the implementation faster.
 
 3. Learn to analyse the asymptotic complexity of the algorithms and in particular of their implementation.
 
