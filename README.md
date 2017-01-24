@@ -90,7 +90,7 @@ First things first, you should fork the [`ands` repository from my `Github`'s ac
 
     Before that though, you should write tests to test what you've done. I would like that every algorithm and data structure is tested (which is not the case right now), in order to reduce the number of bugs as much as possible. Read the next section to know more about testing.
     
-    Furthermore, before commiting your changes, I recommended you to run the script [`./run.sh`](./run.sh), which is responsible for doing the following tasks:
+    Furthermore, before committing your changes, I recommended you to run the script [`./automate.sh`](./automate.sh), which is responsible for doing the following tasks:
     
     1. Format all the source code using the tool `autopep8`
 
@@ -120,16 +120,16 @@ This last one should also report you the amount of code covered by the tests, af
 
     coverage report
 
-## [`run.sh`](./run.sh)    
+## [`automate.sh`](./automate.sh)    
     
 I created this script to automate the tasks of creating the virtual environment, installing dependencies, running the tests and reporting its results. 
 If you want to run the script by running all tests (which takes some time), from inside the main folder, execute the following command on the terminal
 
-    ./run.sh
+    ./automate.sh
 
 On the other hand, if you want to run a specific single-class test, e.g. [`test_DSForests.py`](./tests/ds/test_DSForests.py), execute
 
-    ./run.sh -st ds test_DSForests.py
+    ./automate.sh -st ds test_DSForests.py
 
 ## References
 

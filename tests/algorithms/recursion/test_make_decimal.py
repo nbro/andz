@@ -48,7 +48,7 @@ class TestMakeDecimal(unittest.TestCase):
 
     def test_random_base(self):
         # Testing the implementation of make_decimal against int()
-        for i in range(randint(100, 1000)):
+        for _ in range(randint(100, 1000)):
             b = randint(2, 36)
             n = self.generate_number(b)
             self.assertEqual(make_decimal(n, b), int(n, b))

@@ -8,6 +8,7 @@
 """
 
 import os
+
 from setuptools import setup, find_packages
 
 
@@ -36,7 +37,7 @@ setup(
         #   5 - Production/Stable
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
-        "Intended Audience :: Developers",
+        "Intended Audience :: Developers, Students, Scientists",
         "Topic :: Software Development :: Algorithms and Data Structures",
         "License :: OSI Approved :: MIT License",
         "Operating System :: MacOS :: Mac OS X",
