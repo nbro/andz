@@ -30,6 +30,7 @@ class Queue:
 
     You can initialize the class using a list of values,
     which will be assumed to be already in the FIFO order.
+    These values are assumed not to be None.
 
     This class does not allow None to be inserted as value
     to the data structure through the methods of the same.
@@ -41,19 +42,20 @@ class Queue:
         if ls is not None:
             if not isinstance(ls, list):
                 raise TypeError("ls must be an instance of list")
+            assert all(elem is not None for elem in ls)
         else:
             ls = []
         self.q = deque(ls)
 
-    def enqueue(self, elem: object) -> None:
+    def enqueue(self, elem) -> None:
         """Adds `elem` to the end of this queue.
 
         Assumes `elem` is not None."""
         assert elem is not None
         self.q.append(elem)
 
-    def dequeue(self) -> object:
-        """Returns the first element of this queue."""
+    def dequeue(self):
+        """Returns the first element of this queue, or None if the queue is empty."""
         return None if self.is_empty() else self.q.popleft()
 
     def is_empty(self) -> bool:
