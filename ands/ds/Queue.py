@@ -47,14 +47,15 @@ class Queue:
         if ls is not None:
             if not isinstance(ls, Iterable):
                 raise TypeError("ls must be an iterable object")
-            if not all(elem is not None for elem in ls):
+            if any(elem is None for elem in ls):
                 raise ValueError("all elements of ls must be not None")
         else:
             ls = []
         self._q = deque(ls)
 
     def enqueue(self, elem) -> None:
-        """Adds `elem` to the end of this queue."""
+        """Adds `elem` to the end of this queue.
+        If `elem` is None, ValueError is raised."""
         if elem is None:
             raise ValueError("elem cannot be None")
         self._q.append(elem)
