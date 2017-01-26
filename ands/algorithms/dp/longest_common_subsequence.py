@@ -20,7 +20,6 @@ More specifically the problem is as follows:
     where characters in the subsequences are not necessarily contiguous?
     
 The solution is not necessarily unique.
-
 You can find a recursive and a two dynamic programming implementations for the lcs problem.
 You can find just one implementation using dynamic programming that actually returns the lcs,
 instead of just computing its length, like all other implementations do.
@@ -33,6 +32,10 @@ instead of just computing its length, like all other implementations do.
 ## Resources
 
 - [https://en.wikipedia.org/wiki/Longest_common_subsequence_problem](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
+
+## TODO
+
+- Create a version with case insensitive matching.
 """
 
 
@@ -41,7 +44,6 @@ def _get_lcs_length_matrix(s1: str, s2: str) -> list:
     then this function returns a (m + 1)x(n + 1) matrix,
     specifically it returns a list of length m + 1,
     whose elements are lists of length (n + 1).
-
     The "+ 1" in (m + 1) and (n + 1) is because the first row and column
     are reserved for the cases where we compare with _empty_ sequences.
     """
@@ -71,7 +73,6 @@ def _recursive_lcs_length_aux(s1: str, n: int, s2: str, m: int, result: int) -> 
 
 def recursive_lcs_length(s1: str, s2: str) -> int:
     """Returns the length of the longest common subsequence between s1 and s2.
-
     This algorithm uses a recursive solution, as the name suggests,
     but this results in an exponential algorithm.
     
@@ -155,7 +156,6 @@ def _memoized_recursive_lcs_length_aux(s1: str, n: int, s2: str, m: int, result:
 
 def memoized_recursive_lcs_length(s1: str, s2: str) -> int:
     """Returns the length of the longest common subsequence between strings s1 and s2.
-
     This algorithm uses _memoization_ to improve performance with respect to `recursive_lcs_length`.
     
     If n = length(s1) and m = length(s2), then time complexity of this algorithm O(n*m),
@@ -239,16 +239,15 @@ def backtrack(m: list, s1: str, s2: str, i: int, j: int):
             return backtrack(m, s1, s2, i - 1, j)
 
 
-def get_lcs(s1, s2):
+def get_lcs(s1: str, s2: str) -> None:
     m = bottom_up_lcs_length(s1, s2, matrix=True)
     backtrack(m, s1, s2, len(s1) - 1, len(s2) - 1)
 
 
-def bottom_up_lcs(s1, s2):
+def bottom_up_lcs(s1: str, s2: str):
     """Builds all lists with all LCSs to sub-strings of sub-problems,
     and then returns a list of characters representing
     the longest common subsequence for the original problem.
-
     :type s1 : str
     :type s2 : str
     :rtype : list of str"""
@@ -272,48 +271,17 @@ def bottom_up_lcs(s1, s2):
 
 
 if __name__ == "__main__":
-    str2 = "acbcf"
-    str1 = "abcdaf"
+    examples = [("acbcf", "abcdaf"),
+                ("BANANA", "ATANA"),
+                ("abdeccbbaede", "bbdccedacde"),
+                ("abe", "eb")]
 
-    str3 = "BANANA"
-    str4 = "ATANA"
-
-    str5 = "GAC"
-    str6 = "AGCAT"
-
-    str7 = "XMJYAUZ"
-    str8 = "MZJAWXU"
-
-    str9 = "ABAZDC"
-    str10 = "BACBAD"
-
-    a = "abdeccbbaede"
-    b = "bbdccedacde"
-
-    ##    print(bottom_up_lcs_length(a, b, True))
-    ##    print(recursive_lcs_length(a, b))
-    ##    print(memoized_recursive_lcs_length(a, b))
-    m = bottom_up_lcs_length_partial(a, b, True)
-    backtrack(m, a, b, len(a) - 1, len(b) - 1)
-    # pprint(bottom_up_lcs(a, b))
-
-
-##    print(bottom_up_lcs_length(str9, str10))
-##    print(recursive_lcs_length(str9, str10))
-##    print(memoized_recursive_lcs_length(str9, str10))
-##    pprint(bottom_up_lcs(str9, str10))
-##
-##    print(bottom_up_lcs_length(str3, str4))
-##    print(recursive_lcs_length(str3, str4))
-##    print(memoized_recursive_lcs_length(str3, str4))
-##    pprint(bottom_up_lcs(str3, str4))
-##
-##    print(bottom_up_lcs_length(str5, str6))
-##    print(recursive_lcs_length(str5, str6))
-##    print(memoized_recursive_lcs_length(str5, str6))
-##    pprint(bottom_up_lcs(str5, str6))
-##
-##    print(bottom_up_lcs_length(str7, str8))
-##    print(recursive_lcs_length(str7, str8))
-##    print(memoized_recursive_lcs_length(str7, str8))
-##    pprint(bottom_up_lcs(str7, str8))
+    for a, b in examples:
+        print("a =", a, ", b =", b)
+        print(recursive_lcs_length(a, b))
+        print(bottom_up_lcs_length(a, b))        
+        print(memoized_recursive_lcs_length(a, b))
+        print(bottom_up_lcs_length_partial(a, b, 'a', 'e'))
+        print()
+        
+    #backtrack(m, a, b, len(a) - 1, len(b) - 1)
