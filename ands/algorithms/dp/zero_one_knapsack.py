@@ -10,8 +10,8 @@ Updated: 26/01/2017
 
 ## Description
 
-Given n objects and a "knapsack". 
-Item i weighs w_i > 0 and has a value v_i > 0. 
+Given n objects and a "knapsack".
+Item i weighs w_i > 0 and has a value v_i > 0.
 Knapsack has capacity W.
 Goal: fill knapsack so as to maximize total value.
 
@@ -88,13 +88,12 @@ def zero_one_knapsack_verbose(total_weight: int, weights, values) -> int:
 
 
 def zero_one_knapsack(total_weight: int, weights, values) -> int:
-    """Returns the maximum profit that can be obtained by 
+    """Returns the maximum profit that can be obtained by
     using items with weights and values and a total_weight.
 
     This version does not tell which items to pick.
 
     **Time complexity**: O(n * total_weight), where n is the number of items.
-   
     This is consider a pseudo-polynomial time algorithm, **not** polynomial!
 
     The decision version of this problem is actually NP-Complete,
@@ -142,7 +141,7 @@ def _recursive_01_knapsack_aux(capacity: int, w, v, value: int) -> int:
     """Either takes the last element or it doesn't.
 
     This algorithm takes exponential time.
-    """    
+    """
     if capacity == 0:
         return 0
     if len(w) > 0 and len(v) > 0:
