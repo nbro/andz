@@ -176,8 +176,7 @@ def _memoized_01_knapsack_aux(capacity: int, w, v, value: int, m: list) -> int:
     if len(w) > 0 and len(v) > 0:
 
         if w[-1] > capacity:  # We cannot include the nth item
-            value = _memoized_01_knapsack_aux(
-                capacity, w[:-1], v[:-1], value, m)
+            value = _memoized_01_knapsack_aux(capacity, w[:-1], v[:-1], value, m)
         else:
             value = max(v[-1] + _memoized_01_knapsack_aux(capacity - w[-1], w[:-1], v[:-1], value, m),
                         _memoized_01_knapsack_aux(capacity, w[:-1], v[:-1], value, m))
