@@ -2,36 +2,53 @@
 # -*- coding: utf-8 -*-
 
 """
+## Meta info
+
 Author: Nelson Brochado
-Creation: 02/09/15
+Created: 02/09/2015
+Updated: 26/01/2017
 
-Problem (https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
-What is (length of) the longest common subsequence between strings s1 and s2,
-where characters are not necessarily contiguous?
+## Description
 
-You can find a recursive and a two dynamic programming implementations for the LCS problem.
-You can find just one implementation using dynamic programming that actually returns the LCS,
+The longest common subsequence or, in short, _lcs_, of _two_ strings `x` and `y`
+is a common **measure of similarity** between the two strings.
+
+More specifically the problem is as follows:
+
+    given two strings x = x_1 x_2 .. x_m and y = y_1 y_2 .. y_n,
+    what is (the length of) the longest common subsequence between strings `x` and `y`,
+    where characters in the subsequences are not necessarily contiguous?
+    
+The solution is not necessarily unique.
+
+You can find a recursive and a two dynamic programming implementations for the lcs problem.
+You can find just one implementation using dynamic programming that actually returns the lcs,
 instead of just computing its length, like all other implementations do.
 
 ## References
-- Introduction to Algorithms (3rd ed) by CLRS
+
+- Introduction to Algorithms (3rd ed.) by CLRS
 - Slides by prof. Evanthia Papadopoulou
+
+## Resources
+
+- [https://en.wikipedia.org/wiki/Longest_common_subsequence_problem](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 """
 
 
-def _get_lcs_length_matrix(s1, s2):
-    """Returns a (len(s1) + 1)x(len(s2) + 1) matrix,
-    specifically it returns a list of length len(s1) + 1,
-    whose elements are lists of length (len(s2) + 1).
+def _get_lcs_length_matrix(s1: str, s2: str) -> list:
+    """Let m = len(s1) and n = len(s2), 
+    then this function returns a (m + 1)x(n + 1) matrix,
+    specifically it returns a list of length m + 1,
+    whose elements are lists of length (n + 1).
 
-    Why +1 in (len(s2) + 1) and (len(s1) + 1)?
-    Because the first row and column are reserved
-    for the cases where we compare with empty sequences.
+    The "+ 1" in (m + 1) and (n + 1) is because the first row and column 
+    are reserved for the cases where we compare with _empty_ sequences.
     """
     return [[0 for _ in range(len(s2) + 1)] for _ in range(len(s1) + 1)]
 
 
-def _get_lcs_matrix(s1, s2):
+def _get_lcs_matrix(s1: str, s2: str) -> list:
     m = []
     for _ in range(len(s1) + 1):
         m.append([])
@@ -40,16 +57,8 @@ def _get_lcs_matrix(s1, s2):
     return m
 
 
-def _recursive_lcs_length_aux(s1, n, s2, m, result):
-    """See recursive_lcs_length.
-
-    :type s1 : str
-    :type n : int
-    :type s2 : str
-    :type m : int
-    :type result : int
-    :rtype : int
-    """
+def _recursive_lcs_length_aux(s1: str, n: int, s2: str, m: int, result: int) -> int:
+    """Helper function of `recursive_lcs_length`."""
     if n == 0 or m == 0:
         return 0
     elif s1[n - 1] == s2[m - 1]:
@@ -60,77 +69,75 @@ def _recursive_lcs_length_aux(s1, n, s2, m, result):
     return result
 
 
-def recursive_lcs_length(s1, s2):
-    """Returns the length of the LCS between s1 and s2.
+def recursive_lcs_length(s1: str, s2: str) -> int:
+    """Returns the length of the longest common subsequence between s1 and s2.
 
-    This algorithm uses a recursive solution,
-    as the name suggests, but this results in an exponential algorithm.
+    This algorithm uses a recursive solution, as the name suggests, 
+    but this results in an exponential algorithm.
     
     ### Idea
-    For every subsequence of s1 check weather it's a subsequence of s2.
-    There are 2^n subsequences of s1 to check.
-    Each subsequence takes O(m) time to check:
-    scan s2 for the first letter, from there scan for the second, and so on.
+    Given two strings x and y, how do we find the length of the lcs between x and y?
+    
+    For every subsequence of x check weather it's a subsequence of y.
+    There are 2^n subsequences of x to check, and each subsequence takes O(m) time to check:
+    scan y for the first letter, from there scan for the second, and so on.
     
     ### Definition
-    LCS(i, j) = length of the longest comment subsequence between
-    s1(i) = s1(i)_1, s1(i)_2, ..., s1(i)_i and s2(j) = s2(j)_1, s2(j)_2, ..., s2(j)_j.
     
+    lcs(i, j) = length of the longest comment subsequence between
+    x(i) = x(i)_1, x(i)_2, ..., x(i)_i and y(j) = y(j)_1, y(j)_2, ..., y(j)_j.
+    
+    where by x(i) it's meant a subsequence of x up to i,
+    and by x(i)_i it's meant the ith element of that same subsequence x(i).
+    A similar thing can be said for y(j) and y(j)_j.
+        
     ### Goal 
-    LCS(n, m), where n = length(s1) and m = length(s2).
+    lcs(n, m), where n = length(x) and m = length(y).
     
     ### Algorithm  
-    In the following descriptions s1(i) means a subsequence of s1 up to i.
-    Instead, s1(i)_i means the ith element of that same subsequence s1(i).
+  
+    If x(i) or y(j) is empty, lcs(i, j) = 0.
     
-    If s1(i) or s2(j) is empty, LCS(i, j) = 0.
+    If x(i)_i == y(j)_j, then x(i)_i and y(j)_j must be included in the lcs(i, j),
+    and we express it as lcs(i, j) = lcs(i - 1, j - 1) + 1,
+    where the +1 stands for the inclusion of x(i)_i and y(j)_j.
     
-    If s1(i)_i == s2(j)_j, then s1(i)_i and s2(j)_j must be included in the LCS(i, j),
-    and we express it as LCS(i, j) = LCS(i - 1, j - 1) + 1,
-    where the +1 stands for the inclusion of s1(i)_i and s2(j)_j.
+    If x(i)_i != y(j)_j, then we can either skip x(i)_i or y(j)_j (or both): 
+    we need to choose the best!! So lets see these options more closely.
     
-    If s1(i)_i != s2(j)_j, then we can either skip s1(1)_i or s2(1)_j (or both):
-    we need to choose the best. So lets see these options more closely.
-    Option 1: s1(i)_i is not in the LCS, then LCS(i, j) = LCS(i - 1, j).
-    Option 2: s2(j)_j is not in the LCS, then LCS(i, j) = LCS(i, j - 1).
-    So, basically, what we do is: LCS(i, j) = max(LCS(i - 1, j), LCS(i, j - 1)).
-    Note that we don't really need to include LCS(i - 1, j - 1), 
-    for the case where neither s1(i)_i nor s2(j)_j are included in the LCS(i, j),
-    because max(LCS(i - 1, j), LCS(i, j - 1), LCS(i - 1, j - 1)) = max(LCS(i - 1, j), LCS(i, j - 1)),
-    i.e. the maximum "profit" can simply be retrieved from LCS(i - 1, j) and LCS(i, j - 1),
-    since for sure LCS(i - 1, j - 1) brings less (or equal) profit than LCS(i - 1, j) or LCS(i, j - 1).
+    Option 1: x(i)_i is not in the lcs, then lcs(i, j) = lcs(i - 1, j).
+    Option 2: y(j)_j is not in the lcs, then lcs(i, j) = lcs(i, j - 1).
     
-    ### Summary
+    So, basically, what we do is: lcs(i, j) = max(lcs(i - 1, j), lcs(i, j - 1)).
+    
+    Note that we don't really need to include lcs(i - 1, j - 1), 
+    for the case where neither x(i)_i nor y(j)_j are included in the lcs(i, j),
+    because max(lcs(i - 1, j), lcs(i, j - 1), lcs(i - 1, j - 1)) = max(lcs(i - 1, j), lcs(i, j - 1)),
+    i.e. the maximum "profit" can simply be retrieved from lcs(i - 1, j) and lcs(i, j - 1),
+    since for sure lcs(i - 1, j - 1) brings less (or equal) profit than lcs(i - 1, j) or lcs(i, j - 1).
+    
+    #### Summary
+    
                 +--
                 | 0                                   if i == 0 or j == 0.
-    LCS(i, j) = | LCS(i - 1, j - 1) + 1               if i, j > 0 and s1(i)_i == s2(j)_j.
-                | max(LCS(i - 1, j), LCS(i, j - 1))   if i, j > 0 and s1(i)_i != s2(j)_j.
+    lcs(i, j) = | lcs(i - 1, j - 1) + 1               if i, j > 0 and x(i)_i == y(j)_j.
+                | max(lcs(i - 1, j), lcs(i, j - 1))   if i, j > 0 and x(i)_i != y(j)_j.
                 +--
                 
     ### Complexity
     This plain recursive approach is very inefficient, 
     because we keep on recomputing sub-problems.
     
-    Time complexity: theta(m*2^n).    
-
-    :type s1 : str
-    :type s2 : str"""
+    **Time complexity**: &theta;(m*2^n).
+    """
     n = len(s1)
     m = len(s2)
     result = 0
     return _recursive_lcs_length_aux(s1, n, s2, m, result)
 
 
-def _memoized_recursive_lcs_length_aux(s1, n, s2, m, result, matrix):
-    """See recursive_lcs_length.
-
-    :type s1 : str
-    :type n : int
-    :type s2 : str
-    :type m : int
-    :type result : list of list
-    :rtype : int
-    """
+def _memoized_recursive_lcs_length_aux(s1: str, n: int, s2: str, m: int, result: list, matrix: list) -> int:
+    """See recursive_lcs_length."""
     if n == 0 or m == 0:
         return 0
     elif matrix[n - 1][m - 1] is not None:
@@ -146,7 +153,7 @@ def _memoized_recursive_lcs_length_aux(s1, n, s2, m, result, matrix):
     return result
 
 
-def memoized_recursive_lcs_length(s1, s2):
+def memoized_recursive_lcs_length(s1: str, s2: str) -> int:
     """Returns the length of the LCS between s1 and s2.
 
     This algorithm uses memoization to improve performance with respect to recursive_lcs_length.
@@ -154,9 +161,6 @@ def memoized_recursive_lcs_length(s1, s2):
     The running time complexity of this algorithm
     should be O(len(s1) * len(s2)),
     which is very similar to the bottom-up version.
-
-    :type s1 : str
-    :type s2 : str
     """
     n = len(s1)
     m = len(s2)
