@@ -133,23 +133,30 @@ On the other hand, if you want to run a specific single-class test, e.g. [`test_
 
 ## References
 
+For each module I always try not to forget to specify the specific references that I used to implement the particular concept exposed in that module. 
+
+Apart from those, the following are the references which I always keep an eye on.
+
 ### Main references
 
 - [_Introduction to Algorithms_ (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms), book by Cormen, Leiserson, Rivest, Stein
 
 - Slides provided by the professor of the course Algorithms and Data Structures, i.e. [Antonio Carzaniga](http://www.inf.usi.ch/carzaniga/)
 
+- Slides provided by the professor of the course Algorithms and Data Structures 2, Evanthia Papadopoulou.
+
+- [Algorithms, 4th Edition](http://algs4.cs.princeton.edu/home/), online book by Robert Sedgewick and Kevin Wayne
+
 - [Wikipedia](https://www.wikipedia.org/)
 
 - [Stack Overflow](http://stackoverflow.com/)
 
+
+### Secondary references
+
 - [MIT 6.006 Introduction to Algorithms, Fall 2011](https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
 
 - [Interactive Python](http://interactivepython.org), website by Brad Miller and David Ranum
-
-- [Algorithms, 4th Edition](http://algs4.cs.princeton.edu/home/), online book by Robert Sedgewick and Kevin Wayne
-
-### Secondary references
 
 - [Algorithms: Design and Analysis, Part 1](https://www.coursera.org/learn/algorithm-design-analysis), Coursera's course taught by Tim Roughgarden
 
@@ -160,3 +167,14 @@ On the other hand, if you want to run a specific single-class test, e.g. [`test_
 - [http://www.sanfoundry.com/](http://www.sanfoundry.com/)
 
 - [Notes on Data Structures and Programming Techniques](http://www.cs.yale.edu/homes/aspnes/classes/223/)
+
+
+## Resources
+
+There many useful resources around the web to help you (and me) understand how  certain algorithms or data structures work.
+
+One curated list that I found useful which points to a bunch of other resources is the following:
+
+- [https://github.com/tayllan/awesome-algorithms](https://github.com/tayllan/awesome-algorithms)
+
+Feel free to contribute to that list by adding other links to useful and interesting material.

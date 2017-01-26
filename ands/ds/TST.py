@@ -120,10 +120,10 @@ class TST:
         elif key[index] > node.key:
             node.right = self._insert(node.right, key, value, index)
             node.right.parent = node
-        else:  # c == node.key
+        else:  # key[index] == node.key
             if index < len(key) - 1:
                 # If we're NOT at the end of the key, this is a match,
-                # so we recursively call search from index + 1,
+                # so we recursively call self._insert from index + 1,
                 # and we move to the mid node (char) of node.
                 # Note that the last index of the key is len(key) - 1.
                 node.mid = self._insert(node.mid, key, value, index + 1)

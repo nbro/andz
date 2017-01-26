@@ -16,7 +16,7 @@
     - _invariants_, and 
     - _postconditions_
 
-- Use assertions to ensure preconditions, invariants and postconditions
+- _Use assertions to ensure preconditions, invariants and postconditions_
 
     > An assertion is instead a correctness condition governing the relationship between **two software modules** (not a software module and a human, or a software module and an external device). 
     
@@ -41,7 +41,7 @@
 
 1. Should we establish contracts between a certain function `f` and a user `U`?
     
-    - I think the answer depends on what `f` is intended to be used by, that is
+    - I think the answer depends (but not exclusively) on what `f` is intended to be used by, that is
         - if the users of `f` are intended to be programmers, then we should establish contracts
         
         - if the users of `f` are real users, then usually the real user doesn't care about the implementation of `f`, and therefore exceptions should be raised.
@@ -49,8 +49,6 @@
     1. We don't know 100% sure that only a certain type of user is going to use `f`, so what should we do in these cases?
 
         - The intended clients of `f` should be one of the first things specified in the documentation of the software. **We can't protect users that do respect the rules of the software**!!!
-        
-        - In case of doubt, use exceptions.
 
 ### References
 
@@ -61,6 +59,10 @@
 - Use assertions for something that **should never happen**:
 
     - Use assertions in code **to catch implementation errors** (before releasing)!!!
+
+    - Use assertions for preconditions, invariants and postconditions.
+        
+        - Preconditions may also be explicitly stated assumptions about the inputs.
 
     - Since these things should never happen, then in the release mode, assertions can be disable to speed up computations.
 
@@ -74,25 +76,25 @@
 
 ## Exceptions
 
-- Use exceptions for something that **may** happen.
+- Use exceptions for something that **may** happen
 
-    - Use exceptions to check correctness of input arguments to functions. Always??? In every case, and for every input argument???
+    - Use exceptions to check correctness of input arguments to functions, if there are no assumptions about the same inputs. If there are assumptions, use assertions instead!
 
-        - The level of paranoia to check for correctness of inputs may depend on a few factors:
-            
-            - readability of the code
-            
-            - robustness of the software
-
-            - efficiency of the software
-
-            - cost and consequences of erroneous behaviour  
-
-    - Use exceptions to handle possible erroneous behaviour after computation
-
-        - Examples: division by zero .. 
+        - When to make assumptions???
     
-    - The users of `ands` are not just programmers, so use exceptions!!
+    - The level of paranoia to check for correctness of inputs may depend on a few factors:
+        
+        - readability of the code
+        
+        - robustness of the software
+
+        - efficiency of the software
+
+        - cost and consequences of erroneous behaviour  
+
+    - Use exceptions to handle possible erroneous behaviour after computation?? Why???
+
+        - Examples: division by zero .. ?? 
 
 
 ### References
@@ -103,11 +105,6 @@
 
 - [http://www.engr.mun.ca/~theo/Courses/sd/5895-downloads/sds-spec-1.ppt.pdf](http://www.engr.mun.ca/~theo/Courses/sd/5895-downloads/sds-spec-1.ppt.pdf)
 
-## Assertions and Exceptions
-
-Since the clients intended to use `ands` are not just programmers, assertions should be used only to catch implementation errors in the _development_ phase. 
-
-In all other cases use exceptions!!!
 
 ## Type hints
 

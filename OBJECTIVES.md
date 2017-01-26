@@ -9,9 +9,9 @@
 	- Hashing
 	- Graphs
 	- Trees
-	- Heaps
-	- Geometrical algorithms
-	- Approximation algorithms
+	- Heaps (e.g.: Fibonacci or binomial heaps)
+	- Geometrical algorithms (e.g.: convex hull)
+	- Approximation algorithms (e.g.: approximation-vertex-cover)
 	- Heuristics
 	
  or even to more general scientific areas
