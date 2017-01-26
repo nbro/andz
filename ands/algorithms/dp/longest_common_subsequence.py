@@ -37,12 +37,12 @@ instead of just computing its length, like all other implementations do.
 
 
 def _get_lcs_length_matrix(s1: str, s2: str) -> list:
-    """Let m = len(s1) and n = len(s2), 
+    """Let m = len(s1) and n = len(s2),
     then this function returns a (m + 1)x(n + 1) matrix,
     specifically it returns a list of length m + 1,
     whose elements are lists of length (n + 1).
 
-    The "+ 1" in (m + 1) and (n + 1) is because the first row and column 
+    The "+ 1" in (m + 1) and (n + 1) is because the first row and column
     are reserved for the cases where we compare with _empty_ sequences.
     """
     return [[0 for _ in range(len(s2) + 1)] for _ in range(len(s1) + 1)]
@@ -72,7 +72,7 @@ def _recursive_lcs_length_aux(s1: str, n: int, s2: str, m: int, result: int) -> 
 def recursive_lcs_length(s1: str, s2: str) -> int:
     """Returns the length of the longest common subsequence between s1 and s2.
 
-    This algorithm uses a recursive solution, as the name suggests, 
+    This algorithm uses a recursive solution, as the name suggests,
     but this results in an exponential algorithm.
     
     ### Idea
@@ -102,7 +102,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
     and we express it as lcs(i, j) = lcs(i - 1, j - 1) + 1,
     where the +1 stands for the inclusion of x(i)_i and y(j)_j.
     
-    If x(i)_i != y(j)_j, then we can either skip x(i)_i or y(j)_j (or both): 
+    If x(i)_i != y(j)_j, then we can either skip x(i)_i or y(j)_j (or both):
     we need to choose the best!! So lets see these options more closely.
     
     Option 1: x(i)_i is not in the lcs, then lcs(i, j) = lcs(i - 1, j).
@@ -110,7 +110,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
     
     So, basically, what we do is: lcs(i, j) = max(lcs(i - 1, j), lcs(i, j - 1)).
     
-    Note that we don't really need to include lcs(i - 1, j - 1), 
+    Note that we don't really need to include lcs(i - 1, j - 1),
     for the case where neither x(i)_i nor y(j)_j are included in the lcs(i, j),
     because max(lcs(i - 1, j), lcs(i, j - 1), lcs(i - 1, j - 1)) = max(lcs(i - 1, j), lcs(i, j - 1)),
     i.e. the maximum "profit" can simply be retrieved from lcs(i - 1, j) and lcs(i, j - 1),
@@ -137,7 +137,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
 
 
 def _memoized_recursive_lcs_length_aux(s1: str, n: int, s2: str, m: int, result: list, matrix: list) -> int:
-    """See recursive_lcs_length."""
+    """Helper function of `recursive_lcs_length`."""
     if n == 0 or m == 0:
         return 0
     elif matrix[n - 1][m - 1] is not None:
@@ -154,31 +154,59 @@ def _memoized_recursive_lcs_length_aux(s1: str, n: int, s2: str, m: int, result:
 
 
 def memoized_recursive_lcs_length(s1: str, s2: str) -> int:
-    """Returns the length of the LCS between s1 and s2.
+    """Returns the length of the longest common subsequence between strings s1 and s2.
 
-    This algorithm uses memoization to improve performance with respect to recursive_lcs_length.
-
-    The running time complexity of this algorithm
-    should be O(len(s1) * len(s2)),
-    which is very similar to the bottom-up version.
+    This algorithm uses _memoization_ to improve performance with respect to `recursive_lcs_length`.
+    
+    If n = length(s1) and m = length(s2), then time complexity of this algorithm O(n*m),
+    which is very similar to the bottom-up version (below).
     """
     n = len(s1)
     m = len(s2)
     result = 0
-
     matrix = [[None for _ in range(len(s2))] for _ in range(len(s1))]
-
+    
     return _memoized_recursive_lcs_length_aux(s1, n, s2, m, result, matrix)
 
 
-def bottom_up_lcs_length(s1, s2, matrix=False):
-    """Returns the length of the LCS between s1 and s2, if matrix is not set to True,
-    else it returns the matrix used to calculate the length of the LCS of sub-problems.
-
-    :type s1 : str
-    :type s2 : str
-    :rtype : int | list of list
+def bottom_up_lcs_length(s1: str, s2: str, matrix: bool=False):
+    """Returns the length of the longest common subsequence between strings s1 and s2,
+    if `matrix` is set to `False`, 
+    else it returns the matrix used to calculate the length of the lcs of sub-problems.
+    
+    If n = length(s1) and m = length(s2), 
+    then the following are the asymptotic complexities of this algorithm.
+    
+    **Time complexity:** O(n*m)
+    **Space complexity:** O(n*m)
     """
+    # m is initialized with zeros everywhere
+    m = _get_lcs_length_matrix(s1, s2)
+
+    for i in range(1, len(s1) + 1):
+
+        for j in range(1, len(s2) + 1):
+
+            # note that i and j start from 1,
+            # thus we index s1 and s2 using i - 1 and respectively j - 1,
+            # instead of simply i and j.
+            if s1[i - 1] == s2[j - 1]: 
+                m[i][j] = m[i - 1][j - 1] + 1
+            else:
+                m[i][j] = max(m[i - 1][j], m[i][j - 1])
+
+    return m[-1][-1] if not matrix else m
+
+
+def bottom_up_lcs_length_partial(s1: str, s2: str, c1: str, c2: str, partial_weight: int = 0.5, matrix: bool=False):
+    """Returns the length of the lcs between strings s1 and s2,
+    but considers c1 and c2 partially equal characters,
+    and thus instead of adding +1 to the length being computed `partial_weight` is added.
+    
+    **Time complexity:** O(n*m)
+    **Space complexity:** O(n*m)   
+    """
+    
     m = _get_lcs_length_matrix(s1, s2)
 
     for i in range(1, len(s1) + 1):
@@ -187,30 +215,18 @@ def bottom_up_lcs_length(s1, s2, matrix=False):
 
             if s1[i - 1] == s2[j - 1]:
                 m[i][j] = m[i - 1][j - 1] + 1
-            else:
+            
+            # partial match
+            elif (s1[i - 1] == c1 and s2[j - 1] == c2) or (s1[i - 1] == c2 and s2[j - 1] == c1):
+                m[i][j] = max(m[i - 1][j], m[i][j - 1], m[i - 1][j - 1] + partial_weight)
+                
+            else: 
                 m[i][j] = max(m[i - 1][j], m[i][j - 1])
 
     return m[-1][-1] if not matrix else m
 
 
-def bottom_up_lcs_length_partial(s1, s2, matrix=False):
-    m = _get_lcs_length_matrix(s1, s2)
-
-    for i in range(1, len(s1) + 1):
-
-        for j in range(1, len(s2) + 1):
-
-            if s1[i - 1] == s2[j - 1]:
-                m[i][j] = m[i - 1][j - 1] + 1
-            elif (s1[i - 1] == 'c' and s2[j - 1] == 'e') or (s1[i - 1] == 'e' and s2[j - 1] == 'c'):
-                m[i][j] = max(m[i - 1][j], m[i][j - 1], m[i - 1][j - 1] + 0.5)
-            else:
-                m[i][j] = max(m[i - 1][j], m[i][j - 1])
-
-    return m[-1][-1] if not matrix else m
-
-
-def backtrack(m, s1, s2, i, j):
+def backtrack(m: list, s1: str, s2: str, i: int, j: int):
     if i == 1 or j == 1:
         return ""
     elif s1[i] == s2[j]:
