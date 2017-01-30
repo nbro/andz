@@ -7,7 +7,7 @@
 
 Author: Nelson Brochado
 Created: 29/01/2017
-Updated: 29/01/2017
+Updated: 30/01/2017
 
 # Description
 
@@ -177,7 +177,7 @@ class TestTST(unittest.TestCase):
 
         random_pairs = {}
 
-        for i in range(n):
+        for _ in range(n):
             str_size = random.randint(1, 11)
             key = self.gen_rand_str(str_size)
             value = random.randint(-100, 100)
@@ -188,4 +188,3 @@ class TestTST(unittest.TestCase):
 
         for k, v in random_pairs.items():
             self.assertEqual(t.search(k), v)
-  

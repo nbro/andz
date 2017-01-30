@@ -2,15 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
-
 Creation: 05/09/15
+Updated 30/01/2017
 
-Updated 22/01/2017
-
-## Description
+# Description
 
 Ternary-search tries (or trees) combine the time efficiency of other tries
 with the space efficiency of binary-search trees.
@@ -19,7 +17,33 @@ An advantage compared to hash maps is that ternary search tries support sorting,
 but the _keys_ of a ternary-search trie can only be _strings_,
 whereas a hash map supports any kind of hashable keys.
 
-## References
+## TSTs vs Hashing
+
+### Hashing
+
+- Need to examine entire key
+- Search miss and hits cost about the same
+- Performance relies on hash function
+- Does NOT support ordered symbol table operations
+
+### TSTs
+
+- Works only for strings (or digital keys)
+- Only examines just enough key characters
+- Search miss may involve only a few characters
+- Supports ordered symbol table operations:
+	- keys-that-match
+	- keys-with-prefix
+	- longest-prefix-of
+
+### Bottom line
+
+TSTs are:
+
+	- faster than hashing (especially for search misses)
+	- more flexible than red-black trees
+
+# References
 
 - [Ternary Search Trees](https://www.cs.upc.edu/~ps/downloads/tst/tst.html) by By Jon Bentley and Bob Sedgewick
 - [Fast Algorithms for Sorting and Searching Strings](https://www.cs.princeton.edu/~rs/strings/), by Jon Bentley and Robert Sedgewick
@@ -28,7 +52,7 @@ whereas a hash map supports any kind of hashable keys.
 - [Ternary search tree](https://en.wikipedia.org/wiki/Ternary_search_tree) at Wikipedia
 - [How to list in an alphabetical order the words of a ternary search tree?](http://stackoverflow.com/a/27178771/3924118)
 
-## Resources
+# Resources
 
 - [Ternary search tree introduction](https://www.youtube.com/watch?v=xv4oRyqSKiw),
 by [Balazs Holczer](https://www.udemy.com/user/holczerbalazs/)
@@ -38,10 +62,23 @@ C++ implementation of a TST by Keith Schwarz, which provides a good analysis of 
 at [http://p2p.wrox.com/book-beginning-algorithms](http://p2p.wrox.com/book-beginning-algorithms)
 - [Plant your data in a ternary search tree](http://www.javaworld.com/article/2075027/java-app-dev/plant-your-data-in-a-ternary-search-tree.html?page=1)
 
+# TODO
+
+- Add asymptotic complexity: check min. 16:47 of this video: https://www.youtube.com/watch?v=CIGyewO7868
+
 """
 
 
 class TSTNode:
+    """A TSTNode has 6 fields:
+
+        - key, which is a character;
+        - value, which is None if self is not a terminal node (of an inserted string in the TST);
+        - parent, which is a pointer to a TSTNode representing the parent of self;
+        - left, which is a pointer to a TSTNode whose key is smaller lexicographically than key;
+        - right, which is similarly a pointer to a TSTNode whose key is greater lexicographically than key;
+        - mid, which is a pointer to a TSTNode whose key is the following character of key in an inserted string."""
+
     def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
 
         if not isinstance(key, str):
@@ -113,8 +150,8 @@ class TST:
         overwriting the old value with the new value,
         if the key is already in the symbol table."""
 
-        # Preconditions
-        assert self._n >= 0 and (self._root if self._n > 0 else True)
+        assert self._n >= 0 and (self._root if self._n > 0 else True), "precondition: self._n or self._root " \
+                                                                       "are not as expected!"
 
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
@@ -122,10 +159,11 @@ class TST:
             raise ValueError("key must be a string of length >= 1.")
         if value is None:
             raise ValueError("value cannot be None.")
+
         self._root = self._insert(self._root, key, value, 0)
 
-        # Postconditions
-        assert self._n >= 0 and (self._root if self._n > 0 else True)
+        assert self._n >= 0 and (self._root if self._n > 0 else True), "postcondition: self._n or self._root " \
+                                                                       "are not as expected!"
 
     def _insert(self, node: TSTNode, key: str, value: object, index: int):
         """Inserts key into self starting from node.
@@ -153,7 +191,11 @@ class TST:
         return node
 
     def search(self, key: str):
-        """Iterative alternative to `self.search_recursively`."""
+        """Returns the value associated with `key`,
+        if this last one is present in self, else it returns None.
+
+        If `key` is not an instance of `str`, `TypeError` is raised.
+        If `key` is an empty string, `ValueError` is raised."""
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
@@ -161,9 +203,9 @@ class TST:
 
         result = self.search_recursively(key)
 
-        # Postcondition: self.search_recursively and self.search_iteratively
-        # should always produce the same output given the same input key.
-        assert result == self.search_iteratively(key)
+        assert result == self.search_iteratively(key), "postcondition: self.search_recursively and " \
+                                                       "self.search_iteratively should always produce " \
+                                                       "the same output given the same input key!"
 
         return result
 
@@ -171,6 +213,7 @@ class TST:
         """Returns the value associated with key, if key is in self, else None.
 
         The search in a TST works as follows.
+
         We start at the root and we compare its character with the first character of key.
             - If they are the same, we follow the middle link of the root node.
             - If the first character of key is smaller lexicographically
@@ -179,12 +222,15 @@ class TST:
             that are smaller lexicographically than key[0] are on its left subtree.
             - If the first character of key is greater lexicographically
             than the key at the root, we take similarly the right link or pointer.
+
         We keep applying this idea at every node.
         Moreover, WHEN THERE'S A MATCH, next time we compare the key
         of the next node with the next character of key.
+
         For example, if there's a match between the first node (the root) and key[0],
         we follow the middle link, and the next comparison is between
         the key of the specific next node and key[1], not key[0]!"""
+
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
@@ -193,7 +239,7 @@ class TST:
         node = self._search_recursively(self._root, key, 0)
 
         if node is not None:
-            assert node.value is not None  # Postcondition: values should never be None!
+            assert node.value is not None, "postcondition: values should never be None!"
             return node.value
         else:
             return None
@@ -246,11 +292,11 @@ class TST:
                 node = node.mid
                 index += 1
 
-        assert index == len(key) - 1  # postcondition: index indices the last character of key!
+        assert index == len(key) - 1, "postcondition: index indices the last character of key!"
 
-        # If node is (still) not None, then we may still need to go left or right,
+        # If node is not None, then we may still need to go left or right,
         # and we stop when either we find a node which has the same key as the last character of key,
-        # or when end up node being equal to None, i.e. the key does not exist in this TST.
+        # or when `node` ends up being set to None, i.e. the key does not exist in this TST.
         while node and key[index] != node.key:
             if key[index] < node.key:
                 node = node.left
@@ -260,12 +306,46 @@ class TST:
         if node is None:  # Unsuccessful search.
             return None
         else:  # We exit the previous while loop because key[index] == node.key.
-            assert node.value is not None  # Postcondition: values should never be None!
+            assert node.value is not None, "postcondition: values should never be None!"
             return node.value
 
     def contains(self, key: str):
         """Returns True if the key is in self, False otherwise."""
         return self.search_recursively(key) is not None
+
+    def traverse(self):
+        # Assert preconditions.
+        return self._traverse(self._root, "")
+
+    def _traverse(self, node, prefix):
+        if node is None:  # base case
+            return
+
+        self._traverse(node.left, prefix)
+        if node.value is not None:
+            print(prefix + node.key, "=>", node.value)
+
+        self._traverse(node.mid, prefix + node.key)
+        self._traverse(node.right, prefix)
+
+    def count(self):
+        """Counts the number of strings in self."""
+        c = self._count(self._root, 0)
+        assert c == self.size(), "postcondition: count should be consistent with self._n and self.size()!"
+        return c
+
+    def _count(self, node, counter):
+        if node is None:  # base case
+            return counter
+
+        counter = self._count(node.left, counter)
+        if node.value is not None:
+            counter += 1
+
+        counter = self._count(node.mid, counter)
+        counter = self._count(node.right, counter)
+
+        return counter
 
     def delete(self, key: str) -> TSTNode:
         """Deletes and returns the value associated with key in this TST.
@@ -329,32 +409,3 @@ class TST:
             self._n -= 1
             _delete_fix(node)
             return result
-
-    def traverse(self):
-        # Assert preconditions.
-        return self._traverse(self._root, "")
-
-    def _traverse(self, node, prefix):
-        if node is None:  # base case
-            return
-        self._traverse(node.left, prefix)
-        if node.value is not None:
-            print(prefix + node.key, "=>", node.value)
-        self._traverse(node.mid, prefix + node.key)
-        self._traverse(node.right, prefix)
-
-    def count(self):
-        """Counts the number of strings in self."""
-        c = self._count(self._root, 0)
-        assert c == self.size()  # Post-condition.
-        return c
-
-    def _count(self, node, counter):
-        if node is None:  # base case
-            return counter
-        counter = self._count(node.left, counter)
-        if node.value is not None:
-            counter += 1
-        counter = self._count(node.mid, counter)
-        counter = self._count(node.right, counter)
-        return counter
