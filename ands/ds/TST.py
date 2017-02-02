@@ -143,12 +143,15 @@ class TST:
         self._root = None
 
     def __invariants__(self):
-        """These propositions should always be true in every PUBLIC method of this TST."""
+        """These propositions should always be true in every PUBLIC method of this TST.
+
+        Call this method in order you want to ensure the invariants are holding."""
         assert self._n >= 0
         if self._n == 0:
             assert self._root is None
         elif self._n > 0:
             assert isinstance(self._root, TSTNode)
+            assert self._root.parent is None
 
     def _is_root(self, u: TSTNode):
         result = (self._root == u)
@@ -190,9 +193,13 @@ class TST:
     def insert(self, key: str, value: object):
         """Inserts the key-value pair into the symbol table,
         overwriting the old value with the new value,
-        if the key is already in the symbol table."""
+        if the key is already in the symbol table.
 
-        self.__invariants__()
+        If `key` is not an instance of `str`, `TypeError` is raised.
+        If `key` is an empty string, `ValueError` is raised.
+        If `value` is None, `ValueError` is raised.
+
+        Nodes whose value is not None represent the last character of an inserted word."""
 
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
@@ -202,11 +209,12 @@ class TST:
             raise ValueError("value cannot be None.")
 
         self._root = self._insert(self._root, key, value, 0)
-        self.__invariants__()
 
     def _insert(self, node: TSTNode, key: str, value: object, index: int):
         """Inserts key into self starting from node.
+
         This is helper method and should not be called by any client of TST."""
+
         if node is None:
             node = TSTNode(key[index])
         if key[index] < node.key:
@@ -224,7 +232,7 @@ class TST:
                 node.mid = self._insert(node.mid, key, value, index + 1)
                 node.mid.parent = node
             else:
-                if not node.value:
+                if node.value is None:
                     self._n += 1
                 node.value = value
         return node
@@ -280,9 +288,14 @@ class TST:
             return None
 
     def _search_recursively(self, node: TSTNode, key: str, index: int):
-        """Returns sub-TST corresponding to given key."""
+        """Returns sub-TST corresponding to given key.
+
+        This is a helper method of self.search_recursively and is considered private,
+        and thus should not be called by any client."""
+
         if node is None:
             return None
+
         if key[index] < node.key:
             return self._search_recursively(node.left, key, index)
         elif key[index] > node.key:
@@ -294,7 +307,9 @@ class TST:
 
     def search_iteratively(self, key: str):
         """Iterative alternative to self.search_recursively.
+
         The search starts, as the recursive version, from the root."""
+
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
@@ -344,14 +359,14 @@ class TST:
 
     def contains(self, key: str):
         """Returns True if the key is in self, False otherwise."""
-        value = self.search_recursively(key)
-        return value is not None
+        return self.search_recursively(key) is not None
 
     def delete(self, key: str) -> TSTNode:
-        """Deletes and returns the value associated with key in this TST.
-        This operation does not change the structure of this TST,
-        but only merely makes it "forget" that there's a map with key `key`."""
-        self.__invariants__()
+        """Deletes and returns the value associated with key in this TST,
+        if key is in this TST, otherwise it returns None.
+
+        If `key` is not an instance of `str`, `TypeError` is raised.
+        If `key` is an empty string, `ValueError` is raised."""
 
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
@@ -362,7 +377,7 @@ class TST:
         # but the value associated with the key passed as parameter.
         node = self._search_recursively(self._root, key, 0)
 
-        if node and node.value:
+        if node is not None and node.value is not None:
             # If node.value is None, it means
             result = node.value  # forgetting the string tracked by node.
             node.value = None
@@ -371,12 +386,15 @@ class TST:
         else:
             result = None
 
-        self.__invariants__()
-
         return result
 
     def _delete_fix(self, u: TSTNode):
+        """Helper method to the self.delete method."""
 
+        # While u has no children and his value is None,
+        # forget about u and start from his parent.
+        # So, this while loop terminates when either u is None,
+        # u has at least one child, or u has no children but it's value is not None.
         while u and not u.has_children() and u.value is None:
 
             if self._is_root(u):
