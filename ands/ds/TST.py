@@ -244,7 +244,7 @@ class TST:
 
         return node
 
-    def search(self, key: str):
+    def search(self, key: str) -> object:
         """Returns the value associated with `key`, if `key` is in self, else None.
 
         If `key` is not an instance of `str`, `TypeError` is raised.
@@ -285,7 +285,7 @@ class TST:
             assert self.search_iteratively(key) is None
             return None
 
-    def _search(self, node: TSTNode, key: str, index: int):
+    def _search(self, node: TSTNode, key: str, index: int) -> TSTNode:
         """Searches for the node containing the value associated with `key` starting from `node`.
         If returns None OR a node with value None if there's no such node."""
         if node is None:
@@ -300,7 +300,7 @@ class TST:
         else:  # This is a match and we're at the last character of key.
             return node  # node could be None!!
 
-    def search_iteratively(self, key: str):
+    def search_iteratively(self, key: str) -> object:
         """Iterative alternative to self.search."""
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
@@ -349,7 +349,7 @@ class TST:
         else:  # We exit the previous while loop because key[index] == node.key.
             return node.value  # could also be None!!
 
-    def contains(self, key: str):
+    def contains(self, key: str) -> bool:
         """Returns True if `key` is in self, False otherwise.
 
         **Time complexity:** O(m + h).
@@ -391,7 +391,7 @@ class TST:
         self.__invariants__()
         return result
 
-    def _delete_fix(self, u: TSTNode):
+    def _delete_fix(self, u: TSTNode) -> None:
         """Does the clean up of this TST after deletion of node `u`."""
         assert u.value is None
 
@@ -419,13 +419,13 @@ class TST:
         if u.has_children() and u.value is None:
             assert self._count(u, 0) > 0
 
-    def traverse(self):
+    def traverse(self) -> None:
         """Traverses all nodes in this TST and prints the key: value associations.
 
         **Time complexity:** O(n), where n is the number of nodes in self."""
         self._traverse(self._root, "")
 
-    def _traverse(self, node: TSTNode, prefix: str):
+    def _traverse(self, node: TSTNode, prefix: str) -> None:
         """Helper method to self.traverse.
 
         **Time complexity:** O(m), where m is the number of nodes under `node`."""
@@ -439,8 +439,8 @@ class TST:
         self._traverse(node.mid, prefix + node.key)
         self._traverse(node.right, prefix)
 
-    def keys_with_prefix(self, prefix):
-        """Returns all of the keys in the set that start with `prefix`.
+    def keys_with_prefix(self, prefix: str):
+        """Returns all keys in this TST that start with `prefix`.
 
         If `prefix` is not an instance of `str`, `TypeError` is raised.
         If `prefix` is an empty string, then all keys in this TST
