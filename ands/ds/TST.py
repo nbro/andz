@@ -6,7 +6,7 @@
 
 Author: Nelson Brochado
 Creation: 05/09/15
-Updated 30/01/2017
+Updated 02/02/2017
 
 # Description
 
@@ -32,16 +32,16 @@ whereas a hash map supports any kind of hashable keys.
 - Only examines just enough key characters
 - Search miss may involve only a few characters
 - Supports ordered symbol table operations:
-	- keys-that-match
-	- keys-with-prefix
-	- longest-prefix-of
+    - keys-that-match
+    - keys-with-prefix
+    - longest-prefix-of
 
 ### Bottom line
 
 TSTs are:
 
-	- faster than hashing (especially for search misses)
-	- more flexible than red-black trees
+- faster than hashing (especially for search misses)
+- more flexible than red-black trees
 
 # References
 
