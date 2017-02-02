@@ -145,7 +145,7 @@ class TST:
     def __invariants__(self):
         """These propositions should always be true in every PUBLIC method of this TST.
 
-        Call this method in order you want to ensure the invariants are holding."""
+        Call this method if you want to ensure the invariants are holding."""
         assert self._n >= 0
         if self._n == 0:
             assert self._root is None
@@ -166,9 +166,11 @@ class TST:
 
     def count(self):
         """Counts the number of strings in self.
+
         This method recursively passes through all the nodes
         and counts the ones which have a non None value.
-        You should clearly use size instead:
+
+        You should clearly use size instead: 
         this method is here only for the fun of writing code!"""
         c = self._count(self._root, 0)
         assert c == self.size()
