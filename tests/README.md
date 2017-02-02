@@ -2,9 +2,6 @@
 
 ## TODO
 
-- TST
+- Refactor all tests for the data structures except for Queue, DSForests, TST (which, as all others, may nonetheless need to be improved)
 
-## To refactor
-
-- All tests for the data structures except for Queue.
-- forward Euler method
+- Improve the tests for the forward Euler method
