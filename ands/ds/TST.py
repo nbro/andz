@@ -137,7 +137,7 @@ class TST:
         self._n = 0
         self._root = None
 
-    def __invariants__(self):
+    def __invariants__(self) -> None:
         """These propositions should always be true at the BEGINNING
         and END of every PUBLIC method of this TST.
 
@@ -149,7 +149,7 @@ class TST:
             assert isinstance(self._root, TSTNode)
             assert self._root.parent is None
 
-    def _is_root(self, u: TSTNode):
+    def _is_root(self, u: TSTNode) -> bool:
         result = (self._root == u)
         if result:
             assert u.parent is None
@@ -157,10 +157,10 @@ class TST:
             assert u.parent is not None
         return result
 
-    def size(self):
+    def size(self) -> int:
         return self._n
 
-    def count(self):
+    def count(self) -> int:
         """Counts the number of strings in self.
 
         This method recursively passes through all the nodes
@@ -174,7 +174,7 @@ class TST:
         assert c == self.size()
         return c
 
-    def _count(self, node, counter):
+    def _count(self, node: TSTNode, counter: int) -> int:
         """Helper method to `self.count`.
 
         **Time complexity:** O(m), where m is the number of nodes under `node`."""
@@ -190,7 +190,7 @@ class TST:
 
         return counter
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         """**Time complexity:** O(1)."""
         return self._n == 0
 
@@ -365,8 +365,9 @@ class TST:
 
         **Time complexity:** O(m + h + k).
         Check self.search to see what m and h are.
-        k is the number of "no more necessary" nodes cleaned up
-        after deletion of the node associated with `key`."""
+        k is the number of "no more necessary" cleaned up
+        after deletion of the node associated with `key`.
+        Unnecessary nodes are nodes with no children and value equal to None."""
         self.__invariants__()
 
         if not isinstance(key, str):
@@ -424,7 +425,7 @@ class TST:
         **Time complexity:** O(n), where n is the number of nodes in self."""
         self._traverse(self._root, "")
 
-    def _traverse(self, node, prefix):
+    def _traverse(self, node: TSTNode, prefix: str):
         """Helper method to self.traverse.
 
         **Time complexity:** O(m), where m is the number of nodes under `node`."""
@@ -437,3 +438,44 @@ class TST:
 
         self._traverse(node.mid, prefix + node.key)
         self._traverse(node.right, prefix)
+
+    def keys_with_prefix(self, prefix):
+        """Returns all of the keys in the set that start with `prefix`.
+
+        If `prefix` is not an instance of `str`, `TypeError` is raised.
+        If `prefix` is an empty string, then all keys in this TST
+        that start with an empty string, thus all keys are returned."""
+        if not isinstance(prefix, str):
+            raise TypeError("prefix must be an instance of str!")
+
+        kwp = []
+
+        if not prefix:
+            self._collect(self._root, [], kwp)
+        else:
+            node = self._search(self._root, prefix, 0)
+
+            if node is not None:
+                if node.value is not None:
+                    # A `key` equals to prefix was found in the TST with an associated value.
+                    kwp.append(prefix)
+
+                self._collect(node.mid, list(prefix), kwp)
+
+        return kwp
+
+    def _collect(self, node: TSTNode, prefix_list: list, kwp: list) -> None:
+        """Returns all keys rooted at `node` given the prefix given as a list of characters `prefix_list`."""
+        if node is None:
+            return
+
+        self._collect(node.left, prefix_list, kwp)
+
+        if node.value is not None:
+            kwp.append("".join(prefix_list + [node.key]))
+
+        prefix_list.append(node.key)
+        self._collect(node.mid, prefix_list, kwp)
+
+        prefix_list.pop()
+        self._collect(node.right, prefix_list, kwp)

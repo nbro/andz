@@ -233,3 +233,53 @@ class TestTST(unittest.TestCase):
 
         self.assertTrue(t.is_empty())
         self.assertEqual(t.count(), 0)
+
+    # TODO: test_insert_delete_some_insert_delete_all
+
+    def test_keys_with_prefix_not_str_prefix(self):
+        t = TST()
+        self.assertRaises(TypeError, t.keys_with_prefix, 3)
+
+    def test_keys_with_prefix_empty_prefix(self):
+        t = TST()
+
+        n = random.randint(1, 50)
+        keys = set()
+
+        for _ in range(n):
+            key = self.gen_rand_str(random.randint(1, 11))
+            keys.add(key)
+            t.insert(key, key)
+
+        kwp = t.keys_with_prefix("")
+        kwp_set = set(kwp)
+        self.assertEqual(len(kwp), len(kwp_set))  # I should not need to check this here!!!
+        self.assertEqual(kwp_set, keys)
+
+    def test_keys_with_prefix_none_found(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.insert("three", 3)
+        self.assertEqual(t.keys_with_prefix("four"), [])
+
+    def test_keys_with_prefix_one_found(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.insert("three", 3)
+        self.assertEqual(t.keys_with_prefix("on"), ["one"])
+
+    def test_keys_with_prefix_two_found(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.insert("three", 3)
+        self.assertEqual(sorted(t.keys_with_prefix("t")), ["three", "two"])
+
+    def test_keys_with_prefix_all_found(self):
+        t = TST()
+        t.insert("occasion", 2)
+        t.insert("occasionally", 2)
+        t.insert("occam", 2)
+        self.assertEqual(sorted(t.keys_with_prefix("occa")), ["occam", "occasion", "occasionally"])
