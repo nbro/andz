@@ -5,8 +5,8 @@
 # Meta info
 
 Author: Nelson Brochado
-Creation: 05/09/15
-Updated 02/02/2017
+Created: 05/09/2015
+Updated: 02/02/2017
 
 # Description
 
