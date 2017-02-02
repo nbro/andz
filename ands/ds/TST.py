@@ -62,10 +62,6 @@ C++ implementation of a TST by Keith Schwarz, which provides a good analysis of 
 at [http://p2p.wrox.com/book-beginning-algorithms](http://p2p.wrox.com/book-beginning-algorithms)
 - [Plant your data in a ternary search tree](http://www.javaworld.com/article/2075027/java-app-dev/plant-your-data-in-a-ternary-search-tree.html?page=1)
 
-# TODO
-
-- Add asymptotic complexity: check min. 16:47 of this video: https://www.youtube.com/watch?v=CIGyewO7868
-
 """
 
 
@@ -80,7 +76,6 @@ class TSTNode:
         - mid, which is a pointer to a TSTNode whose key is the following character of key in an inserted string."""
 
     def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
-
         if not isinstance(key, str):
             raise TypeError("key must be an instance of str.")
         if not key:
@@ -143,7 +138,8 @@ class TST:
         self._root = None
 
     def __invariants__(self):
-        """These propositions should always be true in every PUBLIC method of this TST.
+        """These propositions should always be true at the BEGINNING
+        and END of every PUBLIC method of this TST.
 
         Call this method if you want to ensure the invariants are holding."""
         assert self._n >= 0
@@ -171,12 +167,17 @@ class TST:
         and counts the ones which have a non None value.
 
         You should clearly use size instead: 
-        this method is here only for the fun of writing code!"""
+        this method is here only for the fun of writing code!
+
+        **Time complexity:** O(n), where n is the number of nodes in this TST."""
         c = self._count(self._root, 0)
         assert c == self.size()
         return c
 
     def _count(self, node, counter):
+        """Helper method to `self.count`.
+
+        **Time complexity:** O(m), where m is the number of nodes under `node`."""
         if node is None:  # base case
             return counter
 
@@ -190,35 +191,38 @@ class TST:
         return counter
 
     def is_empty(self):
+        """**Time complexity:** O(1)."""
         return self._n == 0
 
     def insert(self, key: str, value: object):
-        """Inserts the key-value pair into the symbol table,
-        overwriting the old value with the new value,
-        if the key is already in the symbol table.
+        """Inserts the `key` into the symbol table and associates with it `value`,
+        overwriting an eventual associated old value, if the `key` is already in self.
 
         If `key` is not an instance of `str`, `TypeError` is raised.
         If `key` is an empty string, `ValueError` is raised.
         If `value` is None, `ValueError` is raised.
 
-        Nodes whose value is not None represent the last character of an inserted word."""
+        Nodes whose value is not None represent the last character of an inserted word.
 
+        **Time complexity:** O(m + h), where m = length(key),
+        which also represents how many times we follow the middle link,
+        and h is the number of left and right turns.
+        So a lower bound of the complexity would be &Omega(m);."""
+        self.__invariants__()
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
             raise ValueError("key must be a string of length >= 1.")
         if value is None:
             raise ValueError("value cannot be None.")
-
         self._root = self._insert(self._root, key, value, 0)
+        self.__invariants__()
 
     def _insert(self, node: TSTNode, key: str, value: object, index: int):
-        """Inserts key into self starting from node.
-
-        This is helper method and should not be called by any client of TST."""
-
+        """Inserts `key` with `value` into self starting from `node`."""
         if node is None:
             node = TSTNode(key[index])
+
         if key[index] < node.key:
             node.left = self._insert(node.left, key, value, index)
             node.left.parent = node
@@ -237,26 +241,14 @@ class TST:
                 if node.value is None:
                     self._n += 1
                 node.value = value
+
         return node
 
     def search(self, key: str):
-        """Returns the value associated with `key`,
-        if this last one is present in self, else it returns None.
+        """Returns the value associated with `key`, if `key` is in self, else None.
 
         If `key` is not an instance of `str`, `TypeError` is raised.
-        If `key` is an empty string, `ValueError` is raised."""
-
-        if not isinstance(key, str):
-            raise TypeError("key must be an instance of type str.")
-        if not key:
-            raise ValueError("key must be a string of length >= 1.")
-
-        result = self.search_recursively(key)
-        assert result == self.search_iteratively(key)
-        return result
-
-    def search_recursively(self, key: str):
-        """Returns the value associated with key, if key is in self, else None.
+        If `key` is an empty string, `ValueError` is raised.
 
         The search in a TST works as follows.
 
@@ -275,43 +267,41 @@ class TST:
 
         For example, if there's a match between the first node (the root) and key[0],
         we follow the middle link, and the next comparison is between
-        the key of the specific next node and key[1], not key[0]!"""
+        the key of the specific next node and key[1], not key[0]!
 
+        **Time complexity:** O(m + h).
+        Check self.insert to see what m and h are."""
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
             raise ValueError("key must be a string of length >= 1.")
 
-        node = self._search_recursively(self._root, key, 0)
+        node = self._search(self._root, key, 0)
 
         if node is not None:
+            assert self.search_iteratively(key) == node.value
             return node.value
         else:
+            assert self.search_iteratively(key) is None
             return None
 
-    def _search_recursively(self, node: TSTNode, key: str, index: int):
-        """Returns sub-TST corresponding to given key.
-
-        This is a helper method of self.search_recursively and is considered private,
-        and thus should not be called by any client."""
-
+    def _search(self, node: TSTNode, key: str, index: int):
+        """Searches for the node containing the value associated with `key` starting from `node`.
+        If returns None OR a node with value None if there's no such node."""
         if node is None:
             return None
 
         if key[index] < node.key:
-            return self._search_recursively(node.left, key, index)
+            return self._search(node.left, key, index)
         elif key[index] > node.key:
-            return self._search_recursively(node.right, key, index)
+            return self._search(node.right, key, index)
         elif index < len(key) - 1:  # This is a match, but we're not at the last character of key.
-            return self._search_recursively(node.mid, key, index + 1)
+            return self._search(node.mid, key, index + 1)
         else:  # This is a match and we're at the last character of key.
-            return node  # could be None...
+            return node  # node could be None!!
 
     def search_iteratively(self, key: str):
-        """Iterative alternative to self.search_recursively.
-
-        The search starts, as the recursive version, from the root."""
-
+        """Iterative alternative to self.search."""
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
@@ -357,27 +347,36 @@ class TST:
         if node is None:  # Unsuccessful search.
             return None
         else:  # We exit the previous while loop because key[index] == node.key.
-            return node.value  # could also be None...
+            return node.value  # could also be None!!
 
     def contains(self, key: str):
-        """Returns True if the key is in self, False otherwise."""
-        return self.search_recursively(key) is not None
+        """Returns True if `key` is in self, False otherwise.
+
+        **Time complexity:** O(m + h).
+        See the complexity analysis of self.insert for more info about m and h."""
+        return self.search(key) is not None
 
     def delete(self, key: str) -> TSTNode:
-        """Deletes and returns the value associated with key in this TST,
-        if key is in this TST, otherwise it returns None.
+        """Deletes and returns the value associated with `key` in this TST,
+        if `key` is in this TST, otherwise it returns None.
 
         If `key` is not an instance of `str`, `TypeError` is raised.
-        If `key` is an empty string, `ValueError` is raised."""
+        If `key` is an empty string, `ValueError` is raised.
+
+        **Time complexity:** O(m + h + k).
+        Check self.search to see what m and h are.
+        k is the number of "no more necessary" nodes cleaned up
+        after deletion of the node associated with `key`."""
+        self.__invariants__()
 
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
             raise ValueError("key must be a string of length >= 1.")
 
-        # Note: calling _search_recursively, since self.search does not return a Node,
+        # Note: calling self._search, since self.search does not return a Node,
         # but the value associated with the key passed as parameter.
-        node = self._search_recursively(self._root, key, 0)
+        node = self._search(self._root, key, 0)
 
         if node is not None and node.value is not None:
             # If node.value is None, it means
@@ -388,17 +387,18 @@ class TST:
         else:
             result = None
 
+        self.__invariants__()
         return result
 
     def _delete_fix(self, u: TSTNode):
-        """Helper method to the self.delete method."""
+        """Does the clean up of this TST after deletion of node `u`."""
+        assert u.value is None
 
         # While u has no children and his value is None,
         # forget about u and start from his parent.
         # So, this while loop terminates when either u is None,
-        # u has at least one child, or u has no children but it's value is not None.
+        # u has at least one child, or u's value is not None.
         while u and not u.has_children() and u.value is None:
-
             if self._is_root(u):
                 assert self._n == 0
                 self._root = None
@@ -415,11 +415,19 @@ class TST:
             u.parent = None
             u = p
 
+        if u.has_children() and u.value is None:
+            assert self._count(u, 0) > 0
+
     def traverse(self):
-        """Traverses all nodes in this TST and prints the key: value associations."""
+        """Traverses all nodes in this TST and prints the key: value associations.
+
+        **Time complexity:** O(n), where n is the number of nodes in self."""
         self._traverse(self._root, "")
 
     def _traverse(self, node, prefix):
+        """Helper method to self.traverse.
+
+        **Time complexity:** O(m), where m is the number of nodes under `node`."""
         if node is None:  # base case
             return
 

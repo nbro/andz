@@ -103,14 +103,17 @@ class TestTST(unittest.TestCase):
     def test_search_empty_tst(self):
         t = TST()
         self.assertIsNone(t.search("search in an empty tst"))
+        self.assertIsNone(t.search_iteratively("search in an empty tst"))
 
     def test_search_key_not_string(self):
         t = TST()
         self.assertRaises(TypeError, t.search, 5)
+        self.assertRaises(TypeError, t.search_iteratively, 5)
 
     def test_search_key_empty_string(self):
         t = TST()
         self.assertRaises(ValueError, t.search, "")
+        self.assertRaises(ValueError, t.search_iteratively, "")
 
     def test_contains_empty_tst(self):
         t = TST()
@@ -215,7 +218,7 @@ class TestTST(unittest.TestCase):
     def test_delete_all_random_keys(self):
         t = TST()
 
-        n = random.randint(3, 10000)
+        n = random.randint(3, 5000)
         random_pairs = {}
 
         for _ in range(n):
