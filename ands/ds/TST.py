@@ -439,7 +439,7 @@ class TST:
         self._traverse(node.mid, prefix + node.key)
         self._traverse(node.right, prefix)
 
-    def keys_with_prefix(self, prefix: str):
+    def keys_with_prefix(self, prefix: str) -> list:
         """Returns all keys in this TST that start with `prefix`.
 
         If `prefix` is not an instance of `str`, `TypeError` is raised.
