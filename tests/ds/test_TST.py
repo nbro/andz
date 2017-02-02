@@ -13,6 +13,8 @@ Updated: 30/01/2017
 
 Unit tests for the TST class.
 
+In these tests I only test the count method instead of testing also size and _n,
+this is because `count` asserts its result is equal to the result returned by size, which is _n.
 """
 
 import random
@@ -25,14 +27,12 @@ from ands.ds.TST import TST
 class TestTST(unittest.TestCase):
     def gen_rand_str(self, n):
         """Generates a string of size n of printable characters."""
-        return "".join(random.choice(string.printable) for _ in range(n))
+        return "".join(random.choice(string.ascii_letters) for _ in range(n))
 
     def test_creation(self):
         t = TST()
-        # state guaranteed at creation time
-        self.assertEqual(t.count(), 0)
         self.assertTrue(t.is_empty())
-        self.assertIsNone(t._root)
+        self.assertEqual(t.count(), 0)
 
     def test_insert_key_not_string(self):
         t = TST()
@@ -49,142 +49,184 @@ class TestTST(unittest.TestCase):
     def test_insert_one(self):
         t = TST()
         t.insert("one", 97)
-
-        # using just count() since count calls size() as a post-condition assertion!!
+        self.assertFalse(t.is_empty())
         self.assertEqual(t.count(), 1)
         self.assertEqual(t.search("one"), 97)
+        self.assertTrue(t.contains("one"))
 
-        # Testing the structure of the TST remains as expected.
-        r = t._root
-        self.assertIsNone(r.left)
-        self.assertIsNone(r.right)
-        self.assertIsNone(r.parent)
-        self.assertIsNotNone(r.mid)
-        self.assertEqual(r.key, "o")
-        self.assertEqual(r.value, None)
-
-        p = r
-        r = r.mid
-        self.assertIsNotNone(r)
-        self.assertIsNone(r.left)
-        self.assertIsNone(r.right)
-        self.assertIsNotNone(r.mid)
-        self.assertIs(r.parent, p)
-        self.assertEqual(r.key, "n")
-        self.assertEqual(r.value, None)
-
-        p = r
-        r = r.mid
-        self.assertIsNotNone(r)
-        self.assertIsNone(r.left)
-        self.assertIsNone(r.right)
-        self.assertIsNone(r.mid)
-        self.assertIs(r.parent, p)
-        self.assertEqual(r.key, "e")
-        self.assertEqual(r.value, 97)
-
-    def test_insert_some_no_update(self):
-        """This only tests a permutation of the keys,
-        but exhaustive testing is also impossible in most of the cases!
-        This example is based on: https://www.youtube.com/watch?v=CIGyewO7868, min. 7.30"""
+    def test_insert_two(self):
         t = TST()
-
-        t.insert("she", 2)
-        self.assertEqual(t.count(), 1)
-        self.assertEqual(t.search("she"), 2)
-
-        t.insert("sells", 3)
+        t.insert("he", 0)
+        t.insert("she", 1)
+        self.assertFalse(t.is_empty())
         self.assertEqual(t.count(), 2)
-        self.assertEqual(t.search("she"), 2)
-        self.assertEqual(t.search("sells"), 3)
+        self.assertEqual(t.search("he"), 0)
+        self.assertEqual(t.search("she"), 1)
+        self.assertTrue(t.contains("he"))
+        self.assertTrue(t.contains("she"))
 
-        t.insert("sea", 5)
+    def test_insert_same_twice_to_update(self):
+        t = TST()
+        t.insert("seven", 7)
+        t.insert("fly away", 11)
+        t.insert("fly away", 101)
+        t.insert("bandit queen", "Looptroop")
+        self.assertFalse(t.is_empty())
         self.assertEqual(t.count(), 3)
-        self.assertEqual(t.search("she"), 2)
-        self.assertEqual(t.search("sells"), 3)
-        self.assertEqual(t.search("sea"), 5)
-
-        t.insert("shells", 7)
-        self.assertEqual(t.count(), 4)
-        self.assertEqual(t.search("she"), 2)
-        self.assertEqual(t.search("sells"), 3)
-        self.assertEqual(t.search("sea"), 5)
-        self.assertEqual(t.search("shells"), 7)
-
-        t.insert("by", 11)
-        self.assertEqual(t.count(), 5)
-        self.assertEqual(t.search("she"), 2)
-        self.assertEqual(t.search("sells"), 3)
-        self.assertEqual(t.search("sea"), 5)
-        self.assertEqual(t.search("shells"), 7)
-        self.assertEqual(t.search("by"), 11)
-
-        t.insert("the", 13)
-        self.assertEqual(t.count(), 6)
-        self.assertEqual(t.search("she"), 2)
-        self.assertEqual(t.search("sells"), 3)
-        self.assertEqual(t.search("sea"), 5)
-        self.assertEqual(t.search("shells"), 7)
-        self.assertEqual(t.search("by"), 11)
-        self.assertEqual(t.search("the"), 13)
-
-    def test_insert_some_with_update(self):
-        # Test based on example: This example is based on: https://www.youtube.com/watch?v=CIGyewO7868
-        t = TST()
-        t.insert("she", 2)
-        t.insert("sells", 3)
-        t.insert("sea", 5)
-        t.insert("shells", 7)
-        t.insert("by", 11)
-        t.insert("the", 13)
-
-        # Updating value associated with key "sea"
-        t.insert("sea", 17)
-
-        self.assertEqual(t.count(), 6)  # The size of the TST should not have changed!
-        self.assertEqual(t.search("she"), 2)
-        self.assertEqual(t.search("sells"), 3)
-        self.assertEqual(t.search("sea"), 17)
-        self.assertEqual(t.search("shells"), 7)
-        self.assertEqual(t.search("by"), 11)
-        self.assertEqual(t.search("the"), 13)
-
-    def test_insert_some_after_update(self):
-        # Test based on example: This example is based on: https://www.youtube.com/watch?v=CIGyewO7868
-        t = TST()
-        t.insert("she", 2)
-        t.insert("sells", 3)
-        t.insert("sea", 5)
-        t.insert("shells", 7)
-        t.insert("by", 11)
-        t.insert("the", 13)
-        t.insert("sea", 17)
-        t.insert("shore", 19)
-
-        self.assertEqual(t.count(), 7)  # The size of the TST should not have changed!
-        self.assertEqual(t.search("she"), 2)
-        self.assertEqual(t.search("sells"), 3)
-        self.assertEqual(t.search("sea"), 17)
-        self.assertEqual(t.search("shells"), 7)
-        self.assertEqual(t.search("by"), 11)
-        self.assertEqual(t.search("the"), 13)
-        self.assertEqual(t.search("shore"), 19)
+        self.assertEqual(t.search("seven"), 7)
+        self.assertEqual(t.search("fly away"), 101)
+        self.assertEqual(t.search("bandit queen"), "Looptroop")
+        self.assertTrue(t.contains("seven"))
+        self.assertTrue(t.contains("fly away"))
+        self.assertTrue(t.contains("bandit queen"))
 
     def test_insert_random_keys(self):
         t = TST()
 
-        n = random.randint(10, 100)
-
+        n = random.randint(4, 100)
         random_pairs = {}
 
         for _ in range(n):
-            str_size = random.randint(1, 11)
-            key = self.gen_rand_str(str_size)
-            value = random.randint(-100, 100)
-            random_pairs[key] = value
-            t.insert(key, value)
+            key = self.gen_rand_str(random.randint(1, 11))
+            random_pairs[key] = key
+            t.insert(key, key)
 
-        self.assertEqual(t.count(), len(random_pairs))
+            self.assertFalse(t.is_empty())
+            self.assertEqual(t.count(), len(random_pairs))
 
         for k, v in random_pairs.items():
             self.assertEqual(t.search(k), v)
+            self.assertTrue(t.contains(k))
+
+    # Testing search and contains in the "bad" cases (of inputs)
+
+    def test_search_empty_tst(self):
+        t = TST()
+        self.assertIsNone(t.search("search in an empty tst"))
+
+    def test_search_key_not_string(self):
+        t = TST()
+        self.assertRaises(TypeError, t.search, 5)
+
+    def test_search_key_empty_string(self):
+        t = TST()
+        self.assertRaises(ValueError, t.search, "")
+
+    def test_contains_empty_tst(self):
+        t = TST()
+        self.assertFalse(t.contains("contains in an empty tst"))
+
+    def test_contains_key_not_string(self):
+        t = TST()
+        self.assertRaises(TypeError, t.contains, 3.14)
+
+    def test_contains_key_empty_string(self):
+        t = TST()
+        self.assertRaises(ValueError, t.contains, "")
+
+    def test_traverse_tst(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.insert("three", 3)
+        self.assertIsNone(t.traverse())
+
+    def test_delete_empty_tst(self):
+        t = TST()
+        self.assertIsNone(t.delete("war"))
+
+    def test_delete_key_not_string(self):
+        t = TST()
+        self.assertRaises(TypeError, t.delete, 0.1)
+
+    def test_delete_key_empty_string(self):
+        t = TST()
+        self.assertRaises(ValueError, t.delete, "")
+
+    def test_delete_inexistent_key(self):
+        t = TST()
+        t.insert("first", "1st")
+
+        self.assertIsNone(t.delete("second"))
+        self.assertFalse(t.is_empty())
+        self.assertEqual(t.count(), 1)
+        self.assertTrue(t.contains("first"))
+        self.assertEqual(t.search("first"), "1st")
+
+    def test_delete_same_key_twice(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.insert("three", 3)
+
+        self.assertEqual(t.delete("three"), 3)
+        self.assertIsNone(t.delete("three"))
+        self.assertFalse(t.is_empty())
+        self.assertEqual(t.count(), 2)
+        self.assertTrue(t.contains("one"))
+        self.assertTrue(t.contains("two"))
+        self.assertEqual(t.search("one"), 1)
+        self.assertEqual(t.search("two"), 2)
+
+    def test_delete_the_only_key(self):
+        t = TST()
+        t.insert("seven", 7)
+
+        self.assertEqual(t.delete("seven"), 7)
+        self.assertTrue(t.is_empty())
+        self.assertEqual(t.count(), 0)
+        self.assertFalse(t.contains("seven"))
+        self.assertIsNone(t.search("seven"))
+
+    def test_delete_the_two_keys(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("two", 2)
+
+        self.assertEqual(t.delete("one"), 1)
+        self.assertFalse(t.is_empty())
+        self.assertEqual(t.count(), 1)
+        self.assertFalse(t.contains("one"))
+        self.assertTrue(t.contains("two"))
+        self.assertIsNone(t.search("one"))
+        self.assertEqual(t.search("two"), 2)
+
+        self.assertEqual(t.delete("two"), 2)
+        self.assertTrue(t.is_empty())
+        self.assertEqual(t.count(), 0)
+        self.assertFalse(t.contains("one"))
+        self.assertFalse(t.contains("two"))
+        self.assertIsNone(t.search("one"))
+        self.assertIsNone(t.search("two"))
+
+    def test_delete_after_inserting_again(self):
+        t = TST()
+
+        t.insert("boo", 0.5)
+        t.insert("neg", 1)
+        self.assertEqual(t.delete("neg"), 1)
+
+        t.insert("neg", 1)
+        self.assertEqual(t.delete("neg"), 1)
+
+        self.assertFalse(t.is_empty())
+        self.assertEqual(t.count(), 1)
+
+    def test_delete_all_random_keys(self):
+        t = TST()
+
+        n = random.randint(3, 10000)
+        random_pairs = {}
+
+        for _ in range(n):
+            key = self.gen_rand_str(random.randint(1, 11))
+            random_pairs[key] = key
+            t.insert(key, key)
+
+        for k, v in random_pairs.items():
+            self.assertEqual(t.delete(k), v)
+            self.assertIsNone(t.search(k))
+            self.assertFalse(t.contains(k))
+
+        self.assertTrue(t.is_empty())
+        self.assertEqual(t.count(), 0)
