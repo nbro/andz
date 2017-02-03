@@ -62,10 +62,6 @@ C++ implementation of a TST by Keith Schwarz, which provides a good analysis of 
 at [http://p2p.wrox.com/book-beginning-algorithms](http://p2p.wrox.com/book-beginning-algorithms)
 - [Plant your data in a ternary search tree](http://www.javaworld.com/article/2075027/java-app-dev/plant-your-data-in-a-ternary-search-tree.html?page=1)
 
-# TODO
-
-- keys with prefix (and associated values)
-
 """
 
 
