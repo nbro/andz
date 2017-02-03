@@ -7,7 +7,7 @@
 
 Author: Nelson Brochado
 Created: 29/01/2017
-Updated: 02/02/2017
+Updated: 03/02/2017
 
 # Description
 
@@ -36,7 +36,7 @@ class TestTST(unittest.TestCase):
 
     def test_insert_key_not_string(self):
         t = TST()
-        self.assertRaises(TypeError, t.insert, 5)
+        self.assertRaises(TypeError, t.insert, 3.14)
 
     def test_insert_key_empty_string(self):
         t = TST()
@@ -347,3 +347,53 @@ class TestTST(unittest.TestCase):
         t.insert("allen", "first")
         t.insert("allen halloween", "underrated!")
         self.assertEqual(t.longest_prefix_of("allen halloween"), "allen halloween")
+
+    def test_keys_that_match_pattern_not_str(self):
+        t = TST()
+        self.assertRaises(TypeError, t.keys_that_match, 1 / 2)
+
+    def test_keys_that_match_pattern_empty_str(self):
+        t = TST()
+        self.assertRaises(ValueError, t.keys_that_match, "")
+
+    def test_keys_that_match_tst_empty_pattern_one_dot(self):
+        t = TST()
+        self.assertEqual(t.keys_that_match("."), [])
+
+    def test_keys_that_match_tst_empty_pattern_many_dots(self):
+        t = TST()
+        self.assertEqual(t.keys_that_match("......."), [])
+
+    def test_keys_that_match_pattern_no_dots(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("on", "fire")
+        self.assertEqual(t.keys_that_match("on"), ["on"])
+
+    def test_keys_that_match_example_docs(self):
+        t = TST()
+        t.insert("food", 3)
+        t.insert("good", 3)
+        t.insert("foodie", 3)
+        self.assertEqual(sorted(t.keys_that_match(".ood")), ["food", "good"])
+
+    def test_keys_that_match_pattern_using_dots(self):
+        t = TST()
+        t.insert("nop", 0)
+        t.insert("one", 1)
+        t.insert("on", "fire")
+        t.insert("fno", "ok")
+        self.assertEqual(sorted(t.keys_that_match(".n.")), ["fno", "one"])
+
+    def test_keys_that_match_pattern_using_dots_to_retrieve_all_keys_of_certain_length(self):
+        t = TST()
+        t.insert("zero", 0)
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.insert("three", 3)
+        t.insert("four", 4)
+        t.insert("five", 5)
+        t.insert("six", 6)
+        self.assertEqual(sorted(t.keys_that_match("...")), ["one", "six", "two"])
+        self.assertEqual(sorted(t.keys_that_match("....")), ["five", "four", "zero"])
+        self.assertEqual(sorted(t.keys_that_match(".....")), ["three"])

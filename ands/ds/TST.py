@@ -6,7 +6,7 @@
 
 Author: Nelson Brochado
 Created: 05/09/2015
-Updated: 02/02/2017
+Updated: 03/02/2017
 
 # Description
 
@@ -539,3 +539,48 @@ class TST:
                 x = x.mid
 
         return query[:length]
+
+    def keys_that_match(self, pattern: str) -> list:
+        """Returns a list of keys of this TST that match `pattern`.
+
+        A key `k` of length `m` matches `pattern` if:
+
+            1. m = length(pattern)
+            2. Either k[i] == pattern[i] or k[i] == '.'.
+                - Example: if `pattern == ".ood"`,
+                then `k == "good"` would match, but not `k == "foodie"`.
+
+        If `pattern` is not a `str`, `TypeError` is raised.
+        If `pattern` is an empty string, `ValueError` is raised."""
+        if not isinstance(pattern, str):
+            raise TypeError("pattern is not an instance of str!")
+        if not pattern:
+            raise ValueError("pattern cannot be an empty string")
+
+        keys = []
+        self._keys_that_match(self._root, [], 0, pattern, keys)
+        return keys
+
+    def _keys_that_match(self, node: TSTNode, prefix_list: list, i: int, pattern: str, keys: list) -> None:
+        """Stores in the list `keys` the of keys that match `pattern` starting from `node`."""
+        if node is None:
+            return
+
+        c = pattern[i]
+
+        if c == "." or c < node.key:
+            self._keys_that_match(node.left, prefix_list, i, pattern, keys)
+
+        if c == "." or c == node.key:
+
+            if i == len(pattern) - 1 and node.value is not None:
+                # If i is the last index and its value is not None
+                keys.append("".join(prefix_list + [node.key]))
+
+            if i < len(pattern) - 1:
+                prefix_list.append(node.key)
+                self._keys_that_match(node.mid, prefix_list, i + 1, pattern, keys)
+                prefix_list.pop()
+
+        if c == "." or c > node.key:
+            self._keys_that_match(node.right, prefix_list, i, pattern, keys)
