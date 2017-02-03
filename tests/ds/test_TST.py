@@ -7,7 +7,7 @@
 
 Author: Nelson Brochado
 Created: 29/01/2017
-Updated: 02/02/2017
+Updated: 03/02/2017
 
 # Description
 
@@ -36,7 +36,7 @@ class TestTST(unittest.TestCase):
 
     def test_insert_key_not_string(self):
         t = TST()
-        self.assertRaises(TypeError, t.insert, 5)
+        self.assertRaises(TypeError, t.insert, 3.14)
 
     def test_insert_key_empty_string(self):
         t = TST()
@@ -103,14 +103,17 @@ class TestTST(unittest.TestCase):
     def test_search_empty_tst(self):
         t = TST()
         self.assertIsNone(t.search("search in an empty tst"))
+        self.assertIsNone(t.search_iteratively("search in an empty tst"))
 
     def test_search_key_not_string(self):
         t = TST()
         self.assertRaises(TypeError, t.search, 5)
+        self.assertRaises(TypeError, t.search_iteratively, 5)
 
     def test_search_key_empty_string(self):
         t = TST()
         self.assertRaises(ValueError, t.search, "")
+        self.assertRaises(ValueError, t.search_iteratively, "")
 
     def test_contains_empty_tst(self):
         t = TST()
@@ -215,7 +218,7 @@ class TestTST(unittest.TestCase):
     def test_delete_all_random_keys(self):
         t = TST()
 
-        n = random.randint(3, 10000)
+        n = random.randint(3, 2000)
         random_pairs = {}
 
         for _ in range(n):
@@ -230,3 +233,167 @@ class TestTST(unittest.TestCase):
 
         self.assertTrue(t.is_empty())
         self.assertEqual(t.count(), 0)
+
+    # TODO: test_insert_delete_some_insert_delete_all
+
+    def test_keys_with_prefix_not_str_prefix(self):
+        t = TST()
+        self.assertRaises(TypeError, t.keys_with_prefix, 3)
+
+    def test_keys_with_prefix_empty_prefix(self):
+        t = TST()
+
+        n = random.randint(1, 50)
+        keys = set()
+
+        for _ in range(n):
+            key = self.gen_rand_str(random.randint(1, 11))
+            keys.add(key)
+            t.insert(key, key)
+
+        kwp = t.keys_with_prefix("")
+        kwp_set = set(kwp)
+        self.assertEqual(len(kwp), len(kwp_set))  # I should not need to check this here!!!
+        self.assertEqual(kwp_set, keys)
+
+    def test_keys_with_prefix_none_found(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.insert("three", 3)
+        self.assertEqual(t.keys_with_prefix("four"), [])
+
+    def test_keys_with_prefix_prefix_size_equal_to_key_size(self):
+        t = TST()
+        t.insert("valete", "dama")
+        self.assertEqual(t.keys_with_prefix("valete"), ["valete"])
+
+    def test_keys_with_prefix_one_found(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.insert("three", 3)
+        self.assertEqual(t.keys_with_prefix("on"), ["one"])
+
+    def test_keys_with_prefix_two_found(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.delete("one")
+        t.insert("three", 3)
+        self.assertEqual(sorted(t.keys_with_prefix("t")), ["three", "two"])
+
+    def test_keys_with_prefix_all_found(self):
+        t = TST()
+        t.insert("occasion", 2)
+        t.insert("occasionally", 2)
+        t.insert("occam", 2)
+        self.assertEqual(sorted(t.keys_with_prefix("occa")), ["occam", "occasion", "occasionally"])
+
+    def test_all_pairs_empty_tst(self):
+        t = TST()
+        self.assertEqual(t.all_pairs(), {})
+
+    def test_all_pairs_tst_size_1(self):
+        t = TST()
+        t.insert("the most sadistic", "necro")
+        self.assertEqual(t.all_pairs(), {"the most sadistic": "necro"})
+
+    def test_all_pairs_random_size_and_strings(self):
+        t = TST()
+
+        n = random.randint(3, 1000)
+        random_pairs = {}
+
+        for _ in range(n):
+            key = self.gen_rand_str(random.randint(1, 17))
+            random_pairs[key] = key
+            t.insert(key, key)
+
+        self.assertEqual(t.all_pairs(), random_pairs)
+
+    def test_longest_prefix_of_query_not_str(self):
+        t = TST()
+        self.assertRaises(TypeError, t.longest_prefix_of, -0.12)
+
+    def test_longest_prefix_of_query_empty(self):
+        t = TST()
+        self.assertRaises(ValueError, t.longest_prefix_of, "")
+
+    def test_longest_prefix_of_empty_tst(self):
+        t = TST()
+        self.assertEqual(t.longest_prefix_of(self.gen_rand_str(10)), "")
+
+    def test_longest_prefix_of_longest_prefix_size_zero(self):
+        t = TST()
+        t.insert("obnoxious", 7)
+        # obnoxious is NOT even a prefix of over
+        self.assertEqual(t.longest_prefix_of("over"), "")
+
+    def test_longest_prefix_of_longest_prefix_size_one(self):
+        t = TST()
+        t.insert("o", 7)
+        t.insert("obnoxious", 23)
+        self.assertEqual(t.longest_prefix_of("overall"), "o")
+
+    def test_longest_prefix_of_longest_prefix_size_two(self):
+        t = TST()
+        t.insert("p", 7)
+        t.insert("oa", 23)
+        self.assertEqual(t.longest_prefix_of("oak"), "oa")
+
+    def test_longest_prefix_of_longest_prefix_size_of_query(self):
+        t = TST()
+        t.insert("allen", "first")
+        t.insert("allen halloween", "underrated!")
+        self.assertEqual(t.longest_prefix_of("allen halloween"), "allen halloween")
+
+    def test_keys_that_match_pattern_not_str(self):
+        t = TST()
+        self.assertRaises(TypeError, t.keys_that_match, 1 / 2)
+
+    def test_keys_that_match_pattern_empty_str(self):
+        t = TST()
+        self.assertRaises(ValueError, t.keys_that_match, "")
+
+    def test_keys_that_match_tst_empty_pattern_one_dot(self):
+        t = TST()
+        self.assertEqual(t.keys_that_match("."), [])
+
+    def test_keys_that_match_tst_empty_pattern_many_dots(self):
+        t = TST()
+        self.assertEqual(t.keys_that_match("......."), [])
+
+    def test_keys_that_match_pattern_no_dots(self):
+        t = TST()
+        t.insert("one", 1)
+        t.insert("on", "fire")
+        self.assertEqual(t.keys_that_match("on"), ["on"])
+
+    def test_keys_that_match_example_docs(self):
+        t = TST()
+        t.insert("food", 3)
+        t.insert("good", 3)
+        t.insert("foodie", 3)
+        self.assertEqual(sorted(t.keys_that_match(".ood")), ["food", "good"])
+
+    def test_keys_that_match_pattern_using_dots(self):
+        t = TST()
+        t.insert("nop", 0)
+        t.insert("one", 1)
+        t.insert("on", "fire")
+        t.insert("fno", "ok")
+        self.assertEqual(sorted(t.keys_that_match(".n.")), ["fno", "one"])
+
+    def test_keys_that_match_pattern_using_dots_to_retrieve_all_keys_of_certain_length(self):
+        t = TST()
+        t.insert("zero", 0)
+        t.insert("one", 1)
+        t.insert("two", 2)
+        t.insert("three", 3)
+        t.insert("four", 4)
+        t.insert("five", 5)
+        t.insert("six", 6)
+        self.assertEqual(sorted(t.keys_that_match("...")), ["one", "six", "two"])
+        self.assertEqual(sorted(t.keys_that_match("....")), ["five", "four", "zero"])
+        self.assertEqual(sorted(t.keys_that_match(".....")), ["three"])
