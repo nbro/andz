@@ -218,7 +218,7 @@ class TestTST(unittest.TestCase):
     def test_delete_all_random_keys(self):
         t = TST()
 
-        n = random.randint(3, 5000)
+        n = random.randint(3, 2000)
         random_pairs = {}
 
         for _ in range(n):
@@ -263,6 +263,11 @@ class TestTST(unittest.TestCase):
         t.insert("three", 3)
         self.assertEqual(t.keys_with_prefix("four"), [])
 
+    def test_keys_with_prefix_prefix_size_equal_to_key_size(self):
+        t = TST()
+        t.insert("valete", "dama")
+        self.assertEqual(t.keys_with_prefix("valete"), ["valete"])
+
     def test_keys_with_prefix_one_found(self):
         t = TST()
         t.insert("one", 1)
@@ -274,6 +279,7 @@ class TestTST(unittest.TestCase):
         t = TST()
         t.insert("one", 1)
         t.insert("two", 2)
+        t.delete("one")
         t.insert("three", 3)
         self.assertEqual(sorted(t.keys_with_prefix("t")), ["three", "two"])
 
@@ -283,3 +289,61 @@ class TestTST(unittest.TestCase):
         t.insert("occasionally", 2)
         t.insert("occam", 2)
         self.assertEqual(sorted(t.keys_with_prefix("occa")), ["occam", "occasion", "occasionally"])
+
+    def test_all_pairs_empty_tst(self):
+        t = TST()
+        self.assertEqual(t.all_pairs(), {})
+
+    def test_all_pairs_tst_size_1(self):
+        t = TST()
+        t.insert("the most sadistic", "necro")
+        self.assertEqual(t.all_pairs(), {"the most sadistic": "necro"})
+
+    def test_all_pairs_random_size_and_strings(self):
+        t = TST()
+
+        n = random.randint(3, 1000)
+        random_pairs = {}
+
+        for _ in range(n):
+            key = self.gen_rand_str(random.randint(1, 17))
+            random_pairs[key] = key
+            t.insert(key, key)
+
+        self.assertEqual(t.all_pairs(), random_pairs)
+
+    def test_longest_prefix_of_query_not_str(self):
+        t = TST()
+        self.assertRaises(TypeError, t.longest_prefix_of, -0.12)
+
+    def test_longest_prefix_of_query_empty(self):
+        t = TST()
+        self.assertRaises(ValueError, t.longest_prefix_of, "")
+
+    def test_longest_prefix_of_empty_tst(self):
+        t = TST()
+        self.assertEqual(t.longest_prefix_of(self.gen_rand_str(10)), "")
+
+    def test_longest_prefix_of_longest_prefix_size_zero(self):
+        t = TST()
+        t.insert("obnoxious", 7)
+        # obnoxious is NOT even a prefix of over
+        self.assertEqual(t.longest_prefix_of("over"), "")
+
+    def test_longest_prefix_of_longest_prefix_size_one(self):
+        t = TST()
+        t.insert("o", 7)
+        t.insert("obnoxious", 23)
+        self.assertEqual(t.longest_prefix_of("overall"), "o")
+
+    def test_longest_prefix_of_longest_prefix_size_two(self):
+        t = TST()
+        t.insert("p", 7)
+        t.insert("oa", 23)
+        self.assertEqual(t.longest_prefix_of("oak"), "oa")
+
+    def test_longest_prefix_of_longest_prefix_size_of_query(self):
+        t = TST()
+        t.insert("allen", "first")
+        t.insert("allen halloween", "underrated!")
+        self.assertEqual(t.longest_prefix_of("allen halloween"), "allen halloween")

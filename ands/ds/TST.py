@@ -62,6 +62,10 @@ C++ implementation of a TST by Keith Schwarz, which provides a good analysis of 
 at [http://p2p.wrox.com/book-beginning-algorithms](http://p2p.wrox.com/book-beginning-algorithms)
 - [Plant your data in a ternary search tree](http://www.javaworld.com/article/2075027/java-app-dev/plant-your-data-in-a-ternary-search-tree.html?page=1)
 
+# TODO
+
+- keys with prefix (and associated values)
+
 """
 
 
@@ -194,7 +198,7 @@ class TST:
         """**Time complexity:** O(1)."""
         return self._n == 0
 
-    def insert(self, key: str, value: object):
+    def insert(self, key: str, value: object) -> None:
         """Inserts the `key` into the symbol table and associates with it `value`,
         overwriting an eventual associated old value, if the `key` is already in self.
 
@@ -443,6 +447,7 @@ class TST:
         """Returns all keys in this TST that start with `prefix`.
 
         If `prefix` is not an instance of `str`, `TypeError` is raised.
+
         If `prefix` is an empty string, then all keys in this TST
         that start with an empty string, thus all keys are returned."""
         if not isinstance(prefix, str):
@@ -451,7 +456,7 @@ class TST:
         kwp = []
 
         if not prefix:
-            self._collect(self._root, [], kwp)
+            self._keys_with_prefix(self._root, [], kwp)
         else:
             node = self._search(self._root, prefix, 0)
 
@@ -460,22 +465,77 @@ class TST:
                     # A `key` equals to prefix was found in the TST with an associated value.
                     kwp.append(prefix)
 
-                self._collect(node.mid, list(prefix), kwp)
+                self._keys_with_prefix(node.mid, list(prefix), kwp)
 
         return kwp
 
-    def _collect(self, node: TSTNode, prefix_list: list, kwp: list) -> None:
+    def _keys_with_prefix(self, node: TSTNode, prefix_list: list, kwp: list) -> None:
         """Returns all keys rooted at `node` given the prefix given as a list of characters `prefix_list`."""
         if node is None:
             return
 
-        self._collect(node.left, prefix_list, kwp)
+        self._keys_with_prefix(node.left, prefix_list, kwp)
 
         if node.value is not None:
             kwp.append("".join(prefix_list + [node.key]))
 
         prefix_list.append(node.key)
-        self._collect(node.mid, prefix_list, kwp)
+        self._keys_with_prefix(node.mid, prefix_list, kwp)
 
         prefix_list.pop()
-        self._collect(node.right, prefix_list, kwp)
+        self._keys_with_prefix(node.right, prefix_list, kwp)
+
+    def all_pairs(self) -> dict:
+        """Returns all pairs of key:value from this TST as a Python `dict`."""
+        pairs = {}
+        self._all_pairs(self._root, [], pairs)
+        return pairs
+
+    def _all_pairs(self, node: TSTNode, key_list: list, all_dict: list) -> None:
+        if node is None:
+            return
+
+        self._all_pairs(node.left, key_list, all_dict)
+
+        if node.value is not None:
+            key = "".join(key_list + [node.key])
+            assert key not in all_dict
+            all_dict[key] = node.value
+
+        key_list.append(node.key)
+        self._all_pairs(node.mid, key_list, all_dict)
+
+        key_list.pop()
+        self._all_pairs(node.right, key_list, all_dict)
+
+    def longest_prefix_of(self, query: str) -> str:
+        """Returns the key in this TST which is the longest prefix of `query`,
+        if such a key exists, else it returns None.
+
+        If `query` is not a string `TypeError` is raised.
+        If `query` is a string but empty, `ValueError` is raised.
+
+        If this TST is empty, it returns an empty string."""
+        if not isinstance(query, str):
+            raise TypeError("query is not an instance of str!")
+        if not query:
+            raise ValueError("empty strings not allowed in this TST!")
+
+        length = 0  # It keeps track of the length of the longest prefix of query.
+        x = self._root
+        i = 0
+
+        while x is not None and i < len(query):
+            c = query[i]
+
+            if c < x.key:
+                x = x.left
+            elif c > x.key:
+                x = x.right
+            else:
+                i += 1
+                if x.value is not None:
+                    length = i
+                x = x.mid
+
+        return query[:length]
