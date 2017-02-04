@@ -541,7 +541,7 @@ class TST:
 
         A key `k` of length `m` matches `pattern` if:
 
-            1. m = length(pattern)
+            1. m = length(pattern), and
             2. Either k[i] == pattern[i] or k[i] == '.'.
                 - Example: if `pattern == ".ood"`,
                 then `k == "good"` would match, but not `k == "foodie"`.
