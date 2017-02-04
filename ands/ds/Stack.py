@@ -82,7 +82,9 @@ class Stack:
         return None if self.is_empty() else self._stack.pop()
 
     def size(self) -> int:
-        """Returns the size of this stack."""
+        """Returns the size of this stack.
+
+        **Time complexity:** O(1)."""
         return len(self._stack)
 
     def is_empty(self) -> bool:
