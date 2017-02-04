@@ -23,7 +23,7 @@ hence there can be more than one data structure for the same ADT.
 What defines a stack is the order of insertion and removal of elements from it:
 a stack is a "last in, first out" (or, as an acronym, LIFO) abstract data type,
 that is, the last element inserted into the stack is the first to be removed.
-Since this is an ADT, we don't care how the elements stored in memory,
+Since this is an ADT, we don't care how the elements are stored in memory,
 or how we manipulate them so that the last element inserted is the first to be removed.
 The insertion of an element is usually called "push", whereas the removal is usually called "pop".
 There's also another operation (i.e. "peek" or "top")
@@ -36,7 +36,10 @@ or "is empty" (i.e. checking if the stack contains elements or not) may also use
 - [http://interactivepython.org/runestone/static/pythonds/Introduction/WhyStudyDataStructuresandAbstractDataTypes.html](http://interactivepython.org/runestone/static/pythonds/Introduction/WhyStudyDataStructuresandAbstractDataTypes.html)
 - [http://stackoverflow.com/questions/195625/what-is-the-time-complexity-of-popping-elements-from-list-in-python](http://stackoverflow.com/questions/195625/what-is-the-time-complexity-of-popping-elements-from-list-in-python),
 for the time complexity analysis of the pop operation of the last element on lists.
-
+- [http://stackoverflow.com/questions/1115313/cost-of-len-function](http://stackoverflow.com/questions/1115313/cost-of-len-function),
+for the time complexity analysis of the size operation.
+- [http://stackoverflow.com/questions/12342457/what-is-the-big-o-notation-for-the-len-function-in-python](http://stackoverflow.com/questions/12342457/what-is-the-big-o-notation-for-the-len-function-in-python),
+for other time complexity analysis of the list class.
 """
 
 from collections import Iterable
