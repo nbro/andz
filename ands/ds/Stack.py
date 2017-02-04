@@ -10,7 +10,7 @@ Updated: 04/02/2017
 
 # Description
 
-A _stack is one of the most simple and, at the same time, useful abstract data types in computer science.
+A stack is one of the most simple and, at the same time, useful abstract data types in computer science.
 
 An abstract data type (or, in short, ADT) is a logical description or specification
 of a certain way of viewing and/or organizing data, and which values and operations are allowed on this data.
@@ -20,16 +20,16 @@ Essentially, ADTs is all about ideas or concepts of representing and manipulatin
 whereas a data structure is an implementation of a specific ADTs;
 hence there can be more than one data structure for the same ADT.
 
-What defines a _stack is the order of insertion and removal of elements from it:
-a _stack is a "last in, first out" (or, as an acronym, LIFO) abstract data type,
-that is, the last element inserted into the _stack is the first to be removed.
+What defines a stack is the order of insertion and removal of elements from it:
+a stack is a "last in, first out" (or, as an acronym, LIFO) abstract data type,
+that is, the last element inserted into the stack is the first to be removed.
 Since this is an ADT, we don't care how the elements stored in memory,
 or how we manipulate them so that the last element inserted is the first to be removed.
 The insertion of an element is usually called "push", whereas the removal is usually called "pop".
 There's also another operation (i.e. "peek" or "top")
-which consists in looking at the last element inserted into the _stack.
-Of course other operations, such as "size of the _stack" (i.e. how many elements in the _stack)
-or "is empty" (i.e. checking if the _stack contains elements or not) may also useful.
+which consists in looking at the last element inserted into the stack.
+Of course other operations, such as "size of the stack" (i.e. how many elements in the stack)
+or "is empty" (i.e. checking if the stack contains elements or not) may also useful.
 
 # References
 
