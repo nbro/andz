@@ -11,13 +11,13 @@ Updated: 05/02/2017
 
 # Description
 
-Tests for the HeapNode class in heap.py.
+Tests for the HeapNode class in Heap.py.
 
 """
 
 import unittest
 
-from ands.ds.heap import HeapNode
+from ands.ds.Heap import HeapNode
 
 
 class TestHeapNode(unittest.TestCase):

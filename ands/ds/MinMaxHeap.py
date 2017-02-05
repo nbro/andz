@@ -67,7 +67,7 @@ original paper describing and introducing the min-max heap data structure, by M.
 - [http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html](http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html)
 """
 
-from ands.ds.heap import BinaryHeap, HeapNode
+from ands.ds.Heap import BinaryHeap, HeapNode
 
 
 class MinMaxHeap(BinaryHeap):

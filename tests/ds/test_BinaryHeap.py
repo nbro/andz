@@ -15,7 +15,7 @@ Tests for the abstract class BinaryHeap.
 
 import unittest
 
-from ands.ds.heap import BinaryHeap
+from ands.ds.Heap import BinaryHeap
 
 
 class TestBinaryHeap(unittest.TestCase):

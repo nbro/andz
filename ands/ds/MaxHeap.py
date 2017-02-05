@@ -23,7 +23,7 @@ For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHe
 
 """
 
-from ands.ds.heap import BinaryHeap, HeapNode
+from ands.ds.Heap import BinaryHeap, HeapNode
 
 __all__ = ["MaxHeap", "is_max_heap"]
 

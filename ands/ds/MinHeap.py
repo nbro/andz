@@ -40,7 +40,7 @@ Note that these indexes are for 0-index based lists (or arrays).
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 """
 
-from ands.ds.heap import BinaryHeap, HeapNode
+from ands.ds.Heap import BinaryHeap, HeapNode
 
 __all__ = ["MinHeap", "is_min_heap"]
 
