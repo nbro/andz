@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 01/01/2017
+
+# Description
 
 Testing the one_time_pad algorithm.
 """
@@ -38,7 +44,3 @@ class TestOneTimePad(unittest.TestCase):
         it = randint(3, 11)
         size = randint(10, 1000)
         self.template_test(it, size)
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)

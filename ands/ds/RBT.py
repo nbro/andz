@@ -2,12 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Creation: July, 2015
+Created: 01/08/2015
 
-Last update: 28/08/16
+Updated: 28/08/2016
 
+# Description
 
 ## Red-black Tree Property
 
@@ -83,16 +86,16 @@ Now we log both parts
     insert, etc, so the complexity of those operations is T(n) = O(h),
     that is T(n) = O(log<sub>2</sub> n), which is also the worst case complexity.
 
-## TODO
+# TODO
+
 - Override needed methods inherited from BST.
 
-## References
+# References
 
 - [https://en.wikipedia.org/wiki/Red%E2%80%93black_tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
-
 - Slides by prof. A. Carzaniga
-
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
+
 """
 
 import math

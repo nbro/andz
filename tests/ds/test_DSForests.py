@@ -2,19 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
+Created: 22/02/16
+Updated: 03/01/17
 
-Creation: 22/02/16
-
-Last update: 03/01/17
-
-## Description
+# Description
 
 Tests for the DSForests class and associated classes.
 
-## Note
+# Note
 
 Since find_iteratively internally asserts that its result is equal to find,
 in these tests I'm using find_iteratively
@@ -193,7 +191,3 @@ class TestDSForests(unittest.TestCase):
 
         ds.union(8, 13)
         ds.print_set(3)
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)

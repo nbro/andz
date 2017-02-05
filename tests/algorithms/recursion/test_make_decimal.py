@@ -2,9 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
-Author: Nelson Brochado
+# Meta info
 
+Author: Nelson Brochado
 Created: 20/01/2017
+
+# Description
+
+Testing make_decimal function.
 """
 
 import string

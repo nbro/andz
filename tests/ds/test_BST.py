@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 13/02/2016
+Updated: 30/08/2016
 
-Creation: 13/02/16
-
-Last update: 30/08/16
+# Description
 
 Tests for the BST class.
 """
@@ -324,7 +326,3 @@ class TestBST(unittest.TestCase):
 
         b._switch(b.search(10), b.search(10).left.right)
         asserts()
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)

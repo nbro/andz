@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 20/02/2016
+Updated: 05/02/2017
 
-Creation: 20/02/16
-
-Last Update: 08/10/16
+# Description
 
 Tests for the MinMaxHeap class.
 """

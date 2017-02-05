@@ -2,38 +2,37 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Creation: July, 2015
+Created: 01/07/2015
 
-Updated: 21/01/2017
+Updated: 05/02/2017
 
-Base abstract class to represent heaps.
-See `MinHeap` and `MaxHeap` if you want to instantiate heap objects.
+# Description
 
-## [NotImplementedError](https://docs.python.org/3/library/exceptions.html#NotImplementedError)
+This module contains currently the classes `HeapNode`, which is a class to represent nodes of heaps,
+the class `BinaryHeap` and a function which returns a pretty string representation of a heap passed as parameter.
 
-This exception is derived from `RuntimeError`.
-In user defined base classes,
-abstract methods should raise this exception
-when they require derived classes to override the method.
-
-## References
+# References
 
 - [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
 - Slides by prof. A. Carzaniga
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
+- [NotImplementedError](https://docs.python.org/3/library/exceptions.html#NotImplementedError)
+
 """
 
 import io
 import math
+from collections import Iterable
 
-__all__ = ["BaseHeap", "Heap", "HeapNode"]
+__all__ = ["BinaryHeap", "HeapNode", "build_pretty_binary_heap"]
 
 
 class HeapNode:
-    """All elements of Heap objects are represented
-    with objects of the class HeapNode."""
+    """All elements of heap objects are represented with objects of the class HeapNode."""
 
     def __init__(self, key, value=None):
         """`key` is the priority used to heapify the heap,
@@ -69,14 +68,16 @@ class HeapNode:
         return str(self.value) + " -> " + str(self.key)
 
 
-class BaseHeap:
+class BinaryHeap:
+    """Abstract class to represent binary heaps.
+
+    `MinHeap`, `MaxHeap` and `MinMaxHeap` all derive from this class."""
+
     def __init__(self, ls=None):
         if ls is None:
             ls = []
-        self.heap = BaseHeap._create_list_of_heap_nodes(ls)
+        self.heap = BinaryHeap._create_list_of_heap_nodes(ls)
         self.build_heap()
-
-    # ABSTRACT METHODS
 
     def push_down(self, i: int) -> None:
         """Classical so-called heapify operation for heaps."""
@@ -86,6 +87,9 @@ class BaseHeap:
         """Classical reverse-heapify operation for heaps."""
         raise NotImplementedError()
 
+    def delete(self, i: int) -> HeapNode:
+        raise NotImplementedError()
+
     def replace(self, i: int, x) -> HeapNode:
         """Replaces the `HeapNode` object at index `i` with `x`.
 
@@ -93,11 +97,6 @@ class BaseHeap:
         If it's a key, an `HeapNode` is first created,
         whose key and value are equal to `x`."""
         raise NotImplementedError()
-
-    def delete(self, i: int) -> HeapNode:
-        raise NotImplementedError()
-
-    # BASE-IMPLEMENTED METHODS
 
     def build_heap(self) -> list:
         """Builds the heap data structure from `self.heap`."""
@@ -335,19 +334,11 @@ class BaseHeap:
         """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`)."""
         return not self.is_on_even_level(i)
 
-    # PRINT FUNCTIONS
-
     def __str__(self) -> str:
         return str(self.heap)
 
     def __repr__(self) -> str:
-        return HeapPrinter(self.heap).show()
-
-    def show(self, total_width=36, fill=" ") -> None:
-        """Pretty-prints this heap."""
-        print(HeapPrinter(self.heap).show(total_width, fill))
-
-    # STATIC FUNCTIONS
+        return build_pretty_binary_heap(self.heap)
 
     @staticmethod
     def _create_list_of_heap_nodes(ls: list) -> list:
@@ -371,75 +362,48 @@ class BaseHeap:
         return nodes
 
 
-class Heap(BaseHeap):
-    # Abstract class from which MinHeap and MaxHeap derive.
-    # MinMaxHeap instead derives from the root abstract class BaseHeap.
+def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:
+    """Returns a string (which can be printed) representing `heap` as a tree.
 
-    def __init__(self, ls=None):
-        BaseHeap.__init__(self, ls)
+    Adapted for Python 3 from: [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/).
 
-    def delete(self, i: int) -> HeapNode:
-        """Deletes and returns the `HeapNode` object at index `i`.
+    To increase/decrease the horizontal space between nodes,
+    just increase/decrease the float number h_space.
 
-        `IndexError` is raised if `i` is not a valid index.
+    To increase/decrease the vertical space between nodes,
+    just increase/decrease the integer number v_space.
+    Note that v_space must be an integer.
 
-        Implementation based on:
-        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+    To change the length of the line under the heap,
+    you can simply change the line_length variable."""
+    if not isinstance(heap, Iterable):
+        raise TypeError("heap must be an iterable object")
+    if len(heap) == 0:
+        return "Nothing to print: heap is empty."
 
-        **Time Complexity:** O(log<sub>2</sub> h),
-        where `h` is the number of nodes rooted at `i`."""
-        if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")
-        if i == self.size() - 1:
-            return self.heap.pop()
-        self.swap(i, self.size() - 1)
-        d = self.heap.pop()
-        self.push_down(i)
-        return d
+    output = io.StringIO()
+    last_row = -1
 
+    h_space = 3.0  # float
+    v_space = 2  # int
 
-class HeapPrinter:
-    def __init__(self, heap):
-        self.heap = heap
+    for i, heap_node in enumerate(heap):
+        if i:
+            row = int(math.floor(math.log(i + 1, 2)))
+        else:
+            row = 0
 
-    def show(self, total_width=36, fill=" ") -> str:
-        """Adapted for Python 3 from:
-        [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/).
+        if row != last_row:
+            output.write("\n" * v_space)
 
-        To increase/decrease the horizontal space between nodes,
-        just increase/decrease the float number h_space.
+        columns = 2 ** row
 
-        To increase/decrease the vertical space between nodes,
-        just increase/decrease the integer number v_space.
-        Note that v_space must be an integer.
+        column_width = int(math.floor((total_width * h_space) / columns))
+        output.write(str(heap_node).center(column_width, fill))
+        last_row = row
 
-        To change the length of the line under the heap,
-        you can simply change the line_length variable."""
-        if not self.heap:
-            return "Nothing to print: heap is empty."
+    s = output.getvalue() + "\n"
 
-        output = io.StringIO()
-        last_row = -1
-
-        h_space = 3.0  # float
-        v_space = 2  # int
-
-        for i, heap_node in enumerate(self.heap):
-            if i:
-                row = int(math.floor(math.log(i + 1, 2)))
-            else:
-                row = 0
-            if row != last_row:
-                output.write("\n" * v_space)
-
-            columns = 2 ** row
-
-            column_width = int(math.floor((total_width * h_space) / columns))
-            output.write(str(heap_node).center(column_width, fill))
-            last_row = row
-
-        s = output.getvalue() + "\n"
-
-        line_length = total_width + 15  # int
-        s += ('-' * line_length + "\n")
-        return s
+    line_length = total_width + 15  # int
+    s += ('-' * line_length + "\n")
+    return s

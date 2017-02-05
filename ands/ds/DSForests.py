@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
 
-Creation: 21/02/16
+Created: 21/02/2016
 
-Last update: 03/01/16
+Updated: 03/01/2016
 
-## Description
+# Description
 
 A disjoint-set (forests) or union-find data structure is a data structure which keeps track of a set of elements
 partitioned into disjoint (non-overlapping, i.e. their intersection is the empty set) sets.
@@ -31,34 +31,26 @@ The usual operations supported by this data structure are:
 
 These two techniques complement each other: applied together, the amortized time per operation is only O( &alpha; (n)).
 
-## References
-
-- Introduction to algorithms, 3rd, by C.L.R.S., chapter 21.3
-
-- [https://en.wikipedia.org/wiki/Disjoint-set_data_structure](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
-
-- [http://orionsword.no-ip.org/blog/wordpress/?p=246](http://orionsword.no-ip.org/blog/wordpress/?p=246)
-
-- [http://stackoverflow.com/a/22945492/3924118](http://stackoverflow.com/a/22945492/3924118)
-
-- [http://stackoverflow.com/q/23055236/3924118](http://stackoverflow.com/q/23055236/3924118)
-
-- [https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html](https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html)
-to visualize how disjoint-sets work.
-
-## TODO
+# TODO
 
 - Deletion operation (OPTIONAL, since it's usually not part of the interface of a disjoint-set data structure)
-
 - Pretty-print(x), for some element x in the disjoint-set data structure.
-
 - Implement the version explained [here](http://algs4.cs.princeton.edu/15uf/)
+
+# References
+
+- Introduction to algorithms, 3rd, by C.L.R.S., chapter 21.3
+- [https://en.wikipedia.org/wiki/Disjoint-set_data_structure](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
+- [http://orionsword.no-ip.org/blog/wordpress/?p=246](http://orionsword.no-ip.org/blog/wordpress/?p=246)
+- [http://stackoverflow.com/a/22945492/3924118](http://stackoverflow.com/a/22945492/3924118)
+- [http://stackoverflow.com/q/23055236/3924118](http://stackoverflow.com/q/23055236/3924118)
+- [https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html](https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html)
+to visualize how disjoint-sets work.
 
 """
 
 
 class DSNode:
-
     def __init__(self, x, rank=0):
         # This attribute can contain any hashable value.
         self.value = x
@@ -97,7 +89,6 @@ class DSNode:
 
 
 class DSForests:
-
     def __init__(self):
         # keeps tracks of the DSNodes in this disjoint-set forests.
         self.sets = {}

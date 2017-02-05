@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 14/02/2016
+Updated: 05/02/2017
 
-Creation: 14/02/16
-
-Last update: 01/01/17
+# Description
 
 Tests for the MinHeap class.
 """
@@ -580,7 +582,3 @@ class TestMinHeap(unittest.TestCase):
         self.assertFalse(h.is_on_odd_level(6))
         self.assertTrue(h.is_on_odd_level(7))
         self.assertTrue(h.is_on_odd_level(8))
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)

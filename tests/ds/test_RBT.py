@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 15/02/2016
+Updated: 08/10/2017
 
-Creation: 15/02/16
-
-Last update: 08/10/16
+# Description
 
 Tests for the RBT class.
+
 """
 
 import unittest
@@ -435,7 +438,3 @@ class TestRBT(unittest.TestCase):
         _m = rbt.remove_min()
         self.assertEqual(m, _m)
         self.assertIsNone(rbt.search(6))
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
