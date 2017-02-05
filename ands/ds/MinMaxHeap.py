@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Creation: 18/02/16
+Created: 18/02/2016
 
-Last update: 29/12/16
+Updated: 29/12/2016
+
+# Description
 
 Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
 Moreover, both remove-min and remove-max are supported in logarithmic time.
@@ -51,24 +55,24 @@ The most important methods used to build and support the data structure are:
 - `merge` in O(n + m) time
 - `clear` in O(1) time
 
-## TODO
+# TODO
 
 - `find-kth`, i.e. find the kth smallest element in the structure, in O(1) time 
 - `delete-kth`, i.e. delete the kth smallest element, in O(log n) time 
 
-## References:
+# References
 
 - [Min-Max Heaps and Generalized Priority Queues](http://www.akira.ruc.dk/~keld/teaching/algoritmedesign_f03/Artikler/02/Atkinson86.pdf),
 original paper describing and introducing the min-max heap data structure, by M. D. Atkinson, J.R. Sack, N. Santoro and T. Strothotte.
 - [http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html](http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html)
 """
 
-from ands.ds.Heap import BaseHeap, HeapNode
+from ands.ds.heap import BinaryHeap, HeapNode
 
 
-class MinMaxHeap(BaseHeap):
+class MinMaxHeap(BinaryHeap):
     def __init__(self, ls=None):
-        BaseHeap.__init__(self, ls)
+        BinaryHeap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
         """Also called `bubble-down` or `shift-down`."""

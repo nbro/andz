@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 01/05/2016
+
+# Description
+
+Testing the functions under forward_euler.py
 """
 
 import unittest
@@ -11,7 +19,6 @@ from ands.algorithms.ode.forward_euler import *
 
 
 class TestForwardEuler(unittest.TestCase):
-
     def f(self, ti, yi):
         return yi
 
@@ -56,7 +63,3 @@ class TestForwardEuler(unittest.TestCase):
 
         self.assertIsNotNone(t)
         self.assertIsNotNone(y)
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)

@@ -2,9 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-Author: Nelson Brochado
+# Meta info
 
+Author: Nelson Brochado
 Created: 15/01/2017
+
+# Description
 
 Testing the method `count` from `ands.algorithms.recursion.count`.
 """

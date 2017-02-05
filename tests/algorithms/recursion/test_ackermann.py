@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Author: Nelson Brochado
 
+"""
+# Meta info
+
+Author: Nelson Brochado
 Created: 18/01/2017
+
+# Description
 
 Testing the first 3*3 = 9 permutations for two inputs m and n from a domain {0, 1, 2}
 """

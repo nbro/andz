@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 17/02/2016
+Updated: 05/02/2017
 
-Creation: 17/02/16
-
-Last update: 15/10/16
+# Description
 
 Tests for the MaxHeap class.
 """
@@ -522,7 +524,3 @@ class TestMaxHeap(unittest.TestCase):
         self.assertFalse(h.is_on_odd_level(6))
         self.assertTrue(h.is_on_odd_level(7))
         self.assertTrue(h.is_on_odd_level(8))
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)

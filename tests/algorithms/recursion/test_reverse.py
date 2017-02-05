@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Author: Nelson Brochado
 
+"""
+# Meta info
+
+Author: Nelson Brochado
 Created: 16/01/2017
+
+# Description
 
 Testing the recursive implementation of reversing a list.
 """

@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 15/02/2016
+Updated: 30/08/2016
 
-Creation: 15/02/16
-
-Last update: 30/08/16
+# Description
 
 Tests for the BSTNode class.
 """
@@ -147,7 +149,3 @@ class TestBSTNode(unittest.TestCase):
         self.assertIsNone(n.uncle)
         self.assertIsNone(n.sibling)
         self.assertRaises(AttributeError, n.is_left_child)
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)

@@ -5,7 +5,9 @@
 # Meta info
 
 Author: Nelson Brochado
+
 Created: 05/07/2015
+
 Updated: 04/02/2017
 
 # Description
@@ -40,6 +42,7 @@ for the time complexity analysis of the pop operation of the last element on lis
 for the time complexity analysis of the size operation.
 - [http://stackoverflow.com/questions/12342457/what-is-the-big-o-notation-for-the-len-function-in-python](http://stackoverflow.com/questions/12342457/what-is-the-big-o-notation-for-the-len-function-in-python),
 for other time complexity analysis of the list class.
+
 """
 
 from collections import Iterable

@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 01/01/2017
+
+# Description
 
 Tests for the caesar cipher algorithms.
 """

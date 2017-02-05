@@ -5,7 +5,9 @@
 # Meta info
 
 Author: Nelson Brochado
+
 Created: 05/09/2015
+
 Updated: 03/02/2017
 
 # Description
@@ -541,10 +543,10 @@ class TST:
 
         A key `k` of length `m` matches `pattern` if:
 
-            1. m = length(pattern), and
-            2. Either k[i] == pattern[i] or k[i] == '.'.
-                - Example: if `pattern == ".ood"`,
-                then `k == "good"` would match, but not `k == "foodie"`.
+        1. m = length(pattern), and
+        2. Either k[i] == pattern[i] or k[i] == '.'.
+            - Example: if `pattern == ".ood"`,
+            then `k == "good"` would match, but not `k == "foodie"`.
 
         If `pattern` is not a `str`, `TypeError` is raised.
         If `pattern` is an empty string, `ValueError` is raised."""
