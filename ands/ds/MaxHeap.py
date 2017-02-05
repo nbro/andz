@@ -2,32 +2,35 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Creation: 15/02/16
+Created: 15/02/2016
 
-Last update: 28/08/16
+Updated: 05/02/2017
+
+# Description
 
 Mirror-class to the MinHeap class.
 For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHeap.py).
 
-## References
+# References
 
 - [https://en.wikipedia.org/wiki/Binary_heap](https://en.wikipedia.org/wiki/Binary_heap)
-
 - Slides by prof. A. Carzaniga
-
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
+
 """
 
-from ands.ds.Heap import Heap, HeapNode
+from ands.ds.Heap import BinaryHeap, HeapNode
 
 __all__ = ["MaxHeap", "is_max_heap"]
 
 
-class MaxHeap(Heap):
+class MaxHeap(BinaryHeap):
     def __init__(self, ls=None):
-        Heap.__init__(self, ls)
+        BinaryHeap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
         """'Max-heapify' this max-heap starting from index `i`.
@@ -80,6 +83,25 @@ class MaxHeap(Heap):
             if not self.is_empty():
                 self.push_down(0)
             return m
+
+    def delete(self, i: int) -> HeapNode:
+        """Deletes and returns the `HeapNode` object at index `i`.
+
+        `IndexError` is raised if `i` is not a valid index.
+
+        Implementation based on:
+        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
+        **Time Complexity:** O(log<sub>2</sub> h),
+        where `h` is the number of nodes rooted at `i`."""
+        if not self.is_good_index(i):
+            raise IndexError("i is not a valid index.")
+        if i == self.size() - 1:
+            return self.heap.pop()
+        self.swap(i, self.size() - 1)
+        d = self.heap.pop()
+        self.push_down(i)
+        return d
 
     def replace(self, i: int, x) -> HeapNode:
         """Replaces element at index `i` with `x`.

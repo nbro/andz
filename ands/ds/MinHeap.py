@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Creation: July, 2015
+Created: 01/07/2015
 
-Last update: 28/08/16
+Updated: 05/02/2017
+
+# Description
 
 A binary min-heap is a data structure similar to a binary tree,
 where the parent nodes are smaller or equal to their children.
@@ -29,23 +33,21 @@ where floor(x) truncates x to the smallest integer.
 
 Note that these indexes are for 0-index based lists (or arrays).
 
-## References
+# References
 
 - [https://en.wikipedia.org/wiki/Binary_heap](https://en.wikipedia.org/wiki/Binary_heap)
-
 - Slides by prof. A. Carzaniga
-
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 """
 
-from ands.ds.Heap import Heap, HeapNode
+from ands.ds.Heap import BinaryHeap, HeapNode
 
 __all__ = ["MinHeap", "is_min_heap"]
 
 
-class MinHeap(Heap):
+class MinHeap(BinaryHeap):
     def __init__(self, ls=None):
-        Heap.__init__(self, ls)
+        BinaryHeap.__init__(self, ls)
 
     def push_down(self, i: int) -> None:
         """'Min-heapify' this min-heap starting from index `i`.
@@ -102,6 +104,25 @@ class MinHeap(Heap):
             if not self.is_empty():
                 self.push_down(0)
             return m
+
+    def delete(self, i: int) -> HeapNode:
+        """Deletes and returns the `HeapNode` object at index `i`.
+
+        `IndexError` is raised if `i` is not a valid index.
+
+        Implementation based on:
+        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
+        **Time Complexity:** O(log<sub>2</sub> h),
+        where `h` is the number of nodes rooted at `i`."""
+        if not self.is_good_index(i):
+            raise IndexError("i is not a valid index.")
+        if i == self.size() - 1:
+            return self.heap.pop()
+        self.swap(i, self.size() - 1)
+        d = self.heap.pop()
+        self.push_down(i)
+        return d
 
     def replace(self, i: int, x) -> HeapNode:
         """Replaces element at index `i` with `x`.

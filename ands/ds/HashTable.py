@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Creation: June, 2015
+Created: 01/06/2015
 
-Last update: 21/02/16
+Updated: 21/02/2016
+
+# Description
 
 Hash table that re-sizes if no more slot is available.
 The process of re-sizing doubles the current capacity of the hash table each time (for now).
@@ -19,10 +23,11 @@ that is used by the Python's standard `dict` class, that is:
     h[12] = 3
     print(h[12])
 
-## References
-- [http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html](http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html)
+# References
 
+- [http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html](http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html)
 - [http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table](http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table)
+
 """
 
 from tabulate import tabulate

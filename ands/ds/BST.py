@@ -2,13 +2,18 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Creation: July, 2015
+Created: 01/07/2015
 
-Last update: 28/08/2016
+Updated: 28/08/2016
 
-## Names' Conventions
+# Description
+
+### Coding Conventions
+
 In general, if a variable name has more than one word,
 those words are separated by _ (underscores).
 Functions' names should roughly describe what the function does.
@@ -17,11 +22,13 @@ and not so self-descriptive, but, on the other hand,
 comments are usually provide on the first occurrence of the name,
 in order to explain the purpose of such a variable.
 
-### Functions
+#### Functions
+
 - Methods that start with _ should not be called,
 because they might either be "helper" or private functions.
 
-### Parameters
+#### Parameters
+
 - `u`, `v`, `z` and `w` are used to indicate that a general `BSTNode` object is expected.
 
 - `s` is used to indicate that a source node is expected.
@@ -31,12 +38,14 @@ or any other comparable object to represent keys.
 
 - `ls` is usually used to indicate that a list or a tuple is expected.
 
-### Local Variables
+#### Local Variables
+
 - `c` usually indicates some "current" changing variable.
 
 - `p` is usually `c`'s parent.
 
-### Docstrings
+#### Docstrings
+
 Under methods' signatures, h in O(h) is the height of the tree.
 Note that the height of a BST varies depending on how elements
 are inserted and removed.
@@ -46,25 +55,22 @@ as parameter.
 Other names are self-descriptive.
 For example, "key" and "value" are self-descriptive.
 
-## Resources
+# TODO
 
-- [https://en.wikipedia.org/wiki/Binary_search_tree](https://en.wikipedia.org/wiki/Binary_search_tree)
-
-- [Introduction to Algorithms (3rd edition)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS, chapter 12
-
-- [http://algs4.cs.princeton.edu/32bst/](http://algs4.cs.princeton.edu/32bst/)
-
-- [http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf](http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf
-)
-
-- [http://algs4.cs.princeton.edu/32bst/BST.java.html](http://algs4.cs.princeton.edu/32bst/BST.java.html)
-
-## TODO
 - Improve the "randomness" of insertion into the BSTImproved class.
 - Add functions "intersection" and "union".
 - Implement a recursive version of insert (OPTIONAL).
 - implement "is balanced" function (http://codereview.stackexchange.com/questions/108459/binary-tree-data-structure)
 - Maybe the methods of the BSTNode need an improvement in terms of implementation...
+
+# Resources
+
+- [https://en.wikipedia.org/wiki/Binary_search_tree](https://en.wikipedia.org/wiki/Binary_search_tree)
+- [Introduction to Algorithms (3rd edition)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS, chapter 12
+- [http://algs4.cs.princeton.edu/32bst/](http://algs4.cs.princeton.edu/32bst/)
+- [http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf](http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf)
+- [http://algs4.cs.princeton.edu/32bst/BST.java.html](http://algs4.cs.princeton.edu/32bst/BST.java.html)
+
 """
 
 from random import randint

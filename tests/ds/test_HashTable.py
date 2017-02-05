@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 21/02/2016
+Updated: 08/10/2016
 
-Creation: 21/02/16
-
-Last Update: 08/10/16
+# Description
 
 Test the HashTable class.
 """
@@ -212,7 +215,3 @@ class TestHashTable(unittest.TestCase):
             h = HashTable(capacity=i)
             self.assertEqual(h.capacity, i)
             self.assertEqual(h.size, 0)
-
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)

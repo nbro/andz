@@ -6,7 +6,9 @@
 
     - Queue, 
     - Stack,
-    - DSForests, 
+    - DSForests,
+    - HeapNode
+    - BinaryHeap
     - TST 
     
 which, as all other data structures, may nonetheless need to be improved!

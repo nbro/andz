@@ -2,9 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
-Author: Nelson Brochado
+# Meta info
 
+Author: Nelson Brochado
 Created: 21/01/2017
+
+# Description
+
+Testing methods under `factorial.py`.
 """
 
 import math

@@ -2,9 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
-Author: Nelson Brochado
+# Meta info
 
+Author: Nelson Brochado
 Created: 18/01/2017
+
+# Description
+
+Testing the recursive power function.
 """
 
 import unittest
