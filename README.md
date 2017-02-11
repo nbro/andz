@@ -20,7 +20,7 @@ Any suggestions to improve the code, or the design of an algorithm or data struc
 
 ## Content
 
-In this repository, you will find data structures, such as _binary-search trees_ or _graphs_, and _algorithms_ that often work on (those) data structures. 
+In this repository, you will find data structures, such as _binary-search trees_, and _algorithms_ that often work on (those) data structures. 
 You will also find some algorithms related to some particular _design paradigm_, for example algorithms related to the _greedy_ or _dynamic programming_ design paradigms.
 
 ## Notes, warnings and "philosophy"
