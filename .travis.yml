@@ -1,7 +1,7 @@
 # Travis CI only supports Python builds for Linux (at this moment)
 os:
   - linux
-
+  - osx
 
 language: python
 
@@ -9,6 +9,7 @@ python:
   - 3.3
   - 3.4
   - 3.5
+  - 3.6
 
 # command to install dependencies
 install:
