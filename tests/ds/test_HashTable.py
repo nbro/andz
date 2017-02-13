@@ -18,7 +18,7 @@ import string
 import unittest
 from random import sample, randint, uniform, choice
 
-from ands.ds.HashTable import HashTable, has_duplicates
+from ands.ds.HashTable import HashTable, has_duplicates_ignore_nones
 
 
 def gen_rand_str(size):
@@ -53,7 +53,7 @@ class TestHashTable(unittest.TestCase):
 
             p = a
             a = sample(a, len(a))
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
         for i, num in enumerate(a):
             try:
@@ -61,7 +61,7 @@ class TestHashTable(unittest.TestCase):
             except ValueError:
                 find_all_indices(num, a).index(t.get(num))
 
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
     def test_put_and_get_1(self):
         """Testing that errors are raised."""
@@ -88,12 +88,12 @@ class TestHashTable(unittest.TestCase):
                 t.put(letter, i + j)
 
             self.assertEqual(t.size, len(ls))
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
         for i, letter in enumerate(ls):
             self.assertEqual(t.get(letter), ls.index(letter) + n)
             self.assertEqual(t.size, len(ls))
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
     def test_put_and_get_3(self, n=100):
         """Testing insertion of permutations of the same items
@@ -121,12 +121,12 @@ class TestHashTable(unittest.TestCase):
             a = sample(a, len(a))
 
             self.assertEqual(t.size, len(a))
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
         for i, letter in enumerate(a):
             self.assertEqual(t.get(letter), p.index(letter) + n)
             self.assertEqual(t.size, len(a))
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
     def test_put_and_get_ints(self):
         self.put_and_get_numbers()
@@ -157,12 +157,12 @@ class TestHashTable(unittest.TestCase):
             a = sample(a, len(a))
 
             self.assertEqual(t.size, len(a))
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
         for i, s in enumerate(a):
             self.assertEqual(t.get(s), p.index(s) + n)
             self.assertEqual(t.size, len(a))
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
     def test_put_and_get_non_hashable_type(self):
         t = HashTable()
@@ -189,21 +189,21 @@ class TestHashTable(unittest.TestCase):
                 t[letter] = i + j
 
             self.assertEqual(t.size, len(ls))
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
         for i, letter in enumerate(ls):
             self.assertEqual(t[letter], ls.index(letter) + n)
             self.assertEqual(t.size, len(ls))
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
         for i, letter in enumerate(ls):
             v = t.delete(letter)
             self.assertIsNotNone(v)
-            self.assertFalse(has_duplicates(t.keys))
+            self.assertFalse(has_duplicates_ignore_nones(t._keys))
             self.assertEqual(t.size, len(ls) - (i + 1))
 
         self.assertEqual(t.size, 0)
-        self.assertFalse(has_duplicates(t.keys))
+        self.assertFalse(has_duplicates_ignore_nones(t._keys))
 
     def test_empty_hash_table_capacity(self):
         h = HashTable()
