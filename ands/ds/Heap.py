@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 05/02/2017
+Updated: 13/02/2017
 
 # Description
 
@@ -21,12 +21,11 @@ the class `BinaryHeap` and a function which returns a pretty string representati
 - Slides by prof. A. Carzaniga
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 - [NotImplementedError](https://docs.python.org/3/library/exceptions.html#NotImplementedError)
-
+- [How do I check if an object is an instance of a given class or of a subclass of it?](http://effbot.org/pyfaq/how-do-i-check-if-an-object-is-an-instance-of-a-given-class-or-of-a-subclass-of-it.htm)
 """
 
 import io
 import math
-from collections import Iterable
 
 __all__ = ["BinaryHeap", "HeapNode", "build_pretty_binary_heap"]
 
@@ -331,7 +330,7 @@ class BinaryHeap:
         return int(math.log2(i + 1) % 2) == 0
 
     def is_on_odd_level(self, i: int) -> bool:
-        """Returns `True` (`False`) if `self.is_on_even_level(i)` returns `False` (`True`)."""
+        """Returns `True` when self.is_on_even_level(i) returns `False`, and vice-versa."""
         return not self.is_on_even_level(i)
 
     def __str__(self) -> str:
@@ -342,13 +341,13 @@ class BinaryHeap:
 
     @staticmethod
     def _create_list_of_heap_nodes(ls: list) -> list:
-        """Creates and returns a list of `HeapNode`
-        objects with the objects in `ls`.
+        """Creates and returns a list of `HeapNode` objects with the objects in `ls`.
 
         **Time Complexity:** O(n)."""
         nodes = []
-        for _, x in enumerate(ls):
+        for x in ls:
             # x represents also its priority.
+            # Check if x is either an int or a float.
             if isinstance(x, (int, float)):
                 nodes.append(HeapNode(x))
             else:
@@ -376,8 +375,8 @@ def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:
 
     To change the length of the line under the heap,
     you can simply change the line_length variable."""
-    if not isinstance(heap, Iterable):
-        raise TypeError("heap must be an iterable object")
+    if not isinstance(heap, list):
+        raise TypeError("heap must be an list object")
     if len(heap) == 0:
         return "Nothing to print: heap is empty."
 
