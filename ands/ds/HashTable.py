@@ -36,5 +36,5 @@ class HashTable(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def get(self, key: object) -> None:
+    def get(self, key: object) -> object:
         pass
