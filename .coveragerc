@@ -1,5 +1,18 @@
+# More config options:
+# - http://coverage.readthedocs.io/en/latest/config.html
+# - http://coverage.readthedocs.io/en/latest/excluding.html#excluding
+
 [report]
+
 omit =  
     */python?.?/*
-    */site-packages/tabulate/*
+    */site-packages/*
     *__init__*
+
+exclude_lines =
+    @abstractmethod
+    raise NotImplementedError
+    def __repr__  # exclude __repr__ methods
+    def __str__  # exclude __repr__ methods
+    def __fields
+    def __invariants
