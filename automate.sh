@@ -17,26 +17,9 @@ clean()
     rm -rf ands.egg-info
     find . -type f -name ".coverage" -delete
     rm -rf venv
-    printf "${RED}All 'junk' files removed.${NORMAL}\n\n"
+    printf "${YELLOW}Environment cleaned.${NORMAL}\n\n"
 }
 
-
-format()
-{
-    # Format the code under ./ands/ and ./tests/
-    printf "${RED}Formatting code under './ands' and './tests' aggressively and recursively...${NORMAL}\n"
-
-    command -v autopep8
-    if [ $? != 0 ];
-    then
-        printf "${RED}Command 'autopep8' not found.\nInstalling it using 'pip3.5'...${NORMAL}\n";
-        pip3.5 install autopep8
-    fi
-
-    autopep8 --in-place --aggressive --recursive --max-line-length 120 ./ands
-    autopep8 --in-place --aggressive --recursive --max-line-length 120 ./tests
-    printf "${GREEN}Done.${NORMAL}\n\n"
-}
 
 new_docs()
 {
@@ -153,7 +136,6 @@ main()
 {
     assert_python35_installed
     clean
-    # format
     test_in_virtual_environment "$@"
     clean
 }
