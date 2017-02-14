@@ -10,6 +10,7 @@
     - HeapNode
     - BinaryHeap
     - TST 
+    - LinearProbingHashTable
     
 which, as all other data structures, may nonetheless need to be improved!
 
