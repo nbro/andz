@@ -526,11 +526,3 @@ class TestMaxHeap(unittest.TestCase):
         self.assertFalse(h.is_on_odd_level(6))
         self.assertTrue(h.is_on_odd_level(7))
         self.assertTrue(h.is_on_odd_level(8))
-
-    def test_str(self):
-        h = MaxHeap([12, 14, 28, 6, 7, 18, 10, 3, 1])
-        print(h)
-
-    def test_repr(self):
-        h = MaxHeap([1, 2, 3, 4, 5])
-        print(repr(h))

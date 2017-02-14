@@ -82,6 +82,3 @@ class TestStack(unittest.TestCase):
             self.assertEqual(s.size(), len(ls) - (i + 1))
 
         self.assertTrue(s.is_empty())
-
-    def test_print_stack(self):
-        print("\n", repr(Stack([11, 2, 3])), sep="")

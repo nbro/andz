@@ -4,15 +4,23 @@
 
 [report]
 
-omit =  
+omit =
     */python?.?/*
     */site-packages/*
     *__init__*
 
 exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
     @abstractmethod
+
     raise NotImplementedError
-    def __repr__  # exclude __repr__ methods
-    def __str__  # exclude __repr__ methods
+
+    def __repr__
+
+    def __str__
+
     def __fields
+
     def __invariants

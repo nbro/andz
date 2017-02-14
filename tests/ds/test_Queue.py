@@ -87,6 +87,3 @@ class TestQueue(unittest.TestCase):
             self.assertEqual(elem, ls[i])
 
         self.assertTrue(q.is_empty())
-
-    def test_str(self):
-        self.assertEqual(repr(Queue(["first", "second", "last"])), str(["first", "second", "last"]))

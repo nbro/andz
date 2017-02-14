@@ -91,16 +91,21 @@ class LinearProbingHashTable(HashTable):
         self._keys = [None] * self._n
         self._values = [None] * self._n
 
+    def __invariants(self):
+        """These conditions should always hold at the beginning and end of public methods!"""
+        assert len(self._keys) == len(self._values) == self._n
+        assert not has_duplicates_ignore_nones(self._keys)
+
     @property
     def size(self) -> int:
         """Returns the number of pairs key-value in this map."""
-        self.__invariants__()
+        self.__invariants()
         return sum(k is not None for k in self._keys)
 
     @property
     def capacity(self) -> int:
         """Returns the size of the internal buffers that store the keys and the values."""
-        self.__invariants__()
+        self.__invariants()
         return len(self._keys)
 
     def put(self, key: object, value: object) -> None:
@@ -110,9 +115,9 @@ class LinearProbingHashTable(HashTable):
         if key is None:
             raise TypeError("key cannot be None.")
 
-        self.__invariants__()
+        self.__invariants()
         self._put(key, value, self._n)
-        self.__invariants__()
+        self.__invariants()
 
     def _put(self, key: object, value: object, size: int) -> None:
         """Helper method of `self.put` and thus it's considered PRIVATE."""
@@ -181,17 +186,17 @@ class LinearProbingHashTable(HashTable):
         """Returns the value associated with `key`.
 
         If `key` is `None`, a `TypeError` is raised, because keys cannot be None."""
-        self.__invariants__()
+        self.__invariants()
         if key is None:
             raise TypeError("key cannot be None.")
         value = LinearProbingHashTable._get(key, self._keys, self._values, self._n)
-        self.__invariants__()
+        self.__invariants()
         return value
 
     def delete(self, key: object) -> object:
         """Deletes the mapping between `key` and its corresponding associated value.
         If there's no mapping, nothing is done."""
-        self.__invariants__()
+        self.__invariants()
 
         if key is None:
             raise TypeError("key cannot be None.")
@@ -202,10 +207,10 @@ class LinearProbingHashTable(HashTable):
             i = self._keys.index(key)
             v = self._values[i]
             self._keys[i] = self._values[i] = None
-            self.__invariants__()
+            self.__invariants()
             return v
         except ValueError:
-            self.__invariants__()
+            self.__invariants()
             pass
 
     def show(self) -> None:
@@ -229,11 +234,6 @@ class LinearProbingHashTable(HashTable):
 
     def __repr__(self):
         return self.__str__()
-
-    def __invariants__(self):
-        """These conditions should always hold at the beginning and end of public methods!"""
-        assert len(self._keys) == len(self._values) == self._n
-        assert not has_duplicates_ignore_nones(self._keys)
 
     @staticmethod
     def _hash_code(key, size: int) -> int:
