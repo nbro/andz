@@ -6,7 +6,10 @@
 # Meta info
 
 Author: Nelson Brochado
+
 Created: 01/05/2016
+
+Updated: 14/02/2017
 
 # Description
 
@@ -22,14 +25,15 @@ class TestForwardEuler(unittest.TestCase):
     def f(self, ti, yi):
         return yi
 
-    def get_b(self, a, n, h):
+    @staticmethod
+    def get_b(a, n, h):
         return h * n + a
 
     def test_parameters_not_none(self):
         a = 0
         n = 7
         h = 0.2
-        b = self.get_b(a, n, h)
+        b = TestForwardEuler.get_b(a, n, h)
         self.assertRaises(ValueError, forward_euler, None, b, n, 1, self.f)
         self.assertRaises(ValueError, forward_euler, a, None, n, 1, self.f)
         self.assertRaises(ValueError, forward_euler, a, b, None, 1, self.f)
@@ -39,14 +43,14 @@ class TestForwardEuler(unittest.TestCase):
         a = 0
         n = 7
         h = -0.2
-        b = self.get_b(a, n, h)
+        b = TestForwardEuler.get_b(a, n, h)
         self.assertRaises(ValueError, forward_euler, a, b, n, 1, self.f)
 
     def test_f_is_callable(self):
         a = 0
         n = 7
         h = 0.2
-        b = self.get_b(a, n, h)
+        b = TestForwardEuler.get_b(a, n, h)
         self.assertRaises(TypeError, forward_euler, a, b, n, 1, None)
 
     def test_1(self):
@@ -57,7 +61,7 @@ class TestForwardEuler(unittest.TestCase):
         a = 0
         n = 7
         h = 0.2
-        b = self.get_b(a, n, h)
+        b = TestForwardEuler.get_b(a, n, h)
 
         t, y = forward_euler(a, b, n, 1, self.f)
 

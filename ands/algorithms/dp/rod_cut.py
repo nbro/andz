@@ -124,7 +124,7 @@ def memoized_rod_cut(prices, n):
 
     # optimal first cut for rods of length 0..n
     s = [0] * (n + 1)
-    
+
     return _memoized_rod_cut_aux(prices, n, revenues, s), s
 
 
@@ -139,7 +139,7 @@ def bottom_up_rod_cut(prices, n):
     revenues = [-sys.maxsize] * (n + 1)
     revenues[0] = 0  # Revenue for rod of length 0 is 0.
 
-    for i in range(1, n + 1):        
+    for i in range(1, n + 1):
         max_revenue = -sys.maxsize
 
         for j in range(1, i + 1): # Find the max cut position for length i
@@ -194,7 +194,7 @@ def extended_bottom_up_rod_cut(prices, n):
                 else:
                     # revenue[i] (current) uses a rod of length j
                     # left most cut is at j
-                    s[i] = [j]  
+                    s[i] = [j]
 
         revenues[i] = max_revenue
 
@@ -222,7 +222,7 @@ if __name__ == "__main__":
     def test1():
         r, s = memoized_rod_cut(p1, len(p1) - 1)
         print("Revenue:", r)
-        print("s:", s) 
+        print("s:", s)
         rod_cut_solution_print(p1, len(p1) - 1, s)
         print("--------------------------------------------")
 
