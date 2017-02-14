@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 18/02/2016
 
-Updated: 29/12/2016
+Updated: 14/02/2017
 
 # Description
 
@@ -25,7 +25,22 @@ are greater than or equal to values stored at their descendants.
 Even levels are 0, 2, 4, 6, etc,
 whereas odd levels are 1, 3, 5, 7, etc.
 
-The most important methods used to build and support the data structure are:
+The public API of this class consists in the following methods:
+
+- add in O(log n) time
+- delete-at in O(log n) time
+- replace-at in O(log n) time
+- remove-min in O(log n) time
+- remove-max in O(log n) time
+- find-min in O(1) time
+- find-max in O(1) time
+- size in O(1) time
+- is-empty in O(1) time
+- contains in O(n) time
+- merge in O(n + m) time
+- clear in O(1) time
+
+And the following are the methods used to build and support the data structure (i.e. the previous operations):
 
 - trickle-down (or, also called, bubble-down or shift-down)
 - trickle-down-min, which is a helper method of trickle-down
@@ -42,23 +57,11 @@ The most important methods used to build and support the data structure are:
 - find-max-element-index
 - swap
 
-- `add` in O(log n) time
-- `delete-at` in O(log n) time
-- `replace-at` in O(log n) time
-- `remove-min` in O(log n) time
-- `remove-max` in O(log n) time
-- `find-min` in O(1) time
-- `find-max` in O(1) time
-- `size` in O(1) time
-- `is-empty` in O(1) time
-- `contains` in O(n) time
-- `merge` in O(n + m) time
-- `clear` in O(1) time
 
 # TODO
 
-- `find-kth`, i.e. find the kth smallest element in the structure, in O(1) time 
-- `delete-kth`, i.e. delete the kth smallest element, in O(log n) time 
+- find-kth, i.e. find the kth smallest element in the structure, in O(1) time
+- delete-kth, i.e. delete the kth smallest element, in O(log n) time
 
 # References
 
@@ -310,7 +313,7 @@ class MinMaxHeap(BinaryHeap):
         return m
 
 
-def is_min_max_heap(h) -> bool:
+def is_min_max_heap(h: MinMaxHeap) -> bool:
     """Returns `True` if `h` is a valid `MinMaxHeap` object. `False` otherwise.
 
     Min-max heap property:

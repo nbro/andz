@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 15/02/2016
 
-Updated: 05/02/2017
+Updated: 14/02/2017
 
 # Description
 
@@ -140,7 +140,7 @@ class MaxHeap(BinaryHeap):
         return c
 
 
-def is_max_heap(h) -> bool:
+def is_max_heap(h: MaxHeap) -> bool:
     """Returns `True` if `h` is a valid `MaxHeap`. `False` otherwise."""
     if not isinstance(h, MaxHeap):
         return False

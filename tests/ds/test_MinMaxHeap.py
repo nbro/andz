@@ -5,8 +5,10 @@
 # Meta info
 
 Author: Nelson Brochado
+
 Created: 20/02/2016
-Updated: 05/02/2017
+
+Updated: 14/02/2017
 
 # Description
 
@@ -247,3 +249,11 @@ class TestMinMaxHeap(unittest.TestCase):
         self.assertEqual(h.index_of_max(7), -1)
         self.assertEqual(h.index_of_min(8), -1)
         self.assertEqual(h.index_of_max(8), -1)
+
+    def test_str(self):
+        h = MinMaxHeap([7, 2, 92, 67])
+        print(h)
+
+    def test_repr(self):
+        h = MinMaxHeap([7, 2, 92, 67])
+        print(repr(h))
