@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 05/02/2017
+Updated: 14/02/2017
 
 # Description
 
@@ -161,7 +161,7 @@ class MinHeap(BinaryHeap):
         return c
 
 
-def is_min_heap(h) -> bool:
+def is_min_heap(h: MinHeap) -> bool:
     """Returns `True` if `h` is a valid `MinHeap`. `False` otherwise."""
     if not isinstance(h, MinHeap):
         return False

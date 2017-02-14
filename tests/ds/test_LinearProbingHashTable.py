@@ -232,7 +232,7 @@ class TestLinearProbingHashTable(unittest.TestCase):
         t = LinearProbingHashTable()
         ls = sample(range(3), 3)
         for elem in ls:
-            t.put(elem, choice(list(string.ascii_letters)))
+            t.put(elem, choice(string.ascii_letters))
         print()
         t.show()
 
@@ -240,5 +240,5 @@ class TestLinearProbingHashTable(unittest.TestCase):
         t = LinearProbingHashTable()
         ls = sample(range(5), 5)
         for elem in ls:
-            t.put(elem, choice(list(string.ascii_letters)))
+            t.put(elem, choice(string.ascii_letters))
         print(repr(t))

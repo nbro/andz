@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 13/02/2017
+Updated: 14/02/2017
 
 # Description
 
@@ -22,10 +22,13 @@ the class `BinaryHeap` and a function which returns a pretty string representati
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
 - [NotImplementedError](https://docs.python.org/3/library/exceptions.html#NotImplementedError)
 - [How do I check if an object is an instance of a given class or of a subclass of it?](http://effbot.org/pyfaq/how-do-i-check-if-an-object-is-an-instance-of-a-given-class-or-of-a-subclass-of-it.htm)
+- [https://en.wikipedia.org/wiki/Heap_(data_structure)](https://en.wikipedia.org/wiki/Heap_(data_structure))
+
 """
 
 import io
 import math
+from abc import ABCMeta, abstractmethod
 
 __all__ = ["BinaryHeap", "HeapNode", "build_pretty_binary_heap"]
 
@@ -67,7 +70,7 @@ class HeapNode:
         return str(self.value) + " -> " + str(self.key)
 
 
-class BinaryHeap:
+class BinaryHeap(metaclass=ABCMeta):
     """Abstract class to represent binary heaps.
 
     `MinHeap`, `MaxHeap` and `MinMaxHeap` all derive from this class."""
@@ -78,27 +81,32 @@ class BinaryHeap:
         self.heap = BinaryHeap._create_list_of_heap_nodes(ls)
         self.build_heap()
 
+    @abstractmethod
     def push_down(self, i: int) -> None:
-        """Classical so-called heapify operation for heaps."""
-        raise NotImplementedError()
+        """Classical _heapify_ operation for heaps."""
+        pass
 
+    @abstractmethod
     def push_up(self, i: int) -> None:
         """Classical reverse-heapify operation for heaps."""
-        raise NotImplementedError()
+        pass
 
+    @abstractmethod
     def delete(self, i: int) -> HeapNode:
-        raise NotImplementedError()
+        """Deletes from self element at index `i` and returns it."""
+        pass
 
+    @abstractmethod
     def replace(self, i: int, x) -> HeapNode:
         """Replaces the `HeapNode` object at index `i` with `x`.
 
         `x` can either be a key or a `HeapNode` object.
         If it's a key, an `HeapNode` is first created,
         whose key and value are equal to `x`."""
-        raise NotImplementedError()
+        pass
 
     def build_heap(self) -> list:
-        """Builds the heap data structure from `self.heap`."""
+        """Builds the heap data structure."""
         if self.heap:
             for index in range(len(self.heap) // 2, -1, -1):
                 self.push_down(index)
@@ -210,8 +218,6 @@ class BinaryHeap:
             self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
         else:
             raise IndexError("i or j are not valid indexes.")
-
-    # INDEX FUNCTIONS
 
     def is_good_index(self, i: int) -> bool:
         """Returns `True` if `i` is valid index for `self.heap`,
@@ -382,12 +388,11 @@ def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:
 
     output = io.StringIO()
     last_row = -1
-
     h_space = 3.0  # float
     v_space = 2  # int
 
     for i, heap_node in enumerate(heap):
-        if i:
+        if i != 0:
             row = int(math.floor(math.log(i + 1, 2)))
         else:
             row = 0
@@ -396,13 +401,11 @@ def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:
             output.write("\n" * v_space)
 
         columns = 2 ** row
-
         column_width = int(math.floor((total_width * h_space) / columns))
         output.write(str(heap_node).center(column_width, fill))
         last_row = row
 
     s = output.getvalue() + "\n"
-
     line_length = total_width + 15  # int
     s += ('-' * line_length + "\n")
     return s

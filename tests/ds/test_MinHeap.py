@@ -5,8 +5,10 @@
 # Meta info
 
 Author: Nelson Brochado
+
 Created: 14/02/2016
-Updated: 05/02/2017
+
+Updated: 14/02/2017
 
 # Description
 
@@ -582,3 +584,11 @@ class TestMinHeap(unittest.TestCase):
         self.assertFalse(h.is_on_odd_level(6))
         self.assertTrue(h.is_on_odd_level(7))
         self.assertTrue(h.is_on_odd_level(8))
+
+    def test_str(self):
+        h = MinHeap([1, 2, 3, 4, 5])
+        print(h)
+
+    def test_repr(self):
+        h = MinHeap([1, 2, 3, 4, 5])
+        print(repr(h))
