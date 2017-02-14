@@ -65,7 +65,8 @@ class LinearProbingHashTable(HashTable):
     """Resizable hash table which uses linear probing,
     which is a specific "open addressing" technique, to resolve collisions.
 
-    The process of re-sizing doubles the current capacity of the hash table each time (for now).
+    The process of resizing consists in doubling
+    the current capacity of the hash table each time (for now).
 
     The hash function uses both the Python's built-in `hash` function and the `%` operator.
 
@@ -181,35 +182,6 @@ class LinearProbingHashTable(HashTable):
         self.__invariants__()
         return value
 
-    @staticmethod
-    def _get(key: object, keys: list, values: list, size: int) -> object:
-        """Helper method of `self.get` and thus it's considered PRIVATE."""
-        assert not has_duplicates_ignore_nones(keys)
-
-        hash_value = LinearProbingHashTable._hash_code(key, size)
-
-        data = None
-        stop = False
-        found = False
-        position = hash_value
-
-        while keys[position] is not None and not found and not stop:
-
-            if keys[position] == key:
-                found = True
-                data = values[position]
-            else:
-                # Find a new possible position by rehashing
-                position = LinearProbingHashTable._rehash(position, size)
-
-                # We are at the initial slot,
-                # and thus nothing was found.
-                if position == hash_value:
-                    stop = True
-
-        assert not has_duplicates_ignore_nones(keys)
-        return data
-
     def delete(self, key: object) -> object:
         """Deletes the mapping between `key` and its corresponding associated value.
         If there's no mapping, nothing is done."""
@@ -272,6 +244,35 @@ class LinearProbingHashTable(HashTable):
         `size` must be the size of the buffer based on which
         we want to have a new hash value from the old hash value."""
         return (old_hash + 1) % size
+
+    @staticmethod
+    def _get(key: object, keys: list, values: list, size: int) -> object:
+        """Helper method of `self.get` and thus it's considered PRIVATE."""
+        assert not has_duplicates_ignore_nones(keys)
+
+        hash_value = LinearProbingHashTable._hash_code(key, size)
+
+        data = None
+        stop = False
+        found = False
+        position = hash_value
+
+        while keys[position] is not None and not found and not stop:
+
+            if keys[position] == key:
+                found = True
+                data = values[position]
+            else:
+                # Find a new possible position by rehashing
+                position = LinearProbingHashTable._rehash(position, size)
+
+                # We are at the initial slot,
+                # and thus nothing was found.
+                if position == hash_value:
+                    stop = True
+
+        assert not has_duplicates_ignore_nones(keys)
+        return data
 
 
 def has_duplicates_ignore_nones(ls: list) -> bool:

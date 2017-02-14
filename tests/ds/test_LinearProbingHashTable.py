@@ -96,6 +96,11 @@ class TestLinearProbingHashTable(unittest.TestCase):
         t = LinearProbingHashTable()
         self.assertIsNone(t.get(3))
 
+    def test_get_with_syntactic_sugar(self):
+        t = LinearProbingHashTable()
+        t.put(5, 12)
+        self.assertEqual(t[5], 12)
+
     def test_get_no_key_found(self):
         t = LinearProbingHashTable()
         t.put("three", 3)
