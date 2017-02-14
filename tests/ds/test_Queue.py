@@ -82,7 +82,7 @@ class TestQueue(unittest.TestCase):
         ls = [2, 3, 5, 7, 11, 13]
         q = Queue(ls)
 
-        for i in range(len(ls)):
+        for i, _ in enumerate(ls):
             elem = q.dequeue()
             self.assertEqual(elem, ls[i])
 

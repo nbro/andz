@@ -168,7 +168,7 @@ class TST:
         This method recursively passes through all the nodes
         and counts the ones which have a non None value.
 
-        You should clearly use size instead: 
+        You should clearly use size instead:
         this method is here only for the fun of writing code!
 
         **Time complexity:** O(n), where n is the number of nodes in this TST."""

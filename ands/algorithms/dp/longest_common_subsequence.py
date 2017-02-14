@@ -18,7 +18,7 @@ More specifically the problem is as follows:
     given two strings x = x_1 x_2 .. x_m and y = y_1 y_2 .. y_n,
     what is (the length of) the longest common subsequence between strings `x` and `y`,
     where characters in the subsequences are not necessarily contiguous?
-    
+
 The solution is not necessarily unique.
 You can find a recursive and a two dynamic programming implementations for the lcs problem.
 You can find just one implementation using dynamic programming that actually returns the lcs,
@@ -95,7 +95,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
     ### Goal 
     lcs(n, m), where n = length(x) and m = length(y).
     
-    ### Algorithm  
+    ### Algorithm
   
     If x(i) or y(j) is empty, lcs(i, j) = 0.
     
@@ -171,10 +171,10 @@ def memoized_recursive_lcs_length(s1: str, s2: str) -> int:
 
 def bottom_up_lcs_length(s1: str, s2: str, matrix: bool=False):
     """Returns the length of the longest common subsequence between strings s1 and s2,
-    if `matrix` is set to `False`, 
+    if `matrix` is set to `False`,
     else it returns the matrix used to calculate the length of the lcs of sub-problems.
     
-    If n = length(s1) and m = length(s2), 
+    If n = length(s1) and m = length(s2),
     then the following are the asymptotic complexities of this algorithm.
     
     **Time complexity:** O(n*m)
@@ -190,7 +190,7 @@ def bottom_up_lcs_length(s1: str, s2: str, matrix: bool=False):
             # note that i and j start from 1,
             # thus we index s1 and s2 using i - 1 and respectively j - 1,
             # instead of simply i and j.
-            if s1[i - 1] == s2[j - 1]: 
+            if s1[i - 1] == s2[j - 1]:
                 m[i][j] = m[i - 1][j - 1] + 1
             else:
                 m[i][j] = max(m[i - 1][j], m[i][j - 1])
@@ -204,7 +204,7 @@ def bottom_up_lcs_length_partial(s1: str, s2: str, c1: str, c2: str, partial_wei
     and thus instead of adding +1 to the length being computed `partial_weight` is added.
     
     **Time complexity:** O(n*m)
-    **Space complexity:** O(n*m)   
+    **Space complexity:** O(n*m)
     """
     
     m = _get_lcs_length_matrix(s1, s2)
@@ -220,7 +220,7 @@ def bottom_up_lcs_length_partial(s1: str, s2: str, c1: str, c2: str, partial_wei
             elif (s1[i - 1] == c1 and s2[j - 1] == c2) or (s1[i - 1] == c2 and s2[j - 1] == c1):
                 m[i][j] = max(m[i - 1][j], m[i][j - 1], m[i - 1][j - 1] + partial_weight)
                 
-            else: 
+            else:
                 m[i][j] = max(m[i - 1][j], m[i][j - 1])
 
     return m[-1][-1] if not matrix else m
@@ -279,7 +279,7 @@ if __name__ == "__main__":
     for a, b in examples:
         print("a =", a, ", b =", b)
         print(recursive_lcs_length(a, b))
-        print(bottom_up_lcs_length(a, b))        
+        print(bottom_up_lcs_length(a, b))
         print(memoized_recursive_lcs_length(a, b))
         print(bottom_up_lcs_length_partial(a, b, 'a', 'e'))
         print()

@@ -5,6 +5,7 @@
 # Meta info
 
 Author: Nelson Brochado
+
 Created: 20/01/2017
 
 # Description
@@ -20,7 +21,9 @@ from ands.algorithms.recursion.make_decimal import make_decimal
 
 
 class TestMakeDecimal(unittest.TestCase):
-    def generate_number(self, base: int):
+
+    @staticmethod
+    def generate_number(base: int):
 
         def build_possible_digits(base: int):
             possible_digits = list(string.digits)
@@ -55,5 +58,5 @@ class TestMakeDecimal(unittest.TestCase):
         # Testing the implementation of make_decimal against int()
         for _ in range(randint(100, 1000)):
             b = randint(2, 36)
-            n = self.generate_number(b)
+            n = TestMakeDecimal.generate_number(b)
             self.assertEqual(make_decimal(n, b), int(n, b))
