@@ -14,7 +14,7 @@ Updated: 14/02/2017
 
 ## What's a hash map (or hash table)?
 
-It's basically a data structure which is used to implement the so-called _associative arrays_,
+It's basically a data structure which is used to implement the so-called _associative array_,
 which is an abstract data type composed of a collection of (key, value) pairs,
 such that each possible key appears at most once in the collection.
 
@@ -24,7 +24,7 @@ To map keys to values, a hash function is used when implementing a hash map (or 
 A hash function is any function that can be used to map data of arbitrary size to data of fixed size.
 A perfect hash function is a function that assigns each key a unique bucket in the the data structure,
 but most hash table designs employ an imperfect hash function, which might cause hash **collisions**,
-where the hash function generates the same index for more than one key.
+where the hash function generates the same index (i.e. the same position or bucket) for more than one key.
 Such collisions must be accommodated in some way!!!
 
 ## Resolving collisions
@@ -58,7 +58,7 @@ from tabulate import tabulate
 
 from ands.ds.HashTable import HashTable
 
-__all__ = ["LinearProbingHashTable"]
+__all__ = ["LinearProbingHashTable", "has_duplicates_ignore_nones"]
 
 
 class LinearProbingHashTable(HashTable):
@@ -87,13 +87,13 @@ class LinearProbingHashTable(HashTable):
         self._values = [None] * self._n
 
     @property
-    def size(self):
+    def size(self) -> int:
         """Returns the number of pairs key-value in this map."""
         self.__invariants__()
         return sum(k is not None for k in self._keys)
 
     @property
-    def capacity(self):
+    def capacity(self) -> int:
         """Returns the size of the internal buffers that store the keys and the values."""
         self.__invariants__()
         return len(self._keys)
