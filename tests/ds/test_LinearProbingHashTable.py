@@ -235,10 +235,3 @@ class TestLinearProbingHashTable(unittest.TestCase):
             t.put(elem, choice(string.ascii_letters))
         print()
         t.show()
-
-    def test_repr(self):
-        t = LinearProbingHashTable()
-        ls = sample(range(5), 5)
-        for elem in ls:
-            t.put(elem, choice(string.ascii_letters))
-        print(repr(t))

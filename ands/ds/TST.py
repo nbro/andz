@@ -139,7 +139,7 @@ class TST:
         self._n = 0
         self._root = None
 
-    def __invariants__(self) -> None:
+    def __invariants(self) -> None:
         """These propositions should always be true at the BEGINNING
         and END of every PUBLIC method of this TST.
 
@@ -210,7 +210,7 @@ class TST:
         which also represents how many times we follow the middle link,
         and h is the number of left and right turns.
         So a lower bound of the complexity would be &Omega(m);."""
-        self.__invariants__()
+        self.__invariants()
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
@@ -218,7 +218,7 @@ class TST:
         if value is None:
             raise ValueError("value cannot be None.")
         self._root = self._insert(self._root, key, value, 0)
-        self.__invariants__()
+        self.__invariants()
 
     def _insert(self, node: TSTNode, key: str, value: object, index: int):
         """Inserts `key` with `value` into self starting from `node`."""
@@ -370,7 +370,7 @@ class TST:
         k is the number of "no more necessary" cleaned up
         after deletion of the node associated with `key`.
         Unnecessary nodes are nodes with no children and value equal to None."""
-        self.__invariants__()
+        self.__invariants()
 
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
@@ -390,7 +390,7 @@ class TST:
         else:
             result = None
 
-        self.__invariants__()
+        self.__invariants()
         return result
 
     def _delete_fix(self, u: TSTNode) -> None:

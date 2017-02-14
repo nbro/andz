@@ -249,11 +249,3 @@ class TestMinMaxHeap(unittest.TestCase):
         self.assertEqual(h.index_of_max(7), -1)
         self.assertEqual(h.index_of_min(8), -1)
         self.assertEqual(h.index_of_max(8), -1)
-
-    def test_str(self):
-        h = MinMaxHeap([7, 2, 92, 67])
-        print(h)
-
-    def test_repr(self):
-        h = MinMaxHeap([7, 2, 92, 67])
-        print(repr(h))

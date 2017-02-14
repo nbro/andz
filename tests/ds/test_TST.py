@@ -38,7 +38,7 @@ class TestTST(unittest.TestCase):
 
     def test_insert_key_not_string(self):
         t = TST()
-        self.assertRaises(TypeError, t.insert, 3.14)
+        self.assertRaises(TypeError, t.insert, 10, 5)
 
     def test_insert_key_empty_string(self):
         t = TST()
@@ -117,13 +117,13 @@ class TestTST(unittest.TestCase):
         self.assertRaises(ValueError, t.search, "")
         self.assertRaises(ValueError, t.search_iteratively, "")
 
-    def test_contains_empty_tst(self):
-        t = TST()
-        self.assertFalse(t.contains("contains in an empty tst"))
-
     def test_contains_key_not_string(self):
         t = TST()
         self.assertRaises(TypeError, t.contains, 3.14)
+
+    def test_contains_empty_tst(self):
+        t = TST()
+        self.assertFalse(t.contains("contains in an empty tst"))
 
     def test_contains_key_empty_string(self):
         t = TST()
