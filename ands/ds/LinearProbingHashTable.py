@@ -14,7 +14,7 @@ Updated: 14/02/2017
 
 ## What's a hash map (or hash table)?
 
-It's basically a data structure which is used to implement the so-called _associative arrays_,
+It's basically a data structure which is used to implement the so-called _associative array_,
 which is an abstract data type composed of a collection of (key, value) pairs,
 such that each possible key appears at most once in the collection.
 
@@ -24,7 +24,7 @@ To map keys to values, a hash function is used when implementing a hash map (or 
 A hash function is any function that can be used to map data of arbitrary size to data of fixed size.
 A perfect hash function is a function that assigns each key a unique bucket in the the data structure,
 but most hash table designs employ an imperfect hash function, which might cause hash **collisions**,
-where the hash function generates the same index for more than one key.
+where the hash function generates the same index (i.e. the same position or bucket) for more than one key.
 Such collisions must be accommodated in some way!!!
 
 ## Resolving collisions
@@ -35,8 +35,13 @@ where the most famous techniques are **separate chaining** and **open addressing
 # TODO
 
 - Add complexity analysis to operations
+
 - No difference between non-existence of a key in the table and existence of a key with None as associated value:
 maybe we want to differentiate the two cases ??
+
+- Resizing the hash table only whenever we reach a full table may not be the best option in terms of performance.
+
+- Should a client of this class be able to specify its custom hash function ??
 
 # References
 
@@ -58,7 +63,7 @@ from tabulate import tabulate
 
 from ands.ds.HashTable import HashTable
 
-__all__ = ["LinearProbingHashTable"]
+__all__ = ["LinearProbingHashTable", "has_duplicates_ignore_nones"]
 
 
 class LinearProbingHashTable(HashTable):
@@ -82,18 +87,18 @@ class LinearProbingHashTable(HashTable):
             raise TypeError("capacity must be an instance of int")
         if capacity < 1:
             raise ValueError("capacity must be greater or equal to 1")
-        self._n = capacity
+        self._n = capacity  # self._n holds the size of the buffers.
         self._keys = [None] * self._n
         self._values = [None] * self._n
 
     @property
-    def size(self):
+    def size(self) -> int:
         """Returns the number of pairs key-value in this map."""
         self.__invariants__()
         return sum(k is not None for k in self._keys)
 
     @property
-    def capacity(self):
+    def capacity(self) -> int:
         """Returns the size of the internal buffers that store the keys and the values."""
         self.__invariants__()
         return len(self._keys)
@@ -147,14 +152,15 @@ class LinearProbingHashTable(HashTable):
                     self._keys = [None] * new_size
                     self._values = [None] * new_size
 
-                    # Rehashing and putting all elements again
-                    # Note that the following call to self._put
-                    # will never reach this statement
-                    # because there will be slots available
+                    # Rehashing and putting all elements in the new bigger buffer.
+                    # Note that the calls to self._put in the following loop
+                    # will never reach these statements, because there will be slots available,
+                    # and because the way hashing and rehashing is currently implemented.
                     for k in keys:
-                        v = self._get(k, keys, values, self._n)
+                        v = LinearProbingHashTable._get(k, keys, values, self._n)
                         self._put(k, v, new_size)
 
+                    # After resizing the buffers, we insert the original key/value.
                     self._put(key, value, new_size)
                     self._n = new_size
 
