@@ -35,8 +35,13 @@ where the most famous techniques are **separate chaining** and **open addressing
 # TODO
 
 - Add complexity analysis to operations
+
 - No difference between non-existence of a key in the table and existence of a key with None as associated value:
 maybe we want to differentiate the two cases ??
+
+- Resizing the hash table only whenever we reach a full table may not be the best option in terms of performance.
+
+- Should a client of this class be able to specify its custom hash function ??
 
 # References
 
@@ -82,7 +87,7 @@ class LinearProbingHashTable(HashTable):
             raise TypeError("capacity must be an instance of int")
         if capacity < 1:
             raise ValueError("capacity must be greater or equal to 1")
-        self._n = capacity
+        self._n = capacity  # self._n holds the size of the buffers.
         self._keys = [None] * self._n
         self._values = [None] * self._n
 
@@ -147,14 +152,15 @@ class LinearProbingHashTable(HashTable):
                     self._keys = [None] * new_size
                     self._values = [None] * new_size
 
-                    # Rehashing and putting all elements again
-                    # Note that the following call to self._put
-                    # will never reach this statement
-                    # because there will be slots available
+                    # Rehashing and putting all elements in the new bigger buffer.
+                    # Note that the calls to self._put in the following loop
+                    # will never reach these statements, because there will be slots available,
+                    # and because the way hashing and rehashing is currently implemented.
                     for k in keys:
-                        v = self._get(k, keys, values, self._n)
+                        v = LinearProbingHashTable._get(k, keys, values, self._n)
                         self._put(k, v, new_size)
 
+                    # After resizing the buffers, we insert the original key/value.
                     self._put(key, value, new_size)
                     self._n = new_size
 
