@@ -11,62 +11,26 @@
 # EXAMPLE: ./run_tests.sh -st algorithms/recursion test_reverse.py              #
 #################################################################################
 
-# Colors used when printing.
-GREEN=$(tput setaf 2)
-RED=$(tput setaf 1)
-NORMAL=$(tput sgr0)
-YELLOW=$(tput setaf 3)
-
-clean()
-{
-    find . -type f -name "*.py[co]" -delete
-    find . -type d -name "__pycache__" -delete
-    rm -rf ands.egg-info
-    find . -type f -name ".coverage" -delete
-    rm -rf venv
-    printf "${YELLOW}Environment cleaned.${NORMAL}\n"
-}
-
-create_virtual_environment()
-{
-    printf "${YELLOW}Creating new virtual environment...${NORMAL}\n"
-    assert_virtualenv_installed
-    virtualenv venv
-    printf "${GREEN}Done.${NORMAL}\n\n"
-}
-
-switch_to_virtual_environment()
-{
-    printf "${YELLOW}Entering virtual environment 'venv'...${NORMAL}\n"
-    source venv/bin/activate
-    printf "${GREEN}Done.${NORMAL}\n\n"
-}
-
-install_dependencies_in_virtual_environment()
-{
-    printf "${YELLOW}Installing required dependencies...${NORMAL}\n"
-    pip3.5 install coveralls
-    pip3.5 install pdoc
-    pip3.5 install -e .
-    printf "${GREEN}Done.${NORMAL}\n\n"
-}
-
-exit_from_virtual_environment()
-{
-    printf "${YELLOW}Exiting from virtual environment...${NORMAL}\n"
-    deactivate
-    printf "${GREEN}Done.${NORMAL}\n\n"
-}
-
 run_tests()
 {
     # See function below 'run_specific_test' if you don't understand what this function does.
     printf "${YELLOW}Executing tests under './tests/'...${NORMAL}\n"
+
     cd tests
+
     coverage run -m unittest discover . -v
+
+    if [ $? -ne 0 ]
+    then
+        printf "${RED}Unit tests did NOT run successfully.${NORMAL}\n"
+        exit 1
+    fi
+
     cd ..
-    cp tests/.coverage ./.coverage
+
+    mv tests/.coverage ./.coverage
     coverage report -m
+
     printf "${GREEN}Done.${NORMAL}\n\n"
 }
 
@@ -75,21 +39,27 @@ cd_n_times()
     # Source: http://stackoverflow.com/a/16679459/3924118.
     SLASH="/"
     NUMBER_OF_SLASHES=$(grep -o "$SLASH" <<< "$1" | wc -l)
-    for (( i = 0; i < NUMBER_OF_SLASHES; i++));
-    do
-      cd ..
-    done
+    cd_back_n_times NUMBER_OF_SLASHES
 }
 
 run_specific_test()
 {
-    printf "${YELLOW}Executing tests under './tests/$1'...${NORMAL}\n"
+    printf "${YELLOW}Executing test '${PWD}/tests/$1/$2'...${NORMAL}\n"
 
     # Enter the specific folder where the test is.
     cd tests/$1
 
     # Executes the test and and produces a file '.coverage' with code coverage statistics.
     coverage run -m unittest $2 -v
+
+    # In case an error occurs while running coverage.
+    # An error that occurred to me was that a unit test module was not found.
+    # So we just proceed if we have actually run the tests and created the file .coverage.
+    if [ $? -ne 0 ]
+    then
+        printf "${RED}Unit test(s) did NOT run successfully.${NORMAL}\n"
+        exit 1
+    fi
 
     # We need to go back at least twice in order to be in the root folder of the project.
     cd ../../
@@ -110,14 +80,16 @@ run_specific_test()
 test_in_virtual_environment()
 {
     create_virtual_environment
+
     switch_to_virtual_environment
-    install_dependencies_in_virtual_environment
+
+    install_dependencies_in_virtual_environment coveralls pdoc "-e ."
 
     # If we have 3 parameters, then probably the user wants to execute a specific test.
-    if [ "$#" =  "3" ];
+    if [ "$#" =  "3" ]
     then
         # First parameter must be -st
-        if [ "$1" = "-st" ];
+        if [ "$1" = "-st" ]
         then
             run_specific_test $2 $3
         else
@@ -127,7 +99,7 @@ test_in_virtual_environment()
             printf "under './tests/algorithms/recursion' as follows:\n"
             printf "${NORMAL}  ./run_tests.sh -st algorithms/recursion test_reverse.py\n"
             printf "${RED}Cannot continue with procedure. Exiting...${NORMAL}\n\n"
-            clean
+            clean_environment
             exit 1
         fi
     else
@@ -137,58 +109,29 @@ test_in_virtual_environment()
     exit_from_virtual_environment
 }
 
-# Assert functions
-
-assert_virtualenv_installed()
+_main()
 {
-    command -v virtualenv
+    cd ..
 
-    if [ $? != 0 ];
-    then
-        # Based on: http://stackoverflow.com/a/27875395/3924118
+    assert_installed 1 python3.5 pip3.5
 
-        printf "${RED}Command 'virtualenv' not found.\n"
-        printf "Do you want me to install 'virtualenv' using 'pip3.5' (y/n)?${NORMAL} "
-        read ANSWER
-
-        if echo "$ANSWER" | grep -iq "^y"
-        then
-            pip3.5 install virtualenv
-            printf "${GREEN}Done.${NORMAL}\n"
-        else
-            printf "${RED}Cannot continue with procedure. Exiting...${NORMAL}\n"
-            exit 1
-        fi
-
-    fi
-}
-
-assert_python35_installed()
-{
-    command -v python3.5
-    if [ $? != 0 ];
-    then
-        printf "${RED}'python3.5' not installed. Install it first before proceeding. Exiting...${NORMAL}\n"
-        exit 1
-    fi
-
-    command -v pip3.5
-    if [ $? != 0 ];
-    then
-        printf "${RED}'pip3.5' not installed. Install it first before proceeding. Exiting...${NORMAL}\n"
-        exit 1
-    fi
-}
-
-main()
-{
-    # Python 3.5 is currently being used to develop.
-    assert_python35_installed
-    clean
+    clean_environment
     printf '\n'
+
     test_in_virtual_environment "$@"
-    clean
+
+    clean_environment
+
+    cd scripts
 }
+
+. ./_source_script.sh
+# Need to source the scripts individually!
+_source_script scripts colors
+_source_script scripts clean_environment
+_source_script scripts asserts
+_source_script scripts cd_back_n_times
+_source_script scripts virtual_environment
 
 # "$@" expands all command-line parameters separated by spaces which are passed to the run function
-main "$@"
+_main "$@"
