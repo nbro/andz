@@ -22,7 +22,9 @@ from ands.algorithms.ode.forward_euler import *
 
 
 class TestForwardEuler(unittest.TestCase):
-    def f(self, ti, yi):
+
+    @staticmethod
+    def f(ti, yi):
         return yi
 
     @staticmethod
@@ -34,17 +36,17 @@ class TestForwardEuler(unittest.TestCase):
         n = 7
         h = 0.2
         b = TestForwardEuler.get_b(a, n, h)
-        self.assertRaises(ValueError, forward_euler, None, b, n, 1, self.f)
-        self.assertRaises(ValueError, forward_euler, a, None, n, 1, self.f)
-        self.assertRaises(ValueError, forward_euler, a, b, None, 1, self.f)
-        self.assertRaises(ValueError, forward_euler, a, b, n, None, self.f)
+        self.assertRaises(ValueError, forward_euler, None, b, n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, a, None, n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, a, b, None, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, a, b, n, None, TestForwardEuler.f)
 
     def test_b_less_than_a(self):
         a = 0
         n = 7
         h = -0.2
         b = TestForwardEuler.get_b(a, n, h)
-        self.assertRaises(ValueError, forward_euler, a, b, n, 1, self.f)
+        self.assertRaises(ValueError, forward_euler, a, b, n, 1, TestForwardEuler.f)
 
     def test_f_is_callable(self):
         a = 0
@@ -63,7 +65,7 @@ class TestForwardEuler(unittest.TestCase):
         h = 0.2
         b = TestForwardEuler.get_b(a, n, h)
 
-        t, y = forward_euler(a, b, n, 1, self.f)
+        t, y = forward_euler(a, b, n, 1, TestForwardEuler.f)
 
         self.assertIsNotNone(t)
         self.assertIsNotNone(y)
