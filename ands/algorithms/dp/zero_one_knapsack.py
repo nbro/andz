@@ -156,7 +156,7 @@ def _recursive_01_knapsack_aux(capacity: int, w, v, value: int) -> int:
 def recursive_01_knapsack(total_weight: int, weights, values):
     assert len(weights) == len(values)
     assert total_weight >= 0
-    
+
     value = 0
     return _recursive_01_knapsack_aux(total_weight, weights, values, value)
 

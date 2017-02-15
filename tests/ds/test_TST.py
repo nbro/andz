@@ -27,7 +27,9 @@ from ands.ds.TST import TST
 
 
 class TestTST(unittest.TestCase):
-    def gen_rand_str(self, n):
+
+    @staticmethod
+    def gen_rand_str(n):
         """Generates a string of size n of printable characters."""
         return "".join(random.choice(string.ascii_letters) for _ in range(n))
 
@@ -89,7 +91,7 @@ class TestTST(unittest.TestCase):
         random_pairs = {}
 
         for _ in range(n):
-            key = self.gen_rand_str(random.randint(1, 11))
+            key = TestTST.gen_rand_str(random.randint(1, 11))
             random_pairs[key] = key
             t.insert(key, key)
 
@@ -224,7 +226,7 @@ class TestTST(unittest.TestCase):
         random_pairs = {}
 
         for _ in range(n):
-            key = self.gen_rand_str(random.randint(1, 11))
+            key = TestTST.gen_rand_str(random.randint(1, 11))
             random_pairs[key] = key
             t.insert(key, key)
 
@@ -249,7 +251,7 @@ class TestTST(unittest.TestCase):
         keys = set()
 
         for _ in range(n):
-            key = self.gen_rand_str(random.randint(1, 11))
+            key = TestTST.gen_rand_str(random.randint(1, 11))
             keys.add(key)
             t.insert(key, key)
 
@@ -308,7 +310,7 @@ class TestTST(unittest.TestCase):
         random_pairs = {}
 
         for _ in range(n):
-            key = self.gen_rand_str(random.randint(1, 17))
+            key = TestTST.gen_rand_str(random.randint(1, 17))
             random_pairs[key] = key
             t.insert(key, key)
 
@@ -324,7 +326,7 @@ class TestTST(unittest.TestCase):
 
     def test_longest_prefix_of_empty_tst(self):
         t = TST()
-        self.assertEqual(t.longest_prefix_of(self.gen_rand_str(10)), "")
+        self.assertEqual(t.longest_prefix_of(TestTST.gen_rand_str(10)), "")
 
     def test_longest_prefix_of_longest_prefix_size_zero(self):
         t = TST()

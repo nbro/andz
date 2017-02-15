@@ -75,7 +75,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
     """Returns the length of the longest common subsequence between s1 and s2.
     This algorithm uses a recursive solution, as the name suggests,
     but this results in an exponential algorithm.
-    
+
     ### Idea
     Given two strings x and y, how do we find the length of the lcs between x and y?
     
@@ -91,8 +91,8 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
     where by x(i) it's meant a subsequence of x up to i,
     and by x(i)_i it's meant the ith element of that same subsequence x(i).
     A similar thing can be said for y(j) and y(j)_j.
-        
-    ### Goal 
+
+    ### Goal
     lcs(n, m), where n = length(x) and m = length(y).
     
     ### Algorithm
@@ -126,7 +126,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
                 +--
                 
     ### Complexity
-    This plain recursive approach is very inefficient, 
+    This plain recursive approach is very inefficient,
     because we keep on recomputing sub-problems.
     
     **Time complexity**: &theta;(m*2^n).

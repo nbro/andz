@@ -94,16 +94,16 @@ def _memoized_rod_cut_aux(prices, n, revenues, s):
 def memoized_rod_cut(prices, n):
     """_Top-down_ dynamic programming version of `recursive_rod_cut`,
     using _memoisation_ to store sub problems' solutions.
-    _Memoisation_ is basically the name to the technique 
+    _Memoisation_ is basically the name to the technique
     of storing what it's been computed previously.
 
-    In this algorithm, as opppose to the plain recursive one,
-    instead of repeatedly solving the same subproblems,
-    we store the solution to a subproblem in a table,
-    the first time we solve the subproblem,
+    In this algorithm, as oppose to the plain recursive one,
+    instead of repeatedly solving the same sub-problems,
+    we store the solution to a sub-problem in a table,
+    the first time we solve the sub-problem,
     so that this solution can simply be looked up, if needed again.
 
-    The disadvantge of this solution is that we need additional memory,
+    The disadvantage of this solution is that we need additional memory,
     i.e., a table, to store intermediary solutions.
 
     Running time complexity: theta(n^2)
@@ -118,7 +118,7 @@ def memoized_rod_cut(prices, n):
     # to a small and negative number,
     # which simply means that we have not yet computed
     # the revenue for those sub-problems.
-    # Note that revenue values are always nonnegative,
+    # Note that revenue values are always non-negative,
     # unless prices contain negative numbers.
     revenues = [-sys.maxsize] * (n + 1)
 

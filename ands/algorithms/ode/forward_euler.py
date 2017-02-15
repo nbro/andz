@@ -136,7 +136,7 @@ def forward_euler_approx(a: float, b: float, n: int, c: float, f):
     y = c
     h = (b - a) / n
 
-    for i in range(n - 1):
+    for _ in range(n - 1):
         y += h * f(t, y)
         t += h
 

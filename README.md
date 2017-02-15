@@ -120,7 +120,7 @@ This last one should also report you the amount of code covered by the tests, af
 
     coverage report
 
-## [`run_tests.sh`](./run_tests.sh)    
+## [`run_tests.sh`](./scripts/run_tests.sh)    
     
 I created this script to automate the tasks of creating the virtual environment, installing dependencies, running the tests and reporting its results, which includes reporting code coverage.
 If you want to run the script by running all tests (which takes some time), from inside the main folder, execute the following command on the terminal
