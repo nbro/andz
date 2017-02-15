@@ -8,14 +8,21 @@
 # RUN FROM COMMAND LINE:  . ./new_docs.sh && new_docs                                        #
 ##############################################################################################
 
-new_docs()
-{
-    printf "${YELLOW}Creating new documentation under '${PWD}/docs'...${NORMAL}\n"
-    rm -rf ./docs
-    mkdir docs
-    pdoc --html --overwrite --html-dir docs ands
-    printf "${GREEN}Done.${NORMAL}\n"
-}
+export ALREADY_SOURCED_NEW_DOCS
 
-. ./_source_script.sh
-_source_script scripts colors
+if [ -z "${ALREADY_SOURCED_NEW_DOCS}" ]
+then
+    new_docs()
+    {
+        printf "%sCreating new documentation under '%s/docs'...%s\n" "${YELLOW}" "${PWD}" "${NORMAL}"
+        rm -rf ./docs
+        mkdir docs
+        pdoc --html --overwrite --html-dir docs ands
+        printf "%sDone.%s\n" "${GREEN}" "${NORMAL}"
+    }
+
+    . ./_source_script.sh
+    _source_script scripts colors
+
+    ALREADY_SOURCED_NEW_DOCS="true"
+fi

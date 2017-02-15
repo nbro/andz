@@ -8,16 +8,23 @@
 # in the second parameter, which should be a string                             #
 #################################################################################
 
-count_occurrences()
-{
-    # First parameter should be the character.
-    # Second should be the string.
+export ALREADY_SOURCED_COUNT_OCCURRENCES
 
-    # Based on: http://stackoverflow.com/a/16679459/3924118.
-    if [ "$#" -ne  "2" ]
-    then
-        echo -1
-    fi
+if [ -z "${ALREADY_SOURCED_COUNT_OCCURRENCES}" ]
+then
+    count_occurrences()
+    {
+        # First parameter should be the character.
+        # Second should be the string.
 
-    echo "$(grep -o "$1" <<< "$2" | wc -l)"
-}
+        # Based on: http://stackoverflow.com/a/16679459/3924118.
+        if [ "$#" -ne  "2" ]
+        then
+            echo -1
+        fi
+
+        echo "$(grep -o "$1" <<< "$2" | wc -l)"
+    }
+
+    ALREADY_SOURCED_COUNT_OCCURRENCES="true"
+fi

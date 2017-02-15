@@ -7,38 +7,47 @@
 # and deactivate virtual environments                                           #
 #################################################################################
 
-create_virtual_environment()
-{
-    printf "${YELLOW}Creating new virtual environment called 'venv'...${NORMAL}\n"
-    assert_python_module_installed virtualenv
-    virtualenv venv
-    printf "${GREEN}Done.${NORMAL}\n\n"
-}
+export ALREADY_SOURCED_VIRTUAL_ENVIRONMENT
 
-switch_to_virtual_environment()
-{
-    printf "${YELLOW}Entering virtual environment 'venv'...${NORMAL}\n"
-    source venv/bin/activate
-    printf "${GREEN}Done.${NORMAL}\n\n"
-}
+if [ -z "${ALREADY_SOURCED_VIRTUAL_ENVIRONMENT}" ]
+then
+    create_virtual_environment()
+    {
+        printf "%sCreating new virtual environment called 'venv'...%s\n" "${YELLOW}" "${NORMAL}"
+        assert_python_module_installed virtualenv
+        virtualenv venv
+        printf "%sDone.%s\n" "${GREEN}" "${NORMAL}"
+    }
 
-install_dependencies_in_virtual_environment()
-{
-    printf "${YELLOW}Installing required dependencies...${NORMAL}\n"
-    for dependency in "$@"
-    do
-        pip3.5 install ${dependency}
-    done
-    printf "${GREEN}Done.${NORMAL}\n\n"
-}
+    switch_to_virtual_environment()
+    {
+        printf "%sEntering virtual environment 'venv'...%s" "${YELLOW}" "${NORMAL}"
+        . venv/bin/activate
+        printf "%s done.%s\n" "${GREEN}" "${NORMAL}"
+    }
 
-exit_from_virtual_environment()
-{
-    printf "${YELLOW}Exiting from virtual environment...${NORMAL}\n"
-    deactivate
-    printf "${GREEN}Done.${NORMAL}\n\n"
-}
+    install_dependencies_in_virtual_environment()
+    {
+        printf "%sInstalling required dependencies...%s\n" "${YELLOW}" "${NORMAL}"
+        for dependency in "$@"
+        do
+            # Do NOT wrap the following variable with quotes,
+            # since it seems to cause problems with the argument "-e ."!!
+            pip3.5 install ${dependency}
+        done
+        printf "%sDone.%s\n" "${GREEN}" "${NORMAL}"
+    }
 
-. ./_source_script.sh
-_source_script scripts colors
-_source_script scripts asserts
+    exit_from_virtual_environment()
+    {
+        printf "%sExiting from virtual environment...%s" "${YELLOW}" "${NORMAL}"
+        deactivate
+        printf "%s done.%s\n" "${GREEN}" "${NORMAL}"
+    }
+
+    . ./_source_script.sh
+    _source_script scripts colors
+    _source_script scripts asserts
+
+    ALREADY_SOURCED_VIRTUAL_ENVIRONMENT="true"
+fi
