@@ -11,7 +11,7 @@
 # EXAMPLE: ./run_tests.sh -st algorithms/recursion test_reverse.py              #
 #################################################################################
 
-run_tests()
+run_all_tests()
 {
     # See function below 'run_specific_test' if you don't understand what this function does.
     printf "${YELLOW}Executing tests under './tests/'...${NORMAL}\n"
@@ -32,14 +32,6 @@ run_tests()
     coverage report -m
 
     printf "${GREEN}Done.${NORMAL}\n\n"
-}
-
-cd_n_times()
-{
-    # Source: http://stackoverflow.com/a/16679459/3924118.
-    SLASH="/"
-    NUMBER_OF_SLASHES=$(grep -o "$SLASH" <<< "$1" | wc -l)
-    cd_back_n_times NUMBER_OF_SLASHES
 }
 
 run_specific_test()
@@ -66,7 +58,10 @@ run_specific_test()
 
     # This to ensure we're in the root folder of the project,
     # since the specific test could have been executed in a depth greater than 2.
-    cd_n_times "$@"
+    # Note: return value of a function is stored in $?
+    # See: http://stackoverflow.com/a/12919663/3924118
+    count_occurrences "/" "$1"
+    cd_back_n_times $?
 
     # Move the file '.coverage' to the root folder of the project.
     mv tests/$1/.coverage ./.coverage
@@ -103,7 +98,7 @@ test_in_virtual_environment()
             exit 1
         fi
     else
-        run_tests
+        run_all_tests
     fi
 
     exit_from_virtual_environment
@@ -132,6 +127,7 @@ _source_script scripts clean_environment
 _source_script scripts asserts
 _source_script scripts cd_back_n_times
 _source_script scripts virtual_environment
+_source_script scripts count_occurrences
 
 # "$@" expands all command-line parameters separated by spaces which are passed to the run function
 _main "$@"
