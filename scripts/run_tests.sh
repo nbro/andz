@@ -14,7 +14,7 @@
 run_all_tests()
 {
     # See function below 'run_specific_test' if you don't understand what this function does.
-    printf "${YELLOW}Executing tests under './tests/'...${NORMAL}\n"
+    printf "%sExecuting tests under './tests/'...%s\n" "${YELLOW}" "${NORMAL}"
 
     cd tests
 
@@ -22,7 +22,7 @@ run_all_tests()
 
     if [ $? -ne 0 ]
     then
-        printf "${RED}Unit tests did NOT run successfully.${NORMAL}\n"
+        printf "%sUnit tests did NOT run successfully.%s\n" "${RED}" "${NORMAL}"
         exit 1
     fi
 
@@ -31,25 +31,25 @@ run_all_tests()
     mv tests/.coverage ./.coverage
     coverage report -m
 
-    printf "${GREEN}Done.${NORMAL}\n\n"
+    printf "%sDone.%s\n\n" "${GREEN}" "${NORMAL}"
 }
 
 run_specific_test()
 {
-    printf "${YELLOW}Executing test '${PWD}/tests/$1/$2'...${NORMAL}\n"
+    printf "%sExecuting test '%s/tests/$1/$2'...%s\n" "${YELLOW}" "${PWD}" "${NORMAL}"
 
     # Enter the specific folder where the test is.
-    cd tests/$1
+    cd tests/"$1"
 
     # Executes the test and and produces a file '.coverage' with code coverage statistics.
-    coverage run -m unittest $2 -v
+    coverage run -m unittest "$2" -v
 
     # In case an error occurs while running coverage.
     # An error that occurred to me was that a unit test module was not found.
     # So we just proceed if we have actually run the tests and created the file .coverage.
     if [ $? -ne 0 ]
     then
-        printf "${RED}Unit test(s) did NOT run successfully.${NORMAL}\n"
+        printf "%sUnit test(s) did NOT run successfully.%s\n" "${RED}" "${NORMAL}"
         exit 1
     fi
 
@@ -58,18 +58,15 @@ run_specific_test()
 
     # This to ensure we're in the root folder of the project,
     # since the specific test could have been executed in a depth greater than 2.
-    # Note: return value of a function is stored in $?
-    # See: http://stackoverflow.com/a/12919663/3924118
-    count_occurrences "/" "$1"
-    cd_back_n_times $?
+    cd_back_n_times "$(count_occurrences "/" "$1")"
 
     # Move the file '.coverage' to the root folder of the project.
-    mv tests/$1/.coverage ./.coverage
+    mv tests/"$1"/.coverage ./.coverage
 
     # Add option -m at the end if you want to see the lines not covered.
     coverage report -m
 
-    printf "${GREEN}Done.${NORMAL}\n\n"
+    printf "%sDone.%s\n\n" "${GREEN}" "${NORMAL}"
 }
 
 test_in_virtual_environment()
@@ -88,12 +85,12 @@ test_in_virtual_environment()
         then
             run_specific_test $2 $3
         else
-            printf "${RED}To execute a specific test the format is the following:\n"
-            printf "${NORMAL}  ./run_tests.sh -st [folder_path_inside_tests] test_name.py\n"
-            printf "${RED}For example, you try to run the 'test_reverse.py' unit test "
+            printf "%sTo execute a specific test the format is the following:\n" "${RED}"
+            printf "%s  ./run_tests.sh -st [folder_path_inside_tests] test_name.py\n" "${NORMAL}"
+            printf "%sFor example, you try to run the 'test_reverse.py' unit test " "${RED}"
             printf "under './tests/algorithms/recursion' as follows:\n"
-            printf "${NORMAL}  ./run_tests.sh -st algorithms/recursion test_reverse.py\n"
-            printf "${RED}Cannot continue with procedure. Exiting...${NORMAL}\n\n"
+            printf "%s  ./run_tests.sh -st algorithms/recursion test_reverse.py\n" "${NORMAL}"
+            printf "%sCannot continue with procedure. Exiting...%s\n\n" "${RED}" "${NORMAL}"
             clean_environment
             exit 1
         fi

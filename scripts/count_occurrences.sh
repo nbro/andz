@@ -16,8 +16,8 @@ count_occurrences()
     # Based on: http://stackoverflow.com/a/16679459/3924118.
     if [ "$#" -ne  "2" ]
     then
-        return -1
+        echo -1
     fi
 
-    return $(grep -o "$1" <<< "$2" | wc -l)
+    echo "$(grep -o "$1" <<< "$2" | wc -l)"
 }

@@ -60,7 +60,7 @@ assert_python_module_installed()
         return 1
     fi
 
-    command -v $1
+    command -v "$1"
 
     if [ $? != 0 ]
     then
@@ -72,7 +72,7 @@ assert_python_module_installed()
 
         if echo "$ANSWER" | grep -iq "^y"
         then
-            pip3.5 install $1
+            pip3.5 install "$1"
             printf "${GREEN}Done.${NORMAL}\n"
         else
             printf "${RED}Cannot proceed. Exiting...${NORMAL}\n"
