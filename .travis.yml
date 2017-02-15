@@ -14,13 +14,9 @@ python:
 install:
   - pip install coveralls
   - pip install -e .
-    
+
 # command to run tests
-script: 
-  - cd tests/
-  - coverage run -m unittest discover . -v
-  - cp .coverage ../.coverage
-  - cd ../
+script: scripts/travis.sh
 
 after_success:
   - coveralls
