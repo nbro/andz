@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 13/02/2016
 
-Updated: 30/08/2016
+Updated: 16/02/2017
 
 # Description
 
@@ -16,79 +16,459 @@ Tests for the BST class.
 """
 
 import unittest
+from random import randint, choice
 
-from ands.ds.BST import BST, BSTNode, is_bst
+from ands.ds.BST import BST, BSTNode
 
 
 class TestBST(unittest.TestCase):
-    def assert_consistencies(self, bst):
-        """Call only when bst.root is not None"""
-        self.assertEqual(bst.root.count(), bst.n)
-        self.assertEqual(bst.n, bst.size())
-        self.assertIsNone(bst.root.parent)
+    def test_create_default(self):
+        t = BST()
+        self.assertIsNone(t.root)
+        self.assertEqual(t.size(), 0)
 
-    def assert_empty(self, b):
-        self.assertIsNone(b.root)
-        self.assertEqual(b.n, 0)
-        self.assertEqual(b.size(), 0)
+    def test_create_only_root_given_ok(self):
+        n = BSTNode(3)
+        t = BST(n)
+        self.assertIs(t.root, n)
+        self.assertEqual(t.size(), 1)
 
-    def test_empty_size(self):
-        b = BST()
-        self.assert_empty(b)
-        self.assertTrue(is_bst(b))
+    def test_create_tree_given_ok(self):
+        def gen_sub_tree():
+            t = BST()
+            t.insert(3)
+            t.insert(1)
+            t.insert(5)
+            return t.root
 
-    def test_empty_contains(self):
-        b = BST()
-        for i in range(-10, 11):
-            self.assertFalse(b.contains(i))
+        root = gen_sub_tree()
+        t = BST(root)
+        self.assertIs(t.root, root)
+        self.assertEqual(t.size(), 3)
 
-    def test_one_size(self):
-        b = BST()
-        b.insert(12)
-        self.assertEqual(b.size(), 1)
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
+    def test_create_root_given_not_bst_node(self):
+        self.assertRaises(TypeError, BST, 3)
 
-    def test_one_contains(self):
-        b = BST()
-        b.insert(12)
-        for i in range(-10, 11):
-            self.assertFalse(b.contains(i))
-        self.assertTrue(b.contains(12))
+    def test_create_root_given_has_parent(self):
+        n = BSTNode(3)
+        n.parent = BSTNode(5)
+        self.assertRaises(ValueError, BST, n)
 
-    def test_many_size(self):
-        b = BST()
-        size = 0
-        for i in range(-10, 11):
-            b.insert(i)
-            size += 1
-            self.assertEqual(size, b.size())
-            self.assertTrue(is_bst(b))
-            self.assert_consistencies(b)
+    def test_create_tree_given_not_all_bst_nodes(self):
+        a = BSTNode(5)
+        b = BSTNode(3)
+        b.parent = a
+        a.left = b
+        a.right = "not a bst node"
+        self.assertRaises(TypeError, BST, a)
 
-    def test_many_contains(self):
-        b = BST()
-        for i in range(-10, 11):
-            b.insert(i)
-        for i in range(-10, 11):
-            self.assertTrue(b.contains(i))
+    def test_create_tree_given_not_has_bst_property(self):
+        a = BSTNode(3)
+        b = BSTNode(5)
+        b.parent = a
+        a.left = b
+        self.assertRaises(TypeError, BST, a)
 
-    def test_structure_many(self):
-        b = BST()
-        b.insert(10)
-        b.insert(5)
-        b.insert(15)
-        b.insert(7)
-        b.insert(20)
-        b.insert(18)
-        b.insert(14)
-        b.insert(14)
-        b.insert(12)
-        b.insert(3)
-        b.insert(4)
-        self.assertEqual(11, b.size())
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
+    def test_clear(self):
+        t = BST()
+        t.insert(2)
+        t.insert(3)
+        t.insert(5)
+        t.insert(7)
+        t.clear()
+        self.assertTrue(t.is_empty())
+        self.assertEqual(t.height(), 0)
+        self.assertIsNone(t.minimum())
+        self.assertIsNone(t.maximum())
+
+    def test_is_root_empty_tree(self):
+        t = BST()
+        self.assertTrue(t.is_root(None))
+
+    def test_is_root_one(self):
+        n = BSTNode(3)
+        t = BST(n)
+        self.assertTrue(t.is_root(n))
+
+    def test_insert_one_key_None(self):
+        t = BST()
+        self.assertRaises(ValueError, t.insert, None)
+
+    def test_insert_one_key_None(self):
+        t = BST()
+        self.assertRaises(ValueError, t.insert, None)
+
+    def test_insert_one_bst_node_not_reset(self):
+        t = BST()
+        n = BSTNode(2)
+        n.parent = "not None"
+        self.assertRaises(ValueError, t.insert, n)
+
+    def test_insert_one_key_default_value(self):
+        t = BST()
+
+        t.insert("one")
+
+        self.assertEqual(t.size(), 1)
+        self.assertEqual(t.height(), 1)
+
+        one = t.search("one")
+
+        self.assertTrue(isinstance(one, BSTNode))
+        self.assertIs(one, t.minimum())
+        self.assertIs(one, t.maximum())
+
+    def test_insert_one_key(self):
+        t = BST()
+
+        t.insert("one", 25)
+
+        self.assertEqual(t.size(), 1)
+        self.assertEqual(t.height(), 1)
+        self.assertEqual(t.rank("one"), 0)
+
+        one = t.search("one")
+
+        self.assertEqual(one.value, 25)
+        self.assertIs(one, t.minimum())
+        self.assertIs(one, t.maximum())
+        self.assertIsNone(t.successor("one"))
+        self.assertIsNone(t.predecessor("one"))
+
+    def test_insert_many_not_list(self):
+        t = BST()
+        self.assertRaises(TypeError, t.insert_many, 5)
+        self.assertRaises(TypeError, t.insert_many, 3.14)
+        self.assertRaises(TypeError, t.insert_many, "")
+        self.assertRaises(TypeError, t.insert_many, {})
+        self.assertRaises(TypeError, t.insert_many, ())
+
+    def test_insert_many_empty_list(self):
+        t = BST()
+        t.insert_many([])
+        self.assertTrue(t.is_empty())
+
+    def test_insert_many(self):
+        t = BST()
+        ls = [0, 1, 2, 3, 4, BSTNode(5), 6, BSTNode(7), 8, 9]
+
+        t.insert_many(ls)
+
+        self.assertEqual(t.size(), 10)
+        self.assertEqual(t.rank(5), 5)
+
+        zero = t.search(0)
+        nine = t.search(9)
+
+        self.assertIs(zero, t.minimum())
+        self.assertIs(nine, t.maximum())
+
+    def test_search_key_None(self):
+        t = BST()
+        self.assertRaises(ValueError, t.search, None)
+
+    def test_search_key_None(self):
+        t = BST()
+        self.assertRaises(ValueError, t.search, None)
+
+    def test_search_starting_node_not_bst_node(self):
+        t = BST()
+        self.assertRaises(TypeError, t.search, 3, "not a BSTNode")
+
+    def test_search_starting_node_has_bad_pointers(self):
+        t = BST()
+        n = BSTNode(5)
+        n.parent = 10
+        self.assertRaises(TypeError, t.search, 3, n)
+
+    def test_search_starting_tree_has_not_bst_property(self):
+        t = BST()
+        a = BSTNode(5)
+        b = BSTNode(3)
+        a.right = b
+        b.parent = a
+        self.assertRaises(TypeError, t.search, 3, a)
+
+    def test_search_empty_tree_starting_node_given(self):
+        t = BST()
+        self.assertIsNone(t.search("two", BSTNode("one")))
+
+    def test_search_empty_tree(self):
+        t = BST()
+        self.assertIsNone(t.search("one"))
+
+    def test_search_without_starting_node_exists(self):
+        t = BST()
+        t.insert_many([5, BSTNode(2, "two"), 6])
+        two = t.search(2)
+        self.assertIsInstance(two, BSTNode)
+        self.assertEqual(two.key, 2)
+        self.assertEqual(two.value, "two")
+
+    def test_search_without_starting_node_not_exists(self):
+        t = BST()
+        t.insert_many([5, BSTNode(2, "two"), 6])
+        seven = t.search(7)
+        self.assertIsNone(seven)
+
+    def test_search_with_starting_node_exists(self):
+        t = BST()
+
+        two = BSTNode(2, "two")
+        t.insert_many([5, two, 6])
+        found = t.search(2, two)
+
+        self.assertIsInstance(found, BSTNode)
+        self.assertEqual(two.key, 2)
+        self.assertEqual(two.value, "two")
+
+    def test_search_with_starting_node_not_exists(self):
+        t = BST()
+
+        two = BSTNode(2, "two")
+        t.insert_many([5, two, 6])
+        found = t.search(7, two)
+
+        self.assertIsNone(found)
+
+    def test_contains_empty_tree(self):
+        t = BST()
+        self.assertFalse(t.contains_key(3))
+
+    def test_contains_true(self):
+        t = BST()
+        t.insert_many(12, 5)
+        self.assertTrue(t.contains_key(12))
+
+    def test_contains_true(self):
+        t = BST()
+        t.insert(12)
+        self.assertFalse(t.contains_key(14))
+
+    def test_rank_key_None(self):
+        t = BST()
+        self.assertRaises(ValueError, t.rank, None)
+
+    def test_rank_key_None(self):
+        t = BST()
+        self.assertRaises(ValueError, t.rank, None)
+
+    def test_rank_key_not_found(self):
+        t = BST()
+        self.assertRaises(LookupError, t.rank, 19)
+
+    def test_rank_key_not_found(self):
+        t = BST()
+        self.assertRaises(LookupError, t.rank, 19)
+
+    def test_rank_key_is_the_smallest_elem(self):
+        t = BST()
+        t.insert_many([1, 2, 3])
+        self.assertEqual(t.rank(1), 0)
+
+    def test_rank_key_is_the_greatest_elem(self):
+        t = BST()
+        t.insert_many([1, 2, 3, 4, 5])
+        self.assertEqual(t.rank(5), 4)
+
+    def test_rank_key_some_elem_in_the_mid(self):
+        t = BST()
+        t.insert_many([10, 5, 6, 19])
+        self.assertEqual(t.rank(6), 1)
+
+    def test_height_tree_empty(self):
+        t = BST()
+        self.assertEqual(t.height(), 0)
+
+    def test_height_insert_in_order(self):
+        t = BST()
+        for i in range(100):
+            t.insert(i)
+        self.assertEqual(t.height(), 100)
+
+    def test_in_order_traversal(self):
+        t = BST()
+        t.insert_many([10, 4, 85, 43, 6, 1, 69])
+        t.in_order_traversal()
+
+    def test_pre_order_traversal(self):
+        t = BST()
+        t.insert_many([10, 4, 85, 43, 6, 1, 69])
+        t.pre_order_traversal()
+
+    def test_post_order_traversal(self):
+        t = BST()
+        t.insert_many([10, 4, 85, 43, 6, 1, 69])
+        t.post_order_traversal()
+
+    def test_reverse_in_order_traversal(self):
+        t = BST()
+        t.insert_many([10, 4, 85, 43, 6, 1, 69])
+        t.reverse_in_order_traversal()
+
+    def test_minimum_empty_tree(self):
+        t = BST()
+        self.assertIsNone(t.minimum())
+
+    def test_minimum(self):
+        t = BST()
+        m = BSTNode(1)
+        t.insert_many([10, 8, 5, 5, m, 2, 3])
+        self.assertIs(t.minimum(), m)
+
+    def test_maximum_empty_tree(self):
+        t = BST()
+        self.assertIsNone(t.maximum())
+
+    def test_maximum(self):
+        t = BST()
+        m = BSTNode(3)
+        t.insert_many([1, 2, m])
+        self.assertIs(t.maximum(), m)
+
+    def test_left_rotate_key_not_found(self):
+        t = BST()
+        self.assertRaises(LookupError, t._left_rotate, 5)
+
+    def test_left_rotate_not_found(self):
+        t = BST()
+        a = BSTNode(2)
+        b = BSTNode(1)
+        t.insert(a)
+        t.insert(b)
+        self.assertRaises(ValueError, t._left_rotate, a)
+        self.assertRaises(ValueError, t._left_rotate, 2)
+
+    def test_right_rotate_key_not_found(self):
+        t = BST()
+        self.assertRaises(LookupError, t._right_rotate, 5)
+
+    def test_right_rotate_not_found(self):
+        t = BST()
+        a = BSTNode(2)
+        b = BSTNode(1)
+        t.insert(b)
+        t.insert(a)
+        self.assertRaises(ValueError, t._right_rotate, b)
+        self.assertRaises(ValueError, t._right_rotate, 1)
+
+    def test_successor_key_not_found(self):
+        t = BST()
+        self.assertRaises(LookupError, t.successor, 4)
+
+    def test_successor_node_not_found(self):
+        t = BST()
+        n = BSTNode(4)
+        self.assertRaises(LookupError, t.successor, n)
+
+    def test_successor_is_None(self):
+        t = BST()
+        t.insert_many([4, 5, 6, 10, 5])
+        self.assertIsNone(t.successor(10))
+
+    def test_successor_is_min_of_right_sub_tree(self):
+        t = BST()
+        eight = BSTNode(8)
+        t.insert_many([5, 2, 10, eight, 9])
+        self.assertIs(t.successor(5), eight)
+
+    def test_successor_is_first_node_up_to_root_such_that_child_is_not_right(self):
+        t = BST()
+        ten = BSTNode(10)
+        t.insert_many([5, 2, ten, 8, BSTNode(9)])
+        self.assertIs(t.successor(9), ten)
+
+    def test_predecessor_key_not_found(self):
+        t = BST()
+        self.assertRaises(LookupError, t.predecessor, 4)
+
+    def test_predecessor_node_not_found(self):
+        t = BST()
+        n = BSTNode(4)
+        self.assertRaises(LookupError, t.predecessor, n)
+
+    def test_predecessor_is_None(self):
+        t = BST()
+        t.insert_many([4, 5, 6, 10, 5])
+        self.assertIsNone(t.predecessor(4))
+
+    def test_predecessor_is_max_of_left_sub_tree(self):
+        t = BST()
+        nine = BSTNode(9)
+        t.insert_many([5, 2, 10, 8, nine])
+        self.assertIs(t.predecessor(10), nine)
+
+    def test_predecessor_is_first_node_up_to_root_such_that_child_is_not_left(self):
+        t = BST()
+        five = BSTNode(5)
+        t.insert_many([five, 2, 10, 8, BSTNode(9)])
+        self.assertIs(t.predecessor(8), five)
+
+    def test_remove_max_empty_tree(self):
+        t = BST()
+        self.assertIsNone(t.remove_max())
+
+    def test_remove_max_greatest_node_has_left_child_and_is_root(self):
+        t = BST()
+        ten = BSTNode(10)
+        t.insert_many([ten, 8, 9])
+        self.assertIs(ten, t.remove_max())
+        self.assertEqual(t.size(), 2)
+
+    def test_remove_max_greatest_node_has_left_child_and_is_not_root(self):
+        t = BST()
+        ten = BSTNode(10)
+        t.insert_many([5, 2, ten, 8, 9])
+        self.assertIs(ten, t.remove_max())
+        self.assertEqual(t.size(), 4)
+
+    def test_remove_max_greatest_node_does_not_have_left_child_and_is_root(self):
+        t = BST()
+        five = BSTNode(5)
+        t.insert_many([five])
+        self.assertIs(five, t.remove_max())
+        self.assertEqual(t.size(), 0)
+
+    def test_remove_max_greatest_node_does_not_have_left_child_and_is_not_root(self):
+        t = BST()
+        ten = BSTNode(10)
+        t.insert_many([5, 2, ten])
+        self.assertIs(ten, t.remove_max())
+        self.assertEqual(t.size(), 2)
+
+    def test_remove_min_empty_tree(self):
+        t = BST()
+        self.assertIsNone(t.remove_min())
+
+    def test_remove_min_smallest_node_has_right_child_and_is_root(self):
+        t = BST()
+        two = BSTNode(2)
+        t.insert_many([two, 3, 5])
+        self.assertIs(two, t.remove_min())
+        self.assertEqual(t.size(), 2)
+
+    def test_remove_min_smallest_node_has_right_child_and_is_not_root(self):
+        t = BST()
+        two = BSTNode(2)
+        t.insert_many([5, two, 3])
+        self.assertIs(two, t.remove_min())
+        self.assertEqual(t.size(), 2)
+
+    def test_remove_min_smallest_node_does_not_have_right_child_and_is_root(self):
+        t = BST()
+        two = BSTNode(2)
+        t.insert(two)
+        self.assertIs(two, t.remove_min())
+        self.assertTrue(t.is_empty())
+
+    def test_remove_min_smallest_node_does_not_have_right_child_and_is_not_root(self):
+        t = BST()
+        two = BSTNode(2)
+        t.insert_many([5, 10, two])
+        self.assertIs(two, t.remove_min())
+        self.assertTrue(t.size(), 2)
+
+    # TODO: METHODS AFTER REMOVE_MAX
 
     def test_delete_not_found(self):
         b = BST()
@@ -98,9 +478,7 @@ class TestBST(unittest.TestCase):
         b = BST()
         b.insert(12)
         b.delete(12)
-        self.assertFalse(b.contains(12))
-        self.assert_empty(b)
-        self.assertTrue(is_bst(b))
+        self.assertFalse(b.contains_key(12))
 
     def test_multiple_remove1(self):
         b = BST()
@@ -110,14 +488,12 @@ class TestBST(unittest.TestCase):
 
         for i in range(0, 15, 2):
             b.delete(i)
-            self.assertFalse(b.contains(i))
+            self.assertFalse(b.contains_key(i))
 
         for i in range(1, 15, 2):
-            self.assertTrue(b.contains(i))
+            self.assertTrue(b.contains_key(i))
 
         self.assertEqual(b.size(), 7)
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
 
     def test_multiple_remove2(self):
         b = BST()
@@ -127,204 +503,100 @@ class TestBST(unittest.TestCase):
 
         for i in range(-1, 15, 2):
             self.assertRaises(LookupError, b.delete, i)
-            self.assertFalse(b.contains(i))
+            self.assertFalse(b.contains_key(i))
 
         for i in range(0, 15, 2):
-            self.assertTrue(b.contains(i))
+            self.assertTrue(b.contains_key(i))
 
         self.assertEqual(b.size(), 8)
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
 
-    def test_multiple_remove3(self):
-        b = BST()
-        self.assert_empty(b)
+    def test_delete_tree_empty(self):
+        pass
 
-        b.insert(5)
-        b.insert(3)
-        b.insert(4)
-        b.insert(10)
-        b.insert(7)
-        b.insert(6)
-        b.insert(8)
-        b.insert(9)
-        b.insert(12)
-        b.insert(11)
-        self.assertEqual(b.size(), 10)
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
+    def test_delete_key_None(self):
+        t = BST()
+        self.assertRaises(ValueError, t.delete, None)
 
-        b.delete(3)
-        b.delete(10)
-        b.delete(12)
-        self.assertEqual(b.size(), 7)
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
+    def test_delete_key_not_found(self):
+        t = BST()
+        self.assertRaises(LookupError, t.delete, 3)
 
-    def test_search(self):
-        b = BST()
-        b.insert(10)
-        b.insert(5)
-        b.insert(15)
-        self.assertRaises(ValueError, b.search, None)
+    def test_delete_bst_node_not_found(self):
+        t = BST()
+        n = BSTNode(3)
+        self.assertRaises(LookupError, t.delete, n)
 
-        self.assertIsNone(b.search(12))
-        self.assertIsNotNone(b.search(5))
-        self.assertIsNotNone(b.search(10))
-        self.assertIsNotNone(b.search(15))
-        self.assertEqual(b.size(), 3)
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
+    def test_delete_no_children(self):
+        t = BST()
 
-        b.delete(10)
-        self.assertIsNone(b.search(10))
-        self.assertEqual(b.size(), 2)
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
+        nine = BSTNode(9)
+        t.insert_many([5, 2, 10, 8, nine])
 
-    def test_remove_min_and_max(self):
-        b = BST()
-        self.assertIsNone(b.remove_min())
-        self.assertIsNone(b.remove_max())
+        deleted = t.delete(9)
 
-        b.insert(14)
-        b.insert(12)
-        b.insert(28)
+        self.assertIs(nine, deleted)
+        self.assertIsNone(deleted.left)
+        self.assertIsNone(deleted.right)
+        self.assertIsNone(deleted.parent)
+        self.assertEqual(t.size(), 4)
 
-        m = b.remove_min()
-        self.assertIsNotNone(m)
-        self.assertEqual(m.key, 12)
-        self.assertEqual(b.size(), 2)
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
+    def test_delete_no_children(self):
+        t = BST()
 
-        M = b.remove_max()
-        self.assertIsNotNone(M)
-        self.assertEqual(M.key, 28)
-        self.assertEqual(b.size(), 1)
-        self.assertTrue(is_bst(b))
-        self.assert_consistencies(b)
+        eight = BSTNode(8)
+        t.insert_many([5, 2, 10, eight, 9])
 
-    def test_predecessor_and_successor(self):
-        b = BST()
-        b.insert(12)
-        b.insert(14)
-        b.insert(28)
+        deleted = t.delete(8)
 
-        self.assertIsNone(b.successor(28))
-        self.assertIs(b.successor(12), b.search(14))
-        self.assertIsNone(b.predecessor(12))
-        self.assertIs(b.predecessor(14), b.search(12))
+        self.assertIs(eight, deleted)
+        self.assertIsNone(deleted.left)
+        self.assertIsNone(deleted.right)
+        self.assertIsNone(deleted.parent)
+        self.assertEqual(t.size(), 4)
 
-        self.assertRaises(LookupError, b.successor, 7)
-        self.assertRaises(LookupError, b.predecessor, 6)
+    def test_delete_two_children(self):
+        t = BST()
 
-    def test_rank(self):
-        b = BST()
-        self.assertRaises(ValueError, b.rank, None)
-        self.assertRaises(LookupError, b.rank, 12)
+        ten = BSTNode(10)
+        t.insert_many([5, 2, ten, 8, 9, 8, 12, 11, 13])
 
-        b.insert(12)
-        self.assertEqual(b.rank(12), 0)
+        deleted = t.delete(10)
 
-        b.insert(14)
-        b.insert(28)
-        b.insert(10)
-        b.insert(7)
+        self.assertIs(ten, deleted)
+        self.assertIsNone(deleted.left)
+        self.assertIsNone(deleted.right)
+        self.assertIsNone(deleted.parent)
+        self.assertEqual(t.size(), 8)
 
-        self.assertEqual(b.rank(12), 2)
-        self.assertEqual(b.rank(7), 0)
-        self.assertEqual(b.rank(28), 4)
+    def test_delete_all_in_random_order(self):
+        t = BST()
 
-    def test_switch(self):
-        b = BST()
+        ls = [BSTNode(randint(-100, 100), randint(-100, 100)) for _ in range(1000)]
+        t.insert_many(ls)
 
-        b.insert(12)
-        b.insert(20)
-        b.insert(28)
-        b.insert(8)
-        b.insert(16)
-        b.insert(10)
-        b.insert(4)
-        b.insert(2)
-        b.insert(5)
-        b.insert(9)
-        b.insert(11)
-        b.insert(14)
-        b.insert(18)
-        b.insert(22)
-        b.insert(30)
+        size = len(ls)
+        for _ in range(size):
+            elem = choice(ls)
+            ls.remove(elem)
+            t.delete(elem)
 
-        def asserts():
-            self.assertTrue(is_bst(b))
-            self.assert_consistencies(b)
+        self.assertTrue(t.is_empty())
 
-        self.assertRaises(ValueError, b._switch, b.search(12), b.search(12))
-        self.assertRaises(ValueError, b._switch, b.search(12), None)
-        self.assertRaises(LookupError, b._switch, b.search(12), BSTNode(100), True)
-        asserts()
+    def test__switch_first_node_is_None(self):
+        t = BST()
+        self.assertRaises(ValueError, t._switch, None, BSTNode(3))
 
-        b._switch(b.search(8), b.search(12))
-        self.assertIs(b.root, b.search(8))
-        self.assertIsNone(b.root.parent)
-        b._switch(b.search(8), b.search(8).left)
-        asserts()
+    def test__switch_second_node_is_None(self):
+        t = BST()
+        self.assertRaises(ValueError, t._switch, BSTNode(3), None)
 
-        b._switch(b.search(20), b.search(12))
-        self.assertIs(b.root, b.search(20))
-        self.assertIsNone(b.root.parent)
-        b._switch(b.search(20), b.search(20).right)
-        asserts()
+    def test__switch_nodes_are_equal(self):
+        t = BST()
+        n = BSTNode(3)
+        self.assertRaises(ValueError, t._switch, n, n)
 
-        b._switch(b.search(4), b.search(10))
-        self.assertIs(b.root, b.search(12))
-        b._switch(b.search(8).left, b.search(8).right)
-        asserts()
-
-        b._switch(b.search(8), b.search(20))
-        self.assertIs(b.root, b.search(12))
-        b._switch(b.search(12).left, b.search(12).right)
-        asserts()
-
-        b._switch(b.search(8), b.search(28))
-        self.assertIs(b.root, b.search(12))
-        b._switch(b.search(12).left, b.search(20).right)
-        asserts()
-
-        b._switch(b.search(8), b.search(14))
-        self.assertIs(b.root, b.search(12))
-        b._switch(b.search(12).left, b.search(12).right.left.left)
-        asserts()
-
-        b._switch(b.search(2), b.search(28))
-        self.assertIs(b.root, b.search(12))
-        b._switch(b.search(12).left.left.left, b.search(12).right.right)
-        asserts()
-
-        self.assertIsNone(b.search(2).left)
-        self.assertIsNone(b.search(2).right)
-        self.assertIs(b.search(28).left, b.search(22))
-        self.assertIs(b.search(28).right, b.search(30))
-
-        b._switch(b.search(8), b.search(5))
-        self.assertIs(b.root, b.search(12))
-        b._switch(b.search(12).left, b.search(12).left.left.right)
-        asserts()
-
-        b._switch(b.search(8), b.search(2))
-        self.assertIs(b.root, b.search(12))
-        b._switch(b.search(12).left, b.search(12).left.left.left)
-
-        self.assertIsNone(b.search(12).left.left.left.left)
-        self.assertIsNone(b.search(12).left.left.left.right)
-        self.assertIs(
-            b.search(12).left.left.left.parent,
-            b.search(12).left.left)
-
-        b._switch(b.search(12), b.search(10))
-
-        self.assertIs(b.root, b.search(10))
-        self.assertIsNone(b.root.parent)
-
-        b._switch(b.search(10), b.search(10).left.right)
-        asserts()
+    def test__switch_search_first_true_nodes_not_in_tree(self):
+        t = BST()
+        a = BSTNode(3)
+        b = BSTNode(5)
+        self.assertRaises(LookupError, t._switch, a, b, True)

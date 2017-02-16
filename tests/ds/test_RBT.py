@@ -50,7 +50,7 @@ class TestRBT(unittest.TestCase):
             self.assertIsNone(t.root.parent)
 
     def assert_size_invariant(self, t, size, elem=None):
-        self.assertEqual(t.n, size)
+        self.assertEqual(t._n, size)
         self.assertEqual(t.size(), size)
         if elem is None:
             if size != 0:

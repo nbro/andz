@@ -75,7 +75,7 @@ def _merge_sort_aux(ls: list):
 
     **Time Complexity**: O(n*log<sub>2</sub>(n))"""
 
-    # Base case, where "ls" contains either 1 or 0 items,
+    # Base case, where "ls" contains_key either 1 or 0 items,
     # and it is by definition sorted.
     if len(ls) < 2:
         return ls

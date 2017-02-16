@@ -105,6 +105,27 @@ class BinaryHeap(metaclass=ABCMeta):
         whose key and value are equal to `x`."""
         pass
 
+    @staticmethod
+    def _create_list_of_heap_nodes(ls: list) -> list:
+        """Creates and returns a list of `HeapNode` objects with the objects in `ls`.
+
+        **Time Complexity:** O(n)."""
+        nodes = []
+        for x in ls:
+            # x represents also its priority.
+            # Check if x is either an int or a float.
+            if isinstance(x, (int, float)):
+                nodes.append(HeapNode(x))
+            else:
+                if len(x) != 2:
+                    raise ValueError("x should be a tuple or list of 2 elements.")
+                # x[0] := priority
+                # x[1] := value associated with x[0]
+                if x[0] is None or x[1] is None:
+                    raise ValueError("keys or values cannot be None.")
+                nodes.append(HeapNode(key=x[0], value=x[1]))
+        return nodes
+
     def build_heap(self) -> list:
         """Builds the heap data structure."""
         if self.heap:
@@ -344,27 +365,6 @@ class BinaryHeap(metaclass=ABCMeta):
 
     def __repr__(self) -> str:
         return build_pretty_binary_heap(self.heap)
-
-    @staticmethod
-    def _create_list_of_heap_nodes(ls: list) -> list:
-        """Creates and returns a list of `HeapNode` objects with the objects in `ls`.
-
-        **Time Complexity:** O(n)."""
-        nodes = []
-        for x in ls:
-            # x represents also its priority.
-            # Check if x is either an int or a float.
-            if isinstance(x, (int, float)):
-                nodes.append(HeapNode(x))
-            else:
-                if len(x) != 2:
-                    raise ValueError("x should be a tuple or list of 2 elements.")
-                # x[0] := priority
-                # x[1] := value associated with x[0]
-                if x[0] is None or x[1] is None:
-                    raise ValueError("keys or values cannot be None.")
-                nodes.append(HeapNode(key=x[0], value=x[1]))
-        return nodes
 
 
 def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:

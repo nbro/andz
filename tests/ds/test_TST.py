@@ -102,7 +102,7 @@ class TestTST(unittest.TestCase):
             self.assertEqual(t.search(k), v)
             self.assertTrue(t.contains(k))
 
-    # Testing search and contains in the "bad" cases (of inputs)
+    # Testing search and contains_key in the "bad" cases (of inputs)
 
     def test_search_empty_tst(self):
         t = TST()
