@@ -94,10 +94,6 @@ class TestBST(unittest.TestCase):
         t = BST()
         self.assertRaises(ValueError, t.insert, None)
 
-    def test_insert_one_key_None(self):
-        t = BST()
-        self.assertRaises(ValueError, t.insert, None)
-
     def test_insert_one_bst_node_not_reset(self):
         t = BST()
         n = BSTNode(2)
@@ -162,10 +158,6 @@ class TestBST(unittest.TestCase):
 
         self.assertIs(zero, t.minimum())
         self.assertIs(nine, t.maximum())
-
-    def test_search_key_None(self):
-        t = BST()
-        self.assertRaises(ValueError, t.search, None)
 
     def test_search_key_None(self):
         t = BST()
@@ -240,7 +232,7 @@ class TestBST(unittest.TestCase):
         t.insert_many(12, 5)
         self.assertTrue(t.contains_key(12))
 
-    def test_contains_true(self):
+    def test_contains_false(self):
         t = BST()
         t.insert(12)
         self.assertFalse(t.contains_key(14))
@@ -248,14 +240,6 @@ class TestBST(unittest.TestCase):
     def test_rank_key_None(self):
         t = BST()
         self.assertRaises(ValueError, t.rank, None)
-
-    def test_rank_key_None(self):
-        t = BST()
-        self.assertRaises(ValueError, t.rank, None)
-
-    def test_rank_key_not_found(self):
-        t = BST()
-        self.assertRaises(LookupError, t.rank, 19)
 
     def test_rank_key_not_found(self):
         t = BST()
@@ -540,7 +524,7 @@ class TestBST(unittest.TestCase):
         self.assertIsNone(deleted.parent)
         self.assertEqual(t.size(), 4)
 
-    def test_delete_no_children(self):
+    def test_delete_one_child(self):
         t = BST()
 
         eight = BSTNode(8)
