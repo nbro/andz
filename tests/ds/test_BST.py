@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 13/02/2016
 
-Updated: 16/02/2017
+Updated: 17/02/2017
 
 # Description
 
@@ -104,12 +104,10 @@ class TestBST(unittest.TestCase):
         t = BST()
 
         t.insert("one")
-
         self.assertEqual(t.size(), 1)
         self.assertEqual(t.height(), 1)
 
         one = t.search("one")
-
         self.assertTrue(isinstance(one, BSTNode))
         self.assertIs(one, t.minimum())
         self.assertIs(one, t.maximum())
@@ -163,28 +161,6 @@ class TestBST(unittest.TestCase):
         t = BST()
         self.assertRaises(ValueError, t.search, None)
 
-    def test_search_starting_node_not_bst_node(self):
-        t = BST()
-        self.assertRaises(TypeError, t.search, 3, "not a BSTNode")
-
-    def test_search_starting_node_has_bad_pointers(self):
-        t = BST()
-        n = BSTNode(5)
-        n.parent = 10
-        self.assertRaises(TypeError, t.search, 3, n)
-
-    def test_search_starting_tree_has_not_bst_property(self):
-        t = BST()
-        a = BSTNode(5)
-        b = BSTNode(3)
-        a.right = b
-        b.parent = a
-        self.assertRaises(TypeError, t.search, 3, a)
-
-    def test_search_empty_tree_starting_node_given(self):
-        t = BST()
-        self.assertIsNone(t.search("two", BSTNode("one")))
-
     def test_search_empty_tree(self):
         t = BST()
         self.assertIsNone(t.search("one"))
@@ -203,36 +179,16 @@ class TestBST(unittest.TestCase):
         seven = t.search(7)
         self.assertIsNone(seven)
 
-    def test_search_with_starting_node_exists(self):
-        t = BST()
-
-        two = BSTNode(2, "two")
-        t.insert_many([5, two, 6])
-        found = t.search(2, two)
-
-        self.assertIsInstance(found, BSTNode)
-        self.assertEqual(two.key, 2)
-        self.assertEqual(two.value, "two")
-
-    def test_search_with_starting_node_not_exists(self):
-        t = BST()
-
-        two = BSTNode(2, "two")
-        t.insert_many([5, two, 6])
-        found = t.search(7, two)
-
-        self.assertIsNone(found)
-
-    def test_contains_empty_tree(self):
+    def test_contains_key_empty_tree(self):
         t = BST()
         self.assertFalse(t.contains_key(3))
 
-    def test_contains_true(self):
+    def test_contains_key_true(self):
         t = BST()
-        t.insert_many(12, 5)
+        t.insert_many([12, 5])
         self.assertTrue(t.contains_key(12))
 
-    def test_contains_false(self):
+    def test_contains_key_false(self):
         t = BST()
         t.insert(12)
         self.assertFalse(t.contains_key(14))
@@ -269,26 +225,6 @@ class TestBST(unittest.TestCase):
         for i in range(100):
             t.insert(i)
         self.assertEqual(t.height(), 100)
-
-    def test_in_order_traversal(self):
-        t = BST()
-        t.insert_many([10, 4, 85, 43, 6, 1, 69])
-        t.in_order_traversal()
-
-    def test_pre_order_traversal(self):
-        t = BST()
-        t.insert_many([10, 4, 85, 43, 6, 1, 69])
-        t.pre_order_traversal()
-
-    def test_post_order_traversal(self):
-        t = BST()
-        t.insert_many([10, 4, 85, 43, 6, 1, 69])
-        t.post_order_traversal()
-
-    def test_reverse_in_order_traversal(self):
-        t = BST()
-        t.insert_many([10, 4, 85, 43, 6, 1, 69])
-        t.reverse_in_order_traversal()
 
     def test_minimum_empty_tree(self):
         t = BST()
@@ -452,51 +388,6 @@ class TestBST(unittest.TestCase):
         self.assertIs(two, t.remove_min())
         self.assertTrue(t.size(), 2)
 
-    # TODO: METHODS AFTER REMOVE_MAX
-
-    def test_delete_not_found(self):
-        b = BST()
-        self.assertRaises(LookupError, b.delete, 12)
-
-    def test_delete_one_size(self):
-        b = BST()
-        b.insert(12)
-        b.delete(12)
-        self.assertFalse(b.contains_key(12))
-
-    def test_multiple_remove1(self):
-        b = BST()
-
-        for i in range(15):
-            b.insert(i)
-
-        for i in range(0, 15, 2):
-            b.delete(i)
-            self.assertFalse(b.contains_key(i))
-
-        for i in range(1, 15, 2):
-            self.assertTrue(b.contains_key(i))
-
-        self.assertEqual(b.size(), 7)
-
-    def test_multiple_remove2(self):
-        b = BST()
-
-        for i in range(0, 15, 2):
-            b.insert(i)
-
-        for i in range(-1, 15, 2):
-            self.assertRaises(LookupError, b.delete, i)
-            self.assertFalse(b.contains_key(i))
-
-        for i in range(0, 15, 2):
-            self.assertTrue(b.contains_key(i))
-
-        self.assertEqual(b.size(), 8)
-
-    def test_delete_tree_empty(self):
-        pass
-
     def test_delete_key_None(self):
         t = BST()
         self.assertRaises(ValueError, t.delete, None)
@@ -504,20 +395,27 @@ class TestBST(unittest.TestCase):
     def test_delete_key_not_found(self):
         t = BST()
         self.assertRaises(LookupError, t.delete, 3)
+        t = BST()
+        t.insert_many([1, 3, 4])
+        self.assertRaises(LookupError, t.delete, 5)
 
     def test_delete_bst_node_not_found(self):
         t = BST()
         n = BSTNode(3)
         self.assertRaises(LookupError, t.delete, n)
 
+    def test_delete_one_size(self):
+        t = BST()
+        t.insert(12)
+        t.delete(12)
+        self.assertFalse(t.contains_key(12))
+        self.assertTrue(t.is_empty())
+
     def test_delete_no_children(self):
         t = BST()
-
         nine = BSTNode(9)
         t.insert_many([5, 2, 10, 8, nine])
-
         deleted = t.delete(9)
-
         self.assertIs(nine, deleted)
         self.assertIsNone(deleted.left)
         self.assertIsNone(deleted.right)
@@ -526,12 +424,9 @@ class TestBST(unittest.TestCase):
 
     def test_delete_one_child(self):
         t = BST()
-
         eight = BSTNode(8)
         t.insert_many([5, 2, 10, eight, 9])
-
         deleted = t.delete(8)
-
         self.assertIs(eight, deleted)
         self.assertIsNone(deleted.left)
         self.assertIsNone(deleted.right)
@@ -540,12 +435,9 @@ class TestBST(unittest.TestCase):
 
     def test_delete_two_children(self):
         t = BST()
-
         ten = BSTNode(10)
         t.insert_many([5, 2, ten, 8, 9, 8, 12, 11, 13])
-
         deleted = t.delete(10)
-
         self.assertIs(ten, deleted)
         self.assertIsNone(deleted.left)
         self.assertIsNone(deleted.right)
@@ -562,7 +454,7 @@ class TestBST(unittest.TestCase):
         for _ in range(size):
             elem = choice(ls)
             ls.remove(elem)
-            t.delete(elem)
+            self.assertEqual(t.delete(elem), elem)
 
         self.assertTrue(t.is_empty())
 
@@ -579,8 +471,22 @@ class TestBST(unittest.TestCase):
         n = BSTNode(3)
         self.assertRaises(ValueError, t._switch, n, n)
 
-    def test__switch_search_first_true_nodes_not_in_tree(self):
+    def test_in_order_traversal(self):
         t = BST()
-        a = BSTNode(3)
-        b = BSTNode(5)
-        self.assertRaises(LookupError, t._switch, a, b, True)
+        t.insert_many([10, 4, 85, 43, 6, 1, 69])
+        t.in_order_traversal()
+
+    def test_pre_order_traversal(self):
+        t = BST()
+        t.insert_many([10, 4, 85, 43, 6, 1, 69])
+        t.pre_order_traversal()
+
+    def test_post_order_traversal(self):
+        t = BST()
+        t.insert_many([10, 4, 85, 43, 6, 1, 69])
+        t.post_order_traversal()
+
+    def test_reverse_in_order_traversal(self):
+        t = BST()
+        t.insert_many([10, 4, 85, 43, 6, 1, 69])
+        t.reverse_in_order_traversal()

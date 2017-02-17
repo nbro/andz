@@ -2,17 +2,12 @@
 
 ## TODO
 
-- Refactor all tests for the data structures except for 
+- Refactor tests for the data structures:
+    
+    - MinHeap
+    - MaxHeap
+    - MinMaxHeap
 
-    - Queue, 
-    - Stack,
-    - DSForests,
-    - HeapNode
-    - BinaryHeap
-    - TST 
-    - LinearProbingHashTable
-    - BST
-    - BSTNode
     
 which, as all other data structures, may nonetheless need to be improved!
 
