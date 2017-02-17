@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/08/2015
 
-Updated: 28/08/2016
+Updated: 17/02/2017
 
 # Description
 
@@ -23,7 +23,7 @@ Updated: 28/08/2016
 4. If a node is red, then both its children are black,
 in other words, there cannot be two red nodes in a row.
 
-5. For every node x, each path from x to its descendent leaves
+5. For every node x, each path from x to its descendant leaves
 has the same number of black nodes, i.e. bh(x).
 
 ## Lemma
@@ -86,10 +86,6 @@ Now we log both parts
     insert, etc, so the complexity of those operations is T(n) = O(h),
     that is T(n) = O(log<sub>2</sub> n), which is also the worst case complexity.
 
-# TODO
-
-- Override needed methods inherited from BST.
-
 # References
 
 - [https://en.wikipedia.org/wiki/Red%E2%80%93black_tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
@@ -102,7 +98,7 @@ import math
 
 from ands.ds.BST import BST, BSTNode, is_bst
 
-__all__ = ["RBT", "RBTNode", "is_rbt", "bh", "upper_bound_height"]
+__all__ = ["RBT", "RBTNode", "is_rbt", "black_height", "upper_bound_height"]
 
 RED = "RED"
 BLACK = "BLACK"
@@ -111,8 +107,7 @@ BLACK = "BLACK"
 class RBTNode(BSTNode):
     """Class to represent a `RBT`'s node."""
 
-    def __init__(self, key, value=None, color=BLACK,
-                 parent=None, left=None, right=None):
+    def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
         BSTNode.__init__(self, key, value, parent, left, right)
         self._color = color
         self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
@@ -126,21 +121,12 @@ class RBTNode(BSTNode):
         self._color = value
         self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
 
-    def reset(self):
+    def reset(self) -> None:
         super().reset()
         self.color = BLACK
 
-    def __fields(self):
-        """Used by __repr__."""
-        return [["Node (Key)", self.key],
-                ["Value", self.value],
-                ["Color", self.color],
-                ["Parent", self.parent],
-                ["Left child", self.left],
-                ["Right child", self.right],
-                ["Sibling", self.sibling],
-                ["Grandparent", self.grandparent],
-                ["Uncle", self.uncle]]
+    def __fields(self) -> list:
+        self.__fields().append(["color", self.color])
 
 
 class RBT(BST):
@@ -154,7 +140,7 @@ class RBT(BST):
 
         This operation is similar to the `insert` operation of a classical `BST`,
         but, in this case, the red-black tree property must be maintained,
-        so addional work is needed.
+        so additional work is needed.
 
         There are several cases of inserting into a RBT to handle:
 
@@ -182,13 +168,13 @@ class RBT(BST):
         `_fix_insertion` handles these cases in the same order as just presented above.
 
         **Time Complexity:** O(log<sub>2</sub>(n))."""
+        assert is_rbt(self)
+
         if x is None:
             raise ValueError("x cannot be None.")
-
         if not isinstance(x, RBTNode):
             x = RBTNode(x, value)
-
-        if x.left or x.right or x.parent:
+        if x.left is not None or x.right is not None or x.parent is not None:
             raise ValueError("x cannot have left or right children, or parent.")
 
         c = self.root  # Current node
@@ -215,6 +201,8 @@ class RBT(BST):
         x.color = RED
         self._n += 1
         self._fix_insertion(x)
+
+        assert is_rbt(self)
 
     def _fix_insertion(self, u: RBTNode) -> None:
         # u is the root and we color it BLACK.
@@ -271,6 +259,34 @@ class RBT(BST):
 
             else:
                 assert False
+
+    def remove_max(self) -> RBTNode:
+        """Removes and returns the element with the greatest value from `self`.
+
+        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        assert is_rbt(self)
+
+        if self.root is not None:
+            m = self.maximum()
+            assert m is not None
+
+            d = self.delete(m)
+            assert is_rbt(self)
+            return d
+
+    def remove_min(self) -> RBTNode:
+        """Removes and returns the element with the smallest value from `self`.
+
+        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        assert is_rbt(self)
+
+        if self.root is not None:
+            m = self.minimum()
+            assert m is not None
+
+            d = self.delete(m)
+            assert is_rbt(self)
+            return d
 
     def delete(self, x) -> RBTNode:
         """Delete `x` from this `RBT` object.
@@ -377,17 +393,25 @@ class RBT(BST):
                 v.sibling.left.color = BLACK
                 self._right_rotate(v.parent)
 
+        assert is_rbt(self)
+
         # a few checks of the inputs given
         if x is None:
             raise ValueError("x cannot be None.")
 
         if not isinstance(x, RBTNode):
-            x = self.search(x)
+            x = self.search_key_iteratively(x)
             if x is None:
-                raise LookupError("No node was found with key=x.")
+                raise LookupError("no node was found with key=x.")
+        else:
+            if not self.contains_key(x.key):
+                raise LookupError("x does not belong to this tree")
 
-        if x.parent is None and not self.is_root(x):
-            raise ValueError("x is not a valid node.")
+        # Not calling self.is_root because it contains some assertions,
+        if x.parent is None and x != self.root:
+            raise ValueError("x does not have parent but it's the root")
+        if x == self.root and x.parent is not None:
+            raise ValueError("x has parent and is the root")
 
         # If x has 2 non-leaf children, then replace x with its successor.
         # Note that we exchange also the colors of x and its successor.
@@ -417,7 +441,7 @@ class RBT(BST):
 
             # a few checks while in alpha stage
             assert x.left is None and x.right is None
-            assert not self.is_root(x)
+            assert x != self.root
 
             if x.is_left_child():
                 x.parent.left = None
@@ -437,7 +461,7 @@ class RBT(BST):
             # both of these properties are preserved.
 
             if x.left is not None and x.left.color == RED:
-                if not self.is_root(x):
+                if self.root != x:
                     if x.is_left_child():
                         x.parent.left = x.left
                     else:
@@ -446,11 +470,11 @@ class RBT(BST):
                 x.left.parent = x.parent
                 x.left.color = BLACK
 
-                if self.is_root(x):
+                if self.root == x:
                     self.root = x.left
 
             elif x.right is not None and x.right.color == RED:
-                if not self.is_root(x):
+                if self.root != x:
                     if x.is_left_child():
                         x.parent.left = x.right
                     else:
@@ -459,7 +483,7 @@ class RBT(BST):
                 x.right.parent = x.parent
                 x.right.color = BLACK
 
-                if self.is_root(x):
+                if self.root == x:
                     self.root = x.right
             else:
                 # This the complex case: both `x` and `c` (the child) are BLACK.
@@ -474,7 +498,7 @@ class RBT(BST):
                 assert x.left is None and x.right is None
 
                 # 6 cases
-                if not self.is_root(x):
+                if self.root != x:
 
                     assert x.sibling is not None
 
@@ -502,34 +526,22 @@ class RBT(BST):
         self._n -= 1
         # Ensures that x has no reference to any node of this RBT.
         x.parent = x.left = x.right = None
+
+        assert is_rbt(self)
+
         return x
 
-    def remove_max(self) -> RBTNode:
-        """Removes and returns the element with the greatest value from `self`.
 
-        **Time Complexity:** O(log<sub>2</sub>(n))."""
-        if self.root:
-            m = self.maximum()
-            assert m
-            return self.delete(m)
-
-    def remove_min(self) -> RBTNode:
-        """Removes and returns the element with the smallest value from `self`.
-
-        **Time Complexity:** O(log<sub>2</sub>(n))."""
-        if self.root:
-            m = self.minimum()
-            assert m
-            return self.delete(m)
-
-
-def bh(n):
+def black_height(n: RBTNode) -> int:
     """Returns the black-height of the node `n`."""
     if n is None:
         return 1
 
-    left_bh = bh(n.left)
-    right_bh = bh(n.right)
+    if not isinstance(n, RBTNode):
+        raise TypeError("n must be an instance of RBTNode")
+
+    left_bh = black_height(n.left)
+    right_bh = black_height(n.right)
 
     if left_bh != right_bh:
         return -1
@@ -537,18 +549,20 @@ def bh(n):
         return left_bh + (1 if n.color == BLACK else 0)
 
 
-def upper_bound_height(t):
-    return t.height() <= 2 * math.log2(t._n + 1)
+def upper_bound_height(t: RBT) -> bool:
+    """Returns `True` if the height of the red-black tre `t`
+    is bounded above by log_2(n + 1)"""
+    return t.height() <= 2 * math.log2(t.size() + 1)
 
 
-def is_rbt(rbt):
-    """Returns `True` if `rbt` is a valid `RBT` object. `False` otherwise."""
+def is_rbt(t: RBT) -> bool:
+    """Returns `True` if `t` is a valid `RBT` object. `False` otherwise."""
 
-    def prop_1(t):
+    def are_all_red_or_black(t: RBT) -> bool:
         """Returns `True` if all colors are either `RED` or `BLACK`."""
 
-        def h(n):
-            if n:
+        def h(n: RBTNode) -> bool:
+            if n is not None:
                 if n.color != BLACK and n.color != RED:
                     return False
                 return h(n.right) and h(n.left)
@@ -556,36 +570,29 @@ def is_rbt(rbt):
 
         return h(t.root)
 
-    def prop_2(t):
-        """Returns `True` if the root is `BLACK` (or it is `None`),
-        `False` otherwise."""
-        if t.root:
+    def is_root_black(t: RBT) -> bool:
+        """Returns `True` if the root is `BLACK` (or it is `None`), `False` otherwise."""
+        if t.root is not None:
             return t.root.color == BLACK
         return True
 
-        # def prop_3(t):
-        # leaves are represented with Nones,
-        # so there's not need to check this property.
-
-    #    return True
-
-    def prop_4(t):
-        def h(n):
-            if n:
-                if n.parent and n.color == RED and n.parent.color == RED:
+    def has_not_consecutive_red_nodes(t: RBT) -> bool:
+        def h(n: RBTNode) -> bool:
+            if n is not None:
+                if n.parent is not None and n.color == RED and n.parent.color == RED:
                     return False
-                if not n.parent and n.color == RED:
+                if n.parent is None and n.color == RED:
                     return False
                 return h(n.left) and h(n.right)
             return True
 
         return h(t.root)
 
-    def prop_5(t):
-        return bh(t.root) != -1
+    def all_paths_have_same_black_height(t: RBT) -> bool:
+        return black_height(t.root) != -1
 
-    def all_rbt_nodes(t):
-        def h(n):
+    def are_all_rbt_nodes(t: RBT) -> bool:
+        def h(n: RBTNode) -> bool:
             if n is not None:
                 if not isinstance(n, RBTNode):
                     return False
@@ -594,13 +601,19 @@ def is_rbt(rbt):
 
         return h(t.root)
 
-    if not is_bst(rbt):
+    if not is_bst(t):
         return False
 
-    if not isinstance(rbt, RBT):
+    if not isinstance(t, RBT):
         return False
 
-    if not all_rbt_nodes(rbt):
+    if not are_all_rbt_nodes(t):
         return False
 
-    return prop_1(rbt) and prop_2(rbt) and prop_4(rbt) and prop_5(rbt)
+    if not upper_bound_height(t):
+        return False
+
+    return are_all_red_or_black(t) and \
+           is_root_black(t) and \
+           has_not_consecutive_red_nodes(t) and \
+           all_paths_have_same_black_height(t)

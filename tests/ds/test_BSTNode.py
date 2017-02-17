@@ -125,7 +125,7 @@ class TestBSTNode(unittest.TestCase):
         self.assertTrue(b.is_left_child())
         self.assertFalse(b.is_right_child())
 
-    def test_is_left_child(self):
+    def test_is_right_child(self):
         a = BSTNode(3)
         b = BSTNode(4)
         a.right = b
