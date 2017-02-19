@@ -103,6 +103,8 @@ then
             run_all_tests
         fi
 
+        #new_docs
+
         exit_from_virtual_environment
     }
 
@@ -130,6 +132,7 @@ then
     _source_script scripts cd_back_n_times
     _source_script scripts virtual_environment
     _source_script scripts count_occurrences
+    #_source_script scripts new_docs
 
     # "$@" expands all command-line parameters separated by spaces which are passed to the run function
     _main "$@"

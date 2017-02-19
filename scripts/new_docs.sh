@@ -14,11 +14,11 @@ if [ -z "${ALREADY_SOURCED_NEW_DOCS}" ]
 then
     new_docs()
     {
-        printf "%sCreating new documentation under '%s/docs'...%s\n" "${YELLOW}" "${PWD}" "${NORMAL}"
+        printf "%sCreating new documentation under '%s/docs'... %s" "${YELLOW}" "${PWD}" "${NORMAL}"
         rm -rf ./docs
         mkdir docs
         pdoc --html --overwrite --html-dir docs ands
-        printf "%sDone.%s\n" "${GREEN}" "${NORMAL}"
+        printf "%sdone.%s\n" "${GREEN}" "${NORMAL}"
     }
 
     . ./_source_script.sh
