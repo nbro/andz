@@ -9,7 +9,7 @@ Author: Nelson Brochado
 
 Created: 01/05/2016
 
-Updated: 14/02/2017
+Updated: 19/02/2017
 
 # Description
 
@@ -22,50 +22,56 @@ from ands.algorithms.ode.forward_euler import *
 
 
 class TestForwardEuler(unittest.TestCase):
-
     @staticmethod
     def f(ti, yi):
         return yi
 
     @staticmethod
-    def get_b(a, n, h):
+    def gen_b(a: float, n: int, h: float) -> float:
         return h * n + a
 
-    def test_parameters_not_none(self):
-        a = 0
-        n = 7
-        h = 0.2
-        b = TestForwardEuler.get_b(a, n, h)
-        self.assertRaises(ValueError, forward_euler, None, b, n, 1, TestForwardEuler.f)
-        self.assertRaises(ValueError, forward_euler, a, None, n, 1, TestForwardEuler.f)
-        self.assertRaises(ValueError, forward_euler, a, b, None, 1, TestForwardEuler.f)
-        self.assertRaises(ValueError, forward_euler, a, b, n, None, TestForwardEuler.f)
+    def setUp(self):
+        # Runs before each test
+        self.a = 0  # start of the range [a, b]
+        self.n = 7
+        self.h = 0.2  # step
+        self.b = TestForwardEuler.gen_b(self.a, self.n, self.h)
 
-    def test_b_less_than_a(self):
-        a = 0
-        n = 7
-        h = -0.2
-        b = TestForwardEuler.get_b(a, n, h)
-        self.assertRaises(ValueError, forward_euler, a, b, n, 1, TestForwardEuler.f)
+    def test_forward_euler_parameters_when_are_None(self):
+        self.assertRaises(ValueError, forward_euler, None, self.b, self.n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, self.a, None, self.n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, self.a, self.b, None, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, self.a, self.b, self.n, None, TestForwardEuler.f)
 
-    def test_f_is_callable(self):
-        a = 0
-        n = 7
-        h = 0.2
-        b = TestForwardEuler.get_b(a, n, h)
-        self.assertRaises(TypeError, forward_euler, a, b, n, 1, None)
+    def test_forward_euler_approx_parameters_when_are_None(self):
+        self.assertRaises(ValueError, forward_euler_approx, None, self.b, self.n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler_approx, self.a, None, self.n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler_approx, self.a, self.b, None, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler_approx, self.a, self.b, self.n, None, TestForwardEuler.f)
 
-    def test_1(self):
-        # consider the problem y' = y, y(0) = 1
+    def test_forward_euler_b_less_than_a(self):
+        self.h = -0.2
+        self.b = TestForwardEuler.gen_b(self.a, self.n, self.h)
+        self.assertRaises(ValueError, forward_euler, self.a, self.b, self.n, 1, TestForwardEuler.f)
+
+    def test_forward_euler_approx_b_less_than_a(self):
+        self.h = -0.2
+        self.b = TestForwardEuler.gen_b(self.a, self.n, self.h)
+        self.assertRaises(ValueError, forward_euler_approx, self.a, self.b, self.n, 1, TestForwardEuler.f)
+
+    def test_forward_euler_f_is_not_callable(self):
+        self.assertRaises(TypeError, forward_euler, self.a, self.b, self.n, 1, None)
+
+    def test_forward_euler_approx_f_is_not_callable(self):
+        self.assertRaises(TypeError, forward_euler_approx, self.a, self.b, self.n, 1, None)
+
+    def test_forward_euler_result_is_not_None(self):
+        # Consider the problem y' = y, y(0) = 1,
         # the exact solution is y(t) = e^t.
-
-        # should in this case mean that the step is going to be like 0.2
-        a = 0
-        n = 7
-        h = 0.2
-        b = TestForwardEuler.get_b(a, n, h)
-
-        t, y = forward_euler(a, b, n, 1, TestForwardEuler.f)
-
+        t, y = forward_euler(self.a, self.b, self.n, 1, TestForwardEuler.f)
         self.assertIsNotNone(t)
+        self.assertIsNotNone(y)
+
+    def test_forward_euler_approx_result_is_not_None(self):
+        y = forward_euler_approx(self.a, self.b, self.n, 1, TestForwardEuler.f)
         self.assertIsNotNone(y)
