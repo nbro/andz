@@ -2,10 +2,92 @@
 # -*- coding: utf-8 -*-
 
 """
-Author: Nelson Brochado
-Creation: 10/09/2016
+# Meta info
 
-## References
+Author: Nelson Brochado
+
+Created: 10/09/2016
+
+Updated: 19/02/2017
+
+# Description
+
+The forward Euler's method for solving ODEs is the easiest method
+for approximately solving a _initial value_ ODE problem.
+Hence it's used, in general, as a vehicle for studying
+several important and basic notions on numerical ODE methods.
+
+## Euler's method derivation
+
+We first consider finding an approximate solution for
+a scalar initial value ODE problem at equidistant abscissae.
+Thus, we define the points:
+
+  t<sub>0</sub> = a
+
+  t<sub>i</sub> = a + i*h,
+
+where h = <sup>(b - a)</sup>&frasl;<sub>N</sub> is the step size.
+We denote the approximate solution to y(t<sub>i</sub>) by yi.
+Note that, in general, the step size h could change.
+
+Consider the following forward difference formula:
+
+<sup>15</sup>&frasl;<sub>16</sub>
+
+ y'(t<sub>i</sub>) = (y(t<sub>i + 1</sub>) - y(t<sub>i</sub>)) / h - ((h / 2) * y''(zeta<sub>i</sub>))
+
+By the ODE, y'(t<sub>i</sub>) = f(t<sub>i</sub>, y(t<sub>i</sub>)), so,
+if we manipulate the expression above to have y(t<sub>i + 1</sub>) isolated in one side,
+and we start by multiplying both sides by h:
+
+ h * y'(t<sub>i</sub>) = y(t<sub>i + 1</sub>) - y(t<sub>i</sub>) - ((h^2) / 2 * y''(zeta<sub>i</sub>))
+
+ h * y'(t<sub>i</sub>) + y(t<sub>i</sub>) + ((h^2) / 2 * y''(zeta<sub>i</sub>)) = y(t<sub>i + 1</sub>)
+
+or
+
+ y(t<sub>i + 1</sub>) = y(t<sub>i</sub>) + h * y'(t<sub>i</sub>) + ((h^2) / 2 * y''(zeta<sub>i</sub>))
+
+we replace y'(t<sub>i</sub>) by f(t<sub>i</sub>, y(t<sub>i</sub>))
+
+ y(t<sub>i + 1</sub>) = y(t<sub>i</sub>) + h * f(t<sub>i</sub>, y(t<sub>i</sub>)) + ((h^2) / 2 * y''(zeta<sub>i</sub>))
+
+
+dropping the truncation term, we obtain the forward Euler method,
+which defines the approximate solution (y<sub>i</sub>)<sub>i=0</sub><sup>N</sup> by:
+
+ y<sub>0</sub> = c (initial value)
+
+ y(t<sub>i + 1</sub>) = y(t<sub>i</sub>) + h * f(t<sub>i</sub>, y(t<sub>i</sub>)), i=0..N-1
+
+This simple formula allow us to march forward into t.
+
+In the following function we assume that f
+and all other parameters are specified.
+
+## Explicit vs Implicit methods
+
+What happens if we replace the forward difference formula
+by the backward formula
+
+ y'(t<sub>i + 1</sub>) ~~ (y(t<sub>i + 1</sub>) - y(t<sub>i</sub>)) / h
+
+and this leads similarly to the backward Euler method:
+
+ y<sub>0</sub> = c
+
+ y<sub>i + 1</sub> = y<sub>i</sub> + h * f(t<sub>i + 1</sub>, y<sub>i + 1</sub>), i=0..N
+
+There's actually a big difference between this new method
+and the previous one. This one to calculate y<sub>i + 1</sub>
+depends implicitly on y<sub>i + 1</sub> itself!
+
+In general, if a method to calculate y<sub>i + 1</sub> depends implicitly on y<sub>i + 1</sub>,
+it's called an implicit method,
+whereas the forward method is considered a explicit method.
+
+# References
 
 - First Course in Numerical Methods, chapter 16,
 by Uri M. Ascher and C. Greif
@@ -13,84 +95,12 @@ by Uri M. Ascher and C. Greif
 - [Euler's Method program code](https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/eulers-method-tutorial/p/eulers-method-program-code),
 animation program by Khan Academy
 
-## Description
-
-Forward Euler's method for solving ODEs.
-This is the easiest method for approximately solving
-a initial value ODE problem.
-Hence it's used, in general, as a vehicle for studying
-several important and basic notions on numerical ODE methods.
-
-### Euler's method derivation
-
-We first consider finding an approximate solution for
-a scalar initial value ODE problem at equidistant abscissae.
-Thus, we define the points:
-
-    t_0 = a, t_i = a + i*h,
-
-where h = (b - a) / N is the step size.
-We denote the appoximate solution to y(t_i) by yi.
-Note that, in general, the step size h could change.
-
-Consider the following forward difference formula:
-
-    y'(t_i) = (y(t_{i + 1}) - y(t_i)) / h - ((h / 2) * y''(zeta_i))
-
-By the ODE, y'(t_i) = f(t_i, y(t_i)), so,
-if we manipulate the expression above to have y(t_{i + 1}) isolated in one side,
-and we start by multiplying both sides by h:
-
-    h * y'(t_i) = y(t_{i + 1}) - y(t_i) - ((h^2) / 2 * y''(zeta_i))
-
-    h * y'(t_i) + y(t_i) + ((h^2) / 2 * y''(zeta_i)) = y(t_{i + 1})
-
-or
-
-    y(t_{i + 1}) = y(t_i) + h * y'(t_i) + ((h^2) / 2 * y''(zeta_i))
-
-we replace y'(t_i) by f(t_i, y(t_i))
-
-    y(t_{i + 1}) = y(t_i) + h * f(t_i, y(t_i)) + ((h^2) / 2 * y''(zeta_i))
-
-
-dropping the truncation term, we obtain the forward Euler method,
-which defines the approximate solution {y_i}_{i=0}^{N} by:
-
-    y_0 = c (initial value)
-
-    y(t_{i + 1}) = y(t_i) + h * f(t_i, y(t_i)), i=0..N-1
-
-This simple formula allow us to march forward into t.
-
-In the following function we assume that f
-and all other parameters are specified.
-
-### Explicit vs Implicit methods
-
-What happens if we replace the forward difference formula
-by the backward formula
-
-    y'(t_{i+1}) ~~ (y(t_{i+1}) - y(t_i)) / h
-
-and this leads similarly to the backward Euler method:
-
-    y_0 = c
-    y_{i+1} = y_i + h * f(t_{i+1}, y_{i+1}), i=0..N
-
-There's actually a big difference between this new method
-and the previous one. This one to calculate y_{i+1}
-depends implicitly on y_{i+1} itself!
-
-In general, if a method to calculate y_{i+1} depends implicitly on y_{i+1},
-it's called an implicit method,
-whereas the forward method is considered a explicit method.
 """
 
 import numpy as np
 
 
-def forward_euler(a: float, b: float, n: int, c: float, f):
+def forward_euler(a: float, b: float, n: int, c: float, f) -> tuple:
     """
     a is the start of the range
     b is the end of the range
@@ -122,6 +132,7 @@ def forward_euler(a: float, b: float, n: int, c: float, f):
 
 def forward_euler_approx(a: float, b: float, n: int, c: float, f):
     """Returns just y[b].
+
     Use this function in case you just need y[b]
     and space requirements are a must."""
 

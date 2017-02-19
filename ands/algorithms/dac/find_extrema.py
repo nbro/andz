@@ -68,11 +68,11 @@ def _find_extremum_in_place(ls: list, start: int, end: int, _find_max: bool = Tr
             return m1 if m1 < m2 else m2
 
 
-def find_extremum_in_place(ls: list, find_max: bool = True) -> object:
+def find_extremum_in_place(ls: list, _find_max: bool = True) -> object:
     """Finds (in place) the maximum (or minimum) element in `ls`, which is assumed to be a list.
 
-    It finds the maximum if `find_max` is set to `True`, it finds the minimum otherwise."""
-    return _find_extremum_in_place(ls, 0, len(ls) - 1, find_max)
+    It finds the maximum if `_find_max` is set to `True`, it finds the minimum otherwise."""
+    return _find_extremum_in_place(ls, 0, len(ls) - 1, _find_max)
 
 
 def find_max(ls: list) -> object:
