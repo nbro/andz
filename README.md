@@ -7,7 +7,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/nbro/ands/badge.svg)](https://coveralls.io/github/nbro/ands)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c88538816f424aea916c251428f78c0a)](https://www.codacy.com/app/nbro/ands?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dossan/ands&amp;utm_campaign=Badge_Grade)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)](./LICENSE.md)
-[![Join the chat at https://gitter.im/ands-project/Lobby](https://badges.gitter.im/ands-project/Lobby.svg)](https://gitter.im/ands-project/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 
 ## Introduction
