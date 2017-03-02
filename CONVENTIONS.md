@@ -1,4 +1,4 @@
-# Coding conventions
+# Conventions
 
 ## General
 
@@ -11,6 +11,18 @@
 - Expose only public interface!!
     
     - For example, clients of a BST may not care about the existence of a BSTNode, which is only useful to store information about the keys.
+    
+### Github Issue Tracker
+
+This _issue tracker_ should be used to report 
+
+- issues regarding existing code, or 
+- possible improvements of existing code
+
+and **not** to report:
+
+- possible future features which have nothing to do with the existing code, or 
+- report issues of code that is no more part of this project
  
 ## Design by contract
 
