@@ -1,5 +1,7 @@
 # Conventions
 
+Conventions that should be adopted for this project.
+
 ## General
 
 - Do not introduce features that are
@@ -14,7 +16,7 @@
     
 ### Github Issue Tracker
 
-This _issue tracker_ should be used to report 
+The _issue tracker_ should be used to report 
 
 - issues regarding existing code, or 
 - possible improvements of existing code
