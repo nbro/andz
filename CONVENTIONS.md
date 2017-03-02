@@ -7,6 +7,10 @@
     - not tested
 
  to the `master` branch!!
+  
+- Expose only public interface!!
+    
+    - For example, clients of a BST may not care about the existence of a BSTNode, which is only useful to store information about the keys.
  
 ## Design by contract
 
