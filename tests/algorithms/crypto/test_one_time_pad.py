@@ -17,8 +17,8 @@ Testing the one_time_pad algorithm.
 import unittest
 from random import randint
 
-from ands.algorithms.crypto.one_time_pad import *
-from tests.algorithms.crypto.util import *
+from ands.algorithms.crypto.one_time_pad import encrypt, decrypt
+from tests.algorithms.crypto.util import generate_random_string
 
 
 class TestOneTimePad(unittest.TestCase):
@@ -26,8 +26,8 @@ class TestOneTimePad(unittest.TestCase):
         """m is the size of the string and key.
         n is the number of iterations."""
         for _ in range(n):
-            message = gen_rand_message(m)
-            key = gen_key(m)
+            message = generate_random_string(m)
+            key = generate_random_string(m)
             cipher_text = encrypt(message, key)
             original = decrypt(cipher_text, key)
             self.assertEqual(original, message)

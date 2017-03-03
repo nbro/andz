@@ -17,8 +17,10 @@ Tests for the caesar cipher algorithms.
 import unittest
 from random import randint
 
-from ands.algorithms.crypto.caesar import *
-from tests.algorithms.crypto.util import *
+from ands.algorithms.crypto.caesar import encrypt, decrypt, \
+    encrypt_with_multiple_keys, decrypt_with_multiple_keys, \
+    MAX_MAPPED_INT
+from tests.algorithms.crypto.util import find_max_char_ord_value, generate_random_string, gen_rand_keys
 
 
 class TestCaesarCipher(unittest.TestCase):
@@ -26,18 +28,18 @@ class TestCaesarCipher(unittest.TestCase):
         """n is the number of iterations.
         size is the size of the message."""
         for _ in range(n):
-            m = gen_rand_message(size)
-            key = random.randint(1, MAX - find_max(m))
+            m = generate_random_string(size)
+            key = randint(1, MAX_MAPPED_INT - find_max_char_ord_value(m))
             cipher = encrypt(m, key)
             o = decrypt(cipher, key)
             self.assertEqual(m, o)
 
     def template_test_multi_keys(self, n, size, total_keys):
         for _ in range(n):
-            m = gen_rand_message(size)
-            keys = gen_rand_keys(total_keys, 1, MAX - find_max(m))
-            cipher, pattern = multi_encrypt(m, keys)
-            o = multi_decrypt(cipher, pattern)
+            m = generate_random_string(size)
+            keys = gen_rand_keys(total_keys, 1, MAX_MAPPED_INT - find_max_char_ord_value(m))
+            cipher, pattern = encrypt_with_multiple_keys(m, keys)
+            o = decrypt_with_multiple_keys(cipher, pattern)
             self.assertEqual(m, o)
 
     def test_empty_message(self):
