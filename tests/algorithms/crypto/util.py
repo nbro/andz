@@ -5,19 +5,13 @@ import random
 import string
 
 
-def gen_rand_message(size):
+def generate_random_string(size):
     return "".join(random.choice(string.printable) for _ in range(size))
-
-
-def gen_key(size):
-    """Generate a random key of printable characters."""
-    return gen_rand_message(size)
 
 
 def gen_rand_keys(size, _min, _max):
     return [random.randint(_min, _max) for _ in range(size)]
 
 
-def find_max(m):
-    """m is a message"""
-    return max(ord(c) for c in m)
+def find_max_char_ord_value(message: str):
+    return max(ord(c) for c in message)

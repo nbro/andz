@@ -90,15 +90,17 @@ Caesar cipher is **not** a good cryptographic algorithm, so you should never use
 # References
 
 - [https://learncryptography.com/classical-encryption/caesar-cipher](https://learncryptography.com/classical-encryption/caesar-cipher)
+- [https://en.wikipedia.org/wiki/Ciphertext](https://en.wikipedia.org/wiki/Ciphertext)
+- [https://en.wikipedia.org/wiki/Plaintext](https://en.wikipedia.org/wiki/Plaintext)
 
 """
 
-__all__ = ["caesar_encrypt",
-           "caesar_decrypt",
-           "caesar_encrypt_with_multiple_keys",
-           "caesar_decrypt_with_multiple_keys"]
-
 from random import choice
+
+__all__ = ["encrypt",
+           "decrypt",
+           "encrypt_with_multiple_keys",
+           "decrypt_with_multiple_keys"]
 
 # A number which conventionally represents the maximum number that the function `ord` can return,
 # since it returns the Unicode code point for a one-character strings (assuming that 16-bit Unicode system).
@@ -109,34 +111,39 @@ def _move_char(c: str, k: int) -> str:
     return chr(ord(c) + k)
 
 
-def caesar_encrypt(m: str, k: int) -> str:
-    """Given a string `m` (i.e. the plaintext) and a non-negative key `k`,
-    it returns the encrypted version of `m` with the key `k` using the Caesar cipher algorithm,
+def encrypt(plaintext: str, k: int) -> str:
+    """Given a string `plaintext` and a non-negative key `k`,
+    it returns the encrypted version of `plaintext`
+    with the key `k` using the Caesar cipher algorithm,
     over an alphabet of possible maximum value `MAX_MAPPED_INT`."""
-    return "".join(_move_char(c, k) for c in m)
+    return "".join(_move_char(c, k) for c in plaintext)
 
 
-def caesar_decrypt(cipher: str, k: int) -> str:
-    """Reverts the operation performed by `caesar_encrypt`."""
-    return "".join(_move_char(c, -k) for c in cipher)
+def decrypt(ciphertext: str, k: int) -> str:
+    """Reverts the operation performed by `encrypt`."""
+    return "".join(_move_char(c, -k) for c in ciphertext)
 
 
 # Example of poly-alphabetic encryption
 
-def caesar_encrypt_with_multiple_keys(m: str, keys: list) -> tuple:
-    """Given a message m and a set of keys, it encrypts each symbol of m with a random key from `keys`.
+def encrypt_with_multiple_keys(plaintext: str, keys: list) -> tuple:
+    """Given a message `plaintext` and a set of `keys`,
+    it encrypts each symbol of plaintext with a random key from `keys`.
     The random pattern of keys chosen is the second item of the tuple returned."""
-    pattern = []
-    cipher = []
+    keys_used = []
+    ciphertext = []
 
-    for c in m:
+    for c in plaintext:
         k = choice(keys)
-        pattern.append(k)
-        cipher.append(_move_char(c, k))
+        keys_used.append(k)
+        ciphertext.append(_move_char(c, k))
 
-    return "".join(cipher), pattern
+    return "".join(ciphertext), keys_used
 
 
-def caesar_decrypt_with_multiple_keys(cipher: str, pattern: list) -> tuple:
-    """`len(pattern) == len(keys)`, where `keys` are the keys passed to `caesar_encrypt_with_multiple_keys`."""
-    return "".join(_move_char(cipher[i], -k) for i, k in enumerate(pattern))
+def decrypt_with_multiple_keys(ciphertext: str, keys_used: list) -> str:
+    """Reverts the operation performed by `encrypt_with_multiple_keys`.
+
+    Assumes `keys_used` is the list of keys used to encrypt a certain `plaintext`,
+    such that len(ciphertext) == len(plaintext)."""
+    return "".join(_move_char(ciphertext[i], -k) for i, k in enumerate(keys_used))
