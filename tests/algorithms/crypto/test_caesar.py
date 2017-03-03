@@ -17,7 +17,9 @@ Tests for the caesar cipher algorithms.
 import unittest
 from random import randint
 
-from ands.algorithms.crypto.caesar import *
+from ands.algorithms.crypto.caesar import caesar_encrypt, caesar_decrypt, \
+    caesar_encrypt_with_multiple_keys, caesar_decrypt_with_multiple_keys, \
+    MAX_MAPPED_INT
 from tests.algorithms.crypto.util import *
 
 
@@ -27,24 +29,24 @@ class TestCaesarCipher(unittest.TestCase):
         size is the size of the message."""
         for _ in range(n):
             m = gen_rand_message(size)
-            key = random.randint(1, MAX - find_max(m))
-            cipher = encrypt(m, key)
-            o = decrypt(cipher, key)
+            key = random.randint(1, MAX_MAPPED_INT - find_max(m))
+            cipher = caesar_encrypt(m, key)
+            o = caesar_decrypt(cipher, key)
             self.assertEqual(m, o)
 
     def template_test_multi_keys(self, n, size, total_keys):
         for _ in range(n):
             m = gen_rand_message(size)
-            keys = gen_rand_keys(total_keys, 1, MAX - find_max(m))
-            cipher, pattern = multi_encrypt(m, keys)
-            o = multi_decrypt(cipher, pattern)
+            keys = gen_rand_keys(total_keys, 1, MAX_MAPPED_INT - find_max(m))
+            cipher, pattern = caesar_encrypt_with_multiple_keys(m, keys)
+            o = caesar_decrypt_with_multiple_keys(cipher, pattern)
             self.assertEqual(m, o)
 
     def test_empty_message(self):
         for i in range(100):
             m = ""
-            cipher = encrypt(m, i)
-            o = decrypt(cipher, i)
+            cipher = caesar_encrypt(m, i)
+            o = caesar_decrypt(cipher, i)
             self.assertEqual(m, o)
 
     def test_encrypt_and_decrypt_size_1(self):
