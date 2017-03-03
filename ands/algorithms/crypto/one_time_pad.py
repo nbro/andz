@@ -47,7 +47,7 @@ Lets call this mapping function h. Lets call the reversing function f.
 
 The general one-time pad algorithm proceeds as follows.
 
-    let c be an empty string (which will present the ciphertext at the end of the algorithm)
+    let c be an empty string (which will represent the ciphertext at the end of the algorithm)
 
     iterate through message m:
 
