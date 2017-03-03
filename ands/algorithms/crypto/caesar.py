@@ -19,7 +19,7 @@ is replaced with a letter corresponding to a certain number of letters up or dow
 In this way, a message that initially was quite readable,
 ends up in a form that can not be understood at first glance.
 
-For example, suppose we want to caesar_encrypt the plaintext m = "abc".
+For example, suppose we want to encrypt the plaintext m = "abc".
 Suppose further that our alphabet is the English alphabet (of lower case letters from 'a' to 'z').
 So we have an alphabet of 26 symbols or, more commonly known, letters.
 
@@ -76,7 +76,7 @@ that is the general decryption formula can be described as follows
     d(x) := (x - k) mod 26
 
 where x is in this case a integer representation of a character, not from the plaintext,
-but from an caesar_encrypt text using the previously described Caesar encryption algorithm.
+but from an encrypted text using the previously described Caesar encryption algorithm.
 
 ## Implementation
 
@@ -85,8 +85,7 @@ whose value returned by the `ord` function is between 0 and 2^16 - 1.
 
 # Comments
 
-Caesar cipher is far from being a good cryptographic algorithm,
-so, in general, you should never use it to caesar_encrypt your messages!
+Caesar cipher is **not** a good cryptographic algorithm, so you should never use it to encrypt your messages!
 
 # References
 
