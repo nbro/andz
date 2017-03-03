@@ -111,6 +111,7 @@ To decrypt we simply apply the one-time pad with the same key but to c = "ik".
 - [https://learncryptography.com/classical-encryption/one-time-pad](https://learncryptography.com/classical-encryption/one-time-pad)
 - [https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/one-time-pad](https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/one-time-pad)
 - [http://python-reference.readthedocs.io/en/latest/docs/operators/bitwise_XOR.html](http://python-reference.readthedocs.io/en/latest/docs/operators/bitwise_XOR.html)
+- [https://en.wikipedia.org/wiki/One-time_pad](https://en.wikipedia.org/wiki/One-time_pad)
 
 """
 
