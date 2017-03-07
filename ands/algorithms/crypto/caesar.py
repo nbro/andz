@@ -87,6 +87,10 @@ whose value returned by the `ord` function is between 0 and 2^16 - 1.
 
 Caesar cipher is **not** a good cryptographic algorithm, so you should never use it to encrypt your messages!
 
+# TODO
+
+- Add complexity analysis
+
 # References
 
 - [https://learncryptography.com/classical-encryption/caesar-cipher](https://learncryptography.com/classical-encryption/caesar-cipher)

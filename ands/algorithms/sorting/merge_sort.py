@@ -2,16 +2,20 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Modified: 01/07/16
+Created: 09/09/2015
 
-### Resources
-- [Merge Sort](http://en.wikipedia.org/wiki/Merge_sort), Wiki's article
+Updated: 07/03/2017
 
+# Description
+
+# Resources
+- [Wiki article about Merge Sort](http://en.wikipedia.org/wiki/Merge_sort)
 - [The Merge Sort](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheMergeSort.html),
-section of online book on searching and sorting by
-[http://interactivepython.org](http://interactivepython.org)
+section of online book on searching and sorting by http://interactivepython.org
 """
 
 

@@ -2,12 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Modified: 01/07/16
+Created: 09/08/2015
 
+Updated: 07/03/2017
 
-### Parts of the quicksort algorithm
+# Description
+
+## Parts of the quicksort algorithm
 
 1. **Partition**
 
@@ -33,11 +38,10 @@ Modified: 01/07/16
     on the left of the pivot and on the right until `start >= end`.
 
 
-## Resources
-- [Quicksort](http://en.wikipedia.org/wiki/Quicksort), Wiki's article
+# Resources
+- [Wiki article about Quicksort](http://en.wikipedia.org/wiki/Quicksort)
 - [The Quick Sort](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheQuickSort.html),
-section of online book on searching and sorting by
-[http://interactivepython.org](http://interactivepython.org)
+section of online book on searching and sorting by http://interactivepython.org
 """
 
 
