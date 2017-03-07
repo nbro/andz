@@ -2,15 +2,22 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Modified: 01/07/16
+Created: 20/07/2015
 
-### Resources
-- [Bubble Sort](http://en.wikipedia.org/wiki/Bubble_sort), Wiki's article
+Updated: 07/03/2017
 
+# Description
+
+# Resources
+
+- [Wiki article about Bubble Sort](http://en.wikipedia.org/wiki/Bubble_sort)
 - [The Bubble Sort](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheBubbleSort.html),
-article by [http://interactivepython.org](http://interactivepython.org)
+article by http://interactivepython.org
+
 """
 
 

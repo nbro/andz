@@ -2,36 +2,57 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-The two algorithms to find the peak below
-can return different correct answers,
-because they operate differently.
+Created: 15/08/2015
 
-Resources:
+Updated: 07/03/2017
+
+# Description
+
+Finds a peak in a list `ls` of comparable objects.
+
+A peak ls[i] satisfies the following condition:
+
+    ls[i - 1] <= ls[i] >= ls[i + 1]
+
+for i=1...len(ls) - 2.
+
+In other words, A[i] is a peak if it is not smaller than its neighbors.
+
+The two algorithms to find the peak below can return different correct answers, because they operate differently.
+`find_peak_linearly` proceeds linearly through the input list `ls`,
+whereas `find_peak` uses a divide and conquer strategy.
+
+# TODO
+
+- Complexity analysis of find_peak
+
+# References
+
 - https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&spfreload=10
+
 """
 
 
-def find_peak_brute_force(ls):
-    """Finds the first peak in ls.
-    If there's no peak, None is returned.
+def find_peak_linearly(ls: list) -> int:
+    """Finds the index of the first peak in `ls`.
 
-    A peak ls[i] satisfies the following condition:
-    ls[i - 1] <= ls[i] >= ls[i + 1]
-    for i=1...len(ls) - 2.
-    In other words, A[i] is a peak
-    if it is not smaller than its neighbors,
+    If there's no peak or the list is empty, -1 is returned.
 
-    Time complexity: O(n),
-    where n is the size of ls."""
+    Time Complexity: O(len(n))"""
     for i in range(1, len(ls) - 1):
         if ls[i - 1] <= ls[i] >= ls[i + 1]:
             return i
+    return -1
 
 
-def _find_peak_aux(ls, i, j):
-    """Using Divide-and-Conquer paradigm."""
+def _find_peak(ls: list, i: int, j: int) -> int:
+    """Auxiliary method to `find_peak`.
+
+    This method was not intended to be used by clients."""
     m = (i + j) // 2
 
     if 0 < m < len(ls) - 1:
@@ -40,25 +61,16 @@ def _find_peak_aux(ls, i, j):
             return m
 
         elif ls[m - 1] > ls[m]:
-            return _find_peak_aux(ls, i, m - 1)
+            return _find_peak(ls, i, m - 1)
 
         elif ls[m] < ls[m + 1]:
-            return _find_peak_aux(ls, m + 1, j)
+            return _find_peak(ls, m + 1, j)
     else:
         return -1
 
 
-def find_peak(ls):
-    """Returns the index of a peak in ls.
-    If there's no peak, -1 is returned."""
-    return _find_peak_aux(ls, 0, len(ls) - 1)
+def find_peak(ls: list) -> int:
+    """Returns the index of a peak in `ls` using the divide-and-conquer strategy.
 
-
-if __name__ == "__main__":
-    from random import randint
-
-    a = [randint(0, 10) for _ in range(10)]
-    print("List:", a)
-
-    print(find_peak_brute_force(a))
-    print(find_peak(a))
+    If there's no peak or the list is empty, -1 is returned."""
+    return _find_peak(ls, 0, len(ls) - 1)

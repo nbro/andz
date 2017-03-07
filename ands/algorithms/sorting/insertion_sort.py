@@ -2,16 +2,21 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Modified: 01/07/16
+Created: 23/07/2015
 
-### Resources
+Updated: 07/03/2017
 
-- [Insertion Sort](http://en.wikipedia.org/wiki/Insertion_sort), Wiki's article
+# Description
 
+# Resources
+
+- [Wiki articble about Insertion Sort](http://en.wikipedia.org/wiki/Insertion_sort)
 - [The Insertion Sort](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheInsertionSort.html),
-article by [http://interactivepython.org](http://interactivepython.org)
+article by http://interactivepython.org
 """
 
 

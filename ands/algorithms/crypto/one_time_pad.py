@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 10/08/2015
 
-Updated: 03/03/2017
+Updated: 07/03/2017
 
 # Description
 
@@ -17,7 +17,8 @@ but requires the use of a one-time pre-shared key the same size as the message b
 
 In this technique, a plaintext is paired with a random secret key (also referred to as a one-time pad).
 Specifically, each bit or character of the plaintext is encrypted by combining it
-with the corresponding bit or character from the one-time pad using _modular addition_.
+with the corresponding bit or character from the secret key either using the XOR operation,
+or modular addition as the encryption function and modular subtraction as the decryption function.
 
 If the key is truly random, is at least as long as the plaintext,
 is never reused in whole or in part, and is kept completely secret,
@@ -100,11 +101,62 @@ So the encrypted text c = "ik".
 
 To decrypt we simply apply the one-time pad with the same key but to c = "ik".
 
+### How does the XOR operation work in general?
+
+Given two binary strings A and B (over a binary alphabet consisting of the symbols 0 and 1)
+then the XOR operation works as follows
+
+    +---+---+---------+
+    | A | B | A XOR B |
+    +---+---+---------+
+    | 0 | 0 |       0 |
+    | 1 | 1 |       0 |
+    | 1 | 0 |       1 |
+    | 0 | 1 |       1 |
+    +---+---+---------+
+
+In other words, the output is 1 only when the two inputs are different.
+
+### Why to decrypt we use the XOR on the ciphertext (with the same secret key) and the result is the plain text?
+
+In short, it's because XOR is its own inverse!
+
+#### Example
+
+Suppose we have two binary strings X=101 and K=001, where K is the key.
+Lets apply the XOR operation on this two strings.
+
+    C = X XOR K =   101
+                    001 XOR
+                    -------
+                    100
+
+    X = C XOR K = 100
+                  001 XOR
+                  -------
+                  101
+
+This works in general because, at position i of the strings:
+
+- If you have two 0s, the result will be 0, which XORed with 0, gives again 0.
+
+- If you have two 1s, the result will be 0, which XORed with 1, gives 1.
+
+- If you have message 0 and key 1, the the result will be 1, which XORed with 1, gives 0.
+
+- Similarly, if you have message 1 and key 0, the the result will be 1, which XORed with 0, gives 1.
+
 ## Notes
 
 - one-time pad provides "perfect" secrecy
 - one-time pad requires a key of the same length of the plaintext
 - one-time pad may be impractical for messages greater than a certain length
+
+# TODO
+
+- Implement OTP using module arithmetic
+(i.e. modular addition for encryption and modular subtraction for decryption)
+- Add complexity analysis
 
 # References
 
@@ -112,6 +164,9 @@ To decrypt we simply apply the one-time pad with the same key but to c = "ik".
 - [https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/one-time-pad](https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/one-time-pad)
 - [http://python-reference.readthedocs.io/en/latest/docs/operators/bitwise_XOR.html](http://python-reference.readthedocs.io/en/latest/docs/operators/bitwise_XOR.html)
 - [https://en.wikipedia.org/wiki/One-time_pad](https://en.wikipedia.org/wiki/One-time_pad)
+- [http://crypto.stackexchange.com/questions/59/taking-advantage-of-one-time-pad-key-reuse](http://crypto.stackexchange.com/questions/59/taking-advantage-of-one-time-pad-key-reuse)
+- [http://crypto.stackexchange.com/questions/41798/one-time-pad-xor-question](http://crypto.stackexchange.com/questions/41798/one-time-pad-xor-question)
+- [http://crypto.stackexchange.com/questions/33065/is-all-of-encryption-based-on-xor/](http://crypto.stackexchange.com/questions/33065/is-all-of-encryption-based-on-xor/)
 
 """
 

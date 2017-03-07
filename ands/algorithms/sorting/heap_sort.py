@@ -2,14 +2,19 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Creation: 09/09/15
+Created: 09/09/2015
 
-Modified: 01/07/16
+Updated: 07/03/2017
 
-### Resources
-- [Heap Sort](https://en.wikipedia.org/wiki/Heapsort), Wiki's article
+# Description
+
+# Resources
+
+- [Wiki article about Heap Sort](https://en.wikipedia.org/wiki/Heapsort)
 - [MIT's video lecture on Heaps and Heapsort](http://video.mit.edu/watch/introduction-to-algorithms-lecture-4-heaps-and-heap-sort-14154/)
 """
 

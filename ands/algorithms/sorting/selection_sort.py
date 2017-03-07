@@ -2,16 +2,21 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Modified: 01/07/16
+Created: 09/09/2015
 
-### Resources
+Updated: 07/03/2017
 
-- [Selection Sort](http://en.wikipedia.org/wiki/Selection_sort), Wiki's article
+# Description
 
+# Resources
+
+- [Wiki article about Selection Sort](http://en.wikipedia.org/wiki/Selection_sort),
 - [The Selection Sort](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheSelectionSort.html),
-article at [http://interactivepython.org](http://interactivepython.org)
+article at http://interactivepython.org
 """
 
 
