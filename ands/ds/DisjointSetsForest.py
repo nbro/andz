@@ -62,6 +62,8 @@ to visualize how disjoint-_sets work.
 
 """
 
+from ands.ds.DisjointSets import DisjointSets
+
 __all__ = ["DisjointSetsForest"]
 
 
@@ -108,7 +110,7 @@ class DSFNode:
             return "(value: {0}, rank: {1}, parent: {2})".format(self.value, self.rank, self.parent)
 
 
-class DisjointSetsForest:
+class DisjointSetsForest(DisjointSets):
     """Disjoint-set forests is a collection of disjoint sets.
 
     Two sets A and B are disjoint if they have no element in common,
@@ -129,7 +131,7 @@ class DisjointSetsForest:
         """Creates a set object for `x`.
 
         If `x` is already in self, then `ValueError` is raised."""
-        if x in self._sets:
+        if self.contains(x):
             raise LookupError("x is already in self")
         self._sets[x] = DSFNode(x)
         self._n += 1
@@ -210,7 +212,7 @@ class DisjointSetsForest:
         Raises a `LookupError` if `x` does not belong to this `DisjointSetsForest`.
 
         **Time Complexity:** O*(&alpha; (n))."""
-        if x not in self._sets:
+        if not self.contains(x):
             raise LookupError("x is not in self")
         x_root = self._find(self._sets[x]).value
         assert x_root == DisjointSetsForest._find_iteratively(self._sets[x]).value
@@ -247,9 +249,9 @@ class DisjointSetsForest:
         &alpha; (n) is less than 5 for all remotely practical values of n.
         Thus, the amortized running time per operation
         is effectively a small constant."""
-        if x not in self._sets:
+        if not self.contains(x):
             raise LookupError("x is not in self")
-        if y not in self._sets:
+        if not self.contains(y):
             raise LookupError("y is not in self")
 
         x_node = self._sets[x]
@@ -282,7 +284,7 @@ class DisjointSetsForest:
             return x_root.value
 
     def print_set(self, x: object) -> None:
-        if x not in self._sets:
+        if not self.contains(x):
             raise LookupError("x is not in self")
 
         x_node = self._sets[x]
