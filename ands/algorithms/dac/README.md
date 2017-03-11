@@ -1,3 +1,3 @@
-# Divide and Conquer algorithms
+# Divide and conquer algorithms
 
-- [Divide and Conquer](https://en.wikipedia.org/wiki/Divide_and_conquer_algorithms), article by Wikipedia
+- [https://en.wikipedia.org/wiki/Divide\_and\_conquer\_algorithms](https://en.wikipedia.org/wiki/Divide_and_conquer_algorithms)

@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
 
-Created: 2015
+Created: 22/07/2015
 
 Updated: 16/01/2017
 
-## Description
+# Description
 
 Reverses in-place the elements of a list using recursion.
 This method could also be adapted to work with other mutable collections.

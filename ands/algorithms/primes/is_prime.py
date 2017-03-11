@@ -2,13 +2,30 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Primality Tests.
+Created: 28/06/2015
+
+Updated: 10/03/2017
+
+# Description
+
+Simple primality tests.
+
+# TODO
+
+- Create tests
+- Name better the functions
+- Document better the functions
+- Add complexity analysis
+- Organize better the code
+
 """
 
 
-def is_prime(n):
+def is_prime(n: int) -> bool:
     """Return `True` if `n` is prime, `False` otherwise."""
     if n < 2:  # primes are greater than 1
         return False
@@ -22,7 +39,7 @@ def is_prime(n):
     return True
 
 
-def _is_prime_r(n, i):
+def _is_prime_r(n: int, i: int) -> bool:
     if i * i <= n:
         if n % i == 0:
             return False
@@ -31,13 +48,12 @@ def _is_prime_r(n, i):
     return True
 
 
-def is_prime_r(n):
+def is_prime_r(n: int) -> bool:
     """Return `True` if `n` is prime, `False` otherwise.
 
     This function uses recursion.
     In general, you should prefer an iterative approach,
-    because the stack has a limit,
-    and if exceeded an exception is thrown."""
+    because the stack has a limit, and if exceeded an exception is thrown."""
     if n <= 1:  # primes are greater than 1
         return False
     if n % 2 == 0:
@@ -45,7 +61,7 @@ def is_prime_r(n):
     return _is_prime_r(n, 3)
 
 
-def is_prime_2(n):
+def is_prime_2(n: int) -> bool:
     """Return `True` if `n` is prime, `False` otherwise.
 
     This algorithm seems to perform better than `is_prime`.
@@ -59,28 +75,3 @@ def is_prime_2(n):
         if n % i == 0:
             return False
     return True
-
-
-# TESTS
-
-def test1():
-    from time import time
-    a = time()
-    for i in range(10000000):
-        is_prime_2(i)
-    # assert is_prime(i) == is_prime_2(i)
-    b = time()
-    print(b - a)
-
-
-def test2():
-    from time import time
-    a = time()
-    is_prime_2(10093100991010310111)
-    b = time()
-    print(b - a)
-
-
-if __name__ == "__main__":
-    test2()
-    # test1()

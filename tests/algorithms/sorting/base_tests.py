@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+# Meta info
+
+Author: Nelson Brochado
+
+Created: 20/03/2016
+
+# Description
+
+Base class to test sorting algorithms.
+"""
+
 
 from random import randint
 
@@ -21,9 +33,12 @@ class SortingAlgorithmTests:
 
     def assert_commonalities(self, a):
         b = self.sorting_algorithm(a)
-        self.assertTrue(iterative_is_sorted(b))
+
         if self.in_place:
-            self.assertIs(a, b)
+            self.assertIsNone(b)
+            self.assertTrue(iterative_is_sorted(a))
+        else:  # In-place sorting algorithms return all None
+            self.assertTrue(iterative_is_sorted(b))
 
     def test_empty(self):
         self.assert_commonalities([])

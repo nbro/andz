@@ -94,7 +94,7 @@ class DSFNode:
         # where m is the size of the mentioned set.
         self.next = self
 
-    def is_root(self):
+    def is_root(self) -> bool:
         """A DSFNode x is a root or representative of a set
         whenever its parent pointer points to himself.
         Of course this is only true if x is already in a DisjointSetsForest object."""
@@ -131,6 +131,7 @@ class DisjointSetsForest(DisjointSets):
         """Creates a set object for `x`.
 
         If `x` is already in self, then `ValueError` is raised."""
+        assert 0 <= self.sets <= self.size
         if self.contains(x):
             raise LookupError("x is already in self")
         self._sets[x] = DSFNode(x)
@@ -249,6 +250,8 @@ class DisjointSetsForest(DisjointSets):
         &alpha; (n) is less than 5 for all remotely practical values of n.
         Thus, the amortized running time per operation
         is effectively a small constant."""
+        assert 0 <= self.sets <= self.size
+        
         if not self.contains(x):
             raise LookupError("x is not in self")
         if not self.contains(y):

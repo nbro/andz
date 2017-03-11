@@ -2,49 +2,54 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Find an element x in a list,
-such that at most k elements of the list are less than x.
+Created: 18/08/2015
+
+Updated: 10/03/2017
+
+# Description
+
+Find an element x in a list, such that at most k elements of the list are less than or equal to x.
+
+# TODO
+
+- Consider to move algorithm `partition` to its own file, since it's used here and by quick-sort.
+- Add complexity analysis
+- Add _select_in_place
+
 """
 
+from ands.algorithms.sorting.quick_sort import partition
 
-def partition(ls: list, start: int, end: int):
-    """Partition algorithm used also by the quick-sort algorithm.
-    It basically returns the index i of a number in ls,
-    such that all elements on the left of ls[i] are less than ls[i],
-    and all elements on the right of ls[i] are greater than ls[i].
-    """
-    pivot = ls[end]
-    p = start
-
-    for i in range(start, end):
-        if ls[i] <= pivot:
-            ls[p], ls[i] = ls[i], ls[p]
-            p += 1
-
-    ls[p], ls[end] = ls[end], ls[p]
-    return p
+__all__ = ["select"]
 
 
-def select(ls: list, k: int):
-    """Find an element x in ls,
-    such that at most k elements of ls are less than x.
-    """
+def _select_not_in_place(ls: list, k: int) -> object:
+    """Find an element `x` in `ls`, such that at most `k` elements of `ls` are less than `x`."""
     p = partition(ls, 0, len(ls) - 1)  # p := pivot's index
 
     if p == k:
         return ls[p]
     elif p > k:
-        return select(ls[0:p], k)
+        return _select_not_in_place(ls[0:p], k)
     else:  # p < k
-        return select(ls[p + 1:], k - p - 1)
+        return _select_not_in_place(ls[p + 1:], k - p - 1)
 
 
-if __name__ == "__main__":
-    from random import randint
+def select(ls: list, k: int) -> object:
+    """Returns an element `x` from `ls` such that at most `k` from `ls` are less than `x`.
 
-    a = [randint(0, 10) for _ in range(10)]
-    print("List:", a)
+    Assumes `ls` is a valid list and k is an int.
 
-    print("Selected:", select(a, 4))
+    If k >= len(ls) or k < 0, ValueError is raised.
+    If the list `ls` is empty, None is returned.
+    If k == 0, it means that `x` is the smallest element in `ls`.
+
+    The reason why if `k == len(ls)` it raises a ValueError
+    it's because we have len(ls) - 1 elements in `ls` which aren't x."""
+    if k < 0 or k >= len(ls):
+        raise ValueError("k < 0 or k >= len(ls)")
+    return _select_not_in_place(ls, k)

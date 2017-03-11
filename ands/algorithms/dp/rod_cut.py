@@ -2,20 +2,37 @@
 # -*- coding: utf-8 -*-
 
 """
-Author: Nelson Brochado
-Creation: 30/08/15
-Last update: 18/11/2016
+# Meta info
 
-## References:
-- http://www.radford.edu/~nokie/classes/360/dp-rod-cutting.html
+Author: Nelson Brochado
+
+Created: 30/08/2015
+
+Updated: 10/03/2017
+
+# Description
+
+# TODO
+
+- Add description
+- Add tests for theses functions
+- Add complexity analysis
+
+# References
+
+- [http://www.radford.edu/~nokie/classes/360/dp-rod-cutting.html]
+(http://www.radford.edu/~nokie/classes/360/dp-rod-cutting.html)
+
 - Introduction to Algorithms (3rd edition) by CLSR
+
 - Slides by prof. E. Papadopoulou
+
 """
 
 import sys
 
 
-def recursive_rod_cut(prices, n):
+def recursive_rod_cut(prices: list, n: int) -> int:
     """Returns the maximum revenue of cutting a rod of length n.
 
     It does not return which rod pieces
@@ -41,11 +58,7 @@ def recursive_rod_cut(prices, n):
     prices[1] would be the price of the rod of length 1,
     prices[2] would be the price for a rod of length 2, and so on.
 
-    Running time complexity: O(2^n)
-
-    :type prices : list | tuple
-    :type n : int
-    """
+    **Time complexity:** O(2^n)."""
 
     if n == 0:  # Base case
         return 0
@@ -58,18 +71,12 @@ def recursive_rod_cut(prices, n):
     return max_revenue
 
 
-def _memoized_rod_cut_aux(prices, n, revenues, s):
-    """Auxiliary function for the memoized_rod_cut function.
+def _memoized_rod_cut_aux(prices: list, n: int, revenues: list, s: list) -> int:
+    """Auxiliary function for the memoized_rod_cut function."""
 
-    :type prices : list | tuple
-    :type n : int
-    :type revenues : list | tuple
-    """
-    # If the following condition is true,
-    # that would mean that the revenue
+    # If the following condition is true, that would mean that the revenue
     # for a rod of length n has already been "memoised",
-    # and we don't need to recompute it again,
-    # but we simply return it.
+    # and we don't need to recompute it again, but we simply return it.
     if revenues[n] >= 0:
         return revenues[n]
 
@@ -91,10 +98,11 @@ def _memoized_rod_cut_aux(prices, n, revenues, s):
     return max_revenue
 
 
-def memoized_rod_cut(prices, n):
-    """_Top-down_ dynamic programming version of `recursive_rod_cut`,
-    using _memoisation_ to store sub problems' solutions.
-    _Memoisation_ is basically the name to the technique
+def memoized_rod_cut(prices: list, n: int) -> int:
+    """Top-down dynamic programming version of `recursive_rod_cut`,
+    using "memoisation" to store sub problems' solutions.
+
+    Memoisation is basically the name to the technique
     of storing what it's been computed previously.
 
     In this algorithm, as oppose to the plain recursive one,
@@ -106,12 +114,7 @@ def memoized_rod_cut(prices, n):
     The disadvantage of this solution is that we need additional memory,
     i.e., a table, to store intermediary solutions.
 
-    Running time complexity: theta(n^2)
-
-    :type prices : list | tuple
-    :type n : int
-    :rtype : int
-    """
+    **Time complexity:** &theta;(n^2)."""
 
     # Initialing the revenues list f
     # or the sub-problems length i = 0, 1, 2, ... , n
@@ -128,21 +131,17 @@ def memoized_rod_cut(prices, n):
     return _memoized_rod_cut_aux(prices, n, revenues, s), s
 
 
-def bottom_up_rod_cut(prices, n):
-    """_Bottom-up_ dynamic programming solution to the rod cut problem.
+def bottom_up_rod_cut(prices: list, n: int) -> int:
+    """Bottom-up dynamic programming solution to the rod cut problem.
 
-    Running time complexity: theta(n^2)
-
-    :type prices : list | tuple
-    :type n : int
-    """
+    **Time complexity:** &theta;(n^2)."""
     revenues = [-sys.maxsize] * (n + 1)
     revenues[0] = 0  # Revenue for rod of length 0 is 0.
 
     for i in range(1, n + 1):
         max_revenue = -sys.maxsize
 
-        for j in range(1, i + 1): # Find the max cut position for length i
+        for j in range(1, i + 1):  # Find the max cut position for length i
             max_revenue = max(max_revenue, prices[j] + revenues[i - j])
 
         revenues[i] = max_revenue
@@ -150,7 +149,7 @@ def bottom_up_rod_cut(prices, n):
     return revenues[n]
 
 
-def extended_bottom_up_rod_cut(prices, n):
+def extended_bottom_up_rod_cut(prices: list, n: int) -> tuple:
     """Dynamic programming solution to the rod cut problem.
 
     This dynamic programming version uses a bottom-up approach.
@@ -158,14 +157,9 @@ def extended_bottom_up_rod_cut(prices, n):
     It returns a tuple, whose first item is a list of the revenues
     and second is a list containing the rod pieces that are used in the revenue.
 
-    Running time complexity: O(n^2)
-
-    :type prices : list
-    :type n : int
-    :rtype : tuple
-    """
+    **Time complexity:** O(2^n)."""
     revenues = [-sys.maxsize] * (n + 1)
-    s = [[]] * (n + 1) # Used to store the optimal choices
+    s = [[]] * (n + 1)  # Used to store the optimal choices
 
     revenues[0] = 0
     s[0] = [0]
@@ -201,10 +195,12 @@ def extended_bottom_up_rod_cut(prices, n):
     return revenues, s
 
 
-def rod_cut_solution_print(prices, n, s):
-    """prices is the list of initial prices.
-    n is the number of those prices - 1.
-    s is the solution returned by memoized_rod_cut."""
+def rod_cut_solution_print(prices: list, n: int, s: list) -> None:
+    """`prices` is the list of initial prices.
+
+    `n` is the number of those prices - 1.
+
+    `s` is the solution returned by `memoized_rod_cut`."""
     while n > 0:
         print(s[n], end=" ")
         n = n - s[n]
@@ -214,10 +210,12 @@ def rod_cut_solution_print(prices, n, s):
 if __name__ == "__main__":
     p1 = [0, 1, 5, 8, 9, 10, 17, 17, 20]
 
+
     def test0():
         r = recursive_rod_cut(p1, len(p1) - 1)
         print("Revenue:", r)
         print("--------------------------------------------")
+
 
     def test1():
         r, s = memoized_rod_cut(p1, len(p1) - 1)
@@ -226,16 +224,19 @@ if __name__ == "__main__":
         rod_cut_solution_print(p1, len(p1) - 1, s)
         print("--------------------------------------------")
 
+
     def test2():
         r = bottom_up_rod_cut(p1, len(p1) - 1)
         print("Revenue:", r)
         print("--------------------------------------------")
+
 
     def test3():
         r, s = extended_bottom_up_rod_cut(p1, len(p1) - 1)
         print("Revenues:", r)
         print("s:", s)
         print("--------------------------------------------")
+
 
     test0()
     test1()

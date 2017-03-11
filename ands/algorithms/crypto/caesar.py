@@ -15,9 +15,14 @@ Updated: 03/03/2017
 Caesar cipher (also known as "shift" or "substitution" cipher) is one of the simplest forms of encryption,
 where each letter in the original message (called the "plaintext")
 is replaced with a letter corresponding to a certain number of letters up or down in the alphabet.
+What does "certain number of letters up or down in the alphabet" actually mean?
+Essentially we need to map letters of our alphabet to numbers.
+For example, we may map the English alphabet to the numbers from 0 to 25 (for lower case letters, for simplicity).
 
-In this way, a message that initially was quite readable,
-ends up in a form that can not be understood at first glance.
+In this way, after the shifts, the original message is not understandable at first glance,
+unless you know how you shifted the letters of your message.
+
+## Example
 
 For example, suppose we want to encrypt the plaintext m = "abc".
 Suppose further that our alphabet is the English alphabet (of lower case letters from 'a' to 'z').
@@ -78,7 +83,7 @@ that is the general decryption formula can be described as follows
 where x is in this case a integer representation of a character, not from the plaintext,
 but from an encrypted text using the previously described Caesar encryption algorithm.
 
-## Implementation
+# Implementation
 
 The following implementation accepts messages of characters
 whose value returned by the `ord` function is between 0 and 2^16 - 1.
