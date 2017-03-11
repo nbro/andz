@@ -2,31 +2,39 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
 
-Consider a set of requests for a room.
+Created: 24/07/2015
 
-Only one person can reserve the room at a time,
-and you want to allow the maximum number of requests.
+Updated: 10/03/2017
+
+# Description
+
+Consider a set of requests for a room.
+Only one person can reserve the room at a time, and you want to allow the maximum number of requests.
 
 The requests for periods (si=start time for i, fi=finish time for i) are:
 
-(1, 4), (3, 5), (0, 6), (5, 7), (3, 8), (5, 9), (6, 10), (8, 11), (8, 12), (2, 13), (12, 14)
+    (1, 4), (3, 5), (0, 6), (5, 7), (3, 8), (5, 9), (6, 10), (8, 11), (8, 12), (2, 13), (12, 14)
 
-Where for example in (1, 4), s1 = 1 and f1 = 4.
+Where for example in (1, 4), s1 = 1 and f1 = 4. Which ones should we schedule?
 
-Which ones should we schedule?
+We can solve this problem using dynamic programming, but it we can also solve it using a simple greedy algorithm.
 
-We can solve this problem using dynamic programming,
-but it we can also solve it using a simple greedy algorithm.
-
-The algorithm consists of basically choosing the next activity
-with the smallest finish time.
+The algorithm consists of basically choosing the next activity with the smallest finish time.
 So, to do this, we need first to sort the activities by finish time.
-This algorithm is a top-down algorithm,
-in the sense that we can start by choosing an activity,
-the one with the earliest finish time,
-and then we can do the same for the remaining sub-problems.
+
+This algorithm is a top-down algorithm, in the sense that we can start by choosing an activity,
+the one with the earliest finish time, and then we can do the same for the remaining sub-problems.
+
+# TODO
+
+- Create tests for these functions
+- Add complexity analysis
+- Organize better the code and check for bugs
+
 """
 
 import operator
@@ -61,17 +69,14 @@ def ask_activities():
             print("-" * 48, end="\n\n")
 
 
-def activity_selector(activities, verbose=True):
+def activity_selector(activities: list, verbose=True) -> list:
     # sorting activities by finish time
     activities.sort(key=operator.itemgetter(2))
 
     if verbose:
         print("\nAll activities ordered by finish time:")
         print(tabulate(activities,
-                       headers=(
-                           "Activity's Name",
-                           "Starting Time",
-                           "Ending Time"),
+                       headers=("Activity's Name", "Starting Time", "Ending Time"),
                        tablefmt="grid"))
 
     last_selected_activity = activities[0]
@@ -90,10 +95,7 @@ def activity_selector(activities, verbose=True):
     if verbose:
         print("\n\nYou should schedule your activities in the following way:")
         print(tabulate(selected_activities,
-                       headers=(
-                           "Activity's Name",
-                           "Starting Time",
-                           "Ending Time"),
+                       headers=("Activity's Name", "Starting Time", "Ending Time"),
                        tablefmt="grid"))
 
     return selected_activities

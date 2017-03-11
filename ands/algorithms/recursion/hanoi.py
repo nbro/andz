@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
 
-Creation: 27/02/16
+Created: 27/02/2016
 
 Updated: 18/01/2017
 
-## Description
+# Description
 
 Towers of Hanoi is a mathematical game.
 It consists of 3 rods, and a number of disks of different sizes, which can slide onto any rod.
@@ -36,11 +36,14 @@ For simplicity, in the following algorithm
 the source (='A'), auxiliary (='B') and destination (='C') rodes are fixed,
 and therefore the algorithm always shows the steps to go from 'A' to 'C'.
 
-## References
+# References
 
 - [https://en.wikipedia.org/wiki/Tower_of_Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi)
+
 - [http://www.cut-the-knot.org/recurrence/hanoi.shtml](http://www.cut-the-knot.org/recurrence/hanoi.shtml)
-- [http://stackoverflow.com/questions/105838/real-world-examples-of-recursion](http://stackoverflow.com/questions/105838/real-world-examples-of-recursion)
+
+- [http://stackoverflow.com/questions/105838/real-world-examples-of-recursion]
+(http://stackoverflow.com/questions/105838/real-world-examples-of-recursion)
 """
 
 __all__ = ["hanoi"]

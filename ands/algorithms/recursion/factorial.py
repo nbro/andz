@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
 
-Created: 2015
+Created: 17/07/2015
 
 Updated: 20/02/2017
 
-## Description
+# Description
 
 The factorial of a number n is defined recursively as follows:
 
@@ -21,9 +21,10 @@ The factorial of a number n is defined recursively as follows:
         else:
             return n * fact(n - 1)  # n * (n - 1)!
 
-### Resources
+# Resources
 
-- [http://www.math.uah.edu/stat/foundations/Structures.html#com2](http://www.math.uah.edu/stat/foundations/Structures.html#com2)
+- [http://www.math.uah.edu/stat/foundations/Structures.html#com2]
+(http://www.math.uah.edu/stat/foundations/Structures.html#com2)
 
 """
 

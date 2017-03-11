@@ -2,35 +2,61 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
-Creation: 02/09/15
+
+Created: 02/09/2015
+
+Updated: 11/03/2017
+
+# Description
+
+The longest common substring problem is to find the longest string that is a substring of two or more strings.
+
+# TODO
+
+- Add tests for these functions
+- Add complexity analysis
+- Improve documentation under functions
+- Add ASCII art to explain the problem
+
+# References
+
+- [https://en.wikipedia.org/wiki/Longest_common_substring_problem]
+(https://en.wikipedia.org/wiki/Longest_common_substring_problem)
+
 """
 
 
-def _get_longest_common_substring_matrix(s1, s2):
-    return [[0 for _ in range(len(s2) + 1)] for _ in range(len(s1) + 1)]
+def _get_longest_common_substring_matrix(x: str, y: str) -> list:
+    return [[0 for _ in range(len(y) + 1)] for _ in range(len(x) + 1)]
 
 
-def _build_longest_common_substring(s1, c, m):
+def _build_longest_common_substring(x: str, c: tuple, m: list) -> tuple:
     lcs = []
 
     while m[c[0]][c[1]] != 0:
-        lcs.append(s1[c[0] - 1])
+        lcs.append(x[c[0] - 1])
         c = (c[0] - 1, c[1] - 1)
 
     lcs.reverse()
     return lcs, c
 
 
-def longest_common_substring(s1, s2):
-    m = _get_longest_common_substring_matrix(s1, s2)
+def longest_common_substring(x: str, y: str) -> tuple:
+    """Returns a tuple whose first element is a list of characters representing the longest common substring,
+    and the second element of the tuple is another tuple (of size 2, i.e. a pair),
+    whose first element represents the index from string `x` from where the lcs starts,
+    and similarly the second element of that tuple represents the index from `y` from where the lcs starts."""
+    m = _get_longest_common_substring_matrix(x, y)
     c = (0, 0)
 
-    for i in range(1, len(s1) + 1):
+    for i in range(1, len(x) + 1):
 
-        for j in range(1, len(s2) + 1):
+        for j in range(1, len(y) + 1):
 
-            if s2[j - 1] == s1[i - 1]:
+            if y[j - 1] == x[i - 1]:
                 m[i][j] = m[i - 1][j - 1] + 1
 
                 if m[i][j] > m[c[0]][c[1]]:
@@ -38,7 +64,7 @@ def longest_common_substring(s1, s2):
             else:
                 m[i][j] = 0
 
-    return _build_longest_common_substring(s1, c, m)
+    return _build_longest_common_substring(x, c, m)
 
 
 if __name__ == "__main__":

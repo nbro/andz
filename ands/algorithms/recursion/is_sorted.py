@@ -2,13 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
 
 Created: 21/01/2017
 
-## Description
+Updated: 11/03/2017
+
+# Description
 
 `is_sorted` check if a list or tuple contains elements in sorted order by using recursion.
 This algorithm can potentially be modified to work with other collections.

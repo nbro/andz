@@ -2,8 +2,23 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
-Creation: 03/09/15
+
+Created: 03/09/2015
+
+Updated: 10/03/2017
+
+# Description
+
+# TODO
+
+- Add tests for these functions
+- Add description
+- Add complexity analysis
+- Add documentation to functions
+
 """
 
 from pprint import pprint
@@ -73,17 +88,13 @@ def _get_subset_sum_matrix(subset, s):
     return m
 
 
-def bottom_up_subset_sum(subset, s, return_matrix=False):
+def bottom_up_subset_sum(subset: list, s: int, return_matrix: bool = False):
     """Returns 1 if there's a subset
     whose sum of the numbers is equal to s,
     if return_matrix == True,
     else it returns the matrix used during the computation.
 
-    NOTE: the subset can only contain positive integers!
-
-    :type subset : list or tuple
-    :type s : int
-    """
+    NOTE: the subset can only contain positive integers!"""
 
     m = _get_subset_sum_matrix(subset, s)
 
@@ -106,11 +117,8 @@ def bottom_up_subset_sum(subset, s, return_matrix=False):
 
 if __name__ == "__main__":
     # print(bottom_up_subset_sum((1, 3, 5, 5, 2, 1, 1, 6), 12))
-
     pprint(bottom_up_subset_sum([2, 2, 2, 6], 6, return_matrix=True))
-
     print(bottom_up_subset_sum((1, 1, 6), 2, return_matrix=True))
-
     recursive_subset_sum([-2, 8, 6], 6)
     # recursive_subset_sum((4, 2, 6), 6)
     # recursive_subset_sum((0, 0, 6), 6)

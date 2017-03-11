@@ -2,10 +2,32 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
+
+Created: 24/08/2015
+
+Updated: 10/03/2017
+
+# Description
 
 An mathematical infix-to-postfix expression parser/converter.
 Includes also a calculator that receives a postfix expression.
+
+# TODO
+
+- Create tests for these functions
+- Add complexity analysis
+- Organize better the code and check for bugs
+- Maybe a class could be created?
+
+# References
+
+- [https://www.youtube.com/watch?v=vXPL6UavUeA](https://www.youtube.com/watch?v=vXPL6UavUeA)
+- [http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html]
+(http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html)
+
 """
 
 import operator
@@ -36,19 +58,17 @@ PARENTHESIS = {"(", ")"}
 REGEX = re.compile(r"(\d+|\w+|[-+*/^%()])")
 
 
-def parse(e, regex=REGEX):
-    """Parses a string expression e to a infix represation list."""
+def string_to_infix(e: str, regex=REGEX) -> list:
+    """Parses a string expression `e` into a infix representation list."""
     return regex.findall(e)
 
 
-def infix_to_postfix(infix):
-    """Return a list representing the postfix representation of the list `infix`.
+def list_to_string(ls: list) -> str:
+    return " ".join(ls)
 
-    Algorithm based on:
 
-    - https://www.youtube.com/watch?v=vXPL6UavUeA
-
-    - http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html"""
+def infix_to_postfix(infix: list) -> list:
+    """Return a list representing the postfix representation of the list `infix`."""
     stack = []
     postfix = []
 
@@ -69,8 +89,7 @@ def infix_to_postfix(infix):
                     if OPERATORS[c] > OPERATORS[top]:
                         stack.append(c)
                     else:
-                        while top in OPERATORS and OPERATORS[
-                                top] >= OPERATORS[c]:
+                        while top in OPERATORS and OPERATORS[top] >= OPERATORS[c]:
                             op = stack.pop()
                             postfix.append(op)
                             if len(stack) > 0:
@@ -99,22 +118,19 @@ def infix_to_postfix(infix):
 
                     stack.pop()  # Removes ( from the top of the stack
                 else:
-                    raise SyntaxError(
-                        "')' cannot be added to the stack if it is empty")
+                    raise SyntaxError("')' cannot be added to the stack if it is empty")
                 closing_paren += 1
             else:
                 stack.append(c)  # c == '('
                 opening_paren += 1
         else:  # All the rest is considered an operand
-            if i > 0 and infix[
-                    i - 1] not in OPERATORS and infix[i - 1] not in PARENTHESIS:
+            if i > 0 and infix[i - 1] not in OPERATORS and infix[i - 1] not in PARENTHESIS:
                 raise SyntaxError("no two operands can be in a row")
 
             postfix.append(c)
 
     if opening_paren != closing_paren:
-        raise SyntaxError(
-            "number of opening and closing parenthesis do not match")
+        raise SyntaxError("number of opening and closing parenthesis do not match")
 
     while len(stack) > 0:
         top = stack.pop()
@@ -124,48 +140,45 @@ def infix_to_postfix(infix):
     return postfix
 
 
-def calc(postfix):
+def smep_calculator(postfix: list) -> list:
     """Simple mathematical postfix expression calculator."""
     stack = []
+
     for c in postfix:
+
         if c not in OPERATORS:
             stack.append(c)
         else:
             top = int(stack.pop())
             top2 = int(stack.pop())
             stack.append(OPS[c](top2, top))
+
     return stack
 
 
-def tostr(ls):
-    return " ".join(ls)
-
-
-# TESTS
-
-def test1():
-    # ifx = "a+b/c*(d+e)-f"
-    # ifx = "(12)^3 * x^3 +  (4  * 3)^3 + ()"
-    # ifx = "a+b*c"
-    # ifx = "3 + 2 * 2 ^ 3 % 3"
-    # ifx = "(((3 + 2) * 4))"
-
-    ifx = "((12*2^3+44*3)*3)"
-    print("Infix:", ifx)
-
-    ls = parse(ifx)
-    print("Infix list:", ls)
-
-    # ls = ['(', '(', '(', '3', '+', '2', '(', ')', ')', '*', '4', ')', ')']
-    # print("Infix:", tostr(ls))
-
-    pfx = infix_to_postfix(ls)
-    print("Postfix list:", pfx)
-    print("Calculated:", calc(pfx))
-
-    pfx_str = tostr(pfx)
-    print("Postfix:", pfx_str)
-
-
 if __name__ == "__main__":
+    def test1():
+        # ifx = "a+b/c*(d+e)-f"
+        # ifx = "(12)^3 * x^3 +  (4  * 3)^3 + ()"
+        # ifx = "a+b*c"
+        # ifx = "3 + 2 * 2 ^ 3 % 3"
+        # ifx = "(((3 + 2) * 4))"
+
+        ifx = "((12*2^3+44*3)*3)"
+        print("Infix:", ifx)
+
+        ls = string_to_infix(ifx)
+        print("Infix list:", ls)
+
+        # ls = ['(', '(', '(', '3', '+', '2', '(', ')', ')', '*', '4', ')', ')']
+        # print("Infix:", list_to_string(ls))
+
+        pfx = infix_to_postfix(ls)
+        print("Postfix list:", pfx)
+        print("Calculated:", smep_calculator(pfx))
+
+        pfx_str = list_to_string(pfx)
+        print("Postfix:", pfx_str)
+
+
     test1()

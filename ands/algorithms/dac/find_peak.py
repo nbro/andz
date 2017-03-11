@@ -12,13 +12,13 @@ Updated: 07/03/2017
 
 # Description
 
-Finds a peak in a list `ls` of comparable objects.
+Finds a peak in a list `A` of comparable objects.
 
-A peak ls[i] satisfies the following condition:
+A peak A[i] satisfies the following condition:
 
-    ls[i - 1] <= ls[i] >= ls[i + 1]
+    A[i - 1] <= A[i] >= A[i + 1]
 
-for i=1...len(ls) - 2.
+for i=1...len(A) - 2.
 
 In other words, A[i] is a peak if it is not smaller than its neighbors.
 
@@ -28,7 +28,7 @@ whereas `find_peak` uses a divide and conquer strategy.
 
 # TODO
 
-- Complexity analysis of find_peak
+- Complexity analysis of `find_peak`.
 
 # References
 
@@ -42,7 +42,7 @@ def find_peak_linearly(ls: list) -> int:
 
     If there's no peak or the list is empty, -1 is returned.
 
-    Time Complexity: O(len(n))"""
+    **Time Complexity:** O(n), where len(ls) == n."""
     for i in range(1, len(ls) - 1):
         if ls[i - 1] <= ls[i] >= ls[i + 1]:
             return i
@@ -50,9 +50,9 @@ def find_peak_linearly(ls: list) -> int:
 
 
 def _find_peak(ls: list, i: int, j: int) -> int:
-    """Auxiliary method to `find_peak`.
+    """Auxiliary in-place algorithm to `find_peak`.
 
-    This method was not intended to be used by clients."""
+    This method was **not** intended to be used by clients."""
     m = (i + j) // 2
 
     if 0 < m < len(ls) - 1:
@@ -70,7 +70,7 @@ def _find_peak(ls: list, i: int, j: int) -> int:
 
 
 def find_peak(ls: list) -> int:
-    """Returns the index of a peak in `ls` using the divide-and-conquer strategy.
+    """Returns the index of a peak in the list `ls` using the divide-and-conquer strategy.
 
     If there's no peak or the list is empty, -1 is returned."""
     return _find_peak(ls, 0, len(ls) - 1)

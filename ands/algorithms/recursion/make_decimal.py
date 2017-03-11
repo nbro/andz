@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
 
-Created: 2015
+Created: 08/08/2015
 
 Updated: 20/01/2017
 
-## Description
+# Description
 
 Converts a number in a certain base in the range [2, 36] to a decimal number (number in base 10).
 Bases greater than 10 take in order as digits the letters of the English alphabet.

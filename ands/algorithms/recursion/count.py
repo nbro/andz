@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
 
-Created: 2015
+Created: 04/08/2015
 
 Updated: 21/01/2017
 
-## Description
+# Description
 
 A very simple example of how to count the number occurrences
 of a certain object `o` in a list `ls`.
@@ -18,6 +18,7 @@ of a certain object `o` in a list `ls`.
 You should not use recursion in general for doing this task:
 for example, in Python the stack limit is quite small: 1000
 This is just an example of recursive algorithm!
+
 """
 
 __all__ = ["count"]

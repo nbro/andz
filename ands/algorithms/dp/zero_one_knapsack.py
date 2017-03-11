@@ -2,20 +2,25 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
-Created: 2015
-Updated: 26/01/2017
 
-## Description
+Created: 15/08/2015
+
+Updated: 10/03/2017
+
+# Description
 
 Given n objects and a "knapsack".
 Item i weighs w_i > 0 and has a value v_i > 0.
 Knapsack has capacity W.
-Goal: fill knapsack so as to maximize total value.
 
-## References
+## Goal
+
+Fill knapsack so as to maximize total value.
+
+# References
 
 - Slides by prof. Evanthia Papadopoulou
 
@@ -35,11 +40,7 @@ def _get_zero_one_knapsack_matrix(total_weight: int, n: int) -> list:
 
     m[0][0] is 0 just because of the alignment,
     it does make any logical sense for this purpose,
-    it could be None, or any other value.
-
-    :type total_weight : int
-    :type n : int
-    """
+    it could be None, or any other value."""
     m = [[0 for _ in range(total_weight + 2)] for _ in range(n + 2)]
 
     for x in range(1, total_weight + 2):
@@ -87,7 +88,7 @@ def zero_one_knapsack_verbose(total_weight: int, weights, values) -> int:
     return profits[-1][-1]
 
 
-def zero_one_knapsack(total_weight: int, weights, values) -> int:
+def zero_one_knapsack(total_weight: int, weights: list, values: list) -> int:
     """Returns the maximum profit that can be obtained by
     using items with weights and values and a total_weight.
 
@@ -98,11 +99,7 @@ def zero_one_knapsack(total_weight: int, weights, values) -> int:
 
     The decision version of this problem is actually NP-Complete,
     and the running time complexity above does not contradict it:
-    total_weight is not polynomial in the length of the input!
-
-    :type weights : list | tuple
-    :type values : list | tuple
-    """
+    total_weight is not polynomial in the length of the input!"""
     assert len(weights) == len(values)
     assert total_weight >= 0
 
@@ -137,11 +134,10 @@ def zero_one_knapsack(total_weight: int, weights, values) -> int:
     return profits[-1][-1]
 
 
-def _recursive_01_knapsack_aux(capacity: int, w, v, value: int) -> int:
+def _recursive_01_knapsack_aux(capacity: int, w: list, v: list, value: int) -> int:
     """Either takes the last element or it doesn't.
 
-    This algorithm takes exponential time.
-    """
+    This algorithm takes exponential time."""
     if capacity == 0:
         return 0
     if len(w) > 0 and len(v) > 0:
@@ -153,7 +149,7 @@ def _recursive_01_knapsack_aux(capacity: int, w, v, value: int) -> int:
     return value
 
 
-def recursive_01_knapsack(total_weight: int, weights, values):
+def recursive_01_knapsack(total_weight: int, weights: list, values: list):
     assert len(weights) == len(values)
     assert total_weight >= 0
 
@@ -161,11 +157,10 @@ def recursive_01_knapsack(total_weight: int, weights, values):
     return _recursive_01_knapsack_aux(total_weight, weights, values, value)
 
 
-def _memoized_01_knapsack_aux(capacity: int, w, v, value: int, m: list) -> int:
+def _memoized_01_knapsack_aux(capacity: int, w: list, v: list, value: int, m: list) -> int:
     """Either takes the last element or it doesn't.
 
-    Memoization version of _recursive_01_knapsack_aux
-    """
+    Memoization version of _recursive_01_knapsack_aux"""
     if capacity == 0:
         return 0
 
@@ -185,7 +180,7 @@ def _memoized_01_knapsack_aux(capacity: int, w, v, value: int, m: list) -> int:
     return value
 
 
-def memoized_01_knapsack(capacity: int, weights, values) -> int:
+def memoized_01_knapsack(capacity: int, weights: list, values: list) -> int:
     result = 0
     m = [[None for _ in range(capacity)] for _ in range(len(weights))]
     return _memoized_01_knapsack_aux(capacity, weights, values, result, m)

@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
+
 Created: 02/09/2015
-Updated: 26/01/2017
 
-## Description
+Updated: 11/03/2017
 
-The longest common subsequence or, in short, _lcs_, of _two_ strings `x` and `y`
+# Description
+
+The longest common subsequence (or, in short, _lcs_) of _two_ strings `x` and `y`
 is a common **measure of similarity** between the two strings.
 
 More specifically the problem is as follows:
@@ -24,18 +26,21 @@ You can find a recursive and a two dynamic programming implementations for the l
 You can find just one implementation using dynamic programming that actually returns the lcs,
 instead of just computing its length, like all other implementations do.
 
-## References
+# TODO
 
-- Introduction to Algorithms (3rd ed.) by CLRS
+- Create a version with case insensitive matching.
+- Add tests for these functions
+- Add complexity analysis
+
+# References
+
+- Introduction to Algorithms (3rd ed.) by C.L.R.S.
 - Slides by prof. Evanthia Papadopoulou
 
-## Resources
+# Resources
 
 - [https://en.wikipedia.org/wiki/Longest_common_subsequence_problem](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 
-## TODO
-
-- Create a version with case insensitive matching.
 """
 
 
@@ -44,9 +49,9 @@ def _get_lcs_length_matrix(s1: str, s2: str) -> list:
     then this function returns a (m + 1)x(n + 1) matrix,
     specifically it returns a list of length m + 1,
     whose elements are lists of length (n + 1).
+
     The "+ 1" in (m + 1) and (n + 1) is because the first row and column
-    are reserved for the cases where we compare with _empty_ sequences.
-    """
+    are reserved for the cases where we compare with _empty_ sequences."""
     return [[0 for _ in range(len(s2) + 1)] for _ in range(len(s1) + 1)]
 
 
@@ -117,7 +122,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
     i.e. the maximum "profit" can simply be retrieved from lcs(i - 1, j) and lcs(i, j - 1),
     since for sure lcs(i - 1, j - 1) brings less (or equal) profit than lcs(i - 1, j) or lcs(i, j - 1).
     
-    #### Summary
+    ### Summary
     
                 +--
                 | 0                                   if i == 0 or j == 0.
@@ -129,8 +134,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
     This plain recursive approach is very inefficient,
     because we keep on recomputing sub-problems.
     
-    **Time complexity**: &theta;(m*2^n).
-    """
+    **Time complexity**: &theta;(m*2^n)."""
     n = len(s1)
     m = len(s2)
     result = 0
@@ -159,17 +163,16 @@ def memoized_recursive_lcs_length(s1: str, s2: str) -> int:
     This algorithm uses _memoization_ to improve performance with respect to `recursive_lcs_length`.
     
     If n = length(s1) and m = length(s2), then time complexity of this algorithm O(n*m),
-    which is very similar to the bottom-up version (below).
-    """
+    which is very similar to the bottom-up version (below)."""
     n = len(s1)
     m = len(s2)
     result = 0
     matrix = [[None for _ in range(len(s2))] for _ in range(len(s1))]
-    
+
     return _memoized_recursive_lcs_length_aux(s1, n, s2, m, result, matrix)
 
 
-def bottom_up_lcs_length(s1: str, s2: str, matrix: bool=False):
+def bottom_up_lcs_length(s1: str, s2: str, matrix: bool = False):
     """Returns the length of the longest common subsequence between strings s1 and s2,
     if `matrix` is set to `False`,
     else it returns the matrix used to calculate the length of the lcs of sub-problems.
@@ -178,8 +181,8 @@ def bottom_up_lcs_length(s1: str, s2: str, matrix: bool=False):
     then the following are the asymptotic complexities of this algorithm.
     
     **Time complexity:** O(n*m)
-    **Space complexity:** O(n*m)
-    """
+
+    **Space complexity:** O(n*m)"""
     # m is initialized with zeros everywhere
     m = _get_lcs_length_matrix(s1, s2)
 
@@ -198,15 +201,15 @@ def bottom_up_lcs_length(s1: str, s2: str, matrix: bool=False):
     return m[-1][-1] if not matrix else m
 
 
-def bottom_up_lcs_length_partial(s1: str, s2: str, c1: str, c2: str, partial_weight: int = 0.5, matrix: bool=False):
+def bottom_up_lcs_length_partial(s1: str, s2: str, c1: str, c2: str, partial_weight: int = 0.5, matrix: bool = False):
     """Returns the length of the lcs between strings s1 and s2,
     but considers c1 and c2 partially equal characters,
     and thus instead of adding +1 to the length being computed `partial_weight` is added.
     
     **Time complexity:** O(n*m)
-    **Space complexity:** O(n*m)
-    """
-    
+
+    **Space complexity:** O(n*m)"""
+
     m = _get_lcs_length_matrix(s1, s2)
 
     for i in range(1, len(s1) + 1):
@@ -215,11 +218,11 @@ def bottom_up_lcs_length_partial(s1: str, s2: str, c1: str, c2: str, partial_wei
 
             if s1[i - 1] == s2[j - 1]:
                 m[i][j] = m[i - 1][j - 1] + 1
-            
+
             # partial match
             elif (s1[i - 1] == c1 and s2[j - 1] == c2) or (s1[i - 1] == c2 and s2[j - 1] == c1):
                 m[i][j] = max(m[i - 1][j], m[i][j - 1], m[i - 1][j - 1] + partial_weight)
-                
+
             else:
                 m[i][j] = max(m[i - 1][j], m[i][j - 1])
 
@@ -244,13 +247,10 @@ def get_lcs(s1: str, s2: str) -> None:
     backtrack(m, s1, s2, len(s1) - 1, len(s2) - 1)
 
 
-def bottom_up_lcs(s1: str, s2: str):
+def bottom_up_lcs(s1: str, s2: str) -> list:
     """Builds all lists with all LCSs to sub-strings of sub-problems,
     and then returns a list of characters representing
-    the longest common subsequence for the original problem.
-    :type s1 : str
-    :type s2 : str
-    :rtype : list of str"""
+    the longest common subsequence for the original problem."""
 
     m = _get_lcs_matrix(s1, s2)
 
@@ -282,6 +282,4 @@ if __name__ == "__main__":
         print(bottom_up_lcs_length(a, b))
         print(memoized_recursive_lcs_length(a, b))
         print(bottom_up_lcs_length_partial(a, b, 'a', 'e'))
-        print()
-        
-    #backtrack(m, a, b, len(a) - 1, len(b) - 1)
+        # backtrack(m, a, b, len(a) - 1, len(b) - 1)

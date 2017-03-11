@@ -8,11 +8,12 @@ Author: Nelson Brochado
 
 Created: 23/08/2015
 
-Updated: 19/02/2017
+Updated: 10/03/2017
 
 # Description
 
-Finding the maximum (or minimum) of a list of numbers using the "divide and conquer" strategy.
+Finding the maximum (or minimum) of a list of numbers
+(or, in general, comparable objects) using the "divide and conquer" strategy.
 
 """
 

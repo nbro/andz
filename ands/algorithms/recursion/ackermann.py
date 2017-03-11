@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
 
-Creation: 22/02/16
+Created: 22/02/2016
 
 Updated: 18/01/2017
 
-## Description
+# Description
 
 The Ackermann function is the simplest example of a well defined total function.
 Total function means that it's defined for all possible inputs.
@@ -22,7 +22,7 @@ Note that "do" loops are a particular case of while loops.
 
 It grows faster than an exponential function, or even a multiple exponential function.
 
-## References
+# References
 
 - [http://mathworld.wolfram.com/AckermannFunction.html](http://mathworld.wolfram.com/AckermannFunction.html)
 - [http://math.stackexchange.com/questions/75296/what-is-the-difference-between-total-recursive-and-primitive-recursive-functions](http://math.stackexchange.com/questions/75296/what-is-the-difference-between-total-recursive-and-primitive-recursive-functions)

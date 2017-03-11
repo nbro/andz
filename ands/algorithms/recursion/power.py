@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
 
-Created: 2015
+Created: 25/07/2015
 
 Updated: 18/01/2017
 
-## Description
+# Description
 
 Raising an integer `a` to the `k >= 0` using recursion, i.e., a<sup>k</sup> = b.
 """
