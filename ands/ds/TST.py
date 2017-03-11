@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 05/09/2015
 
-Updated: 03/02/2017
+Updated: 11/03/2017
 
 # Description
 
@@ -220,7 +220,7 @@ class TST:
         self._root = self._insert(self._root, key, value, 0)
         self.__invariants()
 
-    def _insert(self, node: TSTNode, key: str, value: object, index: int):
+    def _insert(self, node: TSTNode, key: str, value: object, index: int) -> TSTNode:
         """Inserts `key` with `value` into self starting from `node`."""
         if node is None:
             node = TSTNode(key[index])
@@ -358,7 +358,7 @@ class TST:
         See the complexity analysis of self.insert for more info about m and h."""
         return self.search(key) is not None
 
-    def delete(self, key: str) -> TSTNode:
+    def delete(self, key: str) -> object:
         """Deletes and returns the value associated with `key` in this TST,
         if `key` is in this TST, otherwise it returns None.
 
