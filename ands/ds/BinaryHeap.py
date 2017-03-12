@@ -58,7 +58,7 @@ class BinaryHeap(metaclass=ABCMeta):
     MinHeap, MaxHeap and MinMaxHeap all derive from this class."""
 
     def __init__(self, ls=None):
-        self.heap = [] if ls is None else ls
+        self.heap = [] if not isinstance(ls, list) else ls
         self._build_heap()
 
     def size(self) -> int:

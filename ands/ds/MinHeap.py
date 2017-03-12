@@ -81,7 +81,8 @@ class MinHeap(BinaryHeap):
 
         If `x` is not in this MinHeap, LookupError is raised.
 
-        This function overrides the inherited one only because of the assertions.
+        This function overrides the inherited one only for the purpose of asserting
+        that before and after this operation self is still a MinHeap.
 
         Time complexity: O(n)."""
         assert is_min_heap(self)

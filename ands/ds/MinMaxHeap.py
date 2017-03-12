@@ -120,6 +120,9 @@ class MinMaxHeap(BinaryHeap):
 
         If `x` is not in this MinMaxHeap, LookupError is raised.
 
+        This function overrides the inherited one only for the purpose of asserting
+        that before and after this operation self is still a MinHeap.
+
         Time complexity: O(n)."""
         assert is_min_max_heap(self)
         super(MinMaxHeap, self).delete(x)

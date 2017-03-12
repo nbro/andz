@@ -63,6 +63,9 @@ class MaxHeap(BinaryHeap):
 
         If `x` is not in this MaxHeap, LookupError is raised.
 
+        This function overrides the inherited one only for the purpose of asserting
+        that before and after this operation self is still a MaxHeap.
+
         Time complexity: O(n)."""
         assert is_max_heap(self)
         super(MaxHeap, self).delete(x)
