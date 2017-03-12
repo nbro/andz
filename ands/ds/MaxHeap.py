@@ -23,7 +23,7 @@ For more info, see the introductory doc-strings of the file [`MinHeap.py`](MinHe
 
 """
 
-from ands.ds.Heap import BinaryHeap, HeapNode
+from ands.ds.Heap import BinaryHeap, BHNode
 
 __all__ = ["MaxHeap", "is_max_heap"]
 
@@ -32,13 +32,86 @@ class MaxHeap(BinaryHeap):
     def __init__(self, ls=None):
         BinaryHeap.__init__(self, ls)
 
-    def push_down(self, i: int) -> None:
+    def find_max(self) -> BHNode:
+        """Returns (without removing) the greatest element in this max-heap.
+
+        **Time complexity:** O(1)."""
+        return self.heap[0] if not self.is_empty() else None
+
+    def remove_max(self) -> BHNode:
+        """Removes and returns the greatest element in this max-heap.
+
+        **Time complexity:** O(log(n)),
+        if removing the last element of a list is a constant-time operation."""
+        if not self.is_empty():
+            self._swap(0, self.size() - 1)
+            m = self.heap.pop()
+            if not self.is_empty():
+                self._push_down(0)
+            return m
+
+    def delete(self, i: int) -> BHNode:
+        """Deletes and returns the `BHNode` object at index `i`.
+
+        `IndexError` is raised if `i` is not a valid index.
+
+        Implementation based on:
+        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
+        **Time complexity:** O(log(h)),
+        where `h` is the number of nodes rooted at `i`."""
+        if not self._is_good_index(i):
+            raise IndexError("i is not a valid index.")
+        if i == self.size() - 1:
+            return self.heap.pop()
+        self._swap(i, self.size() - 1)
+        d = self.heap.pop()
+        self._push_down(i)
+        return d
+
+    def replace(self, i: int, x: object) -> BHNode:
+        """Replaces element at index `i` with `x`.
+
+        `x` can either be a key or a `BHNode` object.
+        If it's a key, then a `BHNode` object
+        first created to represent `x`.
+
+        1. If `x == self.heap[i]`,
+        then just replace `self.heap[i]` with `x`.
+
+        2. Else if `x > self.heap[i]`,
+        then _push_up(index).
+
+        3. Else `x < self.heap[i]`,
+        then call `self._push_down(i)`.
+
+        Returns the previous `BHNode` object at `i`.
+
+        **Time complexity:** O(log(n))."""
+        if x is None:
+            raise ValueError("x cannot be None.")
+        if not isinstance(x, BHNode):
+            x = BHNode(x)
+        if not self._is_good_index(i):
+            raise IndexError("i is not a valid index.")
+
+        c = self.heap[i]
+        self.heap[i] = x
+
+        if x < c:
+            self._push_down(i)
+        elif x > c:
+            self._push_up(i)
+
+        return c
+
+    def _push_down(self, i: int) -> None:
         """'Max-heapify' this max-heap starting from index `i`.
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""
+        **Time complexity:** O(log(n))."""
         m = i
-        l = self.left_index(i)
-        r = self.right_index(i)
+        l = self._left_index(i)
+        r = self._right_index(i)
 
         if l != -1 and self.heap[l] > self.heap[m]:
             m = l
@@ -46,98 +119,25 @@ class MaxHeap(BinaryHeap):
             m = r
 
         if m != i:
-            self.swap(m, i)
-            self.push_down(m)
+            self._swap(m, i)
+            self._push_down(m)
 
-    def push_up(self, i: int) -> None:
+    def _push_up(self, i: int) -> None:
         """Pushes up the node at index `i`.
 
         Note that this operation only happens
         if the node at index `i` is greater than its parent.
 
-        **Time Complexity:** O(log<sub>2</sub> n)."""
+        **Time complexity:** O(log(n))."""
         c = i  # current index
-        p = self.parent_index(i)
+        p = self._parent_index(i)
 
         if p != -1 and self.heap[c] > self.heap[p]:
             c = p
 
         if c != i:
-            self.swap(c, i)
-            self.push_up(c)
-
-    def find_max(self) -> HeapNode:
-        """Returns (without removing) the greatest element in this max-heap.
-
-        **Time Complexity:** O(1)."""
-        return self.heap[0] if not self.is_empty() else None
-
-    def remove_max(self) -> HeapNode:
-        """Removes and returns the greatest element in this max-heap.
-
-        **Time Complexity:** O(log<sub>2</sub> n),
-        if removing the last element of a list is a constant-time operation."""
-        if not self.is_empty():
-            self.swap(0, self.size() - 1)
-            m = self.heap.pop()
-            if not self.is_empty():
-                self.push_down(0)
-            return m
-
-    def delete(self, i: int) -> HeapNode:
-        """Deletes and returns the `HeapNode` object at index `i`.
-
-        `IndexError` is raised if `i` is not a valid index.
-
-        Implementation based on:
-        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
-
-        **Time Complexity:** O(log<sub>2</sub> h),
-        where `h` is the number of nodes rooted at `i`."""
-        if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")
-        if i == self.size() - 1:
-            return self.heap.pop()
-        self.swap(i, self.size() - 1)
-        d = self.heap.pop()
-        self.push_down(i)
-        return d
-
-    def replace(self, i: int, x) -> HeapNode:
-        """Replaces element at index `i` with `x`.
-
-        `x` can either be a key or a `HeapNode` object.
-        If it's a key, then a `HeapNode` object
-        first created to represent `x`.
-
-        1. If `x == self.heap[i]`,
-        then just replace `self.heap[i]` with `x`.
-
-        2. Else if `x > self.heap[i]`,
-        then push_up(index).
-
-        3. Else `x < self.heap[i]`,
-        then call `self.push_down(i)`.
-
-        Returns the previous `HeapNode` object at `i`.
-
-        **Time Complexity:** O(log<sub>2</sub> n)."""
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, HeapNode):
-            x = HeapNode(x)
-        if not self.is_good_index(i):
-            raise IndexError("i is not a valid index.")
-
-        c = self.heap[i]
-        self.heap[i] = x
-
-        if x < c:
-            self.push_down(i)
-        elif x > c:
-            self.push_up(i)
-
-        return c
+            self._swap(c, i)
+            self._push_up(c)
 
 
 def is_max_heap(h: MaxHeap) -> bool:
@@ -146,11 +146,11 @@ def is_max_heap(h: MaxHeap) -> bool:
         return False
     if h.heap:
         for item in h.heap:
-            if not isinstance(item, HeapNode):
+            if not isinstance(item, BHNode):
                 return False
         for i, item in enumerate(h.heap):
-            l = h.left_index(i)
-            r = h.right_index(i)
+            l = h._left_index(i)
+            r = h._right_index(i)
             if r != -1 and l == -1:
                 return False
             if l != -1 and item < h.heap[l]:

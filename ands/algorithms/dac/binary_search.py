@@ -69,7 +69,7 @@ def linear_search(ls: list, item: object) -> bool:
     It returns the index such that `ls[index] == item`,
     if `item` is in the list `ls`, otherwise it returns -1.
 
-    **Time Complexity:** O(n), where `n` is the size of `ls`."""
+    **Time complexity:** O(n), where `n` is the size of `ls`."""
     assert pythonic_is_sorted(ls)
     for index, e in enumerate(ls):
         if e == item:

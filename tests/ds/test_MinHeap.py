@@ -18,7 +18,7 @@ Tests for the MinHeap class.
 import unittest
 from random import randint
 
-from ands.ds.MinHeap import MinHeap, is_min_heap, HeapNode
+from ands.ds.MinHeap import MinHeap, is_min_heap, BHNode
 
 
 class TestMinHeap(unittest.TestCase):
@@ -42,10 +42,10 @@ class TestMinHeap(unittest.TestCase):
         self.assertEqual(h.size(), 1)
         self.assertTrue(h.contains(12))
         self.assertEqual(h.search_by_value(12), 0)
-        self.assertEqual(h.find_min(), HeapNode(12))
+        self.assertEqual(h.find_min(), BHNode(12))
         self.assertTrue(is_min_heap(h))
 
-        self.assertEqual(h.remove_min(), HeapNode(12))
+        self.assertEqual(h.remove_min(), BHNode(12))
         self.assertTrue(h.is_empty())
         self.assertTrue(is_min_heap(h))
 
@@ -56,7 +56,7 @@ class TestMinHeap(unittest.TestCase):
         self.assertFalse(h.is_empty())
         self.assertEqual(h.size(), 7)
         self.assertEqual(h.search_by_value(6), 0)
-        self.assertEqual(h.find_min(), HeapNode(6))
+        self.assertEqual(h.find_min(), BHNode(6))
         self.assertTrue(is_min_heap(h))
 
         for e in ls:
@@ -65,22 +65,22 @@ class TestMinHeap(unittest.TestCase):
         m = h.remove_min()
         self.assertFalse(h.is_empty())
         self.assertEqual(h.size(), 6)
-        self.assertEqual(m, HeapNode(6))
-        self.assertEqual(h.find_min(), HeapNode(7))
+        self.assertEqual(m, BHNode(6))
+        self.assertEqual(h.find_min(), BHNode(7))
         self.assertEqual(h.search_by_value(6), -1)
         self.assertFalse(h.contains(6))
         self.assertTrue(is_min_heap(h))
 
     def test_push_down(self):
         h = MinHeap([28, 14, 12, 10, 7, 6, 18])
-        h.heap[0] = HeapNode(94)
-        h.push_down(0)
+        h.heap[0] = BHNode(94)
+        h._push_down(0)
         self.assertTrue(is_min_heap(h))
 
     def test_push_up(self):
         h = MinHeap([28, 14, 12, 10, 7, 6, 18])
-        h.heap[h.size() - 1] = HeapNode(3)
-        h.push_up(h.size() - 1)
+        h.heap[h.size() - 1] = BHNode(3)
+        h._push_up(h.size() - 1)
         self.assertTrue(is_min_heap(h))
 
     def test_add_none(self):
@@ -93,11 +93,11 @@ class TestMinHeap(unittest.TestCase):
 
         self.assertFalse(h.is_empty())
         self.assertEqual(h.size(), 1)
-        self.assertEqual(h.find_min(), HeapNode(12))
+        self.assertEqual(h.find_min(), BHNode(12))
         self.assertEqual(h.heap[0], h.find_min())
         self.assertTrue(is_min_heap(h))
 
-        self.assertEqual(h.remove_min(), HeapNode(12))
+        self.assertEqual(h.remove_min(), BHNode(12))
         self.assertTrue(h.is_empty())
 
     def test_add_many(self):
@@ -108,7 +108,7 @@ class TestMinHeap(unittest.TestCase):
             ls.append(randint(-100, 100))
             h.add(ls[-1])
             self.assertEqual(h.size(), i + 1)
-            self.assertTrue(h.contains(HeapNode(ls[-1])))
+            self.assertTrue(h.contains(BHNode(ls[-1])))
             self.assertTrue(is_min_heap(h))
 
         c = 0
@@ -125,9 +125,9 @@ class TestMinHeap(unittest.TestCase):
     # TODO: test_add_many_with_value
     def test_add_one_with_value(self):
         h = MinHeap()
-        h.add(HeapNode(2048, "2^11"))
+        h.add(BHNode(2048, "2^11"))
         self.assertEqual(h.size(), 1)
-        self.assertTrue(h.contains(HeapNode(2048, "2^11")))
+        self.assertTrue(h.contains(BHNode(2048, "2^11")))
         self.assertTrue(is_min_heap(h))
 
     def test_delete_bad_index(self):
@@ -157,7 +157,7 @@ class TestMinHeap(unittest.TestCase):
 
         n = len(ls)
         for _ in range(n):
-            self.assertEqual(HeapNode(min(ls)), h.find_min())
+            self.assertEqual(BHNode(min(ls)), h.find_min())
             self.assertEqual(h.find_min(), h.remove_min())
             self.assertEqual(h.size(), len(ls) - 1)
             ls.remove(min(ls))
@@ -197,7 +197,7 @@ class TestMinHeap(unittest.TestCase):
         self.assertEqual(h.size(), len(ls))
         self.assertTrue(is_min_heap(h))
 
-        v = h.search(HeapNode(14))
+        v = h.search(BHNode(14))
         self.assertIn(v, range(0, len(ls)))
         self.assertEqual(h.size(), len(ls))
         self.assertTrue(is_min_heap(h))
@@ -206,7 +206,7 @@ class TestMinHeap(unittest.TestCase):
         ls = [28, 12, 14]
         h = MinHeap(ls)
 
-        v = h.search(HeapNode(12, "twelve"))
+        v = h.search(BHNode(12, "twelve"))
         self.assertEqual(v, -1)
         self.assertEqual(h.size(), len(ls))
         self.assertTrue(is_min_heap(h))
@@ -218,7 +218,7 @@ class TestMinHeap(unittest.TestCase):
         ls = [11, 12, 13, 14]
         h = MinHeap(ls)
 
-        self.assertRaises(Exception, h.search_by_value, HeapNode(13))
+        self.assertRaises(Exception, h.search_by_value, BHNode(13))
         self.assertTrue(is_min_heap(h))
 
     def test_search_by_value_default(self):
@@ -262,10 +262,10 @@ class TestMinHeap(unittest.TestCase):
         h.merge(h2)
 
         self.assertEqual(h.size(), 5)
-        self.assertEqual(h.find_min(), HeapNode(-1))
+        self.assertEqual(h.find_min(), BHNode(-1))
 
         self.assertEqual(h2.size(), 2)
-        self.assertEqual(h2.find_min(), HeapNode(1, "one"))
+        self.assertEqual(h2.find_min(), BHNode(1, "one"))
 
         self.assertTrue(is_min_heap(h))
         self.assertTrue(is_min_heap(h2))
@@ -275,17 +275,17 @@ class TestMinHeap(unittest.TestCase):
 
         p = h.replace(0, 3)
 
-        self.assertEqual(p, HeapNode(7))
+        self.assertEqual(p, BHNode(7))
         self.assertEqual(h.size(), 4)
         self.assertTrue(is_min_heap(h))
 
         p = h.replace(3, 1)
-        self.assertEqual(p, HeapNode(28))
+        self.assertEqual(p, BHNode(28))
         self.assertEqual(h.size(), 4)
         self.assertTrue(is_min_heap(h))
 
-        p = h.replace(0, HeapNode(1))
-        self.assertEqual(p, HeapNode(1))
+        p = h.replace(0, BHNode(1))
+        self.assertEqual(p, BHNode(1))
         self.assertEqual(h.size(), 4)
         self.assertTrue(is_min_heap(h))
 
@@ -307,280 +307,280 @@ class TestMinHeap(unittest.TestCase):
     def test_swap(self):
         h = MinHeap([12, 14, 28])
 
-        h.swap(0, 2)
+        h._swap(0, 2)
         self.assertFalse(is_min_heap(h))
 
-        h.swap(0, 2)
+        h._swap(0, 2)
         self.assertTrue(is_min_heap(h))
 
     def test_swap_bad(self):
         h = MinHeap([29, 31, 99])
-        self.assertRaises(IndexError, h.swap, 0, 3)
-        self.assertRaises(IndexError, h.swap, -3, 2)
+        self.assertRaises(IndexError, h._swap, 0, 3)
+        self.assertRaises(IndexError, h._swap, -3, 2)
         self.assertTrue(is_min_heap(h))
 
     def test_is_good_index_bad(self):
         h = MinHeap([97, 101, 103])
 
-        self.assertRaises(TypeError, h.is_good_index, 3.14159)
-        self.assertRaises(TypeError, h.is_good_index, "quelli che benpensano")
-        self.assertRaises(TypeError, h.is_good_index, None)
-        self.assertRaises(TypeError, h.is_good_index, h.swap)
+        self.assertRaises(TypeError, h._is_good_index, 3.14159)
+        self.assertRaises(TypeError, h._is_good_index, "quelli che benpensano")
+        self.assertRaises(TypeError, h._is_good_index, None)
+        self.assertRaises(TypeError, h._is_good_index, h._swap)
 
     def test_is_good_index(self):
         h = MinHeap([1001, 11, 17])
 
-        self.assertTrue(h.is_good_index(0))
-        self.assertTrue(h.is_good_index(1))
-        self.assertTrue(h.is_good_index(2))
-        self.assertFalse(h.is_good_index(-1))
-        self.assertFalse(h.is_good_index(3))
+        self.assertTrue(h._is_good_index(0))
+        self.assertTrue(h._is_good_index(1))
+        self.assertTrue(h._is_good_index(2))
+        self.assertFalse(h._is_good_index(-1))
+        self.assertFalse(h._is_good_index(3))
 
     def test_parent_index_bad(self):
         h = MinHeap([23, 27, 29])
 
-        self.assertRaises(IndexError, h.parent_index, -1)
-        self.assertRaises(IndexError, h.parent_index, 3)
+        self.assertRaises(IndexError, h._parent_index, -1)
+        self.assertRaises(IndexError, h._parent_index, 3)
 
     def test_parent_index(self):
         h = MinHeap([41, 43])
 
-        self.assertEqual(h.parent_index(0), -1)
-        self.assertEqual(h.parent_index(1), 0)
+        self.assertEqual(h._parent_index(0), -1)
+        self.assertEqual(h._parent_index(1), 0)
 
     def test_grandparent_index_bad(self):
         h = MinHeap([1, 2, 3, 4, 5])
 
-        self.assertRaises(IndexError, h.parent_index, -1)
-        self.assertRaises(IndexError, h.parent_index, 5)
+        self.assertRaises(IndexError, h._parent_index, -1)
+        self.assertRaises(IndexError, h._parent_index, 5)
 
     def test_grandparent_index(self):
         h = MinHeap([1, 2, 3, 4, 5])
 
-        self.assertEqual(h.grandparent_index(0), -1)
-        self.assertEqual(h.grandparent_index(1), -1)
-        self.assertEqual(h.grandparent_index(2), -1)
-        self.assertEqual(h.grandparent_index(3), 0)
-        self.assertEqual(h.grandparent_index(4), 0)
+        self.assertEqual(h._grandparent_index(0), -1)
+        self.assertEqual(h._grandparent_index(1), -1)
+        self.assertEqual(h._grandparent_index(2), -1)
+        self.assertEqual(h._grandparent_index(3), 0)
+        self.assertEqual(h._grandparent_index(4), 0)
 
     def test_left_index_bad(self):
         h = MinHeap([2, 3, 5])
 
-        self.assertRaises(IndexError, h.left_index, -1)
-        self.assertRaises(IndexError, h.left_index, 3)
+        self.assertRaises(IndexError, h._left_index, -1)
+        self.assertRaises(IndexError, h._left_index, 3)
 
     def test_left_index(self):
         h = MinHeap([2, 3, 5])
 
-        self.assertEqual(h.left_index(0), 1)
-        self.assertEqual(h.left_index(1), -1)
-        self.assertEqual(h.left_index(2), -1)
+        self.assertEqual(h._left_index(0), 1)
+        self.assertEqual(h._left_index(1), -1)
+        self.assertEqual(h._left_index(2), -1)
 
     def test_right_index_bad(self):
         h = MinHeap([9, 8, 7, 6])
 
-        self.assertRaises(IndexError, h.right_index, -1)
-        self.assertRaises(IndexError, h.right_index, 4)
+        self.assertRaises(IndexError, h._right_index, -1)
+        self.assertRaises(IndexError, h._right_index, 4)
 
     def test_right_index(self):
         h = MinHeap([9, 8, 7, 6])
 
-        self.assertEqual(h.right_index(0), 2)
-        self.assertEqual(h.right_index(1), -1)
-        self.assertEqual(h.right_index(2), -1)
-        self.assertEqual(h.right_index(3), -1)
+        self.assertEqual(h._right_index(0), 2)
+        self.assertEqual(h._right_index(1), -1)
+        self.assertEqual(h._right_index(2), -1)
+        self.assertEqual(h._right_index(3), -1)
 
     def test_has_children_bad(self):
         h = MinHeap([11, 12, 13, 14])
 
-        self.assertRaises(IndexError, h.has_children, -1)
-        self.assertRaises(IndexError, h.has_children, 4)
+        self.assertRaises(IndexError, h._has_children, -1)
+        self.assertRaises(IndexError, h._has_children, 4)
 
     def test_has_children(self):
         h = MinHeap([11, 12, 13, 14])
 
-        self.assertTrue(h.has_children(0))
-        self.assertTrue(h.has_children(1))
-        self.assertFalse(h.has_children(2))
-        self.assertFalse(h.has_children(3))
+        self.assertTrue(h._has_children(0))
+        self.assertTrue(h._has_children(1))
+        self.assertFalse(h._has_children(2))
+        self.assertFalse(h._has_children(3))
 
     def test_is_child_bad(self):
         h = MinHeap([12, 14, 28, 6])
 
-        self.assertRaises(IndexError, h.is_child, -1, 3)
-        self.assertRaises(IndexError, h.is_child, 0, 4)
+        self.assertRaises(IndexError, h._is_child, -1, 3)
+        self.assertRaises(IndexError, h._is_child, 0, 4)
 
     def test_is_child(self):
         h = MinHeap([12, 14, 28, 6])
 
-        self.assertFalse(h.is_child(0, 0))
-        self.assertFalse(h.is_child(1, 1))
-        self.assertFalse(h.is_child(2, 2))
-        self.assertFalse(h.is_child(3, 3))
+        self.assertFalse(h._is_child(0, 0))
+        self.assertFalse(h._is_child(1, 1))
+        self.assertFalse(h._is_child(2, 2))
+        self.assertFalse(h._is_child(3, 3))
 
-        self.assertTrue(h.is_child(3, 1))
-        self.assertTrue(h.is_child(2, 0))
-        self.assertTrue(h.is_child(1, 0))
+        self.assertTrue(h._is_child(3, 1))
+        self.assertTrue(h._is_child(2, 0))
+        self.assertTrue(h._is_child(1, 0))
 
-        self.assertFalse(h.is_child(3, 0))
-        self.assertFalse(h.is_child(3, 2))
+        self.assertFalse(h._is_child(3, 0))
+        self.assertFalse(h._is_child(3, 2))
 
     def test_is_grandchild_bad(self):
         h = MinHeap([31, 33, 37, 39, 41])
 
-        self.assertRaises(IndexError, h.is_grandchild, -1, 3)
-        self.assertRaises(IndexError, h.is_grandchild, 0, 6)
+        self.assertRaises(IndexError, h._is_grandchild, -1, 3)
+        self.assertRaises(IndexError, h._is_grandchild, 0, 6)
 
     def test_is_grandchild(self):
         h = MinHeap([31, 33, 37, 39, 41])
 
-        self.assertFalse(h.is_grandchild(0, 0))
-        self.assertFalse(h.is_grandchild(1, 1))
-        self.assertFalse(h.is_grandchild(2, 2))
-        self.assertFalse(h.is_grandchild(3, 3))
-        self.assertFalse(h.is_grandchild(4, 4))
+        self.assertFalse(h._is_grandchild(0, 0))
+        self.assertFalse(h._is_grandchild(1, 1))
+        self.assertFalse(h._is_grandchild(2, 2))
+        self.assertFalse(h._is_grandchild(3, 3))
+        self.assertFalse(h._is_grandchild(4, 4))
 
-        self.assertTrue(h.is_grandchild(3, 0))
-        self.assertFalse(h.is_grandchild(3, 1))
-        self.assertFalse(h.is_grandchild(3, 2))
-        self.assertFalse(h.is_grandchild(3, 4))
+        self.assertTrue(h._is_grandchild(3, 0))
+        self.assertFalse(h._is_grandchild(3, 1))
+        self.assertFalse(h._is_grandchild(3, 2))
+        self.assertFalse(h._is_grandchild(3, 4))
 
-        self.assertTrue(h.is_grandchild(4, 0))
-        self.assertFalse(h.is_grandchild(4, 1))
-        self.assertFalse(h.is_grandchild(4, 2))
-        self.assertFalse(h.is_grandchild(4, 3))
+        self.assertTrue(h._is_grandchild(4, 0))
+        self.assertFalse(h._is_grandchild(4, 1))
+        self.assertFalse(h._is_grandchild(4, 2))
+        self.assertFalse(h._is_grandchild(4, 3))
 
-        self.assertFalse(h.is_grandchild(1, 0))
-        self.assertFalse(h.is_grandchild(1, 2))
-        self.assertFalse(h.is_grandchild(1, 3))
-        self.assertFalse(h.is_grandchild(1, 4))
+        self.assertFalse(h._is_grandchild(1, 0))
+        self.assertFalse(h._is_grandchild(1, 2))
+        self.assertFalse(h._is_grandchild(1, 3))
+        self.assertFalse(h._is_grandchild(1, 4))
 
-        self.assertFalse(h.is_grandchild(2, 0))
-        self.assertFalse(h.is_grandchild(2, 1))
-        self.assertFalse(h.is_grandchild(2, 3))
-        self.assertFalse(h.is_grandchild(2, 4))
+        self.assertFalse(h._is_grandchild(2, 0))
+        self.assertFalse(h._is_grandchild(2, 1))
+        self.assertFalse(h._is_grandchild(2, 3))
+        self.assertFalse(h._is_grandchild(2, 4))
 
     def test_is_parent_bad(self):
         h = MinHeap([-1, -2, -3, -4])
 
-        self.assertRaises(IndexError, h.is_parent, -1, 3)
-        self.assertRaises(IndexError, h.is_parent, 0, 6)
+        self.assertRaises(IndexError, h._is_parent, -1, 3)
+        self.assertRaises(IndexError, h._is_parent, 0, 6)
 
     def test_is_parent(self):
         h = MinHeap([-1, -2, -3, -4, -5])
 
-        self.assertFalse(h.is_parent(0, 0))
-        self.assertFalse(h.is_parent(1, 1))
-        self.assertFalse(h.is_parent(2, 2))
-        self.assertFalse(h.is_parent(3, 3))
-        self.assertFalse(h.is_parent(4, 4))
+        self.assertFalse(h._is_parent(0, 0))
+        self.assertFalse(h._is_parent(1, 1))
+        self.assertFalse(h._is_parent(2, 2))
+        self.assertFalse(h._is_parent(3, 3))
+        self.assertFalse(h._is_parent(4, 4))
 
-        self.assertTrue(h.is_parent(0, 1))
-        self.assertTrue(h.is_parent(0, 2))
-        self.assertFalse(h.is_parent(0, 3))
-        self.assertFalse(h.is_parent(0, 4))
+        self.assertTrue(h._is_parent(0, 1))
+        self.assertTrue(h._is_parent(0, 2))
+        self.assertFalse(h._is_parent(0, 3))
+        self.assertFalse(h._is_parent(0, 4))
 
-        self.assertTrue(h.is_parent(1, 3))
-        self.assertTrue(h.is_parent(1, 4))
-        self.assertFalse(h.is_parent(1, 2))
-        self.assertFalse(h.is_parent(1, 0))
+        self.assertTrue(h._is_parent(1, 3))
+        self.assertTrue(h._is_parent(1, 4))
+        self.assertFalse(h._is_parent(1, 2))
+        self.assertFalse(h._is_parent(1, 0))
 
-        self.assertFalse(h.is_parent(2, 0))
-        self.assertFalse(h.is_parent(2, 1))
-        self.assertFalse(h.is_parent(2, 3))
-        self.assertFalse(h.is_parent(2, 4))
+        self.assertFalse(h._is_parent(2, 0))
+        self.assertFalse(h._is_parent(2, 1))
+        self.assertFalse(h._is_parent(2, 3))
+        self.assertFalse(h._is_parent(2, 4))
 
-        self.assertFalse(h.is_parent(3, 0))
-        self.assertFalse(h.is_parent(3, 1))
-        self.assertFalse(h.is_parent(3, 2))
-        self.assertFalse(h.is_parent(3, 4))
+        self.assertFalse(h._is_parent(3, 0))
+        self.assertFalse(h._is_parent(3, 1))
+        self.assertFalse(h._is_parent(3, 2))
+        self.assertFalse(h._is_parent(3, 4))
 
-        self.assertFalse(h.is_parent(4, 0))
-        self.assertFalse(h.is_parent(4, 1))
-        self.assertFalse(h.is_parent(4, 2))
-        self.assertFalse(h.is_parent(4, 3))
+        self.assertFalse(h._is_parent(4, 0))
+        self.assertFalse(h._is_parent(4, 1))
+        self.assertFalse(h._is_parent(4, 2))
+        self.assertFalse(h._is_parent(4, 3))
 
     def test_is_grandparent_bad(self):
         h = MinHeap([9, 99, 999, 9999, 99999])
 
-        self.assertRaises(IndexError, h.is_grandparent, -1, 3)
-        self.assertRaises(IndexError, h.is_grandparent, 0, 6)
+        self.assertRaises(IndexError, h._is_grandparent, -1, 3)
+        self.assertRaises(IndexError, h._is_grandparent, 0, 6)
 
     def test_is_grandparent(self):
         h = MinHeap([9, 99, 999, 9999, 99999])
 
-        self.assertFalse(h.is_grandparent(0, 0))
-        self.assertFalse(h.is_grandparent(1, 1))
-        self.assertFalse(h.is_grandparent(2, 2))
-        self.assertFalse(h.is_grandparent(3, 3))
-        self.assertFalse(h.is_grandparent(4, 4))
+        self.assertFalse(h._is_grandparent(0, 0))
+        self.assertFalse(h._is_grandparent(1, 1))
+        self.assertFalse(h._is_grandparent(2, 2))
+        self.assertFalse(h._is_grandparent(3, 3))
+        self.assertFalse(h._is_grandparent(4, 4))
 
-        self.assertFalse(h.is_grandparent(0, 1))
-        self.assertFalse(h.is_grandparent(0, 2))
-        self.assertTrue(h.is_grandparent(0, 3))
-        self.assertTrue(h.is_grandparent(0, 4))
+        self.assertFalse(h._is_grandparent(0, 1))
+        self.assertFalse(h._is_grandparent(0, 2))
+        self.assertTrue(h._is_grandparent(0, 3))
+        self.assertTrue(h._is_grandparent(0, 4))
 
-        self.assertFalse(h.is_grandparent(1, 0))
-        self.assertFalse(h.is_grandparent(1, 2))
-        self.assertFalse(h.is_grandparent(1, 3))
-        self.assertFalse(h.is_grandparent(1, 4))
+        self.assertFalse(h._is_grandparent(1, 0))
+        self.assertFalse(h._is_grandparent(1, 2))
+        self.assertFalse(h._is_grandparent(1, 3))
+        self.assertFalse(h._is_grandparent(1, 4))
 
-        self.assertFalse(h.is_grandparent(2, 0))
-        self.assertFalse(h.is_grandparent(2, 1))
-        self.assertFalse(h.is_grandparent(2, 3))
-        self.assertFalse(h.is_grandparent(2, 4))
+        self.assertFalse(h._is_grandparent(2, 0))
+        self.assertFalse(h._is_grandparent(2, 1))
+        self.assertFalse(h._is_grandparent(2, 3))
+        self.assertFalse(h._is_grandparent(2, 4))
 
-        self.assertFalse(h.is_grandparent(3, 0))
-        self.assertFalse(h.is_grandparent(3, 1))
-        self.assertFalse(h.is_grandparent(3, 2))
-        self.assertFalse(h.is_grandparent(3, 4))
+        self.assertFalse(h._is_grandparent(3, 0))
+        self.assertFalse(h._is_grandparent(3, 1))
+        self.assertFalse(h._is_grandparent(3, 2))
+        self.assertFalse(h._is_grandparent(3, 4))
 
-        self.assertFalse(h.is_grandparent(4, 0))
-        self.assertFalse(h.is_grandparent(4, 1))
-        self.assertFalse(h.is_grandparent(4, 2))
-        self.assertFalse(h.is_grandparent(4, 3))
+        self.assertFalse(h._is_grandparent(4, 0))
+        self.assertFalse(h._is_grandparent(4, 1))
+        self.assertFalse(h._is_grandparent(4, 2))
+        self.assertFalse(h._is_grandparent(4, 3))
 
     def test_is_on_even_level_bad(self):
         ls = [12, 14, 28, 6, 7, 18, 10, 3, 1]
         h = MinHeap(ls)
 
-        self.assertRaises(IndexError, h.is_on_even_level, -1)
-        self.assertRaises(IndexError, h.is_on_even_level, len(ls))
+        self.assertRaises(IndexError, h._is_on_even_level, -1)
+        self.assertRaises(IndexError, h._is_on_even_level, len(ls))
 
     def test_is_on_even_level(self):
         ls = [12, 14, 28, 6, 7, 18, 10, 3, 1]
         h = MinHeap(ls)
 
-        self.assertTrue(h.is_on_even_level(0))
+        self.assertTrue(h._is_on_even_level(0))
 
-        self.assertFalse(h.is_on_even_level(1))
-        self.assertFalse(h.is_on_even_level(2))
+        self.assertFalse(h._is_on_even_level(1))
+        self.assertFalse(h._is_on_even_level(2))
 
-        self.assertTrue(h.is_on_even_level(3))
-        self.assertTrue(h.is_on_even_level(4))
-        self.assertTrue(h.is_on_even_level(5))
-        self.assertTrue(h.is_on_even_level(6))
+        self.assertTrue(h._is_on_even_level(3))
+        self.assertTrue(h._is_on_even_level(4))
+        self.assertTrue(h._is_on_even_level(5))
+        self.assertTrue(h._is_on_even_level(6))
 
-        self.assertFalse(h.is_on_even_level(7))
-        self.assertFalse(h.is_on_even_level(8))
+        self.assertFalse(h._is_on_even_level(7))
+        self.assertFalse(h._is_on_even_level(8))
 
     def test_is_on_odd_level_bad(self):
         ls = [12, 14, 28, 6, 7, 18, 10, 3, 1]
         h = MinHeap(ls)
 
-        self.assertRaises(IndexError, h.is_on_odd_level, -1)
-        self.assertRaises(IndexError, h.is_on_odd_level, len(ls))
+        self.assertRaises(IndexError, h._is_on_odd_level, -1)
+        self.assertRaises(IndexError, h._is_on_odd_level, len(ls))
 
     def test_is_on_odd_level(self):
         ls = [12, 14, 28, 6, 7, 18, 10, 3, 1]
         h = MinHeap(ls)
 
-        self.assertFalse(h.is_on_odd_level(0))
-        self.assertTrue(h.is_on_odd_level(1))
-        self.assertTrue(h.is_on_odd_level(2))
-        self.assertFalse(h.is_on_odd_level(3))
-        self.assertFalse(h.is_on_odd_level(4))
-        self.assertFalse(h.is_on_odd_level(5))
-        self.assertFalse(h.is_on_odd_level(6))
-        self.assertTrue(h.is_on_odd_level(7))
-        self.assertTrue(h.is_on_odd_level(8))
+        self.assertFalse(h._is_on_odd_level(0))
+        self.assertTrue(h._is_on_odd_level(1))
+        self.assertTrue(h._is_on_odd_level(2))
+        self.assertFalse(h._is_on_odd_level(3))
+        self.assertFalse(h._is_on_odd_level(4))
+        self.assertFalse(h._is_on_odd_level(5))
+        self.assertFalse(h._is_on_odd_level(6))
+        self.assertTrue(h._is_on_odd_level(7))
+        self.assertTrue(h._is_on_odd_level(8))

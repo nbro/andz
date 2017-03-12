@@ -66,7 +66,7 @@ def is_prime_2(n: int) -> bool:
 
     This algorithm seems to perform better than `is_prime`.
 
-    **Time Complexity:** O(&radic;<span style="text-decoration:overline;">n</span>/2 * O(n % i == 0))."""
+    **Time complexity:** O(&radic;<span style="text-decoration:overline;">n</span>/2 * O(n % i == 0))."""
     if n == 2 or n == 3:
         return True
     if n % 2 == 0 or n < 2:

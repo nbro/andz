@@ -56,7 +56,7 @@ def partition(ls: list, start: int, end: int) -> int:
     """Shifts all elements in `ls` that are less than the pivot
     to the left of the position `p`, which is at the end returned.
 
-    **Time Complexity:** O(k), where k is the size of `ls`."""
+    **Time complexity:** O(k), where k is the size of `ls`."""
     pivot = ls[end]  # Take last element as pivot.
     p = start  # pivot's index
 

@@ -84,7 +84,7 @@ Now we log both parts
 
     A red-black tree works as a binary-search tree for search,
     insert, etc, so the complexity of those operations is T(n) = O(h),
-    that is T(n) = O(log<sub>2</sub> n), which is also the worst case complexity.
+    that is T(n) = O(log(n)), which is also the worst case complexity.
 
 # References
 
@@ -167,7 +167,7 @@ class RBT(BST):
 
         `_fix_insertion` handles these cases in the same order as just presented above.
 
-        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        **Time complexity:** O(log(n))."""
         assert is_rbt(self)
 
         if x is None:
@@ -263,7 +263,7 @@ class RBT(BST):
     def remove_max(self) -> RBTNode:
         """Removes and returns the element with the greatest value from `self`.
 
-        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        **Time complexity:** O(log(n))."""
         assert is_rbt(self)
 
         if self.root is not None:
@@ -277,7 +277,7 @@ class RBT(BST):
     def remove_min(self) -> RBTNode:
         """Removes and returns the element with the smallest value from `self`.
 
-        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        **Time complexity:** O(log(n))."""
         assert is_rbt(self)
 
         if self.root is not None:
@@ -310,7 +310,7 @@ class RBT(BST):
         If it does NOT belong to this `RBT` object,
         then the behaviour of this method is UNDEFINED!
 
-        **Time Complexity:** O(log<sub>2</sub>(n))."""
+        **Time complexity:** O(log(n))."""
 
         def delete_case1(v):
             # this check is necessary because this function
@@ -550,8 +550,7 @@ def black_height(n: RBTNode) -> int:
 
 
 def upper_bound_height(t: RBT) -> bool:
-    """Returns `True` if the height of the red-black tre `t`
-    is bounded above by log_2(n + 1)"""
+    """Returns `True` if the height of the red-black tre `t` is bounded above by log(n + 1)"""
     return t.height() <= 2 * math.log2(t.size() + 1)
 
 
@@ -613,7 +612,7 @@ def is_rbt(t: RBT) -> bool:
     if not upper_bound_height(t):
         return False
 
-    return are_all_red_or_black(t) and \
-           is_root_black(t) and \
-           has_not_consecutive_red_nodes(t) and \
-           all_paths_have_same_black_height(t)
+    return (are_all_red_or_black(t) and
+            is_root_black(t) and
+            has_not_consecutive_red_nodes(t) and
+            all_paths_have_same_black_height(t))

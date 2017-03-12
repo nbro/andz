@@ -114,7 +114,7 @@ def memoized_rod_cut(prices: list, n: int) -> int:
     The disadvantage of this solution is that we need additional memory,
     i.e., a table, to store intermediary solutions.
 
-    **Time complexity:** &theta;(n^2)."""
+    **Time complexity:** Θ(n^2)."""
 
     # Initialing the revenues list f
     # or the sub-problems length i = 0, 1, 2, ... , n
@@ -134,7 +134,7 @@ def memoized_rod_cut(prices: list, n: int) -> int:
 def bottom_up_rod_cut(prices: list, n: int) -> int:
     """Bottom-up dynamic programming solution to the rod cut problem.
 
-    **Time complexity:** &theta;(n^2)."""
+    **Time complexity:** Θ(n^2)."""
     revenues = [-sys.maxsize] * (n + 1)
     revenues[0] = 0  # Revenue for rod of length 0 is 0.
 

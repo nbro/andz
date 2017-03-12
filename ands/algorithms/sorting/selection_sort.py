@@ -32,7 +32,7 @@ __all__ = ["selection_sort"]
 
 def selection_sort(ls: list) -> None:
     """Selection-sort in-place sorting algorithm.
-    Returns a reference to `ls`.
+    Returns a reference to ls.
 
     **Time complexity**
 

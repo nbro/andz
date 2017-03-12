@@ -134,7 +134,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
     This plain recursive approach is very inefficient,
     because we keep on recomputing sub-problems.
     
-    **Time complexity**: &theta;(m*2^n)."""
+    **Time complexity**: Θ(m * 2^n)."""
     n = len(s1)
     m = len(s2)
     result = 0

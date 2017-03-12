@@ -54,7 +54,7 @@ def is_sorted(a, rev=False) -> bool:
 def iterative_is_sorted(a, rev=False) -> bool:
     """Iterative alternative to `is_sorted`.
 
-    **Time Complexity**: O(n)."""
+    **Time complexity**: O(n)."""
     if len(a) < 2:
         return True
 

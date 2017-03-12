@@ -238,7 +238,7 @@ def merge(left: list, right: list) -> list:
     """Merges 2 sorted lists (`left` and `right`)
     in 1 single list, which is returned at the end.
 
-    **Time Complexity**: O(m), where `m = len(left) + len(right)`."""
+    **Time complexity**: O(m), where `m = len(left) + len(right)`."""
     mid = []
     i = 0  # Used to index the left list.
     j = 0  # Used to index the right list.
@@ -293,7 +293,7 @@ def _merge_sort_aux(ls: list) -> list:
     We keep merging greater sorted lists,
     until we obtain the final sorted list.
 
-    **Time Complexity**: O(n*log<sub>2</sub>(n))"""
+    **Time complexity**: O(n*log<sub>2</sub>(n))"""
 
     # Base case, where "ls" contains_key either 1 or 0 items,
     # and it is by definition sorted.
