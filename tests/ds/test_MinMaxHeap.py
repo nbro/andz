@@ -12,240 +12,217 @@ Updated: 14/02/2017
 
 # Description
 
-Tests for the MinMaxHeap class.
+Unit tests for the MinMaxHeap class.
 """
 
 import unittest
-from random import randint, randrange
+from random import randint, choice, sample
 
-from ands.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap, HeapNode
+from ands.ds.MinMaxHeap import MinMaxHeap
 
 
 class TestMinMaxHeap(unittest.TestCase):
-    def test_empty_heap_creation(self):
+    def test_heap_creation_default(self):
         h = MinMaxHeap()
-        self.assertTrue(is_min_max_heap(h))
+        self.assertTrue(h.is_empty())
+        self.assertEqual(h.size(), 0)
+
+    def test_heap_creation_given_list(self):
+        a = [12, 14, 28, 6, 7, 10, 18]
+        h = MinMaxHeap(a)
+        self.assertFalse(h.is_empty())
+        self.assertEqual(h.size(), len(a))
+
+    def test_clear_empty_heap(self):
+        h = MinMaxHeap()
+        self.assertIsNone(h.clear())
         self.assertEqual(h.size(), 0)
         self.assertTrue(h.is_empty())
 
-    def test_build_heap(self):
-        t = randint(100, 500)
-        ls = [randint(0, 100) for _ in range(t)]
-        h = MinMaxHeap(ls)
-        self.assertTrue(is_min_max_heap(h))
-        self.assertEqual(h.size(), t)
+    def test_clear_heap_of_random_size(self):
+        h = MinMaxHeap([randint(-100, 100) for _ in range(100)])
+        self.assertIsNone(h.clear())
+        self.assertEqual(h.size(), 0)
+        self.assertTrue(h.is_empty())
 
-    def test_add(self):
-        h = MinMaxHeap([100, 12, 14, 28, 7])
-        t = randint(100, 500)
-        ls = [randint(0, 100) for _ in range(t)]
-
-        for i, item in enumerate(ls):
-            h.add(item)
-            self.assertEqual(h.size(), 6 + i)
-            self.assertEqual(h.find_min(), h.heap[0])
-
-            m = h.heap[1] if h.heap[1] > h.heap[2] else h.heap[2]
-
-            self.assertEqual(h.find_max(), m)
-            self.assertTrue(is_min_max_heap(h))
-
-        self.assertEqual(h.size(), 5 + t)
-
-    def test_add_heap_nodes(self):
+    def test_add_when_argument_is_None(self):
         h = MinMaxHeap()
-        t = randint(100, 500)
-        ls = [HeapNode(randint(0, 100)) for _ in range(t)]
+        self.assertRaises(ValueError, h.add, None)
 
-        for i, item in enumerate(ls):
-            h.add(item)
+    def test_add_add_one(self):
+        h = MinMaxHeap()
+        self.assertIsNone(h.add(2))
+        self.assertEqual(h.size(), 1)
+        self.assertFalse(h.is_empty())
+        self.assertEqual(h.find_max(), 2)
+        self.assertEqual(h.find_min(), 2)
+
+    def test_add_multiple_elements(self):
+        a = [randint(-100, 100) for _ in range(100)]
+        h = MinMaxHeap()
+
+        for i, elem in enumerate(a):
+            self.assertIsNone(h.add(elem))
             self.assertEqual(h.size(), i + 1)
-            self.assertEqual(h.find_min(), h.heap[0])
 
-            if h.size() == 1:
-                self.assertEqual(h.find_max(), h.heap[0])
-            elif h.size() == 2:
-                self.assertEqual(h.find_max(), h.heap[1])
-            else:
-                m = h.heap[1] if h.heap[1] > h.heap[2] else h.heap[2]
-                self.assertEqual(h.find_max(), m)
+        self.assertFalse(h.is_empty())
+        self.assertEqual(h.find_max(), max(a))
+        self.assertEqual(h.find_min(), min(a))
 
-            self.assertTrue(is_min_max_heap(h))
-
-        self.assertEqual(h.size(), t)
-
-    def test_find_min_and_max(self):
+    def test_contains_when_argument_is_None(self):
         h = MinMaxHeap()
+        self.assertRaises(ValueError, h.contains, None)
 
-        # should return none if heap is empty
+    def test_contains_when_empty_heap(self):
+        h = MinMaxHeap()
+        self.assertFalse(h.contains(3))
+
+    def test_contains_true(self):
+        h = MinMaxHeap([6, 8, 2, 2, 60, 7, 9])
+        self.assertTrue(h.contains(2))
+
+    def test_contains_false(self):
+        h = MinMaxHeap([6, 8, 2, 60, 7, 9, 3, 67])
+        self.assertFalse(h.contains(10))
+
+    def test_delete_when_argument_is_None(self):
+        self.assertRaises(ValueError, MinMaxHeap().delete, None)
+
+    def test_delete_when_elem_does_not_exist(self):
+        self.assertRaises(LookupError, MinMaxHeap().delete, 3)
+
+    def test_delete_when_elem_is_last(self):
+        h = MinMaxHeap([3, 4])
+        self.assertIsNone(h.delete(4))
+        self.assertEqual(h.size(), 1)
+        self.assertFalse(h.is_empty())
+
+    def test_delete_all_when_heap_of_random_size(self):
+        size = randint(3, 100)
+        a = [randint(-100, 100) for _ in range(size)]
+        h = MinMaxHeap(a)
+
+        for _ in range(size):
+            self.assertIsNone(h.delete(choice(a)))
+
+        self.assertEqual(h.size(), 0)
+        self.assertTrue(h.is_empty())
+
+    # Testing find_max and remove_max
+
+    def test_find_max_when_empty_heap(self):
+        h = MinMaxHeap()
         self.assertIsNone(h.find_max())
+
+    def test_find_max_when_heap_has_size_1(self):
+        h = MinMaxHeap([5])
+        self.assertEqual(h.find_max(), 5)
+
+    def test_find_max_when_heap_has_size_2(self):
+        h = MinMaxHeap([13, 7])
+        self.assertEqual(h.find_max(), 13)
+
+    def test_find_max_when_heap_has_random_size(self):
+        a = [randint(-100, 100) for _ in range(3, 100)]
+        h = MinMaxHeap(a)
+        self.assertEqual(h.find_max(), max(a))
+
+    def test_remove_max_when_empty_heap(self):
+        h = MinMaxHeap()
+        self.assertIsNone(h.remove_max())
+
+    def test_remove_max_when_heap_has_size_1(self):
+        h = MinMaxHeap([13])
+        self.assertEqual(h.remove_max(), 13)
+        self.assertTrue(h.is_empty())
+        self.assertEqual(h.size(), 0)
+
+    def test_remove_max_when_heap_has_size_2(self):
+        h = MinMaxHeap([11, 13])
+        self.assertEqual(h.remove_max(), 13)
+        self.assertFalse(h.is_empty())
+        self.assertEqual(h.size(), 1)
+
+    def test_remove_max_when_heap_has_random_size(self):
+        size = randint(3, 100)
+        a = [randint(-100, 100) for _ in range(size)]
+        h = MinMaxHeap(a)
+        m = max(a)
+        self.assertEqual(h.remove_max(), m)
+        self.assertFalse(h.is_empty())
+        self.assertEqual(h.size(), size - 1)
+
+    # Testing find_min and remove_min
+
+    def test_find_min_when_empty_heap(self):
+        h = MinMaxHeap()
         self.assertIsNone(h.find_min())
 
-        t = randint(100, 500)
-        ls = [randint(0, 100) for _ in range(t)]
+    def test_find_min_when_heap_has_size_1(self):
+        h = MinMaxHeap([5])
+        self.assertEqual(h.find_min(), 5)
 
-        for i, item in enumerate(ls):
-            h.add(item)
+    def test_find_min_when_heap_has_size_2(self):
+        h = MinMaxHeap([13, 7])
+        self.assertEqual(h.find_min(), 7)
 
-            # asserts that the min is always at index 0
-            self.assertEqual(1 + i, h.size())
-            self.assertEqual(h.find_min(), h.heap[0])
-            self.assertEqual(h.heap[0], min(h.heap))
+    def test_find_min_when_heap_has_random_size(self):
+        a = [randint(-100, 100) for _ in range(3, 100)]
+        h = MinMaxHeap(a)
+        self.assertEqual(h.find_min(), min(a))
 
-            # checking that max is in correct position
-            # depending if size is 1, 2 or >2
-            if h.size() == 1:
-                self.assertEqual(h.find_max(), h.find_min())
-                self.assertEqual(h.find_min(), h.heap[0])
-                self.assertEqual(h.heap[0], min(h.heap))
-                self.assertEqual(min(h.heap), max(h.heap))
-            elif h.size() == 2:
-                self.assertEqual(h.find_max(), h.heap[1])
-                self.assertEqual(h.heap[1], max(h.heap))
-            else:
-                m = h.heap[1] if h.heap[1] > h.heap[2] else h.heap[2]
-                self.assertEqual(max(h.heap), h.find_max())
-                self.assertEqual(h.find_max(), m)
-
-            self.assertTrue(is_min_max_heap(h))
-
-    def test_remove_min_and_max(self):
-        t = randint(500, 1000)
-        ls = [randint(0, 100) for _ in range(t)]
-        h = MinMaxHeap(ls)
-
-        while not h.is_empty():
-            m = h.remove_min()
-            self.assertIsInstance(m, HeapNode)
-            self.assertEqual(min(ls), m.key)
-            ls.remove(m.key)
-            self.assertEqual(len(ls), h.size())
-            self.assertTrue(is_min_max_heap(h))
-
-            if not h.is_empty():
-                M = h.remove_max()
-                self.assertIsInstance(M, HeapNode)
-                self.assertEqual(max(ls), M.key)
-                ls.remove(M.key)
-                self.assertEqual(len(ls), h.size())
-                self.assertTrue(is_min_max_heap(h))
-
-        self.assertTrue(h.is_empty())
-        self.assertIsNone(h.remove_max())
+    def test_remove_min_when_empty_heap(self):
+        h = MinMaxHeap()
         self.assertIsNone(h.remove_min())
 
-    def test_delete(self):
-        t = randint(500, 1000)
-        ls = [randint(0, 100) for _ in range(t)]
-        h = MinMaxHeap(ls)
+    def test_remove_min_when_heap_has_size_1(self):
+        h = MinMaxHeap([13])
+        self.assertEqual(h.remove_min(), 13)
+        self.assertTrue(h.is_empty())
+        self.assertEqual(h.size(), 0)
 
-        self.assertRaises(IndexError, h.delete, -1)
-        self.assertRaises(IndexError, h.delete, h.size())
+    def test_remove_min_when_heap_has_size_2(self):
+        h = MinMaxHeap([11, 13])
+        self.assertEqual(h.remove_min(), 11)
+        self.assertFalse(h.is_empty())
+        self.assertEqual(h.size(), 1)
 
-        while not h.is_empty():
-            n = h.delete(randrange(0, h.size()))
-            t -= 1
-            self.assertIsInstance(n, HeapNode)
-            self.assertEqual(h.size(), t)
-            self.assertTrue(is_min_max_heap(h))
+    def test_remove_min_when_heap_has_random_size(self):
+        size = randint(3, 100)
+        a = [randint(-100, 100) for _ in range(size)]
+        h = MinMaxHeap(a)
+        m = min(a)
+        self.assertEqual(h.remove_min(), m)
+        self.assertFalse(h.is_empty())
+        self.assertEqual(h.size(), size - 1)
 
-    def replace_helper(self, h, t, ls):
-        for x in ls:
-            i = randrange(0, h.size())
-            elem = h.heap[i]
-            d = h.replace(i, x)
-            self.assertIs(d, elem)
-            self.assertEqual(h.size(), t)
-            self.assertTrue(is_min_max_heap(h))
+    def test_merge_empty_heap_with_empty_heap(self):
+        a = MinMaxHeap()
+        b = MinMaxHeap()
+        self.assertIsNone(a.merge(b))
 
-    def test_replace(self):
-        m1, m2 = 500, 1000
-        t = randint(m1, m2)
-        ls = [randint(0, 100) for _ in range(t)]
+    def test_merge_empty_heap_with_non_empty_heap(self):
+        a = MinMaxHeap()
+        ls = [-3, 5, 7, 9, 1, 5, 2]
+        b = MinMaxHeap(ls)
+        self.assertIsNone(a.merge(b))
+        self.assertEqual(a.size(), len(ls))
+        self.assertEqual(b.size(), len(ls))
 
-        h = MinMaxHeap(ls)
+    def test_merge_non_empty_heap_with_empty_heap(self):
+        ls = [-3, 5, 7, 9, 1, 5, 2]
+        a = MinMaxHeap(ls)
+        b = MinMaxHeap()
+        self.assertIsNone(a.merge(b))
+        self.assertEqual(a.size(), len(ls))
+        self.assertEqual(b.size(), 0)
+        self.assertTrue(b.is_empty())
 
-        self.assertRaises(IndexError, h.delete, -1)
-        self.assertRaises(IndexError, h.delete, h.size())
-        self.assertRaises(ValueError, h.replace, 0, None)
-
-        t2 = randint(m1, m2)
-        ls = [randint(0, 100) for _ in range(t2)]
-
-        self.replace_helper(h, t, ls)
-
-    def test_replace_with_heap_nodes(self):
-        # testing when replacing with a HeapNode object
-        m1, m2 = 500, 1000
-        t = randint(m1, m2)
-        ls = [randint(0, 100) for _ in range(t)]
-
-        h = MinMaxHeap(ls)
-
-        t2 = randint(m1, m2)
-        ls = [HeapNode(randint(0, 100)) for _ in range(t2)]
-
-        self.replace_helper(h, t, ls)
-
-    def test_find_max_index(self):
-        h = MinMaxHeap()
-        self.assertEqual(h.find_max_index(), -1)
-
-        h.add(randint(-10, 10))
-        self.assertEqual(h.find_max_index(), 0)
-
-        h.add(randint(-10, 10))
-        self.assertEqual(h.find_max_index(), 1)
-
-        t = randint(50, 100)
-        ls = [randint(0, 100) for _ in range(t)]
-
-        for elem in ls:
-            h.add(elem)
-            i = h.find_max_index()
-            self.assertTrue(i == 1 or i == 2)
-
-            m = h.heap[i]
-            real_m = max(h.heap)
-            self.assertEqual(real_m, m)
-            self.assertTrue(is_min_max_heap(h))
-
-        while not h.is_empty():
-            i = h.find_max_index()
-
-            if h.size() > 1:
-                self.assertTrue(i == 1 or i == 2)
-            else:
-                self.assertEqual(i, 0)
-
-            m = h.heap[i]
-            real_m = max(h.heap)
-            self.assertEqual(real_m, m)
-            self.assertIsNotNone(h.delete(randrange(0, h.size())))
-            self.assertTrue(is_min_max_heap(h))
-
-    def test_index_of_min_and_max(self):
-        h = MinMaxHeap([28, 12, 14, 7, 10, 6, 18, 3, 11])
-
-        self.assertRaises(IndexError, h.index_of_min, -1)
-        self.assertRaises(IndexError, h.index_of_min, 30)
-        self.assertRaises(TypeError, h.index_of_min, "0")
-        self.assertRaises(TypeError, h.index_of_min, None)
-
-        self.assertEqual(h.index_of_min(0), 5)
-        self.assertEqual(h.index_of_max(0), 1)
-        self.assertEqual(h.index_of_min(1), 3)
-        self.assertEqual(h.index_of_max(1), 7)
-        self.assertEqual(h.index_of_min(2), 5)
-        self.assertEqual(h.index_of_max(2), 6)
-        self.assertEqual(h.index_of_min(3), 8)
-        self.assertEqual(h.index_of_max(3), 7)
-
-        self.assertEqual(h.index_of_min(5), -1)
-        self.assertEqual(h.index_of_max(5), -1)
-        self.assertEqual(h.index_of_min(6), -1)
-        self.assertEqual(h.index_of_max(6), -1)
-        self.assertEqual(h.index_of_min(7), -1)
-        self.assertEqual(h.index_of_max(7), -1)
-        self.assertEqual(h.index_of_min(8), -1)
-        self.assertEqual(h.index_of_max(8), -1)
+    def test_merge_non_empty_heap_with_non_empty_heap(self):
+        ls = [-3, 5, 7, 9, 1, 5, 2]
+        size = len(ls)
+        a = MinMaxHeap(ls)
+        b = MinMaxHeap(sample(ls, size))
+        self.assertIsNone(a.merge(b))
+        self.assertEqual(a.size(), size * 2)
+        self.assertEqual(b.size(), size)

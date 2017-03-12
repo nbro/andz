@@ -43,7 +43,7 @@ def max_non_adj_seq_weight(seq: list) -> int:
     such that no two elements from this subsequence were initially adjacent in `seq`
     and this subsequence is the one whose elements summed together give the maximum value (weight or sum).
 
-    **Time complexity:** O(n)."""
+    Time complexity: O(n)."""
 
     include = seq[0]  # Maximum sum including the previous element.
     exclude = 0  # Maximum sum excluding the previous element.

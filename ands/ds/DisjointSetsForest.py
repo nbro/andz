@@ -29,19 +29,7 @@ The usual operations supported by this data structure are:
 
   2. Path compression: is a way of flattening the structure of the tree whenever find is used on it.
 
-These two techniques complement each other: applied together, the amortized time per operation is only O( &alpha; (n)).
-
-## Public interface
-
-- make_set(x): add x to the DisjointSetsForest
-- find(x): returns the root or representative of x
-- union(x, y): unites the sets where x and y reside
-- print_set(x): prints the set where x resides to the standard output
-- contains(x): check if x is in the DisjointSetsForest
-- size: returns the number of elements add to the data structure (using make_set)
-- sets: returns the number of disjoint sets currently in the data structure
-
-All other methods or fields are considered private and were NOT intended to be used by clients!
+These two techniques complement each other: applied together, the amortized time per operation is only O(α(n)).
 
 # TODO
 
@@ -149,7 +137,7 @@ class DisjointSetsForest(DisjointSets):
         return self._n
 
     def contains(self, x: object) -> bool:
-        """Returns True if x is in self, False otherwise."""
+        """Returns true if x is in self, false otherwise."""
         return x in self._sets
 
     def _find(self, x: DSFNode) -> DSFNode:
@@ -174,13 +162,11 @@ class DisjointSetsForest(DisjointSets):
 
         This algorithm does not change any ranks of the `Set` objects.
 
-        **Time Complexity:** O*(&alpha; (n)),
-        where &alpha; (n) is the inverse of the function n = f(x) = A(x, x),
-        and A is the extremely fast-growing **Ackermann** function.
-        Since &alpha; (n) is the inverse of this function,
-        &alpha; (n) is less than 5 for all remotely practical values of n.
-        Thus, the amortized running time per operation
-        is effectively a small constant."""
+        Time complexity: O(α(n)), where α(n) is the inverse of the function
+        n = f(x) = A(x, x), and A is the extremely fast-growing Ackermann function.
+        Since α(n) is the inverse of this function,
+        α(n) is less than 5 for all remotely practical values of n.
+        Thus, the amortized running time per operation is effectively a small constant."""
         assert x is not None
         if x.parent != x:
             x.parent = self._find(x.parent)
@@ -212,7 +198,7 @@ class DisjointSetsForest(DisjointSets):
 
         Raises a `LookupError` if `x` does not belong to this `DisjointSetsForest`.
 
-        **Time Complexity:** O*(&alpha; (n))."""
+        Time complexity:  O(α(n))."""
         if not self.contains(x):
             raise LookupError("x is not in self")
         x_root = self._find(self._sets[x]).value
@@ -243,13 +229,12 @@ class DisjointSetsForest(DisjointSets):
         and whenever two trees of the same rank `r` are united,
         the rank of the result is `r + 1`.
 
-        **Time Complexity:** O*(&alpha; (n)),
-        where &alpha; (n) is the inverse of the function n = f(x) = A(x, x),
-        and A is the extremely fast-growing **Ackermann** function.
-        Since &alpha; (n) is the inverse of this function,
-        &alpha; (n) is less than 5 for all remotely practical values of n.
-        Thus, the amortized running time per operation
-        is effectively a small constant."""
+        Time complexity: O(α(n)), where α(n) is the inverse of the function
+        n = f(x) = A(x, x), and A is the extremely fast-growing Ackermann function.
+
+        Since α(n) is the inverse of this function,
+        α(n) is less than 5 for all remotely practical values of n.
+        Thus, the amortized running time per operation is effectively a small constant."""
         assert 0 <= self.sets <= self.size
         
         if not self.contains(x):

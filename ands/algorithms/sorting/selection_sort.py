@@ -32,9 +32,9 @@ __all__ = ["selection_sort"]
 
 def selection_sort(ls: list) -> None:
     """Selection-sort in-place sorting algorithm.
-    Returns a reference to `ls`.
+    Returns a reference to ls.
 
-    **Time complexity**
+    Time complexity
 
     +--------+----------+----------+
     |  Best  |  Average |  Worst   |
@@ -42,7 +42,7 @@ def selection_sort(ls: list) -> None:
     | O(n^2) |  O(n^2)  |  O(n^2)  |
     +--------+----------+----------+
 
-    **Space complexity**: O(n)."""
+    Space complexity: O(n)."""
     for i in range(len(ls) - 1):
         k = i
         for j in range(i + 1, len(ls)):

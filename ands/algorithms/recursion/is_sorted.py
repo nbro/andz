@@ -39,7 +39,7 @@ def _is_sorted(a, i: int, op) -> bool:
 def is_sorted(a, rev=False) -> bool:
     """Checks recursively if `a` is sorted.
 
-    If `rev` is `True`, this function checks if `a` is sorted in descending order,
+    If `rev` is true, this function checks if `a` is sorted in descending order,
     else if it's sorted in ascending order."""
     if len(a) < 2:
         return True
@@ -54,7 +54,7 @@ def is_sorted(a, rev=False) -> bool:
 def iterative_is_sorted(a, rev=False) -> bool:
     """Iterative alternative to `is_sorted`.
 
-    **Time Complexity**: O(n)."""
+    Time complexity: O(n)."""
     if len(a) < 2:
         return True
 

@@ -37,7 +37,7 @@ def _is_palindrome(s: str, l: int, r: int) -> bool:
 
 
 def is_palindrome(s: str) -> bool:
-    """Returns `True` if the string `s` is a palindrome, `False` otherwise."""
+    """Returns true if the string `s` is a palindrome, false otherwise."""
     if len(s) <= 1:
         return True
     else:

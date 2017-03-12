@@ -3,7 +3,6 @@
 ands/algorithms/greedy/huffman.py
 ands/ds/Graph.py
 /ands/ds/MinPriorityQueue.py
-LITTLE_ISSUES.md
 
 *.eggx
 *.py[cod]

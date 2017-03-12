@@ -43,7 +43,7 @@ __all__ = ["bubble_sort"]
 def bubble_sort(ls: list) -> None:
     """Bubble-sort in-place sorting algorithm.
 
-    **Time complexity**
+    Time complexity
 
     +------+----------+----------+
     | Best |  Average |  Worst   |
@@ -53,7 +53,7 @@ def bubble_sort(ls: list) -> None:
 
     Note: best case is O(n) when `ls` is already sorted and thus not swap occurs.
 
-    **Space complexity:** O(1).
+    Space complexity: O(1).
 
     Note: space complexity is O(1), but not considering memory for original list `ls`!"""
     for i in range(len(ls) - 1):

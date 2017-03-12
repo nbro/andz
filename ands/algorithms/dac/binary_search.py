@@ -69,7 +69,7 @@ def linear_search(ls: list, item: object) -> bool:
     It returns the index such that `ls[index] == item`,
     if `item` is in the list `ls`, otherwise it returns -1.
 
-    **Time Complexity:** O(n), where `n` is the size of `ls`."""
+    Time complexity: O(n), where `n` is the size of `ls`."""
     assert pythonic_is_sorted(ls)
     for index, e in enumerate(ls):
         if e == item:
@@ -81,7 +81,7 @@ def binary_search_recursively_not_in_place(ls: list, item: object) -> bool:
     """Recursively binary-searches `item` in the list `ls`,
     which is assumed to be sorted in increasing order.
 
-    It returns `True` if `item` is in `ls`, `False` otherwise.
+    It returns true if `item` is in `ls`, false otherwise.
 
     Note: this algorithm uses the slice operator, which creates a sub-lists.
     slicing is an operation that runs in O(k) time."""
@@ -134,7 +134,7 @@ def binary_search_iteratively(ls: list, item: object) -> bool:
     It returns the index such that `ls[index] == item`,
     if `item` is in the list `ls`, otherwise it returns -1.
 
-    **Time complexity:** O(n*log_2(n))."""
+    Time complexity: O(n * log(n))."""
     assert iterative_is_sorted(ls)
 
     if len(ls) == 0:

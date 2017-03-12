@@ -13,7 +13,7 @@ Updated: 19/02/2017
 
 # Description
 
-Test the LinearProbingHashTable class.
+Unit tests for the LinearProbingHashTable class.
 
 # Reference
 
