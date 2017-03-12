@@ -155,16 +155,16 @@ class BSTNode:
             raise AttributeError("self does not have a parent.")
 
     def has_children(self) -> bool:
-        """Returns `True` if `self` has at least one child. `False` otherwise."""
+        """Returns true if `self` has at least one child, false otherwise."""
         return self.left is not None or self.right is not None
 
     def has_one_child(self) -> bool:
-        """Returns `True` only if `self` has exactly one child. `False` otherwise."""
+        """Returns true only if `self` has exactly one child, false otherwise."""
         return (self.left is not None and self.right is None) or \
                (self.left is None and self.right is not None)
 
     def has_two_children(self) -> bool:
-        """Returns `True` if self has exactly two children. `False` otherwise."""
+        """Returns true if self has exactly two children, false otherwise."""
         return self.left is not None and self.right is not None
 
     def count(self) -> int:
@@ -236,7 +236,7 @@ class BST:
     def clear(self) -> None:
         """Removes all nodes from this tree.
 
-        **Time complexity**: O(1)."""
+        Time complexity: O(1)."""
         assert is_bst(self)
         self.root = None
         self._n = 0
@@ -245,7 +245,7 @@ class BST:
     def size(self) -> int:
         """Returns the total number of nodes.
 
-        **Time complexity**: O(1)."""
+        Time complexity: O(1)."""
         assert is_bst(self)
         if self.root is not None:
             assert self.root.count() == self._n
@@ -254,16 +254,16 @@ class BST:
         return self._n
 
     def is_empty(self) -> bool:
-        """Returns `True` if this tree has 0 nodes.
+        """Returns true if this tree has 0 nodes.
 
-        **Time complexity**: O(1)."""
+        Time complexity: O(1)."""
         assert is_bst(self)
         return self.size() == 0
 
     def is_root(self, u: BSTNode) -> bool:
         """Checks if `u` is the same object as `self.root`.
 
-        **Time complexity**: O(1)."""
+        Time complexity: O(1)."""
         assert is_bst(self)
         if u == self.root:
             if u is not None:
@@ -273,7 +273,7 @@ class BST:
     def insert(self, x: object, value=None) -> None:
         """Inserts (normally) `x` into this BST object.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
 
         if x is None:
@@ -311,7 +311,7 @@ class BST:
         Therefore the elements of `ls` should either be
         `BSTNode` objects or they should represent keys.
 
-        **Time complexity**: O(n * h),
+        Time complexity: O(n * h),
         where n = len(ls) and h is the heights at each the elements are inserted."""
         assert is_bst(self)
         if not isinstance(ls, list):
@@ -325,7 +325,7 @@ class BST:
 
         `key` must be a comparable object of the same type as the other keys.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         if key is None:
             raise ValueError("key cannot be None.")
@@ -334,7 +334,7 @@ class BST:
     def search_key_iteratively(self, key: object) -> BSTNode:
         """Searches iteratively for key starting from the root.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         result = BST._search_key_iteratively(key, self.root)
         assert result == self.search_key_recursively(key)
@@ -344,7 +344,7 @@ class BST:
     def _search_key_iteratively(key: object, u: BSTNode) -> BSTNode:
         """Searches iteratively for key in the subtree rooted at `u`.
 
-        **Time complexity**: O(m)."""
+        Time complexity: O(m)."""
         c = u  # c is the current node
         while c is not None:
             if key == c.key:
@@ -357,7 +357,7 @@ class BST:
     def search_key_recursively(self, key: object) -> BSTNode:
         """Searches recursively for `key` starting from `self.root`.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         return self._search_key_recursively(key, self.root)
 
@@ -366,7 +366,7 @@ class BST:
 
         `key` must be a comparable object of the same type as the other keys.
 
-        **Time complexity**: O(m),
+        Time complexity: O(m),
         where `m` is the height of the subtree rooted at `u`,
         if `u` is not `None`. Else the time complexity is O(1)."""
         if u is None or key == u.key:
@@ -377,16 +377,16 @@ class BST:
             return self._search_key_recursively(key, u.right)
 
     def contains_key(self, key: object) -> bool:
-        """Returns `True` if a `BSTNode` object with `key` exists in the tree.
+        """Returns true if a `BSTNode` object with `key` exists in the tree.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         return self.search_key_iteratively(key) is not None
 
     def rank(self, key: object) -> int:
         """Returns the number of keys strictly less than `key`.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         if key is None:
             raise ValueError("key cannot be None.")
@@ -406,7 +406,7 @@ class BST:
     def height(self) -> int:
         """Returns the maximum depth or height of the tree.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         if self.root is None:
             return 0
@@ -418,9 +418,9 @@ class BST:
         return 1 + max(self._height(u.left), self._height(u.right))
 
     def minimum(self) -> BSTNode:
-        """Calls `BST._minimum_r(self.root)` if `self.root` is evaluated to `True`.
+        """Calls `BST._minimum_r(self.root)` if `self.root` is evaluated to true.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         if self.root is not None:
             m = BST._minimum(self.root)
@@ -442,9 +442,9 @@ class BST:
         return u
 
     def maximum(self) -> BSTNode:
-        """Calls `BST._maximum_r(self.root)` if `self.root` is evaluated to `True`.
+        """Calls `BST._maximum_r(self.root)` if `self.root` is evaluated to true.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
 
         if self.root is not None:
@@ -479,7 +479,7 @@ class BST:
         `x` can either be a reference to an actual `BSTNode` object,
         or it can be a key of a supposed node in self.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
 
         if not isinstance(x, BSTNode):
@@ -506,7 +506,7 @@ class BST:
         `x` can either be a reference to an actual `BSTNode` object,
         or it can be a key of a supposed node in self.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
 
         if not isinstance(x, BSTNode):
@@ -538,7 +538,7 @@ class BST:
         Returns the node which is at the previous position of `x`,
         that is it returns the parent of `x`.
 
-        **Time complexity**: O(1)."""
+        Time complexity: O(1)."""
         if not isinstance(x, BSTNode):
             c = self.search_key_iteratively(x)
             if c is None:
@@ -583,7 +583,7 @@ class BST:
         """Right rotates the subtree rooted at node `x`.
         See doc-strings of `self._left_rotate`.
 
-        **Time complexity**: O(1)."""
+        Time complexity: O(1)."""
         if not isinstance(x, BSTNode):
             c = self.search_key_iteratively(x)
             if c is None:
@@ -616,7 +616,7 @@ class BST:
     def remove_max(self) -> BSTNode:
         """Removes and returns the maximum element of the tree, if it is not empty.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
 
         if self.is_empty():
@@ -649,7 +649,7 @@ class BST:
     def remove_min(self) -> BSTNode:
         """Removes and returns the minimum element of the tree, if it is not empty.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
 
         if self.is_empty():
@@ -687,7 +687,7 @@ class BST:
         `x` can either be a reference to an actual `BSTNode` object,
         or it can be a key of a supposed node in `self`.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
 
         if x is None:
@@ -839,7 +839,7 @@ class BST:
         def switch_not_parent_child(z: BSTNode, w: BSTNode) -> None:
             """`z` and `w` are nodes in the tree that are not related by a parent-child.
 
-            **Time complexity**: O(1)."""
+            Time complexity: O(1)."""
             assert z.parent != w and w.parent != z
 
             if not z.parent:
@@ -898,7 +898,7 @@ class BST:
     def in_order_traversal(self) -> None:
         """Prints the elements of the tree in increasing order.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         self._in_order_traversal(self.root)
         print("\n")
@@ -914,7 +914,7 @@ class BST:
         The pre-order consists of recursively printing first a node `u`,
         then its left child node and then its right child node.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         self._pre_order_traversal(self.root)
         print("\n")
@@ -929,7 +929,7 @@ class BST:
         """Prints the keys of this tree in post-order.
         It does the opposite of `pre_order_traversal`.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         self._post_order_traversal(self.root)
         print("\n")
@@ -945,7 +945,7 @@ class BST:
 
         It does the opposite of `self.in_order_traversal`.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
         self._reverse_in_order_traversal(self.root)
         print("\n")
@@ -1007,7 +1007,7 @@ class BSTImproved(BST):
     def tail_insert(self, x: object, value=None) -> None:
         """Inserts (normally) `x` into this BST object.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
 
         if x is None:
@@ -1042,7 +1042,7 @@ class BSTImproved(BST):
     def root_insert(self, x: object, value=None) -> None:
         """Inserts `x` as the root of this tree.
 
-        **Time complexity**: O(h)."""
+        Time complexity: O(h)."""
         assert is_bst(self)
 
         def _root_insert(u: BSTNode, v: BSTNode):
@@ -1153,8 +1153,8 @@ def has_bst_property(n: BSTNode) -> bool:
 
 
 def all_bst_nodes(n: BSTNode) -> bool:
-    """Returns `True` if all nodes under `n` (including `n`)
-    are instances of `BSTNode`, `False` otherwise."""
+    """Returns true if all nodes under `n` (including `n`)
+    are instances of `BSTNode`, false otherwise."""
     if n is not None:
         # If either n or its parent are not instances of BSTNode
         if not isinstance(n, BSTNode) or (n.parent is not None and not isinstance(n.parent, BSTNode)):
@@ -1164,7 +1164,7 @@ def all_bst_nodes(n: BSTNode) -> bool:
 
 
 def is_bst(t: BST) -> bool:
-    """Returns `True` if `t` is a valid `BST` object. `False` otherwise.
+    """Returns true if `t` is a valid `BST` object, false otherwise.
 
     Invariant: for each node `n` in `t`,
     if `n.left` exists, then `n.left <= n`,

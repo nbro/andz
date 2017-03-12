@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 14/02/2017
+Updated: 12/03/2017
 
 # Description
 
@@ -38,94 +38,62 @@ Note that these indexes are for 0-index based lists (or arrays).
 - [https://en.wikipedia.org/wiki/Binary_heap](https://en.wikipedia.org/wiki/Binary_heap)
 - Slides by prof. A. Carzaniga
 - Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
+- [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+
 """
 
-from ands.ds.Heap import BinaryHeap, BHNode
+from ands.ds.BinaryHeap import BinaryHeap
 
 __all__ = ["MinHeap", "is_min_heap"]
 
 
 class MinHeap(BinaryHeap):
+    """Sub-class of BinaryHeap, and thus provides the same public interface,
+    but in addition provides two more operations:
+
+    - find_min
+    - remove_min"""
+
     def __init__(self, ls=None):
         BinaryHeap.__init__(self, ls)
 
-    def find_min(self) -> BHNode:
-        """Returns (without removing) the smallest element in this min-heap.
+    def find_min(self) -> object:
+        """Returns the smallest element in this MinHeap.
 
-        **Time complexity:** O(1)."""
+        Time complexity: O(1)."""
         return self.heap[0] if not self.is_empty() else None
 
-    def remove_min(self) -> BHNode:
-        """Removes and returns the smallest element in this heap.
+    def remove_min(self) -> object:
+        """Removes and returns the smallest element in this MinHeap.
 
-        **Time complexity:** O(log(n)),
-        if removing the last element of a list is a constant-time operation."""
+        Time complexity: O(log(n))."""
+        assert is_min_heap(self)
         if not self.is_empty():
             self._swap(0, self.size() - 1)
             m = self.heap.pop()
             if not self.is_empty():
                 self._push_down(0)
+            assert is_min_heap(self)
             return m
 
-    def delete(self, i: int) -> BHNode:
-        """Deletes and returns the `BHNode` object at index `i`.
+    def delete(self, x: object) -> None:
+        """Removes the first found `x` from this MinHeap.
 
-        `IndexError` is raised if `i` is not a valid index.
+        If `x` is not in this MinHeap, LookupError is raised.
 
-        Implementation based on:
-        [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+        This function overrides the inherited one only because of the assertions.
 
-        **Time complexity:** O(log(h)),
-        where `h` is the number of nodes rooted at `i`."""
-        if not self._is_good_index(i):
-            raise IndexError("i is not a valid index.")
-        if i == self.size() - 1:
-            return self.heap.pop()
-        self._swap(i, self.size() - 1)
-        d = self.heap.pop()
-        self._push_down(i)
-        return d
-
-    def replace(self, i: int, x: object) -> BHNode:
-        """Replaces element at index `i` with `x`.
-
-        `x` can either be a key or a `BHNode` object.
-        If it's a key, then a `BHNode` object
-        first created to represent `x`.
-
-        1. If `x == self.heap[i]`,
-        then just replace `self.heap[i]` with `x`.
-
-        2. Else if `x < self.heap[i]`,
-        then _push_up(index).
-
-        3. Else `x > self.heap[i]`,
-        then call `self._push_down(i)`.
-
-        Returns the previous `BHNode` object at `i`.
-
-        **Time complexity:** O(log(n))."""
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, BHNode):
-            x = BHNode(x)
-        if not self._is_good_index(i):
-            raise IndexError("i is not a valid index.")
-
-        c = self.heap[i]
-        self.heap[i] = x
-
-        if x > c:
-            self._push_down(i)
-        elif x < c:
-            self._push_up(i)
-
-        return c
+        Time complexity: O(n)."""
+        assert is_min_heap(self)
+        super(MinHeap, self).delete(x)
+        assert is_min_heap(self)
 
     def _push_down(self, i: int) -> None:
-        """'Min-heapify' this min-heap starting from index `i`.
+        """Min-heapifies this MinHeap starting from index `i`.
 
-        **Time complexity:** O(log(n))."""
+        This operation is also called "bubble-down" or "shift-down".
+
+        Time complexity: O(log(n))."""
         m = i  # index of node with smallest value among i and its children
         l = self._left_index(i)
         r = self._right_index(i)
@@ -140,16 +108,14 @@ class MinHeap(BinaryHeap):
             self._push_down(m)
 
     def _push_up(self, i: int) -> None:
-        """Pushes up the node at index `i`.
+        """Pushes up the node at index `i` from this MinHeap.
 
         Note that this operation only happens
         if the node at index `i` is smaller than its parent.
 
-        This function is simpler than `_push_down` (or also called min-heapify),
-        because in this case we just need to compare
-        the current node's index with its parent's index.
+        This operation is also called "bubble-up" or "shift-up".
 
-        **Time complexity:** O(log(n))."""
+        Time complexity: O(log(n))."""
         c = i  # current index
         p = self._parent_index(i)
 
@@ -162,13 +128,10 @@ class MinHeap(BinaryHeap):
 
 
 def is_min_heap(h: MinHeap) -> bool:
-    """Returns `True` if `h` is a valid `MinHeap`. `False` otherwise."""
+    """Returns true if `h` is a valid MinHeap, false otherwise."""
     if not isinstance(h, MinHeap):
         return False
     if h.heap:
-        for item in h.heap:
-            if not isinstance(item, BHNode):
-                return False
         for i, item in enumerate(h.heap):
             l = h._left_index(i)
             r = h._right_index(i)
@@ -178,4 +141,4 @@ def is_min_heap(h: MinHeap) -> bool:
                 return False
             if r != -1 and item > h.heap[r]:
                 return False
-    return True  # h is empty
+    return True

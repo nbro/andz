@@ -27,6 +27,8 @@ and they should all implement at least two methods: put and get.
 
 from abc import ABCMeta, abstractmethod
 
+__all__ = ["HashTable"]
+
 
 class HashTable(metaclass=ABCMeta):
     """Abstract class from which classes such as LinearProbingHashTable derive."""

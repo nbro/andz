@@ -174,15 +174,15 @@ def memoized_recursive_lcs_length(s1: str, s2: str) -> int:
 
 def bottom_up_lcs_length(s1: str, s2: str, matrix: bool = False):
     """Returns the length of the longest common subsequence between strings s1 and s2,
-    if `matrix` is set to `False`,
-    else it returns the matrix used to calculate the length of the lcs of sub-problems.
+    if `matrix` is set to false, else it returns the matrix
+    used to calculate the length of the lcs of sub-problems.
     
     If n = length(s1) and m = length(s2),
     then the following are the asymptotic complexities of this algorithm.
     
-    **Time complexity:** O(n*m)
+    Time complexity: O(n*m)
 
-    **Space complexity:** O(n*m)"""
+    Space complexity: O(n*m)"""
     # m is initialized with zeros everywhere
     m = _get_lcs_length_matrix(s1, s2)
 
@@ -206,9 +206,9 @@ def bottom_up_lcs_length_partial(s1: str, s2: str, c1: str, c2: str, partial_wei
     but considers c1 and c2 partially equal characters,
     and thus instead of adding +1 to the length being computed `partial_weight` is added.
     
-    **Time complexity:** O(n*m)
+    Time complexity: O(n*m)
 
-    **Space complexity:** O(n*m)"""
+    Space complexity: O(n*m)"""
 
     m = _get_lcs_length_matrix(s1, s2)
 

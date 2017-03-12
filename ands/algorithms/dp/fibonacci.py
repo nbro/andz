@@ -29,7 +29,7 @@ The dynamic programming versions run in O(n) time.
 def recursive_fibonacci(n: int) -> int:
     """Returns the nth fibonacci number using a recursive approach.
 
-    **Time complexity:** O(2^n)."""
+    Time complexity: O(2^n)."""
     if n == 0:
         return 0
     elif n == 1:
@@ -52,7 +52,7 @@ def _memoized_fibonacci_aux(n: int, memo: dict) -> int:
 def memoized_fibonacci(n: int) -> int:
     """Returns the nth fibonacci number using recursion and a technique called "memoization".
 
-    **Time complexity:** O(n)."""
+    Time complexity: O(n)."""
     memo = {}
     return _memoized_fibonacci_aux(n, memo)
 
@@ -70,7 +70,7 @@ def bottom_up_fibonacci(n: int, return_ith: bool = False) -> object:
     we start by finding the optimal solution to smaller sub-problems, and from there,
     we build the optimal solution to the initial problem.
 
-    **Time complexity:** O(n)."""
+    Time complexity: O(n)."""
     if n == 0:
         return n if not return_ith else [n]
     if n == 1:

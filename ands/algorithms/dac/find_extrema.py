@@ -23,7 +23,7 @@ __all__ = ["find_extremum_not_in_place", "find_extremum_in_place", "find_max", "
 def find_extremum_not_in_place(ls: list, _find_max: bool = True) -> object:
     """Finds (not in place) the maximum (or minimum) element in `ls`, which is assumed to be a list.
 
-    It finds the maximum if `_find_max` is set to `True`, it finds the minimum otherwise."""
+    It finds the maximum if `_find_max` is set to true, it finds the minimum otherwise."""
     if len(ls) == 0:
         return
     if len(ls) == 1:
@@ -72,7 +72,7 @@ def _find_extremum_in_place(ls: list, start: int, end: int, _find_max: bool = Tr
 def find_extremum_in_place(ls: list, _find_max: bool = True) -> object:
     """Finds (in place) the maximum (or minimum) element in `ls`, which is assumed to be a list.
 
-    It finds the maximum if `_find_max` is set to `True`, it finds the minimum otherwise."""
+    It finds the maximum if `_find_max` is set to true, it finds the minimum otherwise."""
     return _find_extremum_in_place(ls, 0, len(ls) - 1, _find_max)
 
 

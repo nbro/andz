@@ -24,3 +24,6 @@ exclude_lines =
     def __fields
 
     def __invariants
+
+    # for now excluding the print/style functions
+    build_pretty_binary_heap

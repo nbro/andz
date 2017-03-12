@@ -56,7 +56,7 @@ def partition(ls: list, start: int, end: int) -> int:
     """Shifts all elements in `ls` that are less than the pivot
     to the left of the position `p`, which is at the end returned.
 
-    **Time complexity:** O(k), where k is the size of `ls`."""
+    Time complexity: O(k), where k is the size of `ls`."""
     pivot = ls[end]  # Take last element as pivot.
     p = start  # pivot's index
 
@@ -90,7 +90,7 @@ def _quick_sort_aux(ls: list, start: int, end: int) -> None:
 def quick_sort(ls: list) -> None:
     """Quick-sort in-place sorting algorithm.
 
-    **Time complexity**
+    Time complexity
 
     +-------------+-------------+----------+
     |    Best     |   Average   |   Worst  |
@@ -100,7 +100,7 @@ def quick_sort(ls: list) -> None:
 
     Note: the best case can be improved to O(n) if a 3-way partition is used and we have equal keys.
 
-    **Space complexity:** O(n).
+    Space complexity: O(n).
 
     Note: the space complexity can be improved to O(log(n))."""
     _quick_sort_aux(ls, 0, len(ls) - 1)

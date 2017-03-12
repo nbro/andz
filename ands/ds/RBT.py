@@ -167,7 +167,7 @@ class RBT(BST):
 
         `_fix_insertion` handles these cases in the same order as just presented above.
 
-        **Time complexity:** O(log(n))."""
+        Time complexity: O(log(n))."""
         assert is_rbt(self)
 
         if x is None:
@@ -263,7 +263,7 @@ class RBT(BST):
     def remove_max(self) -> RBTNode:
         """Removes and returns the element with the greatest value from `self`.
 
-        **Time complexity:** O(log(n))."""
+        Time complexity: O(log(n))."""
         assert is_rbt(self)
 
         if self.root is not None:
@@ -277,7 +277,7 @@ class RBT(BST):
     def remove_min(self) -> RBTNode:
         """Removes and returns the element with the smallest value from `self`.
 
-        **Time complexity:** O(log(n))."""
+        Time complexity: O(log(n))."""
         assert is_rbt(self)
 
         if self.root is not None:
@@ -310,7 +310,7 @@ class RBT(BST):
         If it does NOT belong to this `RBT` object,
         then the behaviour of this method is UNDEFINED!
 
-        **Time complexity:** O(log(n))."""
+        Time complexity: O(log(n))."""
 
         def delete_case1(v):
             # this check is necessary because this function
@@ -550,15 +550,15 @@ def black_height(n: RBTNode) -> int:
 
 
 def upper_bound_height(t: RBT) -> bool:
-    """Returns `True` if the height of the red-black tre `t` is bounded above by log(n + 1)"""
+    """Returns true if the height of the red-black tre `t` is bounded above by log(n + 1)"""
     return t.height() <= 2 * math.log2(t.size() + 1)
 
 
 def is_rbt(t: RBT) -> bool:
-    """Returns `True` if `t` is a valid `RBT` object. `False` otherwise."""
+    """Returns true if `t` is a valid `RBT` object, false otherwise."""
 
     def are_all_red_or_black(t: RBT) -> bool:
-        """Returns `True` if all colors are either `RED` or `BLACK`."""
+        """Returns true if all colors are either `RED` or `BLACK`."""
 
         def h(n: RBTNode) -> bool:
             if n is not None:
@@ -570,7 +570,7 @@ def is_rbt(t: RBT) -> bool:
         return h(t.root)
 
     def is_root_black(t: RBT) -> bool:
-        """Returns `True` if the root is `BLACK` (or it is `None`), `False` otherwise."""
+        """Returns true if the root is `BLACK` (or it is `None`), false otherwise."""
         if t.root is not None:
             return t.root.color == BLACK
         return True

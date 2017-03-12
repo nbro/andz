@@ -26,7 +26,7 @@ Simple primality tests.
 
 
 def is_prime(n: int) -> bool:
-    """Return `True` if `n` is prime, `False` otherwise."""
+    """Return true if `n` is prime, false otherwise."""
     if n < 2:  # primes are greater than 1
         return False
     if n % 2 == 0:
@@ -49,7 +49,7 @@ def _is_prime_r(n: int, i: int) -> bool:
 
 
 def is_prime_r(n: int) -> bool:
-    """Return `True` if `n` is prime, `False` otherwise.
+    """Return true if `n` is prime, false otherwise.
 
     This function uses recursion.
     In general, you should prefer an iterative approach,
@@ -62,11 +62,11 @@ def is_prime_r(n: int) -> bool:
 
 
 def is_prime_2(n: int) -> bool:
-    """Return `True` if `n` is prime, `False` otherwise.
+    """Return true if `n` is prime, false otherwise.
 
     This algorithm seems to perform better than `is_prime`.
 
-    **Time complexity:** O(&radic;<span style="text-decoration:overline;">n</span>/2 * O(n % i == 0))."""
+    Time complexity: O(sqrt(n) * O(n % i))."""
     if n == 2 or n == 3:
         return True
     if n % 2 == 0 or n < 2:

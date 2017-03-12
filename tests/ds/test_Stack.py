@@ -8,11 +8,11 @@ Author: Nelson Brochado
 
 Created: 01/07/16
 
-Updated: 04/02/2017
+Updated: 12/03/2017
 
 # Description
 
-Tests for the Stack data structure.
+Unit tests for the Stack data structure.
 """
 
 import unittest

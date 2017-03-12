@@ -282,7 +282,7 @@ class LinearProbingHashTable(HashTable):
 
 
 def has_duplicates_ignore_nones(ls: list) -> bool:
-    """Returns `True` if `ls` does contain duplicate elements, `False` otherwise.
+    """Returns true if `ls` does contain duplicate elements, false otherwise.
 
     None items in `ls` are not considered."""
     ls = [item for item in ls if item is not None]

@@ -44,7 +44,7 @@ __all__ = ["insertion_sort"]
 def insertion_sort(ls: list) -> None:
     """Insertion-sort in-place sorting algorithm.
 
-    **Time complexity**
+    Time complexity
 
     +------+----------+----------+
     | Best |  Average |  Worst   |
@@ -52,7 +52,7 @@ def insertion_sort(ls: list) -> None:
     | O(n) |  O(n^2)  |  O(n^2)  |
     +------+----------+----------+
 
-    **Space complexity:** O(1).
+    Space complexity: O(1).
 
     Note: space complexity is O(1), but not considering memory for original list `ls`!"""
     for i in range(1, len(ls)):

@@ -66,6 +66,8 @@ at [http://p2p.wrox.com/book-beginning-algorithms](http://p2p.wrox.com/book-begi
 
 """
 
+__all__ = ["TST"]
+
 
 class TSTNode:
     """A TSTNode has 6 fields:
@@ -171,7 +173,7 @@ class TST:
         You should clearly use size instead:
         this method is here only for the fun of writing code!
 
-        **Time complexity:** O(n), where n is the number of nodes in this TST."""
+        Time complexity: O(n), where n is the number of nodes in this TST."""
         c = self._count(self._root, 0)
         assert c == self.size()
         return c
@@ -179,7 +181,7 @@ class TST:
     def _count(self, node: TSTNode, counter: int) -> int:
         """Helper method to `self.count`.
 
-        **Time complexity:** O(m), where m is the number of nodes under `node`."""
+        Time complexity: O(m), where m is the number of nodes under `node`."""
         if node is None:  # base case
             return counter
 
@@ -193,7 +195,7 @@ class TST:
         return counter
 
     def is_empty(self) -> bool:
-        """**Time complexity:** O(1)."""
+        """Time complexity: O(1)."""
         return self._n == 0
 
     def insert(self, key: str, value: object) -> None:
@@ -206,10 +208,10 @@ class TST:
 
         Nodes whose value is not None represent the last character of an inserted word.
 
-        **Time complexity:** O(m + h), where m = length(key),
+        Time complexity: O(m + h), where m = length(key),
         which also represents how many times we follow the middle link,
         and h is the number of left and right turns.
-        So a lower bound of the complexity would be &Omega(m);."""
+        So a lower bound of the complexity would be Ω(m);."""
         self.__invariants()
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
@@ -271,7 +273,7 @@ class TST:
         we follow the middle link, and the next comparison is between
         the key of the specific next node and key[1], not key[0]!
 
-        **Time complexity:** O(m + h).
+        Time complexity: O(m + h).
         Check self.insert to see what m and h are."""
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
@@ -354,7 +356,7 @@ class TST:
     def contains(self, key: str) -> bool:
         """Returns True if `key` is in self, False otherwise.
 
-        **Time complexity:** O(m + h).
+        Time complexity: O(m + h).
         See the complexity analysis of self.insert for more info about m and h."""
         return self.search(key) is not None
 
@@ -365,7 +367,7 @@ class TST:
         If `key` is not an instance of `str`, `TypeError` is raised.
         If `key` is an empty string, `ValueError` is raised.
 
-        **Time complexity:** O(m + h + k).
+        Time complexity: O(m + h + k).
         Check self.search to see what m and h are.
         k is the number of "no more necessary" cleaned up
         after deletion of the node associated with `key`.
@@ -424,13 +426,13 @@ class TST:
     def traverse(self) -> None:
         """Traverses all nodes in this TST and prints the key: value associations.
 
-        **Time complexity:** O(n), where n is the number of nodes in self."""
+        Time complexity: O(n), where n is the number of nodes in self."""
         self._traverse(self._root, "")
 
     def _traverse(self, node: TSTNode, prefix: str) -> None:
         """Helper method to self.traverse.
 
-        **Time complexity:** O(m), where m is the number of nodes under `node`."""
+        Time complexity: O(m), where m is the number of nodes under `node`."""
         if node is None:  # base case
             return
 

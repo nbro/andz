@@ -2,11 +2,16 @@
 
 ## TODO
 
-- Refactor tests for the data structures:
-    
-    - MinHeap
-    - MaxHeap
-    - MinMaxHeap
+- Generalize common tests for MinHeap, MaxHeap and MinMaxHeap
+- Generalize common tests for BST and RBT
 
-    
-which, as all other data structures, may nonetheless need to be improved!
+### Missing
+
+#### Algorithms
+
+- All algorithms under 
+
+    - dp
+    - greedy
+    - parsing
+    - primes

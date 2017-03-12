@@ -51,7 +51,7 @@ __all__ = ["heap_sort", "build_max_heap", "max_heapify"]
 def max_heapify(ls: list, heap_size: int, i: int) -> None:
     """This operation is also sometimes called `push_down`, `shift_down` or `bubble_down`.
 
-    **Time complexity:** O(log<sub>2</sub>(n)), where n = len(ls)."""
+    Time complexity: O(log(n))."""
     m = i
     left = 2 * i + 1
     right = 2 * i + 2
@@ -80,7 +80,7 @@ def build_max_heap(ls: list) -> None:
     as an improvement to the sub-optimal algorithm to build heaps
     proposed by the inventor of max-heap and of the heap data structure, that is J. Williams.
 
-    **Time complexity:** O(n), where n = len(ls)."""
+    Time complexity: O(n)."""
     for i in range(len(ls) // 2, -1, -1):
         max_heapify(ls, len(ls), i)
 
@@ -88,7 +88,7 @@ def build_max_heap(ls: list) -> None:
 def heap_sort(ls: list) -> None:
     """Heap-sort in-place sorting algorithm.
 
-    **Time complexity**
+    Time complexity
 
     +-------------+-------------+-------------+
     |    Best     |   Average   |    Worst    |
@@ -96,7 +96,7 @@ def heap_sort(ls: list) -> None:
     | O(n*log(n)) | O(n*log(n)) | O(n*log(n)) |
     +-------------+-------------+-------------+
 
-    **Space complexity:** O(1)."""
+    Space complexity: O(1)."""
     build_max_heap(ls)
     for i in range(len(ls) - 1, 0, -1):
         ls[i], ls[0] = ls[0], ls[i]

@@ -137,7 +137,7 @@ class DisjointSetsForest(DisjointSets):
         return self._n
 
     def contains(self, x: object) -> bool:
-        """Returns True if x is in self, False otherwise."""
+        """Returns true if x is in self, false otherwise."""
         return x in self._sets
 
     def _find(self, x: DSFNode) -> DSFNode:
@@ -162,7 +162,7 @@ class DisjointSetsForest(DisjointSets):
 
         This algorithm does not change any ranks of the `Set` objects.
 
-        **Time complexity:** O(α(n)), where α(n) is the inverse of the function
+        Time complexity: O(α(n)), where α(n) is the inverse of the function
         n = f(x) = A(x, x), and A is the extremely fast-growing Ackermann function.
         Since α(n) is the inverse of this function,
         α(n) is less than 5 for all remotely practical values of n.
@@ -198,7 +198,7 @@ class DisjointSetsForest(DisjointSets):
 
         Raises a `LookupError` if `x` does not belong to this `DisjointSetsForest`.
 
-        **Time complexity:** O(α(n))."""
+        Time complexity:  O(α(n))."""
         if not self.contains(x):
             raise LookupError("x is not in self")
         x_root = self._find(self._sets[x]).value
@@ -229,7 +229,7 @@ class DisjointSetsForest(DisjointSets):
         and whenever two trees of the same rank `r` are united,
         the rank of the result is `r + 1`.
 
-        **Time complexity:** O(α(n)), where α(n) is the inverse of the function
+        Time complexity: O(α(n)), where α(n) is the inverse of the function
         n = f(x) = A(x, x), and A is the extremely fast-growing Ackermann function.
 
         Since α(n) is the inverse of this function,

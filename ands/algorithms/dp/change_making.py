@@ -81,7 +81,7 @@ def change_making(coins: list, rest: int) -> int:
 
     `rest` is number that we need to obtain with the fewest number of coins in set of coins.
 
-    **Time complexity:** O(n * rest),
+    Time complexity: O(n * rest),
     where "number of coins" == n == len(ls) and "quantity to obtain" == rest."""
     m = _get_change_making_matrix(coins, rest)
 
@@ -115,7 +115,7 @@ def extended_change_making(coins: list, rest: int) -> list:
 
     Assumes that all `coins` and `rest` are integers.
 
-    **Time complexity:** O(n * rest),
+    Time complexity: O(n * rest),
     where "number of coins" == n == len(ls) and "quantity to obtain" == rest."""
     m = _get_change_making_matrix(coins, rest)
 

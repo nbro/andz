@@ -8,11 +8,11 @@ Author: Nelson Brochado
 
 Created: 15/02/2016
 
-Updated: 17/02/2017
+Updated: 12/03/2017
 
 # Description
 
-Tests for the RBT class based on the tests for the BST class.
+Unit tests for the RBT and RBTNode classes.
 """
 
 import unittest

@@ -35,7 +35,7 @@ def brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
 
     There are n + (n - 1) + (n - 2) + ... + 1 different subsequences.
 
-    **Time complexity:** O(n^3)."""
+    Time complexity: O(n^3)."""
     _sum = _max = seq[0]
     start = end = 0
 
@@ -60,7 +60,7 @@ def better_brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
     """Brute force approach to compute the sum of all subsequences of seq.
     There are n + (n - 1) + (n - 2) + ... + 1 different subsequences.
 
-    **Time complexity:** O(n^2)."""
+    Time complexity: O(n^2)."""
     _sum = _max = seq[0]
     start = end = 0
 
@@ -91,9 +91,9 @@ def bottom_up_max_sum_contiguous_subsequence(seq: list) -> tuple:
 
     To keep track where the max contiguous subsequence starts, we use another list.
 
-    **Time complexity:** O(n).
+    Time complexity: O(n).
 
-    **Space complexity:** O(n)."""
+    Space complexity: O(n)."""
     indices = [0] * len(seq)
 
     _sum = [0] * len(seq)
@@ -132,9 +132,9 @@ def better_bottom_up_max_sum_contiguous_subsequence(seq: list) -> tuple:
 
     To keep track where the max contiguous subsequence starts, we use another list.
 
-    **Time complexity:** O(n).
+    Time complexity: O(n).
 
-    **Space complexity:** O(1)."""
+    Space complexity: O(1)."""
     _max = seq[0]
     _sum = seq[0]
     index = 0

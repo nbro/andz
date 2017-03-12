@@ -13,7 +13,6 @@ Created: 20/03/2016
 Base class to test sorting algorithms.
 """
 
-
 from random import randint
 
 from ands.algorithms.recursion.is_sorted import iterative_is_sorted
