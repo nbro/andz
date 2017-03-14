@@ -569,7 +569,7 @@ class BST:
         if u.has_two_children():
             self._delete_when_two_children(u)
         else:  # u has at most one child
-            self.delete_when_at_most_one_child(u)
+            self._delete_when_at_most_one_child(u)
 
         u.right = u.left = u.parent = None
         return u
@@ -582,7 +582,7 @@ class BST:
         # u has at most a right child now.
         self._delete(u)
 
-    def delete_when_at_most_one_child(self, u: BSTNode) -> None:
+    def _delete_when_at_most_one_child(self, u: BSTNode) -> None:
         """Removes u from the tree, when u has at most one child.
         This means that u could have 0 or 1 child."""
         assert u is not None
