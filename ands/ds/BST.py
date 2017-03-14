@@ -8,74 +8,32 @@ Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 16/02/2017
+Updated: 14/03/2017
 
 # Description
 
-### Coding Conventions
+A binary search trees (BST), sometimes called ordered or sorted binary trees,
+are a particular type of containers: data structures that store "items" (such as numbers, names, etc.) in memory.
+They allow fast lookup, addition and removal of items (if balanced),
+and can be used to implement either dynamic sets of items, or lookup tables
+that allow finding an item by its key (e.g., finding the phone number of a person by name).
 
-In general, if a variable name has more than one word,
-those words are separated by _ (underscores).
-Functions' names should roughly describe what the function does.
-Names of functions' local variables are usually short,
-and not so self-descriptive, but, on the other hand,
-comments are usually provide on the first occurrence of the name,
-in order to explain the purpose of such a variable.
+Binary search trees keep their keys in sorted order,
+so that lookup and other operations can use the principle of "binary search":
+when looking for a key in a tree (or a place to insert a new key),
+they traverse the tree from root to leaf, making comparisons to keys stored in the nodes of the tree and deciding,
+based on the comparison, to continue searching in the left or right subtrees.
+On average, this means that each comparison allows the operations to skip about half of the tree,
+so that each lookup, insertion or deletion takes time proportional to
+the logarithm of the number of items stored in the tree.
 
-#### Functions
-
-- Methods that start with _ should not be called,
-because they might either be "helper" or private functions.
-
-#### Parameters
-
-- `u`, `v`, `z` and `w` are used to indicate that a general `BSTNode` object is expected.
-
-- `s` is used to indicate that a source node is expected.
-
-- `x` is used when the parameter's expected type can either be a `BSTNode` object
-or any other comparable object to represent keys.
-
-- `ls` is usually used to indicate that a list or a tuple is expected.
-
-#### Local Variables
-
-- `c` usually indicates some "current" changing variable.
-
-- `p` is usually `c`'s parent.
-
-#### Docstrings
-
-Under methods' signatures, h in O(h) is the height of the tree.
-Note that the height of a BST varies depending on how elements
-are inserted and removed.
-m in O(m) is the height of the subtree rooted at the node passed
-as parameter.
-
-Other names are self-descriptive.
-For example, "key" and "value" are self-descriptive.
+This is much better than the linear time required to find items by key in an (unsorted) array,
+but slower than the corresponding operations on hash tables.
 
 # TODO
 
-- Improve the "randomness" of insertion into the BSTImproved class.
 - Add functions "intersection" and "union".
 - Implement a recursive version of insert (OPTIONAL).
-- implement "is balanced" function (http://codereview.stackexchange.com/questions/108459/binary-tree-data-structure)
-
-- Fix inconsistencies because allowing both keys and BSTNodes to be inserted, searched and deleted,
-and because the BST allows duplicate elements: for example, if the user tries to search using a BSTNode,
-possible problems could be:
-
- 1. the BSTNode does not belong to the tree, and there's no way of solving this
-  except for searching through all nodes, but this would be too expensive.
-
- 2. the BSTNode could have been set in a state that it's now considered badly formed.
-
-etc.
-
- Allow duplicates and when deleting returning values, probably doesn't make sense,
-since the values could be different for nodes with same key,
-and we could return one whereas the user expects another!!
 
 # References
 
@@ -88,29 +46,23 @@ and we could return one whereas the user expects another!!
 
 """
 
-from random import randint
-
-__all__ = ["BST", "BSTNode", "is_bst", "BSTImproved", "build_pretty_bst", "has_bst_property", "all_bst_nodes"]
+__all__ = ["BST", "is_bst"]
 
 
 class BSTNode:
-    """Class to represent a BST's node."""
+    """Node class to represent a node for the BST class."""
 
-    def __init__(self, key, value=None, parent=None, left=None, right=None):
+    def __init__(self, key, parent=None, left=None, right=None):
         if key is None:
             raise ValueError("key cannot be None")
         self.key = key
-        self.value = value
         self.parent = parent
         self.left = left
         self.right = right
-        # Used for printing purposes.
-        self.label = "[" + str(self.key) + "]"
 
     @property
-    def sibling(self):
-        """Returns the sibling node of this node,
-        which can of course be `None`."""
+    def sibling(self) -> "BSTNode":
+        """Returns the sibling node of this node, which can of course be `None`."""
         if self.parent is not None:
             if self.is_left_child():
                 return self.parent.right
@@ -118,13 +70,13 @@ class BSTNode:
                 return self.parent.left
 
     @property
-    def grandparent(self):
+    def grandparent(self) -> "BSTNode":
         """Returns the parent of the parent of this node."""
         if self.parent is not None:
             return self.parent.parent
 
     @property
-    def uncle(self):
+    def uncle(self) -> "BSTNode":
         """Returns the uncle node of this node.
         The uncle is the sibling of the parent of this node,
         if it exists. `None` is returned if it doesn't exist,
@@ -135,24 +87,28 @@ class BSTNode:
             else:  # self.parent == self.grandparent.right:
                 return self.grandparent.left
 
-    def reset(self) -> None:
-        self.parent = None
-        self.left = None
-        self.right = None
-
     def is_left_child(self) -> bool:
         if self.parent is not None:
             if self.parent.left is not None:
                 return self.parent.left == self
         else:
-            raise AttributeError("self does not have a parent.")
+            raise AttributeError("self does not have a parent")
 
     def is_right_child(self) -> bool:
         if self.parent is not None:
             if self.parent.right is not None:
                 return self.parent.right == self
         else:
-            raise AttributeError("self does not have a parent.")
+            raise AttributeError("self does not have a parent")
+
+    def has_right_child(self) -> bool:
+        return self.right is not None
+
+    def has_left_child(self) -> bool:
+        return self.left is not None
+
+    def has_parent(self) -> bool:
+        return self.parent is not None
 
     def has_children(self) -> bool:
         """Returns true if `self` has at least one child, false otherwise."""
@@ -160,8 +116,8 @@ class BSTNode:
 
     def has_one_child(self) -> bool:
         """Returns true only if `self` has exactly one child, false otherwise."""
-        return (self.left is not None and self.right is None) or \
-               (self.left is None and self.right is not None)
+        return ((self.left is not None and self.right is None) or
+                (self.left is None and self.right is not None))
 
     def has_two_children(self) -> bool:
         """Returns true if self has exactly two children, false otherwise."""
@@ -170,57 +126,44 @@ class BSTNode:
     def count(self) -> int:
         """Counts the numbers of nodes under `self` (including `self`)."""
 
-        def _count(u, c: int) -> int:
-            if u is None:
-                return c
-            else:
-                c += 1
-            c = _count(u.left, c)
-            c = _count(u.right, c)
-            return c
-
         if not self.has_children():
             return 1
         else:
             c = 0
-            return _count(self, c)
+            return self._count(self, c)
+
+    def _count(self, u: "BSTNode", c: int) -> int:
+        if u is None:
+            return c
+        else:
+            c += 1
+        c = self._count(u.left, c)
+        c = self._count(u.right, c)
+        return c
 
     def __str__(self):
-        return "{" + str(self.key) + ": " + str(self.value) + "}"
+        return str(self.key)
 
     def __repr__(self):
         return self.__str__()
-        # return tabulate(self.__fields(), tablefmt="fancy_grid")
-
-    def __fields(self) -> list:
-        return [["key", self.key],
-                ["value", self.value],
-                ["parent", self.parent],
-                ["left", self.left],
-                ["right", self.right],
-                ["sibling", self.sibling],
-                ["grandparent", self.grandparent],
-                ["uncle", self.uncle]]
 
 
 class BST:
-    """`BST` is a class that represents a classical binary search tree."""
+    """`BST` is a class that represents a "classical" binary-search tree.
 
-    def __init__(self, root=None):
-        if root is not None:
-            if not isinstance(root, BSTNode):
-                raise TypeError("root must be an instance of BSTNode")
-            if root.parent is not None:
-                raise ValueError("the parent of root must be None")
-            if not all_bst_nodes(root):
-                raise TypeError("not all objects under root are instances of BSTNode")
-            if not has_bst_property(root):
-                raise TypeError("tree rooted at root does not have the binary-search tree property")
-            self._n = root.count()
-        else:
-            self._n = 0
+    This implementation does allow duplicate elements,
+    but it's not implemented as a hash table.
 
-        self.root = root
+    It's the responsibility of the client of this class to make sure
+    that `key`s provided to the methods of this class are comparable among them.
+
+    In the time complexity analysis under the methods of this class,
+    h in O(h) means the maximum height the algorithm is going to reach.
+    m in O(m) is the height of the subtree rooted at the node passed as parameter."""
+
+    def __init__(self):
+        self._n = 0
+        self._root = None
         assert is_bst(self)
 
     @property
@@ -229,8 +172,8 @@ class BST:
 
         Time complexity: O(1)."""
         assert is_bst(self)
-        if self.root is not None:
-            assert self.root.count() == self._n
+        if self._root is not None:
+            assert self._root.count() == self._n
         else:
             assert self._n == 0
         return self._n
@@ -242,111 +185,80 @@ class BST:
         assert is_bst(self)
         return self.size == 0
 
-    def _initialise_if_empty(self, u: BSTNode) -> None:
-        """Sets `u` as the new root and unique node of this tree."""
-        assert self.root is None
-        self.root = u
-        self.root.parent = None
-        self.root.left = None
-        self.root.right = None
-        self._n = 1
-        assert is_bst(self)
-
     def clear(self) -> None:
         """Removes all nodes from this tree.
 
         Time complexity: O(1)."""
         assert is_bst(self)
-        self.root = None
+        self._root = None
         self._n = 0
         assert is_bst(self)
 
-    def is_root(self, u: BSTNode) -> bool:
+    def _is_root(self, u: BSTNode) -> bool:
         """Checks if `u` is the same object as `self.root`.
 
         Time complexity: O(1)."""
         assert is_bst(self)
-        if u == self.root:
+        if u == self._root:
             if u is not None:
                 assert u.parent is None
-        return u == self.root
+        return u == self._root
 
-    def insert(self, x: object, value=None) -> None:
-        """Inserts (normally) `x` into this BST object.
+    def insert(self, key: object) -> None:
+        """Inserts `key` into this BST.
 
         Time complexity: O(h)."""
         assert is_bst(self)
 
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, BSTNode):
-            x = BSTNode(x, value)
-        if x.left is not None or x.right is not None or x.parent is not None:
-            raise ValueError("x cannot have left or right children, or parent.")
+        if key is None:
+            raise ValueError("key cannot be None")
 
-        if self.root is None:
-            self._initialise_if_empty(x)
+        key_node = BSTNode(key)
+
+        if self._root is None:
+            assert self._n == 0
+            self._root = key_node
         else:
-            c = self.root  # c is the current node
-            p = self.root.parent  # parent of c
+            c = self._root  # c is the current node
+            p = self._root.parent  # parent of c
 
             while c is not None:
                 p = c
-                if x.key < c.key:
+                if key_node.key < c.key:
                     c = c.left
                 else:
                     c = c.right
 
-            if x.key < p.key:
-                p.left = x
+            if key_node.key < p.key:
+                p.left = key_node
             else:
-                p.right = x
+                p.right = key_node
 
-            x.parent = p
-            self._n += 1
+            key_node.parent = p
+
+        self._n += 1
 
         assert is_bst(self)
 
-    def insert_many(self, ls: list) -> None:
-        """Calls `self.insert` for all elements of `ls`.
-        Therefore the elements of `ls` should either be
-        `BSTNode` objects or they should represent keys.
-
-        Time complexity: O(n * h),
-        where n = len(ls) and h is the heights at each the elements are inserted."""
-        assert is_bst(self)
-        if not isinstance(ls, list):
-            raise TypeError("ls must be an instance of list")
-        for elem in ls:
-            self.insert(elem)
-        assert is_bst(self)
-
-    def search(self, key: object) -> BSTNode:
-        """Searches for the key in the tree.
-
-        `key` must be a comparable object of the same type as the other keys.
+    def contains(self, key: object) -> bool:
+        """Returns true if `key` is in this BST, false otherwise.
 
         Time complexity: O(h)."""
         assert is_bst(self)
         if key is None:
-            raise ValueError("key cannot be None.")
-        return self.search_key_iteratively(key)
-
-    def search_key_iteratively(self, key: object) -> BSTNode:
-        """Searches iteratively for key starting from the root.
-
-        Time complexity: O(h)."""
+            raise ValueError("key cannot be None")
+        key_node = self._search_key_iteratively(key, self._root)
+        assert self._search_key_recursively(key, self._root) == key_node
         assert is_bst(self)
-        result = BST._search_key_iteratively(key, self.root)
-        assert result == self.search_key_recursively(key)
-        return result
+        return key_node is not None
 
     @staticmethod
     def _search_key_iteratively(key: object, u: BSTNode) -> BSTNode:
-        """Searches iteratively for key in the subtree rooted at `u`.
+        """Returns the BSTNode object `c` such that `c.key == key`,
+        or None if no such object exists.
 
         Time complexity: O(m)."""
-        c = u  # c is the current node
+        c = u  # current node
         while c is not None:
             if key == c.key:
                 return c
@@ -355,21 +267,11 @@ class BST:
             else:
                 c = c.right
 
-    def search_key_recursively(self, key: object) -> BSTNode:
-        """Searches recursively for `key` starting from `self.root`.
-
-        Time complexity: O(h)."""
-        assert is_bst(self)
-        return self._search_key_recursively(key, self.root)
-
     def _search_key_recursively(self, key: object, u: BSTNode) -> BSTNode:
-        """Searches recursively for `key` in the subtree rooted at `u`.
+        """Returns the BSTNode object `c` such that `c.key == key`,
+        or None if no such object exists.
 
-        `key` must be a comparable object of the same type as the other keys.
-
-        Time complexity: O(m),
-        where `m` is the height of the subtree rooted at `u`,
-        if `u` is not `None`. Else the time complexity is O(1)."""
+        Time complexity: O(m)."""
         if u is None or key == u.key:
             return u
         elif key < u.key:
@@ -377,23 +279,14 @@ class BST:
         else:
             return self._search_key_recursively(key, u.right)
 
-    def contains_key(self, key: object) -> bool:
-        """Returns true if a `BSTNode` object with `key` exists in the tree.
-
-        Time complexity: O(h)."""
-        assert is_bst(self)
-        return self.search_key_iteratively(key) is not None
-
     def rank(self, key: object) -> int:
         """Returns the number of keys strictly less than `key`.
 
         Time complexity: O(h)."""
         assert is_bst(self)
-        if key is None:
-            raise ValueError("key cannot be None.")
-        if not self.contains_key(key):
-            raise LookupError("key was not found.")
-        return self._rank(self.root, key, 0)
+        if not self.contains(key):
+            raise LookupError("key was not found")
+        return self._rank(self._root, key, 0)
 
     def _rank(self, u: BSTNode, key, r: int) -> int:
         if u is None:
@@ -405,217 +298,156 @@ class BST:
         return r
 
     def height(self) -> int:
-        """Returns the maximum depth or height of the tree.
+        """Returns the maximum height of this BST.
+
+        Since this is not a balanced BST,
+        the maximum height may vary during the lifetime of this BST.
 
         Time complexity: O(h)."""
         assert is_bst(self)
-        if self.root is None:
+        if self._root is None:
             return 0
-        return self._height(self.root)
+        else:
+            return self._height(self._root)
 
     def _height(self, u: BSTNode) -> int:
         if u is None:
             return 0
         return 1 + max(self._height(u.left), self._height(u.right))
 
-    def minimum(self) -> BSTNode:
-        """Calls `BST._minimum_r(self.root)` if `self.root` is evaluated to true.
+    def minimum(self) -> object:
+        """Returns the minimum key in this BST, or None if this BST is empty.
 
         Time complexity: O(h)."""
         assert is_bst(self)
-        if self.root is not None:
-            m = BST._minimum(self.root)
-            assert m == BST._minimum_r(self.root)
-            return m
-
-    @staticmethod
-    def _minimum_r(u: BSTNode) -> BSTNode:
-        """Recursive version of the `BST._minimum(u)` function."""
-        if u.left is not None:
-            u = BST._minimum_r(u.left)
-        return u
+        if self._root is not None:
+            m = BST._minimum(self._root)
+            assert m == BST._minimum_recursively(self._root)
+            assert is_bst(self)
+            return m.key if m is not None else None
 
     @staticmethod
     def _minimum(u: BSTNode) -> BSTNode:
-        """Returns the node (rooted at u) with the minimum key."""
-        while u.left is not None:
+        """Returns the node with the minimum key rooted at `u`."""
+        assert u is not None
+        while u.has_left_child():
             u = u.left
         return u
 
-    def maximum(self) -> BSTNode:
-        """Calls `BST._maximum_r(self.root)` if `self.root` is evaluated to true.
+    @staticmethod
+    def _minimum_recursively(u: BSTNode) -> BSTNode:
+        """Recursive version of the BST._minimum function."""
+        assert u is not None
+        if u.has_left_child():
+            u = BST._minimum_recursively(u.left)
+        return u
+
+    def maximum(self) -> object:
+        """Returns the maximum key in this BST, or None if this BST is empty.
 
         Time complexity: O(h)."""
         assert is_bst(self)
-
-        if self.root is not None:
-            m = BST._maximum(self.root)
-            assert m == BST._maximum_r(self.root)
-            return m
-
-    @staticmethod
-    def _maximum_r(u: BSTNode) -> BSTNode:
-        """Recursive version of `BST._maximum`."""
-        if u.right is not None:
-            u = BST._maximum_r(u.right)
-        return u
+        if self._root is not None:
+            m = BST._maximum(self._root)
+            assert m == BST._maximum_recursively(self._root)
+            assert is_bst(self)
+            return m.key if m is not None else None
 
     @staticmethod
     def _maximum(u: BSTNode) -> BSTNode:
-        """Returns the node (rooted at u) with the maximum key."""
-        while u.right is not None:
+        """Returns the node with the maximum key rooted at `u`."""
+        assert u is not None
+        while u.has_right_child():
             u = u.right
         return u
 
-    def successor(self, x: object) -> BSTNode:
-        """Finds the successor of `x`,
-        i.e. the smallest element greater than `x`.
+    @staticmethod
+    def _maximum_recursively(u: BSTNode) -> BSTNode:
+        """Recursive version of the BST._maximum function."""
+        assert u is not None
+        if u.has_right_child():
+            u = BST._maximum_recursively(u.right)
+        return u
 
-        If `x` has a right subtree,
-        then the successor of `x` is the minimum of that right subtree.
+    def successor(self, key: object) -> object:
+        """Finds the successor of `key`,
+        i.e. the smallest element greater than `key`,
+        or None if `key` does not have a successor.
 
-        Otherwise it is the first ancestor of `x`, lets call it `A`,
-        such that `x` falls in the left subtree of `A`.
+        If `key` has a right subtree, then the successor of `key`
+        is the minimum of that right subtree.
 
-        `x` can either be a reference to an actual `BSTNode` object,
-        or it can be a key of a supposed node in self.
+        Otherwise it is the first ancestor of `key`, lets call it `A`,
+        such that `key` falls in the left subtree of `A`.
+
+        Time complexity: O(h)."""
+        assert is_bst(self)
+        if key is None:
+            raise ValueError("key cannot be None")
+
+        key_node = self._search_key_iteratively(key, self._root)
+        if key_node is None:
+            raise LookupError("key not in this BST")
+
+        s = BST._successor(key_node)
+
+        assert is_bst(self)
+
+        return s.key if s is not None else None
+
+    @staticmethod
+    def _successor(u: BSTNode) -> BSTNode:
+        """Returns the BSTNode representing the successor of `u`."""
+        assert u is not None
+
+        if u.has_right_child():
+            return BST._minimum(u.right)
+
+        p = u.parent
+        while p is not None and p.right == u:
+            u = p
+            p = u.parent
+
+        return p
+
+    def predecessor(self, key: object) -> object:
+        """Finds the predecessor of the node `key`,
+        i.e. the greatest element smaller than `key`,
+        or None if `key` does not have a predecessor.
 
         Time complexity: O(h)."""
         assert is_bst(self)
 
-        if not isinstance(x, BSTNode):
-            x = self.search_key_iteratively(x)
-            if x is None:
-                raise LookupError("no node was found with key=x.")
-        else:
-            if not self.contains_key(x.key):
-                raise LookupError("x does not belong to this tree")
+        if key is None:
+            raise ValueError("key cannot be None")
 
-        if x.right is not None:
-            return BST._minimum(x.right)
+        key_node = self._search_key_iteratively(key, self._root)
+        if key_node is None:
+            raise LookupError("key not in this BST")
 
-        p = x.parent
-        while p is not None and p.right == x:
-            x = p
-            p = x.parent
-        return p
+        p = BST._predecessor(key_node)
 
-    def predecessor(self, x: object) -> BSTNode:
-        """Finds the predecessor of the node `x`,
-        i.e. the greatest element smaller than `x`.
-
-        `x` can either be a reference to an actual `BSTNode` object,
-        or it can be a key of a supposed node in self.
-
-        Time complexity: O(h)."""
         assert is_bst(self)
 
-        if not isinstance(x, BSTNode):
-            x = self.search_key_iteratively(x)
-            if x is None:
-                raise LookupError("No node was found with key=x.")
-        else:
-            if not self.contains_key(x.key):
-                raise LookupError("x does not belong to this tree")
+        return p.key if p is not None else None
 
-        if x.left is not None:
-            return BST._maximum(x.left)
+    @staticmethod
+    def _predecessor(u: BSTNode) -> BSTNode:
+        """Returns the BSTNode representing the predecessor of `u`."""
+        assert u is not None
 
-        p = x.parent
-        while p is not None and x == p.left:
-            x = p
-            p = x.parent
+        if u.has_left_child():
+            return BST._maximum(u.left)
+
+        p = u.parent
+        while p is not None and u == p.left:
+            u = p
+            p = u.parent
+
         return p
 
-    def _left_rotate(self, x: object) -> BSTNode:
-        """Left rotates the subtree rooted at node `x`.
-
-        `x` can be a `BSTNode` object, and in that case,
-        this function performs in constant time O(1);
-        else, if node is not a `BSTNode` object,
-        it tries to search for a `BSTNode` object with key=x,
-        and, in that case, it performs in O(h) time.
-
-        Returns the node which is at the previous position of `x`,
-        that is it returns the parent of `x`.
-
-        Time complexity: O(1)."""
-        if not isinstance(x, BSTNode):
-            c = self.search_key_iteratively(x)
-            if c is None:
-                raise LookupError("key node was not found in the tree.")
-        else:
-            c = x
-
-        # To left rotate a node, its right child must exist.
-        if c.right is None:
-            raise ValueError("left rotation cannot be performed on " + str(c) +
-                             " because it does not have a right child.")
-
-        c.right.parent = c.parent
-
-        # Only the root has a None parent.
-        if c.parent is None:
-            self.root = c.right
-
-        # Checking if c is a left or a right child,
-        # in order to set the new left
-        # or right child respectively of its parent.
-        elif c.is_left_child():
-            c.parent.left = c.right
-        else:
-            c.parent.right = c.right
-
-        c.parent = c.right
-
-        # The new right child of c becomes what is
-        # the left child of its previous right child.
-        c.right = c.parent.left
-
-        # Set c to be the parent of its new right child.
-        if c.right is not None:
-            c.right.parent = c
-
-        # Set c to be the new left child of its new parent.
-        c.parent.left = c
-        return c.parent
-
-    def _right_rotate(self, x: object) -> BSTNode:
-        """Right rotates the subtree rooted at node `x`.
-        See doc-strings of `self._left_rotate`.
-
-        Time complexity: O(1)."""
-        if not isinstance(x, BSTNode):
-            c = self.search_key_iteratively(x)
-            if c is None:
-                raise LookupError("key node was not found in the tree.")
-        else:
-            c = x
-
-        if c.left is None:
-            raise ValueError("right rotation cannot be performed on " + str(c) +
-                             " because it does not have a left child.")
-
-        c.left.parent = c.parent
-
-        if c.parent is None:
-            self.root = c.left
-        elif c.is_left_child():
-            c.parent.left = c.left
-        else:
-            c.parent.right = c.left
-
-        c.parent = c.left
-        c.left = c.parent.right
-
-        if c.left is not None:
-            c.left.parent = c
-
-        c.parent.right = c
-        return c.parent
-
-    def remove_max(self) -> BSTNode:
-        """Removes and returns the maximum element of the tree, if it is not empty.
+    def remove_max(self) -> None:
+        """Removes the greatest element from `self`.
 
         Time complexity: O(h)."""
         assert is_bst(self)
@@ -623,32 +455,30 @@ class BST:
         if self.is_empty():
             return
 
-        u = self.root
+        u = self._root
 
         # Note that the maximum element is all the way to the right,
         # and it cannot have a right child, but it can still have a left subtree.
         m = BST._maximum(u)
 
         if m.left is not None:  # m has a left subtree.
-            if self.is_root(m):  # m is the root.
-                self.root = m.left
+            if self._is_root(m):  # m is the root.
+                self._root = m.left
                 m.left.parent = None  # self.root.parent = None
             else:  # m is NOT the root.
                 m.left.parent = m.parent
                 m.parent.right = m.left
         else:  # m has NO children
-            if self.is_root(m):
-                self.root = None
+            if self._is_root(m):
+                self._root = None
             else:
                 m.parent.right = None
 
-        m.parent = m.left = None
         self._n -= 1
         assert is_bst(self)
-        return m
 
-    def remove_min(self) -> BSTNode:
-        """Removes and returns the minimum element of the tree, if it is not empty.
+    def remove_min(self) -> None:
+        """Removes the smallest element from `self`.
 
         Time complexity: O(h)."""
         assert is_bst(self)
@@ -656,73 +486,50 @@ class BST:
         if self.is_empty():
             return
 
-        u = self.root
+        u = self._root
         m = BST._minimum(u)
 
         if m.right is not None:
-            if self.is_root(m):
-                self.root = m.right
+            if self._is_root(m):
+                self._root = m.right
                 m.right.parent = None
             else:
                 m.right.parent = m.parent
                 m.parent.left = m.right
         else:  # m has not right subtree.
-            if self.is_root(m):
-                self.root = None
+            if self._is_root(m):
+                self._root = None
             else:  # m is an internal node with no right subtree.
                 m.parent.left = None
 
-        m.right = m.parent = None
         self._n -= 1
         assert is_bst(self)
-        return m
 
-    def delete(self, x: object) -> BSTNode:
-        """Deletes `x` from self (if it exists).
+    def delete(self, key: object) -> None:
+        """Deletes `key` from self (if it exists).
 
         There are 3 cases of deletion:
-            1. `x` has no children
-            2. `x` has one subtree (or child)
-            3. `x` has the left and right subtrees (or children).
 
-        `x` can either be a reference to an actual `BSTNode` object,
-        or it can be a key of a supposed node in `self`.
+        1. `key` has no children
+        2. `key` has one subtree (or child)
+        3. `key` has the left and right subtrees (or children).
 
         Time complexity: O(h)."""
         assert is_bst(self)
 
-        if x is None:
-            raise ValueError("x cannot be None.")
+        if key is None:
+            raise ValueError("key cannot be None")
 
-        if not isinstance(x, BSTNode):
-            x = self.search_key_iteratively(x)
-            if x is None:
-                raise LookupError("no node was found with key=x.")
-        else:
-            if not self.contains_key(x.key):
-                raise LookupError("x does not belong to this tree")
-
-        # Not calling self.is_root because it contains some assertions,
-        if x.parent is None and x != self.root:
-            raise ValueError("x does not have parent but it's the root")
-        if x == self.root and x.parent is not None:
-            raise ValueError("x has parent and is the root")
+        key_node = self._search_key_iteratively(key, self._root)
+        if key_node is None:
+            raise LookupError("key not in this BST")
 
         self._n -= 1
-        elem = self._delete(x)
-
+        self._delete(key_node)
         assert is_bst(self)
 
-        return elem
-
     def _delete(self, u: BSTNode) -> BSTNode:
-        """This is a helper method to the delete method,
-        thus it should not be called by clients.
-
-        When deleting a node u from a BST, we have basically to consider 3 cases:
-        1. u has no children
-        2. u has one child
-        3. u has two children
+        """When deleting a node u from a BST, we have basically to consider 3 cases:
 
         1. u has no children, then we simply remove it
         by modifying its parent to replace u with None.
@@ -752,156 +559,150 @@ class BST:
         in this case, we replace s by its own right child,
         and then we replace u by s.
 
-        Note that "delete_two_children" does NOT exactly do that,
+        Note that "self._delete_when_two_children" does NOT exactly do that,
         but instead it simply replaces the positions of u and s,
         as if s was u and u was s.
 
-        After that, delete_helper is called again on u,
+        After that, _delete is called again on u,
         but note that u is now in the previous s's position,
         and thus u has now no left subtree, but at most a right subtree."""
-
-        def delete_at_most_one_child(v: BSTNode) -> None:
-            """Removes v from the tree, when v has at most one child.
-            This means that v could have 0 or 1 child."""
-            child = v.right
-            if v.left:
-                child = v.left
-            if v.parent is None:  # v is the root.
-                self.root = child
-            else:  # v has a parent, so it is not the root.
-                if v.is_left_child():
-                    v.parent.left = child
-                else:
-                    v.parent.right = child
-            # child is None iff v.right and v.left are None.
-            if child:
-                child.parent = v.parent
-
-        def delete_two_children(v: BSTNode) -> None:
-            """Called by `delete_helper` when a node has two children."""
-            # Replace v with its successor s.
-            self._switch(v, self.successor(v))
-            # v has at most a right child now.
-            self._delete(v)
-
         if u.has_two_children():
-            delete_two_children(u)
+            self._delete_when_two_children(u)
         else:  # u has at most one child
-            delete_at_most_one_child(u)
+            self.delete_when_at_most_one_child(u)
 
         u.right = u.left = u.parent = None
         return u
 
-    def _switch(self, u: BSTNode, v: BSTNode) -> None:
-        """"Switches the roles of `u` and `v` in the tree by moving references.
+    def _delete_when_two_children(self, u: BSTNode) -> None:
+        """Called by `delete_helper` when a node has two children."""
+        assert u is not None
+        # Replace u with its successor s.
+        self._switch(u, self._successor(u))
+        # u has at most a right child now.
+        self._delete(u)
+
+    def delete_when_at_most_one_child(self, u: BSTNode) -> None:
+        """Removes u from the tree, when u has at most one child.
+        This means that u could have 0 or 1 child."""
+        assert u is not None
+        child = u.right
+        if u.left:
+            child = u.left
+        if not u.has_parent():  # u is the root.
+            self._root = child
+        else:  # u has a parent, so it is not the root.
+            if u.is_left_child():
+                u.parent.left = child
+            else:
+                u.parent.right = child
+        # child is None iff u.right and u.left are None.
+        if child:
+            child.parent = u.parent
+
+    def _switch(self, x: BSTNode, y: BSTNode) -> None:
+        """"Switches the roles of `x` and `y` in the tree by moving references.
 
         This is a PRIVATE method, and clients should therefore NOT use it directly!"""
+        assert x is not None and y is not None
+        assert x != y
 
-        def switch_parent_child(p: BSTNode, c: BSTNode) -> None:
-            """Switches the roles of p and c, where p (parent) is the direct parent of c (son)."""
-            assert c.parent == p
-
-            if c.is_left_child():
-                p.left = c.left
-                if c.left:
-                    c.left.parent = p
-
-                c.left = p
-
-                c.right, p.right = p.right, c.right
-                if c.right:
-                    c.right.parent = c
-                if p.right:
-                    p.right.parent = p
-            else:
-                p.right = c.right
-                if c.right:
-                    c.right.parent = p
-
-                c.right = p
-
-                c.left, p.left = p.left, c.left
-                if c.left:
-                    c.left.parent = c
-                if p.left:
-                    p.left.parent = p
-
-            if p.parent:
-                if p.is_left_child():
-                    p.parent.left = c
-                else:
-                    p.parent.right = c
-            else:  # p is the root
-                self.root = c
-
-            c.parent = p.parent
-            p.parent = c
-
-        def switch_not_parent_child(z: BSTNode, w: BSTNode) -> None:
-            """`z` and `w` are nodes in the tree that are not related by a parent-child.
-
-            Time complexity: O(1)."""
-            assert z.parent != w and w.parent != z
-
-            if not z.parent:
-                self.root = w
-                if w.is_left_child():
-                    w.parent.left = z
-                else:
-                    w.parent.right = z
-            elif not w.parent:
-                self.root = z
-                if z.is_left_child():
-                    z.parent.left = w
-                else:
-                    z.parent.right = w
-            else:  # neither z nor w is the root
-                if z.is_left_child():
-                    if w.is_left_child():
-                        w.parent.left, z.parent.left = z, w
-                    else:
-                        w.parent.right, z.parent.left = z, w
-                else:
-                    if w.is_left_child():
-                        w.parent.left, z.parent.right = z, w
-                    else:
-                        w.parent.right, z.parent.right = z, w
-
-            w.parent, z.parent = z.parent, w.parent
-            z.left, w.left = w.left, z.left
-            z.right, w.right = w.right, z.right
-
-            if z.left:
-                z.left.parent = z
-            if z.right:
-                z.right.parent = z
-            if w.left:
-                w.left.parent = w
-            if w.right:
-                w.right.parent = w
-
-        if u is None:
-            raise ValueError("u cannot be None.")
-        if v is None:
-            raise ValueError("v cannot be None.")
-        if u == v:
-            raise ValueError("u cannot be equal to v.")
-
-        assert self.contains_key(u.key) and self.contains_key(v.key)
-
-        if u.parent == v:
-            switch_parent_child(v, u)
-        elif v.parent == u:
-            switch_parent_child(u, v)
+        if x.parent == y:
+            self._switch_parent_with_child(y, x)
+        elif y.parent == x:
+            self._switch_parent_with_child(x, y)
         else:
-            switch_not_parent_child(u, v)
+            self._switch_nodes_when_not_parent_child(x, y)
+
+    def _switch_nodes_when_not_parent_child(self, x: BSTNode, y: BSTNode) -> None:
+        """`x` and `y` are nodes in the tree that are not related by a parent-child.
+
+        Time complexity: O(1)."""
+        assert x.parent != y and y.parent != x
+
+        if not x.has_parent():
+            self._root = y
+            if y.is_left_child():
+                y.parent.left = x
+            else:
+                y.parent.right = x
+        elif not y.has_parent():
+            self._root = x
+            if x.is_left_child():
+                x.parent.left = y
+            else:
+                x.parent.right = y
+        else:  # neither x nor y is the root
+            if x.is_left_child():
+                if y.is_left_child():
+                    y.parent.left, x.parent.left = x, y
+                else:
+                    y.parent.right, x.parent.left = x, y
+            else:
+                if y.is_left_child():
+                    y.parent.left, x.parent.right = x, y
+                else:
+                    y.parent.right, x.parent.right = x, y
+
+        y.parent, x.parent = x.parent, y.parent
+        x.left, y.left = y.left, x.left
+        x.right, y.right = y.right, x.right
+
+        if x.left:
+            x.left.parent = x
+        if x.right:
+            x.right.parent = x
+        if y.left:
+            y.left.parent = y
+        if y.right:
+            y.right.parent = y
+
+    def _switch_parent_with_child(self, p: BSTNode, c: BSTNode) -> None:
+        """Switches the roles of p and c, where p (parent) is the direct parent of c (son)."""
+        assert c.parent == p
+
+        if c.is_left_child():
+            p.left = c.left
+            if c.left:
+                c.left.parent = p
+
+            c.left = p
+
+            c.right, p.right = p.right, c.right
+            if c.right:
+                c.right.parent = c
+            if p.right:
+                p.right.parent = p
+        else:
+            p.right = c.right
+            if c.right:
+                c.right.parent = p
+
+            c.right = p
+
+            c.left, p.left = p.left, c.left
+            if c.left:
+                c.left.parent = c
+            if p.left:
+                p.left.parent = p
+
+        if p.parent:
+            if p.is_left_child():
+                p.parent.left = c
+            else:
+                p.parent.right = c
+        else:  # p is the root
+            self._root = c
+
+        c.parent = p.parent
+        p.parent = c
 
     def in_order_traversal(self) -> None:
         """Prints the elements of the tree in increasing order.
 
         Time complexity: O(h)."""
         assert is_bst(self)
-        self._in_order_traversal(self.root)
+        self._in_order_traversal(self._root)
         print("\n")
 
     def _in_order_traversal(self, u: BSTNode, e=", ") -> None:
@@ -917,7 +718,7 @@ class BST:
 
         Time complexity: O(h)."""
         assert is_bst(self)
-        self._pre_order_traversal(self.root)
+        self._pre_order_traversal(self._root)
         print("\n")
 
     def _pre_order_traversal(self, u: BSTNode, e=", ") -> None:
@@ -932,7 +733,7 @@ class BST:
 
         Time complexity: O(h)."""
         assert is_bst(self)
-        self._post_order_traversal(self.root)
+        self._post_order_traversal(self._root)
         print("\n")
 
     def _post_order_traversal(self, u: BSTNode, e=", ") -> None:
@@ -948,7 +749,7 @@ class BST:
 
         Time complexity: O(h)."""
         assert is_bst(self)
-        self._reverse_in_order_traversal(self.root)
+        self._reverse_in_order_traversal(self._root)
         print("\n")
 
     def _reverse_in_order_traversal(self, u: BSTNode, e=", ") -> None:
@@ -958,120 +759,12 @@ class BST:
             self._reverse_in_order_traversal(u.left)
 
     def __str__(self):
-        if self.root is None:
+        if self._root is None:
             return 'Nothing to print: this BST is empty.'
-        return '\n'.join(build_pretty_bst(self.root)) + "\n"
+        return '\n'.join(build_pretty_bst(self._root)) + "\n"
 
     def __repr__(self):
         return self.__str__()
-
-
-class BSTImproved(BST):
-    """Binary-search tree that provides somehow randomness at insertion."""
-
-    def __init__(self, root=None):
-        BST.__init__(self, root)
-
-    def insert(self, x: object, value=None) -> None:
-        """Inserts `x` into this tree.
-
-        `x` can either be a `BSTNode` object,
-        or it can be a _key_ of any other type,
-        but it should be comparable with the other keys,
-        and these keys should be comparable objects.
-
-        Note that the height of a `BST` varies
-        depending on how elements are inserted and removed.
-        For example, if we insert a list of numbers in increasing order,
-        the resulting `BST` object will look like a chain with height **n - 1**,
-        where `n` is the number of elements inserted.
-        In general, the optimal height is logarithmic on the number of nodes,
-        and to get closer to the optimal height,
-        randomly insertion of numbers is usually used.
-
-        If we have `n` keys to insert, there are `n!` (n-factorial)
-        ways of inserting those `n` keys into the binary search tree.
-        When we randomly insert them, those permutations are equally likely.
-
-        So, the expected height of a tree created with randomly insertions is O(log(n)).
-        For a proof, see chapter 12 of Introduction to Algorithms (3rd ed.) by CLRS.
-
-        This function does a pseudo-random insertion of keys."""
-        assert is_bst(self)
-        r = randint(0, self.size * 3 // 8)  # random operation for now!!
-        if r == 0:
-            self.root_insert(x, value)
-        else:
-            self.tail_insert(x, value)
-        assert is_bst(self)
-
-    def tail_insert(self, x: object, value=None) -> None:
-        """Inserts (normally) `x` into this BST object.
-
-        Time complexity: O(h)."""
-        assert is_bst(self)
-
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, BSTNode):
-            x = BSTNode(x, value)
-        if x.left is not None or x.right is not None or x.parent is not None:
-            raise ValueError("x cannot have left or right children, or parent.")
-
-        if self.root is None:
-            self._initialise_if_empty(x)
-        else:
-            c = self.root  # c is the current node
-            p = self.root.parent  # parent of c
-
-            while c is not None:
-                p = c
-                if x.key < c.key:
-                    c = c.left
-                else:
-                    c = c.right
-            if x.key < p.key:
-                p.left = x
-            else:
-                p.right = x
-
-            x.parent = p
-            self._n += 1
-
-        assert is_bst(self)
-
-    def root_insert(self, x: object, value=None) -> None:
-        """Inserts `x` as the root of this tree.
-
-        Time complexity: O(h)."""
-        assert is_bst(self)
-
-        def _root_insert(u: BSTNode, v: BSTNode):
-            """Helper method for `self.root_insert`."""
-            if u is None:
-                return v
-            if v.key < u.key:
-                u.left = _root_insert(u.left, v)
-                u = self._right_rotate(u)
-            else:
-                u.right = _root_insert(u.right, v)
-                u = self._left_rotate(u)
-            return u
-
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, BSTNode):
-            x = BSTNode(x, value)
-        if x.left is not None or x.right is not None or x.parent is not None:
-            raise ValueError("x cannot have left or right children, or parent.")
-
-        if self.root is None:
-            self._initialise_if_empty(x)
-        else:
-            _root_insert(self.root, x)
-            self._n += 1
-
-        assert is_bst(self)
 
 
 def build_pretty_bst(node: BSTNode, only_list: bool = True):
@@ -1091,7 +784,7 @@ def build_pretty_bst(node: BSTNode, only_list: bool = True):
 
     left_lines, left_pos, left_width = build_pretty_bst(node.left)
     right_lines, right_pos, right_width = build_pretty_bst(node.right)
-    middle = max(right_pos + left_width - left_pos + 1, len(node.label), 2)
+    middle = max(right_pos + left_width - left_pos + 1, len(node.key), 2)
     pos = left_pos + middle // 2
     width = left_pos + middle + right_width - right_pos
 
@@ -1101,19 +794,19 @@ def build_pretty_bst(node: BSTNode, only_list: bool = True):
     while len(right_lines) < len(left_lines):
         right_lines.append(' ' * right_width)
 
-    if (middle - len(node.label)) % 2 == 1 and node.parent is not None and \
-                    node is node.parent.left and len(node.label) < middle:
-        node.label += fill
+    if ((middle - len(node.key)) % 2 == 1 and node.parent is not None and
+                node is node.parent.left and len(node.key) < middle):
+        node.key += fill
 
-    node.label = node.label.center(middle, fill)
+    node.key = node.key.center(middle, fill)
 
-    if node.label[0] == fill:
-        node.label = ' ' + node.label[1:]
+    if node.key[0] == fill:
+        node.key = ' ' + node.key[1:]
 
-    if node.label[-1] == fill:
-        node.label = node.label[:-1] + ' '
+    if node.key[-1] == fill:
+        node.key = node.key[:-1] + ' '
 
-    lines = [' ' * left_pos + node.label + ' ' * (right_width - right_pos),
+    lines = [' ' * left_pos + node.key + ' ' * (right_width - right_pos),
              ' ' * left_pos + '/' + ' ' * (middle - 2) +
              '\\' + ' ' * (right_width - right_pos)] + \
             [left_line + ' ' * (width - left_width - right_width) +
@@ -1172,6 +865,6 @@ def is_bst(t: BST) -> bool:
     and if `n.right` exists, then `n.right >= n`."""
     if not isinstance(t, BST):
         return False
-    if t.root and t.root.parent is not None:
+    if t._root and t._root.parent is not None:
         return False
-    return all_bst_nodes(t.root) and has_bst_property(t.root)
+    return all_bst_nodes(t._root) and has_bst_property(t._root)
