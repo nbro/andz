@@ -42,7 +42,7 @@ class TestQueue(unittest.TestCase):
 
     def test_creation_good_list_size_1(self):
         q = Queue([3])
-        self.assertEqual(q.size(), 1)
+        self.assertEqual(q.size, 1)
 
     def test_creation_list_with_None(self):
         self.assertRaises(ValueError, Queue, [31, None, 2, 3])
@@ -50,12 +50,12 @@ class TestQueue(unittest.TestCase):
     def test_creation_good_list_random_size(self):
         r = randint(2, 50)
         q = Queue([randint(-10, 10) for _ in range(r)])
-        self.assertEqual(q.size(), r)
+        self.assertEqual(q.size, r)
 
     def test_enqueue_one(self):
         q = Queue()
         q.enqueue("first")
-        self.assertEqual(q.size(), 1)
+        self.assertEqual(q.size, 1)
 
     def test_enqueue_None(self):
         q = Queue([93, 97])
@@ -69,7 +69,7 @@ class TestQueue(unittest.TestCase):
 
         for i, elem in enumerate(ls):
             q.enqueue(elem)
-            self.assertEqual(q.size(), i + 1)
+            self.assertEqual(q.size, i + 1)
 
     def test_dequeue_empty(self):
         q = Queue()

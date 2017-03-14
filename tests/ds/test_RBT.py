@@ -59,7 +59,7 @@ class TestRBT(unittest.TestCase):
         t = RBT()
 
         t.insert("one")
-        self.assertEqual(t.size(), 1)
+        self.assertEqual(t.size, 1)
         self.assertEqual(t.height(), 1)
 
         one = t.search("one")
@@ -72,7 +72,7 @@ class TestRBT(unittest.TestCase):
 
         t.insert("one", 25)
 
-        self.assertEqual(t.size(), 1)
+        self.assertEqual(t.size, 1)
         self.assertEqual(t.height(), 1)
         self.assertEqual(t.rank("one"), 0)
 
@@ -90,7 +90,7 @@ class TestRBT(unittest.TestCase):
 
         t.insert_many(ls)
 
-        self.assertEqual(t.size(), 10)
+        self.assertEqual(t.size, 10)
         self.assertEqual(t.rank(5), 5)
 
         zero = t.search(0)
@@ -105,7 +105,7 @@ class TestRBT(unittest.TestCase):
         ls = [randint(-100, 100) for _ in range(500)]
 
         t.insert_many(ls)
-        self.assertEqual(t.size(), 500)
+        self.assertEqual(t.size, 500)
 
         for elem in ls:
             self.assertTrue(t.contains_key(elem))
@@ -126,7 +126,7 @@ class TestRBT(unittest.TestCase):
         five = RBTNode(5)
         t.insert_many([-10, 3, -5, 2, 3, 2, 4, -4, five])
         self.assertEqual(five, t.remove_max())
-        self.assertEqual(t.size(), 8)
+        self.assertEqual(t.size, 8)
 
     def test_remove_min_empty_tree(self):
         t = RBT()
@@ -144,7 +144,7 @@ class TestRBT(unittest.TestCase):
         minus_ten = RBTNode(-10)
         t.insert_many([minus_ten, 3, -5, 2, 3, 2, 4, -4, 10])
         self.assertEqual(minus_ten, t.remove_min())
-        self.assertEqual(t.size(), 8)
+        self.assertEqual(t.size, 8)
 
     def test_delete_key_None(self):
         t = RBT()
@@ -178,7 +178,7 @@ class TestRBT(unittest.TestCase):
         self.assertIsNone(deleted.left)
         self.assertIsNone(deleted.right)
         self.assertIsNone(deleted.parent)
-        self.assertEqual(t.size(), 4)
+        self.assertEqual(t.size, 4)
 
     def test_delete_one_child(self):
         t = RBT()
@@ -189,7 +189,7 @@ class TestRBT(unittest.TestCase):
         self.assertIsNone(deleted.left)
         self.assertIsNone(deleted.right)
         self.assertIsNone(deleted.parent)
-        self.assertEqual(t.size(), 4)
+        self.assertEqual(t.size, 4)
 
     def test_delete_two_children(self):
         t = RBT()
@@ -200,7 +200,7 @@ class TestRBT(unittest.TestCase):
         self.assertIsNone(deleted.left)
         self.assertIsNone(deleted.right)
         self.assertIsNone(deleted.parent)
-        self.assertEqual(t.size(), 8)
+        self.assertEqual(t.size, 8)
 
     def test_delete_all_in_random_order(self):
         t = RBT()

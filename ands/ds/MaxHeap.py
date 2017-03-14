@@ -51,7 +51,7 @@ class MaxHeap(BinaryHeap):
         Time complexity: O(log(n))."""
         assert is_max_heap(self)
         if not self.is_empty():
-            self._swap(0, self.size() - 1)
+            self._swap(0, self.size - 1)
             m = self.heap.pop()
             if not self.is_empty():
                 self._push_down(0)

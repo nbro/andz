@@ -57,6 +57,15 @@ class Queue:
             ls = []
         self._q = deque(ls)
 
+    @property
+    def size(self) -> int:
+        """Returns the size of this queue."""
+        return len(self._q)
+
+    def is_empty(self) -> bool:
+        """Returns true if this queue is empty, false otherwise."""
+        return self.size == 0
+
     def enqueue(self, elem) -> None:
         """Adds `elem` to the end of this queue.
         If `elem` is None, ValueError is raised."""
@@ -67,14 +76,6 @@ class Queue:
     def dequeue(self):
         """Returns the first element of this queue, or None if the queue is empty."""
         return None if self.is_empty() else self._q.popleft()
-
-    def is_empty(self) -> bool:
-        """Returns true if this queue is empty, false otherwise."""
-        return self.size() == 0
-
-    def size(self) -> int:
-        """Returns the size of this queue."""
-        return len(self._q)
 
     def __str__(self):
         return str(list(self._q))
