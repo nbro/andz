@@ -158,32 +158,32 @@ class RBT(BST):
         if key is None:
             raise ValueError("key cannot be None")
 
-        key = RBTNode(key)
+        key_node = RBTNode(key)
 
         c = self._root  # current node
         p = None  # current node's parent
 
         while c is not None:
             p = c
-            if key.key < c.key:
+            if key_node.key < c.key:
                 c = c.left
             else:  # key.key >= c.key
                 c = c.right
 
-        key.parent = p
+        key_node.parent = p
 
         # The while loop was not executed even once.
         # Case 1: node is inserted as root.
         if p is None:
-            self._root = key
-        elif p.key > key.key:
-            p.left = key
+            self._root = key_node
+        elif p.key > key_node.key:
+            p.left = key_node
         else:  # p.key < key.key:
-            p.right = key
+            p.right = key_node
 
-        key.color = RED
+        key_node.color = RED
         self._n += 1
-        self._fix_insertion(key)
+        self._fix_insertion(key_node)
 
         assert is_rbt(self)
 
@@ -250,7 +250,6 @@ class RBT(BST):
         that is it returns the parent of `u`.
 
         Time complexity: O(1)."""
-        assert isinstance(u, RBTNode)
         assert u.has_right_child()
 
         u.right.parent = u.parent
@@ -285,7 +284,6 @@ class RBT(BST):
         """Right rotates the subtree rooted at node `u`.
 
         Time complexity: O(1)."""
-        assert isinstance(u, RBTNode)
         assert u.has_left_child()
 
         u.left.parent = u.parent
