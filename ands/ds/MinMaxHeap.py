@@ -373,6 +373,7 @@ def is_min_max_heap(h: MinMaxHeap) -> bool:
                 if h._is_on_even_level(i):
                     if h.heap[g] > item:
                         return False
+
                 else:
                     if h.heap[g] < item:
                         return False

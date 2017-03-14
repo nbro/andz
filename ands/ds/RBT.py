@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/08/2015
 
-Updated: 17/02/2017
+Updated: 14/03/2017
 
 # Description
 
@@ -98,7 +98,7 @@ import math
 
 from ands.ds.BST import BST, BSTNode, is_bst
 
-__all__ = ["RBT", "RBTNode", "is_rbt", "black_height", "upper_bound_height"]
+__all__ = ["RBT", "is_rbt"]
 
 RED = "RED"
 BLACK = "BLACK"
@@ -107,36 +107,21 @@ BLACK = "BLACK"
 class RBTNode(BSTNode):
     """Class to represent a `RBT`'s node."""
 
-    def __init__(self, key, value=None, color=BLACK, parent=None, left=None, right=None):
-        BSTNode.__init__(self, key, value, parent, left, right)
-        self._color = color
-        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
-
-    @property
-    def color(self):
-        return self._color
-
-    @color.setter
-    def color(self, value):
-        self._color = value
-        self.label = "[" + str(self.key) + ", " + str(self._color) + "]"
-
-    def reset(self) -> None:
-        super().reset()
-        self.color = BLACK
-
-    def __fields(self) -> list:
-        self.__fields().append(["color", self.color])
+    def __init__(self, key, color=BLACK, parent=None, left=None, right=None):
+        BSTNode.__init__(self, key, parent, left, right)
+        self.color = color
 
 
 class RBT(BST):
-    """Red-black tree, which is a self-balancing binary-search tree."""
+    """Red-black tree, which is a self-balancing binary-search tree.
 
-    def __init__(self, root=None):
-        BST.__init__(self, root)
+    Since it's self-balancing operations such as inserting, searching or deletion all take O(log(n))."""
 
-    def insert(self, x, value=None) -> None:
-        """Inserts `x` into this `RBT`.
+    def __init__(self):
+        BST.__init__(self)
+
+    def insert(self, key: object) -> None:
+        """Inserts `key` into this `RBT`.
 
         This operation is similar to the `insert` operation of a classical `BST`,
         but, in this case, the red-black tree property must be maintained,
@@ -144,63 +129,61 @@ class RBT(BST):
 
         There are several cases of inserting into a RBT to handle:
 
-        1. `x`  is the root node (first node).
+        1. `key`  is the root node (first node).
 
-        2. `x.parent` is `BLACK`.
+        2. `key.parent` is `BLACK`.
 
-        3. `x.parent` and the uncle of `x` are `RED`.
+        3. `key.parent` and the uncle of `key` are `RED`.
 
-            The uncle of `x` will be the left child of `x.parent.parent`,
-        if `x.parent` is the right child of `x.parent.parent`,
-        otherwise (`x.parent` is the left child of `x.parent.parent`)
-        the uncle will be the right child of `x.parent.parent`.
+            The uncle of `key` will be the left child of `key.parent.parent`,
+        if `key.parent` is the right child of `key.parent.parent`,
+        otherwise (`key.parent` is the left child of `key.parent.parent`)
+        the uncle will be the right child of `key.parent.parent`.
 
-        4. x.parent is RED, but x.uncle is BLACK (or None). x.grandparent exists because x.parent is RED.
+        4. key.parent is RED, but key.uncle is BLACK (or None). key.grandparent exists because key.parent is RED.
 
-            4.1. `x` is added to the right of a left child of `x.parent.parent` (grandparent)
+            4.1. `key` is added to the right of a left child of `key.parent.parent` (grandparent)
 
-            4.2. or `x` is added to the left of a right child of `x.parent.parent`.
+            4.2. or `key` is added to the left of a right child of `key.parent.parent`.
 
-            4.3. `x` is added to the left of a left child of `x.parent.parent`.
+            4.3. `key` is added to the left of a left child of `key.parent.parent`.
 
-            4.4. or `x` is added to the right of a right child of `x.parent.parent`.
+            4.4. or `key` is added to the right of a right child of `key.parent.parent`.
 
         `_fix_insertion` handles these cases in the same order as just presented above.
 
         Time complexity: O(log(n))."""
         assert is_rbt(self)
 
-        if x is None:
-            raise ValueError("x cannot be None.")
-        if not isinstance(x, RBTNode):
-            x = RBTNode(x, value)
-        if x.left is not None or x.right is not None or x.parent is not None:
-            raise ValueError("x cannot have left or right children, or parent.")
+        if key is None:
+            raise ValueError("key cannot be None")
 
-        c = self.root  # Current node
-        p = None  # Current node's parent
+        key = RBTNode(key)
+
+        c = self._root  # current node
+        p = None  # current node's parent
 
         while c is not None:
             p = c
-            if x.key < c.key:
+            if key.key < c.key:
                 c = c.left
-            else:  # x.key >= c.key
+            else:  # key.key >= c.key
                 c = c.right
 
-        x.parent = p
+        key.parent = p
 
         # The while loop was not executed even once.
         # Case 1: node is inserted as root.
         if p is None:
-            self.root = x
-        elif p.key > x.key:
-            p.left = x
-        else:  # p.key < x.key:
-            p.right = x
+            self._root = key
+        elif p.key > key.key:
+            p.left = key
+        else:  # p.key < key.key:
+            p.right = key
 
-        x.color = RED
+        key.color = RED
         self._n += 1
-        self._fix_insertion(x)
+        self._fix_insertion(key)
 
         assert is_rbt(self)
 
@@ -260,274 +243,299 @@ class RBT(BST):
             else:
                 assert False
 
-    def delete(self, x) -> RBTNode:
-        """Delete `x` from this `RBT` object.
+    def _left_rotate(self, u: RBTNode) -> RBTNode:
+        """Left rotates the subtree rooted at node `u`.
 
-        `x` can either be a `RBTNode` object or a key.
+        Returns the node which is at the previous position of `u`,
+        that is it returns the parent of `u`.
 
-        If a key, then a search is performed first
-        to find the corresponding `RBTNode` object.
-        An exception is raised if a `RBTNode` object
-        with a key=x is not found.
+        Time complexity: O(1)."""
+        assert isinstance(u, RBTNode)
+        assert u.has_right_child()
 
-        If `x` is a `RBTNode` object, the only check
-        that is performed is that if it hasn't a parent,
-        then it must be the root. Similarly,
-        a node that isn't the root must have a parent.
-        If `x` has a parent, therefore it cannot be the root,
-        but there's no way of knowing if this node
-        really belongs to this `RBT` object,
-        because no search is performed (for now).
+        u.right.parent = u.parent
 
-        If it does NOT belong to this `RBT` object,
-        then the behaviour of this method is UNDEFINED!
+        # Only the root has a None parent.
+        if not u.has_parent():
+            self._root = u.right
+
+        # Checking if u is a left or a right child,
+        # in order to set the new left
+        # or right child respectively of its parent.
+        elif u.is_left_child():
+            u.parent.left = u.right
+        else:
+            u.parent.right = u.right
+
+        u.parent = u.right
+
+        # The new right child of u becomes what is
+        # the left child of its previous right child.
+        u.right = u.parent.left
+
+        # Set u to be the parent of its new right child.
+        if u.has_right_child():
+            u.right.parent = u
+
+        # Set u to be the new left child of its new parent.
+        u.parent.left = u
+        return u.parent
+
+    def _right_rotate(self, u: RBTNode) -> RBTNode:
+        """Right rotates the subtree rooted at node `u`.
+
+        Time complexity: O(1)."""
+        assert isinstance(u, RBTNode)
+        assert u.has_left_child()
+
+        u.left.parent = u.parent
+
+        if not u.has_parent():
+            self._root = u.left
+        elif u.is_left_child():
+            u.parent.left = u.left
+        else:
+            u.parent.right = u.left
+
+        u.parent = u.left
+        u.left = u.parent.right
+
+        if u.has_left_child():
+            u.left.parent = u
+
+        u.parent.right = u
+        return u.parent
+
+    def delete(self, key: object) -> None:
+        """Delete `key` from this `RBT` object.
 
         Time complexity: O(log(n))."""
-
-        def delete_case1(v):
-            # this check is necessary because this function
-            # is also called from the delete_case3 function.
-            if v.parent is not None:
-                delete_case2(v)
-
-        def delete_case2(v):
-            if v.sibling.color == RED:
-
-                assert v.parent.color == BLACK
-
-                v.sibling.color = BLACK
-                v.parent.color = RED
-
-                if v.is_left_child():
-                    self._left_rotate(v.parent)
-                else:
-                    self._right_rotate(v.parent)
-
-                assert v.sibling.color == BLACK
-
-            delete_case3(v)
-
-        def delete_case3(v):
-            # not sure if the children of v.sibling can be None
-            if (v.parent.color == BLACK and v.sibling.color == BLACK and
-                    ((v.sibling.left and v.sibling.left.color == BLACK) or not v.sibling.left) and
-                    ((v.sibling.right and v.sibling.right.color == BLACK) or not v.sibling.right)):
-
-                v.sibling.color = RED
-                delete_case1(v.parent)
-            else:
-                delete_case4(v)
-
-        def delete_case4(v):
-            # not sure if the children of v.sibling can be None
-            if (v.parent.color == RED and v.sibling.color == BLACK and
-                    ((v.sibling.left and v.sibling.left.color == BLACK) or not v.sibling.left) and
-                    ((v.sibling.right and v.sibling.right.color == BLACK) or not v.sibling.right)):
-
-                v.sibling.color = RED
-                v.parent.color = BLACK
-            else:
-                delete_case5(v)
-
-        def delete_case5(v):
-            assert v.sibling is not None
-
-            if v.sibling.color == BLACK:
-                if (v.is_left_child() and
-                        (not v.sibling.right or v.sibling.right.color == BLACK) and
-                            v.sibling.left.color == RED):
-
-                    v.sibling.color = RED
-                    v.sibling.left.color = BLACK
-                    self._right_rotate(v.sibling)
-
-                elif (v.is_right_child() and
-                          (not v.sibling.left or v.sibling.left.color == BLACK) and
-                              v.sibling.right.color == RED):
-
-                    v.sibling.color = RED
-                    v.sibling.right.color = BLACK
-                    self._left_rotate(v.sibling)
-
-            delete_case6(v)
-
-        def delete_case6(v):
-            assert v.sibling is not None
-
-            v.sibling.color, v.parent.color = v.parent.color, v.sibling.color
-
-            if v.is_left_child():
-                assert v.sibling.right
-                v.sibling.right.color = BLACK
-                self._left_rotate(v.parent)
-            else:
-                assert v.sibling.left
-                v.sibling.left.color = BLACK
-                self._right_rotate(v.parent)
-
         assert is_rbt(self)
 
         # a few checks of the inputs given
-        if x is None:
-            raise ValueError("x cannot be None.")
+        if key is None:
+            raise ValueError("key cannot be None")
 
-        if not isinstance(x, RBTNode):
-            x = self.search_key_iteratively(x)
-            if x is None:
-                raise LookupError("no node was found with key=x.")
-        else:
-            if not self.contains_key(x.key):
-                raise LookupError("x does not belong to this tree")
+        key_node = self._search_key_iteratively(key, self._root)
+        if key_node is None:
+            raise LookupError("key not in this BST")
 
-        # Not calling self.is_root because it contains some assertions,
-        if x.parent is None and x != self.root:
-            raise ValueError("x does not have parent but it's the root")
-        if x == self.root and x.parent is not None:
-            raise ValueError("x has parent and is the root")
-
-        # If x has 2 non-leaf children, then replace x with its successor.
-        # Note that we exchange also the colors of x and its successor.
-        if x.left is not None and x.right is not None:
-            s = self.successor(x)
-            self._switch(x, s)
-            x.color, s.color = s.color, x.color
+        # If key has 2 non-leaf children, then replace key with its successor.
+        # Note that we exchange also the colors of key and its successor.
+        if key_node.has_left_child() and key_node.has_right_child():
+            s = self._successor(key_node)
+            self._switch(key_node, s)
+            key_node.color, s.color = s.color, key_node.color
 
         # At least one of the children must be None.
-        # Particularly, if `x` was exchanged with its successor,
-        # `x` now should NOT have a left child.
-        assert x.left is None or x.right is None
+        # Particularly, if `key` was exchanged with its successor,
+        # `key` now should NOT have a left child.
+        assert not key_node.has_left_child() or not key_node.has_right_child()
 
-        # At this point `x` has at most 1 child.
+        # At this point `key` has at most 1 child.
         # Keep in mind this when reading the next cases.
 
-        # If `x` is a red node and it has a child,
+        # If `key` is a red node and it has a child,
         # we simply replace it with its child `c`,
         # which must be black by property 4.
 
-        # This can only occur when `x` has 2 leaf children,
-        # because if `x` had a black NON-leaf child on one side,
+        # This can only occur when `key` has 2 leaf children,
+        # because if `key` had a black NON-leaf child on one side,
         # but just a leaf child on the other side,
         # then the count of black nodes on both sides would be different,
         # thus the tree would violate property 5.
-        if x.color == RED:
+        if key_node.color == RED:
 
             # a few checks while in alpha stage
-            assert x.left is None and x.right is None
-            assert x != self.root
+            assert not key_node.has_left_child() and not key_node.has_right_child()
+            assert key_node != self._root
 
-            if x.is_left_child():
-                x.parent.left = None
+            if key_node.is_left_child():
+                key_node.parent.left = None
             else:
-                x.parent.right = None
+                key_node.parent.right = None
 
-        else:  # x.color == BLACK
+        else:  # key.color == BLACK
 
-            # One of the children of `x` is red.
+            # One of the children of `key` is red.
 
-            # Simply removing `x` could break properties 4,
+            # Simply removing `key` could break properties 4,
             # i.e., both children of every red node are black,
-            # because x.parent could be red, and 5,
+            # because key.parent could be red, and 5,
             # i.e. all paths from any given node to its leaf nodes
             # contain the same number of black nodes),
             # but if we repaint `c` (the child) BLACK,
             # both of these properties are preserved.
 
-            if x.left is not None and x.left.color == RED:
-                if self.root != x:
-                    if x.is_left_child():
-                        x.parent.left = x.left
+            if key_node.has_left_child() and key_node.left.color == RED:
+                if self._root != key_node:
+                    if key_node.is_left_child():
+                        key_node.parent.left = key_node.left
                     else:
-                        x.parent.right = x.left
+                        key_node.parent.right = key_node.left
 
-                x.left.parent = x.parent
-                x.left.color = BLACK
+                key_node.left.parent = key_node.parent
+                key_node.left.color = BLACK
 
-                if self.root == x:
-                    self.root = x.left
+                if self._root == key_node:
+                    self._root = key_node.left
 
-            elif x.right is not None and x.right.color == RED:
-                if self.root != x:
-                    if x.is_left_child():
-                        x.parent.left = x.right
+            elif key_node.has_right_child() and key_node.right.color == RED:
+                if self._root != key_node:
+                    if key_node.is_left_child():
+                        key_node.parent.left = key_node.right
                     else:
-                        x.parent.right = x.right
+                        key_node.parent.right = key_node.right
 
-                x.right.parent = x.parent
-                x.right.color = BLACK
+                key_node.right.parent = key_node.parent
+                key_node.right.color = BLACK
 
-                if self.root == x:
-                    self.root = x.right
+                if self._root == key_node:
+                    self._root = key_node.right
             else:
-                # This the complex case: both `x` and `c` (the child) are BLACK.
+                # This the complex case: both `key` and `c` (the child) are BLACK.
 
                 # This can only occur when deleting a black node
-                # which has 2 LEAF children, because if the black node `x`
+                # which has 2 LEAF children, because if the black node `key`
                 # had a black NON-leaf child on one side
                 # but just a leaf child on the other side,
                 # then the count of black nodes on both sides would be different,
                 # thus the tree would have been an invalid red–black tree
                 # by violation of property 5.
-                assert x.left is None and x.right is None
+                assert not key_node.has_left_child() and not key_node.has_right_child()
 
                 # 6 cases
-                if self.root != x:
+                if self._root != key_node:
 
-                    assert x.sibling is not None
+                    assert key_node.sibling is not None
 
-                    # Note that x.sibling cannot be None,
+                    # Note that key.sibling cannot be None,
                     # because otherwise the subtree containing it
                     # would have fewer black nodes
-                    # than the subtree containing x.
-                    # Specifically, the subtree containing x
+                    # than the subtree containing key.
+                    # Specifically, the subtree containing key
                     # would have a black height of 2,
                     # whereas the one containing the sibling
                     # would have a black height of 1.
 
-                    delete_case1(x)
+                    self._delete_case_1(key_node)
 
-                    # We begin by replacing x with its child c.
-                    # Note that both children of x are leaf children.
-                    if x.is_left_child():
-                        x.parent.left = None
+                    # We begin by replacing key with its child c.
+                    # Note that both children of key are leaf children.
+                    if key_node.is_left_child():
+                        key_node.parent.left = None
                     else:
-                        x.parent.right = None
+                        key_node.parent.right = None
 
                 else:
-                    self.root = None
+                    self._root = None
 
         self._n -= 1
-        # Ensures that x has no reference to any node of this RBT.
-        x.parent = x.left = x.right = None
-        assert is_rbt(self)
-        return x
 
-    def remove_max(self) -> RBTNode:
-        """Removes and returns the element with the greatest value from `self`.
+        assert is_rbt(self)
+
+    def _delete_case_1(self, u: RBTNode) -> None:
+        # this check is necessary because this function
+        # is also called from the _delete_case_3 function.
+        if u.parent is not None:
+            self._delete_case_2(u)
+
+    def _delete_case_2(self, u: RBTNode) -> None:
+        if u.sibling.color == RED:
+
+            assert u.parent.color == BLACK
+
+            u.sibling.color = BLACK
+            u.parent.color = RED
+
+            if u.is_left_child():
+                self._left_rotate(u.parent)
+            else:
+                self._right_rotate(u.parent)
+
+            assert u.sibling.color == BLACK
+
+        self._delete_case_3(u)
+
+    def _delete_case_3(self, u: RBTNode) -> None:
+        # not sure if the children of u.sibling can be None
+        if (u.parent.color == BLACK and u.sibling.color == BLACK and
+                ((u.sibling.left and u.sibling.left.color == BLACK) or not u.sibling.left) and
+                ((u.sibling.right and u.sibling.right.color == BLACK) or not u.sibling.right)):
+
+            u.sibling.color = RED
+            self._delete_case_1(u.parent)
+        else:
+            self._delete_case_4(u)
+
+    def _delete_case_4(self, u: RBTNode) -> None:
+        # not sure if the children of u.sibling can be None
+        if (u.parent.color == RED and u.sibling.color == BLACK and
+                ((u.sibling.left and u.sibling.left.color == BLACK) or not u.sibling.left) and
+                ((u.sibling.right and u.sibling.right.color == BLACK) or not u.sibling.right)):
+
+            u.sibling.color = RED
+            u.parent.color = BLACK
+        else:
+            self._delete_case_5(u)
+
+    def _delete_case_5(self, u: RBTNode) -> None:
+        assert u.sibling is not None
+
+        if u.sibling.color == BLACK:
+            if (u.is_left_child() and
+                    (not u.sibling.right or u.sibling.right.color == BLACK) and
+                        u.sibling.left.color == RED):
+
+                u.sibling.color = RED
+                u.sibling.left.color = BLACK
+                self._right_rotate(u.sibling)
+
+            elif (u.is_right_child() and
+                      (not u.sibling.left or u.sibling.left.color == BLACK) and
+                          u.sibling.right.color == RED):
+
+                u.sibling.color = RED
+                u.sibling.right.color = BLACK
+                self._left_rotate(u.sibling)
+
+        self._delete_case_6(u)
+
+    def _delete_case_6(self, u: RBTNode) -> None:
+        assert u.sibling is not None
+
+        u.sibling.color, u.parent.color = u.parent.color, u.sibling.color
+
+        if u.is_left_child():
+            assert u.sibling.right
+            u.sibling.right.color = BLACK
+            self._left_rotate(u.parent)
+        else:
+            assert u.sibling.left
+            u.sibling.left.color = BLACK
+            self._right_rotate(u.parent)
+
+    def remove_max(self) -> None:
+        """Removes the greatest element from `self`.
 
         Time complexity: O(log(n))."""
         assert is_rbt(self)
-
-        if self.root is not None:
+        if self._root is not None:
             m = self.maximum()
             assert m is not None
-
-            d = self.delete(m)
+            self.delete(m)
             assert is_rbt(self)
-            return d
 
-    def remove_min(self) -> RBTNode:
-        """Removes and returns the element with the smallest value from `self`.
+    def remove_min(self) -> None:
+        """Removes the smallest element from `self`.
 
         Time complexity: O(log(n))."""
         assert is_rbt(self)
-
-        if self.root is not None:
+        if self._root is not None:
             m = self.minimum()
             assert m is not None
-
-            d = self.delete(m)
+            self.delete(m)
             assert is_rbt(self)
-            return d
 
 
 def black_height(n: RBTNode) -> int:
@@ -565,12 +573,12 @@ def is_rbt(t: RBT) -> bool:
                 return h(n.right) and h(n.left)
             return True
 
-        return h(t.root)
+        return h(t._root)
 
     def is_root_black(t: RBT) -> bool:
         """Returns true if the root is `BLACK` (or it is `None`), false otherwise."""
-        if t.root is not None:
-            return t.root.color == BLACK
+        if t._root is not None:
+            return t._root.color == BLACK
         return True
 
     def has_not_consecutive_red_nodes(t: RBT) -> bool:
@@ -583,10 +591,10 @@ def is_rbt(t: RBT) -> bool:
                 return h(n.left) and h(n.right)
             return True
 
-        return h(t.root)
+        return h(t._root)
 
     def all_paths_have_same_black_height(t: RBT) -> bool:
-        return black_height(t.root) != -1
+        return black_height(t._root) != -1
 
     def are_all_rbt_nodes(t: RBT) -> bool:
         def h(n: RBTNode) -> bool:
@@ -596,7 +604,7 @@ def is_rbt(t: RBT) -> bool:
                 return h(n.left) and h(n.right)
             return True
 
-        return h(t.root)
+        return h(t._root)
 
     if not is_bst(t):
         return False
