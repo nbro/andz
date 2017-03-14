@@ -260,34 +260,6 @@ class RBT(BST):
             else:
                 assert False
 
-    def remove_max(self) -> RBTNode:
-        """Removes and returns the element with the greatest value from `self`.
-
-        Time complexity: O(log(n))."""
-        assert is_rbt(self)
-
-        if self.root is not None:
-            m = self.maximum()
-            assert m is not None
-
-            d = self.delete(m)
-            assert is_rbt(self)
-            return d
-
-    def remove_min(self) -> RBTNode:
-        """Removes and returns the element with the smallest value from `self`.
-
-        Time complexity: O(log(n))."""
-        assert is_rbt(self)
-
-        if self.root is not None:
-            m = self.minimum()
-            assert m is not None
-
-            d = self.delete(m)
-            assert is_rbt(self)
-            return d
-
     def delete(self, x) -> RBTNode:
         """Delete `x` from this `RBT` object.
 
@@ -526,10 +498,36 @@ class RBT(BST):
         self._n -= 1
         # Ensures that x has no reference to any node of this RBT.
         x.parent = x.left = x.right = None
+        assert is_rbt(self)
+        return x
 
+    def remove_max(self) -> RBTNode:
+        """Removes and returns the element with the greatest value from `self`.
+
+        Time complexity: O(log(n))."""
         assert is_rbt(self)
 
-        return x
+        if self.root is not None:
+            m = self.maximum()
+            assert m is not None
+
+            d = self.delete(m)
+            assert is_rbt(self)
+            return d
+
+    def remove_min(self) -> RBTNode:
+        """Removes and returns the element with the smallest value from `self`.
+
+        Time complexity: O(log(n))."""
+        assert is_rbt(self)
+
+        if self.root is not None:
+            m = self.minimum()
+            assert m is not None
+
+            d = self.delete(m)
+            assert is_rbt(self)
+            return d
 
 
 def black_height(n: RBTNode) -> int:
@@ -551,7 +549,7 @@ def black_height(n: RBTNode) -> int:
 
 def upper_bound_height(t: RBT) -> bool:
     """Returns true if the height of the red-black tre `t` is bounded above by log(n + 1)"""
-    return t.height() <= 2 * math.log2(t.size() + 1)
+    return t.height() <= 2 * math.log2(t.size + 1)
 
 
 def is_rbt(t: RBT) -> bool:

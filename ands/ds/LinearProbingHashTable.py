@@ -43,6 +43,8 @@ maybe we want to differentiate the two cases ??
 
 - Should a client of this class be able to specify its custom hash function ??
 
+- size could be implemented as a counter
+
 # References
 
 - [http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html](http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html)
@@ -91,11 +93,6 @@ class LinearProbingHashTable(HashTable):
         self._keys = [None] * self._n
         self._values = [None] * self._n
 
-    def __invariants(self):
-        """These conditions should always hold at the beginning and end of public methods!"""
-        assert len(self._keys) == len(self._values) == self._n
-        assert not has_duplicates_ignore_nones(self._keys)
-
     @property
     def size(self) -> int:
         """Returns the number of pairs key-value in this map."""
@@ -107,6 +104,22 @@ class LinearProbingHashTable(HashTable):
         """Returns the size of the internal buffers that store the keys and the values."""
         self.__invariants()
         return len(self._keys)
+
+    @staticmethod
+    def _hash_code(key, size: int) -> int:
+        """Returns a hash code (an int) between 0 and `size` (excluded).
+
+        `size` must be the size of the buffer based on which
+        this function should return a hash value."""
+        return hash(key) % size
+
+    @staticmethod
+    def _rehash(old_hash: int, size: int) -> int:
+        """Returns a new hash value based on the previous one called `old_hash`.
+
+        `size` must be the size of the buffer based on which
+        we want to have a new hash value from the old hash value."""
+        return (old_hash + 1) % size
 
     def put(self, key: object, value: object) -> None:
         """Inserts the pair `key`/`value` in this map.
@@ -193,6 +206,35 @@ class LinearProbingHashTable(HashTable):
         self.__invariants()
         return value
 
+    @staticmethod
+    def _get(key: object, keys: list, values: list, size: int) -> object:
+        """Helper method of `self.get` and thus it's considered PRIVATE."""
+        assert not has_duplicates_ignore_nones(keys)
+
+        hash_value = LinearProbingHashTable._hash_code(key, size)
+
+        data = None
+        stop = False
+        found = False
+        position = hash_value
+
+        while keys[position] is not None and not found and not stop:
+
+            if keys[position] == key:
+                found = True
+                data = values[position]
+            else:
+                # Find a new possible position by rehashing
+                position = LinearProbingHashTable._rehash(position, size)
+
+                # We are at the initial slot,
+                # and thus nothing was found.
+                if position == hash_value:
+                    stop = True
+
+        assert not has_duplicates_ignore_nones(keys)
+        return data
+
     def delete(self, key: object) -> object:
         """Deletes the mapping between `key` and its corresponding associated value.
         If there's no mapping, nothing is done."""
@@ -235,50 +277,10 @@ class LinearProbingHashTable(HashTable):
     def __repr__(self):
         return self.__str__()
 
-    @staticmethod
-    def _hash_code(key, size: int) -> int:
-        """Returns a hash code (an int) between 0 and `size` (excluded).
-
-        `size` must be the size of the buffer based on which
-        this function should return a hash value."""
-        return hash(key) % size
-
-    @staticmethod
-    def _rehash(old_hash: int, size: int) -> int:
-        """Returns a new hash value based on the previous one called `old_hash`.
-
-        `size` must be the size of the buffer based on which
-        we want to have a new hash value from the old hash value."""
-        return (old_hash + 1) % size
-
-    @staticmethod
-    def _get(key: object, keys: list, values: list, size: int) -> object:
-        """Helper method of `self.get` and thus it's considered PRIVATE."""
-        assert not has_duplicates_ignore_nones(keys)
-
-        hash_value = LinearProbingHashTable._hash_code(key, size)
-
-        data = None
-        stop = False
-        found = False
-        position = hash_value
-
-        while keys[position] is not None and not found and not stop:
-
-            if keys[position] == key:
-                found = True
-                data = values[position]
-            else:
-                # Find a new possible position by rehashing
-                position = LinearProbingHashTable._rehash(position, size)
-
-                # We are at the initial slot,
-                # and thus nothing was found.
-                if position == hash_value:
-                    stop = True
-
-        assert not has_duplicates_ignore_nones(keys)
-        return data
+    def __invariants(self):
+        """These conditions should always hold at the beginning and end of public methods!"""
+        assert len(self._keys) == len(self._values) == self._n
+        assert not has_duplicates_ignore_nones(self._keys)
 
 
 def has_duplicates_ignore_nones(ls: list) -> bool:

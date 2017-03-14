@@ -24,12 +24,12 @@ from ands.ds.Stack import Stack
 class TestStack(unittest.TestCase):
     def test_creation_default(self):
         s = Stack()
-        self.assertEqual(s.size(), 0)
+        self.assertEqual(s.size, 0)
         self.assertTrue(s.is_empty())
 
     def test_creation_good_list(self):
         s = Stack(["first", 2, 3.14])
-        self.assertEqual(s.size(), 3)
+        self.assertEqual(s.size, 3)
         self.assertFalse(s.is_empty())
 
     def test_creation_list_with_None(self):
@@ -49,7 +49,7 @@ class TestStack(unittest.TestCase):
     def test_push_one(self):
         s = Stack()
         s.push(3)
-        self.assertEqual(s.size(), 1)
+        self.assertEqual(s.size, 1)
         self.assertFalse(s.is_empty())
         self.assertEqual(s.top(), 3)
 
@@ -58,7 +58,7 @@ class TestStack(unittest.TestCase):
 
         for i in range(randint(2, 100)):
             s.push(i)
-            self.assertEqual(s.size(), i + 1)
+            self.assertEqual(s.size, i + 1)
             self.assertFalse(s.is_empty())
             self.assertEqual(s.top(), i)
 
@@ -70,7 +70,7 @@ class TestStack(unittest.TestCase):
         s = Stack([7])
         self.assertEqual(s.pop(), 7)
         self.assertTrue(s.is_empty())
-        self.assertEqual(s.size(), 0)
+        self.assertEqual(s.size, 0)
 
     def test_pop_until_empty(self):
         ls = [randint(-10, 10) for _ in range(randint(1, 100))]
@@ -79,6 +79,6 @@ class TestStack(unittest.TestCase):
         for i, e in enumerate(reversed(ls)):
             elem = s.pop()
             self.assertEqual(elem, e)
-            self.assertEqual(s.size(), len(ls) - (i + 1))
+            self.assertEqual(s.size, len(ls) - (i + 1))
 
         self.assertTrue(s.is_empty())

@@ -170,7 +170,7 @@ class BSTNode:
     def count(self) -> int:
         """Counts the numbers of nodes under `self` (including `self`)."""
 
-        def _count(u, c: int):
+        def _count(u, c: int) -> int:
             if u is None:
                 return c
             else:
@@ -185,7 +185,14 @@ class BSTNode:
             c = 0
             return _count(self, c)
 
-    def __fields(self):
+    def __str__(self):
+        return "{" + str(self.key) + ": " + str(self.value) + "}"
+
+    def __repr__(self):
+        return self.__str__()
+        # return tabulate(self.__fields(), tablefmt="fancy_grid")
+
+    def __fields(self) -> list:
         return [["key", self.key],
                 ["value", self.value],
                 ["parent", self.parent],
@@ -194,13 +201,6 @@ class BSTNode:
                 ["sibling", self.sibling],
                 ["grandparent", self.grandparent],
                 ["uncle", self.uncle]]
-
-    def __str__(self):
-        return "{" + str(self.key) + ": " + str(self.value) + "}"
-
-    def __repr__(self):
-        return self.__str__()
-        # return tabulate(self.__fields(), tablefmt="fancy_grid")
 
 
 class BST:
@@ -223,6 +223,25 @@ class BST:
         self.root = root
         assert is_bst(self)
 
+    @property
+    def size(self) -> int:
+        """Returns the total number of nodes.
+
+        Time complexity: O(1)."""
+        assert is_bst(self)
+        if self.root is not None:
+            assert self.root.count() == self._n
+        else:
+            assert self._n == 0
+        return self._n
+
+    def is_empty(self) -> bool:
+        """Returns true if this tree has 0 nodes.
+
+        Time complexity: O(1)."""
+        assert is_bst(self)
+        return self.size == 0
+
     def _initialise_if_empty(self, u: BSTNode) -> None:
         """Sets `u` as the new root and unique node of this tree."""
         assert self.root is None
@@ -241,24 +260,6 @@ class BST:
         self.root = None
         self._n = 0
         assert is_bst(self)
-
-    def size(self) -> int:
-        """Returns the total number of nodes.
-
-        Time complexity: O(1)."""
-        assert is_bst(self)
-        if self.root is not None:
-            assert self.root.count() == self._n
-        else:
-            assert self._n == 0
-        return self._n
-
-    def is_empty(self) -> bool:
-        """Returns true if this tree has 0 nodes.
-
-        Time complexity: O(1)."""
-        assert is_bst(self)
-        return self.size() == 0
 
     def is_root(self, u: BSTNode) -> bool:
         """Checks if `u` is the same object as `self.root`.
@@ -997,7 +998,7 @@ class BSTImproved(BST):
 
         This function does a pseudo-random insertion of keys."""
         assert is_bst(self)
-        r = randint(0, self.size() * 3 // 8)  # random operation for now!!
+        r = randint(0, self.size * 3 // 8)  # random operation for now!!
         if r == 0:
             self.root_insert(x, value)
         else:
