@@ -71,6 +71,19 @@ class Stack:
             s = []
         self._stack = list(s)
 
+    @property
+    def size(self) -> int:
+        """Returns the size of this stack.
+
+        Time complexity: O(1)."""
+        return len(self._stack)
+
+    def is_empty(self) -> bool:
+        """Returns true if this stack is empty, false otherwise.
+
+        Time complexity: O(1)."""
+        return self.size == 0
+
     def push(self, elem: object) -> None:
         """Pushes `elem` on top of this stack.
 
@@ -86,18 +99,6 @@ class Stack:
 
         Time complexity: O(1)."""
         return None if self.is_empty() else self._stack.pop()
-
-    def size(self) -> int:
-        """Returns the size of this stack.
-
-        Time complexity: O(1)."""
-        return len(self._stack)
-
-    def is_empty(self) -> bool:
-        """Returns true if this stack is empty, false otherwise.
-
-        Time complexity: O(1)."""
-        return self.size() == 0
 
     def top(self) -> object:
         """Returns but does **not** pop the top of the stack.

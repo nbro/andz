@@ -25,13 +25,13 @@ class TestBST(unittest.TestCase):
     def test_create_default(self):
         t = BST()
         self.assertIsNone(t.root)
-        self.assertEqual(t.size(), 0)
+        self.assertEqual(t.size, 0)
 
     def test_create_only_root_given_ok(self):
         n = BSTNode(3)
         t = BST(n)
         self.assertIs(t.root, n)
-        self.assertEqual(t.size(), 1)
+        self.assertEqual(t.size, 1)
 
     def test_create_tree_given_ok(self):
         def gen_sub_tree():
@@ -44,7 +44,7 @@ class TestBST(unittest.TestCase):
         root = gen_sub_tree()
         t = BST(root)
         self.assertIs(t.root, root)
-        self.assertEqual(t.size(), 3)
+        self.assertEqual(t.size, 3)
 
     def test_create_root_given_not_bst_node(self):
         self.assertRaises(TypeError, BST, 3)
@@ -104,7 +104,7 @@ class TestBST(unittest.TestCase):
         t = BST()
 
         t.insert("one")
-        self.assertEqual(t.size(), 1)
+        self.assertEqual(t.size, 1)
         self.assertEqual(t.height(), 1)
 
         one = t.search("one")
@@ -117,7 +117,7 @@ class TestBST(unittest.TestCase):
 
         t.insert("one", 25)
 
-        self.assertEqual(t.size(), 1)
+        self.assertEqual(t.size, 1)
         self.assertEqual(t.height(), 1)
         self.assertEqual(t.rank("one"), 0)
 
@@ -148,7 +148,7 @@ class TestBST(unittest.TestCase):
 
         t.insert_many(ls)
 
-        self.assertEqual(t.size(), 10)
+        self.assertEqual(t.size, 10)
         self.assertEqual(t.rank(5), 5)
 
         zero = t.search(0)
@@ -333,28 +333,28 @@ class TestBST(unittest.TestCase):
         ten = BSTNode(10)
         t.insert_many([ten, 8, 9])
         self.assertIs(ten, t.remove_max())
-        self.assertEqual(t.size(), 2)
+        self.assertEqual(t.size, 2)
 
     def test_remove_max_greatest_node_has_left_child_and_is_not_root(self):
         t = BST()
         ten = BSTNode(10)
         t.insert_many([5, 2, ten, 8, 9])
         self.assertIs(ten, t.remove_max())
-        self.assertEqual(t.size(), 4)
+        self.assertEqual(t.size, 4)
 
     def test_remove_max_greatest_node_does_not_have_left_child_and_is_root(self):
         t = BST()
         five = BSTNode(5)
         t.insert_many([five])
         self.assertIs(five, t.remove_max())
-        self.assertEqual(t.size(), 0)
+        self.assertEqual(t.size, 0)
 
     def test_remove_max_greatest_node_does_not_have_left_child_and_is_not_root(self):
         t = BST()
         ten = BSTNode(10)
         t.insert_many([5, 2, ten])
         self.assertIs(ten, t.remove_max())
-        self.assertEqual(t.size(), 2)
+        self.assertEqual(t.size, 2)
 
     def test_remove_min_empty_tree(self):
         t = BST()
@@ -365,14 +365,14 @@ class TestBST(unittest.TestCase):
         two = BSTNode(2)
         t.insert_many([two, 3, 5])
         self.assertIs(two, t.remove_min())
-        self.assertEqual(t.size(), 2)
+        self.assertEqual(t.size, 2)
 
     def test_remove_min_smallest_node_has_right_child_and_is_not_root(self):
         t = BST()
         two = BSTNode(2)
         t.insert_many([5, two, 3])
         self.assertIs(two, t.remove_min())
-        self.assertEqual(t.size(), 2)
+        self.assertEqual(t.size, 2)
 
     def test_remove_min_smallest_node_does_not_have_right_child_and_is_root(self):
         t = BST()
@@ -386,7 +386,7 @@ class TestBST(unittest.TestCase):
         two = BSTNode(2)
         t.insert_many([5, 10, two])
         self.assertIs(two, t.remove_min())
-        self.assertTrue(t.size(), 2)
+        self.assertTrue(t.size, 2)
 
     def test_delete_key_None(self):
         t = BST()
@@ -420,7 +420,7 @@ class TestBST(unittest.TestCase):
         self.assertIsNone(deleted.left)
         self.assertIsNone(deleted.right)
         self.assertIsNone(deleted.parent)
-        self.assertEqual(t.size(), 4)
+        self.assertEqual(t.size, 4)
 
     def test_delete_one_child(self):
         t = BST()
@@ -431,7 +431,7 @@ class TestBST(unittest.TestCase):
         self.assertIsNone(deleted.left)
         self.assertIsNone(deleted.right)
         self.assertIsNone(deleted.parent)
-        self.assertEqual(t.size(), 4)
+        self.assertEqual(t.size, 4)
 
     def test_delete_two_children(self):
         t = BST()
@@ -442,7 +442,7 @@ class TestBST(unittest.TestCase):
         self.assertIsNone(deleted.left)
         self.assertIsNone(deleted.right)
         self.assertIsNone(deleted.parent)
-        self.assertEqual(t.size(), 8)
+        self.assertEqual(t.size, 8)
 
     def test_delete_all_in_random_order(self):
         t = BST()

@@ -61,6 +61,7 @@ class BinaryHeap(metaclass=ABCMeta):
         self.heap = [] if not isinstance(ls, list) else ls
         self._build_heap()
 
+    @property
     def size(self) -> int:
         """Returns the number of elements in this heap.
 
@@ -71,7 +72,7 @@ class BinaryHeap(metaclass=ABCMeta):
         """Returns true if this heap is empty, false otherwise.
 
         Time complexity: O(1)."""
-        return self.size() == 0
+        return self.size == 0
 
     def clear(self) -> None:
         """Removes all elements from this heap.
@@ -89,8 +90,8 @@ class BinaryHeap(metaclass=ABCMeta):
         if x is None:
             raise ValueError("x cannot be None")
         self.heap.append(x)
-        if self.size() > 1:
-            self._push_up(self.size() - 1)
+        if self.size > 1:
+            self._push_up(self.size - 1)
 
     def contains(self, x: object) -> bool:
         """Returns true if `x` is in this heap, false otherwise.
@@ -114,10 +115,10 @@ class BinaryHeap(metaclass=ABCMeta):
             raise LookupError("x not found")
 
         # self has at least one element.
-        if i == self.size() - 1:
+        if i == self.size - 1:
             self.heap.pop()
         else:
-            self._swap(i, self.size() - 1)
+            self._swap(i, self.size - 1)
             self.heap.pop()
             self._push_down(i)
             self._push_up(i)
@@ -201,7 +202,7 @@ class BinaryHeap(metaclass=ABCMeta):
         """Returns true if `i` is in the bounds of elf.heap, false otherwise.
 
         Time complexity: O(1)."""
-        return False if (i < 0 or i >= self.size()) else True
+        return False if (i < 0 or i >= self.size) else True
 
     def __str__(self):
         return str(self.heap)

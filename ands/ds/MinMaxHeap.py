@@ -86,12 +86,12 @@ class MinMaxHeap(BinaryHeap):
         if not self.is_empty():
             i = self._find_max_index()
 
-            if i == self.size() - 1:
+            if i == self.size - 1:
                 m = self.heap.pop()
                 assert is_min_max_heap(self)
                 return m
 
-            self._swap(i, self.size() - 1)
+            self._swap(i, self.size - 1)
             m = self.heap.pop()
             self._push_up(i)
             self._push_down(i)
@@ -103,12 +103,12 @@ class MinMaxHeap(BinaryHeap):
 
         Time complexity: O(log(n))."""
         if not self.is_empty():
-            if self.size() == 1:
+            if self.size == 1:
                 m = self.heap.pop()
                 assert is_min_max_heap(self)
                 return m
 
-            self._swap(0, self.size() - 1)
+            self._swap(0, self.size - 1)
             m = self.heap.pop()
             self._push_up(0)
             self._push_down(0)
@@ -221,9 +221,9 @@ class MinMaxHeap(BinaryHeap):
         Time complexity: O(1)."""
         if self.is_empty():
             return -1
-        elif self.size() == 1:
+        elif self.size == 1:
             return 0
-        elif self.size() == 2:
+        elif self.size == 2:
             return 1
         else:
             return 1 if self.heap[1] > self.heap[2] else 2
@@ -349,11 +349,11 @@ def is_min_max_heap(h: MinMaxHeap) -> bool:
 
     if h.heap:
 
-        if h.size() == 1:
+        if h.size == 1:
             return True
-        if h.size() == 2:
+        if h.size == 2:
             return max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0]
-        if h.size() >= 3:
+        if h.size >= 3:
             if h.heap[0] != min(h.heap) or (h.heap[1] != max(h.heap) and h.heap[2] != max(h.heap)):
                 return False
 

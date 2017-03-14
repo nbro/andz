@@ -141,17 +141,13 @@ class TST:
         self._n = 0
         self._root = None
 
-    def __invariants(self) -> None:
-        """These propositions should always be true at the BEGINNING
-        and END of every PUBLIC method of this TST.
+    @property
+    def size(self) -> int:
+        return self._n
 
-        Call this method if you want to ensure the invariants are holding."""
-        assert self._n >= 0
-        if self._n == 0:
-            assert self._root is None
-        elif self._n > 0:
-            assert isinstance(self._root, TSTNode)
-            assert self._root.parent is None
+    def is_empty(self) -> bool:
+        """Time complexity: O(1)."""
+        return self.size == 0
 
     def _is_root(self, u: TSTNode) -> bool:
         result = (self._root == u)
@@ -160,9 +156,6 @@ class TST:
         else:
             assert u.parent is not None
         return result
-
-    def size(self) -> int:
-        return self._n
 
     def count(self) -> int:
         """Counts the number of strings in self.
@@ -175,7 +168,7 @@ class TST:
 
         Time complexity: O(n), where n is the number of nodes in this TST."""
         c = self._count(self._root, 0)
-        assert c == self.size()
+        assert c == self.size
         return c
 
     def _count(self, node: TSTNode, counter: int) -> int:
@@ -193,10 +186,6 @@ class TST:
         counter = self._count(node.right, counter)
 
         return counter
-
-    def is_empty(self) -> bool:
-        """Time complexity: O(1)."""
-        return self._n == 0
 
     def insert(self, key: str, value: object) -> None:
         """Inserts the `key` into the symbol table and associates with it `value`,
@@ -584,3 +573,15 @@ class TST:
 
         if c == "." or c > node.key:
             self._keys_that_match(node.right, prefix_list, i, pattern, keys)
+
+    def __invariants(self) -> None:
+        """These propositions should always be true at the BEGINNING
+        and END of every PUBLIC method of this TST.
+
+        Call this method if you want to ensure the invariants are holding."""
+        assert self._n >= 0
+        if self._n == 0:
+            assert self._root is None
+        elif self._n > 0:
+            assert isinstance(self._root, TSTNode)
+            assert self._root.parent is None
