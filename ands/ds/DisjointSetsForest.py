@@ -8,18 +8,22 @@ Author: Nelson Brochado
 
 Created: 21/02/2016
 
-Updated: 08/03/2017
+Updated: 01/08/2017
 
 # Description
 
-A disjoint-set (forests) or union-find data structure is a data structure which keeps track of a set of elements
-partitioned into disjoint (non-overlapping, i.e. their intersection is the empty set) sets.
+A disjoint-set (forests) or union-find data structure is a data structure 
+which keeps track of a set of elements partitioned into disjoint sets.
+Each of these disjoint sets has one "representative" (or "root") element, 
+which we can think as the element representing the whole set.
+If the disjoint sets are implemented as trees, the representative 
+of each of these disjoint sets are the root of the corresponding trees.
+
 The usual operations supported by this data structure are:
 
   1. make-set(x): creates a single-element set containing x, and x is the representative of that set.
 
-  2. find(x): returns the "representative" of the set where the element x is.
-    If the data structure is implemented a tree, the representative is the root of the tree.
+  2. find(x): returns the "representative" of the set where the element x is.    
 
   3. union(x, y): unions the sets where x and y are (if they do not belong already to the same set).
 
