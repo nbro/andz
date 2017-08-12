@@ -9,7 +9,7 @@ Conventions that should be adopted for this project.
     - incomplete, or
     - not tested
 
- to the `master` branch!!
+   to the `master` branch!!
   
 - Expose only public interface!!
     
@@ -75,7 +75,7 @@ Use symbols O, Θ, Ω, α, ...
 
 ### References
 
-- [[https://www.eiffel.org/doc/eiffel/ET%3A%20Design%20by%20Contract%20(tm),%20Assertions%20and%20Exceptions](https://www.eiffel.org/doc/eiffel/ET%3A%20Design%20by%20Contract%20(tm),%20Assertions%20and%20Exceptions)]([https://www.eiffel.org/doc/eiffel/ET%3A%20Design%20by%20Contract%20(tm),%20Assertions%20and%20Exceptions](https://www.eiffel.org/doc/eiffel/ET%3A%20Design%20by%20Contract%20(tm),%20Assertions%20and%20Exceptions))
+- [ET: Design by Contract (tm), Assertions and Exceptions](https://www.eiffel.org/doc/eiffel/ET%3A%20Design%20by%20Contract%20(tm),%20Assertions%20and%20Exceptions)
 
 ## Assertions
 
