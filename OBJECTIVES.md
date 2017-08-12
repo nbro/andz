@@ -13,8 +13,8 @@
 	- Geometrical algorithms (e.g.: convex hull)
 	- Approximation algorithms (e.g.: approximation-vertex-cover)
 	- Heuristics
-	
- or even to more general scientific areas
+
+   or even to more general scientific areas
 	
 	- Artificial intelligence
 	- Numerical computing
