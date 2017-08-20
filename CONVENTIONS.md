@@ -13,7 +13,7 @@ Conventions that should be adopted for this project.
   
 - Expose only public interface!!
     
-    - For example, clients of a BST may not care about the existence of a BSTNode, which is only useful to store information about the keys.
+    - For example, clients of a `BST` may not care about the existence of a `BSTNode`, which is only useful to store information about the keys.
     
 ### Github Issue Tracker
 
@@ -177,6 +177,7 @@ Use symbols O, Θ, Ω, α, ...
 ## Testing
 
 - Test only the public interface
+
     - but make sure all statements, even those containing private fields or methods, are covered!!
 
 - Unit tests should test only one feature:

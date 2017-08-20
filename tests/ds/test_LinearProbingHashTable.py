@@ -17,7 +17,7 @@ Unit tests for the LinearProbingHashTable class.
 
 # Reference
 
-- [http://stackoverflow.com/questions/9755538/how-do-i-create-a-list-of-unique-random-numbers](http://stackoverflow.com/questions/9755538/how-do-i-create-a-list-of-unique-random-numbers)
+- http://stackoverflow.com/questions/9755538/how-do-i-create-a-list-of-unique-random-numbers
 
 """
 

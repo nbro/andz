@@ -8,13 +8,13 @@ Author: Nelson Brochado
 
 Created: 01/06/2015
 
-Updated: 14/02/2017
+Updated: 19/08/2017
 
 # Description
 
 ## What's a hash map (or hash table)?
 
-It's basically a data structure which is used to implement the so-called _associative array_,
+It's basically a data structure which is used to implement the so-called associative array,
 which is an abstract data type composed of a collection of (key, value) pairs,
 such that each possible key appears at most once in the collection.
 
@@ -23,14 +23,14 @@ such that each possible key appears at most once in the collection.
 To map keys to values, a hash function is used when implementing a hash map (or table).
 A hash function is any function that can be used to map data of arbitrary size to data of fixed size.
 A perfect hash function is a function that assigns each key a unique bucket in the the data structure,
-but most hash table designs employ an imperfect hash function, which might cause hash **collisions**,
+but most hash table designs employ an imperfect hash function, which might cause hash collisions,
 where the hash function generates the same index (i.e. the same position or bucket) for more than one key.
 Such collisions must be accommodated in some way!!!
 
 ## Resolving collisions
 
 There are different ways to resolve collisions,
-where the most famous techniques are **separate chaining** and **open addressing**.
+where the most famous techniques are "separate chaining" and "open addressing".
 
 # TODO
 
@@ -47,15 +47,15 @@ maybe we want to differentiate the two cases ??
 
 # References
 
-- [http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html](http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html)
-- [http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table](http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table)
-- [http://stackoverflow.com/questions/9835762/find-and-list-duplicates-in-a-list](http://stackoverflow.com/questions/9835762/find-and-list-duplicates-in-a-list)
-- [http://stackoverflow.com/questions/1541797/check-for-duplicates-in-a-flat-list](http://stackoverflow.com/questions/1541797/check-for-duplicates-in-a-flat-list)
-- [https://en.wikipedia.org/wiki/Associative_array](https://en.wikipedia.org/wiki/Associative_array)
-- [https://en.wikipedia.org/wiki/Hash_table](https://en.wikipedia.org/wiki/Hash_table)
-- [https://en.wikipedia.org/wiki/Hash_function](https://en.wikipedia.org/wiki/Hash_function)
-- [linear probing](https://en.wikipedia.org/wiki/Linear_probing)
-- [https://en.wikipedia.org/wiki/Open_addressing](https://en.wikipedia.org/wiki/Open_addressing)
+- http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html
+- http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table
+- http://stackoverflow.com/questions/9835762/find-and-list-duplicates-in-a-list
+- http://stackoverflow.com/questions/1541797/check-for-duplicates-in-a-flat-list
+- https://en.wikipedia.org/wiki/Associative_array
+- https://en.wikipedia.org/wiki/Hash_table
+- https://en.wikipedia.org/wiki/Hash_function
+- https://en.wikipedia.org/wiki/Linear_probing
+- https://en.wikipedia.org/wiki/Open_addressing
 
 """
 
@@ -65,7 +65,7 @@ from tabulate import tabulate
 
 from ands.ds.HashTable import HashTable
 
-__all__ = ["LinearProbingHashTable", "has_duplicates_ignore_nones"]
+__all__ = ["LinearProbingHashTable", "has_duplicates_ignore_nones", "is_hash_table"]
 
 
 class LinearProbingHashTable(HashTable):
@@ -96,13 +96,13 @@ class LinearProbingHashTable(HashTable):
     @property
     def size(self) -> int:
         """Returns the number of pairs key-value in this map."""
-        self.__invariants()
+        assert is_hash_table(self)
         return sum(k is not None for k in self._keys)
 
     @property
     def capacity(self) -> int:
         """Returns the size of the internal buffers that store the keys and the values."""
-        self.__invariants()
+        assert is_hash_table(self)
         return len(self._keys)
 
     @staticmethod
@@ -125,17 +125,17 @@ class LinearProbingHashTable(HashTable):
         """Inserts the pair `key`/`value` in this map.
 
         If `key` is `None`, a `TypeError` is raised, because keys cannot be `None`."""
+        assert is_hash_table(self)
+
         if key is None:
             raise TypeError("key cannot be None.")
 
-        self.__invariants()
         self._put(key, value, self._n)
-        self.__invariants()
+
+        assert is_hash_table(self)
 
     def _put(self, key: object, value: object, size: int) -> None:
         """Helper method of `self.put` and thus it's considered PRIVATE."""
-        assert not has_duplicates_ignore_nones(self._keys)
-
         hash_value = LinearProbingHashTable._hash_code(key, size)
 
         # No need to allocate new space.
@@ -193,24 +193,23 @@ class LinearProbingHashTable(HashTable):
                     assert self._keys[next_slot] == key
                     self._values[next_slot] = value
 
-        assert not has_duplicates_ignore_nones(self._keys)
-
     def get(self, key: object) -> object:
         """Returns the value associated with `key`.
 
         If `key` is `None`, a `TypeError` is raised, because keys cannot be None."""
-        self.__invariants()
+        assert is_hash_table(self)
+
         if key is None:
             raise TypeError("key cannot be None.")
         value = LinearProbingHashTable._get(key, self._keys, self._values, self._n)
-        self.__invariants()
+
+        assert is_hash_table(self)
+
         return value
 
     @staticmethod
     def _get(key: object, keys: list, values: list, size: int) -> object:
         """Helper method of `self.get` and thus it's considered PRIVATE."""
-        assert not has_duplicates_ignore_nones(keys)
-
         hash_value = LinearProbingHashTable._hash_code(key, size)
 
         data = None
@@ -232,13 +231,12 @@ class LinearProbingHashTable(HashTable):
                 if position == hash_value:
                     stop = True
 
-        assert not has_duplicates_ignore_nones(keys)
         return data
 
     def delete(self, key: object) -> object:
         """Deletes the mapping between `key` and its corresponding associated value.
         If there's no mapping, nothing is done."""
-        self.__invariants()
+        assert is_hash_table(self)
 
         if key is None:
             raise TypeError("key cannot be None.")
@@ -249,11 +247,11 @@ class LinearProbingHashTable(HashTable):
             i = self._keys.index(key)
             v = self._values[i]
             self._keys[i] = self._values[i] = None
-            self.__invariants()
             return v
         except ValueError:
-            self.__invariants()
             pass
+        finally:
+            assert is_hash_table(self)
 
     def show(self) -> None:
         """Prints this hash table in table-like format."""
@@ -277,11 +275,6 @@ class LinearProbingHashTable(HashTable):
     def __repr__(self):
         return self.__str__()
 
-    def __invariants(self):
-        """These conditions should always hold at the beginning and end of public methods!"""
-        assert len(self._keys) == len(self._values) == self._n
-        assert not has_duplicates_ignore_nones(self._keys)
-
 
 def has_duplicates_ignore_nones(ls: list) -> bool:
     """Returns true if `ls` does contain duplicate elements, false otherwise.
@@ -289,3 +282,12 @@ def has_duplicates_ignore_nones(ls: list) -> bool:
     None items in `ls` are not considered."""
     ls = [item for item in ls if item is not None]
     return len(ls) != len(set(ls))
+
+
+def is_hash_table(t: HashTable) -> bool:
+    """Returns true if `t` is a valid HashTable, false otherwise."""
+    if not isinstance(t, HashTable):
+        return False
+    if len(t._keys) != len(t._values) or len(t._keys) != t._n:
+        return False
+    return not has_duplicates_ignore_nones(t._keys)

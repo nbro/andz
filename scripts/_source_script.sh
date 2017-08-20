@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
-#################################################################################
-# SCRIPT NAME: _source_script.sh                                                #
-#                                                                               #
-# PURPOSE: the function _source_script tries to "source" the scripts, whose     #
-# names are passed as parameters to the same function.                          #
-#################################################################################
+# The function _source_script tries to source the scripts, whose names are passed as parameters to the same function.
 
 export ALREADY_SOURCED__SOURCE_SCRIPT
 
