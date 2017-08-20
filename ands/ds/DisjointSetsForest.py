@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 21/02/2016
 
-Updated: 01/08/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -45,13 +45,11 @@ These two techniques complement each other: applied together, the amortized time
 # References
 
 - Introduction to algorithms, 3rd, by C.L.R.S., chapter 21.3
-- [https://en.wikipedia.org/wiki/Disjoint-set_data_structure](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
-- [http://orionsword.no-ip.org/blog/wordpress/?p=246](http://orionsword.no-ip.org/blog/wordpress/?p=246)
-- [http://stackoverflow.com/a/22945492/3924118](http://stackoverflow.com/a/22945492/3924118)
-- [http://stackoverflow.com/q/23055236/3924118](http://stackoverflow.com/q/23055236/3924118)
-- [https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html](https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html)
-to visualize how disjoint-_sets work.
-
+- https://en.wikipedia.org/wiki/Disjoint-set_data_structure
+- http://orionsword.no-ip.org/blog/wordpress/?p=246
+- http://stackoverflow.com/a/22945492/3924118
+- http://stackoverflow.com/q/23055236/3924118
+- https://www.cs.usfca.edu/~galles/JavascriptVisual/DisjointSets.html
 """
 
 from ands.ds.DisjointSets import DisjointSets

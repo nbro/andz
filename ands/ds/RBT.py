@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/08/2015
 
-Updated: 14/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -88,10 +88,9 @@ Now we log both parts
 
 # References
 
-- [https://en.wikipedia.org/wiki/Red%E2%80%93black_tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
+- https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
 - Slides by prof. A. Carzaniga
-- Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
-
+- Chapter 13 of Introduction to Algorithms (3rd ed.) by CLRS
 """
 
 import math

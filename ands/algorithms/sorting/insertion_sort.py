@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 23/07/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -32,10 +32,9 @@ hence it increases its efficiency.
 
 # References
 
-- [http://www.studytonight.com/data-structures/insertion-sorting](http://www.studytonight.com/data-structures/insertion-sorting)
-- [Wiki articble about Insertion Sort](http://en.wikipedia.org/wiki/Insertion_sort)
-- [The Insertion Sort](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheInsertionSort.html),
-article by http://interactivepython.org
+- http://www.studytonight.com/data-structures/insertion-sorting
+- http://en.wikipedia.org/wiki/Insertion_sort
+- http://interactivepython.org/runestone/static/pythonds/SortSearch/TheInsertionSort.html
 """
 
 __all__ = ["insertion_sort"]

@@ -33,7 +33,6 @@ whereas `find_peak` uses a divide and conquer strategy.
 # References
 
 - https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&spfreload=10
-
 """
 
 

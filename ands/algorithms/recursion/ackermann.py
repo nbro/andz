@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 22/02/2016
 
-Updated: 18/01/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -24,9 +24,9 @@ It grows faster than an exponential function, or even a multiple exponential fun
 
 # References
 
-- [http://mathworld.wolfram.com/AckermannFunction.html](http://mathworld.wolfram.com/AckermannFunction.html)
-- [http://math.stackexchange.com/questions/75296/what-is-the-difference-between-total-recursive-and-primitive-recursive-functions](http://math.stackexchange.com/questions/75296/what-is-the-difference-between-total-recursive-and-primitive-recursive-functions)
-- [https://en.wikipedia.org/wiki/Ackermann_function](https://en.wikipedia.org/wiki/Ackermann_function)
+- http://mathworld.wolfram.com/AckermannFunction.html
+- http://math.stackexchange.com/questions/75296/what-is-the-difference-between-total-recursive-and-primitive-recursive-functions
+- https://en.wikipedia.org/wiki/Ackermann_function
 """
 
 

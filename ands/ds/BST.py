@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 14/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -37,13 +37,12 @@ but slower than the corresponding operations on hash tables.
 
 # References
 
-- [https://en.wikipedia.org/wiki/Binary_search_tree](https://en.wikipedia.org/wiki/Binary_search_tree)
-- [Introduction to Algorithms (3rd edition)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS, chapter 12
-- [http://algs4.cs.princeton.edu/32bst/](http://algs4.cs.princeton.edu/32bst/)
-- [http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf](http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf)
-- [http://algs4.cs.princeton.edu/32bst/BST.java.html](http://algs4.cs.princeton.edu/32bst/BST.java.html)
-- [http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/readings/binary-search-trees/bst.py](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/readings/binary-search-trees/bst.py)
-
+- https://en.wikipedia.org/wiki/Binary_search_tree
+- Introduction to Algorithms (3rd edition), chapter 12, by CLRS
+- http://algs4.cs.princeton.edu/32bst/
+- http://www.cs.princeton.edu/courses/archive/spr04/cos226/lectures/bst.4up.pdf
+- http://algs4.cs.princeton.edu/32bst/BST.java.html
+- http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/readings/binary-search-trees/bst.py
 """
 
 __all__ = ["BST", "is_bst"]

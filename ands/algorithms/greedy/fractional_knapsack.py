@@ -20,7 +20,6 @@ because of the call to sort the items by value/weight ratio.
 - Create tests for these functions
 - Add complexity analysis
 - Organize better the code and check for bugs
-
 """
 
 import operator

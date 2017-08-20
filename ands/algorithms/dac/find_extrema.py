@@ -14,7 +14,6 @@ Updated: 10/03/2017
 
 Finding the maximum (or minimum) of a list of numbers
 (or, in general, comparable objects) using the "divide and conquer" strategy.
-
 """
 
 __all__ = ["find_extremum_not_in_place", "find_extremum_in_place", "find_max", "find_min"]

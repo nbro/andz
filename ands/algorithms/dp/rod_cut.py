@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 30/08/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -20,13 +20,9 @@ Updated: 10/03/2017
 
 # References
 
-- [http://www.radford.edu/~nokie/classes/360/dp-rod-cutting.html]
-(http://www.radford.edu/~nokie/classes/360/dp-rod-cutting.html)
-
+- http://www.radford.edu/~nokie/classes/360/dp-rod-cutting.html
 - Introduction to Algorithms (3rd edition) by CLSR
-
 - Slides by prof. E. Papadopoulou
-
 """
 
 import sys

@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 20/07/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -28,13 +28,10 @@ and comparing adjacent data items and swapping each pair that is out of order.
 
 # References
 
-- [http://www.studytonight.com/data-structures/bubble-sort](http://www.studytonight.com/data-structures/bubble-sort)
-- [Wiki article about Bubble Sort](http://en.wikipedia.org/wiki/Bubble_sort)
-- [The Bubble Sort](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheBubbleSort.html),
-article by http://interactivepython.org
-- [http://stackoverflow.com/questions/29555839/how-to-calculate-bubble-sort-time-complexity]
-(http://stackoverflow.com/questions/29555839/how-to-calculate-bubble-sort-time-complexity)
-
+- http://www.studytonight.com/data-structures/bubble-sort
+- http://en.wikipedia.org/wiki/Bubble_sort
+- http://interactivepython.org/runestone/static/pythonds/SortSearch/TheBubbleSort.html
+- http://stackoverflow.com/questions/29555839/how-to-calculate-bubble-sort-time-complexity
 """
 
 __all__ = ["bubble_sort"]

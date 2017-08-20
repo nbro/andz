@@ -19,7 +19,6 @@ Find an element x in a list, such that at most k elements of the list are less t
 - Consider to move algorithm `partition` to its own file, since it's used here and by quick-sort.
 - Add complexity analysis
 - Add _select_in_place
-
 """
 
 from ands.algorithms.sorting.quick_sort import partition

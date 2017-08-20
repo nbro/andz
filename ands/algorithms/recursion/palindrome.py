@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/08/2015
 
-Updated: 20/01/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -18,8 +18,7 @@ For example, "anna" is a palindrome, whereas "prime" is not.
 
 # Resources
 
-- [https://en.wikipedia.org/wiki/Palindrome](https://en.wikipedia.org/wiki/Palindrome)
-
+- https://en.wikipedia.org/wiki/Palindrome
 """
 
 __all__ = ["is_palindrome"]

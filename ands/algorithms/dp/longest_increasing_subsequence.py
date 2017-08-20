@@ -9,7 +9,7 @@ Author: Nelson Brochado
 
 Created: 29/08/2015
 
-Updated: 11/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -33,11 +33,9 @@ including algorithmics, random matrix theory, representation theory, and physics
 
 # References
 
-- [http://stackoverflow.com/a/19639755/3924118](http://stackoverflow.com/a/19639755/3924118)
-- [https://www.youtube.com/watch?v=CE2b_-XfVDk](https://www.youtube.com/watch?v=CE2b_-XfVDk)
-- [https://en.wikipedia.org/wiki/Longest_increasing_subsequence]
-(https://en.wikipedia.org/wiki/Longest_increasing_subsequence)
-
+- http://stackoverflow.com/a/19639755/3924118
+- https://www.youtube.com/watch?v=CE2b_-XfVDk
+- https://en.wikipedia.org/wiki/Longest_increasing_subsequence
 """
 
 

@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 24/08/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -24,10 +24,8 @@ Includes also a calculator that receives a postfix expression.
 
 # References
 
-- [https://www.youtube.com/watch?v=vXPL6UavUeA](https://www.youtube.com/watch?v=vXPL6UavUeA)
-- [http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html]
-(http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html)
-
+- https://www.youtube.com/watch?v=vXPL6UavUeA
+- http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html
 """
 
 import operator

@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 10/08/2015
 
-Updated: 07/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -160,14 +160,13 @@ This works in general because, at position i of the strings:
 
 # References
 
-- [https://learncryptography.com/classical-encryption/one-time-pad](https://learncryptography.com/classical-encryption/one-time-pad)
-- [https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/one-time-pad](https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/one-time-pad)
-- [http://python-reference.readthedocs.io/en/latest/docs/operators/bitwise_XOR.html](http://python-reference.readthedocs.io/en/latest/docs/operators/bitwise_XOR.html)
-- [https://en.wikipedia.org/wiki/One-time_pad](https://en.wikipedia.org/wiki/One-time_pad)
-- [http://crypto.stackexchange.com/questions/59/taking-advantage-of-one-time-pad-key-reuse](http://crypto.stackexchange.com/questions/59/taking-advantage-of-one-time-pad-key-reuse)
-- [http://crypto.stackexchange.com/questions/41798/one-time-pad-xor-question](http://crypto.stackexchange.com/questions/41798/one-time-pad-xor-question)
-- [http://crypto.stackexchange.com/questions/33065/is-all-of-encryption-based-on-xor/](http://crypto.stackexchange.com/questions/33065/is-all-of-encryption-based-on-xor/)
-
+- https://learncryptography.com/classical-encryption/one-time-pad
+- https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/one-time-pad
+- http://python-reference.readthedocs.io/en/latest/docs/operators/bitwise_XOR.html
+- https://en.wikipedia.org/wiki/One-time_pad
+- http://crypto.stackexchange.com/questions/59/taking-advantage-of-one-time-pad-key-reuse
+- http://crypto.stackexchange.com/questions/41798/one-time-pad-xor-question
+- http://crypto.stackexchange.com/questions/33065/is-all-of-encryption-based-on-xor/
 """
 
 __all__ = ["encrypt", "decrypt"]

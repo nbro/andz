@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/06/2015
 
-Updated: 19/08/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -45,6 +45,8 @@ maybe we want to differentiate the two cases ??
 
 - size could be implemented as a counter
 
+- Improve is_hash_table function
+
 # References
 
 - http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html
@@ -56,7 +58,6 @@ maybe we want to differentiate the two cases ??
 - https://en.wikipedia.org/wiki/Hash_function
 - https://en.wikipedia.org/wiki/Linear_probing
 - https://en.wikipedia.org/wiki/Open_addressing
-
 """
 
 from collections import Hashable

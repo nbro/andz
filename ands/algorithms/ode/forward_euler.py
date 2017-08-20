@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 10/09/2016
 
-Updated: 19/02/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -101,12 +101,8 @@ it's called an implicit method, whereas the forward method is considered a **exp
 
 # References
 
-- First Course in Numerical Methods, chapter 16,
-by Uri M. Ascher and C. Greif
-
-- [Euler's Method program code](https://www.khanacademy.org/math/ap-calculus-bc/diff-equations-bc/eulers-method-bc/v/eulers-method-program-code),
-animation program by Khan Academy
-
+- First Course in Numerical Methods, chapter 16, by Uri M. Ascher and C. Greif
+- https://www.khanacademy.org/math/ap-calculus-bc/diff-equations-bc/eulers-method-bc/v/eulers-method-program-code
 """
 
 from numpy import arange, zeros

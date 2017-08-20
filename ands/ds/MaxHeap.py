@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 15/02/2016
 
-Updated: 12/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -17,11 +17,10 @@ See doc-strings of the module MinHeap.py.
 
 # References
 
-- [https://en.wikipedia.org/wiki/Binary_heap](https://en.wikipedia.org/wiki/Binary_heap)
+- https://en.wikipedia.org/wiki/Binary_heap
 - Slides by prof. A. Carzaniga
-- Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
-- [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
-
+- Chapter 13 of Introduction to Algorithms (3rd ed.) by CLRS
+- http://www.math.clemson.edu/~warner/M865/HeapDelete.html
 """
 
 from ands.ds.BinaryHeap import BinaryHeap

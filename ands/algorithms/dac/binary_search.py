@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 23/08/2015
 
-Updated: 18/02/2017
+Updated: 18/08/2017
 
 # Description
 
@@ -52,9 +52,8 @@ If we decide to return an index, if the target element is not found, we can retu
 
 # Resources
 
-- [http://en.wikipedia.org/wiki/Binary_search_algorithm](http://en.wikipedia.org/wiki/Binary_search_algorithm)
-- [http://interactivepython.org/runestone/static/pythonds/SortSearch/TheBinarySearch.html](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheBinarySearch.html)
-
+- http://en.wikipedia.org/wiki/Binary_search_algorithm
+- http://interactivepython.org/runestone/static/pythonds/SortSearch/TheBinarySearch.html
 """
 
 from ands.algorithms.recursion.is_sorted import pythonic_is_sorted, iterative_is_sorted

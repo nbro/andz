@@ -21,7 +21,6 @@ Simple primality tests.
 - Document better the functions
 - Add complexity analysis
 - Organize better the code
-
 """
 
 

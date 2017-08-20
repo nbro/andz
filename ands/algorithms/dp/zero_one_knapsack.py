@@ -23,7 +23,6 @@ Fill knapsack so as to maximize total value.
 # References
 
 - Slides by prof. Evanthia Papadopoulou
-
 """
 
 from pprint import pprint

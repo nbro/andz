@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 09/09/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -224,11 +224,9 @@ At the end i == 3 and j == 2.
 
 # References
 
-- [http://www.studytonight.com/data-structures/merge-sort](http://www.studytonight.com/data-structures/merge-sort
-- [The Merge Sort](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheMergeSort.html),
-section of online book on searching and sorting by http://interactivepython.org
-- [Wiki article about Merge Sort](http://en.wikipedia.org/wiki/Merge_sort)
-
+- http://www.studytonight.com/data-structures/merge-sort
+- http://interactivepython.org/runestone/static/pythonds/SortSearch/TheMergeSort.html
+- http://en.wikipedia.org/wiki/Merge_sort
 """
 
 __all__ = ["merge_sort", "merge", "merge_recursively"]

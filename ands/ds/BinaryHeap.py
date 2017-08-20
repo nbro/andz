@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 12/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -16,17 +16,15 @@ Contains the abstract class BinaryHeap.
 
 # References
 
-- [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
 - Slides by prof. A. Carzaniga
-- Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
-- [NotImplementedError](https://docs.python.org/3/library/exceptions.html#NotImplementedError)
-- [How do I check if an object is an instance of a given class or of a subclass of it?](http://effbot.org/pyfaq/how-do-i-check-if-an-object-is-an-instance-of-a-given-class-or-of-a-subclass-of-it.htm)
-- [https://en.wikipedia.org/wiki/Heap_(data_structure)](https://en.wikipedia.org/wiki/Heap_(data_structure))
-- [https://arxiv.org/pdf/1012.0956.pdf](https://arxiv.org/pdf/1012.0956.pdf)
-- [http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118]
-(http://stackoverflow.com/a/29197855/3924118](http://stackoverflow.com/a/29197855/3924118)
-- [http://pymotw.com/2/heapq/](http://pymotw.com/2/heapq/)
-
+- Chapter 13 of Introduction to Algorithms (3rd ed.)
+- http://www.math.clemson.edu/~warner/M865/HeapDelete.html
+- https://docs.python.org/3/library/exceptions.html#NotImplementedError
+- http://effbot.org/pyfaq/how-do-i-check-if-an-object-is-an-instance-of-a-given-class-or-of-a-subclass-of-it.htm
+- https://en.wikipedia.org/wiki/Heap_(data_structure)
+- https://arxiv.org/pdf/1012.0956.pdf
+- http://pymotw.com/2/heapq/
+- http://stackoverflow.com/a/29197855/3924118
 """
 
 import io

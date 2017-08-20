@@ -9,7 +9,7 @@ Author: Nelson Brochado
 
 Created: 13/02/2017
 
-Updated: 14/02/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -21,8 +21,7 @@ and they should all implement at least two methods: put and get.
 
 # References
 
-- [http://stackoverflow.com/questions/13646245/is-it-possible-to-make-abstract-classes-in-python](http://stackoverflow.com/questions/13646245/is-it-possible-to-make-abstract-classes-in-python)
-
+- http://stackoverflow.com/questions/13646245/is-it-possible-to-make-abstract-classes-in-python
 """
 
 from abc import ABCMeta, abstractmethod

@@ -18,7 +18,6 @@ of a certain object `o` in a list `ls`.
 You should not use recursion in general for doing this task:
 for example, in Python the stack limit is quite small: 1000
 This is just an example of recursive algorithm!
-
 """
 
 __all__ = ["count"]

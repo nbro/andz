@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 31/08/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -23,10 +23,8 @@ Calculate the edit distance between two strings.
 
 # References
 
-- [https://github.com/dossan/interview/blob/master/src/com/interview/dynamic/EditDistance.java]
-(https://github.com/dossan/interview/blob/master/src/com/interview/dynamic/EditDistance.java)
-- [https://www.youtube.com/watch?v=We3YDTzNXEk](https://www.youtube.com/watch?v=We3YDTzNXEk)
-
+- https://github.com/dossan/interview/blob/master/src/com/interview/dynamic/EditDistance.java
+- https://www.youtube.com/watch?v=We3YDTzNXEk
 """
 
 

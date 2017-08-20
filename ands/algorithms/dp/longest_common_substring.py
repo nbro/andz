@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 02/09/2015
 
-Updated: 11/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -23,9 +23,7 @@ The longest common substring problem is to find the longest string that is a sub
 
 # References
 
-- [https://en.wikipedia.org/wiki/Longest_common_substring_problem]
-(https://en.wikipedia.org/wiki/Longest_common_substring_problem)
-
+- https://en.wikipedia.org/wiki/Longest_common_substring_problem
 """
 
 

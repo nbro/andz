@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 27/02/2016
 
-Updated: 18/01/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -38,12 +38,9 @@ and therefore the algorithm always shows the steps to go from 'A' to 'C'.
 
 # References
 
-- [https://en.wikipedia.org/wiki/Tower_of_Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi)
-
-- [http://www.cut-the-knot.org/recurrence/hanoi.shtml](http://www.cut-the-knot.org/recurrence/hanoi.shtml)
-
-- [http://stackoverflow.com/questions/105838/real-world-examples-of-recursion]
-(http://stackoverflow.com/questions/105838/real-world-examples-of-recursion)
+- https://en.wikipedia.org/wiki/Tower_of_Hanoi
+- http://www.cut-the-knot.org/recurrence/hanoi.shtml
+- http://stackoverflow.com/questions/105838/real-world-examples-of-recursion
 """
 
 __all__ = ["hanoi"]

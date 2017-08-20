@@ -34,7 +34,6 @@ the one with the earliest finish time, and then we can do the same for the remai
 - Create tests for these functions
 - Add complexity analysis
 - Organize better the code and check for bugs
-
 """
 
 import operator

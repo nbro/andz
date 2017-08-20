@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 09/09/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -30,19 +30,11 @@ Heap-sort is an in-place algorithm, but it is not a stable sort.
 
 # References
 
-- [https://en.wikipedia.org/wiki/Binary_heap](https://en.wikipedia.org/wiki/Binary_heap)
-- [https://en.wikipedia.org/wiki/Heapsort](https://en.wikipedia.org/wiki/Heapsort)
-- [MIT's video lecture on Heaps and Heapsort](http://video.mit.edu/watch/introduction-to-algorithms-lecture-4-heaps-and-heap-sort-14154/)
-- [http://www.studytonight.com/data-structures/heap-sort](http://www.studytonight.com/data-structures/heap-sort)
-- [https://en.wikipedia.org/wiki/Sorting_algorithm#Stability](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability),
-stability in a sorting algorithm
-
-# Resources
-
-- [http://www.stats.ox.ac.uk/__data/assets/pdf_file/0015/4173/heapbuildjalg.pdf]
-(http://www.stats.ox.ac.uk/__data/assets/pdf_file/0015/4173/heapbuildjalg.pdf)
-- [http://stackoverflow.com/questions/22233532/why-does-heap-sort-have-a-space-complexity-of-o1]
-(http://stackoverflow.com/questions/22233532/why-does-heap-sort-have-a-space-complexity-of-o1)
+- https://en.wikipedia.org/wiki/Binary_heap
+- https://en.wikipedia.org/wiki/Heapsort
+- http://video.mit.edu/watch/introduction-to-algorithms-lecture-4-heaps-and-heap-sort-14154/
+- http://www.studytonight.com/data-structures/heap-sort
+- https://en.wikipedia.org/wiki/Sorting_algorithm#Stability
 """
 
 __all__ = ["heap_sort", "build_max_heap", "max_heapify"]

@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 18/02/2016
 
-Updated: 12/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -32,16 +32,9 @@ whereas odd levels are 1, 3, 5, 7, etc.
 
 # References
 
-- [Min-Max Heaps and Generalized Priority Queues]
-(http://www.akira.ruc.dk/~keld/teaching/algoritmedesign_f03/Artikler/02/Atkinson86.pdf),
-original paper describing and introducing the min-max heap data structure,
-by M. D. Atkinson, J.R. Sack, N. Santoro and T. Strothotte.
-
-- [http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html]
-(http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html)
-
-- [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html
-(http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+- http://www.akira.ruc.dk/~keld/teaching/algoritmedesign_f03/Artikler/02/Atkinson86.pdf
+- http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html
+- http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html
 """
 
 import math

@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 05/07/2015
 
-Updated: 04/02/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -35,14 +35,10 @@ or "is empty" (i.e. checking if the stack contains elements or not) may also use
 
 # References
 
-- [http://interactivepython.org/runestone/static/pythonds/Introduction/WhyStudyDataStructuresandAbstractDataTypes.html](http://interactivepython.org/runestone/static/pythonds/Introduction/WhyStudyDataStructuresandAbstractDataTypes.html)
-- [http://stackoverflow.com/questions/195625/what-is-the-time-complexity-of-popping-elements-from-list-in-python](http://stackoverflow.com/questions/195625/what-is-the-time-complexity-of-popping-elements-from-list-in-python),
-for the time complexity analysis of the pop operation of the last element on lists.
-- [http://stackoverflow.com/questions/1115313/cost-of-len-function](http://stackoverflow.com/questions/1115313/cost-of-len-function),
-for the time complexity analysis of the size operation.
-- [http://stackoverflow.com/questions/12342457/what-is-the-big-o-notation-for-the-len-function-in-python](http://stackoverflow.com/questions/12342457/what-is-the-big-o-notation-for-the-len-function-in-python),
-for other time complexity analysis of the list class.
-
+- http://interactivepython.org/runestone/static/pythonds/Introduction/WhyStudyDataStructuresandAbstractDataTypes.html
+- http://stackoverflow.com/questions/195625/what-is-the-time-complexity-of-popping-elements-from-list-in-python
+- http://stackoverflow.com/questions/1115313/cost-of-len-function
+- http://stackoverflow.com/questions/12342457/what-is-the-big-o-notation-for-the-len-function-in-python
 """
 
 from collections import Iterable

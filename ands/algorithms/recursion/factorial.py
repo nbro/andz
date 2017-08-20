@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 17/07/2015
 
-Updated: 20/02/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -23,9 +23,7 @@ The factorial of a number n is defined recursively as follows:
 
 # Resources
 
-- [http://www.math.uah.edu/stat/foundations/Structures.html#com2]
-(http://www.math.uah.edu/stat/foundations/Structures.html#com2)
-
+- http://www.math.uah.edu/stat/foundations/Structures.html#com2
 """
 
 __all__ = ["factorial", "iterative_factorial", "smallest_geq", "multiple_factorial"]

@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 09/09/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -20,11 +20,9 @@ and continues in this way until the entire list is sorted.
 
 # References
 
-- [http://www.studytonight.com/data-structures/selection-sorting](http://www.studytonight.com/data-structures/selection-sorting)
-- [Wiki article about Selection Sort](http://en.wikipedia.org/wiki/Selection_sort),
-- [The Selection Sort](http://interactivepython.org/runestone/static/pythonds/SortSearch/TheSelectionSort.html),
-article at http://interactivepython.org
-
+- http://www.studytonight.com/data-structures/selection-sorting
+- http://en.wikipedia.org/wiki/Selection_sort
+- http://interactivepython.org/runestone/static/pythonds/SortSearch/TheSelectionSort.html
 """
 
 __all__ = ["selection_sort"]

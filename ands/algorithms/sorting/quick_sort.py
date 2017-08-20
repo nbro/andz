@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 09/08/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -41,12 +41,9 @@ Updated: 10/03/2017
 
 # References
 
-- [http://en.wikipedia.org/wiki/Quicksort](http://en.wikipedia.org/wiki/Quicksort)
-- [http://interactivepython.org/runestone/static/pythonds/SortSearch/TheQuickSort.html]
-(http://interactivepython.org/runestone/static/pythonds/SortSearch/TheQuickSort.html),
-section of online book on searching and sorting by http://interactivepython.org
-- [http://algs4.cs.princeton.edu/23quicksort/](http://algs4.cs.princeton.edu/23quicksort/)
-
+- http://en.wikipedia.org/wiki/Quicksort
+- http://interactivepython.org/runestone/static/pythonds/SortSearch/TheQuickSort.html
+- http://algs4.cs.princeton.edu/23quicksort/
 """
 
 __all__ = ["quick_sort", "partition"]

@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 02/09/2015
 
-Updated: 11/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -39,8 +39,7 @@ instead of just computing its length, like all other implementations do.
 
 # Resources
 
-- [https://en.wikipedia.org/wiki/Longest_common_subsequence_problem](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
-
+- https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
 """
 
 

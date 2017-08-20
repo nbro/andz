@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 05/09/2015
 
-Updated: 11/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -45,25 +45,18 @@ TSTs are:
 - faster than hashing (especially for search misses)
 - more flexible than red-black trees
 
+# TODO
+
+- Improve is_tst function
+
 # References
 
-- [Ternary Search Trees](https://www.cs.upc.edu/~ps/downloads/tst/tst.html) by By Jon Bentley and Bob Sedgewick
-- [Fast Algorithms for Sorting and Searching Strings](https://www.cs.princeton.edu/~rs/strings/), by Jon Bentley and Robert Sedgewick
-- [TST.java](http://algs4.cs.princeton.edu/52trie/TST.java.html), Java implementation by Robert Sedgewick and Kevin Wayne
-- [Ternary Search Tries](https://www.youtube.com/watch?v=CIGyewO7868), video lecture by Robert Sedgewick
-- [Ternary search tree](https://en.wikipedia.org/wiki/Ternary_search_tree) at Wikipedia
-- [How to list in an alphabetical order the words of a ternary search tree?](http://stackoverflow.com/a/27178771/3924118)
-
-# Resources
-
-- [Ternary search tree introduction](https://www.youtube.com/watch?v=xv4oRyqSKiw),
-by [Balazs Holczer](https://www.udemy.com/user/holczerbalazs/)
-- [TernarySearchTree.hh](http://www.keithschwarz.com/interesting/code/?dir=ternary-search-tree),
-C++ implementation of a TST by Keith Schwarz, which provides a good analysis of the complexity of the operations of a TST.
-- [Remove method for Ternary Search Tree](http://p2p.wrox.com/book-beginning-algorithms/60350-remove-method-ternary-search-tree.html),
-at [http://p2p.wrox.com/book-beginning-algorithms](http://p2p.wrox.com/book-beginning-algorithms)
-- [Plant your data in a ternary search tree](http://www.javaworld.com/article/2075027/java-app-dev/plant-your-data-in-a-ternary-search-tree.html?page=1)
-
+- https://www.cs.upc.edu/~ps/downloads/tst/tst.html
+- https://www.cs.princeton.edu/~rs/strings/
+- http://algs4.cs.princeton.edu/52trie/TST.java.html
+- https://www.youtube.com/watch?v=CIGyewO7868
+- https://en.wikipedia.org/wiki/Ternary_search_tree
+- http://stackoverflow.com/a/27178771/3924118
 """
 
 __all__ = ["TST"]
@@ -201,7 +194,8 @@ class TST:
         which also represents how many times we follow the middle link,
         and h is the number of left and right turns.
         So a lower bound of the complexity would be Ω(m);."""
-        self.__invariants()
+        assert is_tst(self)
+
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
@@ -209,7 +203,8 @@ class TST:
         if value is None:
             raise ValueError("value cannot be None.")
         self._root = self._insert(self._root, key, value, 0)
-        self.__invariants()
+
+        assert is_tst(self)
 
     def _insert(self, node: TSTNode, key: str, value: object, index: int) -> TSTNode:
         """Inserts `key` with `value` into self starting from `node`."""
@@ -361,7 +356,7 @@ class TST:
         k is the number of "no more necessary" cleaned up
         after deletion of the node associated with `key`.
         Unnecessary nodes are nodes with no children and value equal to None."""
-        self.__invariants()
+        assert is_tst(self)
 
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
@@ -381,7 +376,8 @@ class TST:
         else:
             result = None
 
-        self.__invariants()
+        assert is_tst(self)
+
         return result
 
     def _delete_fix(self, u: TSTNode) -> None:
@@ -574,14 +570,18 @@ class TST:
         if c == "." or c > node.key:
             self._keys_that_match(node.right, prefix_list, i, pattern, keys)
 
-    def __invariants(self) -> None:
-        """These propositions should always be true at the BEGINNING
-        and END of every PUBLIC method of this TST.
 
-        Call this method if you want to ensure the invariants are holding."""
-        assert self._n >= 0
-        if self._n == 0:
-            assert self._root is None
-        elif self._n > 0:
-            assert isinstance(self._root, TSTNode)
-            assert self._root.parent is None
+def is_tst(t: TST) -> bool:
+    """These propositions should always be true at the BEGINNING
+    and END of every PUBLIC method of this TST.
+
+    Call this method if you want to ensure the invariants are holding."""
+    if not isinstance(t, TST):
+        return False
+    if t._n < 0:
+        return False
+    if t._n == 0:
+        return t._root is None
+    if not isinstance(t._root, TSTNode) or t._root.parent is not None:
+        return False
+    return True

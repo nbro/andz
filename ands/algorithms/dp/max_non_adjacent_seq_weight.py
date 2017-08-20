@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 04/09/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -33,8 +33,7 @@ See exercise 140 (of the Carzaniga's exercises).
 
 # References
 
-- [http://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/]
-(http://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/)
+- http://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/
 """
 
 

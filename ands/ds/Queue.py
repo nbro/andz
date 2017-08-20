@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 02/07/2015
 
-Updated: 04/02/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -17,8 +17,7 @@ It's implemented using a deque, because a deque supports better the _dequeue_ op
 
 # References
 
-- [https://docs.python.org/3.1/tutorial/datastructures.html#using-lists-as-queues](https://docs.python.org/3.1/tutorial/datastructures.html#using-lists-as-queues)
-
+- https://docs.python.org/3.1/tutorial/datastructures.html#using-lists-as-queues
 """
 
 from collections import deque, Iterable

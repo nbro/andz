@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 04/08/2015
 
-Updated: 03/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -98,10 +98,9 @@ Caesar cipher is **not** a good cryptographic algorithm, so you should never use
 
 # References
 
-- [https://learncryptography.com/classical-encryption/caesar-cipher](https://learncryptography.com/classical-encryption/caesar-cipher)
-- [https://en.wikipedia.org/wiki/Ciphertext](https://en.wikipedia.org/wiki/Ciphertext)
-- [https://en.wikipedia.org/wiki/Plaintext](https://en.wikipedia.org/wiki/Plaintext)
-
+- https://learncryptography.com/classical-encryption/caesar-cipher
+- https://en.wikipedia.org/wiki/Ciphertext
+- https://en.wikipedia.org/wiki/Plaintext
 """
 
 from random import choice

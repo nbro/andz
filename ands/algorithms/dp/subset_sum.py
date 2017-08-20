@@ -18,7 +18,6 @@ Updated: 10/03/2017
 - Add description
 - Add complexity analysis
 - Add documentation to functions
-
 """
 
 from pprint import pprint

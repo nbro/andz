@@ -15,7 +15,6 @@ Updated: 11/03/2017
 `is_sorted` check if a list or tuple contains elements in sorted order by using recursion.
 This algorithm can potentially be modified to work with other collections.
 The other versions are here just for comparison.
-
 """
 
 import operator

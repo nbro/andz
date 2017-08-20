@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 04/09/2015
 
-Updated: 10/03/2017
+Updated: 20/08/2017
 
 # Description
 
@@ -24,9 +24,8 @@ the contiguous sub-array with the largest sum is 4, −1, 2, 1, with sum 6.
 
 # References
 
-- [https://en.wikipedia.org/wiki/Maximum_subarray_problem](https://en.wikipedia.org/wiki/Maximum_subarray_problem)
-- [https://tkramesh.wordpress.com/2011/03/09/dynamic-programming-maximum-sum-contiguous-subsequence/]
-(https://tkramesh.wordpress.com/2011/03/09/dynamic-programming-maximum-sum-contiguous-subsequence/)
+- https://en.wikipedia.org/wiki/Maximum_subarray_problem
+- https://tkramesh.wordpress.com/2011/03/09/dynamic-programming-maximum-sum-contiguous-subsequence/
 """
 
 

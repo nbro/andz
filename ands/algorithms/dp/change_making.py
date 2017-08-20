@@ -41,10 +41,8 @@ but this contradicts that fact that S is the optimal solution.
 
 # References
 
-- [https://en.wikipedia.org/wiki/Change-making_problem]
-(https://en.wikipedia.org/wiki/Change-making_problem)
-- [http://algorithms.tutorialhorizon.com/dynamic-programming-coin-change-problem/]
-(http://algorithms.tutorialhorizon.com/dynamic-programming-coin-change-problem/)
+- https://en.wikipedia.org/wiki/Change-making_problem
+- http://algorithms.tutorialhorizon.com/dynamic-programming-coin-change-problem/
 """
 
 
