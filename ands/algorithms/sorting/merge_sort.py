@@ -90,7 +90,7 @@ Let's start by merging L111 and L112 into a new list M:
     | 5 | 6 |
     +-------+
 
-Note that this new list N1 is the same as L11, because L11 was already sorted!
+Note that this new list M is the same as L11, because L11 was already sorted!
 
 We then merge M and L12 to obtain M1 as follows:
 
