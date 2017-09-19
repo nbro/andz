@@ -2,22 +2,21 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 03/09/2015
 
-Updated: 10/03/2017
+Updated: 19/09/2017
 
 # Description
 
 # TODO
 
-- Add tests for these functions
-- Add description
-- Add complexity analysis
-- Add documentation to functions
+- Add description.
+- Add complexity analysis.
+- Add documentation to functions.
 """
 
 from pprint import pprint
@@ -30,10 +29,11 @@ def m_print(m):
 
 def _check_negativeness(subset):
     """Returns the largest negative number in the subset.
+
     If no negative number exists, it returns 0."""
     s = 0
     for n in subset:
-        if n < s:  # Initially s is 0
+        if n < s:  # Initially s is 0.
             s = n
     return s
 
@@ -55,12 +55,12 @@ def _recursive_subset_sum_aux(subset, current_sum, index, n, solution):
     elif index == len(subset):
         return
     else:
-        # Include the current ith element
+        # Include the current ith element.
         solution[index] = 1
         current_sum += subset[index]
         _recursive_subset_sum_aux(subset, current_sum, index + 1, n, solution)
 
-        # do not to include the ith element
+        # Do not to include the ith element.
         solution[index] = 0
         current_sum -= subset[index]
         _recursive_subset_sum_aux(subset, current_sum, index + 1, n, solution)
@@ -88,12 +88,11 @@ def _get_subset_sum_matrix(subset, s):
 
 
 def bottom_up_subset_sum(subset: list, s: int, return_matrix: bool = False):
-    """Returns 1 if there's a subset
-    whose sum of the numbers is equal to s,
-    if return_matrix == True,
-    else it returns the matrix used during the computation.
+    """Returns 1 if there's a subset whose sum of the numbers is equal to s, if
+    return_matrix == True, else it returns the matrix used during the
+    computation.
 
-    NOTE: the subset can only contain positive integers!"""
+    Note: the subset can only contain positive integers."""
 
     m = _get_subset_sum_matrix(subset, s)
 

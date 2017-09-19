@@ -2,33 +2,31 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 15/08/2015
 
-Updated: 07/03/2017
+Updated: 18/09/2017
 
 # Description
 
-Finds a peak in a list `A` of comparable objects.
-
-A peak A[i] satisfies the following condition:
+Finds a peak in a list`A of comparable objects. A peak A[i] satisfies the
+following condition:
 
     A[i - 1] <= A[i] >= A[i + 1]
 
-for i=1...len(A) - 2.
+for i=1...len(A) - 2. In other words, A[i] is a peak if it is not smaller than
+its neighbors.
 
-In other words, A[i] is a peak if it is not smaller than its neighbors.
-
-The two algorithms to find the peak below can return different correct answers, because they operate differently.
-`find_peak_linearly` proceeds linearly through the input list `ls`,
-whereas `find_peak` uses a divide and conquer strategy.
+The two algorithms to find the peak below can return different correct answers,
+because they operate differently. find_peak_linearly proceeds linearly through
+the input list ls, whereas find_peak uses a divide and conquer strategy.
 
 # TODO
 
-- Complexity analysis of `find_peak`.
+- Complexity analysis of find_peak.
 
 # References
 
@@ -37,7 +35,7 @@ whereas `find_peak` uses a divide and conquer strategy.
 
 
 def find_peak_linearly(ls: list) -> int:
-    """Finds the index of the first peak in `ls`.
+    """Finds the index of the first peak in ls.
 
     If there's no peak or the list is empty, -1 is returned.
 
@@ -49,9 +47,7 @@ def find_peak_linearly(ls: list) -> int:
 
 
 def _find_peak(ls: list, i: int, j: int) -> int:
-    """Auxiliary in-place algorithm to `find_peak`.
-
-    This method was **not** intended to be used by clients."""
+    """Auxiliary in-place algorithm to find_peak."""
     m = (i + j) // 2
 
     if 0 < m < len(ls) - 1:
@@ -69,7 +65,7 @@ def _find_peak(ls: list, i: int, j: int) -> int:
 
 
 def find_peak(ls: list) -> int:
-    """Returns the index of a peak in the list `ls` using the divide-and-conquer strategy.
+    """Returns the index of a peak in ls, using the divide-and-conquer strategy.
 
     If there's no peak or the list is empty, -1 is returned."""
     return _find_peak(ls, 0, len(ls) - 1)

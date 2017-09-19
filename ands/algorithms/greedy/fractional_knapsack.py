@@ -2,24 +2,22 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 09/07/2015
 
-Updated: 10/03/2017
+Updated: 19/09/2017
 
 # Description
 
-The time complexity of the fractional knapsack is O(n*log(n)),
-because of the call to sort the items by value/weight ratio.
+The time complexity of the fractional knapsack is O(n * log(n)), because of the
+call to sort the items by value/weight ratio.
 
 # TODO
 
-- Create tests for these functions
-- Add complexity analysis
-- Organize better the code and check for bugs
+- Add complexity analysis.
 """
 
 import operator
@@ -52,14 +50,16 @@ def ask_objects():
             print("-" * 40, end="\n\n")
 
     for obj in objects:
-        # adding as forth property of each object its path_cost/weight ratio
+        # Adding as forth property of each object its path_cost/weight ratio.
         obj.append(obj[1] / obj[2])
 
     objects.sort(key=operator.itemgetter(3), reverse=True)
 
     print("\n\nThe following are the items that you have:\n")
-    print(tabulate(objects, tablefmt="grid", headers=("Name", "Value", "Weight", "Value/Weight Ratio")))
-    capacity = int(input("\nEnter the maximum weight you can bring (in grams): "))
+    print(tabulate(objects, tablefmt="grid",
+                   headers=("Name", "Value", "Weight", "Value/Weight Ratio")))
+    capacity = int(
+        input("\nEnter the maximum weight you can bring (in grams): "))
 
     return objects, capacity
 
@@ -92,7 +92,8 @@ def output_fractional_knapsack(knapsack_objects, objects):
             if i < len(knapsack_objects) - 1:
                 s += ", "
         else:
-            s += " and " + str(item[1]) + " gram(s) of " + objects[item[0]][0] + "."
+            s += " and " + str(item[1]) + " gram(s) of " + objects[item[0]][
+                0] + "."
 
     print("\n\n" + s)
 

@@ -2,25 +2,26 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 22/02/2016
 
-Updated: 20/08/2017
+Updated: 19/09/2017
 
 # Description
 
 The Ackermann function is the simplest example of a well defined total function.
-Total function means that it's defined for all possible inputs.
-The function is computable, but **not** primitive recursive.
-A primitive recursive function is a function that can be implemented using only "for" loops,
-i.e. loops that have a fixed number of iterations.
-A computable function is a function that can be implemented using "while" loops.
-Note that "do" loops are a particular case of while loops.
+Total function means that it's defined for all possible inputs. The function is
+computable, but not primitive recursive. A primitive recursive function is a
+function that can be implemented using only "for" loops, i.e. loops that have a
+fixed number of iterations. A computable function is a function that can be
+implemented using "while" loops. Note: "do" loops are a particular case of while
+loops.
 
-It grows faster than an exponential function, or even a multiple exponential function.
+It grows faster than an exponential function, or even a multiple exponential
+function.
 
 # References
 

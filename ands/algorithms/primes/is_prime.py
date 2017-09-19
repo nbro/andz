@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 28/06/2015
 
-Updated: 10/03/2017
+Updated: 19/09/2017
 
 # Description
 
@@ -16,20 +16,17 @@ Simple primality tests.
 
 # TODO
 
-- Create tests
-- Name better the functions
-- Document better the functions
-- Add complexity analysis
-- Organize better the code
+- Add complexity analysis.
+- Add AKS primality test.
 """
 
 
 def is_prime(n: int) -> bool:
-    """Return true if `n` is prime, false otherwise."""
-    if n < 2:  # primes are greater than 1
+    """Return true if n is prime, false otherwise."""
+    if n < 2:  # Primes are greater than 1.
         return False
     if n % 2 == 0:
-        return n == 2  # returns True if n == 2 because 2 is a prime
+        return n == 2  # Returns True if n == 2 because 2 is a prime.
     i = 3
     while i * i <= n:
         if n % i == 0:
@@ -38,32 +35,8 @@ def is_prime(n: int) -> bool:
     return True
 
 
-def _is_prime_r(n: int, i: int) -> bool:
-    if i * i <= n:
-        if n % i == 0:
-            return False
-        else:
-            return _is_prime_r(n, i + 2)
-    return True
-
-
-def is_prime_r(n: int) -> bool:
-    """Return true if `n` is prime, false otherwise.
-
-    This function uses recursion.
-    In general, you should prefer an iterative approach,
-    because the stack has a limit, and if exceeded an exception is thrown."""
-    if n <= 1:  # primes are greater than 1
-        return False
-    if n % 2 == 0:
-        return n == 2
-    return _is_prime_r(n, 3)
-
-
-def is_prime_2(n: int) -> bool:
-    """Return true if `n` is prime, false otherwise.
-
-    This algorithm seems to perform better than `is_prime`.
+def is_prime_up_to_square_root(n: int) -> bool:
+    """Return true if n is prime, false otherwise.
 
     Time complexity: O(sqrt(n) * O(n % i))."""
     if n == 2 or n == 3:
@@ -74,3 +47,24 @@ def is_prime_2(n: int) -> bool:
         if n % i == 0:
             return False
     return True
+
+
+def _recursively_is_prime_aux(n: int, i: int) -> bool:
+    if i * i <= n:
+        if n % i == 0:
+            return False
+        else:
+            return _recursively_is_prime_aux(n, i + 2)
+    return True
+
+
+def recursively_is_prime(n: int) -> bool:
+    """Return true if n is prime, false otherwise.
+
+    In general, you should prefer an iterative approach, because the stack has a
+    limit and, if exceeded, an exception is thrown."""
+    if n <= 1:  # Primes are greater than 1.
+        return False
+    if n % 2 == 0:
+        return n == 2
+    return _recursively_is_prime_aux(n, 3)

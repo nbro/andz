@@ -2,21 +2,22 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 09/09/2015
 
-Updated: 20/08/2017
+Updated: 19/09/2017
 
 # Description
 
 Selection sorting is conceptually probably the most simplest sorting algorithm.
 
-This algorithm first finds the smallest element in the list and exchanges it with the element in the first position,
-then find the second smallest element and exchange it with the element in the second position,
-and continues in this way until the entire list is sorted.
+This algorithm first finds the smallest element in the list and exchanges it
+with the element in the first position, then find the second smallest element
+and exchange it with the element in the second position, and continues in this
+way until the entire list is sorted.
 
 # References
 
@@ -33,11 +34,11 @@ def selection_sort(ls: list) -> None:
 
     Time complexity
 
-    +--------+----------+----------+
-    |  Best  |  Average |  Worst   |
-    +--------+----------+----------+
-    | O(n^2) |  O(n^2)  |  O(n^2)  |
-    +--------+----------+----------+
+    +-------+----------+----------+
+    | Best  |  Average |  Worst   |
+    +-------+----------+----------+
+    | O(n²) |   O(n²)  |   O(n²)  |
+    +-------+----------+----------+
 
     Space complexity: O(n)."""
     for i in range(len(ls) - 1):

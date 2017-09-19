@@ -15,7 +15,7 @@ This project was created for _personal use_ mostly while studying for an _exam_ 
 
 I discourage every beginner from copying **shamelessly** the source code, but instead you should definitely give a chance to your brain and sense of challenge first! At the end, you will definitely feel a better and more serious programmer! If you really do not have any ideas on how to do something, try to read the comments next to each function and/or class (or even the code itself) that you are interested in. They are there for a reason!
 
-Any suggestions to improve the code, or the design of an algorithm or data structure, or corrections are of course welcome, and therefore I encourage you to _fork_ this repository and eventually send a [_pull request_](https://help.github.com/articles/about-pull-requests/). See below for more info.
+Any suggestions to improve the code, or the design of an algorithm or data structure, or corrections are of course welcome. Feel free to open an issue.
 
 ## Content
 

@@ -2,24 +2,24 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 02/09/2015
 
-Updated: 20/08/2017
+Updated: 19/09/2017
 
 # Description
 
-The longest common substring problem is to find the longest string that is a substring of two or more strings.
+The longest common substring problem is to find the longest string that is a
+substring of two or more strings.
 
 # TODO
 
-- Add tests for these functions
-- Add complexity analysis
-- Improve documentation under functions
-- Add ASCII art to explain the problem
+- Add complexity analysis.
+- Improve documentation under functions.
+- Add ASCII art to explain the problem.
 
 # References
 
@@ -43,10 +43,11 @@ def _build_longest_common_substring(x: str, c: tuple, m: list) -> tuple:
 
 
 def longest_common_substring(x: str, y: str) -> tuple:
-    """Returns a tuple whose first element is a list of characters representing the longest common substring,
-    and the second element of the tuple is another tuple (of size 2, i.e. a pair),
-    whose first element represents the index from string `x` from where the lcs starts,
-    and similarly the second element of that tuple represents the index from `y` from where the lcs starts."""
+    """Returns a tuple whose first element is a list of characters representing
+    the longest common substring, and the second element of the tuple is another
+    tuple (of size 2, i.e. a pair), whose first element represents the index
+    from string x from where the lcs starts, and similarly the second element of
+    that tuple represents the index from y from where the lcs starts."""
     m = _get_longest_common_substring_matrix(x, y)
     c = (0, 0)
 

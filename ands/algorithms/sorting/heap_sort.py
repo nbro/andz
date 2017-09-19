@@ -2,27 +2,29 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 09/09/2015
 
-Updated: 20/08/2017
+Updated: 19/09/2017
 
 # Description
 
-Heap-sort is one of the best sorting methods being in-place and with no quadratic worst-case scenarios.
-Heap-sort algorithm is divided into two basic parts:
+Heap-sort is one of the best sorting methods being in-place and with no
+quadratic worst-case scenarios. Heap-sort algorithm is divided into two basic
+parts:
 
-1. Creating a heap from a (possibly) unsorted list, then
+    1. Creating a heap from a (possibly) unsorted list, then
 
-2. a sorted list is created by repeatedly removing the largest/smallest element from the heap,
-and inserting it into the list. The heap is reconstructed after each removal.
+    2. a sorted list is created by repeatedly removing the largest/smallest
+    element from the heap, and inserting it into the list.
+    The heap is reconstructed after each removal.
 
-Heap-sort is somehow slower in practice on most machines than a well-implemented quick-sort,
-but it has the advantage of a more favorable worst-case O(n log n) runtime.
-Heap-sort is an in-place algorithm, but it is not a stable sort.
+Heap-sort is somehow slower in practice on most machines than a well-implemented
+quick-sort, but it has the advantage of a more favorable worst-case O(n * log n)
+runtime. Heap-sort is an in-place algorithm, but it is not a stable sort.
 
 # TODO
 
@@ -41,7 +43,8 @@ __all__ = ["heap_sort", "build_max_heap", "max_heapify"]
 
 
 def max_heapify(ls: list, heap_size: int, i: int) -> None:
-    """This operation is also sometimes called `push_down`, `shift_down` or `bubble_down`.
+    """This operation is also sometimes called "push down", "shift_down" or
+    "bubble_down".
 
     Time complexity: O(log(n))."""
     m = i
@@ -57,20 +60,21 @@ def max_heapify(ls: list, heap_size: int, i: int) -> None:
 
 
 def build_max_heap(ls: list) -> None:
-    """The `build_max_heap` converts a list `ls`,
-    which can be thought as a binary tree (not a binary-search tree!) with n = len(ls) nodes,
-    to a list representing a max-heap by repeatedly using `max_heapify` in a bottom up manner.
+    """Converts a list ls, which can be thought as a binary tree (not a
+    binary-search tree!) with n = len(ls) nodes, to a list representing a
+    max-heap by repeatedly using max_heapify in a bottom up manner.
 
-    It is based on the observation that the list of elements indexed by floor(n/2) + 1, floor(n/2) + 2, ..., n
-    are all leaves for the tree (assuming that indices start at 1), thus each is a 1-element heap.
+    It is based on the observation that the list of elements indexed by
+    floor(n/2) + 1, floor(n/2) + 2, ..., n are all leaves for the tree
+    (assuming that indices start at 1), thus each is a 1-element heap.
 
-    `build_max_heap` runs `max_heapify` on each of the remaining tree nodes.
+    It runs max_heapify on each of the remaining tree nodes.
 
     For more info see: https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap
 
-    This algorithm initially proposed by Robert W. Floyd
-    as an improvement to the sub-optimal algorithm to build heaps
-    proposed by the inventor of max-heap and of the heap data structure, that is J. Williams.
+    This algorithm initially proposed by Robert W. Floyd as an improvement to
+    the sub-optimal algorithm to build heaps proposed by the inventor of
+    max-heap and of the heap data structure, that is J. Williams.
 
     Time complexity: O(n)."""
     for i in range(len(ls) // 2, -1, -1):

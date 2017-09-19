@@ -2,42 +2,48 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 09/08/2015
 
-Updated: 20/08/2017
+Updated: 19/09/2017
 
 # Description
 
 ## Parts of the quick-sort algorithm
 
-1. **Partition**
+1. Partition
 
-    All elements smaller than a number  usually called "pivot" are put to the left of the pivot.
+    All elements smaller than a number  usually called "pivot" are put to the
+    left of the pivot.
 
-    In this partition algorithm, the pivot is chosen to be the last element of the range [`start`, `end`],
-    but it could also have been chosen, e.g., to be the middle element.
+    In this partition algorithm, the pivot is chosen to be the last element of
+    the range [start, end], but it could also have been chosen, e.g., to be the
+    middle element.
 
-    We keep searching for elements less than the pivot,
-    from the left to the right of the range [`start`, `end`[,
-    and we insert them at the position tracked by the variable `p`.
+    We keep searching for elements less than the pivot, from the left to the
+    right of the range [start, end[, and we insert them at the position tracked
+    by the variable p.
 
-    So, `p` keeps track of the position (or index) in the range [`start`, `end`[,
-    where all elements to the left of `p` are smaller than the pivot.
-    Before returning this position (`p`), the pivot is inserted in that position.
-    Note that doing this, the pivot will be already in its final sorted position.
+    So, p keeps track of the position (or index) in the range [start, end[,
+    where all elements to the left of p are smaller than the pivot.
 
-2. **Recursive Calls**
+    Before returning this position (p), the pivot is inserted in that position.
+    Note: by doing this, the pivot will be already in its final sorted position.
 
-    `quick_sort` is called recursively on the left of the pivot and on the right until `start >= end`.
+2. Recursive Calls
+
+    quick_sort is called recursively on the left of the pivot and on the right
+    until start >= end.
 
 # TODO
 
 - Add ASCII animation of a sorting example using quick-sort!
 - Improve efficiency of best case time complexity and space complexity.
+- Implement 3-way partition to improve best case of time complexity of
+quick-sort.
 
 # References
 
@@ -50,12 +56,12 @@ __all__ = ["quick_sort", "partition"]
 
 
 def partition(ls: list, start: int, end: int) -> int:
-    """Shifts all elements in `ls` that are less than the pivot
-    to the left of the position `p`, which is at the end returned.
+    """Shifts all elements in ls that are less than the pivot to the left of the
+    position p, which is at the end returned.
 
-    Time complexity: O(k), where k is the size of `ls`."""
+    Time complexity: O(k), where k is the size of ls."""
     pivot = ls[end]  # Take last element as pivot.
-    p = start  # pivot's index
+    p = start  # Pivot's index.
 
     for i in range(start, end):
         if ls[i] <= pivot:
@@ -68,11 +74,8 @@ def partition(ls: list, start: int, end: int) -> int:
 
 
 def _quick_sort_aux(ls: list, start: int, end: int) -> None:
-    """Keeps calling partition to find the pivot index `p`,
-    and then calls itself recursively on the left and right sides of the pivot index.
-
-    This is an auxiliary method for `quick_sort` and thus is considered private,
-    and therefore should not be used by clients of this module."""
+    """Keeps calling partition to find the pivot index p, and then calls itself
+    recursively on the left and right sides of the pivot index."""
     if start < end:
         # Returns the pivot index after partition.
         p = partition(ls, start, end)
@@ -92,12 +95,13 @@ def quick_sort(ls: list) -> None:
     +-------------+-------------+----------+
     |    Best     |   Average   |   Worst  |
     +-------------+-------------+----------+
-    | O(n*log(n)) | O(n*log(n)) |  O(n^2)  |
+    | O(n*log(n)) | O(n*log(n)) |   O(n²)  |
     +-------------+-------------+----------+
 
-    Note: the best case can be improved to O(n) if a 3-way partition is used and we have equal keys.
+    Note: the best case can be improved to O(n) if a 3-way partition is used and
+    we have equal keys.
 
     Space complexity: O(n).
 
-    Note: the space complexity can be improved to O(log(n))."""
+    Note: the space complexity can be improved to O(log(n)). How???"""
     _quick_sort_aux(ls, 0, len(ls) - 1)
