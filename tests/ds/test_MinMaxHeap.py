@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 20/02/2016
 
-Updated: 14/02/2017
+Updated: 29/09/2017
 
 # Description
 
@@ -18,7 +18,7 @@ Unit tests for the MinMaxHeap class.
 import unittest
 from random import randint, choice, sample
 
-from ands.ds.MinMaxHeap import MinMaxHeap
+from ands.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap
 
 
 class TestMinMaxHeap(unittest.TestCase):
@@ -94,6 +94,7 @@ class TestMinMaxHeap(unittest.TestCase):
     def test_delete_when_elem_is_last(self):
         h = MinMaxHeap([3, 4])
         self.assertIsNone(h.delete(4))
+        self.assertTrue(is_min_max_heap(h))
         self.assertEqual(h.size, 1)
         self.assertFalse(h.is_empty())
 
@@ -104,6 +105,7 @@ class TestMinMaxHeap(unittest.TestCase):
 
         for _ in range(size):
             self.assertIsNone(h.delete(choice(a)))
+            self.assertTrue(is_min_max_heap(h))
 
         self.assertEqual(h.size, 0)
         self.assertTrue(h.is_empty())

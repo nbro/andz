@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 28/09/2017
+Updated: 29/09/2017
 
 # Description
 
@@ -73,19 +73,6 @@ class MinHeap(BinaryHeap):
                 self._push_down(0)
             assert is_min_heap(self)
             return m
-
-    def delete(self, x: object) -> None:
-        """Removes the first found x from this MinHeap.
-
-        If x is not in this MinHeap, LookupError is raised.
-
-        THIS FUNCTION OVERRIDES THE INHERITED ONE ONLY FOR THE PURPOSE OF
-        ASSERTING THAT BEFORE AND AFTER THIS OPERATION SELF IS STILL A MinHeap.
-
-        Time complexity: O(n)."""
-        assert is_min_heap(self)
-        super(MinHeap, self).delete(x)
-        assert is_min_heap(self)
 
     def _push_down(self, i: int) -> None:
         """Min-heapifies this MinHeap starting from index i.
