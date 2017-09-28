@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
-##############################################################################################
-# SCRIPT NAME: clean_environment.sh                                                          #
-#                                                                                            #
-# PURPOSE: function 'clean_environment' can be used to clean the developing environment      #
-#                                                                                            #
-# CALL FROM COMMAND LINE: . ./clean_environment.sh && clean_environment                      #
-##############################################################################################
+# Function 'clean_environment' can be used to clean the developing environment.
+# From the command line: . ./clean_environment.sh && clean_environment
 
 export ALREADY_SOURCED_CLEAN_ENVIRONMENT
 

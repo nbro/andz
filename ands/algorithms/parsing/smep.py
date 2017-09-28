@@ -2,38 +2,35 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 24/08/2015
 
-Updated: 10/03/2017
+Updated: 19/09/2017
 
 # Description
 
 An mathematical infix-to-postfix expression parser/converter.
+
 Includes also a calculator that receives a postfix expression.
 
 # TODO
 
-- Create tests for these functions
-- Add complexity analysis
-- Organize better the code and check for bugs
+- Add complexity analysis.
 - Maybe a class could be created?
 
 # References
 
-- [https://www.youtube.com/watch?v=vXPL6UavUeA](https://www.youtube.com/watch?v=vXPL6UavUeA)
-- [http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html]
-(http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html)
-
+- https://www.youtube.com/watch?v=vXPL6UavUeA
+- http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html
 """
 
 import operator
 import re
 
-# higher number => higher precedence
+# Higher number => higher precedence.
 OPERATORS = {
     "+": 1,
     "-": 1,
@@ -43,7 +40,7 @@ OPERATORS = {
     "^": 3
 }
 
-# Associates symbols with functions
+# Associates symbols with functions.
 OPS = {
     "+": operator.add,
     "-": operator.sub,
@@ -68,19 +65,20 @@ def list_to_string(ls: list) -> str:
 
 
 def infix_to_postfix(infix: list) -> list:
-    """Return a list representing the postfix representation of the list `infix`."""
+    """Return a list representing the postfix representation of the list
+    infix."""
     stack = []
     postfix = []
 
-    # Used for counting the number of opening and closing parenthesis,
-    # which should be the same
+    # Used for counting the number of opening and closing parenthesis, which
+    # should be the same.
     opening_paren = 0
     closing_paren = 0
 
     for i, c in enumerate(infix):
         if c in OPERATORS:
             if i > 0 and infix[i - 1] in OPERATORS:
-                raise SyntaxError("no two operators can be in a row")
+                raise SyntaxError("No two operators can be in a row.")
 
             if len(stack) > 0:
                 top = stack[-1]
@@ -89,7 +87,8 @@ def infix_to_postfix(infix: list) -> list:
                     if OPERATORS[c] > OPERATORS[top]:
                         stack.append(c)
                     else:
-                        while top in OPERATORS and OPERATORS[top] >= OPERATORS[c]:
+                        while (top in OPERATORS and
+                                       OPERATORS[top] >= OPERATORS[c]):
                             op = stack.pop()
                             postfix.append(op)
                             if len(stack) > 0:
@@ -114,23 +113,26 @@ def infix_to_postfix(infix: list) -> list:
                             postfix.append(r)
                             top = stack[-1]
                         except IndexError:
-                            raise SyntaxError("'(' not found when popping")
+                            raise SyntaxError("'(' not found when popping.")
 
                     stack.pop()  # Removes ( from the top of the stack
                 else:
-                    raise SyntaxError("')' cannot be added to the stack if it is empty")
+                    raise SyntaxError(
+                        "')' cannot be added to the stack if it is empty.")
                 closing_paren += 1
             else:
                 stack.append(c)  # c == '('
                 opening_paren += 1
         else:  # All the rest is considered an operand
-            if i > 0 and infix[i - 1] not in OPERATORS and infix[i - 1] not in PARENTHESIS:
-                raise SyntaxError("no two operands can be in a row")
+            if i > 0 and infix[i - 1] not in OPERATORS and infix[
+                        i - 1] not in PARENTHESIS:
+                raise SyntaxError("No two operands can be in a row.")
 
             postfix.append(c)
 
     if opening_paren != closing_paren:
-        raise SyntaxError("number of opening and closing parenthesis do not match")
+        raise SyntaxError(
+            "number of opening and closing parenthesis do not match.")
 
     while len(stack) > 0:
         top = stack.pop()

@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
-#################################################################################
-# SCRIPT NAME: travis.sh                                                        #
-#                                                                               #
-# PURPOSE: script called by Travis CI                                           #
-#################################################################################
+# Script called by Travis CI to report the code coverage.
 
 cd tests/
 coverage run -m unittest discover . -v

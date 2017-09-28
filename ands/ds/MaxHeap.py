@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 15/02/2016
 
-Updated: 12/03/2017
+Updated: 29/09/2017
 
 # Description
 
@@ -17,11 +17,10 @@ See doc-strings of the module MinHeap.py.
 
 # References
 
-- [https://en.wikipedia.org/wiki/Binary_heap](https://en.wikipedia.org/wiki/Binary_heap)
+- https://en.wikipedia.org/wiki/Binary_heap
 - Slides by prof. A. Carzaniga
-- Chapter 13 of [Introduction to Algorithms (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms) by CLRS
-- [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
-
+- Chapter 13 of Introduction to Algorithms (3rd ed.) by CLRS
+- http://www.math.clemson.edu/~warner/M865/HeapDelete.html
 """
 
 from ands.ds.BinaryHeap import BinaryHeap
@@ -58,21 +57,8 @@ class MaxHeap(BinaryHeap):
             assert is_max_heap(self)
             return m
 
-    def delete(self, x: object) -> None:
-        """Removes the first found `x` from this MaxHeap.
-
-        If `x` is not in this MaxHeap, LookupError is raised.
-
-        This function overrides the inherited one only for the purpose of asserting
-        that before and after this operation self is still a MaxHeap.
-
-        Time complexity: O(n)."""
-        assert is_max_heap(self)
-        super(MaxHeap, self).delete(x)
-        assert is_max_heap(self)
-
     def _push_down(self, i: int) -> None:
-        """Max-heapifies this MaxHeap starting from index `i`.
+        """Max-heapifies this MaxHeap starting from index i.
 
         This operation is also called "bubble-down" or "shift-down".
 
@@ -91,15 +77,15 @@ class MaxHeap(BinaryHeap):
             self._push_down(m)
 
     def _push_up(self, i: int) -> None:
-        """Pushes up the node at index `i` from this MaxHeap.
+        """Pushes up the node at index i from this MaxHeap.
 
-        Note that this operation only happens
-        if the node at index `i` is greater than its parent.
+        Note: this operation only happens if the node at index i is greater than
+        its parent.
 
         This operation is also called "bubble-up" or "shift-up".
 
         Time complexity: O(log(n))."""
-        c = i  # current index
+        c = i  # Current index.
         p = self._parent_index(i)
 
         if p != -1 and self.heap[c] > self.heap[p]:
@@ -111,7 +97,7 @@ class MaxHeap(BinaryHeap):
 
 
 def is_max_heap(h: MaxHeap) -> bool:
-    """Returns true if `h` is a valid MaxHeap, false otherwise."""
+    """Returns true if h is a valid MaxHeap, false otherwise."""
     if not isinstance(h, MaxHeap):
         return False
     if h.heap:

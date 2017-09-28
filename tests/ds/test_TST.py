@@ -13,7 +13,7 @@ Updated: 12/03/2017
 
 # Description
 
-Unit tests for the TST and TSTNode classes.
+Unit tests for the TST and _TSTNode classes.
 
 In these tests I only test the count method instead of testing also size and _n,
 this is because `count` asserts its result is equal to the result returned by size, which is _n.
@@ -23,7 +23,7 @@ import random
 import string
 import unittest
 
-from ands.ds.TST import TST, TSTNode
+from ands.ds.TST import TST, _TSTNode
 
 
 class TestTST(unittest.TestCase):
@@ -404,16 +404,16 @@ class TestTST(unittest.TestCase):
 
 class TestTSTNode(unittest.TestCase):
     def test_create_key_not_string(self):
-        self.assertRaises(TypeError, TSTNode, 13)
+        self.assertRaises(TypeError, _TSTNode, 13)
 
     def test_create_key_empty_string(self):
-        self.assertRaises(ValueError, TSTNode, "")
+        self.assertRaises(ValueError, _TSTNode, "")
 
     def test_create_acceptable_key(self):
-        self.assertIsInstance(TSTNode("unit testing"), TSTNode)
+        self.assertIsInstance(_TSTNode("unit testing"), _TSTNode)
 
     def test_create_default(self):
-        u = TSTNode("default values")
+        u = _TSTNode("default values")
         self.assertEqual(u.key, "default values")
         self.assertIsNone(u.value)
         self.assertIsNone(u.parent)
@@ -422,11 +422,11 @@ class TestTSTNode(unittest.TestCase):
         self.assertIsNone(u.right)
 
     def test_create_custom(self):
-        p = TSTNode("parent")
-        left = TSTNode("left")
-        mid = TSTNode("mid")
-        right = TSTNode("right")
-        u = TSTNode("u", 11, p, left, mid, right)
+        p = _TSTNode("parent")
+        left = _TSTNode("left")
+        mid = _TSTNode("mid")
+        right = _TSTNode("right")
+        u = _TSTNode("u", 11, p, left, mid, right)
         self.assertEqual(u.value, 11)
         self.assertIs(u.parent, p)
         self.assertIs(u.left, left)
@@ -434,62 +434,62 @@ class TestTSTNode(unittest.TestCase):
         self.assertIs(u.right, right)
 
     def test_is_left_child_no_parent(self):
-        u = TSTNode("u")
+        u = _TSTNode("u")
         self.assertRaises(AttributeError, u.is_left_child)
 
     def test_is_left_child_false(self):
-        p = TSTNode("p")
-        u = TSTNode("u", 3, p)
+        p = _TSTNode("p")
+        u = _TSTNode("u", 3, p)
         self.assertFalse(u.is_left_child())
 
     def test_is_left_child_true(self):
-        p = TSTNode("p")
-        u = TSTNode("u", 3, p)
+        p = _TSTNode("p")
+        u = _TSTNode("u", 3, p)
         p.left = u
         self.assertTrue(u.is_left_child())
 
     def test_is_right_child_no_parent(self):
-        u = TSTNode("u")
+        u = _TSTNode("u")
         self.assertRaises(AttributeError, u.is_right_child)
 
     def test_is_right_child_false(self):
-        p = TSTNode("p")
-        u = TSTNode("u", 3, p)
+        p = _TSTNode("p")
+        u = _TSTNode("u", 3, p)
         self.assertFalse(u.is_right_child())
 
     def test_is_right_child_true(self):
-        p = TSTNode("p")
-        u = TSTNode("u", 3, p)
+        p = _TSTNode("p")
+        u = _TSTNode("u", 3, p)
         p.right = u
         self.assertTrue(u.is_right_child())
 
     def test_is_mid_child_no_parent(self):
-        u = TSTNode("u")
+        u = _TSTNode("u")
         self.assertRaises(AttributeError, u.is_mid_child)
 
     def test_is_mid_child_false(self):
-        p = TSTNode("p")
-        u = TSTNode("u", 3, p)
+        p = _TSTNode("p")
+        u = _TSTNode("u", 3, p)
         self.assertFalse(u.is_mid_child())
 
     def test_is_mid_child_true(self):
-        p = TSTNode("p")
-        u = TSTNode("u", 3, p)
+        p = _TSTNode("p")
+        u = _TSTNode("u", 3, p)
         p.mid = u
         self.assertTrue(u.is_mid_child())
 
     def test_has_children_0(self):
-        u = TSTNode("u")
+        u = _TSTNode("u")
         self.assertFalse(u.has_children())
 
     def test_has_children_1(self):
-        u = TSTNode("u", right=TSTNode("right"))
+        u = _TSTNode("u", right=_TSTNode("right"))
         self.assertTrue(u.has_children())
 
     def test_has_children_2(self):
-        u = TSTNode("u", mid=TSTNode("mid"), left=TSTNode("left"))
+        u = _TSTNode("u", mid=_TSTNode("mid"), left=_TSTNode("left"))
         self.assertTrue(u.has_children())
 
     def test_has_children_3(self):
-        u = TSTNode("u", mid=TSTNode("mid"), left=TSTNode("left"), right=TSTNode("right"))
+        u = _TSTNode("u", mid=_TSTNode("mid"), left=_TSTNode("left"), right=_TSTNode("right"))
         self.assertTrue(u.has_children())

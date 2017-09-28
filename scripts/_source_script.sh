@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
 
-#################################################################################
-# SCRIPT NAME: _source_script.sh                                                #
-#                                                                               #
-# PURPOSE: the function _source_script tries to "source" the scripts, whose     #
-# names are passed as parameters to the same function.                          #
-#################################################################################
-
 export ALREADY_SOURCED__SOURCE_SCRIPT
 
 if [ -z "${ALREADY_SOURCED__SOURCE_SCRIPT}" ]
 then
+
+    # Tries to source the scripts whose names are passed as parameters.
     _source_script()
     {
         # Define a few colors for the possible error messages below.
@@ -24,19 +19,12 @@ then
             EXPECTED_DIR=$1
         fi
 
-        # Based on: http://stackoverflow.com/a/1371283/3924118
         CURRENT_DIR=${PWD##*/}
 
         if [ "$CURRENT_DIR" = "$EXPECTED_DIR" ]
         then
             for (( arg = 2; arg <= $#; arg++ ))
             do
-                # Based on:
-                # - http://askubuntu.com/questions/306851/how-to-import-a-variable-from-a-script
-                # - http://unix.stackexchange.com/questions/114300/whats-the-meaning-of-a-dot-before-a-command-in-shell
-                # - http://stackoverflow.com/questions/20094271/bash-using-dot-or-source-calling-another-script-what-is-difference
-
-                # printf ". ./%s.sh\n" "${!arg}"
                 # Try to load script ${!arg}.sh
                 # shellcheck source=/dev/null
                 . ./${!arg}.sh
