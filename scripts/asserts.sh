@@ -1,21 +1,11 @@
 #!/usr/bin/env bash
 
-#################################################################################
-# SCRIPT NAME: asserts.sh                                                       #
-#                                                                               #
-# PURPOSES:                                                                     #
-# - the function 'assert_installed' asserts the dependencies whose names are    #
-# passed as parameters are installed in the system.                             #
-#                                                                               #
-# - the function 'assert_python_module_installed' checks if the only parameter  #
-# passed, which should represent the name of a Python module, is installed;     #
-# if not installed, it asks if the user wants to install it.                    #
-#################################################################################
-
 export ALREADY_SOURCED_ASSERTS
 
 if [ -z "${ALREADY_SOURCED_ASSERTS}" ]
 then
+    # Asserts the dependencies whose names are passed as parameters are
+    # installed in the system.
     assert_installed()
     {
 
@@ -24,7 +14,8 @@ then
 
         if [ "$#" -ge  "1" ]
         then
-            # In the case the first parameter is "contaminated", we just use the default value.
+            # In the case the first parameter is "contaminated", we just use the
+            # default value.
             if [ "$1" = "0" ]
             then
                 EXIT_IF_NOT_INSTALLED=0 # true
@@ -39,8 +30,8 @@ then
             command -v ${!arg}
             if [ $? != 0 ]
             then
-                printf "%s'${!arg}' not installed. Install it first before proceeding. Exiting...%s\n" "${RED}" "${NORMAL}"
-                # Based on: http://stackoverflow.com/questions/9640660/any-way-to-exit-bash-script-but-not-quitting-the-terminal
+                printf "%s'${!arg}' not installed. Install it first before
+                proceeding. Exiting...%s\n" "${RED}" "${NORMAL}"
                 if [ "$EXIT_IF_NOT_INSTALLED" = "0" ]
                 then
                     exit 1
@@ -60,7 +51,8 @@ then
     {
         if [ "$#" -ne  "1" ]
         then
-            printf "%sCall this function with only one parameter, which represents the python module.%s\n" "${RED}" "${NORMAL}"
+            printf "%sCall this function with only one parameter, which
+            represents the python module.%s\n" "${RED}" "${NORMAL}"
             return 1
         fi
 
@@ -68,8 +60,6 @@ then
 
         if [ $? != 0 ]
         then
-            # Based on: http://stackoverflow.com/a/27875395/3924118
-
             printf "%sCommand '$1' not found.\n" "${RED}"
             printf "Do you want me to install '$1' using 'pip3.5' (y/n)?%s " "${NORMAL}"
             read -r ANSWER

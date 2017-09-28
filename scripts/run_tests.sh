@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-# See the file CONTRIBUTING.md under the root folder of the ands package to know more about this script.
+# See the file CONTRIBUTING.md under the root folder of the ands package to know
+# more about this script.
+#
 # Run all tests with: ./run_tests.sh
+#
 # Run specific test: ./run_tests.sh -st [folder_path_inside_tests] test_name.py
 
 
@@ -9,9 +12,43 @@ export ALREADY_SOURCED_RUN_TESTS
 
 if [ -z "${ALREADY_SOURCED_RUN_TESTS}" ]
 then
+
+    # Executes "cd .." the number of times corresponding to the value of the
+    # first parameter.
+    cd_back_n_times()
+    {
+        if [ "$#" -ne  "1" ]
+        then
+            return 1
+        fi
+
+        for (( i = 0; i < $1; i++ ))
+        do
+            cd ..
+        done
+    }
+
+    # Counts the number of occurrences of first parameter (to the same
+    # function), which should be a character in the second parameter, which
+    # should be a string.
+    count_occurrences()
+    {
+        # First parameter should be the character.
+        # Second should be the string.
+
+        # Based on: http://stackoverflow.com/a/16679459/3924118.
+        if [ "$#" -ne  "2" ]
+        then
+            echo -1
+        fi
+
+        echo "$(grep -o "$1" <<< "$2" | wc -l)"
+    }
+
     run_all_tests()
     {
-        # See function below 'run_specific_test' if you don't understand what this function does.
+        # See function below run_specific_test if you don't understand what
+        # this function does.
         printf "%sExecuting tests under './tests/'...%s\n" "${YELLOW}" "${NORMAL}"
 
         cd tests
@@ -20,7 +57,7 @@ then
         if [ $? -ne 0 ]
         then
             printf "%sUnit tests did NOT run successfully.%s\n" "${RED}" "${NORMAL}"
-            cd .. # otherwise we're still inside tests/
+            cd .. # Otherwise we're still inside tests/
             clean_environment
             exit 1
         fi
@@ -39,7 +76,8 @@ then
         # Enter the specific folder where the test is.
         cd tests/"$1"
 
-        # Executes the test and and produces a file '.coverage' with code coverage statistics.
+        # Executes the test and and produces a file '.coverage' with code
+        # coverage statistics.
         coverage run -m unittest "$2" -v
 
         # In case an error occurs while running coverage.
@@ -96,8 +134,6 @@ then
             run_all_tests
         fi
 
-        #new_docs
-
         exit_from_virtual_environment
     }
 
@@ -118,14 +154,12 @@ then
     }
 
     . ./_source_script.sh
+
     # Need to source the scripts individually!
     _source_script scripts colors
     _source_script scripts clean_environment
     _source_script scripts asserts
-    _source_script scripts cd_back_n_times
     _source_script scripts virtual_environment
-    _source_script scripts count_occurrences
-    #_source_script scripts new_docs
 
     # "$@" expands all command-line parameters separated by spaces which are passed to the run function
     _main "$@"
