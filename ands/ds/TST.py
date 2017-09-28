@@ -2,22 +2,22 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 05/09/2015
 
-Updated: 20/08/2017
+Updated: 28/09/2017
 
 # Description
 
-Ternary-search tries (or trees) combine the time efficiency of other tries
-with the space efficiency of binary-search trees.
+Ternary-search tries (or trees) combine the time efficiency of other tries with
+the space efficiency of binary-search trees.
 
 An advantage compared to hash maps is that ternary search tries support sorting,
-but the _keys_ of a ternary-search trie can only be _strings_,
-whereas a hash map supports any kind of hashable keys.
+but the keys of a ternary-search trie can only be strings, whereas a hash map
+supports any kind of hashable keys.
 
 ## TSTs vs Hashing
 
@@ -26,7 +26,7 @@ whereas a hash map supports any kind of hashable keys.
 - Need to examine entire key
 - Search miss and hits cost about the same
 - Performance relies on hash function
-- Does NOT support ordered symbol table operations
+- Does not support ordered symbol table operations
 
 ### TSTs
 
@@ -62,17 +62,28 @@ TSTs are:
 __all__ = ["TST"]
 
 
-class TSTNode:
-    """A TSTNode has 6 fields:
+class _TSTNode:
+    """A _TSTNode has 6 fields:
 
         - key, which is a character;
-        - value, which is None if self is not a terminal node (of an inserted string in the TST);
-        - parent, which is a pointer to a TSTNode representing the parent of self;
-        - left, which is a pointer to a TSTNode whose key is smaller lexicographically than key;
-        - right, which is similarly a pointer to a TSTNode whose key is greater lexicographically than key;
-        - mid, which is a pointer to a TSTNode whose key is the following character of key in an inserted string."""
 
-    def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
+        - value, which is None if self is not a terminal node (of an inserted
+        string in the TST);
+
+        - parent, which is a pointer to a _TSTNode representing the parent of
+        self;
+
+        - left, which is a pointer to a _TSTNode whose key is smaller
+        lexicographically than key;
+
+        - right, which is similarly a pointer to a _TSTNode whose key is greater
+        lexicographically than key;
+
+        - mid, which is a pointer to a _TSTNode whose key is the following
+        character of key in an inserted string."""
+
+    def __init__(self, key, value=None, parent=None, left=None, mid=None,
+                 right=None):
         if not isinstance(key, str):
             raise TypeError("key must be an instance of str.")
         if not key:
@@ -120,15 +131,14 @@ class TSTNode:
 
 
 class TST:
-    """Methods or fields that start with an underscore _ are considered private,
-    so they should not be access and never modified from a client of this class.
+    """An implementation of a typical ternary-search trie (or tree).
 
-    This TST does not allow (through public methods) empty strings to be inserted.
+    It does not allow (through public methods) empty strings to be inserted.
 
-    In general the way the ternary search tree looks like
-    depends highly on the order of insertion of the keys,
-    that is, inserting the same keys but in different orders
-    produces internally a different structure or shape of the TST."""
+    In general, the way the ternary search tree looks like highly depends on the
+    order of insertion of the keys, that is, inserting the same keys but in
+    different orders produces internally a different structure or shape of the
+    ternary-search tree."""
 
     def __init__(self):
         self._n = 0
@@ -142,7 +152,7 @@ class TST:
         """Time complexity: O(1)."""
         return self.size == 0
 
-    def _is_root(self, u: TSTNode) -> bool:
+    def _is_root(self, u: _TSTNode) -> bool:
         result = (self._root == u)
         if result:
             assert u.parent is None
@@ -151,24 +161,24 @@ class TST:
         return result
 
     def count(self) -> int:
-        """Counts the number of strings in self.
+        """Counts the number of strings in this TST.
 
-        This method recursively passes through all the nodes
-        and counts the ones which have a non None value.
+        This method recursively passes through all the nodes and counts the ones
+        which have a non None value.
 
-        You should clearly use size instead:
-        this method is here only for the fun of writing code!
+        YOU SHOULD CLEARLY USE size INSTEAD: THIS METHOD IS HERE ONLY FOR THE
+        FUN OF WRITING CODE!
 
         Time complexity: O(n), where n is the number of nodes in this TST."""
         c = self._count(self._root, 0)
         assert c == self.size
         return c
 
-    def _count(self, node: TSTNode, counter: int) -> int:
-        """Helper method to `self.count`.
+    def _count(self, node: _TSTNode, counter: int) -> int:
+        """Helper method to self.count.
 
-        Time complexity: O(m), where m is the number of nodes under `node`."""
-        if node is None:  # base case
+        Time complexity: O(m), where m is the number of nodes under node."""
+        if node is None:  # Base case.
             return counter
 
         counter = self._count(node.left, counter)
@@ -181,19 +191,20 @@ class TST:
         return counter
 
     def insert(self, key: str, value: object) -> None:
-        """Inserts the `key` into the symbol table and associates with it `value`,
-        overwriting an eventual associated old value, if the `key` is already in self.
+        """Inserts the key into the symbol table and associates with it value,
+        overwriting an eventual associated old value, if the key is already in
+        this ternary-search tree.
 
-        If `key` is not an instance of `str`, `TypeError` is raised.
-        If `key` is an empty string, `ValueError` is raised.
-        If `value` is None, `ValueError` is raised.
+        If key is not an instance of str, TypeError is raised.
+        If key is an empty string, ValueError is raised.
+        If value is None, ValueError is raised.
 
-        Nodes whose value is not None represent the last character of an inserted word.
+        Nodes whose value is not None represent the last character of an
+        inserted word.
 
-        Time complexity: O(m + h), where m = length(key),
-        which also represents how many times we follow the middle link,
-        and h is the number of left and right turns.
-        So a lower bound of the complexity would be Ω(m);."""
+        Time complexity: O(m + h), where m = length(key), which also represents
+        how many times we follow the middle link, and h is the number of left
+        and right turns. So, a lower bound of the complexity would be Ω(m)."""
         assert is_tst(self)
 
         if not isinstance(key, str):
@@ -206,10 +217,11 @@ class TST:
 
         assert is_tst(self)
 
-    def _insert(self, node: TSTNode, key: str, value: object, index: int) -> TSTNode:
-        """Inserts `key` with `value` into self starting from `node`."""
+    def _insert(self, node: _TSTNode, key: str, value: object,
+                index: int) -> _TSTNode:
+        """Inserts key with value into this TST starting from node."""
         if node is None:
-            node = TSTNode(key[index])
+            node = _TSTNode(key[index])
 
         if key[index] < node.key:
             node.left = self._insert(node.left, key, value, index)
@@ -219,10 +231,11 @@ class TST:
             node.right.parent = node
         else:  # key[index] == node.key
             if index < len(key) - 1:
-                # If we're NOT at the end of the key, this is a match,
-                # so we recursively call self._insert from index + 1,
-                # and we move to the mid node (char) of node.
-                # Note that the last index of the key is len(key) - 1.
+                # If we are not at the end of the key, this is a match, so we
+                # recursively call self._insert from index + 1, and we move to
+                # the mid node (char) of node.
+                #
+                # Note: the last index of the key is len(key) - 1.
                 node.mid = self._insert(node.mid, key, value, index + 1)
                 node.mid.parent = node
             else:
@@ -233,32 +246,39 @@ class TST:
         return node
 
     def search(self, key: str) -> object:
-        """Returns the value associated with `key`, if `key` is in self, else None.
+        """Returns the value associated with key, if key is in this TST, else
+        None.
 
-        If `key` is not an instance of `str`, `TypeError` is raised.
-        If `key` is an empty string, `ValueError` is raised.
+        If key is not an instance of str, TypeError is raised.
+        If key is an empty string, ValueError is raised.
 
         The search in a TST works as follows.
 
-        We start at the root and we compare its character with the first character of key.
+        We start at the root and we compare its character with the first
+        character of key.
+
             - If they are the same, we follow the middle link of the root node.
-            - If the first character of key is smaller lexicographically
-            than the key at the root, then we take the left link or pointer.
-            We do this because we know that all strings that start with characters
-            that are smaller lexicographically than key[0] are on its left subtree.
+
+            - If the first character of key is smaller lexicographically than
+            the key at the root, then we take the left link or pointer.
+
+            We do this because we know that all strings that start with
+            characters that are smaller lexicographically than key[0] are on its
+            left subtree.
+
             - If the first character of key is greater lexicographically
-            than the key at the root, we take similarly the right link or pointer.
+            than the key at the root, we take similarly the right link.
 
         We keep applying this idea at every node.
-        Moreover, WHEN THERE'S A MATCH, next time we compare the key
-        of the next node with the next character of key.
 
-        For example, if there's a match between the first node (the root) and key[0],
-        we follow the middle link, and the next comparison is between
-        the key of the specific next node and key[1], not key[0]!
+        Moreover, when there is a match, next time we compare the key of the
+        next node with the next character of key.
 
-        Time complexity: O(m + h).
-        Check self.insert to see what m and h are."""
+        For example, if there's a match between the first node (the root) and
+        key[0], we follow the middle link, and the next comparison is between
+        the key of the specific next node and key[1] (not key[0]).
+
+        Time complexity: O(m + h). Check self.insert to see what m and h are."""
         if not isinstance(key, str):
             raise TypeError("key must be an instance of type str.")
         if not key:
@@ -273,9 +293,11 @@ class TST:
             assert self.search_iteratively(key) is None
             return None
 
-    def _search(self, node: TSTNode, key: str, index: int) -> TSTNode:
-        """Searches for the node containing the value associated with `key` starting from `node`.
-        If returns None OR a node with value None if there's no such node."""
+    def _search(self, node: _TSTNode, key: str, index: int) -> _TSTNode:
+        """Searches for the node containing the value associated with key
+        starting from node.
+
+        If returns None or a node with value None if there's no such node."""
         if node is None:
             return None
 
@@ -283,9 +305,10 @@ class TST:
             return self._search(node.left, key, index)
         elif key[index] > node.key:
             return self._search(node.right, key, index)
-        elif index < len(key) - 1:  # This is a match, but we're not at the last character of key.
+        elif index < len(key) - 1:
+            # This is a match, but we are not at the last character of key.
             return self._search(node.mid, key, index + 1)
-        else:  # This is a match and we're at the last character of key.
+        else:  # This is a match and we are at the last character of key.
             return node  # node could be None!!
 
     def search_iteratively(self, key: str) -> object:
@@ -300,9 +323,9 @@ class TST:
         if node is None:
             return None
 
-        # Up to the penultimate index (i.e. len(key) - 1)
-        # because if we reach the penultimate character and it's a match,
-        # then we follow the mid node (i.e. we end up in what's possibly the last node).
+        # Up to the penultimate index (i.e. len(key) - 1), because if we reach
+        # the penultimate character and it's a match, then we follow the mid
+        # node (i.e. we end up in what's possibly the last node).
         index = 0
 
         while index < len(key) - 1:
@@ -315,17 +338,18 @@ class TST:
             if node is None:  # Unsuccessful search.
                 return None
             else:
-                # Arriving here only if exited from the while loop
-                # because the condition key[i] != node.key was false,
-                # that is key[index] == node.key, thus we follow the middle link.
+                # Arriving here only if exited from the while loop because the
+                # condition key[i] != node.key was false, that is
+                # key[index] == node.key, thus we follow the middle link.
                 node = node.mid
                 index += 1
 
         assert index == len(key) - 1
 
-        # If node is not None, then we may still need to go left or right,
-        # and we stop when either we find a node which has the same key as the last character of key,
-        # or when `node` ends up being set to None, i.e. the key does not exist in this TST.
+        # If node is not None, then we may still need to go left or right, and
+        # we stop when either we find a node which has the same key as the last
+        # character of key, or when node ends up being set to None, i.e. the key
+        # does not exist in this TST.
         while node and key[index] != node.key:
             if key[index] < node.key:
                 node = node.left
@@ -335,27 +359,26 @@ class TST:
         if node is None:  # Unsuccessful search.
             return None
         else:  # We exit the previous while loop because key[index] == node.key.
-            return node.value  # could also be None!!
+            return node.value  # This can be None!!
 
     def contains(self, key: str) -> bool:
-        """Returns True if `key` is in self, False otherwise.
+        """Returns true if key is in this TST, False otherwise.
 
-        Time complexity: O(m + h).
-        See the complexity analysis of self.insert for more info about m and h."""
+        Time complexity: O(m + h). See the complexity analysis of self.insert
+        for more info about m and h."""
         return self.search(key) is not None
 
     def delete(self, key: str) -> object:
-        """Deletes and returns the value associated with `key` in this TST,
-        if `key` is in this TST, otherwise it returns None.
+        """Deletes and returns the value associated with key in this TST, if key
+        is in this TST, otherwise it returns None.
 
-        If `key` is not an instance of `str`, `TypeError` is raised.
-        If `key` is an empty string, `ValueError` is raised.
+        If key is not an instance of str, TypeError is raised.
+        If key is an empty string, ValueError is raised.
 
-        Time complexity: O(m + h + k).
-        Check self.search to see what m and h are.
-        k is the number of "no more necessary" cleaned up
-        after deletion of the node associated with `key`.
-        Unnecessary nodes are nodes with no children and value equal to None."""
+        Time complexity: O(m + h + k). Check self.search to see what m and h
+        are. k is the number of "no more necessary" cleaned up after deletion of
+        the node associated with key. Unnecessary nodes are nodes with no
+        children and value equal to None."""
         assert is_tst(self)
 
         if not isinstance(key, str):
@@ -368,8 +391,7 @@ class TST:
         node = self._search(self._root, key, 0)
 
         if node is not None and node.value is not None:
-            # If node.value is None, it means
-            result = node.value  # forgetting the string tracked by node.
+            result = node.value  # Forget the string tracked by node.
             node.value = None
             self._n -= 1
             self._delete_fix(node)
@@ -380,14 +402,13 @@ class TST:
 
         return result
 
-    def _delete_fix(self, u: TSTNode) -> None:
-        """Does the clean up of this TST after deletion of node `u`."""
+    def _delete_fix(self, u: _TSTNode) -> None:
+        """Does the clean up of this TST after deletion of node u."""
         assert u.value is None
 
-        # While u has no children and his value is None,
-        # forget about u and start from his parent.
-        # So, this while loop terminates when either u is None,
-        # u has at least one child, or u's value is not None.
+        # While u has no children and his value is None, forget about u and
+        # start from his parent. So, this while loop terminates when either u is
+        # None, u has at least one child, or u's value is not None.
         while u and not u.has_children() and u.value is None:
             if self._is_root(u):
                 assert self._n == 0
@@ -409,16 +430,17 @@ class TST:
             assert self._count(u, 0) > 0
 
     def traverse(self) -> None:
-        """Traverses all nodes in this TST and prints the key: value associations.
+        """Traverses all nodes in this TST and prints the key: value
+        associations.
 
         Time complexity: O(n), where n is the number of nodes in self."""
         self._traverse(self._root, "")
 
-    def _traverse(self, node: TSTNode, prefix: str) -> None:
+    def _traverse(self, node: _TSTNode, prefix: str) -> None:
         """Helper method to self.traverse.
 
-        Time complexity: O(m), where m is the number of nodes under `node`."""
-        if node is None:  # base case
+        Time complexity: O(m), where m is the number of nodes under node."""
+        if node is None:  # Base case.
             return
 
         self._traverse(node.left, prefix)
@@ -429,12 +451,12 @@ class TST:
         self._traverse(node.right, prefix)
 
     def keys_with_prefix(self, prefix: str) -> list:
-        """Returns all keys in this TST that start with `prefix`.
+        """Returns all keys in this TST that start with prefix.
 
-        If `prefix` is not an instance of `str`, `TypeError` is raised.
+        If prefix is not an instance of str, TypeError is raised.
 
-        If `prefix` is an empty string, then all keys in this TST
-        that start with an empty string, thus all keys are returned."""
+        If prefix is an empty string, then all keys in this TST that start with
+        an empty string, thus all keys are returned."""
         if not isinstance(prefix, str):
             raise TypeError("prefix must be an instance of str!")
 
@@ -447,15 +469,18 @@ class TST:
 
             if node is not None:
                 if node.value is not None:
-                    # A `key` equals to prefix was found in the TST with an associated value.
+                    # A key equals to prefix was found in the TST with an
+                    # associated value.
                     kwp.append(prefix)
 
                 self._keys_with_prefix(node.mid, list(prefix), kwp)
 
         return kwp
 
-    def _keys_with_prefix(self, node: TSTNode, prefix_list: list, kwp: list) -> None:
-        """Returns all keys rooted at `node` given the prefix given as a list of characters `prefix_list`."""
+    def _keys_with_prefix(self, node: _TSTNode, prefix_list: list,
+                          kwp: list) -> None:
+        """Returns all keys rooted at node given the prefix given as a list of
+        characters prefix_list."""
         if node is None:
             return
 
@@ -471,12 +496,13 @@ class TST:
         self._keys_with_prefix(node.right, prefix_list, kwp)
 
     def all_pairs(self) -> dict:
-        """Returns all pairs of key:value from this TST as a Python `dict`."""
+        """Returns all pairs of (key: value) from this TST as a Python dict."""
         pairs = {}
         self._all_pairs(self._root, [], pairs)
         return pairs
 
-    def _all_pairs(self, node: TSTNode, key_list: list, all_dict: list) -> None:
+    def _all_pairs(self, node: _TSTNode, key_list: list,
+                   all_dict: list) -> None:
         if node is None:
             return
 
@@ -494,11 +520,11 @@ class TST:
         self._all_pairs(node.right, key_list, all_dict)
 
     def longest_prefix_of(self, query: str) -> str:
-        """Returns the key in this TST which is the longest prefix of `query`,
-        if such a key exists, else it returns None.
+        """Returns the key in this TST which is the longest prefix of query, if
+        such a key exists, else it returns None.
 
-        If `query` is not a string `TypeError` is raised.
-        If `query` is a string but empty, `ValueError` is raised.
+        If query is not a string TypeError is raised.
+        If query is a string but empty, ValueError is raised.
 
         If this TST is empty, it returns an empty string."""
         if not isinstance(query, str):
@@ -506,7 +532,9 @@ class TST:
         if not query:
             raise ValueError("empty strings not allowed in this TST!")
 
-        length = 0  # It keeps track of the length of the longest prefix of query.
+        # It keeps track of the length of the longest prefix of query.
+        length = 0
+
         x = self._root
         i = 0
 
@@ -526,17 +554,18 @@ class TST:
         return query[:length]
 
     def keys_that_match(self, pattern: str) -> list:
-        """Returns a list of keys of this TST that match `pattern`.
+        """Returns a list of keys of this TST that match pattern.
 
-        A key `k` of length `m` matches `pattern` if:
+        A key k of length m matches pattern if:
 
         1. m = length(pattern), and
         2. Either k[i] == pattern[i] or k[i] == '.'.
-            - Example: if `pattern == ".ood"`,
-            then `k == "good"` would match, but not `k == "foodie"`.
 
-        If `pattern` is not a `str`, `TypeError` is raised.
-        If `pattern` is an empty string, `ValueError` is raised."""
+            - Example: if pattern == ".ood", then k == "good" would match, but
+            not k == "foodie".
+
+        If pattern is not a str, TypeError is raised.
+        If pattern is an empty string, ValueError is raised."""
         if not isinstance(pattern, str):
             raise TypeError("pattern is not an instance of str!")
         if not pattern:
@@ -546,8 +575,10 @@ class TST:
         self._keys_that_match(self._root, [], 0, pattern, keys)
         return keys
 
-    def _keys_that_match(self, node: TSTNode, prefix_list: list, i: int, pattern: str, keys: list) -> None:
-        """Stores in the list `keys` the of keys that match `pattern` starting from `node`."""
+    def _keys_that_match(self, node: _TSTNode, prefix_list: list, i: int,
+                         pattern: str, keys: list) -> None:
+        """Stores in the list keys the keys that match pattern starting from
+        node."""
         if node is None:
             return
 
@@ -559,12 +590,13 @@ class TST:
         if c == "." or c == node.key:
 
             if i == len(pattern) - 1 and node.value is not None:
-                # If i is the last index and its value is not None
+                # If i is the last index and its value is not None.
                 keys.append("".join(prefix_list + [node.key]))
 
             if i < len(pattern) - 1:
                 prefix_list.append(node.key)
-                self._keys_that_match(node.mid, prefix_list, i + 1, pattern, keys)
+                self._keys_that_match(node.mid, prefix_list, i + 1, pattern,
+                                      keys)
                 prefix_list.pop()
 
         if c == "." or c > node.key:
@@ -582,6 +614,6 @@ def is_tst(t: TST) -> bool:
         return False
     if t._n == 0:
         return t._root is None
-    if not isinstance(t._root, TSTNode) or t._root.parent is not None:
+    if not isinstance(t._root, _TSTNode) or t._root.parent is not None:
         return False
     return True

@@ -215,7 +215,7 @@ class BinaryHeap(metaclass=ABCMeta):
 
 
 def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:
-    """Returns a string (which can be printed) representing `heap` as a tree.
+    """Returns a string (which can be printed) representing heap as a tree.
 
     To increase/decrease the horizontal space between nodes, just
     increase/decrease the float number h_space.
@@ -233,8 +233,8 @@ def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:
 
     output = io.StringIO()
     last_row = -1
-    h_space = 3.0  # float
-    v_space = 2  # int
+    h_space = 3.0
+    v_space = 2
 
     for i, heap_node in enumerate(heap):
         if i != 0:
@@ -251,6 +251,6 @@ def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:
         last_row = row
 
     s = output.getvalue() + "\n"
-    line_length = total_width + 15  # int
+    line_length = total_width + 15
     s += ('-' * line_length + "\n")
     return s

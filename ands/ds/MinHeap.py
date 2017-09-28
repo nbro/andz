@@ -2,25 +2,24 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 20/08/2017
+Updated: 28/09/2017
 
 # Description
 
-A binary min-heap is a data structure similar to a binary tree,
-where the parent nodes are smaller or equal to their children.
+A binary min-heap is a data structure similar to a binary tree, where the parent
+nodes are smaller or equal to their children. In addition to the previous
+constraint, a binary min-heap is a complete binary tree, that is, all levels of
+the tree, except possibly the deepest one are fully filled, and, if the last
+level of the tree is not complete, the nodes of that level are filled from left
+to right.
 
-In addition to the previous constraint, a binary min-heap is a complete binary tree,
-that is, all levels of the tree, except possibly the deepest one are fully filled,
-and, if the last level of the tree is not complete,
-the nodes of that level are filled from left to right.
-
-A min-heap can be implemented with a classic array or list in Python.
+A min-heap can be implemented with a classic array (or list, in Python).
 
 If we have a node at index i, then
 
@@ -28,10 +27,10 @@ If we have a node at index i, then
 
 - its right child is found at i*2 + 2,
 
-- its parent can be found at index floor((i - 1) / 2),
-where floor(x) truncates x to the smallest integer.
+- its parent can be found at index floor((i - 1) / 2), where floor(x) truncates
+x to the smallest integer.
 
-Note that these indexes are for 0-index based lists (or arrays).
+Note: these indexes are for 0-index based lists (or arrays).
 
 # References
 
@@ -76,12 +75,12 @@ class MinHeap(BinaryHeap):
             return m
 
     def delete(self, x: object) -> None:
-        """Removes the first found `x` from this MinHeap.
+        """Removes the first found x from this MinHeap.
 
-        If `x` is not in this MinHeap, LookupError is raised.
+        If x is not in this MinHeap, LookupError is raised.
 
-        This function overrides the inherited one only for the purpose of asserting
-        that before and after this operation self is still a MinHeap.
+        THIS FUNCTION OVERRIDES THE INHERITED ONE ONLY FOR THE PURPOSE OF
+        ASSERTING THAT BEFORE AND AFTER THIS OPERATION SELF IS STILL A MinHeap.
 
         Time complexity: O(n)."""
         assert is_min_heap(self)
@@ -89,12 +88,12 @@ class MinHeap(BinaryHeap):
         assert is_min_heap(self)
 
     def _push_down(self, i: int) -> None:
-        """Min-heapifies this MinHeap starting from index `i`.
+        """Min-heapifies this MinHeap starting from index i.
 
         This operation is also called "bubble-down" or "shift-down".
 
         Time complexity: O(log(n))."""
-        m = i  # index of node with smallest value among i and its children
+        m = i  # Index of node with smallest value among i and its children.
         l = self._left_index(i)
         r = self._right_index(i)
 
@@ -108,15 +107,15 @@ class MinHeap(BinaryHeap):
             self._push_down(m)
 
     def _push_up(self, i: int) -> None:
-        """Pushes up the node at index `i` from this MinHeap.
+        """Pushes up the node at index i from this MinHeap.
 
-        Note that this operation only happens
-        if the node at index `i` is smaller than its parent.
+        Note: this operation only happens if the node at index i is smaller than
+        its parent.
 
         This operation is also called "bubble-up" or "shift-up".
 
         Time complexity: O(log(n))."""
-        c = i  # current index
+        c = i  # Current index.
         p = self._parent_index(i)
 
         if p != -1 and self.heap[c] < self.heap[p]:
@@ -128,7 +127,7 @@ class MinHeap(BinaryHeap):
 
 
 def is_min_heap(h: MinHeap) -> bool:
-    """Returns true if `h` is a valid MinHeap, false otherwise."""
+    """Returns true if h is a valid MinHeap, false otherwise."""
     if not isinstance(h, MinHeap):
         return False
     if h.heap:

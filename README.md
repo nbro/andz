@@ -41,9 +41,9 @@ Apart from those, the following are the references which I always keep an eye on
 
 - [_Introduction to Algorithms_ (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms), book by Cormen, Leiserson, Rivest, Stein
 
-- Slides provided by the professor of the course Algorithms and Data Structures, i.e. [Antonio Carzaniga](http://www.inf.usi.ch/carzaniga/)
+- Slides provided by the prof. [Antonio Carzaniga](http://www.inf.usi.ch/carzaniga/)
 
-- Slides provided by the professor of the course Algorithms and Data Structures 2, Evanthia Papadopoulou.
+- Slides provided by the prof. E. Papadopoulou.
 
 - [Algorithms, 4th Edition](http://algs4.cs.princeton.edu/home/), online book by Robert Sedgewick and Kevin Wayne
 
@@ -64,13 +64,7 @@ One curated list that I found useful which points to a bunch of other resources 
 
 - [https://github.com/tayllan/awesome-algorithms](https://github.com/tayllan/awesome-algorithms)
 
-Feel free to contribute to that list by adding other links to useful and interesting material.
-
 Other resources that may be useful:
-
-- [Algorithms: Design and Analysis, Part 1](https://www.coursera.org/learn/algorithm-design-analysis), Coursera's course taught by Tim Roughgarden
-
-- [Algorithms: Design and Analysis, Part 2](https://www.coursera.org/learn/algorithm-design-analysis-2), Coursera's course taught by Tim Roughgarden
 
 - [The Archive of Interesting Code](http://www.keithschwarz.com/interesting/) by Keith Schwarz
 

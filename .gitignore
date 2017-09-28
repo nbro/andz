@@ -2,6 +2,8 @@
 
 ands/algorithms/greedy/huffman.py
 ands/ds/Graph.py
+ands/ds/DirectedGraph.py
+ands/ds/UndirectedGraph.py
 /ands/ds/MinPriorityQueue.py
 
 *.eggx
