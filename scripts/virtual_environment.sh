@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 
-#################################################################################
-# SCRIPT NAME: virtual_environment.sh                                           #
-#                                                                               #
-# PURPOSE: some functions useful to create, switch to, install in,              #
-# and deactivate virtual environments                                           #
-#################################################################################
+# Functions useful to create, switch to, install in, and deactivate virtual
+# environments.
 
 export ALREADY_SOURCED_VIRTUAL_ENVIRONMENT
 
