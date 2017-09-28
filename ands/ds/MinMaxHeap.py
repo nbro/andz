@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 18/02/2016
 
-Updated: 28/09/2017
+Updated: 29/09/2017
 
 # Description
 
@@ -108,20 +108,6 @@ class MinMaxHeap(BinaryHeap):
             self._push_down(0)
             assert is_min_max_heap(self)
             return m
-
-    def delete(self, x: object) -> None:
-        """Removes the first found x from this MinMaxHeap.
-
-        If x is not in this MinMaxHeap, LookupError is raised.
-
-        THIS FUNCTION OVERRIDES THE INHERITED ONE ONLY FOR THE PURPOSE OF
-        ASSERTING THAT BEFORE AND AFTER THIS OPERATION SELF IS STILL A
-        MinMaxHeap.
-
-        Time complexity: O(n)."""
-        assert is_min_max_heap(self)
-        super(MinMaxHeap, self).delete(x)
-        assert is_min_max_heap(self)
 
     def _push_down(self, i: int) -> None:
         """This operation is also called "bubble-down" or "shift-down"."""
@@ -362,15 +348,15 @@ def is_min_max_heap(h: MinMaxHeap) -> bool:
                 return False
 
             if h._is_on_even_level(i):
-                # If item is in an even (or min) level, then item should be
-                # smaller or equal to the values stored at its descendants.
+                # If item is on an even (or min) level, then item should be
+                # smaller or equal than its descendants.
                 if l != -1 and item > h.heap[l]:
                     return False
                 if r != -1 and item > h.heap[r]:
                     return False
             else:  # odd (or max) level
-                # If item is in an odd (or max) level, then item should be
-                # greater or equal to the values stored at its descendants.
+                # If item is on an odd (or max) level, then item should be
+                # greater or equal than descendants.
                 if l != -1 and item < h.heap[l]:
                     return False
                 if r != -1 and item < h.heap[r]:

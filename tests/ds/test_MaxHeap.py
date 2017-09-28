@@ -18,7 +18,7 @@ Unit tests for the MaxHeap class.
 import unittest
 from random import randint, choice, sample
 
-from ands.ds.MaxHeap import MaxHeap
+from ands.ds.MaxHeap import MaxHeap, is_max_heap
 
 
 class TestMaxHeap(unittest.TestCase):
@@ -92,6 +92,7 @@ class TestMaxHeap(unittest.TestCase):
     def test_delete_when_elem_is_last(self):
         h = MaxHeap([3, 4])
         self.assertIsNone(h.delete(4))
+        self.assertTrue(is_max_heap(h))
         self.assertEqual(h.size, 1)
         self.assertFalse(h.is_empty())
 
@@ -102,6 +103,7 @@ class TestMaxHeap(unittest.TestCase):
 
         for _ in range(size):
             self.assertIsNone(h.delete(choice(a)))
+            self.assertTrue(is_max_heap(h))
 
         self.assertEqual(h.size, 0)
         self.assertTrue(h.is_empty())

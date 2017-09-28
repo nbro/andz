@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 15/02/2016
 
-Updated: 28/09/2017
+Updated: 29/09/2017
 
 # Description
 
@@ -56,19 +56,6 @@ class MaxHeap(BinaryHeap):
                 self._push_down(0)
             assert is_max_heap(self)
             return m
-
-    def delete(self, x: object) -> None:
-        """Removes the first found x from this MaxHeap.
-
-        If x is not in this MaxHeap, LookupError is raised.
-
-        THIS FUNCTION OVERRIDES THE INHERITED ONE ONLY FOR THE PURPOSE OF
-        ASSERTING THAT BEFORE AND AFTER THIS OPERATION SELF IS STILL A MaxHeap.
-
-        Time complexity: O(n)."""
-        assert is_max_heap(self)
-        super(MaxHeap, self).delete(x)
-        assert is_max_heap(self)
 
     def _push_down(self, i: int) -> None:
         """Max-heapifies this MaxHeap starting from index i.

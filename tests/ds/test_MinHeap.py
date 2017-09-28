@@ -18,11 +18,10 @@ Unit tests for the MinHeap class.
 import unittest
 from random import randint, choice, sample
 
-from ands.ds.MinHeap import MinHeap
+from ands.ds.MinHeap import MinHeap, is_min_heap
 
 
 class TestMinHeap(unittest.TestCase):
-
     def test_heap_creation_default(self):
         h = MinHeap()
         self.assertTrue(h.is_empty())
@@ -93,6 +92,7 @@ class TestMinHeap(unittest.TestCase):
     def test_delete_when_elem_is_last(self):
         h = MinHeap([3, 4])
         self.assertIsNone(h.delete(4))
+        self.assertTrue(is_min_heap(h))
         self.assertEqual(h.size, 1)
         self.assertFalse(h.is_empty())
 
@@ -103,6 +103,7 @@ class TestMinHeap(unittest.TestCase):
 
         for _ in range(size):
             self.assertIsNone(h.delete(choice(a)))
+            self.assertTrue(is_min_heap(h))
 
         self.assertEqual(h.size, 0)
         self.assertTrue(h.is_empty())
