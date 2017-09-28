@@ -95,9 +95,7 @@ def binary_search_recursively_not_in_place(ls: list, item: object) -> bool:
             return binary_search_recursively_not_in_place(ls[0:mid], item)
 
 
-def _binary_search_recursively_in_place(ls: list,
-                                        item: object,
-                                        start: int,
+def _binary_search_recursively_in_place(ls: list, item: object, start: int,
                                         end: int) -> bool:
     if end < start:
         return -1

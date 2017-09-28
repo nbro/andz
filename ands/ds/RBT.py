@@ -45,7 +45,7 @@ which is equivalent to
     n >= 2^(h(x) / 2) - 1.
 
 To possibly better understand the previous statements, we can perform the
-reserved reasoning:
+reversed reasoning:
 
     n >= 2^(h(x) / 2) - 1 ⇔
 
@@ -117,7 +117,7 @@ is also the worst case complexity.
 
 import math
 
-from ands.ds.BST import BST, BSTNode, is_bst
+from ands.ds.BST import BST, _BSTNode, is_bst
 
 __all__ = ["RBT", "is_rbt"]
 
@@ -125,11 +125,11 @@ RED = "RED"
 BLACK = "BLACK"
 
 
-class RBTNode(BSTNode):
-    """Class to represent a RBT's node."""
+class _RBTNode(_BSTNode):
+    """Class to represent a node of a RBT."""
 
     def __init__(self, key, color=BLACK, parent=None, left=None, right=None):
-        BSTNode.__init__(self, key, parent, left, right)
+        _BSTNode.__init__(self, key, parent, left, right)
         self.color = color
 
 
@@ -184,7 +184,7 @@ class RBT(BST):
         if key is None:
             raise ValueError("key cannot be None")
 
-        key_node = RBTNode(key)
+        key_node = _RBTNode(key)
 
         c = self._root  # Current node.
         p = None  # Current node's parent.
@@ -213,7 +213,7 @@ class RBT(BST):
 
         assert is_rbt(self)
 
-    def _fix_insertion(self, u: RBTNode) -> None:
+    def _fix_insertion(self, u: _RBTNode) -> None:
         # u is the root and we color it BLACK.
         if u.parent is None:
             u.color = BLACK
@@ -271,7 +271,7 @@ class RBT(BST):
             else:
                 assert False
 
-    def _left_rotate(self, u: RBTNode) -> RBTNode:
+    def _left_rotate(self, u: _RBTNode) -> _RBTNode:
         """Left rotates the subtree rooted at node u.
 
         Returns the node which is at the previous position of u, that is it
@@ -307,7 +307,7 @@ class RBT(BST):
         u.parent.left = u
         return u.parent
 
-    def _right_rotate(self, u: RBTNode) -> RBTNode:
+    def _right_rotate(self, u: _RBTNode) -> _RBTNode:
         """Right rotates the subtree rooted at node u.
 
         Time complexity: O(1)."""
@@ -453,13 +453,13 @@ class RBT(BST):
 
         assert is_rbt(self)
 
-    def _delete_case_1(self, u: RBTNode) -> None:
+    def _delete_case_1(self, u: _RBTNode) -> None:
         # This check is necessary because this function is also called from the
         # _delete_case_3 function.
         if u.parent is not None:
             self._delete_case_2(u)
 
-    def _delete_case_2(self, u: RBTNode) -> None:
+    def _delete_case_2(self, u: _RBTNode) -> None:
         if u.sibling.color == RED:
 
             assert u.parent.color == BLACK
@@ -476,7 +476,7 @@ class RBT(BST):
 
         self._delete_case_3(u)
 
-    def _delete_case_3(self, u: RBTNode) -> None:
+    def _delete_case_3(self, u: _RBTNode) -> None:
         # Not sure if the children of u.sibling can be None.
         if (u.parent.color == BLACK and u.sibling.color == BLACK and
                 ((u.sibling.left and u.sibling.left.color == BLACK) or
@@ -489,7 +489,7 @@ class RBT(BST):
         else:
             self._delete_case_4(u)
 
-    def _delete_case_4(self, u: RBTNode) -> None:
+    def _delete_case_4(self, u: _RBTNode) -> None:
         # Not sure if the children of u.sibling can be None.
         if (u.parent.color == RED and u.sibling.color == BLACK and
                 ((u.sibling.left and u.sibling.left.color == BLACK) or
@@ -502,7 +502,7 @@ class RBT(BST):
         else:
             self._delete_case_5(u)
 
-    def _delete_case_5(self, u: RBTNode) -> None:
+    def _delete_case_5(self, u: _RBTNode) -> None:
         assert u.sibling is not None
 
         if u.sibling.color == BLACK:
@@ -524,7 +524,7 @@ class RBT(BST):
 
         self._delete_case_6(u)
 
-    def _delete_case_6(self, u: RBTNode) -> None:
+    def _delete_case_6(self, u: _RBTNode) -> None:
         assert u.sibling is not None
 
         u.sibling.color, u.parent.color = u.parent.color, u.sibling.color
@@ -561,13 +561,13 @@ class RBT(BST):
             assert is_rbt(self)
 
 
-def black_height(n: RBTNode) -> int:
+def black_height(n: _RBTNode) -> int:
     """Returns the black-height of the node n."""
     if n is None:
         return 1
 
-    if not isinstance(n, RBTNode):
-        raise TypeError("n must be an instance of RBTNode")
+    if not isinstance(n, _RBTNode):
+        raise TypeError("n must be an instance of _RBTNode")
 
     left_bh = black_height(n.left)
     right_bh = black_height(n.right)
@@ -590,7 +590,7 @@ def is_rbt(t: RBT) -> bool:
     def are_all_red_or_black(t: RBT) -> bool:
         """Returns true if all colors are either RED or BLACK."""
 
-        def h(n: RBTNode) -> bool:
+        def h(n: _RBTNode) -> bool:
             if n is not None:
                 if n.color != BLACK and n.color != RED:
                     return False
@@ -607,7 +607,7 @@ def is_rbt(t: RBT) -> bool:
         return True
 
     def has_not_consecutive_red_nodes(t: RBT) -> bool:
-        def h(n: RBTNode) -> bool:
+        def h(n: _RBTNode) -> bool:
             if n is not None:
                 if (n.parent is not None and n.color == RED and
                             n.parent.color == RED):
@@ -623,9 +623,9 @@ def is_rbt(t: RBT) -> bool:
         return black_height(t._root) != -1
 
     def are_all_rbt_nodes(t: RBT) -> bool:
-        def h(n: RBTNode) -> bool:
+        def h(n: _RBTNode) -> bool:
             if n is not None:
-                if not isinstance(n, RBTNode):
+                if not isinstance(n, _RBTNode):
                     return False
                 return h(n.left) and h(n.right)
             return True

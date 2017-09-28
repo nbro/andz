@@ -209,8 +209,8 @@ class DisjointSetsForest(DisjointSets):
         if not self.contains(x):
             raise LookupError("x is not in self")
         x_root = self._find(self._sets[x]).value
-        assert x_root == DisjointSetsForest._find_iteratively(
-            self._sets[x]).value
+        assert (x_root ==
+                DisjointSetsForest._find_iteratively(self._sets[x]).value)
         return x_root
 
     def union(self, x: object, y: object) -> object:

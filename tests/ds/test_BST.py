@@ -12,14 +12,14 @@ Updated: 14/03/2017
 
 # Description
 
-Unit tests for the BST and BSTNode classes.
+Unit tests for the BST and _BSTNode classes.
 """
 
 import string
 import unittest
 from random import randint, choice
 
-from ands.ds.BST import BST, BSTNode
+from ands.ds.BST import BST, _BSTNode
 
 
 class TestBST(unittest.TestCase):
@@ -273,13 +273,13 @@ class TestBST(unittest.TestCase):
 
 class TestBSTNode(unittest.TestCase):
     def test_create_when_key_None(self):
-        self.assertRaises(ValueError, BSTNode, None)
+        self.assertRaises(ValueError, _BSTNode, None)
 
     def test_create_when_no_key(self):
-        self.assertRaises(TypeError, BSTNode)
+        self.assertRaises(TypeError, _BSTNode)
 
     def test_create_default(self):
-        n = BSTNode(12)
+        n = _BSTNode(12)
         self.assertEqual(n.key, 12)
         self.assertIsNone(n.left)
         self.assertIsNone(n.right)
@@ -287,15 +287,15 @@ class TestBSTNode(unittest.TestCase):
         self.assertEqual(n.count(), 1)
 
     def test_comparison_when_values_are_of_different_types(self):
-        a = BSTNode(12)
-        b = BSTNode(14)
+        a = _BSTNode(12)
+        b = _BSTNode(14)
         with self.assertRaises(TypeError):
             a < b
         with self.assertRaises(TypeError):
             a >= b
 
     def test_when_no_parent(self):
-        n = BSTNode(12)
+        n = _BSTNode(12)
         self.assertRaises(AttributeError, n.is_left_child)
         self.assertRaises(AttributeError, n.is_right_child)
         self.assertIsNone(n.sibling)
@@ -303,8 +303,8 @@ class TestBSTNode(unittest.TestCase):
         self.assertIsNone(n.uncle)
 
     def test_set_parent(self):
-        a = BSTNode(12)
-        b = BSTNode(14)
+        a = _BSTNode(12)
+        b = _BSTNode(14)
         b.parent = a
 
         self.assertIs(b.parent, a)
@@ -320,14 +320,14 @@ class TestBSTNode(unittest.TestCase):
         self.assertFalse(a.has_two_children())
 
     def test_when_no_children(self):
-        n = BSTNode(12)
+        n = _BSTNode(12)
         self.assertFalse(n.has_children())
         self.assertFalse(n.has_one_child())
         self.assertFalse(n.has_two_children())
 
     def test_set_left_child(self):
-        a = BSTNode(12)
-        b = BSTNode(14)
+        a = _BSTNode(12)
+        b = _BSTNode(14)
         a.left = b
 
         self.assertIs(a.left, b)
@@ -339,8 +339,8 @@ class TestBSTNode(unittest.TestCase):
         self.assertFalse(a.has_two_children())
 
     def test_set_right_child(self):
-        a = BSTNode(12)
-        b = BSTNode(28)
+        a = _BSTNode(12)
+        b = _BSTNode(28)
         a.right = b
 
         self.assertIs(a.right, b)
@@ -352,34 +352,34 @@ class TestBSTNode(unittest.TestCase):
         self.assertFalse(a.has_two_children())
 
     def test_set_both_children(self):
-        a = BSTNode(12)
-        a.left = BSTNode(11)
-        a.right = BSTNode(13)
+        a = _BSTNode(12)
+        a.left = _BSTNode(11)
+        a.right = _BSTNode(13)
         self.assertEqual(a.count(), 3)
         self.assertTrue(a.has_children())
         self.assertFalse(a.has_one_child())
         self.assertTrue(a.has_two_children())
 
     def test_is_left_child(self):
-        a = BSTNode(3)
-        b = BSTNode(4)
+        a = _BSTNode(3)
+        b = _BSTNode(4)
         a.left = b
         b.parent = a
         self.assertTrue(b.is_left_child())
         self.assertFalse(b.is_right_child())
 
     def test_is_right_child(self):
-        a = BSTNode(3)
-        b = BSTNode(4)
+        a = _BSTNode(3)
+        b = _BSTNode(4)
         a.right = b
         b.parent = a
         self.assertFalse(b.is_left_child())
         self.assertTrue(b.is_right_child())
 
     def test_sibling(self):
-        p = BSTNode(12)
-        l = BSTNode(14)
-        r = BSTNode(28)
+        p = _BSTNode(12)
+        l = _BSTNode(14)
+        r = _BSTNode(28)
 
         self.assertIsNone(r.sibling)
         self.assertIsNone(l.sibling)
@@ -400,9 +400,9 @@ class TestBSTNode(unittest.TestCase):
         self.assertIsNone(l.sibling)
 
     def test_grandparent(self):
-        a = BSTNode(12)
-        b = BSTNode(14)
-        c = BSTNode(28)
+        a = _BSTNode(12)
+        b = _BSTNode(14)
+        c = _BSTNode(28)
 
         self.assertIsNone(a.grandparent)
         self.assertIsNone(b.grandparent)
@@ -423,9 +423,9 @@ class TestBSTNode(unittest.TestCase):
         self.assertIs(a.grandparent, c)
 
     def test_uncle(self):
-        n = BSTNode(12)
-        p = BSTNode(14)
-        g = BSTNode(28)
+        n = _BSTNode(12)
+        p = _BSTNode(14)
+        g = _BSTNode(28)
 
         n.parent = p
         p.left = n
@@ -437,7 +437,7 @@ class TestBSTNode(unittest.TestCase):
         self.assertIsNone(n.sibling)
         self.assertIsNone(n.uncle)
 
-        u = BSTNode(7)
+        u = _BSTNode(7)
         g.left = u
         u.parent = g
 
