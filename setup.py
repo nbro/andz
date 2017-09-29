@@ -33,8 +33,6 @@ setup(
         "Operating System :: MacOS :: Mac OS X",
         "Operating System :: Microsoft :: Windows",
         "Operating System :: Microsoft :: Linux",
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6"
     ]
