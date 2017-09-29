@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Function 'clean_environment' can be used to clean the developing environment.
-# From the command line: . ./clean_environment.sh && clean_environment
+# From the command line: . ./clean_environment.sh && cd .. && clean_environment
 
 export ALREADY_SOURCED_CLEAN_ENVIRONMENT
 

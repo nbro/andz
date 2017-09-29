@@ -5,26 +5,19 @@ ands/ds/Graph.py
 ands/ds/DirectedGraph.py
 ands/ds/UndirectedGraph.py
 /ands/ds/MinPriorityQueue.py
+ands/algorithms/graphs/
+ands/algorithms/unclassified/
+/ands/algorithms/math/combinatorics/
+/ands/algorithms/math/
 
 *.eggx
 *.py[cod]
 *$py.class
 .DS_Store
 
-
-# Directories
-
-ands/algorithms/graphs/
-ands/algorithms/unclassified/
-ands/algorithms/numerical/
-/ands/algorithms/math/combinatorics/
-/ands/algorithms/math/
 notes/
-
 .idea/
 _ignore/
 venv/
-env/
 *.egg-info/
 __pycache__/
-/scripts/is_function.sh
