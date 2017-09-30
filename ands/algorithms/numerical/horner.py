@@ -139,7 +139,7 @@ Multiply–accumulate operation.
 __all__ = ["horner"]
 
 
-def horner(coefficients: list, x0: float) -> float:
+def horner(x0: float, coefficients: list) -> float:
     """A function that implements the Horner's method for evaluating a
     polynomial, with coefficients, at x = x0.
 
