@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -299,7 +299,7 @@ def gale_shapley(men_preferences: list, women_preferences: list) -> list:
 
     while m is not None:
         # If there's still a man m without a woman.
-        # This while loop takes n² iterations.
+        # This while loop takes at most n² iterations.
 
         # All of the following operations take O(1) time.
 
