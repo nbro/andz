@@ -108,7 +108,7 @@ arbitrary polynomial must use at least as many operations.
 ## Computing polynomials by implementing Horner's method
 
 p(x₀), a u-degree polynomial, can computed efficiently using Horner's scheme, in
-O(n) operations, as follows
+O(u) operations, as follows
 
     function HORNER({a₀, a₁, ..., aᵤ₋₁, aᵤ}, x₀):
         p := aᵤ
@@ -116,7 +116,7 @@ O(n) operations, as follows
             p := p * x₀ + aᵢ
         return p
 
-From the previous pseudo-code, we can easily see that this is a O(n) algorithm,
+From the previous pseudo-code, we can easily see that this is a O(u) algorithm,
 since we have u iterations of the for loop and provided that multiplications and
 additions can be performed in O(1), w.r.t. u.
 
