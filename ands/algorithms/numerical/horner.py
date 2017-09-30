@@ -120,6 +120,10 @@ From the previous pseudo-code, we can easily see that this is a O(n) algorithm,
 since we have u iterations of the for loop and provided that multiplications and
 additions can be performed in O(1), w.r.t. u.
 
+### Notes
+
+- HORNER basically implements the changes of variables explained above.
+
 # References
 
 - Dr. prof. Kai Hormann's notes for the Numerical Algorithms course, fall, 2017.
@@ -127,5 +131,10 @@ additions can be performed in O(1), w.r.t. u.
 """
 
 
-def horner():
-    pass
+def horner(coefficients: list, x0: float) -> float:
+    """A function that implements the Horner's method for evaluating a
+    polynomial, with coefficients, at x = x0."""
+    p = 0
+    for coefficient in coefficients:
+        p = p * x0 + coefficient
+    return p
