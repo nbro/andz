@@ -124,17 +124,30 @@ additions can be performed in O(1), w.r.t. u.
 
 - HORNER basically implements the changes of variables explained above.
 
+# TODO
+
+- Add example of how Horner's method works in practice.
+- Implement the slightly optimized version using explicit fused
+Multiply–accumulate operation.
+
 # References
 
 - Dr. prof. Kai Hormann's notes for the Numerical Algorithms course, fall, 2017.
 - https://en.wikipedia.org/wiki/Horner%27s_method
 """
 
+__all__ = ["horner"]
+
 
 def horner(coefficients: list, x0: float) -> float:
     """A function that implements the Horner's method for evaluating a
-    polynomial, with coefficients, at x = x0."""
+    polynomial, with coefficients, at x = x0.
+
+    Time complexity: O(n), where n = len(coefficients)."""
+    assert isinstance(coefficients, list)
+    assert all(isinstance(x, float) or isinstance(x, int) for x in coefficients)
+    assert isinstance(x0, float) or isinstance(x0, int)
     p = 0
-    for coefficient in coefficients:
-        p = p * x0 + coefficient
+    for c in reversed(coefficients):
+        p = p * x0 + c
     return p
