@@ -230,7 +230,7 @@ def _validate_inputs(men_preferences: list, women_preferences: list, n: int):
                 raise ValueError("Preferences must be in range [0, n - 1].")
 
 
-def _build_inverses(women_preferences: list) -> tuple:
+def _build_inverses(women_preferences: list) -> list:
     """Builds the inverse matrix of the preferences matrix for women, according
     to the algorithm described in the doc-strings above of this module.
 

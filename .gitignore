@@ -9,6 +9,8 @@ ands/algorithms/graphs/
 ands/algorithms/unclassified/
 /ands/algorithms/math/combinatorics/
 /ands/algorithms/math/
+ands/algorithms/numerical/neville.py
+ands/algorithms/dp/previous_larger_element.py
 
 *.eggx
 *.py[cod]
