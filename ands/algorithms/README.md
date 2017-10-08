@@ -3,7 +3,6 @@
 Algorithms I am particularly interested in are:
 
 
-- Neville's algorithm (for polynomial interpolation)
 - [All nearest smaller values](https://en.wikipedia.org/wiki/All_nearest_smaller_values#CITEREFBerkmanSchieberVishkin1993)
 - Jacobi
 - PageRank
