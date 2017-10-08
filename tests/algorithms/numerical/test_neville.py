@@ -13,8 +13,7 @@ Updated: 08/10/2017
 
 # Description
 
-# References
-
+Tests for the functions of the module neville.py.
 """
 
 import unittest
