@@ -3,7 +3,7 @@
 Algorithms I am particularly interested in are:
 
 
-- [All nearest smaller values](https://en.wikipedia.org/wiki/All_nearest_smaller_values#CITEREFBerkmanSchieberVishkin1993)
+- [All nearest smaller values](https://en.wikipedia.org/wiki/All_nearest_smaller_values)
 - Jacobi
 - PageRank
 - PowerMethod
