@@ -16,7 +16,7 @@ setup(
     author="Nelson Brochado",
     author_email="nelson.brochado@outlook.com",
     packages=find_packages(exclude=["venv"]),
-    install_requires=["numpy", "tabulate"],
+    install_requires=["numpy", "tabulate", "scipy"],
     description="Algorithms and Data Structures",
     long_description=read("README.md"),
     license="MIT",
