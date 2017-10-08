@@ -9,7 +9,7 @@ Author: Nelson Brochado
 
 Created: 30/09/2017
 
-Updated: 30/09/2017
+Updated: 08/10/2017
 
 # Description
 
@@ -199,8 +199,8 @@ def neville(xs: list, ys: list, x0: float) -> float:
 
     Neville's algorithm approximates the value of a polynomial q (of degree
     n - 1) at a particular point x0, i.e. it approximates q(x0), without having
-    to first find all the coefficients of the polynomial (of the monomial
-    basis).
+    to first find all the coefficients of the polynomial associated with a
+    monomial basis.
 
     This polynomial q interpolates the n points xs[i] of f, that is,
     f(xs[i]) = ys[i] = q(xs[i]), for i = 0, ..., n - 1. So, at these points, the

@@ -18,7 +18,7 @@ Updated: 08/10/2017
 """
 
 import unittest
-from math import isclose
+from math import isclose, sqrt
 from random import uniform
 # from scipy import fabs
 from scipy.interpolate import barycentric_interpolate
@@ -29,6 +29,10 @@ from ands.algorithms.numerical.neville import neville
 def f(x: float) -> float:
     """f : [-1, 1] -> R."""
     return 1 / (25 * (x ** 2) + 1)
+
+
+def g(x: float) -> float:
+    return 1 / sqrt(x)
 
 
 class TestNeville(unittest.TestCase):
@@ -54,3 +58,16 @@ class TestNeville(unittest.TestCase):
             # print("e(%d) = %f\n" % (x0, e0))
 
             self.assertTrue(isclose(bi0, y0))
+
+    def test_g(self):
+        """Example taken from:
+        https://en.wikiversity.org/wiki/Numerical_Analysis/Neville%27s_algorithm_examples"""
+        xs = [16, 64, 100]
+        ys = [g(x) for x in xs]
+        x0 = 81
+
+        y0 = neville(xs, ys, x0)
+        bi0 = barycentric_interpolate(xs, ys, x0)
+
+        self.assertTrue(isclose(y0, 0.106, rel_tol=1e-02))
+        self.assertTrue(isclose(bi0, y0, rel_tol=1e-02))
