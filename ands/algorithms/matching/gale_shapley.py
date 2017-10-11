@@ -202,6 +202,8 @@ TODO
 # TODO
 
 - is_stable function
+- Implement the GaleShapley algorithm for the Hospitals-Students matching
+problem.
 
 # References
 
