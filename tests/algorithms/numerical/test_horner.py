@@ -33,5 +33,5 @@ class TestHorner(unittest.TestCase):
         self.coefficients = [uniform(-10, 10) for _ in range(self.degree + 1)]
 
     def test_one(self):
-        self.assertEqual(horner(self.x0, self.coefficients),
-                         polyval(self.x0, self.coefficients))
+        self.assertAlmostEqual(horner(self.x0, self.coefficients),
+                               polyval(self.x0, self.coefficients))
