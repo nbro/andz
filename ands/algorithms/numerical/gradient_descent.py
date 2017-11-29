@@ -31,8 +31,6 @@ def gradient_descent(x0: float,
                      tol: float = 1e-6):
     """Finds a local minimum of a function whose derivative is df starting from
     an initial guess x0 using a step size = step_size."""
-
-    # From calculation, it is expected that the local minimum occurs at x=9/4
     if not callable(df):
         raise TypeError("df must be a callable object.")
 

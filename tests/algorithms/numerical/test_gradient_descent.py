@@ -36,4 +36,4 @@ class TestGradientDescent(unittest.TestCase):
         self.assertRaises(TypeError, gradient_descent, 0.3, 5)
 
     def test_find_local_min_of_f(self):
-        self.assertAlmostEqual(gradient_descent(6, df), 2.24674, 5)
+        self.assertAlmostEqual(gradient_descent(6, df), 9 / 4, 5)
