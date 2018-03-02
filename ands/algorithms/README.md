@@ -103,6 +103,7 @@ A few interesting algorithms which may be implemented in the future.
 
 ### Interpolation
 
+- [Divided Differences](https://en.wikipedia.org/wiki/Divided_differences)
 - [De Casteljau's algorithm](https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm)
 - [De Boor algorithm](https://en.wikipedia.org/wiki/De_Boor%27s_algorithm)
 
