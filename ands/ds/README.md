@@ -8,8 +8,6 @@ A few interesting data structures which may be implemented in the future.
 - Adjacency Matrix
 - Directed Graph
 - Undirected Graph
-- Multi-graph
-- Hyper-graph
 
 ## Linear Data Structures
 
@@ -17,7 +15,6 @@ A few interesting data structures which may be implemented in the future.
 
 - Matrix
 - Sparse Matrix
-- Circular Buffer
 - Gap Buffer
 
 ### Lists
@@ -41,9 +38,6 @@ A few interesting data structures which may be implemented in the future.
 
 - Fibonacci Heap
 - Binomial Heap
-- Treap
-- Ternary Heap
-- Leftist Heap
 
 ### Trees and Tries
 
@@ -58,6 +52,8 @@ A few interesting data structures which may be implemented in the future.
 ### Space-partitioning Trees
 
 - K-d Tree
+
+---
 
 An article listing other possibly interesting data structures can be found at the 
 following URL [https://en.wikipedia.org/wiki/List_of_data_structures](https://en.wikipedia.org/wiki/List_of_data_structures).
