@@ -70,6 +70,8 @@ A few interesting algorithms which may be implemented in the future.
 ### Partitioning
 
 - [Kernighan–Lin algorithm](https://en.wikipedia.org/wiki/Kernighan%E2%80%93Lin_algorithm)
+- [Inertial Partitioning Algorithm](http://people.eecs.berkeley.edu/~demmel/cs267/lecture18/lecture18.html)
+- [Spectral Bisection Algorithm](http://people.eecs.berkeley.edu/~demmel/cs267/lecture18/lecture18.html)
 
 ### Travelling Salesman Problem (TSP)
 
@@ -195,6 +197,5 @@ A few interesting algorithms which may be implemented in the future.
 
 ----
 
-An article listing other possibly interesting algorithms can be found at the following URL.
-
-> [https://en.wikipedia.org/wiki/List\_of\_algorithms](https://en.wikipedia.org/wiki/List_of_algorithms)
+An article listing other possibly interesting algorithms can be found at the 
+following URL [https://en.wikipedia.org/wiki/List\_of\_algorithms](https://en.wikipedia.org/wiki/List_of_algorithms).
