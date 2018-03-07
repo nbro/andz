@@ -30,6 +30,8 @@ function.
 - https://en.wikipedia.org/wiki/Ackermann_function
 """
 
+__all__ = ["ackermann"]
+
 
 def ackermann(m: int, n: int) -> int:
     assert m >= 0 and n >= 0

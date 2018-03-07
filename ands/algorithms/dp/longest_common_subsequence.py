@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 02/09/2015
 
-Updated: 29/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -38,6 +38,12 @@ implementations do.
 - Slides by prof. Evanthia Papadopoulou
 - https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
 """
+
+__all__ = ["recursive_lcs_length",
+           "memoized_recursive_lcs_length",
+           "bottom_up_lcs_length",
+           "bottom_up_lcs_length_partial",
+           "bottom_up_lcs"]
 
 
 def _get_lcs_length_matrix(s1: str, s2: str) -> list:
@@ -245,21 +251,21 @@ def bottom_up_lcs_length_partial(s1: str,
     return m[-1][-1] if not matrix else m
 
 
-def backtrack(m: list, s1: str, s2: str, i: int, j: int):
+def _backtrack(m: list, s1: str, s2: str, i: int, j: int):
     if i == 0 or j == 0:
         return ""
     elif s1[i - 1] == s2[j - 1]:
-        return backtrack(m, s1, s2, i - 1, j - 1) + s1[i - 1]
+        return _backtrack(m, s1, s2, i - 1, j - 1) + s1[i - 1]
     else:
         if m[i - 1][j] > m[i][j - 1]:
-            return backtrack(m, s1, s2, i - 1, j)
+            return _backtrack(m, s1, s2, i - 1, j)
         else:
-            return backtrack(m, s1, s2, i, j - 1)
+            return _backtrack(m, s1, s2, i, j - 1)
 
 
-def get_lcs(s1: str, s2: str) -> None:
+def _get_lcs(s1: str, s2: str) -> None:
     m = bottom_up_lcs_length(s1, s2, matrix=True)
-    return backtrack(m, s1, s2, len(s1), len(s2))
+    return _backtrack(m, s1, s2, len(s1), len(s2))
 
 
 def bottom_up_lcs(s1: str, s2: str) -> list:
@@ -300,16 +306,17 @@ if __name__ == "__main__":
         y = bottom_up_lcs_length(a, b)
         print("bottom_up_lcs_length(%s, %s) = %d" % (a, b, y))
 
-        z = memoized_recursive_lcs_length(a, b)         
+        z = memoized_recursive_lcs_length(a, b)
         print("memoized_recursive_lcs_length(%s, %s) = %d" % (a, b, z))
 
         lcs = bottom_up_lcs(a, b)
         print("bottom_up_lcs(%s, %s) = %s" % (a, b, "".join(lcs)))
 
-        lcs2 = get_lcs(a, b)
+        lcs2 = _get_lcs(a, b)
         print("get_lcs(%s, %s) = %s" % (a, b, lcs2))
 
         assert x == y == z == len(lcs) == len(lcs2)
 
         partial = bottom_up_lcs_length_partial(a, b, 'a', 'e')
-        print("bottom_up_lcs_length_partial(%s, %s, 'a', 'e') = %.1f" % (a, b, partial), end="\n\n")
+        print("bottom_up_lcs_length_partial(%s, %s, 'a', 'e') = %.1f" % (
+            a, b, partial), end="\n\n")

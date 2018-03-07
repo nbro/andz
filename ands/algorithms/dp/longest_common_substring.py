@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 02/09/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -25,6 +25,8 @@ substring of two or more strings.
 
 - https://en.wikipedia.org/wiki/Longest_common_substring_problem
 """
+
+__all__ = ["longest_common_substring"]
 
 
 def _get_longest_common_substring_matrix(x: str, y: str) -> list:

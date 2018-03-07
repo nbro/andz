@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 04/09/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -28,8 +28,13 @@ contiguous sub-array with the largest sum is { 4, −1, 2, 1 }, with sum 6.
 - https://tkramesh.wordpress.com/2011/03/09/dynamic-programming-maximum-sum-contiguous-subsequence/
 """
 
+__all__ = ["brute_force_mscs",
+           "better_brute_force_mscs",
+           "bottom_up_mscs",
+           "better_bottom_up_mscs"]
 
-def brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
+
+def brute_force_mscs(seq: list) -> tuple:
     """Brute-force approach to compute the sum of all subsequences of seq.
 
     There are n + (n - 1) + (n - 2) + ... + 1 different subsequences.
@@ -55,7 +60,7 @@ def brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
     return _max, start, end
 
 
-def better_brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
+def better_brute_force_mscs(seq: list) -> tuple:
     """Brute-force approach to compute the sum of all subsequences of seq.
 
     There are n + (n - 1) + (n - 2) + ... + 1 different subsequences.
@@ -81,7 +86,7 @@ def better_brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
     return _max, start, end
 
 
-def bottom_up_max_sum_contiguous_subsequence(seq: list) -> tuple:
+def bottom_up_mscs(seq: list) -> tuple:
     """Dynamic programming bottom-up algorithm which finds the sub-sequence of
     seq, such that the sum of the elements of that sub-sequence is maximal.
 
@@ -122,7 +127,7 @@ def bottom_up_max_sum_contiguous_subsequence(seq: list) -> tuple:
     return _max, start, end
 
 
-def better_bottom_up_max_sum_contiguous_subsequence(seq: list) -> tuple:
+def better_bottom_up_mscs(seq: list) -> tuple:
     """Returns a tuple of three elements (sum, start, end), where sum is the sum
     of the maximum contiguous subsequence, and start and end are respectively
     the starting and ending indices of the subsequence.
@@ -162,7 +167,7 @@ def better_bottom_up_max_sum_contiguous_subsequence(seq: list) -> tuple:
 
 if __name__ == "__main__":
     seq = [4, 2, -4]
-    print(brute_force_max_sum_contiguous_subsequence(seq))
-    print(better_brute_force_max_sum_contiguous_subsequence(seq))
-    print(bottom_up_max_sum_contiguous_subsequence(seq))
-    print(better_bottom_up_max_sum_contiguous_subsequence(seq))
+    print(brute_force_mscs(seq))
+    print(better_brute_force_mscs(seq))
+    print(bottom_up_mscs(seq))
+    print(better_bottom_up_mscs(seq))

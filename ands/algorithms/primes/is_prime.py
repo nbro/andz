@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 28/06/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -19,6 +19,8 @@ Simple primality tests.
 - Add complexity analysis.
 - Add AKS primality test.
 """
+
+__all__ = ["is_prime", "is_prime_up_to_square_root", "recursively_is_prime"]
 
 
 def is_prime(n: int) -> bool:
@@ -38,7 +40,7 @@ def is_prime(n: int) -> bool:
 def is_prime_up_to_square_root(n: int) -> bool:
     """Return true if n is prime, false otherwise.
 
-    Time complexity: O(sqrt(n) * O(n % i))."""
+    Time complexity: O(√n * O(n % i))."""
     if n == 2 or n == 3:
         return True
     if n % 2 == 0 or n < 2:

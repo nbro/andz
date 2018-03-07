@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/09/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -27,6 +27,8 @@ is 25? Yes, if we insert a + sign between 1 and 4, that is 21 + 4, we obtain 25.
 sub-problems.
 - Add complexity analysis for current algorithms.
 """
+
+__all__ = ["plus_sign_game"]
 
 
 def _generate_combinations_matrix(p: int, num_of_combinations: int) -> list:

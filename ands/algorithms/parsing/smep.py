@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 24/08/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -26,6 +26,8 @@ Includes also a calculator that receives a postfix expression.
 - https://www.youtube.com/watch?v=vXPL6UavUeA
 - http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html
 """
+
+__all__ = ["infix_to_postfix", "smep_calculator"]
 
 import operator
 import re
@@ -52,15 +54,15 @@ OPS = {
 
 PARENTHESIS = {"(", ")"}
 
-REGEX = re.compile(r"(\d+|\w+|[-+*/^%()])")
+_REGEX = re.compile(r"(\d+|\w+|[-+*/^%()])")
 
 
-def string_to_infix(e: str, regex=REGEX) -> list:
+def _str_to_infix(e: str, regex=_REGEX) -> list:
     """Parses a string expression `e` into a infix representation list."""
     return regex.findall(e)
 
 
-def list_to_string(ls: list) -> str:
+def _list_to_str(ls: list) -> str:
     return " ".join(ls)
 
 
@@ -169,7 +171,7 @@ if __name__ == "__main__":
         ifx = "((12*2^3+44*3)*3)"
         print("Infix:", ifx)
 
-        ls = string_to_infix(ifx)
+        ls = _str_to_infix(ifx)
         print("Infix list:", ls)
 
         # ls = ['(', '(', '(', '3', '+', '2', '(', ')', ')', '*', '4', ')', ')']
@@ -179,7 +181,7 @@ if __name__ == "__main__":
         print("Postfix list:", pfx)
         print("Calculated:", smep_calculator(pfx))
 
-        pfx_str = list_to_string(pfx)
+        pfx_str = _list_to_str(pfx)
         print("Postfix:", pfx_str)
 
 

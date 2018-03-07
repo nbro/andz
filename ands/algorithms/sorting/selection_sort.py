@@ -8,11 +8,11 @@ Author: Nelson Brochado
 
 Created: 09/09/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
-Selection sorting is conceptually probably the most simplest sorting algorithm.
+Selection sorting is conceptually probably the simplest sorting algorithm.
 
 This algorithm first finds the smallest element in the list and exchanges it
 with the element in the first position, then find the second smallest element

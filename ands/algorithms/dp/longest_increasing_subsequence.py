@@ -9,7 +9,7 @@ Author: Nelson Brochado
 
 Created: 29/08/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -38,8 +38,10 @@ http://stackoverflow.com/questions/2631726/how-to-determine-the-longest-increasi
 - https://en.wikipedia.org/wiki/Longest_increasing_subsequence
 """
 
+__all__ = ["longest_increasing_subsequence"]
 
-def build_longest_increasing_subsequence(seq, prev, index_of_max_size) -> list:
+
+def _build_lis(seq, prev, index_of_max_size) -> list:
     """Build the longest increasing subsequence from original sequence (list)
     seq, the list prev produced by the function longest_increasing_subsequence
     and index_of_max_size."""
@@ -99,7 +101,7 @@ def longest_increasing_subsequence(seq: list) -> list:
             index_of_max_size = i
             current_max_size = a[i]
 
-    return build_longest_increasing_subsequence(seq, prev, index_of_max_size)
+    return _build_lis(seq, prev, index_of_max_size)
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 31/08/2015
 
-Updated: 18/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -24,6 +24,9 @@ Calculate the edit distance between two strings.
 - https://github.com/dossan/interview/blob/master/src/com/interview/dynamic/EditDistance.java
 - https://www.youtube.com/watch?v=We3YDTzNXEk
 """
+
+__all__ = ["min_edit_distance", "extended_min_edit_distance",
+           "build_min_edit_instructions"]
 
 
 def _get_edit_distance_matrix(x: str, y: str) -> list:
