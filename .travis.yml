@@ -11,4 +11,9 @@ install:
   - pip install coveralls
   - pip install -e .
 
-script: scripts/travis.sh
+script:
+  - coverage run --source=. -m unittest discover -s tests/ -v
+
+after_script:
+  # Send results to https://coveralls.io/.
+  - coveralls
