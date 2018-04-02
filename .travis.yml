@@ -1,4 +1,3 @@
-# Travis CI only supports Python builds for Linux (at this moment)
 os:
   - linux
 
@@ -7,11 +6,9 @@ language: python
 python:
   - 3.5
   - 3.6
-  - pypy3.5
-  - pypy3.6
 
 install:
-  - pip install coveralls # It also installs coverage.py.
+  - pip install coveralls
   - pip install -e .
 
 script: scripts/travis.sh

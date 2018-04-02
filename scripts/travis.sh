@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-# Script called by Travis CI to report the code coverage.
+coverage run --source=. -m unittest discover -s tests/ -v
 
-python -m unittest discover -s tests/
-coverage run --source=. -m unittest discover -s tests/
-coverage report -m
+# Send results to https://coveralls.io/.
 coveralls
