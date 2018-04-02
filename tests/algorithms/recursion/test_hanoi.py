@@ -26,7 +26,8 @@ class TestRecursiveHanoi(unittest.TestCase):
         self.assertEqual(hanoi(1), [(1, 'A', 'C')])
 
     def test_n2(self):
-        self.assertEqual(hanoi(2), [(1, 'A', 'B'), (2, 'A', 'C'), (1, 'B', 'C')])
+        self.assertEqual(hanoi(2),
+                         [(1, 'A', 'B'), (2, 'A', 'C'), (1, 'B', 'C')])
 
     def test_n3(self):
         self.assertEqual(hanoi(3), [(1, 'A', 'C'),

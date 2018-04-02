@@ -21,7 +21,6 @@ from ands.algorithms.recursion.make_decimal import make_decimal
 
 
 class TestMakeDecimal(unittest.TestCase):
-
     @staticmethod
     def generate_number(base: int):
 

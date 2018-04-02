@@ -38,32 +38,44 @@ class TestForwardEuler(unittest.TestCase):
         self.b = TestForwardEuler.gen_b(self.a, self.n, self.h)
 
     def test_forward_euler_parameters_when_are_None(self):
-        self.assertRaises(ValueError, forward_euler, None, self.b, self.n, 1, TestForwardEuler.f)
-        self.assertRaises(ValueError, forward_euler, self.a, None, self.n, 1, TestForwardEuler.f)
-        self.assertRaises(ValueError, forward_euler, self.a, self.b, None, 1, TestForwardEuler.f)
-        self.assertRaises(ValueError, forward_euler, self.a, self.b, self.n, None, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, None, self.b, self.n, 1,
+                          TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, self.a, None, self.n, 1,
+                          TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, self.a, self.b, None, 1,
+                          TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, self.a, self.b, self.n,
+                          None, TestForwardEuler.f)
 
     def test_forward_euler_approx_parameters_when_are_None(self):
-        self.assertRaises(ValueError, forward_euler_approx, None, self.b, self.n, 1, TestForwardEuler.f)
-        self.assertRaises(ValueError, forward_euler_approx, self.a, None, self.n, 1, TestForwardEuler.f)
-        self.assertRaises(ValueError, forward_euler_approx, self.a, self.b, None, 1, TestForwardEuler.f)
-        self.assertRaises(ValueError, forward_euler_approx, self.a, self.b, self.n, None, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler_approx, None, self.b,
+                          self.n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler_approx, self.a, None,
+                          self.n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler_approx, self.a, self.b,
+                          None, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler_approx, self.a, self.b,
+                          self.n, None, TestForwardEuler.f)
 
     def test_forward_euler_b_less_than_a(self):
         self.h = -0.2
         self.b = TestForwardEuler.gen_b(self.a, self.n, self.h)
-        self.assertRaises(ValueError, forward_euler, self.a, self.b, self.n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler, self.a, self.b, self.n, 1,
+                          TestForwardEuler.f)
 
     def test_forward_euler_approx_b_less_than_a(self):
         self.h = -0.2
         self.b = TestForwardEuler.gen_b(self.a, self.n, self.h)
-        self.assertRaises(ValueError, forward_euler_approx, self.a, self.b, self.n, 1, TestForwardEuler.f)
+        self.assertRaises(ValueError, forward_euler_approx, self.a, self.b,
+                          self.n, 1, TestForwardEuler.f)
 
     def test_forward_euler_f_is_not_callable(self):
-        self.assertRaises(TypeError, forward_euler, self.a, self.b, self.n, 1, None)
+        self.assertRaises(TypeError, forward_euler, self.a, self.b, self.n, 1,
+                          None)
 
     def test_forward_euler_approx_f_is_not_callable(self):
-        self.assertRaises(TypeError, forward_euler_approx, self.a, self.b, self.n, 1, None)
+        self.assertRaises(TypeError, forward_euler_approx, self.a, self.b,
+                          self.n, 1, None)
 
     def test_forward_euler_result_is_not_None(self):
         # Consider the problem y' = y, y(0) = 1,

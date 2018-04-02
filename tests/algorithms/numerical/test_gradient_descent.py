@@ -9,7 +9,7 @@ Author: Nelson Brochado
 
 Created: 26/10/2017
 
-Updated: 26/10/2017
+Updated: 02/04/2018
 
 # Description
 
@@ -33,7 +33,7 @@ def df(x: float) -> float:
 
 class TestGradientDescent(unittest.TestCase):
     def test_type_error_when_df_not_callable(self):
-        self.assertRaises(TypeError, gradient_descent, 0.3, 5)
+        self.assertRaises(TypeError, gradient_descent, 0.3, 4)
 
     def test_find_local_min_of_f(self):
-        self.assertAlmostEqual(gradient_descent(3, df), 9 / 4, 5)
+        self.assertAlmostEqual(gradient_descent(3, df), 9 / 4, 4)

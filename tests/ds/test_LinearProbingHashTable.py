@@ -25,7 +25,8 @@ import string
 import unittest
 from random import sample, randint, choice, shuffle
 
-from ands.ds.LinearProbingHashTable import LinearProbingHashTable, has_duplicates_ignore_nones
+from ands.ds.LinearProbingHashTable import LinearProbingHashTable, \
+    has_duplicates_ignore_nones
 
 
 def gen_rand_list_of_distinct_ascii_and_numbers() -> list:

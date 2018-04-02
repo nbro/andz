@@ -20,7 +20,8 @@ from random import randint
 from ands.algorithms.crypto.caesar import encrypt, decrypt, \
     encrypt_with_multiple_keys, decrypt_with_multiple_keys, \
     MAX_MAPPED_INT
-from tests.algorithms.crypto.util import find_max_char_ord_value, generate_random_string, gen_rand_keys
+from tests.algorithms.crypto.util import find_max_char_ord_value, \
+    generate_random_string, gen_rand_keys
 
 
 class TestCaesarCipher(unittest.TestCase):
@@ -37,7 +38,8 @@ class TestCaesarCipher(unittest.TestCase):
     def template_test_multi_keys(self, n, size, total_keys):
         for _ in range(n):
             m = generate_random_string(size)
-            keys = gen_rand_keys(total_keys, 1, MAX_MAPPED_INT - find_max_char_ord_value(m))
+            keys = gen_rand_keys(total_keys, 1,
+                                 MAX_MAPPED_INT - find_max_char_ord_value(m))
             cipher, pattern = encrypt_with_multiple_keys(m, keys)
             o = decrypt_with_multiple_keys(cipher, pattern)
             self.assertEqual(m, o)

@@ -21,7 +21,6 @@ from ands.algorithms.recursion.palindrome import is_palindrome
 
 
 class TestRecursivePalindrome(unittest.TestCase):
-
     @staticmethod
     def generate_palindrome(n: int):
         """Generates a palindrome of size `n`"""
@@ -40,14 +39,17 @@ class TestRecursivePalindrome(unittest.TestCase):
         self.assertTrue(is_palindrome(""))
 
     def test_size_1(self):
-        self.assertTrue(is_palindrome(TestRecursivePalindrome.generate_palindrome(1)))
+        self.assertTrue(
+            is_palindrome(TestRecursivePalindrome.generate_palindrome(1)))
 
     def test_size_2(self):
-        self.assertTrue(is_palindrome(TestRecursivePalindrome.generate_palindrome(2)))
+        self.assertTrue(
+            is_palindrome(TestRecursivePalindrome.generate_palindrome(2)))
 
     def test_size_2_not(self):
         self.assertFalse(is_palindrome("xy"))
 
     def test_random_size(self):
         n = randint(3, 100)
-        self.assertTrue(is_palindrome(TestRecursivePalindrome.generate_palindrome(n)))
+        self.assertTrue(
+            is_palindrome(TestRecursivePalindrome.generate_palindrome(n)))
