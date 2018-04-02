@@ -6,3 +6,4 @@ cd tests/
 coverage run -m unittest discover . -v
 mv .coverage ../.coverage
 cd ../
+coveralls

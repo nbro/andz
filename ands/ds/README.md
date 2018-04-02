@@ -19,7 +19,8 @@ A few interesting data structures which may be implemented in the future.
 
 ### Lists
 
-- Skip list
+- [Skip list](https://brilliant.org/wiki/skip-lists/)
+- [Doubly connected edge list](https://en.wikipedia.org/wiki/Doubly_connected_edge_list)
 
 ## Trees
 

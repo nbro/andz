@@ -27,7 +27,7 @@ __all__ = ["gradient_descent"]
 def gradient_descent(x0: float,
                      df: callable,
                      step_size: float = 0.01,
-                     max_iter: int = 50,
+                     max_iter: int = 100,
                      tol: float = 1e-6):
     """Finds a local minimum of a function whose derivative is df starting from
     an initial guess x0 using a step size = step_size."""
@@ -36,8 +36,8 @@ def gradient_descent(x0: float,
 
     x = x0
 
-    for _ in range(max_iter):
-        x_next = x + -step_size * df(x)  # Gradient descent step.
+    for i in range(max_iter):
+        x_next = x - step_size * df(x)  # Gradient descent step.
 
         if abs(x_next - x) < tol * abs(x_next):
             x = x_next

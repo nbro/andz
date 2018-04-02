@@ -16,7 +16,9 @@ A few interesting algorithms which may be implemented in the future.
 
 ## Geometry
 
-- [Line segment intersection](https://en.wikipedia.org/wiki/Line_segment_intersection)
+### [Line-Segment Intersection](https://en.wikipedia.org/wiki/Line_segment_intersection)
+
+- [Bentley–Ottmann algorithm](https://en.wikipedia.org/wiki/Bentley%E2%80%93Ottmann_algorithm)
 
 ### Convex Hull
 

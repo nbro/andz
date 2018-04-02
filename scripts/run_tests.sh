@@ -111,7 +111,7 @@ then
 
         switch_to_virtual_environment
 
-        install_dependencies_in_virtual_environment coveralls pdoc "-e ."
+        install_dependencies_in_virtual_environment coveralls "-e ."
 
         # If we have 3 parameters, then probably the user wants to execute a specific test.
         if [ "$#" =  "3" ]
