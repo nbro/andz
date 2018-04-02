@@ -2,8 +2,7 @@
 
 # Script called by Travis CI to report the code coverage.
 
-cd tests/
-coverage run -m unittest discover . -v
-mv .coverage ../.coverage
-cd ../
+python -m unittest discover -s tests/
+coverage run --source=. -m unittest discover -s tests/
+coverage report -m
 coveralls
