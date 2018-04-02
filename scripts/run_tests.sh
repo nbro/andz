@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
-# See the file CONTRIBUTING.md under the root folder of the ands package to know
-# more about this script.
+# Script to run tests in a virtual environment during the development phase.
+#
+# You need to call this script from inside the folder "scripts" under the root
+# folder of this project.
 #
 # Run all tests with: ./run_tests.sh
 #
 # Run specific test: ./run_tests.sh -st [folder_path_inside_tests] test_name.py
+# Example: ./run_tests.sh -st algorithms/numerical/test_gradient_descent.py
+#
+# See the file CONTRIBUTING.md under the root folder of the ands package to know
+# more about this script.
 
 
 export ALREADY_SOURCED_RUN_TESTS
@@ -80,20 +86,21 @@ then
         # coverage statistics.
         coverage run -m unittest "$2" -v
 
-        # In case an error occurs while running coverage.
-        # An error that occurred to me was that a unit test module was not found.
-        # So we just proceed if we have actually run the tests and created the file .coverage.
+        # In case an error occurs while running coverage. An error that occurred
+        # to me was that a unit test module was not found. So, we just proceed
+        # if we have actually run the tests and created the file .coverage.
         if [ $? -ne 0 ]
         then
             printf "%sUnit test(s) did NOT run successfully.%s\n" "${RED}" "${NORMAL}"
             exit 1
         fi
 
-        # We need to go back at least twice in order to be in the root folder of the project.
+        # We need to go back at least twice in order to be in the root folder of
+        # the project.
         cd ../../
 
-        # This to ensure we're in the root folder of the project,
-        # since the specific test could have been executed in a depth greater than 2.
+        # This to ensure we're in the root folder of the project, since the
+        # specific test could have been executed in a depth greater than 2.
         cd_back_n_times "$(count_occurrences "/" "$1")"
 
         # Move the file '.coverage' to the root folder of the project.
@@ -113,7 +120,8 @@ then
 
         install_dependencies_in_virtual_environment coveralls "-e ."
 
-        # If we have 3 parameters, then probably the user wants to execute a specific test.
+        # If we have 3 parameters, then probably the user wants to execute a
+        # specific test.
         if [ "$#" =  "3" ]
         then
             # First parameter must be -st
@@ -161,7 +169,8 @@ then
     _source_script scripts asserts
     _source_script scripts virtual_environment
 
-    # "$@" expands all command-line parameters separated by spaces which are passed to the run function
+    # "$@" expands all command-line parameters separated by spaces which are
+    # passed to the run function.
     _main "$@"
 
     ALREADY_SOURCED_RUN_TESTS="true"
