@@ -1,16 +1,25 @@
 ands/ds/Graph.py
 ands/ds/DirectedGraph.py
 ands/ds/UndirectedGraph.py
-
-ands/algorithms/dp/previous_larger_element.py
-
-ands/algorithms/greedy/huffman.py
-/ands/ds/MinPriorityQueue.py
+ands/ds/MinPriorityQueue.py
+ands/ds/Point2D.py
+ands/ds/BSTImproved.py
 
 ands/algorithms/graphs/
-/ands/algorithms/math/combinatorics/
-/ands/algorithms/math/
-/ands/algorithms/cg/
+ands/algorithms/math/combinatorics/
+ands/algorithms/math/
+ands/algorithms/cg/
+ands/algorithms/numerical/decasteljau.py
+ands/algorithms/numerical/decasteljau2.py
+ands/algorithms/numerical/decasteljau3.py
+ands/algorithms/dp/previous_larger_element.py
+ands/algorithms/greedy/huffman.py
+
+notes/
+resources/
+exercises/
+
+.idea/
 
 *.eggx
 *.py[cod]
@@ -20,8 +29,3 @@ ands/algorithms/graphs/
 venv/
 *.egg-info/
 __pycache__/
-
-notes/
-.idea/
-_ignore/
-/ands/algorithms/numerical/decasteljau.py

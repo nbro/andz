@@ -16,11 +16,12 @@ In this file you can find some functions that return the nth fibonacci number,
 but they do it in different ways, which has also an impact on the performance
 and asymptotic complexity of the same algorithms.
 
-The Fibonacci numbers is an infinite sequence of numbers, where the next element
-of the sequence is constructed by summing the previous two elements of the same.
+The Fibonacci numbers is an infinite sequence of numbers, where the next
+element of the sequence is constructed by summing the previous two elements of
+the same.
 
 The first two elements are usually 0 and 1, so the next element is 1, so the
-sequence is now {0, 1, 1}. We then add 1 + 1 = 2 two obtain the 4th element of
+sequence is now {0, 1, 1}. We then add 1 + 1 = 2 to obtain the 4th element of
 the sequence, which is now {0, 1, 1, 2}, and so on.
 """
 
@@ -45,7 +46,7 @@ def _memoized_fibonacci_aux(n: int, memo: dict) -> int:
         return n
     if n not in memo:
         memo[n] = _memoized_fibonacci_aux(n - 1, memo) + \
-                  _memoized_fibonacci_aux(n - 2, memo)
+            _memoized_fibonacci_aux(n - 2, memo)
     return memo[n]
 
 
