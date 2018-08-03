@@ -145,7 +145,8 @@ def horner(x0: float, coefficients: list) -> float:
 
     Time complexity: O(n), where n = len(coefficients)."""
     assert isinstance(coefficients, list)
-    assert all(isinstance(x, float) or isinstance(x, int) for x in coefficients)
+    assert all(
+        isinstance(x, float) or isinstance(x, int) for x in coefficients)
     assert isinstance(x0, float) or isinstance(x0, int)
     p = 0
     for c in reversed(coefficients):

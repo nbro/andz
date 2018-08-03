@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 18/01/2017
 
+Updated: 04/08/2018
+
 # Description
 
-Testing hanoi function.
+Unit tests for the functions in the ands.algorithms.recursion.hanoi module.
 """
 
 import unittest

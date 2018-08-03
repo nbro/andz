@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -12,7 +12,8 @@ Updated: 08/03/2017
 
 # Description
 
-Unit tests for the DisjointSetsForest class and associated classes.
+Unit tests for the classes and functions in the ands.ds.DisjointSetsForest
+module.
 """
 
 import unittest

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -12,7 +12,7 @@ Updated: 29/09/2017
 
 # Description
 
-Unit tests for the MinMaxHeap class.
+Unit tests for the classes and functions in the ands.ds.MinMaxHeap module.
 """
 
 import unittest

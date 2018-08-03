@@ -46,7 +46,7 @@ def _memoized_fibonacci_aux(n: int, memo: dict) -> int:
         return n
     if n not in memo:
         memo[n] = _memoized_fibonacci_aux(n - 1, memo) + \
-            _memoized_fibonacci_aux(n - 2, memo)
+                  _memoized_fibonacci_aux(n - 2, memo)
     return memo[n]
 
 

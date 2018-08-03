@@ -13,7 +13,8 @@ Updated: 02/04/2018
 
 # Description
 
-Tests for the functions of the module ands.algorithms.numerical.barycentric.
+Unit tests for the functions in the ands.algorithms.numerical.barycentric
+module.
 """
 
 import unittest

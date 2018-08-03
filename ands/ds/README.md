@@ -54,6 +54,10 @@ A few interesting data structures which may be implemented in the future.
 
 - K-d Tree
 
+## Probabilistic Data Structures
+
+- Bloom filter
+
 ---
 
 An article listing other possibly interesting data structures can be found at the 

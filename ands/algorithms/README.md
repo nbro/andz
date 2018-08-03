@@ -14,6 +14,10 @@ A few interesting algorithms which may be implemented in the future.
 
 - [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) (Rivest–Shamir–Adleman)
 
+## Data Mining
+
+- [k-means](https://en.wikipedia.org/wiki/K-means_clustering)
+
 ## Geometry
 
 ### [Line-Segment Intersection](https://en.wikipedia.org/wiki/Line_segment_intersection)
@@ -154,7 +158,7 @@ A few interesting algorithms which may be implemented in the future.
 ## Optimization Algorithms
 
 - [Alpha-beta pruning](https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning)
-- [Minmax](https://en.wikipedia.org/wiki/Minimax#Minimax_algorithm_with_alternate_moves)
+- [Min-max](https://en.wikipedia.org/wiki/Minimax#Minimax_algorithm_with_alternate_moves)
 - [Simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing)
 
 ### Non-linear Least Squares
@@ -175,9 +179,13 @@ A few interesting algorithms which may be implemented in the future.
 - [Bees algorithm](https://en.wikipedia.org/wiki/Bees_algorithm)
 - [Particle swarm optimization](https://en.wikipedia.org/wiki/Particle_swarm_optimization)
 
+## Pattern Recognition
+
+- [k-nearest neighbors algorithm](https://www.youtube.com/watch?v=UqYde-LULfs)
+
 ## Programming Language Theory
 
-## Parsing
+### Parsing
 
 - [CYK algorithm](https://en.wikipedia.org/wiki/CYK_algorithm)
 - [LL parser](https://en.wikipedia.org/wiki/LL_parser)

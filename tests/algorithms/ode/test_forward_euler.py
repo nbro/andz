@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -13,7 +13,7 @@ Updated: 19/02/2017
 
 # Description
 
-Testing the functions under forward_euler.py
+Unit tests for the functions in the ands.algorithms.ode.forward_euler module.
 """
 
 import unittest

@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -13,8 +13,7 @@ Updated: 10/03/2017
 
 # Description
 
-Testing the functions inside the find_peak.py module.
-
+Unit tests for the functions in the ands.algorithms.dac.find_peak module.
 """
 
 import unittest

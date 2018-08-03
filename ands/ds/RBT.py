@@ -222,14 +222,14 @@ class RBT(BST):
             return
 
         elif (u.parent.color == RED and
-                  (u.uncle is not None and u.uncle.color == RED)):
+              (u.uncle is not None and u.uncle.color == RED)):
             u.parent.color = BLACK
             u.uncle.color = BLACK
             u.grandparent.color = RED
             self._fix_insertion(u.grandparent)
 
         elif (u.parent.color == RED and
-                  (u.uncle is None or u.uncle.color == BLACK)):
+              (u.uncle is None or u.uncle.color == BLACK)):
 
             # u is added as a right child to a node that is the left child.
             if u.parent.is_left_child() and u.is_right_child():
@@ -480,9 +480,9 @@ class RBT(BST):
         # Not sure if the children of u.sibling can be None.
         if (u.parent.color == BLACK and u.sibling.color == BLACK and
                 ((u.sibling.left and u.sibling.left.color == BLACK) or
-                     not u.sibling.left) and
+                 not u.sibling.left) and
                 ((u.sibling.right and u.sibling.right.color == BLACK) or
-                     not u.sibling.right)):
+                 not u.sibling.right)):
 
             u.sibling.color = RED
             self._delete_case_1(u.parent)
@@ -493,9 +493,9 @@ class RBT(BST):
         # Not sure if the children of u.sibling can be None.
         if (u.parent.color == RED and u.sibling.color == BLACK and
                 ((u.sibling.left and u.sibling.left.color == BLACK) or
-                     not u.sibling.left) and
+                 not u.sibling.left) and
                 ((u.sibling.right and u.sibling.right.color == BLACK) or
-                     not u.sibling.right)):
+                 not u.sibling.right)):
 
             u.sibling.color = RED
             u.parent.color = BLACK
@@ -508,15 +508,15 @@ class RBT(BST):
         if u.sibling.color == BLACK:
             if (u.is_left_child() and
                     (not u.sibling.right or u.sibling.right.color == BLACK) and
-                        u.sibling.left.color == RED):
+                    u.sibling.left.color == RED):
 
                 u.sibling.color = RED
                 u.sibling.left.color = BLACK
                 self._right_rotate(u.sibling)
 
             elif (u.is_right_child() and
-                      (not u.sibling.left or u.sibling.left.color == BLACK) and
-                          u.sibling.right.color == RED):
+                  (not u.sibling.left or u.sibling.left.color == BLACK) and
+                  u.sibling.right.color == RED):
 
                 u.sibling.color = RED
                 u.sibling.right.color = BLACK
@@ -610,7 +610,7 @@ def is_rbt(t: RBT) -> bool:
         def h(n: _RBTNode) -> bool:
             if n is not None:
                 if (n.parent is not None and n.color == RED and
-                            n.parent.color == RED):
+                        n.parent.color == RED):
                     return False
                 if n.parent is None and n.color == RED:
                     return False

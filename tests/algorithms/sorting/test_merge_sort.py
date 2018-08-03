@@ -2,6 +2,20 @@
 # -*- coding: utf-8 -*-
 
 
+"""
+# Meta-info
+
+Author: Nelson Brochado
+
+Created: 1/01/2017
+
+Updated: 04/08/2018
+
+# Description
+
+Unit tests for the functions in the ands.algorithms.sorting.merge_sort module.
+"""
+
 import unittest
 
 from ands.algorithms.sorting.merge_sort import merge_sort

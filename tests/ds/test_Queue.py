@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -13,7 +13,7 @@ Updated: 12/03/2017
 
 # Description
 
-Unit tests for the Queue class.
+Unit tests for the classes and functions in the ands.ds.Queue module.
 """
 
 import unittest

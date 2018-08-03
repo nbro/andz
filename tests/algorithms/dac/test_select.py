@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -13,8 +13,7 @@ Updated: 10/03/2017
 
 # Description
 
-Tests for the functions in the module select.py.
-
+Unit tests for the functions in the ands.algorithms.dac.select module.
 """
 
 import unittest

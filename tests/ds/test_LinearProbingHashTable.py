@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -13,12 +13,12 @@ Updated: 19/02/2017
 
 # Description
 
-Unit tests for the LinearProbingHashTable class.
+Unit tests for the classes and functions in the ands.ds.LinearProbingHashTable
+module.
 
 # Reference
 
 - https://stackoverflow.com/q/9755538/3924118
-
 """
 
 import string

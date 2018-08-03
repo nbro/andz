@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -13,8 +13,7 @@ Updated: 18/02/2017
 
 # Description
 
-Tests for the functions in the module ands.algorithms.dac.binary_search.py
-
+Unit tests for the functions in the ands.algorithms.dac.binary_search module.
 """
 
 import unittest

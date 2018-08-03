@@ -15,6 +15,8 @@ ands/algorithms/numerical/decasteljau3.py
 ands/algorithms/dp/previous_larger_element.py
 ands/algorithms/greedy/huffman.py
 
+tests/algorithms/dp
+
 notes/
 resources/
 exercises/

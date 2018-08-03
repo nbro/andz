@@ -3,15 +3,17 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 18/01/2017
 
+Updated: 04/08/2018
+
 # Description
 
-Testing the first 3*3 = 9 permutations for two inputs m and n from a domain {0, 1, 2}
+Unit tests for the functions in the ands.algorithms.recursion.ackermann module.
 """
 
 import unittest

@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 21/01/2017
 
+Updated: 04/08/2018
+
 # Description
 
-Testing methods under `factorial.py`.
+Unit tests for the functions in the ands.algorithms.recursion.factorial module.
 """
 
 import math

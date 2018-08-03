@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -11,7 +11,7 @@ Created: 01/01/2017
 
 # Description
 
-Tests for the caesar cipher algorithms.
+Unit tests for the functions in the ands.algorithms.crypto.caesar module.
 """
 
 import unittest

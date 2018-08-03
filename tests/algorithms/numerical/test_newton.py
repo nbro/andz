@@ -13,7 +13,7 @@ Updated: 29/09/2017
 
 # Description
 
-Tests for the functions in the module ands.algorithms.numerical.newton.
+Unit tests for the functions in the ands.algorithms.numerical.newton module.
 """
 
 import unittest

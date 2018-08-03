@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -13,10 +13,7 @@ Updated: 12/03/2017
 
 # Description
 
-Unit tests for the TST and _TSTNode classes.
-
-In these tests I only test the count method instead of testing also size and _n,
-this is because `count` asserts its result is equal to the result returned by size, which is _n.
+Unit tests for the classes and functions in the ands.ds.TST module.
 """
 
 import random

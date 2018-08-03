@@ -13,7 +13,8 @@ Updated: 29/09/2017
 
 # Description
 
-Tests for the functions under the module ands.algorithms.matching.gale_shapley.
+Unit tests for the functions in the ands.algorithms.matching.gale_shapley
+module.
 """
 
 import unittest
