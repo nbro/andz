@@ -52,9 +52,6 @@ class TestChangeMaking(unittest.TestCase):
     def test_1(self):
         self.arbitrary_list_of_coins_and_n()
 
-    def test_arbitrary_list_of_coins_and_n(self):
+    def test_2(self):
         # https://www.sciencedirect.com/science/article/pii/S0195669809001292
-        coins = (1, 5, 9, 16)
-        n = 18
-        optimal = [9, 9]
-        self.arbitrary_list_of_coins_and_n(coins, n, optimal)
+        self.arbitrary_list_of_coins_and_n((1, 5, 9, 16), 18, [9, 9])
