@@ -29,7 +29,7 @@ setup(
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
         "Intended Audience :: Developers, Students, Scientists",
-        "Topic :: Software Development :: Algorithms and Data Structures",
+        "Topic :: Computer Science :: Algorithms and Data Structures",
         "License :: OSI Approved :: MIT License",
         "Operating System :: MacOS :: Mac OS X",
         "Operating System :: Microsoft :: Windows",

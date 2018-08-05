@@ -6,7 +6,7 @@
 
 - Test all code under:
 
-    - dp
+    - dp (except for the change_making module)
     - greedy
     - parsing
     - primes

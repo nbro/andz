@@ -8,10 +8,10 @@
 # Run all tests with: ./run_tests.sh
 #
 # Run specific test: ./run_tests.sh -st [folder_path_inside_tests] test_name.py
-# Example: ./run_tests.sh -st algorithms/numerical/test_gradient_descent.py
+# Example: ./run_tests.sh -st algorithms/numerical test_gradient_descent.py
 #
-# See the file CONTRIBUTING.md under the root folder of the ands package to know
-# more about this script.
+# See the file CONTRIBUTING.md under the root folder of the ands package to
+# know more about this script.
 
 
 export ALREADY_SOURCED_RUN_TESTS
