@@ -78,11 +78,11 @@ non-negative integers.
 
 Furthermore, there are other ways of solving this problem. For example, we can
 also use a greedy strategy. However, the greedy strategy is not guaranteed to
-compute the optimal_sol solution (for all inputs).
+compute the optimal solution (for all inputs).
 
 # TODO
 
-- Show that this problem exhibits optimal_sol sub-structure and contains
+- Show that this problem exhibits optimal sub-structure and contains
 overlapping sub-problems.
 
 - Add recursive change_making (for comparison with the dynamic programming
@@ -218,7 +218,7 @@ def extended_change_making(coins: list, n: int) -> list:
             #   1. Using the previous solution for totaling z (without using
             #   coins[c - 1]).
             #
-            #   2. Using coins[c - 1] + the optimal_sol solution for totaling
+            #   2. Using coins[c - 1] + the optimal solution for totaling
             #   z - coins[c - 1].
             else:
                 if m[c - 1][z] < 1 + m[c][z - coins[c - 1]]:
