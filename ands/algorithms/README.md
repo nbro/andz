@@ -1,6 +1,6 @@
 # Algorithms
 
-A few interesting algorithms which may be implemented in the future.
+A few interesting algorithms which may be implemented in the future. It excludes the sorting algorithms, which you can find under [`sorting/README.md`](./sorting/README.md).
 
 ## Combinatorial Algorithms
 
@@ -13,10 +13,6 @@ A few interesting algorithms which may be implemented in the future.
 ### Asymmetric Public Key Encryption
 
 - [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) (Rivest–Shamir–Adleman)
-
-## Data Mining
-
-- [k-means](https://en.wikipedia.org/wiki/K-means_clustering)
 
 ## Geometry
 
@@ -157,13 +153,14 @@ A few interesting algorithms which may be implemented in the future.
 
 ## Optimization Algorithms
 
-- [Alpha-beta pruning](https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning)
-- [Min-max](https://en.wikipedia.org/wiki/Minimax#Minimax_algorithm_with_alternate_moves)
+### Meta-heuristics
+
 - [Simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing)
 
-### Non-linear Least Squares
+### 2-player games
 
-- [Gauss-Newton algorithm](https://en.wikipedia.org/wiki/Gauss%E2%80%93Newton_algorithm)
+- [Alpha-beta pruning](https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning)
+- [Min-max](https://en.wikipedia.org/wiki/Minimax#Minimax_algorithm_with_alternate_moves)
 
 ### Evolutionary computation
 
@@ -179,9 +176,24 @@ A few interesting algorithms which may be implemented in the future.
 - [Bees algorithm](https://en.wikipedia.org/wiki/Bees_algorithm)
 - [Particle swarm optimization](https://en.wikipedia.org/wiki/Particle_swarm_optimization)
 
-## Pattern Recognition
+### Non-linear Least Squares
+
+- [Gauss-Newton algorithm](https://en.wikipedia.org/wiki/Gauss%E2%80%93Newton_algorithm)
+
+## Machine Learning
+
+### Unsupervised
+
+- [k-means](https://en.wikipedia.org/wiki/K-means_clustering)
+
+## Supervised
 
 - [k-nearest neighbors algorithm](https://www.youtube.com/watch?v=UqYde-LULfs)
+
+## Reinforcement
+
+- Tabular Q-Learning
+- Tabular SARSA
 
 ## Programming Language Theory
 
@@ -210,3 +222,5 @@ A few interesting algorithms which may be implemented in the future.
 
 An article listing other possibly interesting algorithms can be found at the 
 following URL [https://en.wikipedia.org/wiki/List\_of\_algorithms](https://en.wikipedia.org/wiki/List_of_algorithms).
+
+---
