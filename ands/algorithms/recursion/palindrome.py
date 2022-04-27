@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/08/2015
 
-Updated: 19/09/2017
+Updated: 15/03/2022
 
 # Description
 
@@ -16,12 +16,16 @@ Checking recursively if a string is a palindrome, which is a string that reads
 the same way forward and backward. For example, "anna" is a palindrome, whereas
 "prime" is not.
 
+# TODO
+
+- This does not just apply to strings, but other sequences as well.
+
 # References
 
 - https://en.wikipedia.org/wiki/Palindrome
 """
 
-__all__ = ["is_palindrome"]
+__all__ = ["is_palindrome", "iterative_is_palindrome"]
 
 
 def _is_palindrome_aux(s: str, l: int, r: int) -> bool:
@@ -41,3 +45,15 @@ def is_palindrome(s: str) -> bool:
         return True
     else:
         return _is_palindrome_aux(s, 0, len(s) - 1)
+
+
+def iterative_is_palindrome(s: str) -> bool:
+    return s == s[::-1]
+
+
+def test1():
+    print(iterative_is_palindrome(""))
+
+
+if __name__ == '__main__':
+    test1()
