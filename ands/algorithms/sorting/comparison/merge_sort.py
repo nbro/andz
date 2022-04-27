@@ -8,18 +8,27 @@ Author: Nelson Brochado
 
 Created: 09/09/2015
 
-Updated: 19/09/2017
+Updated: 09/03/2022
 
 # Description
 
-Merge-sort is a sorting algorithm which follows the divide-and-conquer strategy.
+Merge-sort is a sorting algorithm which follows the divide-and-conquer
+strategy.
 
 In merge-sort the unsorted list is divided into N sub-lists, each having one
 element. A list of one element is by definition sorted. And merging two sorted
 lists of one element is easy, since you just need to understand which of the 2
 elements from the 2 different lists is greater or smaller. So, once all
-1-element lists have been merged in 2-elements lists, we do the same recursively
-until we have just 1 list.
+1-element lists have been merged in 2-elements lists, we do the same
+recursively until we have just 1 list.
+
+## Properties
+
+- Comparison-based sorting algorithm
+- Divide-and-conquer algorithm
+- Stable
+- Not-in-place
+- n*log(n) algorithm
 
 ## Example
 
@@ -43,8 +52,8 @@ and this second let's call it L2
     +-------+
 
 Then we keep diving these two lists in half to obtain sub-lists of at most 1
-element. Let's first divide L1 into other two smaller sub-lists. The first let's
-call it L11 and the second L12.
+element. Let's first divide L1 into other two smaller sub-lists. The first
+let's call it L11 and the second L12.
 
     +-------+
     | 5 | 6 |
@@ -69,7 +78,7 @@ and
     | 1 |
     +---+
 
-Now apart from L11, all lists have already just one element. So, let's further
+Now, apart from L11, all lists have already just one element. So, let's further
 divide L11 in two smaller sub-lists, named respectively L111 and L112.
 
     +---+
@@ -83,7 +92,8 @@ and
     | 6 |
     +---+
 
-Now all lists have 1 element and, by definition, they are sorted.
+Now, all lists have 1 element and, by definition, they are sorted.
+
 Let's start by merging L111 and L112 into a new list M:
 
     +-------+
@@ -129,9 +139,9 @@ and
 The merge procedure then works in general as follows. We create a new empty list
 C, which will contain the final merged and sorted list.
 
-    ++
-    ||
-    ++
+    +---+
+    |   |
+    +---+
 
 We then iterate through both lists using for each of them different indices, i
 for the first one and j for the second. So the situation looks as follows:
@@ -156,7 +166,7 @@ and
 
 We then compare the elements at i and j from both lists and take the smallest
 one. In our case, the smallest one is the one at j = 0 from list B. We take it
-from B  and put it in C, which now looks as follows:
+from B and put it in C, which now looks as follows:
 
     +---+
     | 1 |
@@ -173,8 +183,8 @@ follows
 
         j = 1
 
-The situation for A has not changed. We compare again the elements at position i
-and j from both lists. Now, element at index i from A, that is 2, is smaller
+The situation for A has not changed. We compare again the elements at position
+i and j from both lists. Now, element at index i from A, that is 2, is smaller
 than element at index j from B, that is 9, so we add 2 two C, and the C now
 looks like this:
 
@@ -192,10 +202,9 @@ and the situation for A now looks as follows:
 
         i = 1
 
-We do again the same thing: compare elements at indices i and j. Now, element at
-index i from list A, that is A[i] == 5, is smaller than B[j] == 9, so we add 5
-to list C, and it now looks as follows:
-
+We do again the same thing: compare elements at indices i and j. Now, element
+at index i from list A, that is A[i] == 5, is smaller than B[j] == 9, so we
+add 5 to list C, and it now looks as follows:
 
     +-----------+
     | 1 | 2 | 5 |
@@ -223,6 +232,10 @@ At the end i == 3 and j == 2.
 # TODO
 
 - Implement merge-sort in-place version.
+- I don't remember if I implemented the top-down or bottom-up approach; in any
+case, implement the other version too.
+- Apparently, space complexity can be improved to O(log(n))
+- Add key parameter to sort by key
 
 # References
 
@@ -325,7 +338,5 @@ def merge_sort(ls: list) -> list:
     | O(n*log(n)) | O(n*log(n)) | O(n*log(n)) |
     +-------------+-------------+-------------+
 
-    Space complexity: O(n).
-
-    Note: space complexity apparently can be improved to O(log(n))."""
+    Space complexity: O(n)."""
     return _merge_sort_aux(ls)
