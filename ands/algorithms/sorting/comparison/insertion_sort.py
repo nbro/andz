@@ -8,36 +8,34 @@ Author: Nelson Brochado
 
 Created: 23/07/2015
 
-Updated: 19/09/2017
+Updated: 09/03/2022
 
 # Description
 
 It is a simple sorting algorithm which sorts a list by shifting elements one by
-one. Following are some of the important characteristics of insertion-sort.
+one.
 
-    1. It has one of the simplest implementations
+## Properties
 
-    2. It is efficient for smaller lists, but inefficient for larger ones
-    (compared to quick-sort, heap-sort or merge-sort).
-
-    3. insertion-sort is adaptive, that means it reduces its total number of
-    steps if given a partially sorted list, hence it increases its efficiency.
-
-    4. It is stable, as it does not change the relative order of elements with
-    equal keys.
-
-    5. It's better than bubble-sort for almost-ordered lists, even though both
-    have a best-case time complexity of O(n).
+- comparison-based sorting algorithm
+- stable
+- in-place
+- efficient for "small" lists
+- adaptive (reduces the number of comparison if the list is already sorted)
+- Better than bubble-sort for almost-ordered lists, even though both have
+a best-case time complexity of O(n).
+- Online (can sort a list as it receives it)
 
 # TODO
 
 - Add ASCII animation of a sorting example using insertion-sort!
+- Add key parameter to sort by key
 
 # References
 
-- http://www.studytonight.com/data-structures/insertion-sorting
 - http://en.wikipedia.org/wiki/Insertion_sort
-- http://interactivepython.org/runestone/static/pythonds/SortSearch/TheInsertionSort.html
+- https://runestone.academy/ns/books/published/pythonds/SortSearch/TheInsertionSort.html
+- http://www.studytonight.com/data-structures/insertion-sorting
 """
 
 __all__ = ["insertion_sort"]
@@ -54,9 +52,7 @@ def insertion_sort(ls: list) -> None:
     | O(n) |   O(n²)  |   O(n²)  |
     +------+----------+----------+
 
-    Space complexity: O(1).
-
-    Note: space complexity does not consider memory for original list ls!"""
+    Space complexity: O(1)."""
     for i in range(1, len(ls)):
         n = i
         while n > 0 and ls[n] < ls[n - 1]:
