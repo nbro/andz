@@ -1,1 +1,0 @@
-# [Greedy Algorithms](https://en.wikipedia.org/wiki/Greedy_algorithm)
