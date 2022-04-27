@@ -51,13 +51,23 @@ constant time.
 - Write a Fibonacci function for negative numbers.
 """
 
+from typing import Union
+
 __all__ = ["recursive_fibonacci", "memoized_fibonacci", "bottom_up_fibonacci"]
+
+
+def _check_input(n: int):
+    if not isinstance(n, int):
+        raise TypeError("n should be an int")
+    if n < 0:
+        raise ValueError("n should be >= 0")
 
 
 def recursive_fibonacci(n: int) -> int:
     """Returns the nth fibonacci number using a recursive approach.
 
     Time complexity: O(2ⁿ)."""
+    _check_input(n)
     if n == 0:
         return 0
     elif n == 1:
@@ -81,16 +91,17 @@ def memoized_fibonacci(n: int) -> int:
     "memoization".
 
     Time complexity: O(n)."""
+    _check_input(n)
     memo = {}
     return _memoized_fibonacci_aux(n, memo)
 
 
-def bottom_up_fibonacci(n: int, return_ith: bool = False) -> object:
-    """Returns the nth fibonacci number if return_ith=False, else it returns a
-    list containing all the ith fibonacci numbers, for i=0, ... , n.
+def bottom_up_fibonacci(n: int, return_seq: bool = False) -> Union[int, list]:
+    """Returns the nth fibonacci number if return_seq=False, else it returns a
+    list containing the sequence of Fibonacci numbers from i=0 to i=n.
 
-    For example, suppose return_ith == True and n == 5, then this function
-    returns [0, 1, 1, 2, 3, 5]. If return_ith == False, it returns simply 5.
+    For example, suppose return_seq == True and n == 5, then this function
+    returns [0, 1, 1, 2, 3, 5]. If return_seq == False, it returns simply 5.
 
     Note: indices start from 0 (not from 1).
 
@@ -99,11 +110,15 @@ def bottom_up_fibonacci(n: int, return_ith: bool = False) -> object:
     build the optimal solution to the initial problem.
 
     Time complexity: O(n)."""
+    _check_input(n)
+    assert isinstance(return_seq, bool)
     if n == 0:
-        return n if not return_ith else [n]
+        return n if not return_seq else [n]
     if n == 1:
-        return n if not return_ith else [0, n]
+        return n if not return_seq else [0, n]
 
+    # If we don't need to return the list of numbers, we only need to save the
+    # last 2 values, so that would be constant space.
     fib = [0] * (n + 1)
     fib[0] = 0
     fib[1] = 1
@@ -111,7 +126,7 @@ def bottom_up_fibonacci(n: int, return_ith: bool = False) -> object:
     for i in range(2, n + 1):
         fib[i] = fib[i - 1] + fib[i - 2]
 
-    return fib[-1] if not return_ith else fib
+    return fib[-1] if not return_seq else fib
 
 
 if __name__ == "__main__":
