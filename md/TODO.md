@@ -2,12 +2,14 @@
 
 ## Next features
 
-- Change the tests of counting_sort to take into account the new API (e.g. the key parameter)
+- [IN PROGRESS] Change the tests of counting_sort to take into account the new API (e.g. the key parameter)
 - All sorting algorithms should support a key attribute, like Python's built-in sort and sorted functions, which is used to sort the items according to this key, which should be a function
   - Other functions, like is_sorted, should also support this
+- The implemented sorting algorithms should be consistent with Python's sort and sorted, provided they have the same properties. 
+  - For example, if both algorithms are stable, they should produce the same output
+- [IN PROGRESS] Implement <s>Radix Sort and</s> Introsort
+  - [IN PROGRESS] Add example of how radix sort and counting sort would work on strings or key-indexed data, and test this functionality
 
-- Implement <s>Radix Sort and</s> Introsort
-  - Add example of how radix sort and counting sort would work on strings or key-indexed data, and test this functionality
 - Implement the Catmull-Rom spline
 
 ## Design
