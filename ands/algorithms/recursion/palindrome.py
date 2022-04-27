@@ -47,6 +47,7 @@ def is_palindrome(s: str) -> bool:
         return _is_palindrome_aux(s, 0, len(s) - 1)
 
 
+# TODO: create another version that does not use s[::-1].
 def iterative_is_palindrome(s: str) -> bool:
     return s == s[::-1]
 
