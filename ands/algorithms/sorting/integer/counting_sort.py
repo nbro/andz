@@ -49,7 +49,7 @@ value at the previous index to the value at the current index, since the
 number of elements ≤ x is equal to the number of elements ≤ x − 1 (i.e. the
 value at the previous index) plus the number of elements = x (i.e. the value
 at the current index). The final result is a list c where the value of c[x] is
-the number of elements ≤ x in [a].
+the number of elements ≤ x in a.
 
 This step takes Θ(k) time.
 
@@ -299,7 +299,7 @@ def counting_sort(a: list, k: int = None) -> list:
                          "and k (excluded)")
 
     # An auxiliary counter list of size k with counters initialized to 0.
-    c = [0 for _ in range(k)]
+    c = [0] * k
 
     for x in range(len(a)):
         c[a[x]] += 1
@@ -347,7 +347,7 @@ def counting_sort(a: list, k: int = None) -> list:
 
 
 if __name__ == '__main__':
-    a = []
+    a: list = []
     print(counting_sort(a))
     a = [0]
     print(counting_sort(a))
