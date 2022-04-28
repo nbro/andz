@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 20/03/2016
 
-Updated: 04/08/2018
+Updated: 07/03/2022
 
 # Description
 
@@ -28,15 +28,18 @@ def build_random_list(size=10, start=-10, end=10):
 
 
 class SortingAlgorithmTests:
-    def __init__(self, sorting_algorithm, in_place, start=randint(-10001, -1),
+    def __init__(self,
+                 sorting_algorithm,
+                 in_place=True,
+                 start=randint(-10001, -1),
                  end=randint(0, 10000)):
         self.sorting_algorithm = sorting_algorithm
-        self.in_place = in_place
 
         # the default smallest and biggest value in the lists that are used
         # to test the sorting algorithms.
         self.start = start
         self.end = end
+        self.in_place = in_place
 
     def assert_commonalities(self, a):
         b = self.sorting_algorithm(a)
