@@ -13,7 +13,8 @@ Updated: 04/08/2018
 
 # Description
 
-Unit tests for the functions in the ands.algorithms.sorting.insertion_sort
+Unit tests for the functions in the
+ands.algorithms.sorting.comparison.insertion_sort
 module.
 """
 

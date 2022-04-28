@@ -12,7 +12,8 @@ Updated: 04/08/2018
 
 # Description
 
-Unit tests for the functions in the ands.algorithms.sorting.heap_sort module.
+Unit tests for the functions in the
+ands.algorithms.sorting.comparison.heap_sort module.
 """
 
 import unittest
