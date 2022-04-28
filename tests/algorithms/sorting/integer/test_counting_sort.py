@@ -12,8 +12,8 @@ Updated: 03/03/2022
 
 # Description
 
-Unit tests for the functions in the ands.algorithms.sorting.counting_sort
-module.
+Unit tests for the functions in the
+ands.algorithms.sorting.integer.counting_sort module.
 """
 
 import unittest
@@ -38,3 +38,6 @@ class TestCountingSort(unittest.TestCase, SortingAlgorithmTests):
 
     def test_raises_when_not_all_elements_are_less_than_k(self):
         self.assertRaises(ValueError, self.sorting_algorithm, [10, 1], 3)
+
+    def test_raises_when_not_all_elements_are_non_negative(self):
+        self.assertRaises(ValueError, self.sorting_algorithm, [10, -1])
