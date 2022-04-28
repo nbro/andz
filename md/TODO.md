@@ -1,9 +1,21 @@
 # TODO
 
+## Next features
+
+- Change the tests of counting_sort to take into account the new API (e.g. the key parameter)
+- All sorting algorithms should support a key attribute, like Python's built-in sort and sorted functions, which is used to sort the items according to this key, which should be a function
+  - Other functions, like is_sorted, should also support this
+
+- Implement <s>Radix Sort and</s> Introsort
+  - Add example of how radix sort and counting sort would work on strings or key-indexed data, and test this functionality
+- Implement the Catmull-Rom spline
+
 ## Design
 
 - <s>Consider dividing the sorting algorithms into sub-categories, like comparison-based and integer sorting algorithms</s>
 - Each module should contain the link to the original paper, book or article that proposed the algorithm or data structure.
+- Some dependencies listed in setup.py are only needed for testing, so we might want to separate them from the normal dependencies
+- Given that now I am using Python 3.9, the hints like `list`, could probably be replaced with more specific type hints, like `list[int]`. Note that, before Python 3.9, we couldn't do this directly with `list`, but we need to import `List` from typing and then do `List[int]`. That's why I avoided using `List[int]`.
 
 ## CI/CD
 
@@ -14,8 +26,3 @@
 ## Testing
 
 - See [`tests/README.md`](../tests/README.md)
-
-## Next features
-
-- Implement Radix Sort and Introsort
-- Implement the Catmull-Rom spline
