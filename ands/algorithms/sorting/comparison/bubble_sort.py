@@ -53,8 +53,9 @@ def bubble_sort(ls: list) -> None:
 
     Space complexity: O(1).
 
-    Note: space complexity is O(1), but not considering memory for original list
-    ls."""
+    Note: space complexity is O(1), but not considering memory for original
+    list ls."""
+    assert isinstance(ls, list)
     for i in range(len(ls) - 1):
         for j in range(len(ls) - 1 - i):
             if ls[j] > ls[j + 1]:
