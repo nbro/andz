@@ -245,7 +245,8 @@ Sort", according to Donald Knuth.
 # Terminology
 
 Counting sort is also called "key-indexed counting" by Robert Sedgewick and
-Kevin Wayne in their book "Algorithms" (4th edition), section 5.1, page 703.
+Kevin Wayne in their book "Algorithms" (4th edition), section 5.1, page 703,
+but it's in the context of sorting strings.
 
 # TODO
 
@@ -253,6 +254,8 @@ Kevin Wayne in their book "Algorithms" (4th edition), section 5.1, page 703.
 stable. We could also copy b into a, once sorted, if we want to modify a
 in-place. This would still be a stable algorithm, but we would need an extra
 loop at the end.
+
+- Implement version where keys have associated values
 
 # References
 
@@ -267,7 +270,7 @@ lesson on "key-indexed counting" by Robert Sedgewick.
 - https://en.wikipedia.org/wiki/Counting_sort
 """
 
-__all__ = ["counting_sort"]
+__all__ = ["counting_sort", "counting_sort_sw"]
 
 
 def counting_sort(a: list, k: int = None) -> list:
@@ -337,7 +340,8 @@ def counting_sort(a: list, k: int = None) -> list:
     # However, R. Sedgewick and K. Wayne (section 5.1, p. 703, of "Algorithms"
     # (4th edition)) implement it slightly differently, i.e. starting from
     # x=0 to x=n-1, but they increment the counter and made other
-    # modifications, and this still makes the algorithm stable.
+    # modifications, and this still makes the algorithm stable. See
+    # "counting_sort_sw" below.
     # for x in range(0, len(a)):
     for x in range(len(a) - 1, -1, -1):
         c[a[x]] -= 1
@@ -346,7 +350,74 @@ def counting_sort(a: list, k: int = None) -> list:
     return b
 
 
-if __name__ == '__main__':
+class KeyIndexedItem:
+
+    # For now, we assume that item is a string, but it could be anything.
+    def __init__(self, item: str, key: int):
+        self.item = item
+        self.key = key
+
+    def __repr__(self):
+        return "{} ({})".format(self.item, self.key)
+
+
+# TODO: test this
+def counting_sort_sw(a: list[KeyIndexedItem], R: int = None,
+                     in_place: bool = True) -> list:
+    """The counting-sort algorithm proposed in the book "Algorithms"
+    (4th edition) by Sedgewick and Wayne, section 5.1 (p. 702), which they
+    call "key-indexed counting".".
+
+    In the book, k is denoted by R.
+
+
+    """
+    if not all(isinstance(x, KeyIndexedItem) for x in a):
+        raise TypeError("all elements of a should be KeyIndexedItem objects")
+    if len(a) == 0:
+        return a
+    N = len(a)
+    # If R is not an int, we compute it based on the keys. Specifically, we
+    # find the maximum key in a, and R = max key + 1.
+    if not isinstance(R, int):
+        max_key = a[0].key
+        for i in range(1, N):
+            if a[i].key > max_key:
+                max_key = a[i].key
+        R = max_key + 1
+    if R < 0:
+        raise ValueError("R must be greater than or equal to 0")
+    if not all(0 <= x.key < R for x in a):
+        raise ValueError("all elements of a should be between 0 (included) "
+                         "and R (excluded)")
+
+    aux = [None] * N
+
+    # count[0] will always be 0.
+    count = [0] * (R + 1)
+
+    # Compute frequency counts.
+    for i in range(N):
+        count[a[i].key + 1] += 1
+
+    # Transform counts to indices.
+    for r in range(R):
+        count[r + 1] += count[r]
+
+    # Distribute the records.
+    for i in range(N):
+        aux[count[a[i].key]] = a[i]
+        count[a[i].key] += 1
+
+    if in_place:
+        # Copy back.
+        for i in range(N):
+            a[i] = aux[i]
+    else:
+        return aux
+
+
+def example1():
     a: list = []
     print(counting_sort(a))
     a = [0]
@@ -363,3 +434,40 @@ if __name__ == '__main__':
     # Error, as expected.
     # a = [-1, 10]
     # print(counting_sort(a))
+
+
+def example2():
+    a = [
+        KeyIndexedItem("Anderson", 2),
+        KeyIndexedItem("Brown", 3),
+        KeyIndexedItem("Davis", 3),
+        KeyIndexedItem("Garcia", 4),
+        KeyIndexedItem("Harris", 1),
+        KeyIndexedItem("Jackson", 3),
+        KeyIndexedItem("Johnson", 4),
+        KeyIndexedItem("Jones", 3),
+        KeyIndexedItem("Martin", 1),
+        KeyIndexedItem("Martinez", 2),
+        KeyIndexedItem("Miller", 2),
+        KeyIndexedItem("Moore", 1),
+        KeyIndexedItem("Robinson", 2),
+        KeyIndexedItem("Smith", 4),
+        KeyIndexedItem("Taylor", 3),
+        KeyIndexedItem("Thomas", 4),
+        KeyIndexedItem("Thompson", 4),
+        KeyIndexedItem("White", 2),
+        KeyIndexedItem("Williams", 3),
+        KeyIndexedItem("Wilson", 4),
+    ]
+
+    b = counting_sort_sw(a, in_place=False)
+    from pprint import pprint
+    pprint(b)
+    assert b is not a
+    counting_sort_sw(a)
+    pprint(b)
+
+
+if __name__ == '__main__':
+    example1()
+    example2()
