@@ -67,9 +67,9 @@ This step takes Θ(n) time.
 
 ## Properties
 
-Time complexity: Θ(n + [k] + n) = Θ(2n + [k]) = Θ(n + [k]).
+Time complexity: Θ(n + k + n) = Θ(2n + k) = Θ(n + k).
 
-Counting sort beats the lower bound of Ω(n * lg n) because it is not a
+Counting sort beats the lower bound of Ω(n * log(n)) because it is not a
 comparison sort, instead, counting sort uses the actual values of the
 elements to index into a list.
 
@@ -173,13 +173,19 @@ def counting_sort(a: list, k: int = None) -> list:
 
 
 if __name__ == '__main__':
-    a = [4, 1, 3, 4, 3]
-    print(counting_sort(a))
     a = []
     print(counting_sort(a))
     a = [0]
     print(counting_sort(a))
     a = [10, 2]
     print(counting_sort(a))
-    a = [-1, 10]
+    a = [4, 1, 3, 4, 3]
     print(counting_sort(a))
+
+    # It ignores the non-integer second argument and calculates it based on a.
+    a = [2, 12, 3]
+    print(counting_sort(a, None))
+
+    # Error, as expected.
+    # a = [-1, 10]
+    # print(counting_sort(a))

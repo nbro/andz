@@ -12,17 +12,16 @@ Updated: 04/08/2018
 
 # Description
 
-Unit tests for the functions in the ands.algorithms.sorting.selection_sort
-module.
+Unit tests for the functions in the ands.algorithms.sorting.quick_sort module.
 """
 
 import unittest
 
-from ands.algorithms.sorting.selection_sort import selection_sort
+from ands.algorithms.sorting.comparison.quick_sort import quick_sort
 from tests.algorithms.sorting.base_tests import *
 
 
-class TestSelectionSort(unittest.TestCase, SortingAlgorithmTests):
+class TestQuickSort(unittest.TestCase, SortingAlgorithmTests):
     def __init__(self, method_name="__init__"):
         unittest.TestCase.__init__(self, method_name)
-        SortingAlgorithmTests.__init__(self, selection_sort, True)
+        SortingAlgorithmTests.__init__(self, quick_sort, True)

@@ -12,16 +12,17 @@ Updated: 04/08/2018
 
 # Description
 
-Unit tests for the functions in the ands.algorithms.sorting.heap_sort module.
+Unit tests for the functions in the ands.algorithms.sorting.selection_sort
+module.
 """
 
 import unittest
 
-from ands.algorithms.sorting.heap_sort import heap_sort
+from ands.algorithms.sorting.comparison.selection_sort import selection_sort
 from tests.algorithms.sorting.base_tests import *
 
 
-class TestHeapSort(unittest.TestCase, SortingAlgorithmTests):
+class TestSelectionSort(unittest.TestCase, SortingAlgorithmTests):
     def __init__(self, method_name="__init__"):
         unittest.TestCase.__init__(self, method_name)
-        SortingAlgorithmTests.__init__(self, heap_sort, True)
+        SortingAlgorithmTests.__init__(self, selection_sort, True)

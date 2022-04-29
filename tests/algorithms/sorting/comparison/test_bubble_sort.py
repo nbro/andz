@@ -18,7 +18,7 @@ Unit tests for the functions in the ands.algorithms.sorting.bubble_sort module.
 
 import unittest
 
-from ands.algorithms.sorting.bubble_sort import bubble_sort
+from ands.algorithms.sorting.comparison.bubble_sort import bubble_sort
 from tests.algorithms.sorting.base_tests import *
 
 

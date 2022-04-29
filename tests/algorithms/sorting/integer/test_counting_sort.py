@@ -18,8 +18,8 @@ module.
 
 import unittest
 
-from ands.algorithms.sorting.counting_sort import counting_sort
-from tests.algorithms.sorting.base_tests import *
+from ands.algorithms.sorting.integer.counting_sort import counting_sort
+from tests.algorithms.sorting.base_tests import SortingAlgorithmTests
 
 
 class TestCountingSort(unittest.TestCase, SortingAlgorithmTests):
@@ -29,3 +29,12 @@ class TestCountingSort(unittest.TestCase, SortingAlgorithmTests):
                                        in_place=False,
                                        start=0,
                                        end=10000)
+
+    def test_raises_when_not_all_int(self):
+        self.assertRaises(TypeError, self.sorting_algorithm, [1, "1"])
+
+    def test_raises_when_k_is_not_non_negative(self):
+        self.assertRaises(ValueError, self.sorting_algorithm, [1], -1)
+
+    def test_raises_when_not_all_elements_are_less_than_k(self):
+        self.assertRaises(ValueError, self.sorting_algorithm, [10, 1], 3)

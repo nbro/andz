@@ -21,7 +21,7 @@ than or equal to x.
 - Add _select_in_place
 """
 
-from ands.algorithms.sorting.quick_sort import partition
+from ands.algorithms.sorting.comparison.quick_sort import partition
 
 __all__ = ["select"]
 
