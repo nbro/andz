@@ -2,7 +2,6 @@
 
 Conventions that should be adopted for this project.
 
-
 ## General
 
 - Do not introduce features that are

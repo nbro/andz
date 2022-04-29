@@ -34,13 +34,11 @@
 		
 		- Greater reliability of the implementations and information given.
 		
-		    - May serve as starting point to implement a high-performance version of a specific data structure, 
-		    maybe in another programming language.
+		    - May serve as starting point to implement a high-performance version of a specific data structure, maybe in another programming language.
 
 	- Specific goals:
 
-		- Describe clearly the concepts,
-		as if it was an explanation to someone who has almost no experience or knowledge of what's being described, without sacrifying rigor.
+		- Describe clearly the concepts, as if it was an explanation to someone who has almost no experience or knowledge of what's being described, without sacrificing rigor.
 
 		- Add comments where appropriate with respect to the previous goal.
 

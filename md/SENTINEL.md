@@ -21,8 +21,7 @@ _This is a schematic and concise list of the things for which I should constantl
         - [http://effbot.org/zone/default-values.htm](http://effbot.org/zone/default-values.htm)
         - [http://stackoverflow.com/questions/4841782/python-constructor-and-default-value](http://stackoverflow.com/questions/4841782/python-constructor-and-default-value)
 
-2. I'm using `X is None` or `X is not None` in conditions, when I really mean that `X` should be respectively `None` or `not None`.
-In other words, I should not be using `X` or `not X`, because `X` could be 0, and could conceptually still _contain_ a valid value.
+2. I'm using `X is None` or `X is not None` in conditions, when I really mean that `X` should be respectively `None` or `not None`. In other words, I should not be using `X` or `not X`, because `X` could be 0, and could conceptually still _contain_ a valid value.
 
 3. I'm raising the most appropriate exception for each specific anomaly.
 
@@ -46,7 +45,7 @@ In other words, I should not be using `X` or `not X`, because `X` could be 0, an
     
     - are short
 
-6. citations to resources used to implement an algorithm or data structure are provided at the beginning of each module.
+6. citations to resources used to implement an algorithm or data structure ar provided at the beginning of each module.
 
 7. the doc-strings of the files containing each data structure or algorithm contain a (good) introduction to what's being implemented.
 
@@ -59,3 +58,5 @@ The following are some resources talking about how we should (or not) use Python
 - [Idioms and Anti-Idioms in Python](https://docs.python.org/2/howto/doanddont.html)
 
 - [Common pitfalls in Python](http://stackoverflow.com/questions/1011431/common-pitfalls-in-python)
+
+- [Common Gotchas](https://docs.python-guide.org/writing/gotchas)
