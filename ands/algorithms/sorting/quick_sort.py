@@ -8,29 +8,31 @@ Author: Nelson Brochado
 
 Created: 09/08/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
-## Parts of the quick-sort algorithm
+Quick-sort is a sorting algorithm which uses recursion and is composed of two
+different procedures.
+
+## Procedures of the quick-sort algorithm
 
 1. Partition
 
-    All elements smaller than a number  usually called "pivot" are put to the
-    left of the pivot.
+    All elements smaller than one element of the input list, the "pivot", are
+    put to the left of the pivot.
 
     In this partition algorithm, the pivot is chosen to be the last element of
-    the range [start, end], but it could also have been chosen, e.g., to be the
-    middle element.
+    the list. In general, we may choose another pivot, e.g. the middle element.
 
     We keep searching for elements less than the pivot, from the left to the
-    right of the range [start, end[, and we insert them at the position tracked
+    right in the range [start, end[, and we insert them at the position tracked
     by the variable p.
 
     So, p keeps track of the position (or index) in the range [start, end[,
     where all elements to the left of p are smaller than the pivot.
 
-    Before returning this position (p), the pivot is inserted in that position.
+    Before returning this position, p, the pivot is inserted in that position.
     Note: by doing this, the pivot will be already in its final sorted position.
 
 2. Recursive Calls
