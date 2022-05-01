@@ -2,18 +2,18 @@
 # -*- coding: utf-8 -*-
 
 """
-## Meta info
+# Meta info
 
 Author: Nelson Brochado
-Created: July, 2015
-Updated: 24/01/2017
+Created: 02/07/2015
+Updated: 04/02/2017
 
-## Description
+# Description
 
 Basic queue, which is FIFO (first-in-first-out) data structure.
 It's implemented using a deque, because a deque supports better the _dequeue_ operation than lists.
 
-## References
+# References
 
 - [https://docs.python.org/3.1/tutorial/datastructures.html#using-lists-as-queues](https://docs.python.org/3.1/tutorial/datastructures.html#using-lists-as-queues)
 
@@ -33,6 +33,8 @@ class Queue:
 
     If `ls` is not an instance of `Iterable`, `TypeError` is raised.
     If one of the values in `ls` is None, `ValueError` is raised.
+    A copy of `ls` is made, so that changes to the original self
+    do not reflect in the original iterable.
 
     This class does not allow None to be inserted as value
     to the data structure through the methods of the same.
