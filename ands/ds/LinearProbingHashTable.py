@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/06/2015
 
-Updated: 28/09/2017
+Updated: 02/04/2018
 
 # Description
 
@@ -55,9 +55,9 @@ best option in terms of performance...
 # References
 
 - http://interactivepython.org/runestone/static/pythonds/SortSearch/Hashing.html
-- http://stackoverflow.com/questions/279539/best-way-to-remove-an-entry-from-a-hash-table
-- http://stackoverflow.com/questions/9835762/find-and-list-duplicates-in-a-list
-- http://stackoverflow.com/questions/1541797/check-for-duplicates-in-a-flat-list
+- https://stackoverflow.com/q/279539/3924118
+- https://stackoverflow.com/q/9835762/3924118
+- https://stackoverflow.com/q/1541797/3924118
 - https://en.wikipedia.org/wiki/Associative_array
 - https://en.wikipedia.org/wiki/Hash_table
 - https://en.wikipedia.org/wiki/Hash_function
@@ -137,6 +137,8 @@ class LinearProbingHashTable(HashTable):
 
         if key is None:
             raise TypeError("key cannot be None.")
+        if not isinstance(key, Hashable):
+            raise TypeError("key must be an instance of a hashable type")
 
         self._put(key, value, self._n)
 
@@ -213,6 +215,9 @@ class LinearProbingHashTable(HashTable):
 
         if key is None:
             raise TypeError("key cannot be None.")
+        if not isinstance(key, Hashable):
+            raise TypeError("key must be an instance of a hashable type")
+
         value = LinearProbingHashTable._get(key, self._keys, self._values,
                                             self._n)
 

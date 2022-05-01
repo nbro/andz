@@ -17,7 +17,7 @@ Unit tests for the LinearProbingHashTable class.
 
 # Reference
 
-- http://stackoverflow.com/questions/9755538/how-do-i-create-a-list-of-unique-random-numbers
+- https://stackoverflow.com/q/9755538/3924118
 
 """
 
@@ -92,6 +92,13 @@ class TestLinearProbingHashTable(unittest.TestCase):
         t = LinearProbingHashTable()
         self.assertRaises(TypeError, t.get, None)
 
+    def test_get_non_hashable_type(self):
+        t = LinearProbingHashTable()
+        t.put(23, 31)
+        t.put(11, 13)
+        self.assertRaises(TypeError, t.get, [])
+        self.assertRaises(TypeError, t.get, {})
+
     def test_get_empty_table(self):
         t = LinearProbingHashTable()
         self.assertIsNone(t.get(3))
@@ -106,13 +113,6 @@ class TestLinearProbingHashTable(unittest.TestCase):
         t.put("three", 3)
         t["four"] = 4
         self.assertIsNone(t.get("five"))
-
-    def test_get_non_hashable_type(self):
-        t = LinearProbingHashTable()
-        t.put(23, 31)
-        t.put(11, 13)
-        self.assertRaises(TypeError, t.get, [])
-        self.assertRaises(TypeError, t.get, {})
 
     def test_get_all(self):
         t = LinearProbingHashTable()
@@ -129,6 +129,11 @@ class TestLinearProbingHashTable(unittest.TestCase):
         t = LinearProbingHashTable()
         self.assertRaises(TypeError, t.put, None, 5)
 
+    def test_put_non_hashable_type(self):
+        t = LinearProbingHashTable()
+        self.assertRaises(TypeError, t.put, [], 12)
+        self.assertRaises(TypeError, t.put, {}, None)
+
     def test_put_key_not_None_value_None(self):
         t = LinearProbingHashTable()
         t.put(3, None)
@@ -140,11 +145,6 @@ class TestLinearProbingHashTable(unittest.TestCase):
         t.put(5, 19)
         self.assertTrue(t.size, 1)
         self.assertEqual(t.get(5), 19)
-
-    def test_put_non_hashable_type(self):
-        t = LinearProbingHashTable()
-        self.assertRaises(TypeError, t.put, [], 12)
-        self.assertRaises(TypeError, t.put, {}, None)
 
     def test_put_same_key_multiple_times(self):
         t = LinearProbingHashTable()
@@ -189,6 +189,11 @@ class TestLinearProbingHashTable(unittest.TestCase):
         t = LinearProbingHashTable()
         self.assertRaises(TypeError, t.delete, None)
 
+    def test_delete_non_hashable_type(self):
+        t = LinearProbingHashTable()
+        self.assertRaises(TypeError, t.delete, [])
+        self.assertRaises(TypeError, t.delete, {})
+
     def test_delete_empty_table(self):
         t = LinearProbingHashTable()
         self.assertIsNone(t.delete(3))
@@ -197,11 +202,6 @@ class TestLinearProbingHashTable(unittest.TestCase):
         t = LinearProbingHashTable()
         t.put(-10, "testing deletion when key not in the table")
         self.assertIsNone(t.delete(7))
-
-    def test_delete_non_hashable_type(self):
-        t = LinearProbingHashTable()
-        self.assertRaises(TypeError, t.delete, [])
-        self.assertRaises(TypeError, t.delete, {})
 
     def test_delete_some(self):
         t = LinearProbingHashTable()
