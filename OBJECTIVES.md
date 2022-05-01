@@ -9,12 +9,12 @@
 	- Hashing
 	- Graphs
 	- Trees
-	- Heaps
-	- Geometrical algorithms
-	- Approximation algorithms
+	- Heaps (e.g.: Fibonacci or binomial heaps)
+	- Geometrical algorithms (e.g.: convex hull)
+	- Approximation algorithms (e.g.: approximation-vertex-cover)
 	- Heuristics
 	
-or even to more general scientific areas
+ or even to more general scientific areas
 	
 	- Artificial intelligence
 	- Numerical computing
@@ -28,7 +28,7 @@ or even to more general scientific areas
 
     - Implementation is performed in a very high-level and user-friendly programming language: Python.
 
-    - No optimization of the implementations. This doesn't mean at all that I won't always try to implement the best algorithm for the task (or operation), but simply that I will not introduce tricks of any sort to make the implementation faster.
+    - No optimisation of the implementations. This doesn't mean at all that I won't always try to implement the best algorithm for the task (or operation), but simply that I will not introduce tricks of any sort to make the implementation faster.
 
 3. Learn to analyse the asymptotic complexity of the algorithms and in particular of their implementation.
 
