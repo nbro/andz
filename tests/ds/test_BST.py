@@ -126,7 +126,8 @@ class TestBST(unittest.TestCase):
             self.t.insert(e)
         self.assertEqual(8, self.t.successor(5))
 
-    def test_successor_when_is_first_node_up_to_root_such_that_child_is_not_right(self):
+    def test_successor_when_is_first_node_up_to_root_such_that_child_is_not_right(
+            self):
         for e in [5, 2, 10, 8, 9]:
             self.t.insert(e)
         self.assertEqual(self.t.successor(9), 10)
@@ -147,7 +148,8 @@ class TestBST(unittest.TestCase):
             self.t.insert(e)
         self.assertEqual(self.t.predecessor(10), 9)
 
-    def test_predecessor_when_is_first_node_up_to_root_such_that_child_is_not_left(self):
+    def test_predecessor_when_is_first_node_up_to_root_such_that_child_is_not_left(
+            self):
         for e in [5, 2, 10, 8, 9]:
             self.t.insert(e)
         self.assertEqual(self.t.predecessor(8), 5)
@@ -167,12 +169,14 @@ class TestBST(unittest.TestCase):
         self.t.remove_max()
         self.assertEqual(self.t.size, 4)
 
-    def test_remove_max_when_greatest_node_does_not_have_left_child_and_is_root(self):
+    def test_remove_max_when_greatest_node_does_not_have_left_child_and_is_root(
+            self):
         self.t.insert(5)
         self.t.remove_max()
         self.assertEqual(self.t.size, 0)
 
-    def test_remove_max_when_greatest_node_does_not_have_left_child_and_is_not_root(self):
+    def test_remove_max_when_greatest_node_does_not_have_left_child_and_is_not_root(
+            self):
         for e in [5, 2, 10]:
             self.t.insert(e)
         self.t.remove_max()
@@ -187,18 +191,21 @@ class TestBST(unittest.TestCase):
         self.t.remove_min()
         self.assertEqual(self.t.size, 2)
 
-    def test_remove_min_when_smallest_node_has_right_child_and_is_not_root(self):
+    def test_remove_min_when_smallest_node_has_right_child_and_is_not_root(
+            self):
         for e in [5, 2, 3]:
             self.t.insert(e)
         self.t.remove_min()
         self.assertEqual(self.t.size, 2)
 
-    def test_remove_min_when_smallest_node_does_not_have_right_child_and_is_root(self):
+    def test_remove_min_when_smallest_node_does_not_have_right_child_and_is_root(
+            self):
         self.t.insert(2)
         self.t.remove_min()
         self.assertTrue(self.t.is_empty())
 
-    def test_remove_min_when_smallest_node_does_not_have_right_child_and_is_not_root(self):
+    def test_remove_min_when_smallest_node_does_not_have_right_child_and_is_not_root(
+            self):
         for e in [5, 10, 2]:
             self.t.insert(e)
         self.t.remove_min()

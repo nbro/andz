@@ -256,7 +256,8 @@ class TestTST(unittest.TestCase):
 
         kwp = t.keys_with_prefix("")
         kwp_set = set(kwp)
-        self.assertEqual(len(kwp), len(kwp_set))  # I should not need to check this here!!!
+        self.assertEqual(len(kwp), len(
+            kwp_set))  # I should not need to check this here!!!
         self.assertEqual(kwp_set, keys)
 
     def test_keys_with_prefix_none_found(self):
@@ -291,7 +292,8 @@ class TestTST(unittest.TestCase):
         t.insert("occasion", 2)
         t.insert("occasionally", 2)
         t.insert("occam", 2)
-        self.assertEqual(sorted(t.keys_with_prefix("occa")), ["occam", "occasion", "occasionally"])
+        self.assertEqual(sorted(t.keys_with_prefix("occa")),
+                         ["occam", "occasion", "occasionally"])
 
     def test_all_pairs_empty_tst(self):
         t = TST()
@@ -349,7 +351,8 @@ class TestTST(unittest.TestCase):
         t = TST()
         t.insert("allen", "first")
         t.insert("allen halloween", "underrated!")
-        self.assertEqual(t.longest_prefix_of("allen halloween"), "allen halloween")
+        self.assertEqual(t.longest_prefix_of("allen halloween"),
+                         "allen halloween")
 
     def test_keys_that_match_pattern_not_str(self):
         t = TST()
@@ -388,7 +391,8 @@ class TestTST(unittest.TestCase):
         t.insert("fno", "ok")
         self.assertEqual(sorted(t.keys_that_match(".n.")), ["fno", "one"])
 
-    def test_keys_that_match_pattern_using_dots_to_retrieve_all_keys_of_certain_length(self):
+    def test_keys_that_match_pattern_using_dots_to_retrieve_all_keys_of_certain_length(
+            self):
         t = TST()
         t.insert("zero", 0)
         t.insert("one", 1)
@@ -397,8 +401,10 @@ class TestTST(unittest.TestCase):
         t.insert("four", 4)
         t.insert("five", 5)
         t.insert("six", 6)
-        self.assertEqual(sorted(t.keys_that_match("...")), ["one", "six", "two"])
-        self.assertEqual(sorted(t.keys_that_match("....")), ["five", "four", "zero"])
+        self.assertEqual(sorted(t.keys_that_match("...")),
+                         ["one", "six", "two"])
+        self.assertEqual(sorted(t.keys_that_match("....")),
+                         ["five", "four", "zero"])
         self.assertEqual(sorted(t.keys_that_match(".....")), ["three"])
 
 
@@ -491,5 +497,6 @@ class TestTSTNode(unittest.TestCase):
         self.assertTrue(u.has_children())
 
     def test_has_children_3(self):
-        u = _TSTNode("u", mid=_TSTNode("mid"), left=_TSTNode("left"), right=_TSTNode("right"))
+        u = _TSTNode("u", mid=_TSTNode("mid"), left=_TSTNode("left"),
+                     right=_TSTNode("right"))
         self.assertTrue(u.has_children())
