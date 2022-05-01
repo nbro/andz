@@ -2,122 +2,84 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
+Created: 01/07/16
+Updated: 04/02/2017
 
-Creation: 01/07/16
+# Description
 
-Last Update: 01/07/16
-
-Testing the Stack class,
-using just integers as elements,
-since the behaviour of adding and removing from this stack
-is the same as adding and removing from a list.
+Tests for the Stack data structure.
 """
 
 import unittest
+from random import randint
 
 from ands.ds.Stack import Stack
 
 
 class TestStack(unittest.TestCase):
-    def test_is_empty(self):
+    def test_creation_default(self):
         s = Stack()
+        self.assertEqual(s.size(), 0)
         self.assertTrue(s.is_empty())
 
-        s.push(12)
+    def test_creation_good_list(self):
+        s = Stack(["first", 2, 3.14])
+        self.assertEqual(s.size(), 3)
         self.assertFalse(s.is_empty())
 
-        top = s.pop()
-        self.assertIsNotNone(top)
-        self.assertEqual(top, 12)
-        self.assertTrue(s.is_empty())
+    def test_creation_list_with_None(self):
+        self.assertRaises(ValueError, Stack, ["first", 2, None, 3.14, None])
 
-    def test_size(self):
+    def test_creation_argument_not_iterable(self):
+        self.assertRaises(TypeError, Stack, 2.72)
+
+    def test_top_empty_stack(self):
         s = Stack()
-        self.assertEqual(s.size(), 0)
-
-        for i in range(100):
-            s.push(i)
-            self.assertEqual(s.size(), i + 1)
-
-        size = s.size()
-        while not s.is_empty():
-            self.assertIsNotNone(s.pop())
-            size -= 1
-            self.assertEqual(s.size(), size)
-
-        self.assertEqual(s.size(), 0)
-        self.assertTrue(s.is_empty())
-
-    def test_top(self):
-        s = Stack()
-
-        self.assertTrue(s.is_empty())
         self.assertIsNone(s.top())
-        self.assertEqual(s.size(), 0)
 
-        for i in range(-10, 1):
-            s.push(i)
+    def test_push_None(self):
+        s = Stack()
+        self.assertRaises(ValueError, s.push, None)
 
-        size = s.size()
-
-        for _ in range(10):
-            self.assertEqual(s.top(), 0)
-
+    def test_push_one(self):
+        s = Stack()
+        s.push(3)
+        self.assertEqual(s.size(), 1)
         self.assertFalse(s.is_empty())
-        self.assertEqual(s.size(), size)
+        self.assertEqual(s.top(), 3)
 
-        n = 0
-
-        while not s.is_empty():
-            self.assertEqual(s.top(), n)
-            n -= 1
-            self.assertIsNotNone(s.pop())
-
-        self.assertEqual(s.size(), 0)
-
-    def test_push(self):
+    def test_push_many(self):
         s = Stack()
 
-        s.push(None)
-        self.assertEqual(s.size(), 1)
-        self.assertIs(s.pop(), None)
-        self.assertEqual(s.size(), 0)
-
-        for i in range(100):
+        for i in range(randint(2, 100)):
             s.push(i)
-            self.assertEqual(s.top(), i)
             self.assertEqual(s.size(), i + 1)
+            self.assertFalse(s.is_empty())
+            self.assertEqual(s.top(), i)
 
-        size = s.size()
-        while not s.is_empty():
-            self.assertEqual(s.size(), size)
-            self.assertIsNotNone(s.pop())
-            size -= 1
-            self.assertEqual(s.size(), size)
-
-        self.assertEqual(s.size(), 0)
-
-    def test_pop(self):
+    def test_pop_empty_stack(self):
         s = Stack()
-
         self.assertIsNone(s.pop())
 
-        s.push(None)
-        self.assertEqual(s.size(), 1)
-        self.assertIsNone(s.pop())
+    def test_pop_last(self):
+        s = Stack([7])
+        self.assertEqual(s.pop(), 7)
+        self.assertTrue(s.is_empty())
         self.assertEqual(s.size(), 0)
 
-        for i in range(100):
-            s.push(i)
+    def test_pop_until_empty(self):
+        ls = [randint(-10, 10) for _ in range(randint(1, 100))]
+        s = Stack(ls)
 
-        for i in range(99, -1, -1):
-            p = s.pop()
-            self.assertIsNotNone(p)
-            self.assertEqual(p, i)
+        for i, e in enumerate(reversed(ls)):
+            elem = s.pop()
+            self.assertEqual(elem, e)
+            self.assertEqual(s.size(), len(ls) - (i + 1))
 
-        self.assertEqual(s.size(), 0)
+        self.assertTrue(s.is_empty())
 
-
-if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    def test_print_stack(self):
+        print("\n", repr(Stack([11, 2, 3])), sep="")
