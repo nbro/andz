@@ -8,6 +8,7 @@ omit =
     */python?.?/*
     */site-packages/*
     *__init__*
+    setup.py
 
 exclude_lines =
     # Have to re-enable the standard pragma
