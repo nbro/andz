@@ -27,8 +27,8 @@ cause a considerably larger error in the final output.
 
 ## TODO
 
-- Lagrange interpolation using barycentric form
 - Newton's form (using divided differences)
+- De Casteljau's algorithm
 
 ## References
 
