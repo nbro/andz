@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 15/08/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -19,6 +19,8 @@ Knapsack has capacity W. Goal: fill knapsack so as to maximize total value.
 
 - Slides by prof. Evanthia Papadopoulou
 """
+
+__all__ = ["zero_one_knapsack", "recursive_01_knapsack", "memoized_01_knapsack"]
 
 
 def _get_zero_one_knapsack_matrix(total_weight: int, n: int) -> list:

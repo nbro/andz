@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 20/07/2015
 
-Updated: 18/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -23,6 +23,8 @@ The first two elements are usually 0 and 1, so the next element is 1, so the
 sequence is now {0, 1, 1}. We then add 1 + 1 = 2 two obtain the 4th element of
 the sequence, which is now {0, 1, 1, 2}, and so on.
 """
+
+__all__ = ["recursive_fibonacci", "memoized_fibonacci", "bottom_up_fibonacci"]
 
 
 def recursive_fibonacci(n: int) -> int:

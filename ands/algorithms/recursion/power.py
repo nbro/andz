@@ -15,6 +15,8 @@ Updated: 19/09/2017
 Raising an integer a to the k >= 0 using recursion, i.e., aᵏ = b.
 """
 
+__all__ = ["power"]
+
 
 def power(base: int, p: int) -> int:
     """Assumes inputs are integers and that the power p >= 0.

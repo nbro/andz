@@ -44,6 +44,8 @@ solution.
 - http://algorithms.tutorialhorizon.com/dynamic-programming-coin-change-problem/
 """
 
+__all__ = ["change_making", "extended_change_making"]
+
 
 def _get_change_making_matrix(coins: list, rest: int) -> list:
     m = [[0 for _ in range(rest + 1)] for _ in range(len(coins) + 1)]

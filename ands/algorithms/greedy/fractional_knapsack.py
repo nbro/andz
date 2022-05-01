@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 09/07/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -18,21 +18,24 @@ call to sort the items by value/weight ratio.
 # TODO
 
 - Add complexity analysis.
+- Create a non-interactive version.
 """
 
 import operator
 
 from tabulate import tabulate
 
+__all__ = ["interactive_fractional_knapsack"]
+
 
 def ask_objects():
     objects = []
     print("Welcome to the Fractional Knapsack problem!\n\n" +
           "You will tell me the objects that you have,\n" +
-          "their path_cost and their weight.\n\n" +
-          "You should also tell me after that\n"
+          "their value and weight.\n\n" +
+          "After that, you should also tell me\n"
           "how much weight you can carry with you.\n\n" +
-          "I will tell you then which items or\n" +
+          "I will then tell you which items or\n" +
           "fraction of items you should take.\n")
 
     input("When you are ready, press ENTER.\n" + "=" * 40 + "\n\n")
@@ -64,23 +67,6 @@ def ask_objects():
     return objects, capacity
 
 
-def interactive_fractional_knapsack():
-    objects, capacity = ask_objects()
-    current_weight = 0
-    knapsack_objects = []
-
-    for i, obj in enumerate(objects):
-        if obj[2] + current_weight <= capacity:
-            current_weight += obj[2]
-            knapsack_objects.append(i)
-        else:
-            remaining_weight = capacity - current_weight
-            knapsack_objects.append((i, remaining_weight))
-            break
-
-    output_fractional_knapsack(knapsack_objects, objects)
-
-
 def output_fractional_knapsack(knapsack_objects, objects):
     s = "You should take "
 
@@ -96,6 +82,23 @@ def output_fractional_knapsack(knapsack_objects, objects):
                 0] + "."
 
     print("\n\n" + s)
+
+
+def interactive_fractional_knapsack():
+    objects, capacity = ask_objects()
+    current_weight = 0
+    knapsack_objects = []
+
+    for i, obj in enumerate(objects):
+        if obj[2] + current_weight <= capacity:
+            current_weight += obj[2]
+            knapsack_objects.append(i)
+        else:
+            remaining_weight = capacity - current_weight
+            knapsack_objects.append((i, remaining_weight))
+            break
+
+    output_fractional_knapsack(knapsack_objects, objects)
 
 
 if __name__ == "__main__":

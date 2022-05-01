@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 10/09/2016
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -99,6 +99,8 @@ method.
 - First Course in Numerical Methods, chapter 16, by Uri M. Ascher and C. Greif
 - https://www.khanacademy.org/math/ap-calculus-bc/diff-equations-bc/eulers-method-bc/v/eulers-method-program-code
 """
+
+__all__ = ["forward_euler", "forward_euler_approx"]
 
 from numpy import arange, zeros
 

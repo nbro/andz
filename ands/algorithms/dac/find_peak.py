@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 15/08/2015
 
-Updated: 18/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -32,6 +32,8 @@ the input list ls, whereas find_peak uses a divide and conquer strategy.
 
 - https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&spfreload=10
 """
+
+__all__ = ["find_peak", "find_peak_linearly"]
 
 
 def find_peak_linearly(ls: list) -> int:

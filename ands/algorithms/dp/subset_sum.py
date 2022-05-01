@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 03/09/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -19,12 +19,9 @@ Updated: 19/09/2017
 - Add documentation to functions.
 """
 
+__all__ = ["recursive_subset_sum", "bottom_up_subset_sum"]
+
 from pprint import pprint
-
-
-def m_print(m):
-    pprint(m)
-    input()
 
 
 def _check_negativeness(subset):

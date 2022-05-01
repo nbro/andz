@@ -44,9 +44,12 @@ the same for the remaining sub-problems.
 # TODO
 
 - Add complexity analysis.
+- Generalize the function activity_selector is a little bit more.
 """
 
 import operator
+
+__all__ = ["activity_selector"]
 
 
 def activity_selector(activities: list) -> list:

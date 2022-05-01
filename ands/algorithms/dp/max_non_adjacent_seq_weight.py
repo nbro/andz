@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 04/09/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -36,6 +36,8 @@ See exercise 140 (of the Carzaniga's exercises).
 
 - http://www.geeksforgeeks.org/maximum-sum-such-that-no-two-elements-are-adjacent/
 """
+
+__all__ = ["max_non_adj_seq_weight"]
 
 
 def max_non_adj_seq_weight(seq: list) -> int:

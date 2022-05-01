@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 30/08/2015
 
-Updated: 19/09/2017
+Updated: 07/03/2018
 
 # Description
 
@@ -33,6 +33,11 @@ left end, for i = 1, 2, ... , u - 1.
 - Introduction to Algorithms (3rd edition) by CLSR
 - Slides by prof. E. Papadopoulou
 """
+
+__all__ = ["recursive_rod_cut",
+           "memoized_rod_cut",
+           "bottom_up_rod_cut",
+           "extended_bottom_up_rod_cut"]
 
 import sys
 
@@ -178,7 +183,7 @@ def extended_bottom_up_rod_cut(prices: list, n: int) -> tuple:
     return revenues, s
 
 
-def rod_cut_solution_print(prices: list, n: int, s: list) -> None:
+def _rod_cut_solution_print(n: int, s: list) -> None:
     """prices is the list of initial prices.
 
     n is the number of those prices - 1.
@@ -202,7 +207,7 @@ if __name__ == "__main__":
         r, s = memoized_rod_cut(p1, len(p1) - 1)
         print("Revenue:", r)
         print("s:", s)
-        rod_cut_solution_print(p1, len(p1) - 1, s)
+        _rod_cut_solution_print(len(p1) - 1, s)
 
 
     def test_bottom_up_rod_cut():
