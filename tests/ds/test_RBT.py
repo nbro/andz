@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -12,7 +12,7 @@ Updated: 14/03/2017
 
 # Description
 
-Unit tests for the RBT and _RBTNode classes.
+Unit tests for the classes and functions in the ands.ds.RBT module.
 """
 
 from ands.ds.RBT import RED, BLACK, RBT, _RBTNode

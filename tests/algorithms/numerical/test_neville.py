@@ -13,7 +13,7 @@ Updated: 08/10/2017
 
 # Description
 
-Tests for the functions of the module ands.algorithms.numerical.neville.
+Unit tests for the functions in the ands.algorithms.numerical.neville module.
 """
 
 import unittest

@@ -13,7 +13,8 @@ Updated: 02/04/2018
 
 # Description
 
-Unittests for the functions inside ands.algorithms.numerical.gradient_descent.py.
+Unit tests for the functions in the ands.algorithms.numerical.gradient_descent
+module.
 """
 
 import unittest

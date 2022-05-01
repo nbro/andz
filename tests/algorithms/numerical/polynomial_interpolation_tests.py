@@ -13,7 +13,7 @@ Updated: 02/04/2018
 
 # Description
 
-Common tests to the polynomial interpolation algorithms of this project.
+Common units tests for the algorithms to perform polynomial interpolation.
 """
 
 from math import sqrt

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -12,7 +12,7 @@ Updated: 14/03/2017
 
 # Description
 
-Unit tests for the BST and _BSTNode classes.
+Unit tests for the classes and functions in the ands.ds.BST module.
 """
 
 import string
@@ -163,7 +163,8 @@ class TestBST(unittest.TestCase):
         self.t.remove_max()
         self.assertEqual(self.t.size, 2)
 
-    def test_remove_max_when_greatest_node_has_left_child_and_is_not_root(self):
+    def test_remove_max_when_greatest_node_has_left_child_and_is_not_root(
+            self):
         for e in [5, 2, 10, 8, 9]:
             self.t.insert(e)
         self.t.remove_max()

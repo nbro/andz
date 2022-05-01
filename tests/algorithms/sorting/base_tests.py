@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 20/03/2016
 
+Updated: 04/08/2018
+
 # Description
 
-Base class to test sorting algorithms.
+Common unit tests for the functions to sort sequences.
 """
 
 

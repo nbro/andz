@@ -3,7 +3,7 @@
 
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -13,7 +13,7 @@ Updated: 19/02/2017
 
 # Description
 
-Tests for the functions in the module find_extrema.py.
+Unit tests for the functions in the ands.algorithms.dac.find_extrema module.
 """
 
 import unittest

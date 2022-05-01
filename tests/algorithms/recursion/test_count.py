@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 15/01/2017
 
+Updated: 04/08/2018
+
 # Description
 
-Testing the method `count` from `ands.algorithms.recursion.count`.
+Unit tests for the functions in the ands.algorithms.recursion.count module.
 """
 
 import unittest

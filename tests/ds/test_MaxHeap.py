@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
@@ -12,7 +12,7 @@ Updated: 12/03/2017
 
 # Description
 
-Unit tests for the MaxHeap class.
+Unit tests for the classes and functions in the ands.ds.MaxHeap module.
 """
 
 import unittest

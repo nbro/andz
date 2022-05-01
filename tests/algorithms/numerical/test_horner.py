@@ -13,7 +13,7 @@ Updated: 30/09/2017
 
 # Description
 
-Tests for the functions in the module ands.algorithms.numerical.horner.
+Unit tests for the functions in the ands.algorithms.numerical.horner module.
 """
 
 import unittest

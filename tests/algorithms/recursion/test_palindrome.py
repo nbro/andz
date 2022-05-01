@@ -2,15 +2,18 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 20/01/2017
 
+Updated: 04/08/2018
+
 # Description
 
-Testing the recursive palindrome function.
+Unit tests for the functions in the ands.algorithms.recursion.palindrome
+module.
 """
 
 import string
