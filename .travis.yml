@@ -10,8 +10,16 @@ python:
 
 # command to install dependencies
 install:
+  #- pip install matplotlib
   - pip install coveralls
   - pip install -e .
+
+# For plots when testing.
+# See: https://stackoverflow.com/a/35403128/3924118
+#before_script: # configure a headless display to test plot generation
+#- "export DISPLAY=:99.0"
+#- "sh -e /etc/init.d/xvfb start"
+#- sleep 3 # give xvfb some time to start
 
 # command to run tests
 script: scripts/travis.sh
