@@ -2,23 +2,25 @@
 
 Algorithms I am particularly interested in are:
 
-
+- Bisection method
+- Fixed-point iteration
+- Secant method
 - [All nearest smaller values](https://en.wikipedia.org/wiki/All_nearest_smaller_values)
 - Jacobi
 - PageRank
 - PowerMethod
-- Graph partitioning algorithms
+- Kernighan–Lin algorithm (i.e. for partitioning a graph)
 - Conjugate gradient (gradient descent and ascent)
 - Cuthill–McKee algorithm
+- Coppersmith–Winograd algorithm (i.e. for matrix multiplication)
+- Strassen algorithm (i.e. for matrix multiplication), which is theoretically slower than the Coppersmith–Winograd algorithm.
+- Block matrix multiplication (to reduce theoretically, given a certain simplified memory hierarchy model, the memory accesses)
 - Gauss-Newton algorithm
 - Gauss–Seidel method
 - Guassian elimination
 - Guassian elimination with pivoting
 - LU decomposition (or factorization)
 - Cholesky decomposition (for symmetric positive definite matrices)
-- Bisection method
-- Fixed-point iteration
-- Secant method
 - A<sup>*</sup>
 - MCTS
 - Christofides algorithm
