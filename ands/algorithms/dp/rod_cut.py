@@ -67,7 +67,8 @@ def recursive_rod_cut(prices: list, n: int) -> int:
     return max_revenue
 
 
-def _memoized_rod_cut_aux(prices: list, n: int, revenues: list, s: list) -> int:
+def _memoized_rod_cut_aux(prices: list, n: int, revenues: list,
+                          s: list) -> int:
     """Auxiliary function for the memoized_rod_cut function."""
 
     # If the following condition is true, that would mean that the revenue for a

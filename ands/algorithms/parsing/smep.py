@@ -90,7 +90,7 @@ def infix_to_postfix(infix: list) -> list:
                         stack.append(c)
                     else:
                         while (top in OPERATORS and
-                                       OPERATORS[top] >= OPERATORS[c]):
+                               OPERATORS[top] >= OPERATORS[c]):
                             op = stack.pop()
                             postfix.append(op)
                             if len(stack) > 0:
@@ -127,7 +127,7 @@ def infix_to_postfix(infix: list) -> list:
                 opening_paren += 1
         else:  # All the rest is considered an operand
             if i > 0 and infix[i - 1] not in OPERATORS and infix[
-                        i - 1] not in PARENTHESIS:
+                i - 1] not in PARENTHESIS:
                 raise SyntaxError("No two operands can be in a row.")
 
             postfix.append(c)

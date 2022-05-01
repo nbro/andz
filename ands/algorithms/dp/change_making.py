@@ -78,8 +78,8 @@ def change_making(coins: list, rest: int) -> int:
 
     Assumes that all coins and rest are integers.
 
-    rest is number that we need to obtain with the fewest number of coins in set
-    of coins.
+    rest is number that we need to obtain with the fewest number of coins in
+    set of coins.
 
     Time complexity: O(n * rest), where "number of coins" == n == len(ls) and
     "quantity to obtain" == rest."""

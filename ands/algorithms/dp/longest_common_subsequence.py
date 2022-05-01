@@ -241,7 +241,7 @@ def bottom_up_lcs_length_partial(s1: str,
 
             # Partial match.
             elif ((s1[i - 1] == c1 and s2[j - 1] == c2) or
-                      (s1[i - 1] == c2 and s2[j - 1] == c1)):
+                  (s1[i - 1] == c2 and s2[j - 1] == c1)):
                 m[i][j] = max(m[i - 1][j], m[i][j - 1],
                               m[i - 1][j - 1] + partial_weight)
 

@@ -106,7 +106,8 @@ def _binary_search_recursively_in_place(ls: list, item: object, start: int,
         elif ls[mid] < item:
             return _binary_search_recursively_in_place(ls, item, mid + 1, end)
         else:
-            return _binary_search_recursively_in_place(ls, item, start, mid - 1)
+            return _binary_search_recursively_in_place(ls, item, start,
+                                                       mid - 1)
 
 
 def binary_search_recursively_in_place(ls: list, item: object) -> bool:

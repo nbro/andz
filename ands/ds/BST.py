@@ -791,7 +791,7 @@ def build_pretty_bst(node: _BSTNode, only_list: bool = True):
         right_lines.append(' ' * right_width)
 
     if ((middle - len(node.key)) % 2 == 1 and node.parent is not None and
-                node is node.parent.left and len(node.key) < middle):
+            node is node.parent.left and len(node.key) < middle):
         node.key += fill
 
     node.key = node.key.center(middle, fill)

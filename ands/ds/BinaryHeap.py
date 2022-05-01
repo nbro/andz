@@ -8,7 +8,7 @@ Author: Nelson Brochado
 
 Created: 01/07/2015
 
-Updated: 19/09/2017
+Updated: 06/04/2018
 
 # Description
 
@@ -29,12 +29,12 @@ Contains the abstract class BinaryHeap.
 
 import io
 import math
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 __all__ = ["BinaryHeap", "build_pretty_binary_heap"]
 
 
-class BinaryHeap(metaclass=ABCMeta):
+class BinaryHeap(ABC):
     """Abstract class to represent binary heaps.
 
     This binary heap allows duplicates.

@@ -165,7 +165,7 @@ class LinearProbingHashTable(HashTable):
             rehashed = False
 
             while (self._keys[next_slot] is not None and
-                           self._keys[next_slot] != key):
+                   self._keys[next_slot] != key):
 
                 next_slot = LinearProbingHashTable._rehash(next_slot, size)
 

@@ -9,7 +9,7 @@ Author: Nelson Brochado
 
 Created: 08/03/2017
 
-Updated: 08/03/2017
+Updated: 06/04/2018
 
 # Description
 
@@ -19,12 +19,12 @@ The reason to have this abstract class is because a disjoint-sets data structure
 can possibly be implemented in different ways.
 """
 
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 __all__ = ["DisjointSets"]
 
 
-class DisjointSets(metaclass=ABCMeta):
+class DisjointSets(ABC):
     """Abstract class from which DisjointSetsForest derives.
 
     A DisjointSets data structure is sometimes also called DisjointSet,

@@ -9,7 +9,7 @@ Author: Nelson Brochado
 
 Created: 13/02/2017
 
-Updated: 20/08/2017
+Updated: 06/04/2018
 
 # Description
 
@@ -21,15 +21,15 @@ should all implement at least two methods: put and get.
 
 # References
 
-- http://stackoverflow.com/questions/13646245/is-it-possible-to-make-abstract-classes-in-python
+- https://stackoverflow.com/q/13646245/3924118
 """
 
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 __all__ = ["HashTable"]
 
 
-class HashTable(metaclass=ABCMeta):
+class HashTable(ABC):
     """Abstract class from which classes such as LinearProbingHashTable
     derive."""
 
