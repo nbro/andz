@@ -3,6 +3,7 @@
 
 
 import os
+
 from setuptools import setup, find_packages
 
 
@@ -14,9 +15,9 @@ setup(
     name="ands",
     version="0.0.1",
     author="Nelson Brochado",
-    author_email="nelson.brochado@outlook.com",
+    author_email="",
     packages=find_packages(exclude=["venv"]),
-    install_requires=["numpy", "tabulate"],
+    install_requires=["numpy", "tabulate", "scipy", "mypy", "coveralls"],
     description="Algorithms and Data Structures",
     long_description=read("README.md"),
     license="MIT",
@@ -28,12 +29,11 @@ setup(
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
         "Intended Audience :: Developers, Students, Scientists",
-        "Topic :: Software Development :: Algorithms and Data Structures",
+        "Topic :: Computer Science :: Algorithms and Data Structures",
         "License :: OSI Approved :: MIT License",
         "Operating System :: MacOS :: Mac OS X",
         "Operating System :: Microsoft :: Windows",
         "Operating System :: Microsoft :: Linux",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6"
+        "Programming Language :: Python :: 3.9"
     ]
 )
