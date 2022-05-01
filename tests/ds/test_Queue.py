@@ -24,8 +24,8 @@ class TestQueue(unittest.TestCase):
         q = Queue(None)
         self.assertTrue(q.is_empty())
 
-    def test_creation_not_list(self):
-        self.assertRaises(TypeError, Queue, (13,))
+    def test_creation_not_iterable(self):
+        self.assertRaises(TypeError, Queue, 13)
 
     def test_creation_good_list_empty(self):
         q = Queue([])
@@ -34,6 +34,9 @@ class TestQueue(unittest.TestCase):
     def test_creation_good_list_size_1(self):
         q = Queue([3])
         self.assertEqual(q.size(), 1)
+
+    def test_creation_list_with_None(self):
+        self.assertRaises(ValueError, Queue, [31, None, 2, 3])
 
     def test_creation_good_list_random_size(self):
         r = randint(2, 50)
@@ -44,6 +47,10 @@ class TestQueue(unittest.TestCase):
         q = Queue()
         q.enqueue("first")
         self.assertEqual(q.size(), 1)
+
+    def test_enqueue_None(self):
+        q = Queue([93, 97])
+        self.assertRaises(ValueError, q.enqueue, None)
 
     def test_enqueue_many(self):
         q = Queue()
@@ -65,15 +72,12 @@ class TestQueue(unittest.TestCase):
         self.assertTrue(q.is_empty())
 
     def test_dequeue_many(self):
-
-        r = randint(2, 100)
-        ls = [randint(-100, 100) for _ in range(r)]
-
+        ls = [2, 3, 5, 7, 11, 13]
         q = Queue(ls)
 
-        for _ in range(r):
+        for i in range(len(ls)):
             elem = q.dequeue()
-            self.assertIsNotNone(elem)
+            self.assertEqual(elem, ls[i])
 
         self.assertTrue(q.is_empty())
 
