@@ -283,8 +283,8 @@ class LinearProbingHashTable(HashTable):
         self.put(key, value)
 
     def __str__(self):
-        return str(
-            [(k, v) for k, v in zip(self._keys, self._values) if k is not None])
+        return str([(k, v) for k, v in zip(self._keys, self._values)
+                    if k is not None])
 
     def __repr__(self):
         return self.__str__()

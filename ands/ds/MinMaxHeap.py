@@ -347,29 +347,32 @@ def is_min_max_heap(h: MinMaxHeap) -> bool:
             return max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0]
         if h.size >= 3:
             if (h.heap[0] != min(h.heap) or
-                (h.heap[1] != max(h.heap) and
-                 h.heap[2] != max(h.heap))):
+                    (h.heap[1] != max(h.heap) and
+                             h.heap[2] != max(h.heap))):
                 return False
 
         # i is the index of the current node.
         for i, item in reversed(list(enumerate(h.heap))):
-            p = h._parent_index(i)
-            if p != -1:
-                if h._is_on_even_level(i):
-                    if h.heap[p] < item:
-                        return False
-                else:
-                    if h.heap[p] > item:
-                        return False
+            l = h._left_index(i)
+            r = h._right_index(i)
 
-            g = h._grandparent_index(i)
-            if g != -1:
-                if h._is_on_even_level(i):
-                    if h.heap[g] > item:
-                        return False
+            # If item has a right child but not a left child, then this heap is
+            # not well structured.
+            if r != -1 and l == -1:
+                return False
 
-                else:
-                    if h.heap[g] < item:
-                        return False
-
+            if h._is_on_even_level(i):
+                # If item is in an even (or min) level, then item should be
+                # smaller or equal to the values stored at its descendants.
+                if l != -1 and item > h.heap[l]:
+                    return False
+                if r != -1 and item > h.heap[r]:
+                    return False
+            else:  # odd (or max) level
+                # If item is in an odd (or max) level, then item should be
+                # greater or equal to the values stored at its descendants.
+                if l != -1 and item < h.heap[l]:
+                    return False
+                if r != -1 and item < h.heap[r]:
+                    return False
     return True
