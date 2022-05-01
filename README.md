@@ -1,7 +1,7 @@
 # Algorithms and Data Structures (ands) 
 
 
-[![Python 3.3+](https://img.shields.io/badge/python-3.3+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.5+](https://img.shields.io/badge/python-3.5+-blue.svg)](https://www.python.org/downloads/)
 [![](https://img.shields.io/badge/stability-experimental-red.svg)](http://www.engr.sjsu.edu/fayad/SoftwareStability/)
 [![Build Status](https://travis-ci.org/nbro/ands.svg?branch=master)](https://travis-ci.org/nbro/ands)
 [![Coverage Status](https://coveralls.io/repos/github/nbro/ands/badge.svg)](https://coveralls.io/github/nbro/ands)
