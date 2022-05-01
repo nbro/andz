@@ -1,25 +1,26 @@
-# FILES 
+# Files
+
 ands/algorithms/greedy/huffman.py
 ands/ds/Graph.py
-WARNINGS
+/ands/ds/MinPriorityQueue.py
 
 *.egg
 *.py[cod]
 *$py.class
 .DS_Store
 
-# DIRECTORIES
-ands/ds/TST/
-ands/algorithms/graphs
-ands/algorithms/unclassified
-ands/algorithms/numerical
 
-venv/
+# Directories
+
+ands/algorithms/graphs/
+ands/algorithms/unclassified/
+ands/algorithms/numerical/
+/ands/algorithms/math/combinatorics/
+/ands/algorithms/math/
+
+.idea/
 _ignore/
+venv/
 env/
 *.egg-info/
 __pycache__/
-.idea/
-/ands/algorithms/math/combinatorics/
-/ands/algorithms/math/
-/ands/ds/MinPriorityQueue.py
