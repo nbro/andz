@@ -17,7 +17,6 @@ Tests for the functions in the module ands.algorithms.numerical.newton.
 """
 
 import unittest
-from math import isclose
 
 from ands.algorithms.numerical.newton import *
 
@@ -34,7 +33,7 @@ class TestNewton(unittest.TestCase):
         x0 = 5
         f = lambda x: x * x - a
         df = lambda x: 2 * x
-        self.assertTrue(isclose(newton(x0, f, df), 3.0))
+        self.assertAlmostEqual(newton(x0, f, df), 3.0)
 
     def test_find_reciprocal(self):
         a = 2  # We want to find the reciprocal of a, i.e. 1 / a.
@@ -42,4 +41,4 @@ class TestNewton(unittest.TestCase):
         f = lambda x: a - (1 / x)
         df = lambda x: 1 / (x * x)
         # We could also use the iteration: x_next = x * (2 - x * a).
-        self.assertTrue(isclose(newton(x0, f, df), 1 / 2))
+        self.assertAlmostEqual(newton(x0, f, df), 1 / 2)

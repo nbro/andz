@@ -9,16 +9,17 @@ Author: Nelson Brochado
 
 Created: 12/10/2017
 
-Updated: 12/10/2017
+Updated: 02/04/2018
 
 # Description
 
 Common tests to the polynomial interpolation algorithms of this project.
 """
 
-from math import isclose, sqrt
+from math import sqrt
 from random import uniform
 
+import numpy as np
 from scipy.interpolate import barycentric_interpolate
 
 
@@ -52,11 +53,7 @@ class PolynomialInterpolationTests:
             y0 = self.algorithm(xs, ys, x0)
             bi0 = barycentric_interpolate(xs, ys, x0)
 
-            # f0 = f(x0)
-            # e0 = fabs(y0 - f(x0))
-            # print("e(%d) = %f\n" % (x0, e0))
-
-            self.assertTrue(isclose(bi0, y0))
+            self.assertAlmostEqual(bi0, np.array(y0), 4)
 
     def test_g(self):
         """Example taken from:
@@ -68,5 +65,4 @@ class PolynomialInterpolationTests:
         y0 = self.algorithm(xs, ys, x0)
         bi0 = barycentric_interpolate(xs, ys, x0)
 
-        self.assertTrue(isclose(y0, 0.106, rel_tol=1e-02))
-        self.assertTrue(isclose(bi0, y0, rel_tol=1e-02))
+        self.assertAlmostEqual(bi0, np.array(y0), 4)
