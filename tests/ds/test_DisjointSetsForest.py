@@ -12,7 +12,7 @@ Updated: 08/03/2017
 
 # Description
 
-Tests for the DisjointSetsForest class and associated classes.
+Unit tests for the DisjointSetsForest class and associated classes.
 """
 
 import unittest

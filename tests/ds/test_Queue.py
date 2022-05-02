@@ -9,9 +9,11 @@ Author: Nelson Brochado
 
 Created: 24/01/2017
 
+Updated: 12/03/2017
+
 # Description
 
-Tests for the Queue class.
+Unit tests for the Queue class.
 """
 
 import unittest

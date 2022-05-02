@@ -61,7 +61,7 @@ def longest_increasing_subsequence(seq: list) -> list:
 
     This algorithm uses a dynamic programming strategy.
 
-    **Time complexity:** O(n^2), where `n` is the size of `seq`."""
+    Time complexity: O(n^2), where `n` is the size of `seq`."""
 
     # At the end of the algorithm, each item of this list (indexed, say, by i)
     # will be the size of the LIS seen so far starting from the beginning of seq (seq[0]) up to seq[i].

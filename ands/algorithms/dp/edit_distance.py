@@ -59,7 +59,7 @@ def min_edit_distance(x: str, y: str, return_matrix: bool = False) -> object:
 
     This algorithm uses a dynamic programming solution.
 
-    **Time complexity:** O(m * n),
+    Time complexity: O(m * n),
     where `m` is the length of `x` and `n` is the length of `y`."""
     m = _get_edit_distance_matrix(x, y)
 
@@ -97,8 +97,7 @@ def extended_min_edit_distance(x: str, y: str) -> tuple:
     and the second item is a list of lists containing the instructions
     (in the language of coordinates) to convert a string to another.
 
-    **Time complexity:** O(m * n),
-    where `m` is the length of `x` and `n` is the length of `y`."""
+    Time complexity: O(m * n), where `m` is the length of `x` and `n` is the length of `y`."""
     m = _get_edit_distance_matrix(x, y)
 
     o = _get_coordinates_matrix(x, y)

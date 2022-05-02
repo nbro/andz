@@ -42,7 +42,7 @@ def find_peak_linearly(ls: list) -> int:
 
     If there's no peak or the list is empty, -1 is returned.
 
-    **Time Complexity:** O(n), where len(ls) == n."""
+    Time complexity: O(n), where len(ls) == n."""
     for i in range(1, len(ls) - 1):
         if ls[i - 1] <= ls[i] >= ls[i + 1]:
             return i

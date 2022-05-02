@@ -69,7 +69,7 @@ class Queue:
         return None if self.is_empty() else self._q.popleft()
 
     def is_empty(self) -> bool:
-        """Returns `True` if this queue is empty, `False` otherwise."""
+        """Returns true if this queue is empty, false otherwise."""
         return self.size() == 0
 
     def size(self) -> int:
