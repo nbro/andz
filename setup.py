@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-## Resources
-- [https://packaging.python.org/en/latest/distributing/#readme-rst](https://packaging.python.org/en/latest/distributing/#readme-rst)
-- [http://docs.python-guide.org/en/latest/writing/structure/](http://docs.python-guide.org/en/latest/writing/structure/)
-"""
 
 import os
-
 from setuptools import setup, find_packages
 
 
@@ -26,15 +20,11 @@ setup(
     description="Algorithms and Data Structures",
     long_description=read("README.md"),
     license="MIT",
-    keywords="algorithms data structures python",
+    keywords="algorithms data structures python testing",
     url="https://github.com/nbro/ands",
     include_package_data=True,
     exclude_package_data={'': ['__pycache__']},
     classifiers=[
-        # How mature is this project?
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
         "Intended Audience :: Developers, Students, Scientists",
@@ -46,5 +36,6 @@ setup(
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6"
     ]
 )
