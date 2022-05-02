@@ -1,86 +1,80 @@
 # Algorithms and Data Structures (ands) 
 
 
-[![Python 3.5+](https://img.shields.io/badge/python-3.5+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![](https://img.shields.io/badge/stability-experimental-red.svg)](http://www.engr.sjsu.edu/fayad/SoftwareStability/)
-[![Build Status](https://travis-ci.org/nbro/ands.svg?branch=master)](https://travis-ci.org/nbro/ands)
-[![Coverage Status](https://coveralls.io/repos/github/nbro/ands/badge.svg)](https://coveralls.io/github/nbro/ands)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c88538816f424aea916c251428f78c0a)](https://www.codacy.com/app/nbro/ands?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dossan/ands&amp;utm_campaign=Badge_Grade)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)](./LICENSE.md)
-
 
 ## Introduction
 
-This project was created for _personal use_ mostly while studying for an _exam_ 
-(starting in the month of June in 2015) of a previous course that I followed called _Algorithms and Data Structures_ I decided to make it publicly available to use and modify, so that people with difficulties in understanding and applying these topics can take benefit from it. 
+`ands` stands for **a**lgorithms a**n**d **d**ata **s**tructures.  
 
-I discourage every beginner from copying **shamelessly** the source code, but 
-instead you should definitely give a chance to your brain and sense of challenge 
-first! At the end, you will definitely feel a better and more serious 
-programmer! If you really do not have any ideas on how to do something, try to 
-read the comments next to each function and/or class (or even the code itself) 
-that you are interested in. They are there for a reason!
+So, in this repository, you can find some of the most common algorithms and data structures studied in Computer Science, such as quick-sort or binary-search trees. The algorithms are divided into main categories, such as sorting algorithms or dynamic programming algorithms. 
 
-Any suggestions to improve the code, or the design of an algorithm or data 
-structure, or corrections are of course welcome. Feel free to open an issue.
+The current main goal of this project is for me to learn more about new algorithms and data structures, but I hope these implementations can also be useful to anyone interested in them.
 
-## Content
+## How to use?
 
-In this repository, you will find data structures, such as binary-search trees, 
-and algorithms that often work on (those) data structures. You will also find 
-some algorithms related to some particular design paradigm, for example 
-algorithms related to the _greedy_ or _dynamic programming_ design paradigms.
+### Installation
 
-## Notes, warnings and "philosophy"
+I'm currently using **Python 3.9**.
 
-- This is a **work in progress**, don't expect to find here all the data 
-structures and algorithms you're searching. Consider to contribute to the 
-quality and size of the project.
+1. Create a virtual environment
+2. Install `ands` inside that virtual environment in editable mode: `pip install -e .`
 
-- Again, **mistakes are possible**, even if decent tests are starting to being 
-done. You can find them under the folder [`tests`](tests). So, as the 
-[license](LICENSE.md) says, this project is provided "as is", etc.
+### Testing
+
+Example
+
+    coverage run --source=. -m unittest discover -s tests/algorithms/sorting/integer -v
+
+### Type checking
+
+Example
+
+    mypy ands/algorithms/sorting/integer/radix_sort.py
+
+### More info
+
+- [`CONTRIBUTING.md`](./md/CONTRIBUTING.md)
+- [`CONVENTIONS.md`](./md/CONVENTIONS.md)
+
+## Notes
+
+- This is a **personal project**.
+  - I will **not accept pull requests**.
+  - However, if you find issues in the code, you can report them in the issue tracker.
+- This is a **work in progress**, don't expect to find here all the algorithms and data structures you are searching. 
+- Expect **breaking changes** across versions/commits, as this is an experimental project. 
+  - Every once in a while, **I also rewrite the history of the commits** to make it more logical, so the time of the commits or pushes might not correspond to when I originally implemented and added the features.
+  - Moreover, if you fork this repo, and if you try to fetch my updates or try to make a pull request (which I will not accept anyway), you could have conflicts after I have rewritten history.
+- **Mistakes are possible**, even if I always try to test all the algorithms and data structures. You can find the unit tests under the folder [`tests`](tests). So, as the [license](LICENSE.md) says, this project is provided "as is".
 
 - **No optimisation** has been done to any algorithm or data structure. The 
 purpose of the implementations is just for **_exposition of the concepts_**!
 
-- My intent is to continue to contribute to this repository in my free time, and 
-**new data structures and algorithms** will therefore be added.
+- My intent is to continue to contribute to this repository in my free time, and **new data structures and algorithms** will therefore be added.
 
 
 ## References
 
-For each module I always try not to forget to specify the specific references 
-that I used to implement the particular concept exposed in that module. 
+For each module, I always try not to forget to specify the specific references that I used to implement the particular concept exposed in that module. 
 
 Apart from those, the following are the references which I always keep an eye on:
 
-- [_Introduction to Algorithms_ (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms), book by Cormen, Leiserson, Rivest, Stein
+- [_Introduction to Algorithms_ (3rd ed.)](https://mitpress.mit.edu/books/introduction-algorithms),  book by Cormen, Leiserson, Rivest, Stein
 
-- Slides provided by the prof. [Antonio Carzaniga](http://www.inf.usi.ch/carzaniga/)
-
-- Slides provided by the prof. E. Papadopoulou.
-
-- [Algorithms, 4th Edition](http://algs4.cs.princeton.edu/home/), online book by Robert Sedgewick and Kevin Wayne
-
-- [Wikipedia](https://www.wikipedia.org/)
-
-- [Stack Overflow](http://stackoverflow.com/)
-
+- [Algorithms, 4th Edition](http://algs4.cs.princeton.edu/home/), online book  by Robert Sedgewick and Kevin Wayne
 
 ## Resources
 
-There many useful resources around the web to help you (and me) understand how 
-certain algorithms or data structures work.
-
-One curated list that I found useful which points to a bunch of other resources 
-is the following:
-
-- [https://github.com/tayllan/awesome-algorithms](https://github.com/tayllan/awesome-algorithms)
-
-Other resources that may be useful:
+There many useful resources around the web to help you (and me) understand how certain algorithms or data structures work. Examples are
 
 - [The Archive of Interesting Code](http://www.keithschwarz.com/interesting/) 
 by Keith Schwarz
 
-- [Notes on Data Structures and Programming Techniques](http://www.cs.yale.edu/homes/aspnes/classes/223/)
+- [Notes on Data Structures and Programming Techniques](https://www.cs.yale.edu/homes/aspnes/classes/223/notes.html)
+
+- [https://github.com/tayllan/awesome-algorithms](https://github.com/tayllan/awesome-algorithms)
+
+- [Rosetta Code](http://rosettacode.org/wiki/Rosetta_Code)
