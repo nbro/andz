@@ -1,24 +1,18 @@
 # Objectives
 
-1. Learn the concepts related to the most interesting algorithms and data structures related (but not only) to the following fields:
-
+1. Learn by implementing the following (but not exclusively) concepts:
+    
+    - Trees
+    - Graphs
+	- Heaps
+	- Sets
 	- Searching
 	- Sorting
+	- Hashing
 	- Dynamic programming
 	- Greedy algorithms
-	- Hashing
-	- Graphs
-	- Trees
-	- Heaps (e.g.: Fibonacci or binomial heaps)
-	- Geometrical algorithms (e.g.: convex hull)
-	- Approximation algorithms (e.g.: approximation-vertex-cover)
-	- Heuristics
-	
- or even to more general scientific areas
-	
-	- Artificial intelligence
-	- Numerical computing
-	- Linear algebra algorithms
+	- Cryptographic algorithms	
+	- Parsing
 		
 2. Implement as many as possible of the most interesting and useful algorithms and data structures in the fields mentioned above (but not exclusively).
 
@@ -58,7 +52,7 @@
 
         - Link to resources used to implement the concepts.
 
-5. Learn how to create unit tests. Specifically I should at least consider the following techniques:
+5. Learn how to create unit tests. Specifically, I should at least consider the following techniques:
 
 	- Equivalence partitioning
 
@@ -74,4 +68,4 @@
 
 	- Learn test-driven development
 
-7. Learn new Python techniques
+7. Learn new useful Python techniques

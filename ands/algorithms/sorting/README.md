@@ -30,6 +30,7 @@ but I might also have forgotten to do it in some places.
 - Block sort
 
 ## Resources
+
 - [Sorting Algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm) 
 
 - [Sorting and Searching](http://interactivepython.org/runestone/static/pythonds/index.html#sorting-and-searching), section by of an online book at [http://interactivepython.org](http://interactivepython.org)
