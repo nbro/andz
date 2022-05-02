@@ -2,6 +2,7 @@
 
 Conventions that should be adopted for this project.
 
+
 ## General
 
 - Do not introduce features that are
@@ -26,6 +27,10 @@ and **not** to report:
 - possible future features which have nothing to do with the existing code, or 
 - report issues of code that is no more part of this project
  
+## Complexity analysis
+ 
+Use symbols O, Θ, Ω, α, ...
+
 ## Design by contract
 
 - Consists in asserting:
