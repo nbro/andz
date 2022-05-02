@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
 
-#################################################################################
-# SCRIPT NAME: run_tests.sh                                                     #
-#                                                                               #
-# PURPOSE: run (unit) tests in a virtual environment and report code coverage   #
-#                                                                               #
-# RUN ALL TESTS: ./run_tests.sh                                                 #
-#                                                                               #
-# RUN SPECIFIC TEST: ./run_tests.sh -st [folder_path_inside_tests] test_name.py #
-# EXAMPLE: ./run_tests.sh -st algorithms/recursion test_reverse.py              #
-#################################################################################
+# See the file CONTRIBUTING.md under the root folder of the ands package to know more about this script.
+# Run all tests with: ./run_tests.sh
+# Run specific test: ./run_tests.sh -st [folder_path_inside_tests] test_name.py
 
 
 export ALREADY_SOURCED_RUN_TESTS
