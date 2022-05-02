@@ -2,46 +2,40 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 18/02/2016
 
-Updated: 12/03/2017
+Updated: 28/09/2017
 
 # Description
 
-Min-Max Heap is a heap that supports find-min and find-max operations in constant time.
-Moreover, both remove-min and remove-max are supported in logarithmic time.
-It's therefore an useful data structure to implement (or represent) double-ended priority queues.
+Min-max heap is a heap that supports find-min and find-max operations in
+constant time. Moreover, both remove-min and remove-max are supported in
+logarithmic time. It's therefore an useful data structure to represent
+double-ended priority queues.
 
 The min-max heap ordering is the following:
-> values stored at nodes on even (or min) levels
-are smaller than or equal to values stored at their descendants,
-whereas values stored at nodes on odd (or max) levels
-are greater than or equal to values stored at their descendants.
 
-Even levels are 0, 2, 4, 6, etc,
-whereas odd levels are 1, 3, 5, 7, etc.
+    values stored at nodes on even (or min) levels are smaller than or equal to
+    values stored at their descendants, whereas values stored at nodes on odd
+    (or max) levels are greater than or equal to values stored at their
+    descendants.
+
+Even levels are 0, 2, 4, 6, etc., whereas odd levels are 1, 3, 5, 7, etc.
 
 # TODO
 
-- find-kth, i.e. find the kth smallest element in the structure, in O(1) time
-- delete-kth, i.e. delete the kth smallest element, in O(log n) time
+- find-kth, i.e. find the kth smallest element in the structure, in O(1) time.
+- delete-kth, i.e. delete the kth smallest element, in O(log n) time.
 
 # References
 
-- [Min-Max Heaps and Generalized Priority Queues]
-(http://www.akira.ruc.dk/~keld/teaching/algoritmedesign_f03/Artikler/02/Atkinson86.pdf),
-original paper describing and introducing the min-max heap data structure,
-by M. D. Atkinson, J.R. Sack, N. Santoro and T. Strothotte.
-
-- [http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html]
-(http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html)
-
-- [http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html
-(http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html)
+- http://www.akira.ruc.dk/~keld/teaching/algoritmedesign_f03/Artikler/02/Atkinson86.pdf
+- http://www.diku.dk/forskning/performance-engineering/Jesper/heaplab/heapsurvey_html/node11.html
+- http://www.math.clemson.edu/~warner/M865/HeapDelete.html](http://www.math.clemson.edu/~warner/M865/HeapDelete.html
 """
 
 import math
@@ -116,12 +110,13 @@ class MinMaxHeap(BinaryHeap):
             return m
 
     def delete(self, x: object) -> None:
-        """Removes the first found `x` from this MinMaxHeap.
+        """Removes the first found x from this MinMaxHeap.
 
-        If `x` is not in this MinMaxHeap, LookupError is raised.
+        If x is not in this MinMaxHeap, LookupError is raised.
 
-        This function overrides the inherited one only for the purpose of asserting
-        that before and after this operation self is still a MinHeap.
+        THIS FUNCTION OVERRIDES THE INHERITED ONE ONLY FOR THE PURPOSE OF
+        ASSERTING THAT BEFORE AND AFTER THIS OPERATION SELF IS STILL A
+        MinMaxHeap.
 
         Time complexity: O(n)."""
         assert is_min_max_heap(self)
@@ -149,7 +144,7 @@ class MinMaxHeap(BinaryHeap):
                         self._swap(m, mp)
                     self._push_down_min(m)
 
-            else:  # self.heap[m] is a child of self.heap[i]
+            else:  # self.heap[m] is a child of self.heap[i].
                 if self.heap[m] < self.heap[i]:
                     self._swap(i, m)
 
@@ -167,7 +162,7 @@ class MinMaxHeap(BinaryHeap):
                         self._swap(m, mp)
                     self._push_down_max(m)
 
-            else:  # self.heap[m] is a child of self.heap[i]
+            else:  # self.heap[m] is a child of self.heap[i].
                 if self.heap[m] > self.heap[i]:
                     self._swap(i, m)
 
@@ -196,20 +191,19 @@ class MinMaxHeap(BinaryHeap):
                 self._push_up_max(i)
 
     def _push_up_min(self, i: int) -> None:
-        """Helper method for `self._push_up`."""
+        """Helper method for self._push_up."""
         g = self._grandparent_index(i)
         # Let x be the element at index i.
-        # If x has a grandparent at position g,
-        # we call it z.
+        # If x has a grandparent at position g, we call it z.
 
-        # If the z exists and x is smaller than z,
-        # swap x and z. Now, x is at index g and z at index i.
+        # If the z exists and x is smaller than z, swap x and z.
+        # Now, x is at index g and z at index i.
         if g != -1 and self.heap[i] < self.heap[g]:
             self._swap(i, g)
             self._push_up_min(g)
 
     def _push_up_max(self, i: int) -> None:
-        """Helper method for `self._push_up`."""
+        """Helper method for self._push_up."""
         g = self._grandparent_index(i)
         if g != -1 and self.heap[i] > self.heap[g]:
             self._swap(i, g)
@@ -229,8 +223,8 @@ class MinMaxHeap(BinaryHeap):
             return 1 if self.heap[1] > self.heap[2] else 2
 
     def _index_of_min(self, i: int) -> int:
-        """Returns the index of the smallest element
-        among the children and grandchildren of the node at index `i`.
+        """Returns the index of the smallest element among the children and
+        grandchildren of the node at index i.
 
         Time complexity: O(1)."""
         m = l = self._left_index(i)
@@ -258,8 +252,8 @@ class MinMaxHeap(BinaryHeap):
         return m
 
     def _index_of_max(self, i: int) -> int:
-        """Returns the index of the largest element
-        among the children and grandchildren of the node at index `i`.
+        """Returns the index of the largest element among the children and
+        grandchildren of the node at index i.
 
         Time complexity: O(1)."""
         m = l = self._left_index(i)
@@ -287,21 +281,22 @@ class MinMaxHeap(BinaryHeap):
         return m
 
     def _has_children(self, i: int) -> bool:
-        """Returns true if the node at index `i` has at least one child, false otherwise.
+        """Returns true if the node at index i has at least one child, false
+        otherwise.
 
         Time complexity: O(1)."""
         assert self._is_good_index(i)
         return self._left_index(i) != -1 or self._right_index(i) != -1
 
     def _is_child(self, c: int, i: int) -> bool:
-        """Returns true if `c` is a child of `i`, false otherwise.
+        """Returns true if c is a child of i, false otherwise.
 
         Time complexity: O(1)."""
         assert self._is_good_index(c) and self._is_good_index(i)
         return c == self._left_index(i) or c == self._right_index(i)
 
     def _is_grandchild(self, g: int, i: int) -> bool:
-        """Returns true if `g` is a grandchild of `i`, false otherwise.
+        """Returns true if g is a grandchild of i, false otherwise.
 
         Time complexity: O(1)."""
         l = self._left_index(i)
@@ -316,34 +311,31 @@ class MinMaxHeap(BinaryHeap):
             return self._is_child(g, l) or self._is_child(g, r)
 
     def _grandparent_index(self, i: int) -> int:
-        """Returns the grandparent's index of the node at index `i`.
+        """Returns the grandparent's index of the node at index i.
 
-        -1 is returned either if `i` has not a parent or
-        the parent of `i` does not have a parent.
+        -1 is returned either if i has not a parent or the parent of i does not
+        have a parent.
 
         Time complexity: O(1)."""
         p = self._parent_index(i)
         return -1 if p == -1 else self._parent_index(p)
 
     def _is_on_even_level(self, i: int) -> bool:
-        """Returns true if node at index `i` is on a even-level,
-        i.e., if `i` is on a level multiple of 2 (0, 2, 4, 6,...).
+        """Returns true if node at index i is on a even-level, i.e., if i is on
+        a level multiple of 2.
 
         Time complexity: O(int(log(i + 1) % 2) == 0)."""
         assert self._is_good_index(i)
         return int(math.log2(i + 1) % 2) == 0
 
     def _is_on_odd_level(self, i: int) -> bool:
-        """Returns true when self._is_on_even_level(i) returns false, and vice-versa."""
+        """Returns true when self._is_on_even_level(i) returns false, and
+        vice-versa."""
         return not self._is_on_even_level(i)
 
 
 def is_min_max_heap(h: MinMaxHeap) -> bool:
-    """Returns true if `h` is a valid `MinMaxHeap` object, false otherwise.
-
-    Min-max heap property:
-    each node at an EVEN level in the tree is LESS THAN all of its descendants
-    while each node at an ODD level in the tree is GREATER THAN all of its descendants."""
+    """Returns true if h is a valid MinMaxHeap object, false otherwise."""
     if not isinstance(h, MinMaxHeap):
         return False
 
@@ -354,10 +346,12 @@ def is_min_max_heap(h: MinMaxHeap) -> bool:
         if h.size == 2:
             return max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0]
         if h.size >= 3:
-            if h.heap[0] != min(h.heap) or (h.heap[1] != max(h.heap) and h.heap[2] != max(h.heap)):
+            if (h.heap[0] != min(h.heap) or
+                (h.heap[1] != max(h.heap) and
+                 h.heap[2] != max(h.heap))):
                 return False
 
-        # i is the index of the current node
+        # i is the index of the current node.
         for i, item in reversed(list(enumerate(h.heap))):
             p = h._parent_index(i)
             if p != -1:

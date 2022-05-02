@@ -2,30 +2,30 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 01/09/2015
 
-Updated: 10/03/2017
+Updated: 19/09/2017
 
 # Description
 
-Given a string s of numbers (s1 s2 s3...sn), is it possible to insert some plus signs "+"
-in the string so that the remaining expression is equal to a certain number k?
+Given a string s of numbers (s₁ s₂ s₃ ... sᵢ), is it possible to insert some
+plus signs (that is, a +) in the string so that the remaining expression is
+equal to a certain number k?
 
 ## Example
 
-Is it possible to insert some + signs in 214, so that the resulting expression is 25?
-Yes, if we insert a + sign between 1 and 4, that is 21 + 4, we obtain 25.
+Is it possible to insert some + signs in 214, so that the resulting expression
+is 25? Yes, if we insert a + sign between 1 and 4, that is 21 + 4, we obtain 25.
 
 # TODO
 
-- Add tests for these functions
-- Prove that this problem exhibits or NOT optimal substructure and overlapping sub-problems!!
-- Add complexity analysis for current algorithms
-
+- Prove that this problem exhibits or NOT optimal substructure and overlapping
+sub-problems.
+- Add complexity analysis for current algorithms.
 """
 
 
@@ -76,9 +76,8 @@ def _build_expressions(s: str, m: list) -> list:
 
 
 def _evaluate_combinations(combinations: list, k: int) -> str:
-    """Returns the right combination (if it exists),
-    among all the combinations in "combinations",
-    of inserting plus signs in a certain string of numbers s,
+    """Returns the right combination (if it exists), among all the combinations
+    in "combinations", of inserting plus signs in a certain string of numbers s,
     such that the resulting expression is equal to k.
 
     If no combination yields k, None is returned."""
@@ -88,22 +87,23 @@ def _evaluate_combinations(combinations: list, k: int) -> str:
 
 
 def plus_sign_game(s: int, k: int) -> str:
-    """Given a string s of numbers (s1 s2 s3...sn), is it possible to insert some plus signs "+"
-    in the string so that the remaining expression is equal to a certain number k?"""
+    """Returns a modified expression of s with inserted + signs, so that the
+    evaluated expression is equal to k. If no such expression is possible, then
+    None is returned."""
 
     s = str(s)
 
-    # Number of places where to place a + sign
+    # Number of places where to place a + sign.
     p = len(s) - 1
 
-    # Number of possible combinations
+    # Number of possible combinations.
     num_of_combinations = 2 ** p
 
-    # Generating a matrix with all possible combinations
-    # of alternating between +  and no +
+    # Generating a matrix with all possible combinations of alternating between
+    # + and no +.
     m = _generate_combinations_matrix(p, num_of_combinations)
 
-    # Building all possible expressions
+    # Building all possible expressions.
     combinations = _build_expressions(s, m)
 
     return _evaluate_combinations(combinations, k)
@@ -115,5 +115,5 @@ if __name__ == "__main__":
     print(plus_sign_game("1214", 26))
     print(plus_sign_game("1214", 215))
     print(plus_sign_game("1214", 125))
-    # Do not run this script with the following statement uncommented if you are in a hurry!!!
+    # Do not run this script with the following line uncommented.
     # print(plus_sign_game("646805736141599100791159198", 472004))

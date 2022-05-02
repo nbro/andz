@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 20/07/2015
 
-Updated: 11/03/2017
+Updated: 18/09/2017
 
 # Description
 
@@ -16,20 +16,19 @@ In this file you can find some functions that return the nth fibonacci number,
 but they do it in different ways, which has also an impact on the performance
 and asymptotic complexity of the same algorithms.
 
-The Fibonacci numbers is an infinite sequence of numbers, where the next element of the sequence
-is constructed by summing the previous two elements of the same.
+The Fibonacci numbers is an infinite sequence of numbers, where the next element
+of the sequence is constructed by summing the previous two elements of the same.
 
-The first two elements are usually 0 and 1, so the next element is 1, so the sequence is now {0, 1, 1}.
-We then add 1 + 1 = 2 two obtain the 4th element of the sequence, which is now {0, 1, 1, 2}, and so on.
-
-The dynamic programming versions run in O(n) time.
+The first two elements are usually 0 and 1, so the next element is 1, so the
+sequence is now {0, 1, 1}. We then add 1 + 1 = 2 two obtain the 4th element of
+the sequence, which is now {0, 1, 1, 2}, and so on.
 """
 
 
 def recursive_fibonacci(n: int) -> int:
     """Returns the nth fibonacci number using a recursive approach.
 
-    Time complexity: O(2^n)."""
+    Time complexity: O(2ⁿ)."""
     if n == 0:
         return 0
     elif n == 1:
@@ -39,18 +38,18 @@ def recursive_fibonacci(n: int) -> int:
 
 
 def _memoized_fibonacci_aux(n: int, memo: dict) -> int:
-    """Auxiliary function of `memoized_fibonacci`.
-
-    This function is considered private and should not be used by clients."""
+    """Auxiliary function of memoized_fibonacci."""
     if n == 0 or n == 1:
         return n
     if n not in memo:
-        memo[n] = _memoized_fibonacci_aux(n - 1, memo) + _memoized_fibonacci_aux(n - 2, memo)
+        memo[n] = _memoized_fibonacci_aux(n - 1, memo) + \
+                  _memoized_fibonacci_aux(n - 2, memo)
     return memo[n]
 
 
 def memoized_fibonacci(n: int) -> int:
-    """Returns the nth fibonacci number using recursion and a technique called "memoization".
+    """Returns the nth fibonacci number using recursion and a technique called
+    "memoization".
 
     Time complexity: O(n)."""
     memo = {}
@@ -58,17 +57,17 @@ def memoized_fibonacci(n: int) -> int:
 
 
 def bottom_up_fibonacci(n: int, return_ith: bool = False) -> object:
-    """Returns the nth fibonacci number if `return_ith=False`, else it returns a list containing
-    all the ith fibonacci numbers, for i=0, ... , n.
+    """Returns the nth fibonacci number if return_ith=False, else it returns a
+    list containing all the ith fibonacci numbers, for i=0, ... , n.
 
-    For example, suppose `return_ith == True` and `n == 5`,
-    then this function returns [0, 1, 1, 2, 3, 5].
-    If `return_ith == False`, it returns simply 5.
-    Note that the indices start from 0 (and not from one)!
+    For example, suppose return_ith == True and n == 5, then this function
+    returns [0, 1, 1, 2, 3, 5]. If return_ith == False, it returns simply 5.
 
-    This function uses a dynamic programing "bottom up" approach:
-    we start by finding the optimal solution to smaller sub-problems, and from there,
-    we build the optimal solution to the initial problem.
+    Note: indices start from 0 (not from 1).
+
+    This function uses a dynamic programing "bottom up" approach: we start by
+    finding the optimal solution to smaller sub-problems, and from there, we
+    build the optimal solution to the initial problem.
 
     Time complexity: O(n)."""
     if n == 0:

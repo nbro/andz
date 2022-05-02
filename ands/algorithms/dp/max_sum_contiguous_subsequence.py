@@ -2,40 +2,39 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 04/09/2015
 
-Updated: 10/03/2017
+Updated: 19/09/2017
 
 # Description
 
 The maximum sub-array problem is the task of finding the contiguous sub-array
 within a one-dimensional array of numbers which has the largest sum.
 
-For example, for the sequence of values −2, 1, −3, 4, −1, 2, 1, −5, 4;
-the contiguous sub-array with the largest sum is 4, −1, 2, 1, with sum 6.
+For example, for the sequence of values { −2, 1, −3, 4, −1, 2, 1, −5, 4 } the
+contiguous sub-array with the largest sum is { 4, −1, 2, 1 }, with sum 6.
 
 # TODO
 
-- Add tests for these functions
+- Add tests for these functions.
 
 # References
 
-- [https://en.wikipedia.org/wiki/Maximum_subarray_problem](https://en.wikipedia.org/wiki/Maximum_subarray_problem)
-- [https://tkramesh.wordpress.com/2011/03/09/dynamic-programming-maximum-sum-contiguous-subsequence/]
-(https://tkramesh.wordpress.com/2011/03/09/dynamic-programming-maximum-sum-contiguous-subsequence/)
+- https://en.wikipedia.org/wiki/Maximum_subarray_problem
+- https://tkramesh.wordpress.com/2011/03/09/dynamic-programming-maximum-sum-contiguous-subsequence/
 """
 
 
 def brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
-    """Brute force approach to compute the sum of all subsequences of seq.
+    """Brute-force approach to compute the sum of all subsequences of seq.
 
     There are n + (n - 1) + (n - 2) + ... + 1 different subsequences.
 
-    Time complexity: O(n^3)."""
+    Time complexity: O(n³)."""
     _sum = _max = seq[0]
     start = end = 0
 
@@ -57,10 +56,11 @@ def brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
 
 
 def better_brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
-    """Brute force approach to compute the sum of all subsequences of seq.
+    """Brute-force approach to compute the sum of all subsequences of seq.
+
     There are n + (n - 1) + (n - 2) + ... + 1 different subsequences.
 
-    Time complexity: O(n^2)."""
+    Time complexity: O(n²)."""
     _sum = _max = seq[0]
     start = end = 0
 
@@ -71,8 +71,8 @@ def better_brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
         for j in range(i, len(seq)):
             _sum += seq[j]
 
-            # We need to update every iteration of the inner loop,
-            # because we need to check if from i to j we have found a better sum.
+            # We need to update every iteration of the inner loop, because we
+            # need to check if from i to j we have found a better sum.
             if _sum > _max:
                 _max = _sum
                 start = i
@@ -82,14 +82,16 @@ def better_brute_force_max_sum_contiguous_subsequence(seq: list) -> tuple:
 
 
 def bottom_up_max_sum_contiguous_subsequence(seq: list) -> tuple:
-    """Dynamic programming bottom-up algorithm which finds the sub-sequence of `seq`,
-     such that the sum of the elements of that sub-sequence is maximal.
+    """Dynamic programming bottom-up algorithm which finds the sub-sequence of
+    seq, such that the sum of the elements of that sub-sequence is maximal.
 
-    Let sum[k] denote the max contiguous sequence ending at k.
-    So, sum[k + 1] = max(seq[k], sum[k] + seq[k]).
-    sum[0] = seq[0]
+    Let sum[k] denote the max contiguous sequence ending at k. So, we have:
 
-    To keep track where the max contiguous subsequence starts, we use another list.
+        sum[0] = seq[0]
+
+        sum[k + 1] = max(seq[k], sum[k] + seq[k])
+
+    To keep track where the max contiguous subsequence starts, we use a list.
 
     Time complexity: O(n).
 
@@ -121,16 +123,17 @@ def bottom_up_max_sum_contiguous_subsequence(seq: list) -> tuple:
 
 
 def better_bottom_up_max_sum_contiguous_subsequence(seq: list) -> tuple:
-    """Returns a tuple or three elements (sum, start index, ending index),
-    where sum is the sum of the maximum contiguous subsequence,
-    start index is the starting index of the subsequence,
-    and ending index is the corresponding ending index.
+    """Returns a tuple of three elements (sum, start, end), where sum is the sum
+    of the maximum contiguous subsequence, and start and end are respectively
+    the starting and ending indices of the subsequence.
 
-    Let sum[k] denote the max contiguous sequence ending at k.
-    So, sum[k + 1] = max(seq[k], sum[k] + seq[k]).
-    sum[0] = seq[0]
+    Let sum[k] denote the max contiguous sequence ending at k. Then, we have
 
-    To keep track where the max contiguous subsequence starts, we use another list.
+        sum[0] = seq[0]
+
+        sum[k + 1] = max(seq[k], sum[k] + seq[k]).
+
+    To keep track where the max contiguous subsequence starts, we use a list.
 
     Time complexity: O(n).
 

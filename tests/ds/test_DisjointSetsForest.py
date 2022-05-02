@@ -18,12 +18,12 @@ Unit tests for the DisjointSetsForest class and associated classes.
 import unittest
 from random import randint, choice
 
-from ands.ds.DisjointSetsForest import DisjointSetsForest, DSFNode
+from ands.ds.DisjointSetsForest import DisjointSetsForest, _DSFNode
 
 
 class TestDSFNode(unittest.TestCase):
     def test_creation(self):
-        n = DSFNode(7)
+        n = _DSFNode(7)
         self.assertTrue(n.is_root())
         self.assertEqual(n.parent, n)
         self.assertEqual(n.next, n)
@@ -31,17 +31,17 @@ class TestDSFNode(unittest.TestCase):
         self.assertEqual(n.value, 7)
 
     def test_creation_custom_rank(self):
-        n = DSFNode(9, 101)
+        n = _DSFNode(9, 101)
         self.assertEqual(n.rank, 101)
 
     def test_repr(self):
-        n = DSFNode(31)
+        n = _DSFNode(31)
         self.assertEqual("(value: 31, rank: 0, parent: self)", repr(n))
         n.parent = "null"
         self.assertEqual("(value: 31, rank: 0, parent: null)", repr(n))
 
     def test_str(self):
-        n = DSFNode(39)
+        n = _DSFNode(39)
         self.assertEqual("39", str(n))
 
 

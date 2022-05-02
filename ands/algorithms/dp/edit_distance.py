@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 31/08/2015
 
-Updated: 10/03/2017
+Updated: 18/09/2017
 
 # Description
 
@@ -16,23 +16,19 @@ Calculate the edit distance between two strings.
 
 # TODO
 
-- Add a better description of the problem and of possible solutions
-- Add tests for functions in this module
+- Add a better description of the problem and of possible solutions.
 - Add complexity analysis
-- Verify that the functions in this module are well-implemented and correct
 
 # References
 
-- [https://github.com/dossan/interview/blob/master/src/com/interview/dynamic/EditDistance.java]
-(https://github.com/dossan/interview/blob/master/src/com/interview/dynamic/EditDistance.java)
-- [https://www.youtube.com/watch?v=We3YDTzNXEk](https://www.youtube.com/watch?v=We3YDTzNXEk)
-
+- https://github.com/dossan/interview/blob/master/src/com/interview/dynamic/EditDistance.java
+- https://www.youtube.com/watch?v=We3YDTzNXEk
 """
 
 
 def _get_edit_distance_matrix(x: str, y: str) -> list:
-    """Returns a len(y) + 1 by len(x) + 1 matrix,
-    where the first row and column are filled with 0s and the rest is filled with -1s."""
+    """Returns a len(y) + 1 by len(x) + 1 matrix, where the first row and column
+    are filled with 0s and the rest is filled with -1s."""
     matrix = [[-1 for _ in range(len(y) + 1)] for _ in range(len(x) + 1)]
 
     for j in range(len(matrix[0])):
@@ -49,18 +45,17 @@ def _get_coordinates_matrix(x: str, y: str) -> list:
 
 
 def min_edit_distance(x: str, y: str, return_matrix: bool = False) -> object:
-    """Returns the edit distance of `x` to `y`, where `x` and `y` are two strings.
+    """Returns the edit distance of x to y, where x and y are two strings.
 
-    The edit distance is the minimum number of operations,
-    among insertion, deletion and substitution, that we need to turn `x` into `y`.
+    The edit distance is the minimum number of operations, among insertion,
+    deletion and substitution, that we need to turn x into y.
 
-    If `return_matrix = True`, the matrix used to calculate the edit distance is returned,
-    instead of the edit distance.
+    If return_matrix = True, the matrix used to calculate the edit distance is
+    returned, instead of the edit distance.
 
     This algorithm uses a dynamic programming solution.
 
-    Time complexity: O(m * n),
-    where `m` is the length of `x` and `n` is the length of `y`."""
+    Time complexity: O(m * n), where m = len(x) and n = len(y)."""
     m = _get_edit_distance_matrix(x, y)
 
     for i in range(1, len(x) + 1):
@@ -72,17 +67,16 @@ def min_edit_distance(x: str, y: str, return_matrix: bool = False) -> object:
             # 2. m[i][j - 1]
             # 3. m[i - 1][j]
 
-            # x[i - 1] and y[j - 1] are the characters
+            # x[i - 1] and y[j - 1] are the characters.
 
-            # (node that i and j start from 1!)
-            # that we are currently comparing.
-            # If the characters are equal,
-            # we don't need to perform any of the operations:
-            # insertion, deletion or substitution,
-            # and the minimum edit distance to convert x[i - 1] to y[j - 1]
-            # is the same as the one to convert x[i] to s[j],
-            # because, as stated above, x[i - 1] and y[j - 1] are equal,
-            # so we don't have to perform any other operation.
+            # Note: i and j start from 1.
+
+            # If the characters are equal, we don't need to perform any of the
+            # operations: insertion, deletion or substitution, and the minimum
+            # edit distance to convert x[i - 1] to y[j - 1] is the same as the
+            # one to convert x[i] to s[j], because, as stated above, x[i - 1]
+            # and y[j - 1] are equal, so we don't have to perform any other
+            # operation.
             if x[i - 1] == y[j - 1]:
                 m[i][j] = m[i - 1][j - 1]
             else:
@@ -93,11 +87,11 @@ def min_edit_distance(x: str, y: str, return_matrix: bool = False) -> object:
 
 
 def extended_min_edit_distance(x: str, y: str) -> tuple:
-    """Returns a tuple whose first item is the minimum edit distance,
-    and the second item is a list of lists containing the instructions
-    (in the language of coordinates) to convert a string to another.
+    """Returns a tuple whose first item is the minimum edit distance, and the
+    second item is a list of lists containing the instructions (in the "language
+    of coordinates") to convert a string to another.
 
-    Time complexity: O(m * n), where `m` is the length of `x` and `n` is the length of `y`."""
+    Time complexity: O(m * n), where m = len(x) and n = len(y)."""
     m = _get_edit_distance_matrix(x, y)
 
     o = _get_coordinates_matrix(x, y)
@@ -130,39 +124,45 @@ def extended_min_edit_distance(x: str, y: str) -> tuple:
 
 
 def build_min_edit_instructions(x: str, y: str, o: list) -> list:
-    """Interprets the coordinates `o` (returned as second item of the tuple returned by `extended_min_edit_distance`)
-     and creates a comprehensible list of instructions.
+    """Interprets the coordinates o (returned as second item of the tuple
+    returned by extended_min_edit_distance) and creates a comprehensible list of
+    instructions.
 
-    The indices mentioned in the instructions are with respect to the original strings `x` and `y`
-    and not with respect to the strings after having applied an modification, after an instruction"""
+    The indices mentioned in the instructions are with respect to the original
+    strings x and y and not with respect to the strings after having applied an
+    modification, after an instruction."""
 
-    instructions = []  # List for the instructions
+    instructions = []  # List for the instructions.
 
-    c = (len(x), len(y))  # Initial coordinates for o
+    c = (len(x), len(y))  # Initial coordinates for o.
 
     while c != (0, 0):
-        # Three Cases:
-        # 1. Go diagonally (to the left) => Replace, if characters are different
-        # 2. Go left  => Remove from the first string
-        # 3. Go up  => Remove from the second string
+        # 3 cases:
+        # 1. Go diagonally (to the left) => replace, if characters are different
+        # 2. Go left  => remove from the first string
+        # 3. Go up  => remove from the second string
 
         next_c = o[c[0]][c[1]]
 
-        # Case 1
+        # Case 1.
         if next_c[0] < c[0] and next_c[1] < c[1]:
 
             if x[c[0] - 1] != y[c[1] - 1]:
-                instructions.append("Replace char at index " + str(c[0] - 1) + " (" + x[c[0] - 1] + ") from '" + x +
-                                    "' with char at index " + str(c[1] - 1) + " (" + y[
-                                        c[1] - 1] + ") from '" + y + "'.")
-        # Case 3
+                instructions.append("Replace char at index " + str(c[0] - 1) +
+                                    " (" + x[c[0] - 1] + ") from '" + x +
+                                    "' with char at index " + str(c[1] - 1) +
+                                    " (" + y[c[1] - 1] + ") from '" + y + "'.")
+        # Case 3.
         elif next_c[0] == c[0] and next_c[1] < c[1]:
-            instructions.append("Insert into '" + x + "' at index " + str(c[1] - 1) + " char at index "
-                                + str(c[1] - 1) + " (" + y[c[1] - 1] + ") from '" + y + "'.")
+            instructions.append("Insert into '" + x + "' at index " +
+                                str(c[1] - 1) + " char at index " +
+                                str(c[1] - 1) + " (" + y[c[1] - 1] + ") from '"
+                                + y + "'.")
 
-        # Case 2
+        # Case 2.
         else:  # next_c[0] < c[0] and next_c[1] == c[1]
-            instructions.append("Delete from '" + x + "' char at index " + str(c[0] - 1) + " (" + x[c[0] - 1] + ").")
+            instructions.append("Delete from '" + x + "' char at index " +
+                                str(c[0] - 1) + " (" + x[c[0] - 1] + ").")
 
         c = next_c
 
@@ -174,9 +174,12 @@ if __name__ == "__main__":
     x = "Jazayeri"
     y = "Carzaniga"
 
-    instructions = build_min_edit_instructions(x, y, extended_min_edit_distance(x, y)[1])
+    coordinates = extended_min_edit_distance(x, y)[1]
+    instructions = build_min_edit_instructions(x, y, coordinates)
 
     """
+    How Jazayeri should be turned into Carzaniga:
+
     Jazayeri
     Cazayeri
     Carzayeri
@@ -186,5 +189,6 @@ if __name__ == "__main__":
     Carzanigi
     Carzaniga
     """
+
     for i in instructions:
         print(i)

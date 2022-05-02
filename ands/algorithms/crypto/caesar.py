@@ -2,50 +2,55 @@
 # -*- coding: utf-8 -*-
 
 """
-# Meta info
+# Meta-info
 
 Author: Nelson Brochado
 
 Created: 04/08/2015
 
-Updated: 03/03/2017
+Updated: 18/09/2017
 
 # Description
 
-Caesar cipher (also known as "shift" or "substitution" cipher) is one of the simplest forms of encryption,
-where each letter in the original message (called the "plaintext")
-is replaced with a letter corresponding to a certain number of letters up or down in the alphabet.
-What does "certain number of letters up or down in the alphabet" actually mean?
-Essentially we need to map letters of our alphabet to numbers.
-For example, we may map the English alphabet to the numbers from 0 to 25 (for lower case letters, for simplicity).
+Caesar cipher (also known as "shift" or "substitution" cipher) is one of the
+simplest forms of encryption, where each letter in the original message (called
+the "plaintext") is replaced with a letter corresponding to a certain number of
+letters up or down in the alphabet.
 
-In this way, after the shifts, the original message is not understandable at first glance,
-unless you know how you shifted the letters of your message.
+What does "certain number of letters up or down in the alphabet" actually mean?
+Essentially we need to map letters of our alphabet to numbers. For example, we
+may map the English alphabet to the numbers from 0 to 25 (for lower case
+letters, for simplicity). In this way, after the shifts, the original message is
+not understandable at first glance, unless you know how you shifted the letters
+of your message.
 
 ## Example
 
-For example, suppose we want to encrypt the plaintext m = "abc".
-Suppose further that our alphabet is the English alphabet (of lower case letters from 'a' to 'z').
-So we have an alphabet of 26 symbols or, more commonly known, letters.
+For example, suppose we want to encrypt the plaintext m = "abc". Suppose further
+that our alphabet is the English alphabet (of lower case letters from 'a' to
+'z'). So we have an alphabet of 26 symbols or, more commonly known, letters.
 
 The general formula of the caesar cipher goes like this:
 
     e(x) := (x + k) mod 26
 
 where x is a numerical representation of a character, k is non-negative number
-and _mod_ is the modulo function, i.e. a function that returns the remainder of the division between (x + k) and 26.
-In practice, this allows us to have numbers always smaller than 26.
+and mod is the modulo function, i.e. a function that returns the remainder of
+the division between (x + k) and 26. In practice, this allows us to have numbers
+always smaller than 26.
 
-This function e(x) is applied to all integer representations of the characters of a certain message.
-The integer representations may depend on the programming language, environment, etc.
-Lets suppose that we have a map like this: 'a' maps to 0, 'b' to 1, and so on until 'z', which maps to 25.
-Let's call this function that maps the characters to integers g
-and h the one that maps integers to characters.
+This function e(x) is applied to all integer representations of the characters
+of a certain message. The integer representations may depend on the programming
+language, environment, etc.
 
-Now, suppose, as an example, that k = 3, and let's try to apply the function e(x)
-to all characters of the message m = "abc" previously mentioned.
+Lets suppose that we have a map like this: 'a' maps to 0, 'b' to 1, and so on
+until 'z', which maps to 25. Let's call this function that maps the characters
+to integers g and h the one that maps integers to characters.
 
-Lets start by converting the characters to their integer representation, just to have a clear visualization.
+Now, suppose, as an example, that k = 3, and let's try to apply the function
+e(x) to all characters of the message m = "abc" previously mentioned. Let's
+start by converting the characters to their integer representation, just to have
+a clear visualization.
 
     x1 = g('a') = 0
     x2 = g('b') = 1
@@ -75,22 +80,24 @@ Now we convert the resulting numbers to their corresponding characters, that is
 
 Thus the plaintext m = "abc" has been converted to "def".
 
-The decryption phase works in the reverse direction, i.e. instead of using k, we use -k,
-that is the general decryption formula can be described as follows
+The decryption phase works in the reverse direction, i.e. instead of using k, we
+use -k, that is the general decryption formula can be described as follows
 
     d(x) := (x - k) mod 26
 
-where x is in this case a integer representation of a character, not from the plaintext,
-but from an encrypted text using the previously described Caesar encryption algorithm.
+where x is in this case a integer representation of a character, not from the
+plaintext, but from an encrypted text using the previously described Caesar
+encryption algorithm.
 
 # Implementation
 
-The following implementation accepts messages of characters
-whose value returned by the `ord` function is between 0 and 2^16 - 1.
+The following implementation accepts messages of characters whose value returned
+by the ord function is between 0 and 2^16 - 1.
 
 # Comments
 
-Caesar cipher is **not** a good cryptographic algorithm, so you should never use it to encrypt your messages!
+Caesar cipher is not a good cryptographic algorithm, so you should never use it
+to encrypt your messages!
 
 # TODO
 
@@ -98,10 +105,9 @@ Caesar cipher is **not** a good cryptographic algorithm, so you should never use
 
 # References
 
-- [https://learncryptography.com/classical-encryption/caesar-cipher](https://learncryptography.com/classical-encryption/caesar-cipher)
-- [https://en.wikipedia.org/wiki/Ciphertext](https://en.wikipedia.org/wiki/Ciphertext)
-- [https://en.wikipedia.org/wiki/Plaintext](https://en.wikipedia.org/wiki/Plaintext)
-
+- https://learncryptography.com/classical-encryption/caesar-cipher
+- https://en.wikipedia.org/wiki/Ciphertext
+- https://en.wikipedia.org/wiki/Plaintext
 """
 
 from random import choice
@@ -111,8 +117,9 @@ __all__ = ["encrypt",
            "encrypt_with_multiple_keys",
            "decrypt_with_multiple_keys"]
 
-# A number which conventionally represents the maximum number that the function `ord` can return,
-# since it returns the Unicode code point for a one-character strings (assuming that 16-bit Unicode system).
+# A number which conventionally represents the maximum number that the function
+# ord can return, since it returns the Unicode code point for a one-character
+# strings (assuming that 16-bit Unicode system).
 MAX_MAPPED_INT = 2 ** 16 - 1
 
 
@@ -121,24 +128,25 @@ def _move_char(c: str, k: int) -> str:
 
 
 def encrypt(plaintext: str, k: int) -> str:
-    """Given a string `plaintext` and a non-negative key `k`,
-    it returns the encrypted version of `plaintext`
-    with the key `k` using the Caesar cipher algorithm,
-    over an alphabet of possible maximum value `MAX_MAPPED_INT`."""
+    """Given a string plaintext and a non-negative key k, it returns the
+    encrypted version of plaintext with the key k using the Caesar cipher
+    algorithm, over an alphabet of possible maximum value MAX_MAPPED_INT."""
     return "".join(_move_char(c, k) for c in plaintext)
 
 
 def decrypt(ciphertext: str, k: int) -> str:
-    """Reverts the operation performed by `encrypt`."""
+    """Reverts the operation performed by encrypt."""
     return "".join(_move_char(c, -k) for c in ciphertext)
 
 
 # Example of poly-alphabetic encryption
 
 def encrypt_with_multiple_keys(plaintext: str, keys: list) -> tuple:
-    """Given a message `plaintext` and a set of `keys`,
-    it encrypts each symbol of plaintext with a random key from `keys`.
-    The random pattern of keys chosen is the second item of the tuple returned."""
+    """Given a message plaintext and a set keys, it encrypts each symbol of
+    plaintext with a random key from keys.
+
+    The random pattern of keys chosen is the second item of the tuple
+    returned."""
     keys_used = []
     ciphertext = []
 
@@ -151,8 +159,9 @@ def encrypt_with_multiple_keys(plaintext: str, keys: list) -> tuple:
 
 
 def decrypt_with_multiple_keys(ciphertext: str, keys_used: list) -> str:
-    """Reverts the operation performed by `encrypt_with_multiple_keys`.
+    """Reverts the operation performed by encrypt_with_multiple_keys.
 
-    Assumes `keys_used` is the list of keys used to encrypt a certain `plaintext`,
+    Assumes keys_used is the list of keys used to encrypt a certain plaintext,
     such that len(ciphertext) == len(plaintext)."""
-    return "".join(_move_char(ciphertext[i], -k) for i, k in enumerate(keys_used))
+    return "".join(
+        _move_char(ciphertext[i], -k) for i, k in enumerate(keys_used))
