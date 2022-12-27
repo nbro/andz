@@ -36,7 +36,7 @@ then
                 # - http://unix.stackexchange.com/questions/114300/whats-the-meaning-of-a-dot-before-a-command-in-shell
                 # - http://stackoverflow.com/questions/20094271/bash-using-dot-or-source-calling-another-script-what-is-difference
 
-                printf ". ./%s.sh\n" "${!arg}"
+                # printf ". ./%s.sh\n" "${!arg}"
                 # Try to load script ${!arg}.sh
                 # shellcheck source=/dev/null
                 . ./${!arg}.sh
