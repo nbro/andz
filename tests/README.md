@@ -11,6 +11,8 @@
     - BinaryHeap
     - TST 
     - LinearProbingHashTable
+    - BST
+    - BSTNode
     
 which, as all other data structures, may nonetheless need to be improved!
 
