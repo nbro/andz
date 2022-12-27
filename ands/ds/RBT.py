@@ -146,8 +146,8 @@ class RBTNode(BSTNode):
 class RBT(BST):
     """Red-black tree, which is a self-balancing binary-search tree."""
 
-    def __init__(self, root=None, name="RBT"):
-        BST.__init__(self, root, name)
+    def __init__(self, root=None):
+        BST.__init__(self, root)
 
     def insert(self, x, value=None) -> None:
         """Inserts `x` into this `RBT`.
@@ -213,7 +213,7 @@ class RBT(BST):
             p.right = x
 
         x.color = RED
-        self.n += 1
+        self._n += 1
         self._fix_insertion(x)
 
     def _fix_insertion(self, u: RBTNode) -> None:
@@ -238,9 +238,9 @@ class RBT(BST):
                 # left_rotation does not violate the property:
                 # all paths from any given node to its leaf nodes
                 # contain the same number of black nodes.
-                self.left_rotate(u.parent)
+                self._left_rotate(u.parent)
 
-                # With the previous left_rotate call,
+                # With the previous _left_rotate call,
                 # u.parent has become the left child of u,
                 # or, u bas become the parent of what before was u.parent
                 # We can pass to case 5, where we have 2 red nodes in a row,
@@ -251,7 +251,7 @@ class RBT(BST):
 
             # u is added as a left child to a node that is the right child.
             elif u.parent.is_right_child() and u.is_left_child():
-                self.right_rotate(u.parent)
+                self._right_rotate(u.parent)
                 self._fix_insertion(u.right)
 
             # u is added as a left child to a node that is the left child.
@@ -259,13 +259,13 @@ class RBT(BST):
                 # Note that grandparent is known to be black,
                 # since its former child could not have been RED
                 # without violating property 4.
-                self.right_rotate(u.grandparent)
+                self._right_rotate(u.grandparent)
                 u.parent.color = BLACK
                 u.parent.right.color = RED
 
             # u is added as a right child to a node that is the right child.
             elif u.parent.is_right_child() and u.is_right_child():
-                self.left_rotate(u.grandparent)
+                self._left_rotate(u.grandparent)
                 u.parent.color = BLACK
                 u.parent.left.color = RED
 
@@ -311,9 +311,9 @@ class RBT(BST):
                 v.parent.color = RED
 
                 if v.is_left_child():
-                    self.left_rotate(v.parent)
+                    self._left_rotate(v.parent)
                 else:
-                    self.right_rotate(v.parent)
+                    self._right_rotate(v.parent)
 
                 assert v.sibling.color == BLACK
 
@@ -351,7 +351,7 @@ class RBT(BST):
 
                     v.sibling.color = RED
                     v.sibling.left.color = BLACK
-                    self.right_rotate(v.sibling)
+                    self._right_rotate(v.sibling)
 
                 elif (v.is_right_child() and
                           (not v.sibling.left or v.sibling.left.color == BLACK) and
@@ -359,7 +359,7 @@ class RBT(BST):
 
                     v.sibling.color = RED
                     v.sibling.right.color = BLACK
-                    self.left_rotate(v.sibling)
+                    self._left_rotate(v.sibling)
 
             delete_case6(v)
 
@@ -371,11 +371,11 @@ class RBT(BST):
             if v.is_left_child():
                 assert v.sibling.right
                 v.sibling.right.color = BLACK
-                self.left_rotate(v.parent)
+                self._left_rotate(v.parent)
             else:
                 assert v.sibling.left
                 v.sibling.left.color = BLACK
-                self.right_rotate(v.parent)
+                self._right_rotate(v.parent)
 
         # a few checks of the inputs given
         if x is None:
@@ -499,7 +499,7 @@ class RBT(BST):
                 else:
                     self.root = None
 
-        self.n -= 1
+        self._n -= 1
         # Ensures that x has no reference to any node of this RBT.
         x.parent = x.left = x.right = None
         return x
@@ -538,7 +538,7 @@ def bh(n):
 
 
 def upper_bound_height(t):
-    return t.height() <= 2 * math.log2(t.n + 1)
+    return t.height() <= 2 * math.log2(t._n + 1)
 
 
 def is_rbt(rbt):
