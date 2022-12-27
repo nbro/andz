@@ -9,7 +9,7 @@ Author: Nelson Brochado
 
 Created: 21/02/2016
 
-Updated: 14/02/2017
+Updated: 19/02/2017
 
 # Description
 
@@ -64,10 +64,10 @@ class TestHasDuplicatesIgnoreNones(unittest.TestCase):
         self.assertFalse(has_duplicates_ignore_nones(sample(range(100), 100)))
 
     def test_list_has_duplicates_on_bounds(self):
-        self.assertTrue([3, 12, 4, 6, 3])
+        self.assertTrue(has_duplicates_ignore_nones([3, 12, 4, 6, 3]))
 
     def test_list_has_duplicates_not_on_bounds(self):
-        self.assertTrue([3, 12, 3, 6, 17])
+        self.assertTrue(has_duplicates_ignore_nones([3, 12, 3, 6, 17]))
 
 
 class TestLinearProbingHashTable(unittest.TestCase):
