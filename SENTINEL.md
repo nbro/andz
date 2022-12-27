@@ -3,7 +3,6 @@
 
 _This is a schematic and concise list of the things for which I should constantly be prepared to fix or improve_.
 
-
 #### Make sure that...
 
 1. **_default mutable values (like lists) end up acting as expected_**
@@ -52,3 +51,11 @@ In other words, I should not be using `X` or `not X`, because `X` could be 0, an
 7. the doc-strings of the files containing each data structure or algorithm contain a (good) introduction to what's being implemented.
 
 8. I use the same naming conventions throughout the modules.
+
+## Resources
+
+The following are some resources talking about how we should (or not) use Python. They also provide descriptions and examples of common mistakes that people do using Python. 
+
+- [Idioms and Anti-Idioms in Python](https://docs.python.org/2/howto/doanddont.html)
+
+- [Common pitfalls in Python](http://stackoverflow.com/questions/1011431/common-pitfalls-in-python)
