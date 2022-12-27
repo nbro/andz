@@ -2,102 +2,126 @@
 # -*- coding: utf-8 -*-
 
 """
+# Meta info
+
 Author: Nelson Brochado
-Creation: 10/09/2016
 
-## References
+Created: 10/09/2016
 
-- First Course in Numerical Methods, chapter 16,
-by Uri M. Ascher and C. Greif
+Updated: 19/02/2017
 
-- [Euler's Method program code](https://www.khanacademy.org/math/differential-equations/first-order-differential-equations/eulers-method-tutorial/p/eulers-method-program-code),
-animation program by Khan Academy
+# Description
 
-## Description
+The forward Euler's method for solving ODEs is the easiest method
+for approximately solving a _initial value_ ODE problem.
 
-Forward Euler's method for solving ODEs.
-This is the easiest method for approximately solving
-a initial value ODE problem.
 Hence it's used, in general, as a vehicle for studying
 several important and basic notions on numerical ODE methods.
 
-### Euler's method derivation
+## Euler's method derivation
 
 We first consider finding an approximate solution for
 a scalar initial value ODE problem at equidistant abscissae.
 Thus, we define the points:
 
-    t_0 = a, t_i = a + i*h,
+> t<sub>0</sub> = a
 
-where h = (b - a) / N is the step size.
-We denote the appoximate solution to y(t_i) by yi.
-Note that, in general, the step size h could change.
+> t<sub>i</sub> = a + i*h,
 
-Consider the following forward difference formula:
+where `h` = <sup>(b - a)</sup>&frasl;<sub>N</sub> is the step size, for `i = 0, 1, 2, ... N`.
+`t` here is called an _independent variable_, `a` and `b` are respectively the beginning and end
+of the interval at which we're trying to numerical approximate `y(t)`.
 
-    y'(t_i) = (y(t_{i + 1}) - y(t_i)) / h - ((h / 2) * y''(zeta_i))
+We denote the approximate solution to y(t<sub>i</sub>) by y<sub>i</sub>.
+Note that, in general, the step size `h` could be variable, i.e. we could have a h<sub>i</sub>,
+but we keep it constant in this explanation and implementation.
 
-By the ODE, y'(t_i) = f(t_i, y(t_i)), so,
-if we manipulate the expression above to have y(t_{i + 1}) isolated in one side,
-and we start by multiplying both sides by h:
+Consider the following _**forward difference** formula_:
 
-    h * y'(t_i) = y(t_{i + 1}) - y(t_i) - ((h^2) / 2 * y''(zeta_i))
+> y'(t<sub>i</sub>) = <sup>(y(t<sub>i + 1</sub>) - y(t<sub>i</sub>))</sup>&frasl;<sub>h</sub> -
+<sup>h</sup>&frasl;<sub>2</sub> * y''(&zeta;<sub>i</sub>)
 
-    h * y'(t_i) + y(t_i) + ((h^2) / 2 * y''(zeta_i)) = y(t_{i + 1})
+By the ODE, y'(t<sub>i</sub>) = f(t<sub>i</sub>, y(t<sub>i</sub>)), so,
+if we manipulate the expression above to have y(t<sub>i + 1</sub>) isolated in one side,
+and we start by multiplying both sides by `h`:
 
-or
+> h * y'(t<sub>i</sub>) = y(t<sub>i + 1</sub>) - y(t<sub>i</sub>) -
+ (<sup>h<sup>2</sup></sup>&frasl;<sub>2</sub> * y''(&zeta;<sub>i</sub>))
 
-    y(t_{i + 1}) = y(t_i) + h * y'(t_i) + ((h^2) / 2 * y''(zeta_i))
+or, if we rearrange the entries,
 
-we replace y'(t_i) by f(t_i, y(t_i))
+> h * y'(t<sub>i</sub>) + y(t<sub>i</sub>) + (<sup>h<sup>2</sup></sup>&frasl;<sub>2</sub> * y''(&zeta; <sub>i</sub>)) =
+ y(t<sub>i + 1</sub>)
 
-    y(t_{i + 1}) = y(t_i) + h * f(t_i, y(t_i)) + ((h^2) / 2 * y''(zeta_i))
+we further rearrange the entries so that what we're looking for is on the left side of the equals:
 
+> y(t<sub>i + 1</sub>) =
+ y(t<sub>i</sub>) + h * y'(t<sub>i</sub>) + (<sup>h<sup>2</sup></sup>&frasl;<sub>2</sub> * y''(&zeta; <sub>i</sub>))
 
-dropping the truncation term, we obtain the forward Euler method,
-which defines the approximate solution {y_i}_{i=0}^{N} by:
+and we replace y'(t<sub>i</sub>) by f(t<sub>i</sub>, y(t<sub>i</sub>))
 
-    y_0 = c (initial value)
+> y(t<sub>i + 1</sub>) =
+ y(t<sub>i</sub>) + h * f(t<sub>i</sub>, y(t<sub>i</sub>)) +
+ (<sup>h<sup>2</sup></sup>&frasl;<sub>2</sub> * y''(&zeta; <sub>i</sub>))
 
-    y(t_{i + 1}) = y(t_i) + h * f(t_i, y(t_i)), i=0..N-1
+dropping the truncation term, i.e.  (<sup>h<sup>2</sup></sup>&frasl;<sub>2</sub> * y''(&zeta; <sub>i</sub>)),
+we obtain the forward Euler method, which defines the approximate solution (y<sub>i</sub>)<sub>i=0</sub><sup>N</sup> by:
 
-This simple formula allow us to march forward into t.
+> y<sub>0</sub> = c
 
-In the following function we assume that f
-and all other parameters are specified.
+where `c` is the _initial value_.
 
-### Explicit vs Implicit methods
+> y(t<sub>i + 1</sub>) = y(t<sub>i</sub>) + h * f(t<sub>i</sub>, y(t<sub>i</sub>))
 
-What happens if we replace the forward difference formula
-by the backward formula
+for `i = 0 .. N-1`.
 
-    y'(t_{i+1}) ~~ (y(t_{i+1}) - y(t_i)) / h
+This simple formula allow us to march forward into `t`.
 
-and this leads similarly to the backward Euler method:
+In the following implementation we assume that `f` and all other parameters are specified.
 
-    y_0 = c
-    y_{i+1} = y_i + h * f(t_{i+1}, y_{i+1}), i=0..N
+## Explicit vs Implicit methods
 
-There's actually a big difference between this new method
-and the previous one. This one to calculate y_{i+1}
-depends implicitly on y_{i+1} itself!
+What happens if we replace the forward difference formula by the **backward formula**
 
-In general, if a method to calculate y_{i+1} depends implicitly on y_{i+1},
-it's called an implicit method,
-whereas the forward method is considered a explicit method.
+> y'(t<sub>i + 1</sub>) ~ <sup>(y(t<sub>i + 1</sub>) - y(t<sub>i</sub>))</sup>&frasl;<sub>h</sub>
+
+and this leads similarly to the **backward Euler method**:
+
+> y<sub>0</sub> = c
+
+> y<sub>i + 1</sub> = y<sub>i</sub> + h * f(t<sub>i + 1</sub>, y<sub>i + 1</sub>)
+
+for `i = 0 .. N-1`.
+
+There's actually a big difference between this new method and the previous one.
+This one to calculate y<sub>i + 1</sub> depends implicitly on y<sub>i + 1</sub> itself!
+
+In general, if a method to calculate y<sub>i + 1</sub> depends implicitly on y<sub>i + 1</sub>,
+it's called an implicit method, whereas the forward method is considered a **explicit method**.
+
+# References
+
+- First Course in Numerical Methods, chapter 16,
+by Uri M. Ascher and C. Greif
+
+- [Euler's Method program code](https://www.khanacademy.org/math/ap-calculus-bc/diff-equations-bc/eulers-method-bc/v/eulers-method-program-code),
+animation program by Khan Academy
+
 """
 
-import numpy as np
+from numpy import arange, zeros
 
 
-def forward_euler(a: float, b: float, n: int, c: float, f):
-    """
-    a is the start of the range
-    b is the end of the range
-    n is the number of "times"
-    c is the initial value
-    f is y' = f(x, y)
-    """
+def forward_euler(a: float, b: float, n: int, c: float, f: callable) -> tuple:
+    """Forward Euler method (which is an explicit method),
+    with `y' = f(x, y)`, with initial value `c`, and range `[a, b]`.
+    `n` is the number of times to split the range `[a, b]`,
+    and is thus used to calculate the step size `h`.
+
+    It returns a tuple, whose first element is the array of abscissas,
+    i.e. the values of `t` during the iterations,
+    and the second element is the array of ordinates,
+    i.e. the values of `y` during the iterations."""
     if a is None or b is None or n is None or c is None:
         raise ValueError("a, b, n and c must not be None.")
     if b < a:
@@ -108,10 +132,10 @@ def forward_euler(a: float, b: float, n: int, c: float, f):
     h = (b - a) / n
 
     # t is an array of abscissas
-    t = np.arange(a, b, h)
+    t = arange(a, b, h)
 
     # y is an array of ordinates
-    y = np.zeros(n)
+    y = zeros(n)
     y[0] = c
 
     for i in range(n - 1):
@@ -120,10 +144,14 @@ def forward_euler(a: float, b: float, n: int, c: float, f):
     return t, y
 
 
-def forward_euler_approx(a: float, b: float, n: int, c: float, f):
-    """Returns just y[b].
-    Use this function in case you just need y[b]
-    and space requirements are a must."""
+def forward_euler_approx(a: float, b: float, n: int, c: float, f: callable) -> float:
+    """Forward Euler method (which is an explicit method),
+    with `y' = f(x, y)`, with initial value `c`, and range `[a, b]`.
+    `n` is the number of times to split the range `[a, b]`,
+    and is thus used to calculate the step size `h`.
+
+    It returns just `y[b]`.
+    Use this function in case space requirements are a must."""
 
     if a is None or b is None or n is None or c is None:
         raise ValueError("a, b, n and c must not be None.")
