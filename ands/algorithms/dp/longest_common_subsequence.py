@@ -78,7 +78,7 @@ def recursive_lcs_length(s1: str, s2: str) -> int:
 
     ### Idea
     Given two strings x and y, how do we find the length of the lcs between x and y?
-    
+
     For every subsequence of x check weather it's a subsequence of y.
     There are 2^n subsequences of x to check, and each subsequence takes O(m) time to check:
     scan y for the first letter, from there scan for the second, and so on.

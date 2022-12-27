@@ -44,7 +44,7 @@ def lis(s):
     # Why is this true?
     # The maximum possible longest increasing subsequence
     # from the beginning of s up to the beginning of s is 1,
-    # because the beginning of s contains only one element (3).
+    # because the beginning of s contains_key only one element (3).
     # The LIS from s[0] to s[1] is still one.
     # The LIS from s[0] to s[2] is 2,
     # because we can either pick 3 or 2 and 5.
@@ -61,7 +61,7 @@ def lis(s):
     # 1
     current_max_size = 1
 
-    # Index of a, which contains the size of the current L.I.S.
+    # Index of a, which contains_key the size of the current L.I.S.
     index_of_max_size = 0
 
     for i in range(1, len(s)):
