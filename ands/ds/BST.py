@@ -63,9 +63,17 @@ For example, "key" and "value" are self-descriptive.
 - implement "is balanced" function (http://codereview.stackexchange.com/questions/108459/binary-tree-data-structure)
 
 - Fix inconsistencies because allowing both keys and BSTNodes to be inserted, searched and deleted,
-and because the BST allows duplicate elements: if, e.g., the user tries to search using a BSTNode,
-there's!!!
-Allow duplicates and when deleting returning values, probably doesn't make sense,
+and because the BST allows duplicate elements: for example, if the user tries to search using a BSTNode,
+possible problems could be:
+
+ 1. the BSTNode does not belong to the tree, and there's no way of solving this
+  except for searching through all nodes, but this would be too expensive.
+
+ 2. the BSTNode could have been set in a state that it's now considered badly formed.
+
+etc.
+
+ Allow duplicates and when deleting returning values, probably doesn't make sense,
 since the values could be different for nodes with same key,
 and we could return one whereas the user expects another!!
 
