@@ -130,7 +130,7 @@ class LinearProbingHashTable(HashTable):
             self._keys[hash_value] = key
             self._values[hash_value] = value
 
-        # If self already contains key, then its value is overridden.
+        # If self already contains_key key, then its value is overridden.
         elif self._keys[hash_value] == key:
             self._values[hash_value] = value
 
