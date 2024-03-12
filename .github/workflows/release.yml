@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+
+  tests:
+    uses: ./.github/workflows/tests.yml
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [tests]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python - -y
+
+      - name: Update PATH
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Check package version and tag are equal
+        run: |
+          if [[ ${{ github.ref_name }} != "$(poetry version --short)" ]]; then
+            echo "Tag = ${{ github.ref_name }} != $(poetry version --short)"
+            exit 1
+          fi
+
+      - name: Build package
+        run: poetry build
+
+      - name: Check if pre-release version
+        id: check_version
+        run: |
+          [[ "$(poetry version --short)" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || echo pre_release=true >> $GITHUB_OUTPUT
+
+      - name: Create GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: true
+          replacesArtifacts: true
+          updateOnlyUnreleased: true
+          generateReleaseNotes: true
+          prerelease: ${{ steps.check_version.outputs.pre_release == 'true' }}
+
+      - name: Publish to PyPI
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+        run: poetry publish
