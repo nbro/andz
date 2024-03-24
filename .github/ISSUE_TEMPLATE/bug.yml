@@ -1,0 +1,53 @@
+name: Bug Report
+
+description: File a bug report
+
+title: "[Bug]: "
+labels: ["bug"]
+projects: ["andz"]
+
+assignees:
+  - nbro
+
+body:
+
+  - type: dropdown
+    id: andz-version
+    attributes:
+      label: andz version
+      description: Which andz version are you using?
+      options:
+        - "0.1.0"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: python-version
+    attributes:
+      label: Python version
+      description: Which Python version are you using?
+      options:
+        - "3.9"
+        - "3.10"
+        - "3.11"
+        - "3.12"
+      default: 0
+    validations:
+      required: true
+
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug description
+      description: What is the bug?
+    validations:
+      required: true
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code
+      description: Paste any relevant code
+      render: python
