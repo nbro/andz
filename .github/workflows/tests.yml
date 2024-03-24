@@ -5,8 +5,6 @@ run-name: ${{ github.event.head_commit.message }}
 on:
   workflow_call:
 
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
