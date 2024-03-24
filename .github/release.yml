@@ -1,0 +1,27 @@
+changelog:
+
+  categories:
+    - title: Breaking Changes 🛠
+      labels:
+        - breaking
+    - title: New Features 🎉
+      labels:
+        - feature
+    - title: Algorithms
+      labels:
+        - algorithms
+    - title: Data structures
+      labels:
+        - data-structures
+    - title: Dependencies 📌
+      labels:
+        - dependencies
+    - title: Testing ✅
+      labels:
+        - testing
+    - title: Documentation 📖
+      labels:
+        - documentation
+    - title: Other Changes
+      labels:
+        - "*"
