@@ -60,3 +60,6 @@ jobs:
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
         run: poetry publish
+
+      - name: Check we can install andz with pip
+        run: pip install andz==$(poetry version --short)
