@@ -33,7 +33,7 @@ repeat some computations. For example, to compute fib(5), you would need to
 compute fib(4) and fib(3). To compute fib(4), we would need to compute fib(3)
 and fib(2). So, we would compute fib(3) twice.
 
-To solve this problem, once we compute fib(3), we can solve the result. This is
+To solve this problem, once we compute fib(3), we can save the result. This is
 called memoization.
 
 The time complexity of memoized_fibonacci (below) is linear because we need
