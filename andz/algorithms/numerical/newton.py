@@ -5,7 +5,7 @@
 """
 # Meta-info
 
-Author: Nelson Brochado
+Author: nbro
 
 Created: 23/09/2017
 
