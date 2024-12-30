@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "andz"
-version = "0.1.0"
+version = "0.1.1"
 description = "Algorithms and Data Structures"
 authors = ["nbro <nbrosoftware@outlook.com>"]
 license = "MIT"
