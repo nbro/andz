@@ -3,7 +3,7 @@ name = "andz"
 version = "0.1.1"
 description = "Algorithms and Data Structures"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 license = "MIT"
 authors = [
     { name = "nbro", email = "nbrosoftware@outlook.com" }
@@ -61,10 +61,10 @@ atomic = true
 profile = "black"
 
 [tool.black]
-target-version = ["py39"]
+target-version = ["py312"]
 
 [tool.mypy]
-python_version = 3.9
+python_version = 3.12
 warn_return_any = true
 
 [build-system]
