@@ -3,9 +3,9 @@
 If you want to develop a new feature or fix a bug, here are the steps.
 
 1. Clone the repository `git clone git@github.com:nbro/andz.git`
-2. Checkout `master` with `git checkout master`
+2. Switch to `master` with `git switch master`
 3. Make sure it's up-to-date: `git pull`
-4. Create the feature branch: `git checkout -b <local-branch-name>`
+4. Create the feature branch: `git switch -c <local-branch-name>`
 5. Make the changes that you want
 6. Run the checks and tests: `make check test`
 7. Add your changes e.g. with `git add -u` or `git add .`
