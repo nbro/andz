@@ -1,13 +1,13 @@
 # [Big-O](https://en.wikipedia.org/wiki/Big_O_notation)
 
-Big-O notation is used to indicate the _computational complexity_ of an algorithm, both in terms of 
+Big-O notation is used to indicate the _computational complexity_ of an algorithm, both in terms of
 
-- number of operations (_time complexity_), and 
+- number of operations (_time complexity_), and
 - space/memory (_space complexity_)
 
 with respect to the input _size_ (or length), _in the limit_, i.e. as the input size/length grows to infinity, i.e. _asymptotically_.
 
-For example, if we say that an algorithm has time complexity `O(n)`, then it roughly means that there's a _linear_ function that _upper bounds_ the time complexity of our algorithm. So, the time required to run the algorithms grows linearly with the size of the input. Here, `n` depends on the algorithm and how we want to analyse our algorithm. For example, if you want to know how much time you will need to sort a list, as the number of elements grows to infinity, then `n` is the number of elements in the list. 
+For example, if we say that an algorithm has time complexity `O(n)`, then it roughly means that there's a _linear_ function that _upper bounds_ the time complexity of our algorithm. So, the time required to run the algorithms grows linearly with the size of the input. Here, `n` depends on the algorithm and how we want to analyse our algorithm. For example, if you want to know how much time you will need to sort a list, as the number of elements grows to infinity, then `n` is the number of elements in the list.
 
 The complexity can also be given as a function of the _output size_ (e.g. for output-sensitive algorithms) or other parameters (e.g. number of layers in a neural network).
 
@@ -33,13 +33,13 @@ These 2 concepts are orthogonal. For example, you can provide the computational 
 
 ## Common complexities
 
-- constant time/space: `Ω(1)`, `Θ(1)`, and `O(1)` 
-- linear time/space: `Ω(n)`, `Θ(n)`, and `O(n)` 
+- constant time/space: `Ω(1)`, `Θ(1)`, and `O(1)`
+- linear time/space: `Ω(n)`, `Θ(n)`, and `O(n)`
 - logarithmic time/space: `Ω(log(n))`, `Θ(log(n))`, and `O(log(n))`
-- "n log n" time/space: `Ω(n*log(n))`, `Θ(n*log(n))`, and `O(n*log(n))` 
-- quadratic time/space: `Ω(n²)`, `Θ(n²)`, and `O(n²)` 
-- cubic time/space: `Ω(n³)`, `Θ(n³)`, and `O(n³)` 
-- exponential time/space: `Ω(2ⁿ)`, `Θ(2ⁿ)`, and `O(2ⁿ)` 
+- "n log n" time/space: `Ω(n*log(n))`, `Θ(n*log(n))`, and `O(n*log(n))`
+- quadratic time/space: `Ω(n²)`, `Θ(n²)`, and `O(n²)`
+- cubic time/space: `Ω(n³)`, `Θ(n³)`, and `O(n³)`
+- exponential time/space: `Ω(2ⁿ)`, `Θ(2ⁿ)`, and `O(2ⁿ)`
 
 ## Terminology
 

@@ -1,6 +1,6 @@
 ## Resources
 
-For each module, I always try not to forget to specify the specific references that I used to implement the particular concept exposed in that module. 
+For each module, I always try not to forget to specify the specific references that I used to implement the particular concept exposed in that module.
 
 Apart from those, the following are the references which I always keep an eye on:
 
@@ -10,7 +10,7 @@ Apart from those, the following are the references which I always keep an eye on
 
 Additionally, there are many useful resources around the web to help you (and me) understand how certain algorithms or data structures work. Examples are
 
-- [The Archive of Interesting Code](http://www.keithschwarz.com/interesting/) 
+- [The Archive of Interesting Code](http://www.keithschwarz.com/interesting/)
 by Keith Schwarz
 
 - [Notes on Data Structures and Programming Techniques](https://www.cs.yale.edu/homes/aspnes/classes/223/notes.html)

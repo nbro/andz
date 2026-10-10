@@ -37,6 +37,7 @@ jobs:
       - name: Install dependencies
         run: make dev
 
+      # TODO: solve https://github.com/nbro/andz/issues/81
       - name: Run checks
         run: make check_format
 

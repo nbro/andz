@@ -42,7 +42,7 @@ The one-time pad algorithm provides perfect secracy, but it has a drawback: the 
 ## TODO
 
 - A block cipher algorithm
-    - a cipher block chaining     
+    - a cipher block chaining
 - A substitution cipher
 - RSA
 
@@ -56,4 +56,3 @@ The one-time pad algorithm provides perfect secracy, but it has a drawback: the 
 - [Cryptography](https://en.wikipedia.org/wiki/Cryptography), an article by Wikipedia
 
 - [Computer Networking: A Top-Down Approach](http://www.amazon.com/Computer-Networking-Top-Down-Approach-Edition/dp/0132856204), a book by Kurose and Ross (6th ed.)
-

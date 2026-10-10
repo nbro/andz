@@ -1,7 +1,7 @@
 # Objectives
 
 1. Learn by implementing the following (but not exclusively) concepts:
-    
+
     - Trees
     - Graphs
 	- Heaps
@@ -11,12 +11,12 @@
 	- Hashing
 	- Dynamic programming
 	- Greedy algorithms
-	- Cryptographic algorithms	
+	- Cryptographic algorithms
 	- Parsing
-		
+
 2. Implement as many as possible of the most interesting and useful algorithms and data structures in the fields mentioned above (but not exclusively).
 
-    - "Interesting" here can be from the implementation or concepts' point of view. 
+    - "Interesting" here can be from the implementation or concepts' point of view.
 
     - "Usefulness", instead, is especially with respect to me (since so far this is a personal project), but also with respect to any student or person involved in one of the fields mentioned above.
 
@@ -27,13 +27,13 @@
 3. Learn to analyse the asymptotic complexity of the algorithms and in particular of their implementation.
 
 4. Prefer quality (i.e., completeness, correctness) and clarity over quantity of the work done.
-	
+
 	- Consequences:
 
 		- Rate of implementation of new algorithms and data structures may be slow.
-		
+
 		- Greater reliability of the implementations and information given.
-		
+
 		    - May serve as starting point to implement a high-performance version of a specific data structure, maybe in another programming language.
 
 	- Specific goals:
@@ -42,7 +42,7 @@
 
 		- Add comments where appropriate with respect to the previous goal.
 
-		- Specify exactly the coding (and naming) conventions being used. 
+		- Specify exactly the coding (and naming) conventions being used.
 
 		- Specify exactly how the concept has been implemented. Try to emphasize the difference between the abstract concept and the specific implementation using specific techniques, so that the user does not confuse the two.
 
@@ -59,7 +59,7 @@
 	- Statement coverage
 
 6. Learn new programming techniques, tools and paradigms:
-	
+
 	- Learn to decide which tools are best to do a job
 
 	- Learn which paradigm is better for a particular implementation

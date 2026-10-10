@@ -62,5 +62,5 @@ A few interesting data structures which may be implemented in the future.
 
 ---
 
-An article listing other possibly interesting data structures can be found at the 
+An article listing other possibly interesting data structures can be found at the
 following URL [https://en.wikipedia.org/wiki/List_of_data_structures](https://en.wikipedia.org/wiki/List_of_data_structures).

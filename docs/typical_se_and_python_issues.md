@@ -7,16 +7,16 @@ _This is a schematic and concise list of the things for which I should constantl
 1. **_default mutable values (like lists) end up acting as expected_**
 
     - Default parameter values seem to be treated as static
-        
+
             def foo(a=[]):
                 a.append(1)
                 return a
-                
+
             foo() # returns [1]
             foo() # returns [1, 1]
 
-    - This is one of the features that I hate more about Python!!!    
-    - See:   
+    - This is one of the features that I hate more about Python!!!
+    - See:
         - [http://effbot.org/zone/default-values.htm](http://effbot.org/zone/default-values.htm)
         - [http://stackoverflow.com/questions/4841782/python-constructor-and-default-value](http://stackoverflow.com/questions/4841782/python-constructor-and-default-value)
 
@@ -24,11 +24,11 @@ _This is a schematic and concise list of the things for which I should constantl
 
 3. I'm raising the most appropriate exception for each specific anomaly.
 
-4. exceptions raised are consistent inside each module: 
-    
+4. exceptions raised are consistent inside each module:
+
     - the same exception should be raised when the "same" error occurs in different methods or even within the same method!
 
-5. unit tests 
+5. unit tests
 
     - are not redundant
 
@@ -37,11 +37,11 @@ _This is a schematic and concise list of the things for which I should constantl
     - cover all statements
 
     - cover all boundary values
-    
+
     - are descriptive
-     
+
     - test only one feature
-    
+
     - are short
 
 6. citations to resources used to implement an algorithm or data structure ar provided at the beginning of each module.
@@ -52,7 +52,7 @@ _This is a schematic and concise list of the things for which I should constantl
 
 ## Resources
 
-The following are some resources talking about how we should (or not) use Python. They also provide descriptions and examples of common mistakes that people do using Python. 
+The following are some resources talking about how we should (or not) use Python. They also provide descriptions and examples of common mistakes that people do using Python.
 
 - [Idioms and Anti-Idioms in Python](https://docs.python.org/2/howto/doanddont.html)
 

@@ -6,7 +6,7 @@ A few interesting algorithms which may be implemented in the future. It excludes
 
 ## Combinatorial Algorithms
 
-### Pseudo-random Number Generators 
+### Pseudo-random Number Generators
 
 - [Mersenne Twister](https://en.wikipedia.org/wiki/Mersenne_Twister)
 
@@ -222,7 +222,7 @@ A few interesting algorithms which may be implemented in the future. It excludes
 
 ----
 
-An article listing other possibly interesting algorithms can be found at the 
+An article listing other possibly interesting algorithms can be found at the
 following URL [https://en.wikipedia.org/wiki/List\_of\_algorithms](https://en.wikipedia.org/wiki/List_of_algorithms).
 
 ---
