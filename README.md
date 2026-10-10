@@ -7,20 +7,20 @@
 
 ## Introduction
 
-`andz` stands for **a**lgorithms a**n**d **d**ata structure**z**. 
+`andz` stands for **a**lgorithms a**n**d **d**ata structure**z**.
 
-> The `s` was replaced with `z` because  
+> The `s` was replaced with `z` because
 > there was already a dummy package called `ands` on PyPI.
 
-In this package, you can find some of the most common algorithms and 
-data structures studied in Computer Science, 
-such as quick-sort or binary-search trees. 
-The algorithms are divided into main categories, 
+In this package, you can find some of the most common algorithms and
+data structures studied in Computer Science,
+such as quick-sort or binary-search trees.
+The algorithms are divided into main categories,
 such as sorting algorithms or dynamic programming algorithms, but note that
 some algorithms and DS can fall into multiple categories .
 
-> The current main goal of this project is for me to learn more about 
-new algorithms and data structures, but I hope these implementations 
+> The current main goal of this project is for me to learn more about
+new algorithms and data structures, but I hope these implementations
 can also be useful to anyone interested in them.
 
 ## Development
@@ -32,7 +32,7 @@ I use
 - [`pyenv`](https://github.com/pyenv/pyenv) to manage different Python versions locally
 - GitHub Actions for CI/CD
 
-For more info about how to develop, 
+For more info about how to develop,
 see [`./docs/how_to_develop.md`](docs/how_to_develop.md).
 
 ## How to install?
@@ -43,10 +43,10 @@ pip install andz
 
 ## Documentation
 
-Most modules and functions have been thoroughly documented, 
-so the best way to learn about the algorithms and data structures is 
+Most modules and functions have been thoroughly documented,
+so the best way to learn about the algorithms and data structures is
 to read the source code and the related docstrings and comments.
 
-You can find more documentation under [`docs`](./docs). 
-There you will find the history of the project, 
+You can find more documentation under [`docs`](./docs).
+There you will find the history of the project,
 development conventions that should be adapted, etc.

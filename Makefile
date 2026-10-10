@@ -54,5 +54,9 @@ check_types: poetry_installed  ## Run type-checks
 check_style: poetry_installed  ## Run style checks
 	poetry run pylint andz tests
 
+.PHONY: check_pre_commit
+check_pre_commit: poetry_installed  ## Run pre-commit security and file hooks
+	poetry run pre-commit run --all-files
+
 .PHONY: check
-check: check_format check_types check_style  ## Run all quality assurance checks
+check: check_format check_types check_style check_pre_commit   ## Run all quality assurance checks

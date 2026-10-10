@@ -3,8 +3,8 @@
 Closes #
 
 <!--
-Use closes #X or fixes #X if this pull request closes or fixes issue number X. 
-For more details, see 
+Use closes #X or fixes #X if this pull request closes or fixes issue number X.
+For more details, see
 https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue.
 
 Provide a brief description for this PR.
