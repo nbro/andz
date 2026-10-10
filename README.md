@@ -1,6 +1,6 @@
 # Algorithms and Data Structures (andz)
 
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![](https://img.shields.io/badge/stability-experimental-red.svg)](http://www.engr.sjsu.edu/fayad/SoftwareStability/)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)](./LICENSE.md)
 [![Tests](https://github.com/nbro/andz/actions/workflows/tests.yml/badge.svg)](https://github.com/nbro/andz/actions/workflows/tests.yml)
