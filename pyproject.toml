@@ -51,11 +51,18 @@ report.show_missing = true
 report.skip_covered = true
 report.fail_under = 95  # TODO: change this to 100
 
-[tool.pylint."REPORTS"]
+[tool.pylint.reports]
 output-format = "colorized"
 
-[tool.pylint."MESSAGES CONTROL"]
-disable = ["fixme", "invalid-name"]
+[tool.pylint.messages_control]
+disable = [
+    "fixme",
+    "invalid-name",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "missing-module-docstring",
+    "useless-suppression",
+]
 
 [tool.isort]
 atomic = true
@@ -67,6 +74,7 @@ target-version = ["py312"]
 [tool.mypy]
 python_version = 3.12
 warn_return_any = true
+warn_unused_ignores = true
 
 [tool.bandit]
 skips = ["B101", "B311"]

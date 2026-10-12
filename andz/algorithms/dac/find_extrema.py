@@ -30,7 +30,7 @@ def find_extremum_not_in_place(ls: list, _find_max: bool = True) -> object:
     It finds the maximum if _find_max is set to true, it finds the minimum
     otherwise."""
     if len(ls) == 0:
-        return
+        return None
     if len(ls) == 1:
         return ls[0]
     if len(ls) == 2:
@@ -51,7 +51,7 @@ def _find_extremum_in_place(
     ls: list, start: int, end: int, _find_max: bool = True
 ) -> object:
     if (end - start) < 0:
-        return
+        return None
     if (end - start) == 0:
         return ls[start]
     if (end - start) == 1:

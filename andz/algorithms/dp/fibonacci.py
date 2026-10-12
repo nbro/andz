@@ -76,7 +76,7 @@ def recursive_fibonacci(n: int) -> int:
         return recursive_fibonacci(n - 1) + recursive_fibonacci(n - 2)
 
 
-def _memoized_fibonacci_aux(n: int, memo: dict) -> int:
+def _memoized_fibonacci_aux(n: int, memo: dict[int, int]) -> int:
     """Auxiliary function of memoized_fibonacci."""
     if n == 0 or n == 1:
         return n
@@ -93,7 +93,7 @@ def memoized_fibonacci(n: int) -> int:
 
     Time complexity: O(n)."""
     _check_input(n)
-    memo = {}
+    memo: dict[int, int] = {}
     return _memoized_fibonacci_aux(n, memo)
 
 

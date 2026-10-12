@@ -23,10 +23,12 @@ single-variable functions.
 
 __all__ = ["gradient_descent"]
 
+from collections.abc import Callable
+
 
 def gradient_descent(
     x0: float,
-    df: callable,
+    df: Callable,
     step_size: float = 0.01,
     max_iter: int = 100,
     tol: float = 1e-6,

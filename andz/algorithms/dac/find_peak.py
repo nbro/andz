@@ -56,11 +56,9 @@ def _find_peak(ls: list, i: int, j: int) -> int:
             return m
         if ls[m - 1] > ls[m]:
             return _find_peak(ls, i, m - 1)
-        if ls[m] < ls[m + 1]:
-            return _find_peak(ls, m + 1, j)
-        # TODO: what if it reaches this part? Should we handle it? I don't remember anymore.
-    else:
-        return -1
+        assert ls[m] < ls[m + 1]
+        return _find_peak(ls, m + 1, j)
+    return -1
 
 
 def find_peak(ls: list) -> int:
