@@ -71,11 +71,13 @@ f'(x) = 3x² + 1. Then we apply the formula above to this f, so we obtain
 
 __all__ = ["newton"]
 
+from collections.abc import Callable
+
 
 def newton(
     x0: float,
-    f: callable,
-    df: callable,
+    f: Callable,
+    df: Callable,
     max_iter: int = 20,
     tolerance: float = 1e-6,
     epsilon: float = 1e-12,

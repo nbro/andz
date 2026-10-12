@@ -265,9 +265,11 @@ lesson on "key-indexed counting" by Robert Sedgewick.
 
 __all__ = ["counting_sort"]
 
+from collections.abc import Callable
+
 
 def counting_sort(
-    a: list, k: int = None, key: callable = lambda x: x, sedgewick_wayne: bool = False
+    a: list, k: int = None, key: Callable = lambda x: x, sedgewick_wayne: bool = False
 ) -> list:
     """Counting sort algorithm, which is a stable algorithm. So, if
     a[i] == a[j] and i < j, then a[i] still appears before a[j] in the sorted
