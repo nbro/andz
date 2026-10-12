@@ -154,10 +154,12 @@ __all__ = ["radix_sort"]
 import math
 import sys
 
+from collections.abc import Callable
+
 
 def lsd(
     a: list,
-    w: int = None,
+    w: int | None = None,
     # length of strings; we assume fixed-length strings here
     # The value of k can make a big difference in performance. If we can
     # assume e.g. that we're using only ASCII chars, then we know that k
@@ -166,8 +168,8 @@ def lsd(
     # TODO: support a more general key
     #  other we may need to assume that the first parameter is always a
     #  string (or something that we can index) and index would be the index
-    key: callable = lambda string, index: ord(string[index]),
-) -> list:
+    key: Callable[[str, int], int] = lambda string, index: ord(string[index]),
+) -> None:
     """The least-significant-digit first (LSD) string sort, which stably sorts
     fixed-length strings.
 
@@ -185,15 +187,15 @@ def lsd(
 
     Space complexity: Θ(n + k)."""
     if len(a) == 0:
-        return []
+        return
+
     if not isinstance(w, int):
         w = len(a[0])
+
     if w < 0:
         raise ValueError("w must be >= 0")
     if not all(len(x) == w for x in a):
-        raise ValueError(
-            "the length of each string in a should be equal to " "w = {}".format(w)
-        )
+        raise ValueError(f"the length of each string in a should be equal to w = {w}")
 
     # TODO: check correctness of key.
     # TODO: check correctness of k, maybe as an assertion, because we may
@@ -235,6 +237,7 @@ def lsd(
 #  numbers that cannot be represented as w-bit integers. For example, if we
 #  assume w=8, then we assume 8-bit integers, so integers up to 2^8 = 256. In
 #  the tests, we need to take this into account, otherwise, the tests may fail.
+# pylint: disable=superfluous-parens
 def radix_sort(
     a: list,
     w: int = 14,  # We assume 8-bit integers.
@@ -264,15 +267,12 @@ def radix_sort(
 
     if not (1 <= w <= int(math.log2(sys.maxsize)) + 1):
         raise ValueError(
-            "w should be an integer in the range "
-            "[1, {}]".format(int(math.log2(sys.maxsize)) + 1)
+            f"w should be an integer in the range [1, {int(math.log2(sys.maxsize)) + 1}]"
         )
 
     for x in a:
         if not (0 <= x < 2**w):
-            raise ValueError(
-                "element {} of 'a' cannot be represented with {} " "bits".format(x, w)
-            )
+            raise ValueError(f"element {x} of 'a' cannot be represented with {w} bits")
 
     # We need to consider at least 1 and at most w digit at a time.
     if not (1 <= d <= w):
