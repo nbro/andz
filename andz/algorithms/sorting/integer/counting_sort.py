@@ -269,7 +269,10 @@ from collections.abc import Callable
 
 
 def counting_sort(
-    a: list, k: int = None, key: Callable = lambda x: x, sedgewick_wayne: bool = False
+    a: list,
+    k: int | None = None,
+    key: Callable = lambda x: x,
+    sedgewick_wayne: bool = False,
 ) -> list:
     """Counting sort algorithm, which is a stable algorithm. So, if
     a[i] == a[j] and i < j, then a[i] still appears before a[j] in the sorted
