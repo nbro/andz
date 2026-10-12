@@ -268,12 +268,13 @@ def gale_shapley(men_preferences: list, women_preferences: list) -> list:
     # number of proposals of man m.
     count = [0] * n
 
-    def next_man() -> int:
+    def next_man() -> int | None:
         """Returns the index or number of the next man without a woman, or None
         if there is not such man."""
         for i, w in enumerate(wife):
             if w is None:
                 return i
+        return None
 
     def hook_up_with(m: int, w: int) -> None:
         # Assign m to be the current partner of w.
