@@ -245,7 +245,7 @@ def _build_inverses(women_preferences: list) -> list:
     return inverses
 
 
-def gale_shapley(men_preferences: list, women_preferences: list) -> list:
+def gale_shapley(men_preferences: list, women_preferences: list) -> tuple[list, list]:
     """Suppose we have n = len(men_preferences) = len(women_preferences) men and
     women. We number men and women from 0 to n - 1.
 
@@ -296,7 +296,7 @@ def gale_shapley(men_preferences: list, women_preferences: list) -> list:
     def prefers(w: int, m: int, o: int) -> bool:
         """Returns true if w prefers m over o."""
         assert m != o
-        return inverses[w][m] < inverses[w][o]
+        return bool(inverses[w][m] < inverses[w][o])
 
     m = next_man()
 
