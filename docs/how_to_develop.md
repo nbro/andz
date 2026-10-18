@@ -2,18 +2,43 @@
 
 If you want to develop a new feature or fix a bug, here are the steps.
 
-1. Clone the repository `git clone git@github.com:nbro/andz.git`
-2. Switch to `master` with `git switch master`
-3. Make sure it's up-to-date: `git pull`
-4. Create the feature branch: `git switch -c <local-branch-name>`
-5. Make the changes that you want
-6. Run the checks and tests: `make check test`
-7. Add your changes e.g. with `git add -u` or `git add .`
-8. Commit your changes with a commit message that starts with a verb (e.g. `git commit -m "Update the README"`)
-9. Push your changes to the remote: `git push --set-upstream origin <remote-branch-name>`
-10. Make a pull request (PR)
-11. Ask for code review (if there's another developer)
-12. Once the PR is approved, merge your feature branch into `master`
+1. Clone the repository:
+   ```
+   git clone git@github.com:nbro/andz.git
+   ````
+
+2. Switch to `master`:
+   ```
+   git switch master
+   ```
+3. Make sure it's up-to-date:
+   ```
+   git pull
+   ```
+4. Create the feature branch:
+   ```
+   git switch -c <local-branch-name>
+   ```
+5. Make the changes that you want.
+6. Run the checks and tests:
+   ```
+   make check test
+   ```
+7. Add your changes, e.g.:
+   ```
+   git add -u
+   ```
+8. Commit your changes with a commit message that starts with a verb (e.g. `Update the README`):
+   ```
+   git commit -m "Update the README"
+   ```
+9. Push your changes to the remote:
+   ```
+   git push --set-upstream origin HEAD
+   ```
+10. Make a pull request.
+11. Ask for code review.
+12. Once the PR is approved, merge your feature branch into `master`.
 
 ## How to run the tests?
 
