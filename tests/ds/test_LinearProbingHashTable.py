@@ -23,7 +23,7 @@ module.
 
 import string
 import unittest
-from random import choice, randint, sample, shuffle
+from random import Random, choice, randint, sample, shuffle
 
 from andz.ds.LinearProbingHashTable import (
     LinearProbingHashTable,
@@ -231,6 +231,90 @@ class TestLinearProbingHashTable(unittest.TestCase):
             self.assertEqual(t.delete(key), key)
 
         self.assertEqual(t.size, 0)
+
+    def test_put_when_table_is_full(self):
+        """When there is no free slot for a key, the table is resized, i.e. its
+        buffers are replaced by bigger ones, and all keys are inserted again.
+
+        For example, with capacity 1, both 0 and 1 have home slot 0, so the
+        table is full when we put 1, and it needs to be resized.
+
+            put(0)   [ 0 ]
+            put(1)   [ 0 ]   home slot of 1 is 0, which is taken, and there is
+                             no other slot, so the table is resized (to 3 slots)
+                     [ 0 | 1 |   ]
+
+        Previously, after resizing, put kept looking for a free slot with the
+        old size, so it resized the table again and again forever. So, without
+        the fix, this test does not terminate.
+        """
+        t = LinearProbingHashTable(1)
+        t.put(0, "zero")
+        t.put(1, "one")
+
+        self.assertEqual(t.size, 2)
+        self.assertEqual(t.capacity, 3)
+        self.assertEqual(t.get(0), "zero")
+        self.assertEqual(t.get(1), "one")
+
+    def test_delete_key_followed_by_keys_with_same_home_slot(self):
+        """In linear probing, a key is put in its home slot, which is
+        hash(key) % capacity, if free, otherwise in the next free slot
+        (wrapping around). get starts at the home slot and moves forward until
+        it finds the key, or an empty slot, which means that the key is not in
+        the table, because put would have used that slot.
+
+        For example, with capacity 11, 0, 11 and 22 all have home slot 0.
+
+            put(0), put(11), put(22)   [ 0 | 11 | 22 |   | ...
+
+        If delete(0) just emptied slot 0, then get(11) and get(22) would stop
+        at the empty slot 0 and not find 11 and 22, and put(11, ...) would
+        insert 11 a second time in slot 0.
+
+            delete(0) (wrong)          [   | 11 | 22 |   | ...
+
+        So, delete also re-inserts all keys after the deleted one until the
+        next empty slot, so that they move back towards their home slot.
+
+            delete(0)                  [ 11 | 22 |   |   | ...
+        """
+        t = LinearProbingHashTable(11)
+        t.put(0, "zero")
+        t.put(11, "eleven")
+        t.put(22, "twenty-two")
+
+        self.assertEqual(t.delete(0), "zero")
+
+        self.assertEqual(t.size, 2)
+        self.assertIsNone(t.get(0))
+        self.assertEqual(t.get(11), "eleven")
+        self.assertEqual(t.get(22), "twenty-two")
+
+        t.put(11, "ELEVEN")
+        self.assertEqual(t.size, 2)
+        self.assertEqual(t.get(11), "ELEVEN")
+
+    def test_random_puts_and_deletes_with_collisions(self):
+        """Compares the table with a dict after random puts and deletes of keys
+        that often have the same home slot (given the small capacities), so
+        that the table is often resized, and keys in the middle of clusters are
+        deleted (see the tests above)."""
+        r = Random(0)
+        for _ in range(200):
+            t = LinearProbingHashTable(r.randint(1, 7))
+            d: dict = {}
+            for _ in range(100):
+                k = r.randint(0, 30)
+                if r.random() < 0.6:
+                    v = r.random()
+                    t.put(k, v)
+                    d[k] = v
+                else:
+                    self.assertEqual(t.delete(k), d.pop(k, None))
+                self.assertEqual(t.size, len(d))
+                for key in range(31):
+                    self.assertEqual(t.get(key), d.get(key))
 
     def test_show(self):
         t = LinearProbingHashTable()
