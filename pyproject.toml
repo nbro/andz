@@ -1,6 +1,6 @@
 [project]
 name = "andz"
-version = "0.1.2"
+version = "0.1.3"
 description = "A Python package with some of the most common algorithms and data structures studied in Computer Science."
 readme = "README.md"
 requires-python = ">=3.12"
