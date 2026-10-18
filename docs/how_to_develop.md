@@ -3,9 +3,10 @@
 If you want to develop a new feature or fix a bug, here are the steps.
 
 1. Clone the repository:
+
    ```
    git clone git@github.com:nbro/andz.git
-   ````
+   ```
 
 2. Switch to `master`:
    ```
@@ -47,6 +48,7 @@ To run all tests, you can do
 ```
 make test
 ```
+
 To run all the tests under e.g. `tests/algorithms/sorting/integer`, use
 
 ```

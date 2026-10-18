@@ -5,9 +5,10 @@
 Once there are enough changes in `master`, we can release a new version.
 
 1. Switch to the development branch:
+
    ```
    git switch master && git pull
-    ````
+   ```
 
 2. Make sure it's up-to-date with the remote:
    ```

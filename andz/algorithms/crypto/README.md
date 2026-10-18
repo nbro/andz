@@ -12,7 +12,6 @@ The message to be encrypted is processed in blocks of k bits. For example, if k 
 
 <img src="images/block-cipher.png">
 
-
 ## Cipher Block Chaining
 
 Idea: use previous blocks in the encryption of the current block. Encryption is not just based on the current block, but on the entire message up to the current block.
@@ -24,7 +23,6 @@ Idea: use previous blocks in the encryption of the current block. Encryption is 
 ### Decryption
 
 <img src="images/cbc-decryption.png">
-
 
 CBC solve the problem of any two equal blocks within a message being encrypted in the same way (as in a normal block cipher). So, in this kind of cryptography system, equal blocks within a message are encrypted in a different, but identical messages still produce the same final cipher text. We need to add randomness to this protocol to make it more secure...
 
@@ -38,14 +36,12 @@ In other words, given $c$, every plain text is equiprobable.
 
 The one-time pad algorithm provides perfect secracy, but it has a drawback: the key used in the encryption and decryption of the algorithm must be as big as the message itself.
 
-
 ## TODO
 
 - A block cipher algorithm
-    - a cipher block chaining
+  - a cipher block chaining
 - A substitution cipher
 - RSA
-
 
 ## Reading and watching Suggestions
 

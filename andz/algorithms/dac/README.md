@@ -13,7 +13,7 @@ solving _recurrence relations_.
 
 ## Important concepts
 
-- [Recursion](https://en.wikipedia.org/wiki/Recursion_(computer_science))
+- [Recursion](<https://en.wikipedia.org/wiki/Recursion_(computer_science)>)
 - Sub-problems
 - [Mathematical induction](https://en.wikipedia.org/wiki/Mathematical_induction)
 - [Recurrence relations](https://en.wikipedia.org/wiki/Recurrence_relation)

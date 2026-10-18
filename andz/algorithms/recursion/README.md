@@ -1,4 +1,4 @@
-# [Recursion](https://en.wikipedia.org/wiki/Recursion_(computer_science))
+# [Recursion](<https://en.wikipedia.org/wiki/Recursion_(computer_science)>)
 
 A few simple examples of recursive algorithms.
 

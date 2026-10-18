@@ -16,9 +16,9 @@ cause a considerably larger error in the final output.
 
 - [Polynomial interpolation](https://en.wikipedia.org/wiki/Polynomial_interpolation)
 
-   Polynomial interpolation is the interpolation of a given data set by a
-[polynomial](https://en.wikipedia.org/wiki/Polynomial): given some points, find
-a polynomial which goes exactly through these points.
+  Polynomial interpolation is the interpolation of a given data set by a
+  [polynomial](https://en.wikipedia.org/wiki/Polynomial): given some points, find
+  a polynomial which goes exactly through these points.
 
   - [Lagrange form](https://en.wikipedia.org/wiki/Lagrange_polynomial)
 
