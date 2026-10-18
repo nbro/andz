@@ -19,7 +19,7 @@ andz.algorithms.sorting.comparison.heap_sort module.
 import unittest
 
 from andz.algorithms.sorting.comparison.heap_sort import heap_sort
-from tests.algorithms.sorting.base_tests import *
+from tests.algorithms.sorting.base_tests import SortingAlgorithmTests
 
 
 class TestHeapSort(unittest.TestCase, SortingAlgorithmTests):

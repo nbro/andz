@@ -103,7 +103,7 @@ possible.
 __all__ = ["change_making", "extended_change_making"]
 
 
-def _get_change_making_matrix(c: int, n: int) -> list:
+def _get_change_making_matrix(c: int, n: int) -> list[list[int]]:
     """Returns a list of c + 1 lists of size n + 1. Each of the c + 1 inner
     lists contains zeros, except for the first one, where each element is
     initialized to its index, because we assume that the first coin is 1 and
@@ -121,8 +121,8 @@ def _get_change_making_matrix(c: int, n: int) -> list:
     return m
 
 
-def _get_sets_of_coins_matrix(c: int, n: int) -> list:
-    m = [[[] for _ in range(n + 1)] for _ in range(c + 1)]
+def _get_sets_of_coins_matrix(c: int, n: int) -> list[list[list[int]]]:
+    m: list[list[list[int]]] = [[[] for _ in range(n + 1)] for _ in range(c + 1)]
 
     for i in range(n + 1):
         for _ in range(i):

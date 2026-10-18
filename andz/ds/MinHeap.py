@@ -73,6 +73,7 @@ class MinHeap(BinaryHeap):
                 self._push_down(0)
             assert is_min_heap(self)
             return m
+        return None
 
     def _push_down(self, i: int) -> None:
         """Min-heapifies this MinHeap starting from index i.

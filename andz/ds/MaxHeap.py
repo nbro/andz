@@ -56,6 +56,7 @@ class MaxHeap(BinaryHeap):
                 self._push_down(0)
             assert is_max_heap(self)
             return m
+        return None
 
     def _push_down(self, i: int) -> None:
         """Max-heapifies this MaxHeap starting from index i.

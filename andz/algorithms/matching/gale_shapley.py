@@ -238,14 +238,14 @@ def _build_inverses(women_preferences: list) -> list:
 
     Time complexity: Θ(n²)."""
     n = len(women_preferences)
-    inverses = [[None for _ in range(n)] for _ in range(n)]
+    inverses: list[list[int | None]] = [[None for _ in range(n)] for _ in range(n)]
     for w in range(n):
         for p in range(n):  # p for preference.
             inverses[w][women_preferences[w][p]] = p
     return inverses
 
 
-def gale_shapley(men_preferences: list, women_preferences: list) -> list:
+def gale_shapley(men_preferences: list, women_preferences: list) -> tuple[list, list]:
     """Suppose we have n = len(men_preferences) = len(women_preferences) men and
     women. We number men and women from 0 to n - 1.
 
@@ -257,10 +257,10 @@ def gale_shapley(men_preferences: list, women_preferences: list) -> list:
     _validate_inputs(men_preferences, women_preferences, n)
 
     # To keep track of wives of men. So, wife[m] is the wife of m.
-    wife = [None] * n
+    wife: list[int | None] = [None] * n
 
     # To keep track of husbands of women. So, husband[w] is the husband of w.
-    husband = [None] * n
+    husband: list[int | None] = [None] * n
 
     inverses = _build_inverses(women_preferences)
 
@@ -268,12 +268,13 @@ def gale_shapley(men_preferences: list, women_preferences: list) -> list:
     # number of proposals of man m.
     count = [0] * n
 
-    def next_man() -> int:
+    def next_man() -> int | None:
         """Returns the index or number of the next man without a woman, or None
         if there is not such man."""
         for i, w in enumerate(wife):
             if w is None:
                 return i
+        return None
 
     def hook_up_with(m: int, w: int) -> None:
         # Assign m to be the current partner of w.
@@ -295,7 +296,7 @@ def gale_shapley(men_preferences: list, women_preferences: list) -> list:
     def prefers(w: int, m: int, o: int) -> bool:
         """Returns true if w prefers m over o."""
         assert m != o
-        return inverses[w][m] < inverses[w][o]
+        return bool(inverses[w][m] < inverses[w][o])
 
     m = next_man()
 

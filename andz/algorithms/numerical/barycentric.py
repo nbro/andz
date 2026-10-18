@@ -45,7 +45,7 @@ def compute_weights(xs: list) -> list:
     return ws
 
 
-def barycentric(xs: list, ys: list, x0: float, ws: list = None) -> float:
+def barycentric(xs: list, ys: list[float], x0: float, ws: list | None = None) -> float:
     """Evaluates, at x coordinate x0, the polynomial that interpolates 2d points
     (xs[i], ys[i]), for i=0, ..., len(xs) - 1 == len(ys) - 1. In other words,
     this function returns the y value corresponding to the x coordinate x0 of

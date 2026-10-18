@@ -304,7 +304,8 @@ class RBT(BST):
 
         # Set u to be the new left child of its new parent.
         u.parent.left = u
-        return u.parent
+        p: _RBTNode = u.parent
+        return p
 
     def _right_rotate(self, u: _RBTNode) -> _RBTNode:
         """Right rotates the subtree rooted at node u.
@@ -328,7 +329,8 @@ class RBT(BST):
             u.left.parent = u
 
         u.parent.right = u
-        return u.parent
+        p: _RBTNode = u.parent
+        return p
 
     # pylint: disable=too-many-statements, too-many-branches
     def delete(self, key: object) -> None:
@@ -344,11 +346,13 @@ class RBT(BST):
         key_node = self._search_key_iteratively(key, self._root)
         if key_node is None:
             raise LookupError("key not in this BST")
+        assert isinstance(key_node, _RBTNode)
 
         # If key has 2 non-leaf children, then replace key with its successor.
         # Note: we exchange also the colors of key and its successor.
         if key_node.has_left_child() and key_node.has_right_child():
             s = self._successor(key_node)
+            assert isinstance(s, _RBTNode)
             self._switch(key_node, s)
             key_node.color, s.color = s.color, key_node.color
 
@@ -608,9 +612,7 @@ def is_rbt(t: RBT) -> bool:
 
         def h(n: _RBTNode) -> bool:
             if n is not None:
-                if (
-                    n.color != BLACK and n.color != RED
-                ):  # pylint: disable=consider-using-in
+                if n.color not in (BLACK, RED):  # pylint: disable=consider-using-in
                     return False
                 return h(n.right) and h(n.left)
             return True
@@ -621,7 +623,7 @@ def is_rbt(t: RBT) -> bool:
         """Returns true if the root is BLACK (or it is None), false
         otherwise."""
         if t._root is not None:
-            return t._root.color == BLACK
+            return bool(t._root.color == BLACK)
         return True
 
     def has_not_consecutive_red_nodes(t: RBT) -> bool:

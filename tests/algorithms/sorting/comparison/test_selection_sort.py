@@ -19,7 +19,7 @@ andz.algorithms.sorting.comparison.selection_sort module.
 import unittest
 
 from andz.algorithms.sorting.comparison.selection_sort import selection_sort
-from tests.algorithms.sorting.base_tests import *
+from tests.algorithms.sorting.base_tests import SortingAlgorithmTests
 
 
 class TestSelectionSort(unittest.TestCase, SortingAlgorithmTests):

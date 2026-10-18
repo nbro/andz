@@ -97,8 +97,8 @@ class LinearProbingHashTable(HashTable):
         if capacity < 1:
             raise ValueError("capacity must be greater or equal to 1")
         self._n = capacity  # self._n holds the size of the buffers.
-        self._keys = [None] * self._n
-        self._values = [None] * self._n
+        self._keys: list[object] = [None] * self._n
+        self._values: list[object] = [None] * self._n
 
     @property
     def size(self) -> int:
@@ -193,6 +193,7 @@ class LinearProbingHashTable(HashTable):
                     # (key: value) pair.
                     self._put(key, value, new_size)
                     self._n = new_size
+                    break
 
             # We exited the loop either because we have found a free slot or a
             # slot containing our key, and not after having re-sized the table.
@@ -257,15 +258,26 @@ class LinearProbingHashTable(HashTable):
         if not isinstance(key, Hashable):
             raise TypeError("key must be an instance of a hashable type")
 
-        try:
-            i = self._keys.index(key)
-            v = self._values[i]
-            self._keys[i] = self._values[i] = None
-            return v
-        except ValueError:
-            pass
-        finally:
+        if key not in self._keys:
             assert is_hash_table(self)
+            return None
+
+        i = self._keys.index(key)
+        v = self._values[i]
+        self._keys[i] = self._values[i] = None
+
+        # The (key: value) pairs in the same cluster after slot i need to be
+        # re-inserted, otherwise they could become unreachable, given that
+        # self._get stops searching at the first empty slot.
+        i = LinearProbingHashTable._rehash(i, self._n)
+        while self._keys[i] is not None:
+            k, kv = self._keys[i], self._values[i]
+            self._keys[i] = self._values[i] = None
+            self._put(k, kv, self._n)
+            i = LinearProbingHashTable._rehash(i, self._n)
+
+        assert is_hash_table(self)
+        return v
 
     def show(self) -> None:
         """Prints this hash table in table-like format."""
@@ -299,9 +311,9 @@ def has_duplicates_ignore_nones(ls: list) -> bool:
 
 
 # pylint: disable=protected-access
-def is_hash_table(t: HashTable) -> bool:
-    """Returns true if t is a valid HashTable, false otherwise."""
-    if not isinstance(t, HashTable):
+def is_hash_table(t: LinearProbingHashTable) -> bool:
+    """Returns true if t is a valid LinearProbingHashTable, false otherwise."""
+    if not isinstance(t, LinearProbingHashTable):
         return False
     if len(t._keys) != len(t._values) or len(t._keys) != t._n:
         return False

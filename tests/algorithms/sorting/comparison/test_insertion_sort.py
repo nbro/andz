@@ -21,7 +21,7 @@ module.
 import unittest
 
 from andz.algorithms.sorting.comparison.insertion_sort import insertion_sort
-from tests.algorithms.sorting.base_tests import *
+from tests.algorithms.sorting.base_tests import SortingAlgorithmTests
 
 
 class TestInsertionSort(unittest.TestCase, SortingAlgorithmTests):

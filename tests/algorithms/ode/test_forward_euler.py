@@ -18,12 +18,12 @@ Unit tests for the functions in the andz.algorithms.ode.forward_euler module.
 
 import unittest
 
-from andz.algorithms.ode.forward_euler import *
+from andz.algorithms.ode.forward_euler import forward_euler, forward_euler_approx
 
 
 class TestForwardEuler(unittest.TestCase):
     @staticmethod
-    def f(ti, yi):
+    def f(_ti, yi):
         return yi
 
     @staticmethod

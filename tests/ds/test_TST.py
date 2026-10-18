@@ -23,6 +23,7 @@ import unittest
 from andz.ds.TST import TST, _TSTNode
 
 
+# pylint: disable=too-many-public-methods
 class TestTST(unittest.TestCase):
     @staticmethod
     def gen_rand_str(n):

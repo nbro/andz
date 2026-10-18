@@ -19,12 +19,10 @@ module.
 
 import unittest
 
-from andz.algorithms.numerical.gradient_descent import *
+from andz.algorithms.numerical.gradient_descent import gradient_descent
 
-"""
-def f(x: float) -> float:
-    return x ** 4 - 3 * x ** 3 + 2
-"""
+# def f(x: float) -> float:
+#     return x ** 4 - 3 * x ** 3 + 2
 
 
 def df(x: float) -> float:

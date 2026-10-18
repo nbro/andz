@@ -19,7 +19,9 @@ Unit tests for the functions in the andz.algorithms.numerical.neville module.
 import unittest
 
 from andz.algorithms.numerical.neville import neville
-from tests.algorithms.numerical.polynomial_interpolation_tests import *
+from tests.algorithms.numerical.polynomial_interpolation_tests import (
+    PolynomialInterpolationTests,
+)
 
 
 class TestNeville(unittest.TestCase, PolynomialInterpolationTests):

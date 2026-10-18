@@ -62,7 +62,7 @@ __all__ = [
 ]
 
 
-def linear_search(ls: list, item: object) -> bool:
+def linear_search(ls: list, item: object) -> int:
     """Searches for item in the list ls.
 
     It returns the index such that ls[index] == item, if item is in the list ls,
@@ -97,7 +97,7 @@ def binary_search_recursively_not_in_place(ls: list, item: object) -> bool:
 
 def _binary_search_recursively_in_place(
     ls: list, item: object, start: int, end: int
-) -> bool:
+) -> int:
     if end < start:
         return -1
     mid = (start + end) // 2
@@ -108,7 +108,7 @@ def _binary_search_recursively_in_place(
     return _binary_search_recursively_in_place(ls, item, start, mid - 1)
 
 
-def binary_search_recursively_in_place(ls: list, item: object) -> bool:
+def binary_search_recursively_in_place(ls: list, item: object) -> int:
     """Recursively binary-searches item in the list ls, assuming that ls is
     sorted in increasing order.
 
@@ -121,7 +121,7 @@ def binary_search_recursively_in_place(ls: list, item: object) -> bool:
     return _binary_search_recursively_in_place(ls, item, 0, len(ls) - 1)
 
 
-def binary_search_iteratively(ls: list, item: object) -> bool:
+def binary_search_iteratively(ls: list, item: object) -> int:
     """Iteratively binary-searches for item in the ls, which is assumed to be
     sorted in increasing order.
 

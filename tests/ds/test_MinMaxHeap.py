@@ -16,11 +16,12 @@ Unit tests for the classes and functions in the andz.ds.MinMaxHeap module.
 """
 
 import unittest
-from random import choice, randint, sample
+from random import Random, choice, randint, sample
 
 from andz.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap
 
 
+# pylint: disable=too-many-public-methods
 class TestMinMaxHeap(unittest.TestCase):
     def test_heap_creation_default(self):
         h = MinMaxHeap()
@@ -109,6 +110,42 @@ class TestMinMaxHeap(unittest.TestCase):
 
         self.assertEqual(h.size, 0)
         self.assertTrue(h.is_empty())
+
+    def test_delete_when_replacement_violates_max_level_ancestor(self):
+        # See the comments in BinaryHeap.delete and
+        # https://github.com/nbro/andz/issues/110.
+        a = [1, 9, 12, 3, 2, 6, 10, 8, 5, 7, 4, 11]
+        h = MinMaxHeap(a)
+        self.assertEqual(h.heap, a)
+        self.assertTrue(is_min_max_heap(h))
+
+        self.assertIsNone(h.delete(2))
+
+        self.assertEqual(h.heap, [1, 11, 12, 3, 4, 6, 10, 8, 5, 7, 9])
+        self.assertTrue(is_min_max_heap(h))
+        self.assertEqual(
+            [h.remove_max() for _ in range(h.size)],
+            [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 1],
+        )
+
+    def test_delete_keeps_min_max_heap_property(self):
+        # See https://github.com/nbro/andz/issues/110.
+        r = Random(110)
+        for _ in range(200):
+            a = [r.randint(-100, 100) for _ in range(r.randint(3, 100))]
+            h = MinMaxHeap(a)
+            for x in r.sample(a, len(a)):
+                h.delete(x)
+                self.assertTrue(is_min_max_heap(h))
+            self.assertTrue(h.is_empty())
+
+    def test_is_min_max_heap_when_item_violates_its_grandparent(self):
+        # 11 is greater than or equal to its parent 4, which is on a min level,
+        # but it is greater than its grandparent 9, which is on a max level.
+        # See the comments in is_min_max_heap.
+        h = MinMaxHeap()
+        h.heap = [1, 9, 12, 3, 4, 6, 10, 8, 5, 7, 11]
+        self.assertFalse(is_min_max_heap(h))
 
     # Testing find_max and remove_max
 

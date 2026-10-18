@@ -103,10 +103,12 @@ method.
 
 __all__ = ["forward_euler", "forward_euler_approx"]
 
+from collections.abc import Callable
+
 from numpy import arange, zeros
 
 
-def forward_euler(a: float, b: float, n: int, c: float, f: callable) -> tuple:
+def forward_euler(a: float, b: float, n: int, c: float, f: Callable) -> tuple:
     """Forward Euler method, with y = f(x, y), with initial value c, and range
     [a, b]. n is the number of times to split the range [a, b], and is thus used
     to calculate the step size h.
@@ -136,7 +138,7 @@ def forward_euler(a: float, b: float, n: int, c: float, f: callable) -> tuple:
     return t, y
 
 
-def forward_euler_approx(a: float, b: float, n: int, c: float, f: callable) -> float:
+def forward_euler_approx(a: float, b: float, n: int, c: float, f: Callable) -> float:
     """Forward Euler method, with y = f(x, y), with initial value c, and range
     [a, b]. n is the number of times to split the range [a, b], and is thus used
     to calculate the step size h.

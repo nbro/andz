@@ -66,6 +66,7 @@ class MinMaxHeap(BinaryHeap):
         Time complexity: O(1)."""
         if not self.is_empty():
             return self.heap[self._find_max_index()]
+        return None
 
     def find_min(self):
         """Returns the smallest element in this MinMaxHeap.
@@ -73,6 +74,7 @@ class MinMaxHeap(BinaryHeap):
         Time complexity: O(1)."""
         if not self.is_empty():
             return self.heap[0]
+        return None
 
     def remove_max(self):
         """Removes and returns the greatest element in this MinMaxHeap.
@@ -94,6 +96,7 @@ class MinMaxHeap(BinaryHeap):
             self._push_down(i)
             assert is_min_max_heap(self)
             return m
+        return None
 
     def remove_min(self):
         """Removes and returns the smallest element in this MinMaxHeap.
@@ -111,6 +114,7 @@ class MinMaxHeap(BinaryHeap):
             self._push_down(0)
             assert is_min_max_heap(self)
             return m
+        return None
 
     def _push_down(self, i: int) -> None:
         """This operation is also called "bubble-down" or "shift-down"."""
@@ -333,7 +337,7 @@ def is_min_max_heap(h: MinMaxHeap) -> bool:
         if h.size == 1:
             return True
         if h.size == 2:
-            return max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0]
+            return bool(max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0])
         if h.size >= 3:
             if h.heap[0] != min(h.heap) or (
                 h.heap[1] != max(h.heap) and h.heap[2] != max(h.heap)
@@ -350,18 +354,39 @@ def is_min_max_heap(h: MinMaxHeap) -> bool:
             if r != -1 and l == -1:
                 return False
 
-            if h._is_on_even_level(i):
-                # If item is on an even (or min) level, then item should be
-                # smaller or equal than its descendants.
-                if l != -1 and item > h.heap[l]:
+            # If item is on an even (or min) level, then item should be smaller
+            # than or equal to all its descendants, and, if it is on an odd (or
+            # max) level, it should be greater than or equal to them.
+            #
+            # It's enough to compare item with its children and grandchildren.
+            # For example, if item is on a min level, then its grandchildren are
+            # also on a min level, so they are smaller than or equal to their
+            # own children and grandchildren, and so on, so item is also smaller
+            # than or equal to all its other descendants.
+            #
+            # Comparing item only with its children is not enough. For example,
+            # in the following heap, 11 is greater than or equal to its parent 4
+            # (on a min level), but it is greater than its grandparent 9, which
+            # is on a max level.
+            #
+            #               1             min level
+            #          /         \
+            #         9           12      max level
+            #       /   \       /    \
+            #      3     4     6      10  min level
+            #     / \   / \
+            #    8   5 7   11             max level
+            descendants = [j for j in (l, r) if j != -1]
+            descendants += [
+                g
+                for j in descendants
+                for g in (h._left_index(j), h._right_index(j))
+                if g != -1
+            ]
+            is_on_min_level = h._is_on_even_level(i)
+            for j in descendants:
+                if is_on_min_level and item > h.heap[j]:
                     return False
-                if r != -1 and item > h.heap[r]:
-                    return False
-            else:  # odd (or max) level
-                # If item is on an odd (or max) level, then item should be
-                # greater or equal than descendants.
-                if l != -1 and item < h.heap[l]:
-                    return False
-                if r != -1 and item < h.heap[r]:
+                if not is_on_min_level and item < h.heap[j]:
                     return False
     return True

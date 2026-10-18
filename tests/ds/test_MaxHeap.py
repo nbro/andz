@@ -21,6 +21,7 @@ from random import choice, randint, sample
 from andz.ds.MaxHeap import MaxHeap, is_max_heap
 
 
+# pylint: disable=too-many-public-methods
 class TestMaxHeap(unittest.TestCase):
     def test_heap_creation_default(self):
         h = MaxHeap()

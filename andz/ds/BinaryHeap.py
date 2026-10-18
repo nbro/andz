@@ -28,6 +28,8 @@ Contains the abstract class BinaryHeap.
 - http://stackoverflow.com/a/29197855/3924118
 """
 
+from __future__ import annotations
+
 import io
 import math
 from abc import ABC, abstractmethod
@@ -120,10 +122,47 @@ class BinaryHeap(ABC):
         else:
             self._swap(i, self.size - 1)
             self.heap.pop()
-            self._push_down(i)
+            # The element now at i can violate the heap property either w.r.t.
+            # its ancestors or w.r.t. its descendants. In a MinMaxHeap, pushing
+            # it down first could move it below an ancestor it violates, so we
+            # push it up first (like MinMaxHeap.remove_max does).
+            #
+            # For example, consider the following MinMaxHeap and delete(2).
+            #
+            #               1             min level
+            #          /         \
+            #         9           12      max level
+            #       /   \       /    \
+            #      3     2     6      10  min level
+            #     / \   / \   /
+            #    8   5 7   4 11           max level
+            #
+            # 11 (the last element) replaces 2. If it was pushed down first, it
+            # would be swapped with its smallest descendant, 4, and end up below
+            # 9, which is on a max level, so 11 should not be below it.
+            #
+            #               1
+            #          /         \
+            #         9           12
+            #       /   \       /    \
+            #      3     4     6      10
+            #     / \   / \
+            #    8   5 7   11             <- wrong: 11 > 9
+            #
+            # By pushing it up first, 11 is swapped with 9, then 9 is pushed
+            # down, which swaps it with 4, and the result is a valid MinMaxHeap.
+            #
+            #               1
+            #          /         \
+            #        11           12
+            #       /   \       /    \
+            #      3     4     6      10
+            #     / \   / \
+            #    8   5 7   9
             self._push_up(i)
+            self._push_down(i)
 
-    def merge(self, o: "Heap") -> None:
+    def merge(self, o: BinaryHeap) -> None:
         """Merges this heap with the o heap.
 
         Time complexity: O(n + m)."""
@@ -138,7 +177,7 @@ class BinaryHeap(ABC):
     def _push_up(self, i: int) -> None:
         """Classical reverse-heapify operation for heaps."""
 
-    def _build_heap(self) -> list:
+    def _build_heap(self) -> None:
         """Builds the heap data structure using Robert Floyd's heap construction
         algorithm.
 
@@ -213,7 +252,7 @@ class BinaryHeap(ABC):
         return build_pretty_binary_heap(self.heap)
 
 
-def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:
+def build_pretty_binary_heap(heap: list, total_width: int = 36, fill: str = " ") -> str:
     """Returns a string (which can be printed) representing heap as a tree.
 
     To increase/decrease the horizontal space between nodes, just

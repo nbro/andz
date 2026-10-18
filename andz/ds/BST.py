@@ -47,7 +47,11 @@ This is much better than the linear time required to find items by key in an
   6-006-introduction-to-algorithms-fall-2011/readings/binary-search-trees/bst.py
 """
 
+from __future__ import annotations
+
 __all__ = ["BST", "is_bst"]
+
+from typing import Any
 
 
 class _BSTNode:
@@ -62,22 +66,23 @@ class _BSTNode:
         self.right = right
 
     @property
-    def sibling(self) -> "_BSTNode":
+    def sibling(self) -> Any:
         """Return the sibling node of this node, which can of course be None."""
         if self.parent is not None:
             if self.is_left_child():
                 return self.parent.right
-            else:
-                return self.parent.left
+            return self.parent.left
+        return None
 
     @property
-    def grandparent(self) -> "_BSTNode":
+    def grandparent(self) -> Any:
         """Return the parent of the parent of this node."""
         if self.parent is not None:
             return self.parent.parent
+        return None
 
     @property
-    def uncle(self) -> "_BSTNode":
+    def uncle(self) -> Any:
         """Return the uncle node of this node.
 
         The uncle is the sibling of the parent of this node, if it exists. None
@@ -88,8 +93,9 @@ class _BSTNode:
         if self.grandparent is not None:
             if self.parent == self.grandparent.left:
                 return self.grandparent.right
-            else:  # self.parent == self.grandparent.right
-                return self.grandparent.left
+            # self.parent == self.grandparent.right
+            return self.grandparent.left
+        return None
 
     def is_left_child(self) -> bool:
         """
@@ -99,9 +105,9 @@ class _BSTNode:
         """
         if self.parent is not None:
             if self.parent.left is not None:  # TODO: do we need this check?
-                return self.parent.left == self
-        else:
-            raise AttributeError("self does not have a parent")
+                return bool(self.parent.left == self)
+            return False
+        raise AttributeError("self does not have a parent")
 
     def is_right_child(self) -> bool:
         """
@@ -111,9 +117,9 @@ class _BSTNode:
         """
         if self.parent is not None:
             if self.parent.right is not None:  # TODO: do we need this check?
-                return self.parent.right == self
-        else:
-            raise AttributeError("self does not have a parent")
+                return bool(self.parent.right == self)
+            return False
+        raise AttributeError("self does not have a parent")
 
     def has_right_child(self) -> bool:
         """
@@ -151,15 +157,13 @@ class _BSTNode:
         """Count the numbers of nodes under self (including self)."""
         if not self.has_children():
             return 1
-        else:
-            c = 0
-            return self._count(self, c)
+        c = 0
+        return self._count(self, c)
 
-    def _count(self, u: "_BSTNode", c: int) -> int:
+    def _count(self, u: _BSTNode, c: int) -> int:
         if u is None:
             return c
-        else:
-            c += 1
+        c += 1
         c = self._count(u.left, c)
         c = self._count(u.right, c)
         return c
@@ -184,7 +188,7 @@ class BST:
     height of the subtree rooted at the node passed as parameter."""
 
     def __init__(self):
-        self._n = 0
+        self._n: int = 0
         self._root = None
         assert is_bst(self)
 
@@ -224,7 +228,7 @@ class BST:
         if u == self._root:
             if u is not None:
                 assert u.parent is None
-        return u == self._root
+        return bool(u == self._root)
 
     def insert(self, key: object) -> None:
         """Inserts key into this BST.
@@ -275,7 +279,7 @@ class BST:
         return key_node is not None
 
     @staticmethod
-    def _search_key_iteratively(key: object, u: _BSTNode) -> _BSTNode:
+    def _search_key_iteratively(key: object, u: _BSTNode) -> _BSTNode | None:
         """Returns the _BSTNode object c such that c.key == key, or None if no
         such object exists.
 
@@ -284,10 +288,11 @@ class BST:
         while c is not None:
             if key == c.key:
                 return c
-            elif key < c.key:
+            if key < c.key:
                 c = c.left
             else:
                 c = c.right
+        return None
 
     def _search_key_recursively(self, key: object, u: _BSTNode) -> _BSTNode:
         """Returns the _BSTNode object c such that c.key == key, or None if no
@@ -296,10 +301,9 @@ class BST:
         Time complexity: O(m)."""
         if u is None or key == u.key:
             return u
-        elif key < u.key:
+        if key < u.key:
             return self._search_key_recursively(key, u.left)
-        else:
-            return self._search_key_recursively(key, u.right)
+        return self._search_key_recursively(key, u.right)
 
     def rank(self, key: object) -> int:
         """Returns the number of keys strictly less than key.
@@ -329,8 +333,7 @@ class BST:
         assert is_bst(self)
         if self._root is None:
             return 0
-        else:
-            return self._height(self._root)
+        return self._height(self._root)
 
     def _height(self, u: _BSTNode) -> int:
         if u is None:
@@ -347,6 +350,7 @@ class BST:
             assert m == BST._minimum_recursively(self._root)
             assert is_bst(self)
             return m.key if m is not None else None
+        return None
 
     @staticmethod
     def _minimum(u: _BSTNode) -> _BSTNode:
@@ -374,6 +378,7 @@ class BST:
             assert m == BST._maximum_recursively(self._root)
             assert is_bst(self)
             return m.key if m is not None else None
+        return None
 
     @staticmethod
     def _maximum(u: _BSTNode) -> _BSTNode:
@@ -417,14 +422,14 @@ class BST:
         return s.key if s is not None else None
 
     @staticmethod
-    def _successor(u: _BSTNode) -> _BSTNode:
+    def _successor(u: _BSTNode) -> _BSTNode | None:
         """Returns the _BSTNode representing the successor of u."""
         assert u is not None
 
         if u.has_right_child():
             return BST._minimum(u.right)
 
-        p = u.parent
+        p: _BSTNode | None = u.parent
         while p is not None and p.right == u:
             u = p
             p = u.parent
@@ -452,14 +457,14 @@ class BST:
         return p.key if p is not None else None
 
     @staticmethod
-    def _predecessor(u: _BSTNode) -> _BSTNode:
+    def _predecessor(u: _BSTNode) -> _BSTNode | None:
         """Returns the _BSTNode representing the predecessor of u."""
         assert u is not None
 
         if u.has_left_child():
             return BST._maximum(u.left)
 
-        p = u.parent
+        p: _BSTNode | None = u.parent
         while p is not None and u == p.left:
             u = p
             p = u.parent
@@ -593,7 +598,9 @@ class BST:
         """Called by _delete_aux when a node has two children."""
         assert u is not None
         # Replace u with its successor s.
-        self._switch(u, self._successor(u))
+        s = self._successor(u)
+        assert s is not None
+        self._switch(u, s)
         # u has at most a right child now.
         self._delete_aux(u)
 
@@ -628,6 +635,7 @@ class BST:
         else:
             self._switch_nodes_when_not_parent_child(x, y)
 
+    # pylint: disable=too-many-branches
     def _switch_nodes_when_not_parent_child(self, x: _BSTNode, y: _BSTNode) -> None:
         """x and y are nodes in the tree that are not related by a parent-child.
 
@@ -782,9 +790,9 @@ class BST:
         return self.__str__()
 
 
-def build_pretty_bst(node: _BSTNode, only_list: bool = True):
+def build_pretty_bst(node: _BSTNode | None, only_list: bool = True):
     """Pretty-prints this BST object."""
-    if not isinstance(_BSTNode):
+    if node is not None and not isinstance(node, _BSTNode):
         raise TypeError("node must be an instance of _BSTNode")
     if not isinstance(only_list, bool):
         raise TypeError("only_list must be a bool")
@@ -792,14 +800,16 @@ def build_pretty_bst(node: _BSTNode, only_list: bool = True):
     if node is None:
         if only_list:
             return []
-        else:
-            return [], 0, 0
+        return [], 0, 0
 
     fill = "_"
 
-    left_lines, left_pos, left_width = build_pretty_bst(node.left)
-    right_lines, right_pos, right_width = build_pretty_bst(node.right)
-    middle = max(right_pos + left_width - left_pos + 1, len(node.key), 2)
+    # The key is copied, so that the node itself is not modified.
+    key = str(node.key)
+
+    left_lines, left_pos, left_width = build_pretty_bst(node.left, False)
+    right_lines, right_pos, right_width = build_pretty_bst(node.right, False)
+    middle = max(right_pos + left_width - left_pos + 1, len(key), 2)
     pos = left_pos + middle // 2
     width = left_pos + middle + right_width - right_pos
 
@@ -810,23 +820,23 @@ def build_pretty_bst(node: _BSTNode, only_list: bool = True):
         right_lines.append(" " * right_width)
 
     if (
-        (middle - len(node.key)) % 2 == 1
+        (middle - len(key)) % 2 == 1
         and node.parent is not None
         and node is node.parent.left
-        and len(node.key) < middle
+        and len(key) < middle
     ):
-        node.key += fill
+        key += fill
 
-    node.key = node.key.center(middle, fill)
+    key = key.center(middle, fill)
 
-    if node.key[0] == fill:
-        node.key = " " + node.key[1:]
+    if key[0] == fill:
+        key = " " + key[1:]
 
-    if node.key[-1] == fill:
-        node.key = node.key[:-1] + " "
+    if key[-1] == fill:
+        key = key[:-1] + " "
 
     lines = [
-        " " * left_pos + node.key + " " * (right_width - right_pos),
+        " " * left_pos + key + " " * (right_width - right_pos),
         " " * left_pos
         + "/"
         + " " * (middle - 2)
@@ -839,8 +849,7 @@ def build_pretty_bst(node: _BSTNode, only_list: bool = True):
 
     if only_list:
         return lines
-    else:
-        return lines, pos, width
+    return lines, pos, width
 
 
 def has_bst_property(n: _BSTNode) -> bool:
@@ -881,6 +890,7 @@ def all_bst_nodes(n: _BSTNode) -> bool:
     return True
 
 
+# pylint: disable=protected-access
 def is_bst(t: BST) -> bool:
     """Returns true if t is a valid BST object, false otherwise.
 
