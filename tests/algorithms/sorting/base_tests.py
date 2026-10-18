@@ -27,6 +27,7 @@ def build_random_list(size=10, start=-10, end=10):
     return [randint(start, end) for _ in range(size)]
 
 
+# pylint: disable=no-member
 class SortingAlgorithmTests:
     def __init__(
         self,

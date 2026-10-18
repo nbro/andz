@@ -21,6 +21,7 @@ from random import choice, randint, sample
 from andz.ds.MinHeap import MinHeap, is_min_heap
 
 
+# pylint: disable=too-many-public-methods
 class TestMinHeap(unittest.TestCase):
     def test_heap_creation_default(self):
         h = MinHeap()

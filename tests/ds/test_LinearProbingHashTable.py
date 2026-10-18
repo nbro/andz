@@ -73,6 +73,7 @@ class TestHasDuplicatesIgnoreNones(unittest.TestCase):
         self.assertTrue(has_duplicates_ignore_nones([3, 12, 3, 6, 17]))
 
 
+# pylint: disable=too-many-public-methods
 class TestLinearProbingHashTable(unittest.TestCase):
     def test_create_capacity_not_int(self):
         self.assertRaises(TypeError, LinearProbingHashTable, 3.14)
