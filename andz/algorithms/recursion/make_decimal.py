@@ -23,13 +23,13 @@ from string import ascii_lowercase, digits
 __all__ = ["make_decimal", "ALPHA_NUMERIC_ALPHABET"]
 
 
-def _build_alpha_numeric_alphabet() -> dict:
+def _build_alpha_numeric_alphabet() -> dict[str, int]:
     """Returns a dictionary whose keys are all nine digits from 0 to 9 and the
     26 letters of the English alphabet.
 
     The values of the numbers are the numbers themselves. The values of the
     letters are 10 for 'a', 11 for 'b', and so on until 36 for 'z'."""
-    alphabet = {}
+    alphabet: dict[str, int] = {}
     for i, char in enumerate(ascii_lowercase):
         # Letters of the alphabet start after digit 9.
         alphabet[char] = i + 10
@@ -67,7 +67,7 @@ def _make_decimal(n: str, b: int, pos: int) -> int:
     See: http://www.math.com/school/subject1/lessons/S1U1L1GL.html."""
     if len(n) == 0:
         return 0
-    last = b**pos * ALPHA_NUMERIC_ALPHABET[n[-1]]
+    last: int = b**pos * ALPHA_NUMERIC_ALPHABET[n[-1]]
     return _make_decimal(n[:-1], b, pos + 1) + last
 
 

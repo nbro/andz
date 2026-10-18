@@ -238,7 +238,7 @@ def _build_inverses(women_preferences: list) -> list:
 
     Time complexity: Θ(n²)."""
     n = len(women_preferences)
-    inverses = [[None for _ in range(n)] for _ in range(n)]
+    inverses: list[list[int | None]] = [[None for _ in range(n)] for _ in range(n)]
     for w in range(n):
         for p in range(n):  # p for preference.
             inverses[w][women_preferences[w][p]] = p
@@ -257,10 +257,10 @@ def gale_shapley(men_preferences: list, women_preferences: list) -> tuple[list, 
     _validate_inputs(men_preferences, women_preferences, n)
 
     # To keep track of wives of men. So, wife[m] is the wife of m.
-    wife = [None] * n
+    wife: list[int | None] = [None] * n
 
     # To keep track of husbands of women. So, husband[w] is the husband of w.
-    husband = [None] * n
+    husband: list[int | None] = [None] * n
 
     inverses = _build_inverses(women_preferences)
 

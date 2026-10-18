@@ -23,8 +23,10 @@ __all__ = [
     "find_min",
 ]
 
+from typing import Any
 
-def find_extremum_not_in_place(ls: list, _find_max: bool = True) -> object:
+
+def find_extremum_not_in_place(ls: list, _find_max: bool = True) -> Any:
     """Finds (not in-place) the maximum (or minimum) element in the list ls.
 
     It finds the maximum if _find_max is set to true, it finds the minimum
@@ -49,7 +51,7 @@ def find_extremum_not_in_place(ls: list, _find_max: bool = True) -> object:
 
 def _find_extremum_in_place(
     ls: list, start: int, end: int, _find_max: bool = True
-) -> object:
+) -> Any:
     if (end - start) < 0:
         return None
     if (end - start) == 0:
