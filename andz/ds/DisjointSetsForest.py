@@ -68,7 +68,7 @@ class _DSFNode:
     """_DSFNode is the node used internally by DisjointSetsForest to represent
     nodes in the disjoint trees (or sets)."""
 
-    def __init__(self, x, rank=0):
+    def __init__(self, x: object, rank: int = 0) -> None:
         # This attribute can contain any hashable value.
         self.value = x
 
@@ -118,9 +118,9 @@ class DisjointSetsForest(DisjointSets):
 
     This data structure does not allow duplicates."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Keeps tracks of the _DSNodes in this disjoint-set forests.
-        self._sets = {}
+        self._sets: dict[object, _DSFNode] = {}
         self._n = 0
 
     def make_set(self, x: object) -> None:
@@ -251,7 +251,7 @@ class DisjointSetsForest(DisjointSets):
 
         # x and y are already joined.
         if x_root == y_root:
-            return
+            return None
 
         # Exchanging the next pointers of x_node and y_node.
         #

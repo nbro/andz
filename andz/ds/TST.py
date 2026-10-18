@@ -82,7 +82,7 @@ class _TSTNode:
     - mid, which is a pointer to a _TSTNode whose key is the following
     character of key in an inserted string."""
 
-    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments, too-many-positional-arguments
     def __init__(self, key, value=None, parent=None, left=None, mid=None, right=None):
         if not isinstance(key, str):
             raise TypeError("key must be an instance of str.")
@@ -104,7 +104,7 @@ class _TSTNode:
         if not self.parent:
             raise AttributeError("self does not have a parent.")
         if self.parent.left:
-            return self.parent.left == self
+            return bool(self.parent.left == self)
         return False
 
     def is_right_child(self) -> bool:
@@ -116,7 +116,7 @@ class _TSTNode:
         if not self.parent:
             raise AttributeError("self does not have a parent.")
         if self.parent.right:
-            return self.parent.right == self
+            return bool(self.parent.right == self)
         return False
 
     def is_mid_child(self) -> bool:
@@ -128,14 +128,14 @@ class _TSTNode:
         if not self.parent:
             raise AttributeError("self does not have a parent.")
         if self.parent.mid:
-            return self.parent.mid == self
+            return bool(self.parent.mid == self)
         return False
 
     def has_children(self) -> bool:
         """
         Return true if self has a left, right or middle child, else false.
         """
-        return self.left or self.right or self.mid
+        return bool(self.left or self.right or self.mid)
 
     def __str__(self):
         return f"{self.key}: {self.value}"
@@ -157,7 +157,7 @@ class TST:
     """
 
     def __init__(self):
-        self._n = 0
+        self._n: int = 0
         self._root = None
 
     @property
@@ -176,7 +176,7 @@ class TST:
         return self.size == 0
 
     def _is_root(self, u: _TSTNode) -> bool:
-        result = self._root == u
+        result = bool(self._root == u)
         if result:
             assert u.parent is None
         else:
@@ -482,7 +482,7 @@ class TST:
         if not isinstance(prefix, str):
             raise TypeError("prefix must be an instance of str!")
 
-        kwp = []
+        kwp: list[str] = []
 
         if not prefix:
             self._keys_with_prefix(self._root, [], kwp)
@@ -518,11 +518,11 @@ class TST:
 
     def all_pairs(self) -> dict:
         """Returns all pairs of (key: value) from this TST as a Python dict."""
-        pairs = {}
+        pairs: dict[str, object] = {}
         self._all_pairs(self._root, [], pairs)
         return pairs
 
-    def _all_pairs(self, node: _TSTNode, key_list: list, all_dict: list) -> None:
+    def _all_pairs(self, node: _TSTNode, key_list: list, all_dict: dict) -> None:
         if node is None:
             return
 
@@ -591,7 +591,7 @@ class TST:
         if not pattern:
             raise ValueError("pattern cannot be an empty string")
 
-        keys = []
+        keys: list[str] = []
         self._keys_that_match(self._root, [], 0, pattern, keys)
         return keys
 

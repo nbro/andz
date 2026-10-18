@@ -123,7 +123,7 @@ class BinaryHeap(ABC):
             self._push_down(i)
             self._push_up(i)
 
-    def merge(self, o: "Heap") -> None:
+    def merge(self, o: "BinaryHeap") -> None:
         """Merges this heap with the o heap.
 
         Time complexity: O(n + m)."""
@@ -138,7 +138,7 @@ class BinaryHeap(ABC):
     def _push_up(self, i: int) -> None:
         """Classical reverse-heapify operation for heaps."""
 
-    def _build_heap(self) -> list:
+    def _build_heap(self) -> None:
         """Builds the heap data structure using Robert Floyd's heap construction
         algorithm.
 
@@ -213,7 +213,7 @@ class BinaryHeap(ABC):
         return build_pretty_binary_heap(self.heap)
 
 
-def build_pretty_binary_heap(heap: list, total_width=36, fill=" ") -> str:
+def build_pretty_binary_heap(heap: list, total_width: int = 36, fill: str = " ") -> str:
     """Returns a string (which can be printed) representing heap as a tree.
 
     To increase/decrease the horizontal space between nodes, just
