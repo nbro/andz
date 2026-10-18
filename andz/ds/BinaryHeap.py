@@ -122,8 +122,12 @@ class BinaryHeap(ABC):
         else:
             self._swap(i, self.size - 1)
             self.heap.pop()
-            self._push_down(i)
+            # The element now at i can violate the heap property either w.r.t.
+            # its ancestors or w.r.t. its descendants. In a MinMaxHeap, pushing
+            # it down first could move it below an ancestor it violates, so we
+            # push it up first (like MinMaxHeap.remove_max does).
             self._push_up(i)
+            self._push_down(i)
 
     def merge(self, o: BinaryHeap) -> None:
         """Merges this heap with the o heap.
