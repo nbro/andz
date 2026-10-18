@@ -18,7 +18,7 @@ Unit tests for the functions in the andz.algorithms.numerical.newton module.
 
 import unittest
 
-from andz.algorithms.numerical.newton import *
+from andz.algorithms.numerical.newton import newton
 
 
 class TestNewton(unittest.TestCase):
@@ -31,14 +31,24 @@ class TestNewton(unittest.TestCase):
     def test_find_square_root(self):
         a = 9  # We want to find the square root of a.
         x0 = 5
-        f = lambda x: x * x - a
-        df = lambda x: 2 * x
+
+        def f(x):
+            return x * x - a
+
+        def df(x):
+            return 2 * x
+
         self.assertAlmostEqual(newton(x0, f, df), 3.0)
 
     def test_find_reciprocal(self):
         a = 2  # We want to find the reciprocal of a, i.e. 1 / a.
         x0 = 0.3
-        f = lambda x: a - (1 / x)
-        df = lambda x: 1 / (x * x)
+
+        def f(x):
+            return a - (1 / x)
+
+        def df(x):
+            return 1 / (x * x)
+
         # We could also use the iteration: x_next = x * (2 - x * a).
         self.assertAlmostEqual(newton(x0, f, df), 1 / 2)

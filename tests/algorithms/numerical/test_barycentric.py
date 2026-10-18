@@ -20,7 +20,13 @@ module.
 import unittest
 
 from andz.algorithms.numerical.barycentric import barycentric, compute_weights
-from tests.algorithms.numerical.polynomial_interpolation_tests import *
+from tests.algorithms.numerical.polynomial_interpolation_tests import (
+    PolynomialInterpolationTests,
+    barycentric_interpolate,
+    f,
+    g,
+    np,
+)
 
 
 class TestBarycentric(unittest.TestCase, PolynomialInterpolationTests):
@@ -31,7 +37,6 @@ class TestBarycentric(unittest.TestCase, PolynomialInterpolationTests):
     def test_when_weights_are_provided(self):
         # n points, so polynomial would be of degree n - 1.
         xs = [8, 16, 64]
-        n = len(xs)
 
         # Given that we want to call barycentric multiple times with different y
         # values and different points of evaluation of the polynomial, i.e.

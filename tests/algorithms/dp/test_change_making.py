@@ -14,7 +14,7 @@ Unit tests for the functions in the andz.algorithms.ds.change_making module.
 
 import unittest
 
-from andz.algorithms.dp.change_making import *
+from andz.algorithms.dp.change_making import change_making, extended_change_making
 
 
 class TestChangeMaking(unittest.TestCase):
@@ -44,11 +44,11 @@ class TestChangeMaking(unittest.TestCase):
         self.assertEqual(extended_change_making([7, 2, 5], 1), [1])
 
     def arbitrary_list_of_coins_and_n(
-        self, coins=(1, 2, 5, 10, 20, 50), n=19, optimal=[2, 2, 5, 10]
+        self, coins=(1, 2, 5, 10, 20, 50), n=19, optimal=(2, 2, 5, 10)
     ):
         # https://www.sciencedirect.com/science/article/pii/S0195669809001292
         self.assertEqual(change_making(coins, n), len(optimal))
-        self.assertEqual(sorted(extended_change_making(coins, n)), optimal)
+        self.assertEqual(sorted(extended_change_making(coins, n)), list(optimal))
 
     def test_1(self):
         self.arbitrary_list_of_coins_and_n()
