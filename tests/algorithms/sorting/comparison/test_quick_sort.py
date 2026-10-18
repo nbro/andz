@@ -19,7 +19,7 @@ andz.algorithms.sorting.comparison.quick_sort module.
 import unittest
 
 from andz.algorithms.sorting.comparison.quick_sort import quick_sort
-from tests.algorithms.sorting.base_tests import *
+from tests.algorithms.sorting.base_tests import SortingAlgorithmTests
 
 
 class TestQuickSort(unittest.TestCase, SortingAlgorithmTests):

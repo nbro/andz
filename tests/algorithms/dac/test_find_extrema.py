@@ -19,7 +19,7 @@ Unit tests for the functions in the andz.algorithms.dac.find_extrema module.
 import unittest
 from random import randint
 
-from andz.algorithms.dac.find_extrema import *
+from andz.algorithms.dac.find_extrema import find_max, find_min
 
 
 class TestFindExtrema(unittest.TestCase):

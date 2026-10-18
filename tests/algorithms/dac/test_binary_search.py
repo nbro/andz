@@ -19,7 +19,12 @@ Unit tests for the functions in the andz.algorithms.dac.binary_search module.
 import unittest
 from random import choice, randint
 
-from andz.algorithms.dac.binary_search import *
+from andz.algorithms.dac.binary_search import (
+    binary_search_iteratively,
+    binary_search_recursively_in_place,
+    binary_search_recursively_not_in_place,
+    linear_search,
+)
 
 
 class TestBinarySearch(unittest.TestCase):

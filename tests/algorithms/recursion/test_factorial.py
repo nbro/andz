@@ -19,7 +19,12 @@ import math
 import unittest
 from random import randint
 
-from andz.algorithms.recursion.factorial import *
+from andz.algorithms.recursion.factorial import (
+    factorial,
+    iterative_factorial,
+    multiple_factorial,
+    smallest_geq,
+)
 
 
 class TestFactorial(unittest.TestCase):

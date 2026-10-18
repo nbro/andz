@@ -18,7 +18,11 @@ Unit tests for the functions in the andz.algorithms.recursion.is_sorted module.
 import unittest
 from random import randint
 
-from andz.algorithms.recursion.is_sorted import *
+from andz.algorithms.recursion.is_sorted import (
+    is_sorted,
+    iterative_is_sorted,
+    pythonic_is_sorted,
+)
 
 
 class TestIsSorted(unittest.TestCase):

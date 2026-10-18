@@ -20,7 +20,7 @@ andz.algorithms.sorting.comparison.bubble_sort module.
 import unittest
 
 from andz.algorithms.sorting.comparison.bubble_sort import bubble_sort
-from tests.algorithms.sorting.base_tests import *
+from tests.algorithms.sorting.base_tests import SortingAlgorithmTests
 
 
 class TestBubbleSort(unittest.TestCase, SortingAlgorithmTests):

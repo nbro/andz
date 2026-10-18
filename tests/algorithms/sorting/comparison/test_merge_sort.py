@@ -20,7 +20,7 @@ andz.algorithms.sorting.comparison.merge_sort module.
 import unittest
 
 from andz.algorithms.sorting.comparison.merge_sort import merge_sort
-from tests.algorithms.sorting.base_tests import *
+from tests.algorithms.sorting.base_tests import SortingAlgorithmTests
 
 
 class TestMergeSort(unittest.TestCase, SortingAlgorithmTests):
