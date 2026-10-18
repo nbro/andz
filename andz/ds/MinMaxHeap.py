@@ -66,6 +66,7 @@ class MinMaxHeap(BinaryHeap):
         Time complexity: O(1)."""
         if not self.is_empty():
             return self.heap[self._find_max_index()]
+        return None
 
     def find_min(self):
         """Returns the smallest element in this MinMaxHeap.
@@ -73,6 +74,7 @@ class MinMaxHeap(BinaryHeap):
         Time complexity: O(1)."""
         if not self.is_empty():
             return self.heap[0]
+        return None
 
     def remove_max(self):
         """Removes and returns the greatest element in this MinMaxHeap.
@@ -94,6 +96,7 @@ class MinMaxHeap(BinaryHeap):
             self._push_down(i)
             assert is_min_max_heap(self)
             return m
+        return None
 
     def remove_min(self):
         """Removes and returns the smallest element in this MinMaxHeap.
@@ -111,6 +114,7 @@ class MinMaxHeap(BinaryHeap):
             self._push_down(0)
             assert is_min_max_heap(self)
             return m
+        return None
 
     def _push_down(self, i: int) -> None:
         """This operation is also called "bubble-down" or "shift-down"."""
@@ -333,7 +337,7 @@ def is_min_max_heap(h: MinMaxHeap) -> bool:
         if h.size == 1:
             return True
         if h.size == 2:
-            return max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0]
+            return bool(max(h.heap) == h.heap[1] and min(h.heap) == h.heap[0])
         if h.size >= 3:
             if h.heap[0] != min(h.heap) or (
                 h.heap[1] != max(h.heap) and h.heap[2] != max(h.heap)
