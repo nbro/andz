@@ -84,6 +84,7 @@ def make_test(sedgewick_wayne=False):
             )
 
         def test_raises_when_bad_key(self):
+            # pylint: disable=too-few-public-methods
             class A:
                 def __init__(self, y=2):
                     self.y = y
@@ -107,7 +108,10 @@ def make_test(sedgewick_wayne=False):
 
         def test_key_indexed_list(self):
             a = gen_random_key_indexed_list()
-            key = lambda x: x[0]
+
+            def key(x):
+                return x[0]
+
             b = self.sorting_algorithm(a, key=key)
             b1 = sorted(a, key=key)
 

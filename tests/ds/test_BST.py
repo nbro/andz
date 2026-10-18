@@ -22,6 +22,7 @@ from random import choice, randint
 from andz.ds.BST import BST, _BSTNode
 
 
+# pylint: disable=too-many-public-methods
 class TestBST(unittest.TestCase):
     def setUp(self):
         self.t = BST()
@@ -296,9 +297,9 @@ class TestBSTNode(unittest.TestCase):
         a = _BSTNode(12)
         b = _BSTNode(14)
         with self.assertRaises(TypeError):
-            a < b
+            _ = a < b
         with self.assertRaises(TypeError):
-            a >= b
+            _ = a >= b
 
     def test_when_no_parent(self):
         n = _BSTNode(12)

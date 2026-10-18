@@ -32,6 +32,7 @@ def g(x: float) -> float:
     return 1 / sqrt(x)
 
 
+# pylint: disable=no-member
 class PolynomialInterpolationTests:
     def __init__(self, polynomial_interpolation_algorithm):
         self.algorithm = polynomial_interpolation_algorithm
@@ -47,7 +48,7 @@ class PolynomialInterpolationTests:
         xs = [-1 + 2 * (k / n) for k in range(n)]
         ys = [f(x) for x in xs]
 
-        for i in range(20):
+        for _ in range(20):
             x0 = uniform(-1.0, 1.0)
 
             y0 = self.algorithm(xs, ys, x0)
