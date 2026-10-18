@@ -15,10 +15,34 @@ Updated: 23/03/2024
 Unit tests for the classes and functions in the andz.ds.MinMaxHeap module.
 """
 
+import math
 import unittest
-from random import choice, randint, sample
+from random import Random, choice, randint, sample
 
 from andz.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap
+
+
+def has_min_max_heap_property(heap: list) -> bool:
+    """Returns true if heap (a list) satisfies the min-max heap property, i.e.
+    each element on a min (even) level is smaller than or equal to all its
+    descendants, and each element on a max (odd) level is greater than or equal
+    to all its descendants.
+
+    Unlike is_min_max_heap, this compares each element with all its descendants,
+    and not only with its children."""
+    n = len(heap)
+    for i, item in enumerate(heap):
+        is_min_level = int(math.log2(i + 1)) % 2 == 0
+        descendants = [2 * i + 1, 2 * i + 2]
+        while descendants:
+            j = descendants.pop()
+            if j < n:
+                if is_min_level and item > heap[j]:
+                    return False
+                if not is_min_level and item < heap[j]:
+                    return False
+                descendants += [2 * j + 1, 2 * j + 2]
+    return True
 
 
 # pylint: disable=too-many-public-methods
@@ -110,6 +134,35 @@ class TestMinMaxHeap(unittest.TestCase):
 
         self.assertEqual(h.size, 0)
         self.assertTrue(h.is_empty())
+
+    def test_delete_when_replacement_violates_max_level_ancestor(self):
+        # See the comments in BinaryHeap.delete and
+        # https://github.com/nbro/andz/issues/110.
+        a = [1, 9, 12, 3, 2, 6, 10, 8, 5, 7, 4, 11]
+        self.assertTrue(has_min_max_heap_property(a))
+        h = MinMaxHeap(a)
+        self.assertEqual(h.heap, a)
+
+        self.assertIsNone(h.delete(2))
+
+        self.assertEqual(h.heap, [1, 11, 12, 3, 4, 6, 10, 8, 5, 7, 9])
+        self.assertTrue(has_min_max_heap_property(h.heap))
+        self.assertTrue(is_min_max_heap(h))
+        self.assertEqual(
+            [h.remove_max() for _ in range(h.size)],
+            [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 1],
+        )
+
+    def test_delete_keeps_min_max_heap_property(self):
+        # See https://github.com/nbro/andz/issues/110.
+        r = Random(110)
+        for _ in range(200):
+            a = [r.randint(-100, 100) for _ in range(r.randint(3, 100))]
+            h = MinMaxHeap(a)
+            for x in r.sample(a, len(a)):
+                h.delete(x)
+                self.assertTrue(has_min_max_heap_property(h.heap))
+            self.assertTrue(h.is_empty())
 
     # Testing find_max and remove_max
 
