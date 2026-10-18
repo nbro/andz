@@ -4,6 +4,8 @@
 [![](https://img.shields.io/badge/stability-experimental-red.svg)](http://www.engr.sjsu.edu/fayad/SoftwareStability/)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)](./LICENSE.md)
 [![Tests](https://github.com/nbro/andz/actions/workflows/tests.yml/badge.svg)](https://github.com/nbro/andz/actions/workflows/tests.yml)
+[![PyPI - Version](https://img.shields.io/pypi/v/andz.svg)](https://pypi.org/project/andz/)
+
 
 ## Introduction
 
