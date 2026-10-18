@@ -15,34 +15,10 @@ Updated: 23/03/2024
 Unit tests for the classes and functions in the andz.ds.MinMaxHeap module.
 """
 
-import math
 import unittest
 from random import Random, choice, randint, sample
 
 from andz.ds.MinMaxHeap import MinMaxHeap, is_min_max_heap
-
-
-def has_min_max_heap_property(heap: list) -> bool:
-    """Returns true if heap (a list) satisfies the min-max heap property, i.e.
-    each element on a min (even) level is smaller than or equal to all its
-    descendants, and each element on a max (odd) level is greater than or equal
-    to all its descendants.
-
-    Unlike is_min_max_heap, this compares each element with all its descendants,
-    and not only with its children."""
-    n = len(heap)
-    for i, item in enumerate(heap):
-        is_min_level = int(math.log2(i + 1)) % 2 == 0
-        descendants = [2 * i + 1, 2 * i + 2]
-        while descendants:
-            j = descendants.pop()
-            if j < n:
-                if is_min_level and item > heap[j]:
-                    return False
-                if not is_min_level and item < heap[j]:
-                    return False
-                descendants += [2 * j + 1, 2 * j + 2]
-    return True
 
 
 # pylint: disable=too-many-public-methods
@@ -139,14 +115,13 @@ class TestMinMaxHeap(unittest.TestCase):
         # See the comments in BinaryHeap.delete and
         # https://github.com/nbro/andz/issues/110.
         a = [1, 9, 12, 3, 2, 6, 10, 8, 5, 7, 4, 11]
-        self.assertTrue(has_min_max_heap_property(a))
         h = MinMaxHeap(a)
         self.assertEqual(h.heap, a)
+        self.assertTrue(is_min_max_heap(h))
 
         self.assertIsNone(h.delete(2))
 
         self.assertEqual(h.heap, [1, 11, 12, 3, 4, 6, 10, 8, 5, 7, 9])
-        self.assertTrue(has_min_max_heap_property(h.heap))
         self.assertTrue(is_min_max_heap(h))
         self.assertEqual(
             [h.remove_max() for _ in range(h.size)],
@@ -161,8 +136,16 @@ class TestMinMaxHeap(unittest.TestCase):
             h = MinMaxHeap(a)
             for x in r.sample(a, len(a)):
                 h.delete(x)
-                self.assertTrue(has_min_max_heap_property(h.heap))
+                self.assertTrue(is_min_max_heap(h))
             self.assertTrue(h.is_empty())
+
+    def test_is_min_max_heap_when_item_violates_its_grandparent(self):
+        # 11 is greater than or equal to its parent 4, which is on a min level,
+        # but it is greater than its grandparent 9, which is on a max level.
+        # See the comments in is_min_max_heap.
+        h = MinMaxHeap()
+        h.heap = [1, 9, 12, 3, 4, 6, 10, 8, 5, 7, 11]
+        self.assertFalse(is_min_max_heap(h))
 
     # Testing find_max and remove_max
 
