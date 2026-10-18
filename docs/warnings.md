@@ -1,5 +1,6 @@
 # Warnings
 
+- The **use of AI to implement new algorithms or data structures is forbidden** because it goes against the main purpose of the package. However, you can use AI to fix bugs, format code, learn, etc.
 - This is mostly a **personal project**, but I will accept PRs that fix bugs or introduce nice features
 - This is a **work in progress**, so don't expect to find here all the algorithms and data structures you are searching.
 - **Mistakes in the implementations are possible**, even if I always try to test all the algorithms and data structures and I do some research before implementing them. You can find the unit tests under the folder [`tests`](../tests). So, as the [license](../LICENSE.md) says, this project is provided "as is".

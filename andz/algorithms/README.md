@@ -14,7 +14,7 @@ A few interesting algorithms which may be implemented in the future. It excludes
 
 ### Asymmetric Public Key Encryption
 
-- [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) (Rivest–Shamir–Adleman)
+- [RSA](<https://en.wikipedia.org/wiki/RSA_(cryptosystem)>) (Rivest–Shamir–Adleman)
 
 ## Geometry
 
@@ -220,7 +220,7 @@ A few interesting algorithms which may be implemented in the future. It excludes
 
 - [Fisher–Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
 
-----
+---
 
 An article listing other possibly interesting algorithms can be found at the
 following URL [https://en.wikipedia.org/wiki/List\_of\_algorithms](https://en.wikipedia.org/wiki/List_of_algorithms).

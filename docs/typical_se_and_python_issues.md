@@ -6,19 +6,19 @@ _This is a schematic and concise list of the things for which I should constantl
 
 1. **_default mutable values (like lists) end up acting as expected_**
 
-    - Default parameter values seem to be treated as static
+   - Default parameter values seem to be treated as static
 
-            def foo(a=[]):
-                a.append(1)
-                return a
+           def foo(a=[]):
+               a.append(1)
+               return a
 
-            foo() # returns [1]
-            foo() # returns [1, 1]
+           foo() # returns [1]
+           foo() # returns [1, 1]
 
-    - This is one of the features that I hate more about Python!!!
-    - See:
-        - [http://effbot.org/zone/default-values.htm](http://effbot.org/zone/default-values.htm)
-        - [http://stackoverflow.com/questions/4841782/python-constructor-and-default-value](http://stackoverflow.com/questions/4841782/python-constructor-and-default-value)
+   - This is one of the features that I hate more about Python!!!
+   - See:
+     - [http://effbot.org/zone/default-values.htm](http://effbot.org/zone/default-values.htm)
+     - [http://stackoverflow.com/questions/4841782/python-constructor-and-default-value](http://stackoverflow.com/questions/4841782/python-constructor-and-default-value)
 
 2. I'm using `X is None` or `X is not None` in conditions, when I really mean that `X` should be respectively `None` or `not None`. In other words, I should not be using `X` or `not X`, because `X` could be 0, and could conceptually still _contain_ a valid value.
 
@@ -26,23 +26,23 @@ _This is a schematic and concise list of the things for which I should constantl
 
 4. exceptions raised are consistent inside each module:
 
-    - the same exception should be raised when the "same" error occurs in different methods or even within the same method!
+   - the same exception should be raised when the "same" error occurs in different methods or even within the same method!
 
 5. unit tests
 
-    - are not redundant
+   - are not redundant
 
-    - cover all partitions
+   - cover all partitions
 
-    - cover all statements
+   - cover all statements
 
-    - cover all boundary values
+   - cover all boundary values
 
-    - are descriptive
+   - are descriptive
 
-    - test only one feature
+   - test only one feature
 
-    - are short
+   - are short
 
 6. citations to resources used to implement an algorithm or data structure ar provided at the beginning of each module.
 

@@ -1,7 +1,7 @@
 [project]
 name = "andz"
 version = "0.1.2"
-description = "Algorithms and Data Structures"
+description = "A Python package with some of the most common algorithms and data structures studied in Computer Science."
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
@@ -75,7 +75,7 @@ profile = "black"
 target-version = ["py312"]
 
 [tool.mypy]
-python_version = 3.12
+python_version = "3.12"
 warn_return_any = true
 warn_unused_ignores = true
 
