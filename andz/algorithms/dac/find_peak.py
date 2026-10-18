@@ -50,15 +50,23 @@ def find_peak_linearly(ls: list) -> int:
 
 def _find_peak(ls: list, i: int, j: int) -> int:
     """Auxiliary in-place algorithm to find_peak."""
+    if i > j:
+        return -1
     m = (i + j) // 2
-    if 0 < m < len(ls) - 1:
-        if ls[m - 1] <= ls[m] >= ls[m + 1]:
-            return m
-        if ls[m - 1] > ls[m]:
-            return _find_peak(ls, i, m - 1)
-        assert ls[m] < ls[m + 1]
-        return _find_peak(ls, m + 1, j)
-    return -1
+    if 0 < m < len(ls) - 1 and ls[m - 1] <= ls[m] >= ls[m + 1]:
+        return m
+    # We first search the half towards the greater neighbour of ls[m], where
+    # a peak is more likely. However, given that the first and last elements
+    # are never peaks, that half may not contain a peak, while the other may,
+    # so, in that case, we also need to search the other half.
+    if 0 < m and ls[m - 1] > ls[m]:
+        first, second = (i, m - 1), (m + 1, j)
+    else:
+        first, second = (m + 1, j), (i, m - 1)
+    p = _find_peak(ls, *first)
+    if p == -1:
+        p = _find_peak(ls, *second)
+    return p
 
 
 def find_peak(ls: list) -> int:
