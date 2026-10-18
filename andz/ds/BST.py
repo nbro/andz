@@ -47,6 +47,8 @@ This is much better than the linear time required to find items by key in an
   6-006-introduction-to-algorithms-fall-2011/readings/binary-search-trees/bst.py
 """
 
+from __future__ import annotations
+
 __all__ = ["BST", "is_bst"]
 
 from typing import Any
@@ -158,7 +160,7 @@ class _BSTNode:
         c = 0
         return self._count(self, c)
 
-    def _count(self, u: "_BSTNode", c: int) -> int:
+    def _count(self, u: _BSTNode, c: int) -> int:
         if u is None:
             return c
         c += 1

@@ -28,6 +28,8 @@ Contains the abstract class BinaryHeap.
 - http://stackoverflow.com/a/29197855/3924118
 """
 
+from __future__ import annotations
+
 import io
 import math
 from abc import ABC, abstractmethod
@@ -123,7 +125,7 @@ class BinaryHeap(ABC):
             self._push_down(i)
             self._push_up(i)
 
-    def merge(self, o: "BinaryHeap") -> None:
+    def merge(self, o: BinaryHeap) -> None:
         """Merges this heap with the o heap.
 
         Time complexity: O(n + m)."""
